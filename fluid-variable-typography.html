@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <!--
+    ==========================================================================
+    GUIÃO PEDAGÓGICO: MÓDULO 3 — TIPOGRAFIA FLUIDA & FONTES VARIÁVEIS
+    Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+    Unidade Curricular: Web Design (WD101) — 2026/27
+    Autoria: Pedro Amado (FBAUP/i2ADS) & Google Gemini (Pro 3 Flash / Pro4 Argon)
+    ==========================================================================
+    MDN CANONICAL REFERENCES:
+    - CSS Fonts Module Level 4:
+      https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Variable_fonts
+    - clamp() mathematical function:
+      https://developer.mozilla.org/en-US/docs/Web/CSS/clamp
+    - font-display:
+      https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display
+    - text-wrap: balance & pretty:
+      https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap
+    - Web Content Accessibility Guidelines (WCAG 2.2 - 1.4.12 Text Spacing):
+      https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html
+    ==========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 3: Tipografia Fluida &amp; Fontes Variáveis • WD101 FBAUP</title>
+  
+  <!-- Previne FOUC de tema e idioma -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || 
+                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
+
+  <!-- CSS Layer Hierarchy -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+
+  <style>
+    :root {
+      --color-guide-accent: #f5a623; /* Tom Dourado / Âmbar Tipográfico */
+    }
+
+    .guide-hero {
+      border-bottom: 2px solid var(--color-guide-accent);
+      padding: var(--space-8) 0;
+      margin-bottom: var(--space-8);
+    }
+    .guide-back-link {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-guide-accent);
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: var(--space-3);
+    }
+    .callout-box {
+      background-color: var(--bg-surface-elevated);
+      border-left: 4px solid var(--color-guide-accent);
+      padding: var(--space-4);
+      margin: var(--space-6) 0;
+      border-radius: 0 4px 4px 0;
+      font-size: var(--text-sm);
+      line-height: 1.6;
+    }
+    .callout-box strong {
+      color: var(--color-guide-accent);
+      display: block;
+      margin-bottom: var(--space-1);
+      font-size: var(--text-base);
+    }
+
+    /* Laboratório Interativo de Tipografia Fluida */
+    .type-lab-container {
+      background: #0d1117;
+      color: #e6edf3;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: var(--space-6);
+      margin: var(--space-6) 0;
+    }
+    .lab-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid #30363d;
+    }
+    .font-switch-btn {
+      background: #21262d;
+      color: #c9d1d9;
+      border: 1px solid #30363d;
+      padding: var(--space-2) var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .font-switch-btn:hover {
+      background: #30363d;
+      color: #fff;
+    }
+    .font-switch-btn.active {
+      background: var(--color-guide-accent);
+      color: #000;
+      border-color: var(--color-guide-accent);
+      font-weight: 700;
+    }
+
+    .slider-group {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: #8b949e;
+    }
+    .slider-input {
+      width: 140px;
+      cursor: pointer;
+    }
+
+    .specimen-stage {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: var(--space-6);
+      margin-bottom: var(--space-4);
+      transition: width 0.2s ease;
+      overflow: hidden;
+    }
+
+    /* Tabelas Pedagógicas */
+    .edu-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-4) 0;
+      font-size: var(--text-xs);
+      line-height: 1.5;
+    }
+    .edu-table th, .edu-table td {
+      padding: var(--space-2) var(--space-3);
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+    .edu-table th {
+      background: var(--bg-surface-elevated);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    /* Code Snippet Blocks */
+    .code-block {
+      background: #090d13;
+      border: 1px solid #2d333b;
+      border-radius: 6px;
+      padding: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: #adbac7;
+      overflow-x: auto;
+      margin: var(--space-3) 0;
+      line-height: 1.5;
+    }
+    .code-comment { color: #768390; }
+    .code-kw { color: #f47067; font-weight: 700; }
+    .code-fn { color: #dcbdfb; }
+    .code-prop { color: #6cb6ff; }
+    .code-val { color: #96d0ff; }
+    .code-str { color: #8ddb8c; }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header Landmark -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-logo">WD<span>101</span></a>
+        <span class="brand-meta">FBAUP Design 2026/27</span>
+      </div>
+
+      <nav class="site-nav" aria-label="Navegação do Guia">
+        <ul>
+          <li><a href="index.html">← Voltar ao Andaime</a></li>
+          <li><a href="#hosted-vs-self">Distribuição</a></li>
+          <li><a href="#triad">A Tríade</a></li>
+          <li><a href="#scales">Escala Modular</a></li>
+          <li><a href="#clamp">clamp() Fluido</a></li>
+          <li><a href="#semantics">Semântica</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-controls">
+        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ Tema</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Landmark -->
+  <main class="main-container" id="main-content" style="max-width:960px;">
+
+    <!-- Hero Section -->
+    <header class="guide-hero">
+      <a href="index.html#study-goals" class="guide-back-link">← OBJETIVOS DE APRENDIZAGEM &amp; MODELOS MENTAIS</a>
+      <h1 style="font-size:var(--text-3xl); margin-bottom:var(--space-2); color:var(--text-primary);">
+        Módulo 3: Tipografia Fluida &amp; Fontes Variáveis
+      </h1>
+      <p style="color:var(--text-secondary); font-size:var(--text-lg); line-height:1.5;">
+        Do pixel estático à modulação contínua: estratégias de auto-hospedagem WOFF2, a Tríade do Drumtiks, escalas modulares com Major Third (1.250), dimensionamento com <code>clamp()</code> sem media queries e semântica expressiva.
+      </p>
+    </header>
+
+    <!-- SECÇÃO 1: O PONTO DE PARTIDA: PORQUÊ 16px REM? -->
+    <section style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
+        1. A Regra de Ouro do Ponto de Partida: 1rem = 16px
+      </h2>
+      <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
+        Por omissão em todos os navegadores contemporâneos, a folha de estilo interna (*User-Agent Stylesheet*) define para o elemento raiz <code>:root { font-size: 16px; }</code>. Esta medida não é arbitrária: decorre de décadas de ergonomia de leitura em monitores padrão a uma distância de visualização de 50 a 70 centímetros.
+      </p>
+
+      <div class="callout-box">
+        <strong>⚠️ O Anti-Padrão da Trapacearia dos 62.5%</strong>
+        Durante anos, muitos tutoriais sugeriram declarar <code>html { font-size: 62.5%; }</code> para forçar <code>1rem = 10px</code> (facilitando as contas de cabeça). 
+        <br><br>
+        <strong>Isto é uma violação grave de Acessibilidade (WCAG 2.2):</strong> Se um utilizador com baixa visão configurar o seu browser para ter 24px de texto base por necessidade oftalmológica, o cálculo forçado de 62.5% esmaga e desrespeita essa preferência vital do utilizador!
+        <br><br>
+        <strong>A Boa Prática:</strong> Deixe o elemento <code>html</code> intacto ou use <code>font-size: 100%</code>. Desenhe a hierarquia aceitando <code>1rem = 16px</code> como o padrão natural e utilize unidades relativas para todo o dimensionamento.
+      </div>
+    </section>
+
+    <!-- SECÇÃO 2: HOSPEDAGEM & OTIMIZAÇÃO -->
+    <section id="hosted-vs-self" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
+        2. Estratégias de Distribuição: CDNs Hospedadas vs. Auto-Hospedagem (Vendorização)
+      </h2>
+      <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
+        Na passagem do <strong>EX2</strong> (onde recorremos à ligação remota via Google Fonts) para o <strong>Projeto Capstone Drumtiks</strong>, migramos para a **auto-hospedagem (*self-hosting / vendorized*)**. Compreender as diferenças e trade-offs é essencial para a autonomia profissional do designer.
+      </p>
+
+      <table class="edu-table">
+        <thead>
+          <tr>
+            <th>Estratégia</th>
+            <th>Vantagens (Prós)</th>
+            <th>Desvantagens &amp; Riscos (Contras)</th>
+            <th>Quando Utilizar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>CDNs Externas</strong><br><em>(Google Fonts, Adobe Fonts, Fontshare)</em></td>
+            <td>
+              • Implementação ultra-rápida via <code>&lt;link&gt;</code>.<br>
+              • Servidores distribuídos globalmente.
+            </td>
+            <td>
+              • Quebra de conformidade com RGPD na UE (partilha de IPs).<br>
+              • Dependência de ligações de terceiros.<br>
+              • Latência de negociação SSL (pre-connect).
+            </td>
+            <td>
+              Prototipagem rápida, exercícios iniciais (EX2) e testes exploratórios de conceito.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Auto-Hospedagem (Vendorização)</strong><br><em>(WOFF2 locais na pasta do projeto)</em></td>
+            <td>
+              • 100% Offline e autónomo.<br>
+              • Zero fugas de privacidade (RGPD compliant).<br>
+              • Cache sob controlo total do projeto.<br>
+              • Permite fontes proprietárias e de fundições independentes.
+            </td>
+            <td>
+              • Exige converter e otimizar os ficheiros manualmente.<br>
+              • Consome tráfego do servidor próprio de alojamento.
+            </td>
+            <td>
+              <strong>Padrão Profissional Obrigatório:</strong> Portfólios, identidades de marca e Projetos Finais (TP06 / TP11).
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Base64 Data-URI no CSS</strong><br><em>(String embutida no ficheiro .css)</em></td>
+            <td>
+              • Zero pedidos de rede adicionais para a fonte.<br>
+              • <strong>Proteção / ofuscação de fontes proprietárias</strong> customizadas da marca.
+            </td>
+            <td>
+              • Bloqueia o analisador (parser) do CSS (ficheiro CSS gigante).<br>
+              • Não permite cache independente de fontes.<br>
+              • Agrava o tempo do First Contentful Paint (FCP).
+            </td>
+            <td>
+              <strong>Caso de estudo de exceção:</strong> Proteção de fontes proprietárias de marca (*branding custom*) ou widgets autónomos de ficheiro único.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Subsetting & font-display -->
+      <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-radius:6px; padding:var(--space-4); margin-top:var(--space-4);">
+        <h3 style="font-size:var(--text-base); margin-bottom:var(--space-2); color:var(--text-primary);">
+          Otimizações Críticas em @font-face: WOFF2, font-display e unicode-range
+        </h3>
+        <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-bottom:var(--space-3);">
+          O formato <strong>WOFF2</strong> utiliza o algoritmo de compressão Brotli, sendo 30% a 50% mais leve que o WOFF clássico. A declaração <code>font-display: swap</code> garante que o texto é imediatamente renderizado com uma fonte de sistema, sendo substituído assim que o ficheiro WOFF2 estiver pronto (evitando texto invisível / FOIT).
+        </p>
+
+        <div class="code-block">
+<span class="code-comment">/* Exemplo extraído do fonts.css do Festival Drumtiks '26 */</span>
+<span class="code-kw">@font-face</span> {
+  <span class="code-prop">font-family</span>: <span class="code-str">'Syne'</span>;
+  <span class="code-prop">font-style</span>: normal;
+  <span class="code-prop">font-weight</span>: <span class="code-val">400 800</span>; <span class="code-comment">/* Eixo contínuo de pesos 400 a 800 */</span>
+  <span class="code-prop">font-display</span>: <span class="code-val">swap</span>;     <span class="code-comment">/* Elimina o FOIT (Flash of Invisible Text) */</span>
+  <span class="code-prop">src</span>: <span class="code-fn">url</span>(<span class="code-str">'../assets/fonts/Syne-latin-var.woff2'</span>) <span class="code-fn">format</span>(<span class="code-str">'woff2'</span>);
+  <span class="code-prop">unicode-range</span>: <span class="code-val">U+0000-00FF, U+0131, U+0152-0153</span>; <span class="code-comment">/* Apenas carateres necessários */</span>
+}
+        </div>
+      </div>
+    </section>
+
+    <!-- SECÇÃO 3: FONTES VARIÁVEIS & EIXOS CONTÍNUOS -->
+    <section style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
+        3. Fontes Variáveis: Eixos Canónicos vs. Eixos Customizados
+      </h2>
+      <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
+        Enquanto a tipografia web clássica exigia carregar 8 ou 12 ficheiros estáticos separados (Regular, Medium, Bold, Italic, etc.), uma <strong>Fonte Variável (*Variable Font*)</strong> compacta toda essa família tipográfica num único ficheiro dinâmico com **eixos de interpolação contínuos**.
+      </p>
+
+      <div class="callout-box">
+        <strong>A Regra de Ouro: Propriedades de Alto Nível vs. font-variation-settings</strong>
+        Sempre que possível, utilize as propriedades padrão de alto nível do CSS:
+        <ul style="margin:0.5rem 0 0.5rem 1.2rem; list-style:disc;">
+          <li><code>font-weight: 560;</code> (controla o eixo padrão <code>wght</code>)</li>
+          <li><code>font-stretch: 85%;</code> (controla o eixo padrão <code>wdth</code>)</li>
+          <li><code>font-style: oblique 12deg;</code> (controla o eixo padrão <code>slnt</code>)</li>
+        </ul>
+        <strong>Adenda Importante: Eixos Customizados</strong><br>
+        Algumas fontes variáveis contêm eixos proprietários desenhados pelo autor (como <code>'CASL'</code> para casualidade, <code>'CRSV'</code> para cursividade ou <code>'GRAD'</code> para compensação ótica de peso sem reflow). **Esses eixos customizados têm obrigatoriamente de ser manipulados através de <code>font-variation-settings</code>:**
+        <div class="code-block" style="margin-top:0.5rem;">
+<span class="code-comment">/* Eixos customizados de 4 letras exigem font-variation-settings */</span>
+<span class="code-prop">h1.branded-title</span> {
+  <span class="code-prop">font-variation-settings</span>: <span class="code-str">'GRAD'</span> <span class="code-val">150</span>, <span class="code-str">'CASL'</span> <span class="code-val">0.75</span>;
+}
+        </div>
+      </div>
+    </section>
+
+    <!-- SECÇÃO 4: A TRÍADE DO DRUMTIKS -->
+    <section id="triad" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
+        4. O Emparelhamento Tipográfico: A Tríade do Festival Drumtiks
+      </h2>
+      <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
+        Para websites com densidade editorial e riqueza visual, a abordagem recomendada no curso é a **Tríade Tipográfica Funcional**: três famílias especializadas que desempenham papéis semânticos e espaciais claros:
+      </p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:var(--space-4); margin:var(--space-4) 0;">
+        
+        <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-top:4px solid var(--color-swiss-red); border-radius:4px; padding:var(--space-4);">
+          <span style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--color-swiss-red); font-weight:700;">1. FONTE DE MARCA / DISPLAY</span>
+          <h3 style="font-family:'Syne', sans-serif; font-size:1.6rem; font-weight:800; margin:0.5rem 0;">Syne Variable</h3>
+          <p style="font-size:var(--text-xs); color:var(--text-secondary); line-height:1.5;">
+            Geométrica, expressiva e angular. Utilizada exclusivamente em <strong>títulos monumentais (h1, h2), logótipo e cartazes do festival</strong>. Não deve ser usada em texto corrido devido às suas formas expressivas que cansam o leitor em blocos longos.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-top:4px solid var(--color-accent-blue); border-radius:4px; padding:var(--space-4);">
+          <span style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--color-accent-blue); font-weight:700;">2. FONTE DE CORPO / EDITORIAL</span>
+          <h3 style="font-family:'Inter', sans-serif; font-size:1.6rem; font-weight:700; margin:0.5rem 0;">Inter Variable</h3>
+          <p style="font-size:var(--text-xs); color:var(--text-secondary); line-height:1.5;">
+            Desenhada especificamente para ecrãs digitais. Apresenta altura-x (*x-height*) generosa, aberturas amplas e contraste neutro. Utilizada em <strong>parágrafos de leitura, biografias, FAQs e menus</strong>.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-top:4px solid var(--color-guide-accent); border-radius:4px; padding:var(--space-4);">
+          <span style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--color-guide-accent); font-weight:700;">3. FONTE TÉCNICA / METADADOS</span>
+          <h3 style="font-family:'Martian Mono', monospace; font-size:1.4rem; font-weight:700; margin:0.5rem 0;">Martian Mono</h3>
+          <p style="font-size:var(--text-xs); color:var(--text-secondary); line-height:1.5;">
+            Monoespaçada de inspiração industrial brutalista. Utilizada para <strong>horários, timecodes de BPM, preços de bilheteira, badges de estado e blocos de código</strong>, transmitindo precisão analógica.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECÇÃO 5: ESCALAS MODULARES & OS DOIS MOMENTOS -->
+    <section id="scales" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
+        5. Escalas Modulares &amp; Progressão Pedagógica em Dois Momentos
+      </h2>
+      <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
+        Em vez de escolher tamanhos de letra ao acaso (ex: 18px, 23px, 37px), uma **Escala Modular Tipográfica** aplica uma razão geométrica musical para que todos os tamanhos da hierarquia sejam harmónicos entre si.
+      </p>
+
+      <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
+        A razão recomendada como base nos exercícios da FBAUP é a **Major Third (1.250)**. No entanto, incentivamos os estudantes a explorar outros rácios matemáticos em ferramentas como o <a href="https://typescale.com/" target="_blank" rel="noopener noreferrer" style="color:var(--color-guide-accent); font-weight:700; text-decoration:underline;">TypeScale.com ↗</a>:
+      </p>
+
+      <ul style="margin-left:1.2rem; font-size:var(--text-xs); color:var(--text-secondary); line-height:1.6; list-style:disc; margin-bottom:var(--space-4);">
+        <li><strong>Minor Third (1.200):</strong> Ideal para dashboards e interfaces densas com espaço reduzido.</li>
+        <li><strong>Major Third (1.250 — Recomendada):</strong> Equilibrada, elegante e versátil para websites de conteúdo.</li>
+        <li><strong>Perfect Fourth (1.333):</strong> Maior contraste dramático entre títulos e corpo de texto.</li>
+        <li><strong>Golden Ratio (1.618):</strong> Monumental e dramática, perfeita para cartazes e pósteres.</li>
+      </ul>
+
+      <!-- A Progressão em 2 Momentos -->
+      <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-radius:6px; padding:var(--space-4);">
+        <h3 style="font-size:var(--text-base); margin-bottom:var(--space-2); color:var(--text-primary);">
+          A Abordagem Pedagógica em Dois Momentos Curriculares:
+        </h3>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--space-4); margin-top:var(--space-3);">
+          
+          <div style="background:var(--bg-surface); padding:var(--space-3); border-left:3px solid var(--color-swiss-red);">
+            <strong style="color:var(--color-swiss-red); font-size:var(--text-xs);">MOMENTO 1: INICIAL / FUNDACIONAL</strong>
+            <p style="font-size:var(--text-xs); color:var(--text-secondary); margin:0.3rem 0;">
+              Trabalhamos com os valores **explicitamente calculados em unidades <code>rem</code>** aplicados diretamente nos seletores:
+            </p>
+            <div class="code-block" style="font-size:11px;">
+<span class="code-prop">body</span> { <span class="code-prop">font-size</span>: <span class="code-val">1rem</span>; }     <span class="code-comment">/* 16.00px (Base) */</span>
+<span class="code-prop">h3</span>   { <span class="code-prop">font-size</span>: <span class="code-val">1.25rem</span>; }  <span class="code-comment">/* 20.00px (16 * 1.25) */</span>
+<span class="code-prop">h2</span>   { <span class="code-prop">font-size</span>: <span class="code-val">1.563rem</span>; } <span class="code-comment">/* 25.00px (20 * 1.25) */</span>
+<span class="code-prop">h1</span>   { <span class="code-prop">font-size</span>: <span class="code-val">1.953rem</span>; } <span class="code-comment">/* 31.25px (25 * 1.25) */</span>
+            </div>
+          </div>
+
+          <div style="background:var(--bg-surface); padding:var(--space-3); border-left:3px solid var(--color-accent-blue);">
+            <strong style="color:var(--color-accent-blue); font-size:var(--text-xs);">MOMENTO 2: AVANÇADO (2.ª METADE DO SEMESTRE)</strong>
+            <p style="font-size:var(--text-xs); color:var(--text-secondary); margin:0.3rem 0;">
+              Migramos para a **Tokenização do Design System**, armazenando os passos da escala em Variáveis CSS em <code>:root</code>:
+            </p>
+            <div class="code-block" style="font-size:11px;">
+<span class="code-prop">:root</span> {
+  <span class="code-prop">--scale-ratio</span>: <span class="code-val">1.25</span>;
+  <span class="code-prop">--step-0</span>: <span class="code-val">1rem</span>;
+  <span class="code-prop">--step-1</span>: <span class="code-fn">calc</span>(<span class="code-fn">var</span>(--step-0) * <span class="code-fn">var</span>(--scale-ratio));
+  <span class="code-prop">--step-2</span>: <span class="code-fn">calc</span>(<span class="code-fn">var</span>(--step-1) * <span class="code-fn">var</span>(--scale-ratio));
+  <span class="code-prop">--step-3</span>: <span class="code-fn">calc</span>(<span class="code-fn">var</span>(--step-2) * <span class="code-fn">var</span>(--scale-ratio));
+}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECÇÃO 6: CLAMP() FLUIDO SEM MEDIA QUERIES -->
+    <section id="clamp" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
+        6. Tipografia Fluida com clamp() (Sem Media Queries)
+      </h2>
+      <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
+        Tradicionalmente, os designers criavam degraus rígidos com dezenas de <code>@media (min-width: ...)</code>. Se o ecrã encolhesse 1 pixel, o título sofria um solavanco abrupto. Com a função matemática nativa <strong><code>clamp()</code></strong>, o tamanho da fonte escala de forma perfeitamente suave e linear entre uma largura mínima e máxima da janela de visualização.
+      </p>
+
+      <div class="code-block">
+<span class="code-comment">/* Sintaxe Canónica do clamp() */</span>
+<span class="code-prop">font-size</span>: <span class="code-fn">clamp</span>(<span class="code-val">mínimo</span>, <span class="code-val">valor-preferido-fluido</span>, <span class="code-val">máximo</span>);
+
+<span class="code-comment">/* Exemplo prático do Festival Drumtiks '26 */</span>
+<span class="code-prop">.hero-title</span> {
+  <span class="code-prop">font-size</span>: <span class="code-fn">clamp</span>(<span class="code-val">2.25rem</span>, <span class="code-val">5.5vw + 1rem</span>, <span class="code-val">4.5rem</span>);
+}
+      </div>
+
+      <div class="callout-box">
+        <strong>Acessibilidade Crítica: Porquê somar vw com rem?</strong>
+        Se declarar apenas <code>font-size: clamp(2rem, 8vw, 5rem);</code>, a unidade <code>vw</code> pura ignora a configuração de zoom de acessibilidade do browser! 
+        <br><br>
+        Ao adicionar uma base em <code>rem</code> no valor central (ex: <code>5.5vw + 1rem</code>), garantimos que quando o utilizador ativa a ampliação de texto do navegador, a componente <code>rem</code> continua a expandir o texto, cumprindo o **Critério 1.4.4 da WCAG (Resize Text)**.
+      </div>
+
+      <!-- O Futuro com Container Queries -->
+      <div style="background:var(--bg-surface-elevated); border:1px solid var(--color-accent-cyan); border-radius:6px; padding:var(--space-4); margin-top:var(--space-4);">
+        <h3 style="font-size:var(--text-base); margin-bottom:var(--space-2); color:var(--color-accent-cyan);">
+          🔭 O Futuro Imediato: Tipografia Relativa ao Contentor com unidades cqi
+        </h3>
+        <p style="font-size:var(--text-xs); color:var(--text-secondary); line-height:1.5;">
+          Enquanto o <code>vw</code> escala com a largura total da janela, as <strong>Container Queries</strong> permitem calcular a tipografia fluida com base no espaço do contentor pai através da unidade <code>cqi</code> (*Container Query Inline*). Isso permite que o mesmo cartão de festival adapte a sua tipografia quer seja inserido numa barra lateral estreita (320px) ou na área principal (800px) sem qualquer media query!
+        </p>
+        <div class="code-block" style="font-size:11px;">
+<span class="code-prop">.album-card</span> {
+  <span class="code-prop">container-type</span>: <span class="code-val">inline-size</span>;
+}
+<span class="code-prop">.album-card-title</span> {
+  <span class="code-prop">font-size</span>: <span class="code-fn">clamp</span>(<span class="code-val">1.15rem</span>, <span class="code-val">2cqi + 0.6rem</span>, <span class="code-val">1.85rem</span>);
+}
+        </div>
+      </div>
+    </section>
+
+    <!-- SECÇÃO 7: ERGONOMIA & MEDIDA DE LINHA -->
+    <section style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
+        7. Ergonomia de Leitura: Comprimento de Linha (Measure) &amp; Entrelinha (Leading)
+      </h2>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--space-4); margin:var(--space-4) 0;">
+        
+        <div style="background:var(--bg-surface); border:1px solid var(--border-color); padding:var(--space-4); border-radius:4px;">
+          <h3 style="font-size:var(--text-base); margin-bottom:var(--space-2); color:var(--text-primary);">A Medida Ideal: 45 a 75 carateres (ch)</h3>
+          <p style="font-size:var(--text-xs); color:var(--text-secondary); line-height:1.5;">
+            Linhas excessivamente longas cansam o olho na procura do início da linha seguinte; linhas demasiado curtas quebram o ritmo sintático. A unidade <code>ch</code> representa a largura do zero (0) da fonte ativa:
+          </p>
+          <div class="code-block" style="font-size:11px;">
+<span class="code-prop">p</span>, <span class="code-prop">.bio-text</span> {
+  <span class="code-prop">max-width</span>: <span class="code-val">65ch</span>; <span class="code-comment">/* Zona ergonómica de conforto */</span>
+}
+          </div>
+        </div>
+
+        <div style="background:var(--bg-surface); border:1px solid var(--border-color); padding:var(--space-4); border-radius:4px;">
+          <h3 style="font-size:var(--text-base); margin-bottom:var(--space-2); color:var(--text-primary);">A Relação Inversa de Entrelinha (line-height)</h3>
+          <p style="font-size:var(--text-xs); color:var(--text-secondary); line-height:1.5;">
+            Quanto maior o tamanho do tipo, mais apertada deve ser a entrelinha para manter as palavras ligadas; em texto corrido pequeno, a entrelinha deve ser mais aberta:
+          </p>
+          <div class="code-block" style="font-size:11px;">
+<span class="code-comment">/* Títulos monumentais */</span>
+<span class="code-prop">h1</span> { <span class="code-prop">line-height</span>: <span class="code-val">1.1</span>; }
+
+<span class="code-comment">/* Texto de leitura (corpo) */</span>
+<span class="code-prop">p</span>  { <span class="code-prop">line-height</span>: <span class="code-val">1.55</span>; } <span class="code-comment">/* SEMPRE sem unidades! */</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECÇÃO 8: MICRO-TIPOGRAFIA MODERNA -->
+    <section style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
+        8. Micro-Tipografia: Quebras Inteligentes, Hifenação &amp; Sublinhados
+      </h2>
+      <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
+        As adições mais recentes ao CSS Living Standard fornecem controlo tipográfico fino sem necessidade de scripts externos:
+      </p>
+
+      <table class="edu-table">
+        <thead>
+          <tr>
+            <th>Propriedade CSS</th>
+            <th>Função &amp; Comportamento</th>
+            <th>Exemplo Recomendado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>text-wrap: balance;</code></td>
+            <td>Equilibra o número de carateres por linha em títulos e cabeçalhos curtos, eliminando palavras solitárias no final.</td>
+            <td><code>h1, h2, h3, blockquote { text-wrap: balance; }</code></td>
+          </tr>
+          <tr>
+            <td><code>text-wrap: pretty;</code></td>
+            <td>Algoritmo otimizado para blocos de texto corrido; impede que a última linha de um parágrafo termine com uma única palavra órfã.</td>
+            <td><code>p, li, figcaption { text-wrap: pretty; }</code></td>
+          </tr>
+          <tr>
+            <td><code>hyphens: auto;</code></td>
+            <td>Hifenação automática inteligente. Exige que o atributo de idioma esteja correto no HTML (ex: <code>&lt;html lang="pt"&gt;</code>).</td>
+            <td><code>article p { hyphens: auto; }</code></td>
+          </tr>
+          <tr>
+            <td><code>text-underline-offset</code></td>
+            <td>Afasta a linha de sublinhado da linha de base tipográfica, melhorando a legibilidade e estética dos hiperlinks.</td>
+            <td><code>a { text-underline-offset: 0.25em; }</code></td>
+          </tr>
+          <tr>
+            <td><code>text-decoration-skip-ink</code></td>
+            <td>Interrompe o traço de sublinhado quando este cruza as hastes descendentes de letras como 'p', 'q', 'g' ou 'y'.</td>
+            <td><code>a { text-decoration-skip-ink: auto; }</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SECÇÃO 9: SEMÂNTICA INLINE & FORMATAÇÃO -->
+    <section id="semantics" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
+        9. Semântica Inline &amp; Diferenciação Visual Expressiva
+      </h2>
+      <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
+        A web não é feita apenas de parágrafos planos. A formatação de texto deve refletir o significado semântico exato, sendo visualmente enriquecida pelas fontes versáteis:
+      </p>
+
+      <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:6px; padding:var(--space-4);">
+        <ul style="display:flex; flex-direction:column; gap:var(--space-3); font-size:var(--text-xs); line-height:1.6;">
+          <li>
+            <code>&lt;strong&gt;</code>: Importância séria ou urgência (renderizada com peso 800 na <em>Inter</em>). Diferente de <code>&lt;b&gt;</code> que é meramente estilístico.
+          </li>
+          <li>
+            <code>&lt;em&gt;</code>: Ênfase verbal que altera o tom de leitura (renderizada em itálico real com eixo <code>ital 1</code>).
+          </li>
+          <li>
+            <code>&lt;abbr title="..."&gt;</code>: Abreviações e siglas técnicas (ex: <abbr title="Model View Controller" style="text-decoration:underline dotted;">MVC</abbr>, <abbr title="Batidas Por Minuto" style="text-decoration:underline dotted;">BPM</abbr>) com cursor help acessível.
+          </li>
+          <li>
+            <code>&lt;del&gt;</code> e <code>&lt;ins&gt;</code>: Representam texto removido e texto inserido em revisões (ex: Bilhetes <del>45.00 €</del> <ins style="color:var(--color-swiss-red); text-decoration:none; font-weight:700;">35.00 €</ins>).
+          </li>
+          <li>
+            <code>&lt;mark&gt;</code>: Realce de relevância contextual (ex: termos de pesquisa encontrados no programa).
+          </li>
+          <li>
+            <code>&lt;code&gt;</code>, <code>&lt;kbd&gt;</code>, <code>&lt;samp&gt;</code>: Fragmentos de código, teclas premidas pelo utilizador (<kbd style="background:#222; color:#fff; padding:2px 6px; border-radius:3px;">Cmd + S</kbd>) e mensagens do terminal renderizadas com a <em>Martian Mono</em>.
+          </li>
+          <li>
+            <code>&lt;blockquote&gt;</code> e <code>&lt;q&gt;</code>: Citações em bloco com aspas inteligentes automáticas e <code>&lt;cite&gt;</code> para referenciar a fonte bibliográfica.
+          </li>
+          <li>
+            <code>&lt;sup&gt;</code> e <code>&lt;sub&gt;</code>: Expoentes matemáticos e notas de rodapé (ex: 1.ª edição, $E = mc^2$).
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECÇÃO 10: LABORATÓRIO INTERATIVO -->
+    <section style="margin-bottom:var(--space-12);">
+      <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
+        10. Laboratório Interativo de Inspeção Tipográfica
+      </h2>
+      <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
+        Experimente em tempo real a transição entre as três fontes da Tríade e a resposta dinâmica do dimensionamento:
+      </p>
+
+      <div class="type-lab-container">
+        <div class="lab-controls-bar">
+          <div style="display:flex; gap:var(--space-2); flex-wrap:wrap;">
+            <button class="font-switch-btn active" onclick="switchSpecimenFont('Syne', this)">1. Syne (Display)</button>
+            <button class="font-switch-btn" onclick="switchSpecimenFont('Inter', this)">2. Inter (Editorial)</button>
+            <button class="font-switch-btn" onclick="switchSpecimenFont('Martian Mono', this)">3. Martian Mono (Técnica)</button>
+          </div>
+
+          <div class="slider-group">
+            <span>Peso (wght): <strong id="weight-val">700</strong></span>
+            <input type="range" min="100" max="900" value="700" class="slider-input" id="weight-slider" oninput="updateSpecimenWeight(this.value)">
+          </div>
+        </div>
+
+        <div class="specimen-stage" id="specimen-box">
+          <div style="font-family:'Syne', sans-serif; transition:all 0.15s ease;" id="specimen-text">
+            <span style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-guide-accent); display:block; margin-bottom:0.5rem;">
+              Alfândega do Porto • Underground Vault 02
+            </span>
+            <div style="font-size:clamp(1.75rem, 4vw + 0.5rem, 3.25rem); line-height:1.15; margin-bottom:0.75rem;">
+              DRUMTIKS '26 FESTIVAL
+            </div>
+            <p style="font-size:clamp(0.9rem, 1vw + 0.6rem, 1.1rem); line-height:1.6; color:#8b949e; max-width:65ch;">
+              Quatro gira-discos sintonizados em tempo real nos cofres subterrâneos de granito. Uma masterclass de turntablismo e síntese analógica 808 sem concessões.
+            </p>
+          </div>
+        </div>
+
+        <div style="font-family:var(--font-mono); font-size:11px; color:#8b949e; display:flex; justify-content:space-between; flex-wrap:wrap; gap:var(--space-2);">
+          <span id="active-rule-text">Regra ativa: font-family: 'Syne'; font-weight: 700;</span>
+          <span>Redimensione a janela para testar o clamp() fluido</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Conclusão & Próximos Passos -->
+    <footer style="border-top:1px solid var(--border-color); padding-top:var(--space-6); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-3);">
+      <a href="index.html#study-goals" class="btn-control" style="background:var(--color-guide-accent); color:#000; border-color:var(--color-guide-accent); font-weight:700;">
+        ← Voltar ao Andaime Pedagógico
+      </a>
+      <span style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-muted);">
+        WD101 • FBAUP 2026/27
+      </span>
+    </footer>
+
+  </main>
+
+  <script>
+    function switchSpecimenFont(fontName, btn) {
+      document.querySelectorAll('.font-switch-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const text = document.getElementById('specimen-text');
+      text.style.fontFamily = fontName + (fontName === 'Martian Mono' ? ', monospace' : ', sans-serif');
+      updateActiveRule();
+    }
+
+    function updateSpecimenWeight(val) {
+      document.getElementById('weight-val').textContent = val;
+      const text = document.getElementById('specimen-text');
+      text.style.fontWeight = val;
+      updateActiveRule();
+    }
+
+    function updateActiveRule() {
+      const activeBtn = document.querySelector('.font-switch-btn.active');
+      const font = activeBtn ? activeBtn.textContent.split(' ')[1] : 'Syne';
+      const weight = document.getElementById('weight-val').textContent;
+      document.getElementById('active-rule-text').textContent = `Regra ativa: font-family: '${font}'; font-weight: ${weight};`;
+    }
+  </script>
+
+</body>
+</html>

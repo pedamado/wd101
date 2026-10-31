@@ -97,10 +97,15 @@
           <span class="badge badge-intermediate">Intermediate</span>
         </article>
 
-        <article class="card-item">
+        <article class="card-item" style="border-left: 3px solid #f5a623;">
           <div>
             <h3 class="card-item-title" data-i18n="goal_3_title">3. Tipografia Fluida &amp; Variável</h3>
-            <p class="card-item-body" data-i18n="goal_3_desc">Elimine dezenas de media queries tipográficas. Utilize clamp() e eixos contínuos de fontes variáveis WOFF2 auto-hospedadas.</p>
+            <p class="card-item-body" data-i18n="goal_3_desc">Elimine dezenas de media queries tipográficas. Utilize clamp(), eixos contínuos de fontes variáveis WOFF2 locais, a Tríade do Drumtiks e escalas modulares Major Third (1.250).</p>
+            <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);">
+              <a href="fluid-variable-typography.html" style="color:#f5a623;font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
+                📘 Guião Detalhado: Tipografia Fluida &amp; Fontes Variáveis ↗
+              </a>
+            </div>
           </div>
           <span class="badge badge-advanced">Advanced</span>
         </article>
@@ -177,6 +182,39 @@
         <p style="color:var(--text-secondary);font-size:var(--text-base);" data-i18n="assign_sub">Os três momentos letivos articulados através do estudo de caso Drumtiks '26.</p>
       </div>
 
+      <!-- Estratégia Curricular de Breakpoints -->
+      <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-left:4px solid var(--color-swiss-red); border-radius:6px; padding:var(--space-4); margin-bottom:var(--space-6); font-size:var(--text-xs); line-height:1.6;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-2); flex-wrap:wrap; gap:var(--space-2);">
+          <strong style="color:var(--color-swiss-red); font-size:var(--text-sm);">
+            📐 Estratégia Pedagógica de Breakpoints: Da Simplicidade Focada à Complexidade Widescreen
+          </strong>
+          <span style="font-family:var(--font-mono); color:var(--text-muted); font-size:10px;">PROGRESSÃO WD101</span>
+        </div>
+        <p style="color:var(--text-secondary); margin-bottom:var(--space-3);">
+          Para evitar sobrecarga cognitiva nos exercícios iniciais, a complexidade responsiva é introduzida em 3 níveis pedagógicos graduais:
+        </p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:var(--space-3);">
+          <div style="background:var(--bg-surface); padding:var(--space-3); border-radius:4px; border-top:2px solid var(--text-muted);">
+            <strong style="color:var(--text-primary); display:block; margin-bottom:4px;">NÍVEL 1: BREAKPOINT ÚNICO (EX1)</strong>
+            <p style="color:var(--text-secondary);">
+              <strong>(default) Mobile Portrait:</strong> Sem qualquer media query. Layout fluido até 600px fechado em <code>min-width: 320px</code>. Contentores principais a <code>100%</code> de largura e <code>100dvh</code> (ecrã total) ou <code>height: auto</code> (para esticar conforme o conteúdo), alvos de toque &ge; 44px e <code>overflow-x: hidden</code>.
+            </p>
+          </div>
+          <div style="background:var(--bg-surface); padding:var(--space-3); border-radius:4px; border-top:2px solid var(--color-accent-blue);">
+            <strong style="color:var(--color-accent-blue); display:block; margin-bottom:4px;">NÍVEL 2: DOIS BREAKPOINTS (EX2 &amp; STAGE 1)</strong>
+            <p style="color:var(--text-secondary);">
+              <strong>Mobile Portrait (default) + Tablet &amp; Small Laptop (&ge;768px):</strong> Modelo progressivo focado para exercícios intermédios (EX2, Tipografia Fluida, Seletores, Máquinas de Estado e Protótipo Preliminar TP06). Permite focar na transição de 1 para 2 colunas.
+            </p>
+          </div>
+          <div style="background:var(--bg-surface); padding:var(--space-3); border-radius:4px; border-top:2px solid var(--color-accent-cyan);">
+            <strong style="color:var(--color-accent-cyan); display:block; margin-bottom:4px;">NÍVEL 3: COMPLEXIDADE TOTAL (STAGE 2 CAPSTONE)</strong>
+            <p style="color:var(--text-secondary);">
+              <strong>Os 4 Patamares Completos:</strong> Mobile Portrait (&lt;600px), Mobile Landscape &amp; Phablets (&ge;600px), Tablet (&ge;768px) e Desktop Widescreen (&ge;1200px) com macro-grelha 2D <code>grid-template-areas</code> e coluna sticky.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div class="grid-3" id="assignments-container">
         <article class="card-item" id="assign-ex1" data-uid="ass-1" data-num="1">
           <div>
@@ -251,13 +289,13 @@
               <li>Zero JavaScript: qualquer &lt;script&gt; invalida os componentes interativos</li><li>Organização em @layer (reset, theme, base, layout, components, interactive, xray)</li><li>Webfonts variáveis locais com continuous axes wght/wdth</li><li>Compatibilidade estrita com W3C e navegadores modernos</li>
             </ul>
 
-            <!-- Sub-modules: Early Prototype vs Advanced Prototype -->
+            <!-- Sub-modules: Early Prototype vs Advanced Prototype & Supporting Suites -->
             <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:var(--space-3); margin-bottom:var(--space-3);">
               <div style="font-weight:700; font-size:var(--text-xs); color:var(--color-swiss-red); margin-bottom:var(--space-2);">
                 STAGE 1: FINAL PROJECT — EARLY PROTOTYPE (TP06)
               </div>
               <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-bottom:var(--space-2);">
-                Website responsivo a 2 colunas com base desktop (960px), sticky stage inicial e galeria de fotos.
+                Website responsivo preliminar a 2 colunas. <strong>Foco Pedagógico Simplificado:</strong> 2 Breakpoints (Mobile Portrait default + Tablet &amp; Small Laptop a &ge;768px), sticky stage inicial e galeria de fotos.
               </p>
               <div style="display:flex; gap:var(--space-2); flex-wrap:wrap;">
                 <a href="demos/tp06-responsive/ASSIGNMENT-TP06-RESPONSIVE.html" class="btn-control" style="font-size:var(--text-xs); font-weight:700;">
@@ -274,15 +312,46 @@
                 STAGE 2: FINAL PROJECT — ADVANCED / FULL PROTOTYPE (TP11 CAPSTONE)
               </div>
               <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-bottom:var(--space-2);">
-                Masterclass integrada: 4 breakpoints mobile-first, Macro Grid 2D com template-areas, Masonry denso com voids artísticos, Crate 3D fan-out, theming dinâmico e inspetor de Raios-X.
+                Masterclass integrada com <strong>Complexidade Completa em 4 Breakpoints:</strong> Mobile Portrait (&lt;600px com min-width 320px), Landscape &amp; Phablets (&ge;600px), Tablet (&ge;768px) e Desktop Widescreen (&ge;1200px com sticky column e grid-template-areas). Inclui Crate 3D, galeria com voids, theming e raios-X.
               </p>
-              <div style="display:flex; gap:var(--space-2); flex-wrap:wrap;">
+              <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-3);">
                 <a href="demos/tp11-integrated-responsive-project/GUIDE.html" class="btn-control" style="background:var(--color-accent-cyan); color:#000; border-color:var(--color-accent-cyan); font-size:var(--text-xs); font-weight:700;">
                   📘 Guião de Evolução TP11 ↗
                 </a>
                 <a href="demos/tp11-integrated-responsive-project/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="font-size:var(--text-xs); font-weight:700;">
                   🚀 Demo Capstone TP11 ↗
                 </a>
+              </div>
+
+              <!-- Secções de Enquadramento Didático das Suites TP11 -->
+              <div style="border-top:1px dashed var(--border-color); padding-top:var(--space-3); display:flex; flex-direction:column; gap:var(--space-2);">
+                
+                <div style="background:var(--bg-surface-elevated); padding:var(--space-2) var(--space-3); border-radius:4px; border-left:3px solid var(--color-accent-blue);">
+                  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-1);">
+                    <strong style="color:var(--color-accent-blue); font-size:var(--text-xs);">Suporte: TP11-B Layout Suite (Flexbox &amp; CSS Grid)</strong>
+                    <div style="display:flex; gap:var(--space-1);">
+                      <a href="demos/tp11-css-flexbox-grid/README.md" class="btn-control" style="font-size:10px; padding:2px 6px;">📖 Manual</a>
+                      <a href="demos/tp11-css-flexbox-grid/index.html" target="_blank" class="btn-control" style="font-size:10px; padding:2px 6px; background:var(--color-accent-blue); color:#fff;">🚀 Labs (01 a 04)</a>
+                    </div>
+                  </div>
+                  <p style="font-size:11px; color:var(--text-secondary); margin-top:2px;">
+                    Laboratórios dedicados à Regra de Ouro (Grid 2D macro + Flexbox 1D micro) e Container Queries (@container).
+                  </p>
+                </div>
+
+                <div style="background:var(--bg-surface-elevated); padding:var(--space-2) var(--space-3); border-radius:4px; border-left:3px solid var(--color-accent-gold);">
+                  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-1);">
+                    <strong style="color:var(--color-accent-gold); font-size:var(--text-xs);">Suporte: TP11 Motion Suite (Vars, Transitions &amp; Animations)</strong>
+                    <div style="display:flex; gap:var(--space-1);">
+                      <a href="demos/tp11-variables-transitions-animations/README.md" class="btn-control" style="font-size:10px; padding:2px 6px;">📖 Manual</a>
+                      <a href="demos/tp11-variables-transitions-animations/index.html" target="_blank" class="btn-control" style="font-size:10px; padding:2px 6px; background:var(--color-accent-gold); color:#000;">🚀 Módulos (01 a 05)</a>
+                    </div>
+                  </div>
+                  <p style="font-size:11px; color:var(--text-secondary); margin-top:2px;">
+                    Laboratórios dedicados a Tokens :root, light-dark(), molas cubic-bezier() na caixa 3D e scroll(root)/view().
+                  </p>
+                </div>
+
               </div>
             </div>
 

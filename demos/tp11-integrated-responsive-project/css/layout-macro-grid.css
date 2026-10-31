@@ -25,6 +25,7 @@
      -------------------------------------------------------------------------- */
   .site-wrapper {
     width: 100%;
+    min-width: 320px; /* Lock contents minimum size to 320px */
     max-width: var(--site-max-width);
     margin: 0 auto;
     padding: 0 var(--site-gutter) var(--space-3xl);
@@ -34,23 +35,23 @@
   /* --------------------------------------------------------------------------
      2. GLOBAL FESTIVAL MACRO-GRID
      PROGRESSIVE ENHANCEMENT BREAKPOINTS:
-     - Base (< 540px): 1-Column natural stack.
-     - Landscape (>= 540px): Enhanced breathing room and dual micro-tracks.
+     - Base (< 600px): 1-Column natural stack, min-width 320px, 100dvh full screens.
+     - Landscape (>= 600px): Enhanced breathing room and dual micro-tracks.
      - Tablet (>= 768px): Structured 2-column sections.
-     - Desktop Widescreen (>= 1120px): Full 2D Grid with Named Template Areas
+     - Desktop Widescreen (>= 1200px): Full 2D Grid with Named Template Areas
        and Sticky Left Stage (Hero + 3D Vinyl Crate).
      Specificity: (0, 1, 0)
      -------------------------------------------------------------------------- */
   .festival-master-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Mobile-First: Single column default */
+    grid-template-columns: 1fr; /* Mobile-First: Single column default up to 600px */
     gap: var(--space-xl);
     width: 100%;
     align-items: start;
   }
 
-  /* BREAKPOINT 1: Mobile Landscape & Phablets (>= 540px) */
-  @media (min-width: 540px) {
+  /* BREAKPOINT 1: Mobile Landscape & Phablets (>= 600px) */
+  @media (min-width: 600px) {
     .festival-master-grid {
       gap: var(--space-2xl);
     }
@@ -63,11 +64,11 @@
     }
   }
 
-  /* BREAKPOINT 3: Desktop Widescreen (>= 1120px) — 2D Grid Template Areas */
-  @media (min-width: 1120px) {
+  /* BREAKPOINT 3: Desktop Widescreen (>= 1200px) — 2D Grid Template Areas */
+  @media (min-width: 1200px) {
     .festival-master-grid {
       /* 
-        Column 1: 440px sticky command stage (DJ Warp Hero & Vinyl Crate)
+        Column 1: 460px sticky command stage (DJ Warp Hero & Vinyl Crate)
         Column 2: Flexible remaining 1fr content flow (Schedule, Gallery, Simulator, FAQs)
       */
       grid-template-columns: 460px minmax(0, 1fr);
@@ -120,8 +121,8 @@
     margin-top: var(--space-lg);
   }
 
-  /* Phablet / Landscape (>= 540px): 2 columns */
-  @media (min-width: 540px) {
+  /* Phablet / Landscape (>= 600px): 2 columns */
+  @media (min-width: 600px) {
     .gallery-masonry-stage {
       grid-template-columns: repeat(2, 1fr);
       gap: var(--space-md);

@@ -210,7 +210,7 @@
     gap: var(--space-md);
   }
 
-  @media (min-width: 540px) {
+  @media (min-width: 600px) {
     .ticket-option-grid {
       flex-direction: row;
       flex-wrap: wrap;

@@ -104,87 +104,33 @@
     "stages": [
       {
         "name": { "pt": "Fase 1: Protótipo Preliminar (TP06)", "en": "Stage 1: Early Prototype (TP06)" },
-        "desc": { "pt": "Website responsivo a 2 colunas com breakpoint a 960px, sticky stage inicial e galeria de fotos.", "en": "Two-column responsive website with 960px desktop breakpoint, sticky hero stage, and photo gallery." },
+        "desc": { "pt": "Website responsivo preliminar a 2 colunas com breakpoint Tablet a 768px, sticky stage inicial e galeria de fotos.", "en": "Two-column responsive website with 768px Tablet breakpoint, sticky hero stage, and photo gallery." },
         "color": "var(--color-swiss-red)",
         "guide_url": "demos/tp06-responsive/ASSIGNMENT-TP06-RESPONSIVE.html",
         "demo_url": "demos/tp06-responsive/index.html"
       },
       {
         "name": { "pt": "Fase 2: Capstone Avançado Integrado (TP11)", "en": "Stage 2: Full Integrated Capstone (TP11)" },
-        "desc": { "pt": "Masterclass integrada: 4 breakpoints mobile-first, Macro Grid 2D com template-areas, Masonry denso com voids artísticos, Crate 3D fan-out, theming dinâmico e inspetor de Raios-X.", "en": "Integrated masterclass: 4 mobile-first breakpoints, 2D Grid with template-areas, Dense Masonry with artistic voids, 3D Vinyl Crate fan-out, dynamic theming, and X-Ray inspector." },
+        "desc": { "pt": "Masterclass integrada: 4 breakpoints mobile-first (<600px, 600px, 768px, 1200px), Macro Grid 2D com template-areas, Masonry denso com voids artísticos, Crate 3D fan-out, theming dinâmico e inspetor de Raios-X.", "en": "Integrated masterclass: 4 mobile-first breakpoints (<600px, 600px, 768px, 1200px), 2D Grid with template-areas, Dense Masonry with artistic voids, 3D Vinyl Crate fan-out, dynamic theming, and X-Ray inspector." },
         "color": "var(--color-accent-cyan)",
         "guide_url": "demos/tp11-integrated-responsive-project/GUIDE.html",
         "demo_url": "demos/tp11-integrated-responsive-project/index.html"
+      },
+      {
+        "name": { "pt": "Fase 2A: TP11-B Layout Suite (Flexbox & CSS Grid)", "en": "Stage 2A: TP11-B Layout Suite (Flexbox & CSS Grid)" },
+        "desc": { "pt": "4 demonstradores autónomos focados em Flexbox 1D no console de faixas, CSS Grid 2D com auto-flow denso, arquitetura híbrida e Container Queries (@container).", "en": "4 dedicated labs: 1D Flexbox track console, 2D CSS Grid with dense auto-flow, hybrid architecture, and Container Queries (@container)." },
+        "color": "var(--color-accent-blue)",
+        "guide_url": "demos/tp11-css-flexbox-grid/README.md",
+        "demo_url": "demos/tp11-css-flexbox-grid/index.html"
+      },
+      {
+        "name": { "pt": "Fase 2B: TP11 Motion Suite (Vars, Transitions & Animations)", "en": "Stage 2B: TP11 Motion Suite (Vars, Transitions & Animations)" },
+        "desc": { "pt": "5 módulos direcionados explorando tokens CSS :root, alternador light-dark(), física elástica cubic-bezier() na caixa de vinis 3D e animações scroll(root) e view().", "en": "5 focused modules exploring :root tokens, light-dark() switching, cubic-bezier() spring physics on the 3D vinyl crate, and scroll-driven animations." },
+        "color": "var(--color-accent-gold)",
+        "guide_url": "demos/tp11-variables-transitions-animations/README.md",
+        "demo_url": "demos/tp11-variables-transitions-animations/index.html"
       }
     ],
-    "patterns_used": ["P1 a P13 (Todos os 13 Padrões)", "3D Vinyl Crate", "Dense Masonry Voids"]
-  },
-  {
-    "uid": "ass-4",
-    "num_id": 4,
-    "ass": 4,
-    "canonical_id": "2026-10-31-004",
-    "code": "TP11-B",
-    "slug": "tp11-b-layout-suite",
-    "title": {
-      "pt": "TP11-B: Advanced CSS Layout Suite — Flexbox & CSS Grid",
-      "en": "TP11-B: Advanced CSS Layout Suite — Flexbox & CSS Grid"
-    },
-    "guide_url": "demos/tp11-css-flexbox-grid/README.md",
-    "demo_url": "demos/tp11-css-flexbox-grid/index.html",
-    "tag": {
-      "pt": "Composição 1D vs. 2D & Container Queries",
-      "en": "1D vs. 2D Composition & Container Queries"
-    },
-    "tier": "advanced",
-    "lev": 3,
-    "objective": {
-      "pt": "Aprofundar os modelos de layout contemporâneos: Flexbox 1D no console de faixas, CSS Grid 2D na discografia com auto-flow denso, arquitetura híbrida e componentização contextual via @container.",
-      "en": "Master modern layout models: 1D Flexbox in track consoles, 2D CSS Grid in discography with dense auto-flow, hybrid macro/micro architecture, and context-aware styling via @container."
-    },
-    "drumtiks_adaptation": {
-      "pt": "Exploração dos lançamentos e instrumentais de DJ Warp em 4 demonstradores autónomos e interativos com inspetor de raios-x e alternadores puros de estado em CSS.",
-      "en": "Exploration of DJ Warp releases and tracks across 4 self-contained interactive laboratories with X-ray inspector and pure CSS state switchers."
-    },
-    "constraints": [
-      "Zero JavaScript para layout, filtros ou reordenação",
-      "Adoção estrita da Regra de Ouro: Grid para macro e Flexbox para micro",
-      "Acessibilidade de teclado e contraste em conformidade com WCAG 2.2"
-    ],
-    "patterns_used": ["CSS Grid 2D", "Flexbox 1D", "Container Queries", "X-Ray Diagnostics"]
-  },
-  {
-    "uid": "ass-5",
-    "num_id": 5,
-    "ass": 5,
-    "canonical_id": "2026-10-30-005",
-    "code": "TP11",
-    "slug": "tp11-motion-theming",
-    "title": {
-      "pt": "TP11: Variables, Transitions & Animations Suite",
-      "en": "TP11: Variables, Transitions & Animations Suite"
-    },
-    "guide_url": "demos/tp11-variables-transitions-animations/README.md",
-    "demo_url": "demos/tp11-variables-transitions-animations/index.html",
-    "tag": {
-      "pt": "Theming Dinâmico, Física 3D & Scroll Motion",
-      "en": "Dynamic Theming, 3D Physics & Scroll Motion"
-    },
-    "tier": "advanced",
-    "lev": 3,
-    "objective": {
-      "pt": "Dominar tokens de design com escopo local e global, theming nativo com light-dark(), física elástica com cubic-bezier(), animações associadas ao scroll e pós-processamento com filtros CSS.",
-      "en": "Master design tokens with local/global scope, native theming via light-dark(), elastic spring physics with cubic-bezier(), scroll-driven animations, and post-processing CSS filters."
-    },
-    "drumtiks_adaptation": {
-      "pt": "Cinco módulos práticos explorando a caixa de vinis 3D com ejeção de disco, barra de progresso no scroll global, revelação no viewport e comutador claro/escuro.",
-      "en": "Five practical modules featuring 3D vinyl crate fan-out, global scroll progress bar, viewport reveals, and pure CSS light/dark switching."
-    },
-    "constraints": [
-      "Zero JavaScript para animações e alternador de tema",
-      "Aceleração por hardware GPU através de transform e opacity",
-      "Suporte estrito a @media (prefers-reduced-motion: reduce)"
-    ],
-    "patterns_used": ["light-dark()", "cubic-bezier()", "scroll(root)", "view()", "perspective"]
+    "patterns_used": ["P1 a P13 (Todos os 13 Padrões)", "3D Vinyl Crate", "Dense Masonry Voids", "Flexbox 1D", "Container Queries"]
   }
 ]
