@@ -167,9 +167,12 @@
               <span class="lang-pt">Alie a engenharia CSS aos modelos mentais da interação: Affordance perceptível, Signifiers explícitos, Feedback imediato, Mapeamento natural, Divulgação Progressiva e prevenção de Anti-Padrões da web.</span>
               <span class="lang-en">Connect CSS engineering to cognitive interaction mental models: Perceptible Affordance, Explicit Signifiers, Immediate Feedback, Natural Mapping, Progressive Disclosure, and preventing Web Anti-Patterns.</span>
             </p>
-            <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);">
+            <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);display:flex;flex-direction:column;gap:var(--space-1);">
               <a href="#interaction-design" style="color:var(--text-secondary);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
-                🔍 <span class="lang-pt">Matriz de Interação &amp; Anti-Padrões ↓</span><span class="lang-en">Interaction &amp; Anti-Patterns Matrix ↓</span>
+                🔍 <span class="lang-pt">Princípios &amp; Anti-Padrões ↓</span><span class="lang-en">Principles &amp; Anti-Patterns ↓</span>
+              </a>
+              <a href="interaction-patterns.html" style="color:var(--color-swiss-red);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
+                📘 <span class="lang-pt">Catálogo Global: 142 Padrões Web ↗</span><span class="lang-en">Global Catalog: 142 Web Patterns ↗</span>
               </a>
             </div>
           </div>
@@ -531,6 +534,174 @@
             </p>
           </div>
         </article>
+      </div>
+
+      <!-- BANNER DE ACESSO AO CATÁLOGO GLOBAL DE PADRÕES -->
+      <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-left:6px solid var(--badge-transversal-border, #64748b); padding:var(--space-6); margin-bottom:var(--space-8); border-radius:0 4px 4px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-4);">
+        <div>
+          <div style="display:flex; align-items:center; gap:var(--space-2); margin-bottom:var(--space-1);">
+            <span class="badge badge-transversal">142 PADRÕES • 9 CATEGORIAS</span>
+            <span style="font-family:var(--font-mono); font-size:10px; color:var(--text-muted); text-transform:uppercase;">COMPÊNDIO CANÓNICO WD101</span>
+          </div>
+          <h3 style="font-size:var(--text-lg); color:var(--text-primary); margin-bottom:var(--space-1);">
+            <span class="lang-pt">Catálogo Global de Padrões de Design de Interação</span>
+            <span class="lang-en">Global Catalog of Interaction Design Patterns</span>
+          </h3>
+          <p style="font-size:var(--text-xs); color:var(--text-secondary); margin:0; max-width:72ch; line-height:1.6;">
+            <span class="lang-pt">Aceda ao compêndio exaustivo com 142 padrões indexados de Tidwell, Hoober &amp; Berkman, Marcotte, Jehl, Frost, W3C WAI-ARIA e NN/g. Inclui pesquisa em tempo real, filtros por categoria, ligações para demonstrações isoladas e 24 padrões aplicados no estudo de caso Drumtiks '26.</span>
+            <span class="lang-en">Access the exhaustive compendium indexing 142 patterns from Tidwell, Hoober &amp; Berkman, Marcotte, Jehl, Frost, W3C WAI-ARIA, and NN/g. Features real-time search, category filtering, barebones demo anchors, and 24 active implementations in Drumtiks '26.</span>
+          </p>
+        </div>
+        <div style="display:flex; gap:var(--space-2); flex-wrap:wrap;">
+          <a href="interaction-patterns.html" class="btn-control" style="background:var(--color-swiss-red); color:#fff; border-color:var(--color-swiss-red); font-weight:700; font-size:var(--text-xs);">
+            📘 <span class="lang-pt">Ver Catálogo Completo (142 Padrões)</span><span class="lang-en">Explore Full Catalog (142 Patterns)</span> ↗
+          </a>
+          <a href="interaction-patterns.html?drumtiks=true" class="btn-control" style="font-size:var(--text-xs); font-weight:700;">
+            ✨ <span class="lang-pt">No Drumtiks (24)</span><span class="lang-en">In Drumtiks (24)</span> ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- VISÃO GERAL DAS 9 CATEGORIAS FUNCIONAIS -->
+      <div style="margin-bottom:var(--space-8);">
+        <h3 style="font-size:var(--text-lg); margin-bottom:var(--space-2); color:var(--text-primary);">
+          <span class="lang-pt">Estrutura Taxonómica dos Padrões (As 9 Categorias Funcionais)</span>
+          <span class="lang-en">Taxonomic Structure of Patterns (The 9 Functional Categories)</span>
+        </h3>
+        <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-bottom:var(--space-4); max-width:75ch;">
+          <span class="lang-pt">Cada categoria resolve problemas específicos de arquitetura de informação, ergonomia móvel e acessibilidade:</span>
+          <span class="lang-en">Each category resolves distinct information architecture, mobile ergonomics, and accessibility challenges:</span>
+        </p>
+
+        <div class="grid-3" style="gap:var(--space-3);">
+          
+          <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
+              <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">1. Navegação, Wayfinding &amp; IA</span><span class="lang-en">1. Navigation &amp; IA</span></strong>
+              <span class="badge badge-transversal" style="font-size:10px;">19 Padrões</span>
+            </div>
+            <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
+              <span class="lang-pt">Breadcrumbs, Gaveta Off-Canvas, Priority+, Tab Bar Inferior, Mega Menu, Cabeçalho Sticky.</span>
+              <span class="lang-en">Breadcrumbs, Off-Canvas Drawer, Priority+, Bottom Tab Bar, Mega Menu, Sticky Header.</span>
+            </p>
+            <a href="interaction-patterns.html?cat=nav" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
+              <span class="lang-pt">Explorar Navegação (19) →</span><span class="lang-en">Explore Navigation (19) →</span>
+            </a>
+          </div>
+
+          <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
+              <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">2. Layout &amp; Padrões RWD Macro</span><span class="lang-en">2. Layout &amp; Macro RWD</span></strong>
+              <span class="badge badge-transversal" style="font-size:10px;">20 Padrões</span>
+            </div>
+            <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
+              <span class="lang-pt">Cartões (Grid/Flex), Column Drop, Masonry Grid com Vazios, Acordeão, Layout Shifter.</span>
+              <span class="lang-en">Cards (Grid/Flex), Column Drop, Masonry Grid with Voids, Accordion, Layout Shifter.</span>
+            </p>
+            <a href="interaction-patterns.html?cat=layout" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
+              <span class="lang-pt">Explorar Layout (20) →</span><span class="lang-en">Explore Layout (20) →</span>
+            </a>
+          </div>
+
+          <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
+              <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">3. Ações, Comandos &amp; Controlos</span><span class="lang-en">3. Actions &amp; Controls</span></strong>
+              <span class="badge badge-transversal" style="font-size:10px;">18 Padrões</span>
+            </div>
+            <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
+              <span class="lang-pt">Call to Action (CTA), Janela Modal, Popover API, Manipulação Direta 3D, Bottom Sheet.</span>
+              <span class="lang-en">Call to Action (CTA), Modal Dialog, Popover API, 3D Direct Manipulation, Bottom Sheet.</span>
+            </p>
+            <a href="interaction-patterns.html?cat=actions" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
+              <span class="lang-pt">Explorar Ações (18) →</span><span class="lang-en">Explore Actions (18) →</span>
+            </a>
+          </div>
+
+          <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
+              <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">4. Entrada de Dados &amp; Formulários</span><span class="lang-en">4. Data Input &amp; Forms</span></strong>
+              <span class="badge badge-transversal" style="font-size:10px;">26 Padrões</span>
+            </div>
+            <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
+              <span class="lang-pt">Checkbox, Radio Group, Stepper Numérico, Validação Inline (:user-valid), Microcopy, Floating Label.</span>
+              <span class="lang-en">Checkbox, Radio Group, Numeric Stepper, Inline Validation (:user-valid), Microcopy, Floating Label.</span>
+            </p>
+            <a href="interaction-patterns.html?cat=input" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
+              <span class="lang-pt">Explorar Formulários (26) →</span><span class="lang-en">Explore Forms (26) →</span>
+            </a>
+          </div>
+
+          <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
+              <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">5. Dados Complexos &amp; Tabelas</span><span class="lang-en">5. Complex Data &amp; Tables</span></strong>
+              <span class="badge badge-transversal" style="font-size:10px;">18 Padrões</span>
+            </div>
+            <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
+              <span class="lang-pt">Tabela com Scroll, Carrossel Magnético (scroll-snap), Grelha de Miniaturas, Paginação.</span>
+              <span class="lang-en">Scrollable Table, Magnetic Carousel (scroll-snap), Thumbnail Grid, Pagination.</span>
+            </p>
+            <a href="interaction-patterns.html?cat=data" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
+              <span class="lang-pt">Explorar Dados (18) →</span><span class="lang-en">Explore Data (18) →</span>
+            </a>
+          </div>
+
+          <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
+              <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">6. Pesquisa, Filtros &amp; Descoberta</span><span class="lang-en">6. Search &amp; Discovery</span></strong>
+              <span class="badge badge-transversal" style="font-size:10px;">10 Padrões</span>
+            </div>
+            <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
+              <span class="lang-pt">Pesquisa Instantânea (Live Search), Pesquisa Facetada, Chip Filters, Estado Vazio.</span>
+              <span class="lang-en">Instant Live Search, Faceted Navigation, Filter Chips, Empty States.</span>
+            </p>
+            <a href="interaction-patterns.html?cat=search" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
+              <span class="lang-pt">Explorar Pesquisa (10) →</span><span class="lang-en">Explore Search (10) →</span>
+            </a>
+          </div>
+
+          <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
+              <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">7. Feedback &amp; Notificações</span><span class="lang-en">7. Feedback &amp; Alerts</span></strong>
+              <span class="badge badge-transversal" style="font-size:10px;">12 Padrões</span>
+            </div>
+            <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
+              <span class="lang-pt">Barra de Notificação (Alert), Barra de Progresso scroll(root), Skeleton Screen, Tooltip WAI-ARIA.</span>
+              <span class="lang-en">Banner Alert, Scroll Progress Bar scroll(root), Skeleton Screens, WAI-ARIA Tooltip.</span>
+            </p>
+            <a href="interaction-patterns.html?cat=feedback" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
+              <span class="lang-pt">Explorar Feedback (12) →</span><span class="lang-en">Explore Feedback (12) →</span>
+            </a>
+          </div>
+
+          <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
+              <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">8. Ergonomia Tátil &amp; Gestos</span><span class="lang-en">8. Touch Ergonomics</span></strong>
+              <span class="badge badge-transversal" style="font-size:10px;">9 Padrões</span>
+            </div>
+            <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
+              <span class="lang-pt">Alvos de Toque ≥ 44px (WCAG 2.2), Alinhamento Centro-Ecrã, Barra CTA Inferior Fixa.</span>
+              <span class="lang-en">Touch Targets ≥ 44px (WCAG 2.2), Center-Out Bias, Sticky Bottom Action Bar.</span>
+            </p>
+            <a href="interaction-patterns.html?cat=touch" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
+              <span class="lang-pt">Explorar Ergonomia (9) →</span><span class="lang-en">Explore Touch (9) →</span>
+            </a>
+          </div>
+
+          <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
+              <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">9. Acessibilidade &amp; Semântica</span><span class="lang-en">9. A11y &amp; Semantics</span></strong>
+              <span class="badge badge-transversal" style="font-size:10px;">10 Padrões</span>
+            </div>
+            <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
+              <span class="lang-pt">Marcos Semânticos HTML5, Anel :focus-visible, Compensação scroll-margin-top, Confinamento de Foco.</span>
+              <span class="lang-en">HTML5 Landmarks, :focus-visible Ring, scroll-margin-top Compensation, Focus Trapping.</span>
+            </p>
+            <a href="interaction-patterns.html?cat=a11y" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
+              <span class="lang-pt">Explorar Acessibilidade (10) →</span><span class="lang-en">Explore A11y (10) →</span>
+            </a>
+          </div>
+
+        </div>
       </div>
 
       <!-- Patterns vs Anti-Patterns Comparative Table -->

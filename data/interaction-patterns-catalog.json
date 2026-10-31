@@ -1,0 +1,2700 @@
+[
+  {
+    "id": "NAV-01",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Breadcrumb (Migalhas de Pão)",
+      "en": "Breadcrumb"
+    },
+    "desc": {
+      "pt": "Cadeia horizontal de ligações que indica a posição da página na hierarquia do site; em ecrãs móveis condensa-se tipicamente num link único para o nível pai ou numa lista suspensa.",
+      "en": "Horizontal chain of links indicating page position in the site hierarchy; collapses into a parent link or dropdown on mobile viewports."
+    },
+    "barebones_url": "demos/patterns/nav-breadcrumb/index.html",
+    "drumtiks_url": "demos/tp06-responsive/index.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "NAV-02",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Hamburger Menu / Off-Canvas Drawer (Gaveta Lateral)",
+      "en": "Hamburger Menu / Off-Canvas Drawer"
+    },
+    "desc": {
+      "pt": "Ícone de três barras que oculta a navegação principal num painel deslizante fora do ecrã, poupando espaço crítico em dispositivos móveis sem recurso a JavaScript.",
+      "en": "Three-bar toggle icon hiding primary navigation inside a sliding off-screen drawer panel, saving critical mobile screen real estate zero-JS."
+    },
+    "barebones_url": "demos/patterns/nav-off-canvas-drawer/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#site-header",
+    "has_drumtiks": true
+  },
+  {
+    "id": "NAV-03",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Priority+ Navigation (Navegação Prioritária Plus)",
+      "en": "Priority+ Navigation"
+    },
+    "desc": {
+      "pt": "Barra de navegação adaptativa que expõe o máximo de itens que cabem no viewport e move automaticamente os excedentes para um menu desdobrável (&#x27;Mais...&#x27;).",
+      "en": "Adaptive navigation bar exposing as many items as viewport width permits, progressively overflowing remaining items into a &#x27;More...&#x27; dropdown."
+    },
+    "barebones_url": "demos/patterns/nav-priority-plus/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "NAV-04",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Bottom Navigation Bar / Tab Bar (Barra de Navegação Inferior)",
+      "en": "Bottom Navigation Bar / Tab Bar"
+    },
+    "desc": {
+      "pt": "Barra persistente fixa na base do ecrã móvel com 3 a 5 destinos principais, posicionada estrategicamente na zona de conforto do polegar (Thumb Zone).",
+      "en": "Persistent bar fixed to the mobile viewport bottom holding 3 to 5 core destinations, ergonomically targeted at the natural thumb zone."
+    },
+    "barebones_url": "demos/patterns/nav-bottom-tab-bar/index.html",
+    "drumtiks_url": "demos/tp06-responsive/index.html#pricing-simulator",
+    "has_drumtiks": true
+  },
+  {
+    "id": "NAV-05",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Mega Menu / Fat Menu (Mega Menu)",
+      "en": "Mega Menu / Fat Menu"
+    },
+    "desc": {
+      "pt": "Painel desdobrável de grandes dimensões e múltiplas colunas no desktop; em RWD colapsa para uma árvore de acordeões multinível em mobile.",
+      "en": "Expansive multi-column dropdown panel on desktop viewports; collapses to a multi-level accordion tree on mobile screens."
+    },
+    "barebones_url": "demos/patterns/nav-mega-menu/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "NAV-06",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Menu Bar / Menubar (Barra de Menus ARIA)",
+      "en": "Menu Bar / Menubar (WAI-ARIA)"
+    },
+    "desc": {
+      "pt": "Conjunto horizontal de menus desdobráveis com navegação bidirecional por teclado (setas direcionais), reproduzindo a experiência de aplicações desktop.",
+      "en": "Horizontal array of menu buttons supporting arrow-key spatial navigation, emulating native operating system application menubars."
+    },
+    "barebones_url": "demos/patterns/nav-menubar-aria/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "NAV-07",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Menu Button / Dropdown Menu (Botão de Menu Suspenso)",
+      "en": "Menu Button / Dropdown Menu"
+    },
+    "desc": {
+      "pt": "Botão de ação que alterna a visibilidade de uma lista flutuante de hiperligações ou comandos através de clique ou teclado (Enter/Espaço).",
+      "en": "Action trigger that toggles visibility of a contextual list of links or commands via pointer click or keyboard (Enter/Space)."
+    },
+    "barebones_url": "demos/patterns/nav-dropdown-menu/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#site-header",
+    "has_drumtiks": true
+  },
+  {
+    "id": "NAV-08",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Hub &amp; Spoke / Menu Page (Navegação Radial)",
+      "en": "Hub &amp; Spoke / Menu Page"
+    },
+    "desc": {
+      "pt": "Ecrã central inicial que distribui para secções independentes, exigindo o retorno ao polo central antes de transitar entre ramificações.",
+      "en": "Central hub dispatching users to independent content spokes, requiring returning to the central hub between branch explorations."
+    },
+    "barebones_url": "demos/patterns/nav-hub-and-spoke/index.html",
+    "drumtiks_url": "index.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "NAV-09",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Doormat Navigation / Fat Footer (Rodapé Alargado)",
+      "en": "Doormat Navigation / Fat Footer"
+    },
+    "desc": {
+      "pt": "Secção no fundo da página com ligações completas a todas as secções do site organizadas em colunas temáticas flexíveis.",
+      "en": "Expansive footer section housing categorized site maps in flexible CSS columns, serving as an escape hatch for deep navigation."
+    },
+    "barebones_url": "demos/patterns/nav-fat-footer/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#site-footer",
+    "has_drumtiks": true
+  },
+  {
+    "id": "NAV-10",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Deep Linking (Ligações Profundas)",
+      "en": "Deep Linking"
+    },
+    "desc": {
+      "pt": "URLs que apontam e abrem diretamente um estado, separador ou item específico dentro de uma página ou aplicação responsiva via fragmentos hash (#).",
+      "en": "URLs referencing specific internal component states, tabs, or items within a single-page document via hash fragments (#)."
+    },
+    "barebones_url": "demos/patterns/nav-deep-linking/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#festival-gallery",
+    "has_drumtiks": true
+  },
+  {
+    "id": "NAV-11",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Skip to Content / Skip Link (Saltar para o Conteúdo)",
+      "en": "Skip to Content / Skip Link"
+    },
+    "desc": {
+      "pt": "Ligação oculta no topo da página revelada no foco do teclado (:focus-visible), permitindo a utilizadores de teclado saltar blocos repetitivos de navegação.",
+      "en": "Hidden anchor at document top revealed on keyboard focus (:focus-visible), empowering keyboard/screen-reader users to bypass repeated headers."
+    },
+    "barebones_url": "demos/patterns/nav-skip-link/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "NAV-12",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "One-Window Drilldown (Aprofundamento em Janela Única)",
+      "en": "One-Window Drilldown"
+    },
+    "desc": {
+      "pt": "Transição em ecrã inteiro no mobile onde o utilizador mergulha hierarquicamente no conteúdo, substituindo a lista por detalhes com botão &#x27;Voltar&#x27;.",
+      "en": "Full-screen mobile hierarchy drilldown replacing master view with detail views in-place, equipped with back navigation."
+    },
+    "barebones_url": "demos/patterns/nav-drilldown/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/dj-warp.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "NAV-13",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Two-Panel Selector / Master-Detail (Mestre-Detalhes)",
+      "en": "Two-Panel Selector / Master-Detail"
+    },
+    "desc": {
+      "pt": "Layout dividido onde um painel lista itens e o adjacente exibe o detalhe do item selecionado; no mobile colapsa para ecrãs sequenciais.",
+      "en": "Split layout pairing a master list with an adjacent detail inspector; stacks sequentially on narrow mobile viewports."
+    },
+    "barebones_url": "demos/patterns/nav-master-detail/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#pricing-simulator",
+    "has_drumtiks": true
+  },
+  {
+    "id": "NAV-14",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Pyramid Navigation (Navegação em Pirâmide)",
+      "en": "Pyramid Navigation"
+    },
+    "desc": {
+      "pt": "Estrutura em que o utilizador acede a um detalhe a partir de um resumo e pode folhear sequencialmente os itens irmãos sem voltar ao topo.",
+      "en": "Hierarchy model where descending into a detail view offers sequential pagination across sibling items without returning to top level."
+    },
+    "barebones_url": "demos/patterns/nav-pyramid/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "NAV-15",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Escape Hatch (Saída de Emergência / Botão Fechar)",
+      "en": "Escape Hatch / Dismiss Button"
+    },
+    "desc": {
+      "pt": "Mecanismo persistente e altamente visível (cruz ou botão &#x27;Voltar&#x27;) que permite cancelar ou sair com segurança de ecrãs modais ou fluxos restritos.",
+      "en": "Highly visible, accessible dismissal control (close &#x27;X&#x27; or cancel button) enabling users to abort modal overlays or flows safely."
+    },
+    "barebones_url": "demos/patterns/nav-escape-hatch/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#modal-pass-vip",
+    "has_drumtiks": true
+  },
+  {
+    "id": "NAV-16",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Jumping in Hierarchy (Salto Hierárquico)",
+      "en": "Jumping in Hierarchy"
+    },
+    "desc": {
+      "pt": "Atalhos visuais que permitem navegar rapidamente para nós superiores ou primos sem percorrer toda a árvore de volta.",
+      "en": "Direct visual jumping shortcuts traversing across parent nodes or sibling categories without backward breadcrumb stepping."
+    },
+    "barebones_url": "demos/patterns/nav-hierarchy-jump/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "NAV-17",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Overlay Navigation / Fullscreen Menu (Menu em Ecrã Inteiro)",
+      "en": "Overlay Navigation / Fullscreen Menu"
+    },
+    "desc": {
+      "pt": "Menu que ocupa 100% do viewport móvel ao abrir, eliminando distrações e focando a escolha do utilizador em tipografia generosa.",
+      "en": "Menu seizing 100% of viewport width/height on activation, stripping distractions and focusing decisions on bold, legible typography."
+    },
+    "barebones_url": "demos/patterns/nav-fullscreen-overlay/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "NAV-18",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Sticky / Fixed Navigation Header (Cabeçalho Fixo Persistente)",
+      "en": "Sticky / Fixed Navigation Header"
+    },
+    "desc": {
+      "pt": "Barra de navegação que se fixa no topo do ecrã durante a rolagem com position: sticky e compensação de scroll-margin-top para âncoras.",
+      "en": "Navigation bar pinned to the top viewport edge via position: sticky, paired with scroll-margin-top to prevent anchor clipping."
+    },
+    "barebones_url": "demos/patterns/nav-sticky-header/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#site-header",
+    "has_drumtiks": true
+  },
+  {
+    "id": "NAV-19",
+    "category": "nav",
+    "cat_name": {
+      "pt": "1. Navegação, Wayfinding & IA",
+      "en": "1. Navigation, Wayfinding & IA"
+    },
+    "name": {
+      "pt": "Annotated Scroll Bar / Minimap (Barra de Rolagem Anotada)",
+      "en": "Annotated Scroll Bar / Minimap"
+    },
+    "desc": {
+      "pt": "Barra de scroll enriquecida com marcas visuais ou marcadores coloridos indicando erros, destaques ou secções ao longo da página.",
+      "en": "Enhanced vertical scrollbar displaying color-coded tick marks indicating errors, search hits, or structural landmarks."
+    },
+    "barebones_url": "demos/patterns/nav-annotated-scrollbar/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "LAY-01",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Cards / Tile Grid (Cartões / Grelha Modular)",
+      "en": "Cards / Tile Grid"
+    },
+    "desc": {
+      "pt": "Contentores retangulares autocontidos que agrupam imagem, título, metadados e ações, reordenando-se fluidamente através de CSS Grid e Flexbox.",
+      "en": "Self-contained rectangular modules grouping image, headline, metadata, and actions, reflowing smoothly across CSS Grid &amp; Flexbox."
+    },
+    "barebones_url": "demos/patterns/layout-cards-grid/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#festival-schedule",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-02",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Grid of Equals (Grelha de Iguais)",
+      "en": "Grid of Equals"
+    },
+    "desc": {
+      "pt": "Distribuição uniforme de itens com o mesmo peso visual em colunas responsivas usando grid-template-columns: repeat(auto-fit, minmax(...)).",
+      "en": "Uniform distribution of equal-weight items across fluid columns using repeat(auto-fit, minmax(min, 1fr)) without media queries."
+    },
+    "barebones_url": "demos/patterns/layout-grid-of-equals/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#festival-schedule",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-03",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Vertical Stack (Pilha Vertical / Coluna Única)",
+      "en": "Vertical Stack (Single Column)"
+    },
+    "desc": {
+      "pt": "Disposição do conteúdo numa única coluna contínua de rolagem vertical, ideal para a leitura natural e fluida em viewports móveis estreitos.",
+      "en": "Continuous single-column vertical layout ideal for mobile portrait viewports, eliminating horizontal scanning strain."
+    },
+    "barebones_url": "demos/patterns/layout-vertical-stack/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-04",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Column Drop / Reflow (Queda de Colunas)",
+      "en": "Column Drop / Reflow"
+    },
+    "desc": {
+      "pt": "Padrão RWD onde colunas lado a lado no desktop passam a empilhar-se verticalmente à medida que a largura do ecrã diminui.",
+      "en": "Classic RWD pattern where multi-column desktop arrangements drop into stacked vertical tiers as viewport narrows."
+    },
+    "barebones_url": "demos/patterns/layout-column-drop/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#pricing-simulator",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-05",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Mostly Fluid (Maioritariamente Fluido)",
+      "en": "Mostly Fluid"
+    },
+    "desc": {
+      "pt": "Layout com grelha fluida e margens generosas em ecrãs grandes que se adaptam até aos breakpoints menores, onde os blocos colapsam em pilha.",
+      "en": "Fluid grid retaining wide margins on desktop that scale proportionally down to mobile breakpoints where elements stack."
+    },
+    "barebones_url": "demos/patterns/layout-mostly-fluid/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-06",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Layout Shifter (Mudança de Layout Estrutural)",
+      "en": "Layout Shifter"
+    },
+    "desc": {
+      "pt": "Padrão avançado de RWD onde elementos mudam totalmente de ordem e relação espacial entre diferentes media queries (ex: grid-template-areas).",
+      "en": "Advanced RWD pattern where content elements reorganize their spatial relationships and DOM order drastically between media queries."
+    },
+    "barebones_url": "demos/patterns/layout-shifter/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-07",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Off-Canvas Layout (Layout Fora do Ecrã)",
+      "en": "Off-Canvas Layout"
+    },
+    "desc": {
+      "pt": "Manutenção de colunas secundárias ou barras laterais ocultas fora das bordas do viewport, reveladas por gestos de deslize ou botões.",
+      "en": "Secondary columns or navigation drawers positioned outside the viewport boundary until toggled into view by user action."
+    },
+    "barebones_url": "demos/patterns/layout-off-canvas/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#site-header",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-08",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Full-Bleed Section (Secção de Sangria Total)",
+      "en": "Full-Bleed Section"
+    },
+    "desc": {
+      "pt": "Bloco visual que rompe os limites de largura máxima do contentor central estendendo-se a 100% da largura do viewport (100vw).",
+      "en": "Full-width content block breaking free from central page max-width containers, stretching seamlessly across 100% of viewport width."
+    },
+    "barebones_url": "demos/patterns/layout-full-bleed/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#festival-gallery",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-09",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Hero Section / Hero Banner (Secção de Destaque)",
+      "en": "Hero Section / Hero Banner"
+    },
+    "desc": {
+      "pt": "Bloco proeminente no topo com tipografia marcante, imagem/vídeo de fundo e Call to Action principal.",
+      "en": "Dominant banner positioned at the fold combining impactful typography, art-directed photography, and primary CTA."
+    },
+    "barebones_url": "demos/patterns/layout-hero-banner/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#stage-headliner",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-10",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Split Screen / Dual View (Ecrã Dividido)",
+      "en": "Split Screen / Dual View"
+    },
+    "desc": {
+      "pt": "Divisão do ecrã em duas metades com propostas ou opções contrastantes no desktop, empilhadas verticalmente no mobile.",
+      "en": "Dual 50/50 split layout juxtaposing contrasting options on desktop, seamlessly stacking into single-column on mobile."
+    },
+    "barebones_url": "demos/patterns/layout-split-screen/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#pricing-simulator",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-11",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Masonry Grid (Grelha Estilo Alvenaria / Pinterest)",
+      "en": "Masonry Grid (Dense Packing)"
+    },
+    "desc": {
+      "pt": "Disposição de cartões com alturas variáveis em colunas fluidas sem espaços vazios verticais via grid-auto-flow: dense e vazios editoriais.",
+      "en": "Dynamic tiling of variable-height cards packing densely into columns via grid-auto-flow: dense without unsightly vertical gaps."
+    },
+    "barebones_url": "demos/patterns/layout-masonry-grid/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#festival-gallery",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-12",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Visual Framework (Quadro Visual Global)",
+      "en": "Visual Framework"
+    },
+    "desc": {
+      "pt": "Padrão estrutural que define margens, grelhas base, cabeçalho e rodapé uniformes em todas as páginas de uma aplicação.",
+      "en": "Underlying design foundation prescribing consistent grid baselines, gutters, header, and footer across all application views."
+    },
+    "barebones_url": "demos/patterns/layout-visual-framework/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-13",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Center Stage (Palco Central)",
+      "en": "Center Stage"
+    },
+    "desc": {
+      "pt": "Layout onde o foco principal do utilizador é um elemento centralizado e dominante cercado por ferramentas secundárias.",
+      "en": "Composition centering primary content or interactive canvas with auxiliary toolbars positioned along the periphery."
+    },
+    "barebones_url": "demos/patterns/layout-center-stage/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/dj-warp.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-14",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Titled Sections (Secções Tituladas)",
+      "en": "Titled Sections"
+    },
+    "desc": {
+      "pt": "Divisão clara de uma página longa em secções temáticas encabeçadas por títulos semânticos (&lt;h2&gt;), essenciais para leitura rápida e acessibilidade.",
+      "en": "Structural segmentation of long-form pages under clear semantic headers (&lt;h2&gt;), crucial for skimming and screen reader navigation."
+    },
+    "barebones_url": "demos/patterns/layout-titled-sections/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-15",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Accordion (Acordeão)",
+      "en": "Accordion"
+    },
+    "desc": {
+      "pt": "Pilha vertical de cabeçalhos que expandem/colapsam painéis de conteúdo associados, poupando espaço vertical valioso em dispositivos móveis via &lt;details&gt;/&lt;summary&gt;.",
+      "en": "Vertical stack of collapsible headers expanding associated content panels on demand via native &lt;details&gt;/&lt;summary&gt;."
+    },
+    "barebones_url": "demos/patterns/layout-accordion/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/battle-rules.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-16",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Module Tabs (Separadores de Módulo)",
+      "en": "Module Tabs"
+    },
+    "desc": {
+      "pt": "Abas horizontais ou verticais que alternam entre vistas contextuais sem recarregar a página, mantendo o utilizador no mesmo contexto visual.",
+      "en": "Tabbed interfaces toggling between layered view panels in place, preserving layout context without full page reloads."
+    },
+    "barebones_url": "demos/patterns/layout-module-tabs/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "LAY-17",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Disclosure / Show-Hide (Revelação Progressiva)",
+      "en": "Disclosure / Show-Hide"
+    },
+    "desc": {
+      "pt": "Controlo interativo simples (como &lt;details&gt; e &lt;summary&gt;) que oculta ou mostra blocos de informação secundária a pedido do utilizador.",
+      "en": "Minimal progressive disclosure toggle revealing supplementary explanations or fields only when requested."
+    },
+    "barebones_url": "demos/patterns/layout-disclosure/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/battle-rules.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "LAY-18",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Collapsible Panels / Drawer (Painéis Retráteis)",
+      "en": "Collapsible Panels / Drawer"
+    },
+    "desc": {
+      "pt": "Secções laterais ou inferiores que o utilizador pode recolher ou expandir para ajustar dinamicamente a sua área de trabalho.",
+      "en": "Collapsible sidebar panels expanding or shrinking horizontally to maximize central working area."
+    },
+    "barebones_url": "demos/patterns/layout-collapsible-panels/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "LAY-19",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Window Splitter / Resizable Panels (Divisor Redimensionável)",
+      "en": "Window Splitter / Resizable Panels"
+    },
+    "desc": {
+      "pt": "Barra divisória arrastável que permite ao utilizador redimensionar a largura ou altura de painéis contíguos via ponteiro ou setas de teclado.",
+      "en": "Draggable dividing splitter allowing users to adjust contiguous panel proportions using pointer or arrow keys."
+    },
+    "barebones_url": "demos/patterns/layout-window-splitter/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "LAY-20",
+    "category": "layout",
+    "cat_name": {
+      "pt": "2. Layout & Padrões RWD Macro",
+      "en": "2. Layout & Macro RWD Patterns"
+    },
+    "name": {
+      "pt": "Infinite Area / Pannable Canvas (Área Infinita)",
+      "en": "Infinite Area / Pannable Canvas"
+    },
+    "desc": {
+      "pt": "Superfície de trabalho bidimensional que o utilizador pode arrastar (pan) e ampliar (zoom) livremente em qualquer direção.",
+      "en": "Two-dimensional work surface allowing unconstrained panning and zooming across large spatial datasets or diagrams."
+    },
+    "barebones_url": "demos/patterns/layout-infinite-canvas/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "ACT-01",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Button (Botão de Ação)",
+      "en": "Action Button"
+    },
+    "desc": {
+      "pt": "Controlo delimitado e com affordance clara que dispara uma ação imediata ou submete dados ao ser pressionado.",
+      "en": "Delimited control with unambiguous affordance triggering immediate commands or form submissions."
+    },
+    "barebones_url": "demos/patterns/action-button/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#pricing-simulator",
+    "has_drumtiks": true
+  },
+  {
+    "id": "ACT-02",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Toggle Button (Botão de Alternância)",
+      "en": "Toggle Button"
+    },
+    "desc": {
+      "pt": "Botão de dois estados (pressionado/não pressionado) que ativa ou desativa uma funcionalidade (ex.: aria-pressed).",
+      "en": "Two-state action button (pressed/unpressed) toggling modes or features directly on activation (aria-pressed)."
+    },
+    "barebones_url": "demos/patterns/action-toggle-button/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#xray-toggle",
+    "has_drumtiks": true
+  },
+  {
+    "id": "ACT-03",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Split Button (Botão Dividido)",
+      "en": "Split Button"
+    },
+    "desc": {
+      "pt": "Combinação de um botão primário com um botão adjacente de seta que abre um menu suspenso de ações secundárias relacionadas.",
+      "en": "Hybrid control pairing a default action button with an adjoining arrow trigger revealing contextual alternative actions."
+    },
+    "barebones_url": "demos/patterns/action-split-button/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "ACT-04",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Floating Action Button - FAB (Botão Flutuante)",
+      "en": "Floating Action Button (FAB)"
+    },
+    "desc": {
+      "pt": "Botão circular fixo sobre a interface no canto inferior que representa a ação primária e mais frequente do ecrã.",
+      "en": "Circular button hovering elevated above page content in the lower thumb zone, signaling the primary screen action."
+    },
+    "barebones_url": "demos/patterns/action-fab/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "ACT-05",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Call to Action - CTA (Chamada para Ação)",
+      "en": "Call to Action (CTA)"
+    },
+    "desc": {
+      "pt": "Botão ou elemento visualmente destacado com forte contraste destinado a guiar o utilizador para o objetivo principal.",
+      "en": "High-contrast dominant button intentionally styled to guide users towards the primary conversion goal."
+    },
+    "barebones_url": "demos/patterns/action-cta/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#pricing-simulator",
+    "has_drumtiks": true
+  },
+  {
+    "id": "ACT-06",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Prominent &#x27;Done&#x27; Button (Botão de Conclusão)",
+      "en": "Prominent &#x27;Done&#x27; Button"
+    },
+    "desc": {
+      "pt": "Destaca visualmente a etapa final de confirmação ou submissão no fluxo de trabalho, evitando confusões sobre o término da tarefa.",
+      "en": "Visually prominent confirmation action anchoring the conclusion of multi-step task flows."
+    },
+    "barebones_url": "demos/patterns/action-done-button/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "ACT-07",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Action Panel / Toolbar (Barra de Ferramentas)",
+      "en": "Action Panel / Toolbar"
+    },
+    "desc": {
+      "pt": "Barra horizontal ou vertical que agrupa comandos e botões operacionais frequentemente utilizados adjacentes à área de trabalho.",
+      "en": "Structured horizontal or vertical bar consolidating frequently accessed commands alongside the workspace."
+    },
+    "barebones_url": "demos/patterns/action-toolbar/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "ACT-08",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Modal Dialog (Janela Modal)",
+      "en": "Modal Dialog"
+    },
+    "desc": {
+      "pt": "Caixa de diálogo sobreposta que bloqueia a interação com a página subjacente até que o utilizador conclua uma tarefa crítica ou a feche (aria-modal=&#x27;true&#x27;).",
+      "en": "Overlay dialog restricting interaction exclusively to its contents until explicitly completed or dismissed (aria-modal=&#x27;true&#x27;)."
+    },
+    "barebones_url": "demos/patterns/action-modal-dialog/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#modal-pass-vip",
+    "has_drumtiks": true
+  },
+  {
+    "id": "ACT-09",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Non-Modal Dialog / Popover (Diálogo Não-Modal)",
+      "en": "Non-Modal Dialog / Popover"
+    },
+    "desc": {
+      "pt": "Janela flutuante que apresenta controlos contextuais adicionais sem prender o foco nem bloquear a página em redor via Popover API.",
+      "en": "Floating panel exposing contextual controls or info without trapping focus or disabling background page interactions."
+    },
+    "barebones_url": "demos/patterns/action-popover/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#ticket-info-popover",
+    "has_drumtiks": true
+  },
+  {
+    "id": "ACT-010",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Alert Dialog (Diálogo de Alerta)",
+      "en": "Alert Dialog"
+    },
+    "desc": {
+      "pt": "Modal de confirmação urgente que interrompe a navegação para exigir confirmação explícita de ações irreversíveis (ex.: eliminação de dados).",
+      "en": "High-urgency modal interrupting workflow to demand explicit confirmation before irreversible or destructive actions."
+    },
+    "barebones_url": "demos/patterns/action-alert-dialog/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "ACT-11",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Hover Tools / Contextual Actions (Ferramentas Contextuais)",
+      "en": "Hover Tools / Contextual Actions"
+    },
+    "desc": {
+      "pt": "Ícones de ação (editar, apagar, partilhar) revelados no hover do rato; em touch/RWD são substituídos por menus contextuais permanentes.",
+      "en": "Action shortcuts revealed on hover state; replaced by persistent menus or swipe gestures on touch-driven mobile viewports."
+    },
+    "barebones_url": "demos/patterns/action-hover-tools/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "ACT-12",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Smart Menu Items (Itens de Menu Inteligentes)",
+      "en": "Smart Menu Items"
+    },
+    "desc": {
+      "pt": "Menus que adaptam os seus comandos (ativar/desativar) dinamicamente consoante o estado e atributos do objeto selecionado.",
+      "en": "Menu entries that adjust their label, icon, and enabled state dynamically according to the selected item context."
+    },
+    "barebones_url": "demos/patterns/action-smart-menus/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "ACT-13",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Action Sheet / Bottom Sheet (Folha de Ações Inferior)",
+      "en": "Action Sheet / Bottom Sheet"
+    },
+    "desc": {
+      "pt": "Painel deslizante que emerge da base do ecrã mobile apresentando opções de ação fáceis de alcançar pelo polegar.",
+      "en": "Sliding panel ascending from screen bottom presenting primary options within effortless reach of user thumb."
+    },
+    "barebones_url": "demos/patterns/action-bottom-sheet/index.html",
+    "drumtiks_url": "demos/tp06-responsive/index.html#pricing-simulator",
+    "has_drumtiks": true
+  },
+  {
+    "id": "ACT-14",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Multilevel Undo / Redo (Desfazer / Refazer)",
+      "en": "Multilevel Undo / Redo"
+    },
+    "desc": {
+      "pt": "Histórico de comandos que permite reverter ou restabelecer sequencialmente ações efetuadas, incentivando a exploração segura da interface.",
+      "en": "Command stack allowing sequential reversal or reapplication of actions, encouraging user experimentation without fear."
+    },
+    "barebones_url": "demos/patterns/action-undo-redo/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "ACT-15",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Cancel Protection / Unsaved Changes (Guarda de Cancelamento)",
+      "en": "Cancel Protection / Unsaved Changes"
+    },
+    "desc": {
+      "pt": "Alerta que previne perda acidental de dados ao tentar sair de uma página com formulário preenchido por submeter.",
+      "en": "System verification guarding against data loss when navigating away from dirty or uncommitted form fields."
+    },
+    "barebones_url": "demos/patterns/action-cancel-guard/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "ACT-16",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Direct Manipulation / Drag-and-Drop (Manipulação Direta)",
+      "en": "Direct Manipulation / Drag-and-Drop"
+    },
+    "desc": {
+      "pt": "Padrão que permite interagir diretamente com objetos 3D, arrastar vinis ou reordenar elementos visualmente com resposta física.",
+      "en": "Spatial manipulation of objects on screen (such as pulling vinyl records from 3D crates) with immediate physical feedback."
+    },
+    "barebones_url": "demos/patterns/action-direct-manipulation/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#stage-headliner",
+    "has_drumtiks": true
+  },
+  {
+    "id": "ACT-17",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Kebab / Meatball Menu (Menu de Três Pontos)",
+      "en": "Kebab / Meatball Menu"
+    },
+    "desc": {
+      "pt": "Ícone compacto de três pontos (verticais ou horizontais) que agrupa opções secundárias para desanuviar a interface.",
+      "en": "Compact three-dot icon (vertical kebab or horizontal meatball) consolidating secondary actions into a clean trigger."
+    },
+    "barebones_url": "demos/patterns/action-kebab-menu/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "ACT-18",
+    "category": "actions",
+    "cat_name": {
+      "pt": "3. Ações, Comandos & Controlos",
+      "en": "3. Actions, Commands & Controls"
+    },
+    "name": {
+      "pt": "Preview / Quick View (Pré-visualização Rápida)",
+      "en": "Preview / Quick View"
+    },
+    "desc": {
+      "pt": "Modal ou painel flutuante que exibe resumo rápido de um produto ou artigo sem retirar o utilizador da listagem principal.",
+      "en": "Floating overlay or modal inspecting quick item summaries without unseating user from main catalog list."
+    },
+    "barebones_url": "demos/patterns/action-quick-view/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#gallery-item-1",
+    "has_drumtiks": true
+  },
+  {
+    "id": "INP-01",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Checkbox (Caixa de Seleção)",
+      "en": "Checkbox"
+    },
+    "desc": {
+      "pt": "Controlo para seleção independente de uma ou mais opções numa lista, suportando estados binários ou tri-state (misto).",
+      "en": "Independent selection control allowing users to pick zero, one, or multiple items from a list."
+    },
+    "barebones_url": "demos/patterns/input-checkbox/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#pricing-simulator",
+    "has_drumtiks": true
+  },
+  {
+    "id": "INP-02",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Radio Group (Grupo de Botões de Opção)",
+      "en": "Radio Group"
+    },
+    "desc": {
+      "pt": "Conjunto de opções mutuamente exclusivas onde apenas uma alternativa pode estar ativa em simultâneo.",
+      "en": "Mutually exclusive options set where picking one alternative automatically deselects all siblings."
+    },
+    "barebones_url": "demos/patterns/input-radio-group/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#pricing-simulator",
+    "has_drumtiks": true
+  },
+  {
+    "id": "INP-03",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Switch / Toggle Switch (Interruptor)",
+      "en": "Switch / Toggle Switch"
+    },
+    "desc": {
+      "pt": "Controlo que alterna instantaneamente entre dois estados opostos (Ligado/Desligado), simulando um interruptor físico.",
+      "en": "Instant state toggling control modeling physical on/off appliance switches, updating states immediately upon flip."
+    },
+    "barebones_url": "demos/patterns/input-switch/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#xray-toggle",
+    "has_drumtiks": true
+  },
+  {
+    "id": "INP-04",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Dropdown Listbox / Chooser (Lista Suspensa)",
+      "en": "Dropdown Listbox / Chooser"
+    },
+    "desc": {
+      "pt": "Menu que permite escolher uma opção a partir de uma lista fechada quando o espaço de ecrã é limitado.",
+      "en": "Compact select box unfolding a scrollable list of pre-defined choices, saving space when screen width is constrained."
+    },
+    "barebones_url": "demos/patterns/input-dropdown-listbox/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-05",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Combobox / Autocomplete (Autocompletar)",
+      "en": "Combobox / Autocomplete"
+    },
+    "desc": {
+      "pt": "Campo de texto que filtra e apresenta dinamicamente sugestões correspondentes numa lista suspensa enquanto o utilizador digita.",
+      "en": "Single-line input pairing text typing with dynamic predictive dropdown matching suggestions in real time."
+    },
+    "barebones_url": "demos/patterns/input-combobox/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-06",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Slider / Range Slider (Deslizador de Valor)",
+      "en": "Slider / Range Slider"
+    },
+    "desc": {
+      "pt": "Controlo para seleção de valores numéricos ou percentuais arrastando um manipulador (thumb) sobre um trilho.",
+      "en": "Input allowing users to drag a thumb along a horizontal track to adjust numeric quantities intuitively."
+    },
+    "barebones_url": "demos/patterns/input-range-slider/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-07",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Multi-Thumb Slider (Deslizador de Intervalos)",
+      "en": "Multi-Thumb Slider"
+    },
+    "desc": {
+      "pt": "Deslizador com dois controlos para definir intervalos fechados de valores (ex.: preço mínimo e máximo).",
+      "en": "Range slider holding two interactive handles to constrain upper and lower boundary thresholds (e.g. min/max price)."
+    },
+    "barebones_url": "demos/patterns/input-multi-thumb-slider/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-08",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Spinbutton / Stepper (Botão Incremental)",
+      "en": "Spinbutton / Stepper"
+    },
+    "desc": {
+      "pt": "Campo numérico com botões adjacentes de incremento (+) e decremento (-) para ajustes precisos de quantidade.",
+      "en": "Numeric control flanked by plus/minus step buttons for fine discrete unit adjustments on touchscreens."
+    },
+    "barebones_url": "demos/patterns/input-stepper/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#pricing-simulator",
+    "has_drumtiks": true
+  },
+  {
+    "id": "INP-09",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Calendar / Date Picker (Seletor de Datas)",
+      "en": "Calendar / Date Picker"
+    },
+    "desc": {
+      "pt": "Caixa de diálogo em grelha com calendário mensal que facilita a escolha de dias, meses e anos em formulários.",
+      "en": "Tabular monthly grid dialog facilitating effortless, error-free date selection without manual string parsing."
+    },
+    "barebones_url": "demos/patterns/input-date-picker/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-10",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Date Range Picker (Seletor de Intervalo de Datas)",
+      "en": "Date Range Picker"
+    },
+    "desc": {
+      "pt": "Variante de calendário que permite selecionar datas de início e fim com realce visual do intervalo.",
+      "en": "Dual-date selection calendar highlighting spanned days between start and return dates visually."
+    },
+    "barebones_url": "demos/patterns/input-date-range-picker/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-11",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Color Picker (Seletor de Cores)",
+      "en": "Color Picker"
+    },
+    "desc": {
+      "pt": "Painel interativo para seleção de matrizes cromáticas via gradientes táteis ou códigos numéricos (HEX/RGB/HSL).",
+      "en": "Visual spectrum palette allowing pointer color sampling alongside raw HEX/RGB/HSL input fields."
+    },
+    "barebones_url": "demos/patterns/input-color-picker/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-12",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "File Dropzone / Upload (Área de Largada de Ficheiros)",
+      "en": "File Dropzone / Upload"
+    },
+    "desc": {
+      "pt": "Caixa delimitada onde os utilizadores podem largar ficheiros ou clicar para abrir o explorador nativo.",
+      "en": "Dashed landing target receiving dragged files from system windows or triggering file browser on tap."
+    },
+    "barebones_url": "demos/patterns/input-file-dropzone/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-13",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Input Prompt / Placeholder (Dica de Entrada)",
+      "en": "Input Prompt / Placeholder"
+    },
+    "desc": {
+      "pt": "Texto de exemplo exibido temporariamente no campo vazio; não deve substituir a &lt;label&gt; permanente.",
+      "en": "Ghosted sample text inside empty inputs demonstrating expected format; must never replace permanent labels."
+    },
+    "barebones_url": "demos/patterns/input-placeholder/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#newsletter",
+    "has_drumtiks": true
+  },
+  {
+    "id": "INP-14",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Floating Label (Etiqueta Flutuante)",
+      "en": "Floating Label"
+    },
+    "desc": {
+      "pt": "Rótulo posicionado dentro do campo que transita suavemente para cima quando o campo recebe foco ou conteúdo.",
+      "en": "Input label initially resting as placeholder that smoothly floats upward upon focus or data entry."
+    },
+    "barebones_url": "demos/patterns/input-floating-label/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-15",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Input Hints / Microcopy (Dicas de Formato)",
+      "en": "Input Hints / Microcopy"
+    },
+    "desc": {
+      "pt": "Texto conciso e permanente posicionado junto ao campo a explicar os requisitos de validação ou formatação.",
+      "en": "Permanent helper microcopy placed directly adjacent to fields clarifying formatting or password constraints."
+    },
+    "barebones_url": "demos/patterns/input-hints-microcopy/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-16",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Input Masking / Structured Format (Máscara de Entrada)",
+      "en": "Input Masking / Structured Format"
+    },
+    "desc": {
+      "pt": "Aplicação automática de pontuação e espaçamento (ex.: NIF, telefone, IBAN) durante a digitação.",
+      "en": "Real-time auto-formatting inserting punctuation and spaces (e.g. IBAN, phone numbers) during keystrokes."
+    },
+    "barebones_url": "demos/patterns/input-masking/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-17",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Forgiving Format (Formato Tolerante)",
+      "en": "Forgiving Format"
+    },
+    "desc": {
+      "pt": "Aceitação de formatos diversos de dados pelo sistema sem rejeição imediata, tratando a normalização no backend.",
+      "en": "Resilient input processing accepting variations (hyphens, spaces, country codes) and normalizing quietly."
+    },
+    "barebones_url": "demos/patterns/input-forgiving-format/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-18",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Fill in the Blanks (Preencher os Espaços)",
+      "en": "Fill in the Blanks (Mad Libs Form)"
+    },
+    "desc": {
+      "pt": "Formulário desenhado como um parágrafo de texto corrido com campos inseridos em linha para criar uma interação mais conversacional.",
+      "en": "Conversational prose paragraph with inline form fields embedded smoothly into the sentence structure."
+    },
+    "barebones_url": "demos/patterns/input-fill-in-the-blanks/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-19",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Password Masking with Toggle (Alternador de Senha)",
+      "en": "Password Masking with Toggle"
+    },
+    "desc": {
+      "pt": "Campo de senha com ícone de &#x27;olho&#x27; para alternar entre texto oculto e visível, reduzindo erros em mobile.",
+      "en": "Password input fitted with an accessible eye toggle button allowing users to reveal masked characters on touchscreens."
+    },
+    "barebones_url": "demos/patterns/input-password-toggle/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-20",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Password Strength Meter (Indicador de Força de Senha)",
+      "en": "Password Strength Meter"
+    },
+    "desc": {
+      "pt": "Barra visual dinâmica que avalia em tempo real a segurança da senha digitada segundo critérios definidos.",
+      "en": "Dynamic chromatic progress bar rating password entropy and complexity requirements as user types."
+    },
+    "barebones_url": "demos/patterns/input-password-strength/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-21",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Inline Form Validation (Validação de Formulário em Linha)",
+      "en": "Inline Form Validation (:user-valid)"
+    },
+    "desc": {
+      "pt": "Verificação e feedback instantâneo da validade de um campo assim que o utilizador termina a edição (:user-valid / :user-invalid).",
+      "en": "Immediate visual validation and error feedback triggered upon field blur via modern CSS :user-valid pseudo-class."
+    },
+    "barebones_url": "demos/patterns/input-inline-validation/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#newsletter",
+    "has_drumtiks": true
+  },
+  {
+    "id": "INP-22",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Good Defaults &amp; Smart Prefills (Valores por Defeito)",
+      "en": "Good Defaults &amp; Smart Prefills"
+    },
+    "desc": {
+      "pt": "Pré-preenchimento de campos com valores prováveis (ex.: país via geolocalização ou histórico) para reduzir esforço.",
+      "en": "Seeding reasonable pre-selected default values across form fields to save repetitive keystrokes."
+    },
+    "barebones_url": "demos/patterns/input-smart-defaults/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#pricing-simulator",
+    "has_drumtiks": true
+  },
+  {
+    "id": "INP-23",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "List Builder / Dual Listbox (Construtor de Listas)",
+      "en": "List Builder / Dual Listbox"
+    },
+    "desc": {
+      "pt": "Dois painéis onde itens são movidos de uma lista de opções disponíveis para uma lista de opções selecionadas.",
+      "en": "Dual listbox setup shuttling items between an available pool and a selected manifest via action buttons."
+    },
+    "barebones_url": "demos/patterns/input-dual-listbox/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-24",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Wizard / Multi-Step Form (Assistente Passo a Passo)",
+      "en": "Wizard / Multi-Step Form"
+    },
+    "desc": {
+      "pt": "Decomposição de formulários complexos e longos em etapas sequenciais numeradas com navegação &#x27;Seguinte&#x27; e &#x27;Anterior&#x27;.",
+      "en": "Sequential chunking of extensive forms into numbered stages, decreasing user anxiety through progressive milestones."
+    },
+    "barebones_url": "demos/patterns/input-wizard/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-25",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Clear Entry / Input Reset Button (Limpar Campo)",
+      "en": "Clear Entry / Input Reset Button"
+    },
+    "desc": {
+      "pt": "Pequeno botão &#x27;X&#x27; no interior do campo de texto ativo que apaga todo o conteúdo digitado com um só toque.",
+      "en": "Inline dismiss &#x27;X&#x27; icon clearing filled field contents with a single tap on touchscreen viewports."
+    },
+    "barebones_url": "demos/patterns/input-clear-button/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "INP-26",
+    "category": "input",
+    "cat_name": {
+      "pt": "4. Entrada de Dados & Formulários",
+      "en": "4. Data Input & Forms"
+    },
+    "name": {
+      "pt": "Character Counter (Contador de Caracteres Restantes)",
+      "en": "Character Counter"
+    },
+    "desc": {
+      "pt": "Indicador numérico em tempo real junto a áreas de texto que informa o limite máximo permitido de caracteres.",
+      "en": "Real-time character tally adjacent to textarea inputs signaling remaining allowance before limit boundary."
+    },
+    "barebones_url": "demos/patterns/input-char-counter/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-01",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Responsive Table - Scrollable (Tabela Responsiva com Scroll)",
+      "en": "Responsive Table - Scrollable"
+    },
+    "desc": {
+      "pt": "Tabela contida num contentor com overflow-x: auto e sombras laterais indicativas de transbordo em ecrãs estreitos.",
+      "en": "Table wrapped in a scrollable frame with overflow-x: auto, displaying subtle gradient edge shadows indicating hidden columns."
+    },
+    "barebones_url": "demos/patterns/data-table-scrollable/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/GUIDE.html#comparativo",
+    "has_drumtiks": true
+  },
+  {
+    "id": "DAT-02",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Responsive Table - Stacked / Reflow (Tabela Empilhada em Cartões)",
+      "en": "Responsive Table - Stacked / Reflow"
+    },
+    "desc": {
+      "pt": "Tabela que colapsa as suas linhas em blocos individuais tipo cartão no mobile, usando pseudo-elementos (data-label) para identificar colunas.",
+      "en": "Table collapsing tabular rows into standalone vertical cards on mobile, injecting column headers via data-label pseudo-elements."
+    },
+    "barebones_url": "demos/patterns/data-table-reflow/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-03",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Responsive Table - Priority Columns (Tabela com Colunas Prioritárias)",
+      "en": "Responsive Table - Priority Columns"
+    },
+    "desc": {
+      "pt": "Tabela que esconde dinamicamente colunas menos importantes em ecrãs menores, com opção de alternar visibilidade.",
+      "en": "Table hiding secondary columns progressively across breakpoints, offering a toggle menu to restore omitted data."
+    },
+    "barebones_url": "demos/patterns/data-table-priority-columns/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-04",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Data Grid / Interactive Grid (Grelha de Dados Interativa)",
+      "en": "Data Grid / Interactive Grid (ARIA)"
+    },
+    "desc": {
+      "pt": "Estrutura tabular bidimensional avançada com navegação completa por setas do teclado, seleção de células e edição direta.",
+      "en": "Advanced 2D interactive grid supporting spatial keyboard navigation, cell selection, and in-place editing (role=&#x27;grid&#x27;)."
+    },
+    "barebones_url": "demos/patterns/data-grid-aria/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-05",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Tree View / Hierarchical List (Vista em Árvore)",
+      "en": "Tree View / Hierarchical List"
+    },
+    "desc": {
+      "pt": "Lista aninhada com nós expansíveis e recolhíveis para visualização de estruturas de pastas ou categorias profundas.",
+      "en": "Nested hierarchical list with expandable/collapsible nodes for browsing multi-tier directories and taxonomic trees."
+    },
+    "barebones_url": "demos/patterns/data-treeview/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-06",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Treegrid (Grelha em Árvore)",
+      "en": "Treegrid (WAI-ARIA)"
+    },
+    "desc": {
+      "pt": "Combinação de tabela e vista em árvore que permite expandir linhas para ver dados hierárquicos mantendo colunas estruturadas.",
+      "en": "Hybrid pattern combining table columns with collapsible tree rows to display structured hierarchical datasets."
+    },
+    "barebones_url": "demos/patterns/data-treegrid/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-07",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Carousel / Filmstrip (Carrossel Magnético)",
+      "en": "Carousel / Filmstrip (Scroll-Snap)"
+    },
+    "desc": {
+      "pt": "Sequência horizontal deslizante de itens onde o utilizador folheia manualmente ou com gestos de swipe (scroll-snap-type: x mandatory).",
+      "en": "Horizontal sliding sequence of content items snapping cleanly to viewport edges via native CSS scroll-snap."
+    },
+    "barebones_url": "demos/patterns/data-carousel-scroll-snap/index.html",
+    "drumtiks_url": "demos/tp06-responsive/index.html#festival-gallery",
+    "has_drumtiks": true
+  },
+  {
+    "id": "DAT-08",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Infinite Scroll / Endless Scroll (Rolagem Infinita)",
+      "en": "Infinite Scroll / Endless Scroll"
+    },
+    "desc": {
+      "pt": "Carregamento contínuo e automático de novos itens na base da lista à medida que a rolagem atinge o final.",
+      "en": "Continuous automated fetching of feed items appending to bottom as user scrolls near document boundary."
+    },
+    "barebones_url": "demos/patterns/data-infinite-scroll/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-09",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Pagination (Paginação Tradicional)",
+      "en": "Pagination Controls"
+    },
+    "desc": {
+      "pt": "Controlos numerados de navegação (&#x27;1, 2, 3... Seguinte&#x27;) para dividir grandes conjuntos de dados em páginas discretas.",
+      "en": "Numbered sequential stepping controls dividing voluminous record collections into manageable, bookmarkable pages."
+    },
+    "barebones_url": "demos/patterns/data-pagination/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-10",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Pull-to-Refresh (Puxar para Atualizar)",
+      "en": "Pull-to-Refresh"
+    },
+    "desc": {
+      "pt": "Gesto tátil de puxar o topo de uma lista para baixo para solicitar novos dados ou sincronização.",
+      "en": "Touch gesture dragging top of list downward past boundary to trigger asynchronous dataset synchronization."
+    },
+    "barebones_url": "demos/patterns/data-pull-to-refresh/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-11",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Master-Detail Inlay / List Inlay (Desdobramento em Linha)",
+      "en": "Master-Detail Inlay / List Inlay"
+    },
+    "desc": {
+      "pt": "Expansão do detalhe do item selecionado diretamente abaixo da sua linha na lista, sem sair do contexto de leitura.",
+      "en": "Inline row expansion opening item details directly below the target line without losing list context."
+    },
+    "barebones_url": "demos/patterns/data-list-inlay/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-12",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Thumbnail Grid (Grelha de Miniaturas)",
+      "en": "Thumbnail Grid"
+    },
+    "desc": {
+      "pt": "Apresentação compacta de ficheiros visuais em miniaturas quadradas ou proporcionais ideais para galerias e catálogos.",
+      "en": "Dense matrix of uniform visual thumbnails optimized for image galleries, product catalogs, and media assets."
+    },
+    "barebones_url": "demos/patterns/data-thumbnail-grid/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#festival-gallery",
+    "has_drumtiks": true
+  },
+  {
+    "id": "DAT-13",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Alphabetical / Numeric Scroller (Scroller Alfanumérico)",
+      "en": "Alphabetical / Numeric Scroller"
+    },
+    "desc": {
+      "pt": "Barra de índice vertical com letras (A-Z) para saltar rapidamente para secções correspondentes de listas longas.",
+      "en": "Vertical alphabetical rail (A-Z) allowing rapid thumb scrubbing directly to target initial letter groupings."
+    },
+    "barebones_url": "demos/patterns/data-alphanumeric-scroller/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-14",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "New-Item Row (Linha de Novo Item)",
+      "en": "New-Item Row"
+    },
+    "desc": {
+      "pt": "Linha persistente ou botão no topo/base da tabela para adicionar novos registos diretamente sem abrir diálogos.",
+      "en": "Dedicated inline row anchoring a data table enabling rapid new row additions without context switching."
+    },
+    "barebones_url": "demos/patterns/data-new-item-row/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-15",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Sort by Column (Ordenação por Coluna)",
+      "en": "Sort by Column"
+    },
+    "desc": {
+      "pt": "Cabeçalhos de tabela clicáveis que alternam a ordenação ascendente, descendente ou neutra dos dados da coluna.",
+      "en": "Clickable table header triggers toggling sort order (ascending, descending, neutral) with visual indicators."
+    },
+    "barebones_url": "demos/patterns/data-column-sort/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-16",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Small Multiples (Múltiplos Pequenos)",
+      "en": "Small Multiples"
+    },
+    "desc": {
+      "pt": "Série de pequenos gráficos ou cartões com a mesma escala visual posicionados lado a lado para facilitar a comparação rápida de variáveis.",
+      "en": "Grid of synchronized micro-charts sharing axes and scales to facilitate rapid comparative trend recognition."
+    },
+    "barebones_url": "demos/patterns/data-small-multiples/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-17",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Data Spotlight / Datatips (Holofote de Dados / Dicas)",
+      "en": "Data Spotlight / Datatips"
+    },
+    "desc": {
+      "pt": "Realce visual de pontos de dados específicos ao passar o rato ou focar, revelando caixas com valores exatos.",
+      "en": "Callout data tooltips surfacing exact numerical metrics upon hovering or focusing individual chart nodes."
+    },
+    "barebones_url": "demos/patterns/data-spotlight/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "DAT-18",
+    "category": "data",
+    "cat_name": {
+      "pt": "5. Dados Complexos, Listas & Tabelas",
+      "en": "5. Complex Data, Lists & Tables"
+    },
+    "name": {
+      "pt": "Zebra Striping / Alternating Rows (Linhas Alternadas)",
+      "en": "Zebra Striping / Alternating Rows"
+    },
+    "desc": {
+      "pt": "Alternância de cores de fundo em linhas consecutivas de tabelas para facilitar o acompanhamento visual horizontal (:nth-child(even)).",
+      "en": "Alternating row background shading via :nth-child(even) easing wide horizontal tracking across dense data rows."
+    },
+    "barebones_url": "demos/patterns/data-zebra-striping/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/GUIDE.html#comparativo",
+    "has_drumtiks": true
+  },
+  {
+    "id": "SEA-01",
+    "category": "search",
+    "cat_name": {
+      "pt": "6. Pesquisa, Filtragem & Descoberta",
+      "en": "6. Search, Filtering & Discovery"
+    },
+    "name": {
+      "pt": "Instant Search / Live Search (Pesquisa Instantânea)",
+      "en": "Instant Search / Live Search"
+    },
+    "desc": {
+      "pt": "Atualização dos resultados em tempo real à medida que os caracteres são introduzidos, sem necessidade de premir Enter.",
+      "en": "Immediate result list filtration updating continuously on every keystroke without requiring form submittal."
+    },
+    "barebones_url": "demos/patterns/search-live-search/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "SEA-02",
+    "category": "search",
+    "cat_name": {
+      "pt": "6. Pesquisa, Filtragem & Descoberta",
+      "en": "6. Search, Filtering & Discovery"
+    },
+    "name": {
+      "pt": "Faceted Search / Navigation (Pesquisa Facetada)",
+      "en": "Faceted Search / Navigation"
+    },
+    "desc": {
+      "pt": "Sistema de múltiplos filtros categorizados (preço, marca, cor, tamanho) com contadores de itens disponíveis em cada critério.",
+      "en": "Multi-dimensional attribute filtering system displaying available counts alongside each criterion."
+    },
+    "barebones_url": "demos/patterns/search-faceted-search/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "SEA-03",
+    "category": "search",
+    "cat_name": {
+      "pt": "6. Pesquisa, Filtragem & Descoberta",
+      "en": "6. Search, Filtering & Discovery"
+    },
+    "name": {
+      "pt": "Search by Category (Pesquisa por Categoria)",
+      "en": "Search by Category"
+    },
+    "desc": {
+      "pt": "Campo de busca acoplado a um seletor suspenso que restringe o âmbito da pesquisa a uma secção específica do catálogo.",
+      "en": "Search field coupled with category select scope restricting query evaluation to defined inventory partitions."
+    },
+    "barebones_url": "demos/patterns/search-by-category/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "SEA-04",
+    "category": "search",
+    "cat_name": {
+      "pt": "6. Pesquisa, Filtragem & Descoberta",
+      "en": "6. Search, Filtering & Discovery"
+    },
+    "name": {
+      "pt": "Expandable Search Box (Caixa de Pesquisa Expansível)",
+      "en": "Expandable Search Box"
+    },
+    "desc": {
+      "pt": "Ícone de lupa que se expande num campo de texto completo ao receber clique ou foco, conservando espaço de barra em mobile.",
+      "en": "Magnifying glass icon smoothly expanding into a full-width input on tap or focus, saving header real estate."
+    },
+    "barebones_url": "demos/patterns/search-expandable-box/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "SEA-05",
+    "category": "search",
+    "cat_name": {
+      "pt": "6. Pesquisa, Filtragem & Descoberta",
+      "en": "6. Search, Filtering & Discovery"
+    },
+    "name": {
+      "pt": "Search History &amp; Recents (Histórico de Pesquisas)",
+      "en": "Search History &amp; Recents"
+    },
+    "desc": {
+      "pt": "Lista com termos de pesquisa anteriores exibida ao focar o campo vazio para acelerar consultas frequentes.",
+      "en": "Contextual dropdown showing past successful queries upon empty search focus to accelerate repeated inquiries."
+    },
+    "barebones_url": "demos/patterns/search-history-recents/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "SEA-06",
+    "category": "search",
+    "cat_name": {
+      "pt": "6. Pesquisa, Filtragem & Descoberta",
+      "en": "6. Search, Filtering & Discovery"
+    },
+    "name": {
+      "pt": "Auto-Suggest with Categories (Sugestão Categorizada)",
+      "en": "Auto-Suggest with Categories"
+    },
+    "desc": {
+      "pt": "Caixa de sugestões que agrupa correspondências por produtos, artigos e marcas enquanto o utilizador digita.",
+      "en": "Predictive dropdown segmenting matches under category headings (products, artists, stages) as user types."
+    },
+    "barebones_url": "demos/patterns/search-autosuggest-categories/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "SEA-07",
+    "category": "search",
+    "cat_name": {
+      "pt": "6. Pesquisa, Filtragem & Descoberta",
+      "en": "6. Search, Filtering & Discovery"
+    },
+    "name": {
+      "pt": "Filter Bar / Chip Filter (Barra de Filtros em Chips)",
+      "en": "Filter Bar / Chip Filter"
+    },
+    "desc": {
+      "pt": "Fileira horizontal de pequenos botões (&#x27;chips&#x27;) acionáveis que ativam ou removem filtros instantaneamente.",
+      "en": "Horizontal scrollable strip of toggle chips enabling single-tap filter application and immediate visual feedback."
+    },
+    "barebones_url": "demos/patterns/search-chip-filters/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "SEA-08",
+    "category": "search",
+    "cat_name": {
+      "pt": "6. Pesquisa, Filtragem & Descoberta",
+      "en": "6. Search, Filtering & Discovery"
+    },
+    "name": {
+      "pt": "Filter Drawer / Bottom Sheet (Painel de Filtros)",
+      "en": "Filter Drawer / Bottom Sheet"
+    },
+    "desc": {
+      "pt": "Painel deslizante que recolhe todos os filtros complexos de uma página no mobile para manter a grelha limpa.",
+      "en": "Sliding sheet housing intricate filter facets on mobile viewports, keeping the main product grid uncluttered."
+    },
+    "barebones_url": "demos/patterns/search-filter-drawer/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "SEA-09",
+    "category": "search",
+    "cat_name": {
+      "pt": "6. Pesquisa, Filtragem & Descoberta",
+      "en": "6. Search, Filtering & Discovery"
+    },
+    "name": {
+      "pt": "Active Filters Bar / Tokenized Tags (Filtros Ativos)",
+      "en": "Active Filters Bar / Tokenized Tags"
+    },
+    "desc": {
+      "pt": "Apresentação de todos os filtros atualmente aplicados sob a forma de etiquetas com botão &#x27;X&#x27; para remoção individual ou total.",
+      "en": "Row of applied filter tokens bearing dismiss &#x27;X&#x27; buttons allowing one-click removal of individual or all criteria."
+    },
+    "barebones_url": "demos/patterns/search-active-filter-tags/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "SEA-10",
+    "category": "search",
+    "cat_name": {
+      "pt": "6. Pesquisa, Filtragem & Descoberta",
+      "en": "6. Search, Filtering & Discovery"
+    },
+    "name": {
+      "pt": "Empty State / No Results (Estado Vazio)",
+      "en": "Empty State / No Results"
+    },
+    "desc": {
+      "pt": "Mensagem útil e positiva perante ausência de dados, sugerindo correções ortográficas ou filtros alternativos.",
+      "en": "Constructive zero-data state offering spelling tips, broader fallback keywords, or one-click filter resets."
+    },
+    "barebones_url": "demos/patterns/search-empty-state/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "FEE-01",
+    "category": "feedback",
+    "cat_name": {
+      "pt": "7. Feedback & Estados de Sistema",
+      "en": "7. Feedback & System States"
+    },
+    "name": {
+      "pt": "Alert / Banner Notification (Faixa de Notificação)",
+      "en": "Alert / Banner Notification"
+    },
+    "desc": {
+      "pt": "Mensagem informativa ou de aviso posicionada no topo da página ou secção (role=&#x27;alert&#x27; / aria-live=&#x27;polite&#x27;).",
+      "en": "High-priority banner anchored at page top communicating system alerts or announcements (role=&#x27;alert&#x27;)."
+    },
+    "barebones_url": "demos/patterns/feedback-banner-alert/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#announcement-banner",
+    "has_drumtiks": true
+  },
+  {
+    "id": "FEE-02",
+    "category": "feedback",
+    "cat_name": {
+      "pt": "7. Feedback & Estados de Sistema",
+      "en": "7. Feedback & System States"
+    },
+    "name": {
+      "pt": "Toast Notification / SnackBar (Notificação Toast)",
+      "en": "Toast Notification / SnackBar"
+    },
+    "desc": {
+      "pt": "Mensagem transitória compacta que surge num dos cantos do ecrã após uma ação e desaparece automaticamente após alguns segundos.",
+      "en": "Transient floating card popping up near viewport periphery confirming background operations before fading away."
+    },
+    "barebones_url": "demos/patterns/feedback-toast/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "FEE-03",
+    "category": "feedback",
+    "cat_name": {
+      "pt": "7. Feedback & Estados de Sistema",
+      "en": "7. Feedback & System States"
+    },
+    "name": {
+      "pt": "Inline Confirmation (Confirmação em Linha)",
+      "en": "Inline Confirmation"
+    },
+    "desc": {
+      "pt": "Mensagem de sucesso subtil (ex.: visto verde) renderizada diretamente junto ao elemento manipulado (ex.: &#x27;Guardado&#x27;).",
+      "en": "Micro-feedback indicator (e.g. checkmark or green highlight) confirming successful save directly adjacent to control."
+    },
+    "barebones_url": "demos/patterns/feedback-inline-confirmation/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "FEE-04",
+    "category": "feedback",
+    "cat_name": {
+      "pt": "7. Feedback & Estados de Sistema",
+      "en": "7. Feedback & System States"
+    },
+    "name": {
+      "pt": "Badge / Notification Dot (Ponto de Notificação)",
+      "en": "Badge / Notification Dot"
+    },
+    "desc": {
+      "pt": "Pequeno círculo ou número sobreposto a um ícone indicando novas mensagens, bilhetes ou itens por ler.",
+      "en": "Compact circular tally badge overlaid on icons to signal unread counts or pending cart items."
+    },
+    "barebones_url": "demos/patterns/feedback-badge-dot/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#pricing-simulator",
+    "has_drumtiks": true
+  },
+  {
+    "id": "FEE-05",
+    "category": "feedback",
+    "cat_name": {
+      "pt": "7. Feedback & Estados de Sistema",
+      "en": "7. Feedback & System States"
+    },
+    "name": {
+      "pt": "Progress Bar (Barra de Progresso de Leitura)",
+      "en": "Progress Bar (Scroll Timeline)"
+    },
+    "desc": {
+      "pt": "Indicador horizontal visual que mostra a percentagem concluída de um processo determinável ou do scroll da página via scroll(root).",
+      "en": "Visual linear bar reflecting completed percentage of a determinate process or document scroll via animation-timeline: scroll(root)."
+    },
+    "barebones_url": "demos/patterns/feedback-progress-bar/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "FEE-06",
+    "category": "feedback",
+    "cat_name": {
+      "pt": "7. Feedback & Estados de Sistema",
+      "en": "7. Feedback & System States"
+    },
+    "name": {
+      "pt": "Spinner / Activity Indicator (Indicador Giratório)",
+      "en": "Spinner / Activity Indicator"
+    },
+    "desc": {
+      "pt": "Animação circular que informa o utilizador de que uma operação indeterminada de carregamento está a decorrer.",
+      "en": "Looping circular graphic communicating ongoing background operation when total duration cannot be measured."
+    },
+    "barebones_url": "demos/patterns/feedback-spinner/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "FEE-07",
+    "category": "feedback",
+    "cat_name": {
+      "pt": "7. Feedback & Estados de Sistema",
+      "en": "7. Feedback & System States"
+    },
+    "name": {
+      "pt": "Skeleton Screen (Ecrã de Esqueleto)",
+      "en": "Skeleton Screen"
+    },
+    "desc": {
+      "pt": "Estruturas cinzentas animadas que reproduzem a forma do layout antes do carregamento dos dados, reduzindo a perceção de espera.",
+      "en": "Pulsing monochromatic placeholder shapes mimicking content silhouettes before real data loads, lowering perceived latency."
+    },
+    "barebones_url": "demos/patterns/feedback-skeleton-screen/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "FEE-08",
+    "category": "feedback",
+    "cat_name": {
+      "pt": "7. Feedback & Estados de Sistema",
+      "en": "7. Feedback & System States"
+    },
+    "name": {
+      "pt": "Tooltip (Dica de Ferramenta Contextual)",
+      "en": "Tooltip (WAI-ARIA)"
+    },
+    "desc": {
+      "pt": "Pequena caixa flutuante com texto explicativo revelada no hover do ponteiro ou no foco por teclado (role=&#x27;tooltip&#x27;).",
+      "en": "Floating descriptive popup revealed on hover or keyboard focus clarifying meaning of ambiguous iconography."
+    },
+    "barebones_url": "demos/patterns/feedback-tooltip/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "FEE-09",
+    "category": "feedback",
+    "cat_name": {
+      "pt": "7. Feedback & Estados de Sistema",
+      "en": "7. Feedback & System States"
+    },
+    "name": {
+      "pt": "Interactive Tour / Coach Marks (Visita Guiada)",
+      "en": "Interactive Tour / Coach Marks"
+    },
+    "desc": {
+      "pt": "Série de balões sobrepostos que guiam o novo utilizador pelas principais funcionalidades da interface.",
+      "en": "Sequenced instructional callout badges onboarding users across key functional hotspots upon initial launch."
+    },
+    "barebones_url": "demos/patterns/feedback-coach-marks/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "FEE-10",
+    "category": "feedback",
+    "cat_name": {
+      "pt": "7. Feedback & Estados de Sistema",
+      "en": "7. Feedback & System States"
+    },
+    "name": {
+      "pt": "Inline Error Message (Mensagem de Erro em Linha)",
+      "en": "Inline Error Message"
+    },
+    "desc": {
+      "pt": "Texto descritivo posicionado imediatamente abaixo do campo com falha de validação, explicando a causa e a correção necessária.",
+      "en": "Actionable descriptive error copy positioned directly underneath failed fields explaining cause and fix."
+    },
+    "barebones_url": "demos/patterns/feedback-inline-error/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#newsletter",
+    "has_drumtiks": true
+  },
+  {
+    "id": "FEE-11",
+    "category": "feedback",
+    "cat_name": {
+      "pt": "7. Feedback & Estados de Sistema",
+      "en": "7. Feedback & System States"
+    },
+    "name": {
+      "pt": "Meter (Medidor de Valor)",
+      "en": "Meter (HTML5 &lt;meter&gt;)"
+    },
+    "desc": {
+      "pt": "Representação gráfica de um valor numérico dentro de um intervalo fixo conhecido com zonas delimitadas (ex.: bateria ou lotação).",
+      "en": "Scalar gauge charting a fractional value within defined bounds (e.g. disk capacity, battery level) via &lt;meter&gt;."
+    },
+    "barebones_url": "demos/patterns/feedback-meter/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "FEE-12",
+    "category": "feedback",
+    "cat_name": {
+      "pt": "7. Feedback & Estados de Sistema",
+      "en": "7. Feedback & System States"
+    },
+    "name": {
+      "pt": "Timeout Warning (Aviso de Fim de Sessão)",
+      "en": "Timeout Warning Dialog"
+    },
+    "desc": {
+      "pt": "Janela de alerta com temporizador decrescente avisando sobre a expiração iminente da sessão e oferecendo opção de extensão.",
+      "en": "Accessible dialog warning users of impending inactivity session expiry with countdown and extend action."
+    },
+    "barebones_url": "demos/patterns/feedback-timeout-warning/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "TAC-01",
+    "category": "touch",
+    "cat_name": {
+      "pt": "8. Ergonomia Tátil & Gestos",
+      "en": "8. Touch Ergonomics & Gestures"
+    },
+    "name": {
+      "pt": "Touch Target Padding / Bound Elements (Área Tátil Delimitada)",
+      "en": "Touch Target Padding (&gt;=44x44px)"
+    },
+    "desc": {
+      "pt": "Enquadramento de controlos clicáveis em caixas com dimensões mínimas de 44x44px (WCAG 2.2) e espaçamento mínimo adequado.",
+      "en": "Sizing interactive targets to &gt;= 44x44px bounding boxes meeting WCAG 2.2 touch target criterion."
+    },
+    "barebones_url": "demos/patterns/touch-target-padding/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "TAC-02",
+    "category": "touch",
+    "cat_name": {
+      "pt": "8. Ergonomia Tátil & Gestos",
+      "en": "8. Touch Ergonomics & Gestures"
+    },
+    "name": {
+      "pt": "Center-Out Content Bias (Alinhamento Centro-Ecrã)",
+      "en": "Center-Out Content Bias"
+    },
+    "desc": {
+      "pt": "Padrão que posiciona as tarefas e campos de ação no terço central vertical do ecrã móvel, onde a precisão tátil é máxima.",
+      "en": "Centering primary interactive controls in the vertical middle band of mobile screens where thumb dexterity peaks."
+    },
+    "barebones_url": "demos/patterns/touch-center-bias/index.html",
+    "drumtiks_url": "demos/tp06-responsive/index.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "TAC-03",
+    "category": "touch",
+    "cat_name": {
+      "pt": "8. Ergonomia Tátil & Gestos",
+      "en": "8. Touch Ergonomics & Gestures"
+    },
+    "name": {
+      "pt": "Swipe to Action (Deslizar para Ação)",
+      "en": "Swipe to Action"
+    },
+    "desc": {
+      "pt": "Gesto tátil de deslizar um item de lista lateralmente para revelar ações rápidas como apagar, arquivar ou marcar.",
+      "en": "Horizontal flick revealing hidden contextual action triggers (archive, delete, star) beneath list items."
+    },
+    "barebones_url": "demos/patterns/touch-swipe-action/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "TAC-04",
+    "category": "touch",
+    "cat_name": {
+      "pt": "8. Ergonomia Tátil & Gestos",
+      "en": "8. Touch Ergonomics & Gestures"
+    },
+    "name": {
+      "pt": "Pinch-to-Zoom (Gesto de Pinça para Zoom)",
+      "en": "Pinch-to-Zoom"
+    },
+    "desc": {
+      "pt": "Aproximação ou afastamento de dois dedos sobre uma imagem ou mapa para alterar o nível de ampliação.",
+      "en": "Multi-touch pinch gesture scaling images or canvas maps smoothly without breaking viewport layout boundaries."
+    },
+    "barebones_url": "demos/patterns/touch-pinch-zoom/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "TAC-05",
+    "category": "touch",
+    "cat_name": {
+      "pt": "8. Ergonomia Tátil & Gestos",
+      "en": "8. Touch Ergonomics & Gestures"
+    },
+    "name": {
+      "pt": "Press-and-Hold / Long Press (Pressionar Longamente)",
+      "en": "Press-and-Hold / Long Press"
+    },
+    "desc": {
+      "pt": "Manter o toque sobre um elemento para abrir menus contextuais rápidos ou ativar modo de seleção múltipla.",
+      "en": "Sustained touch duration activating quick contextual popovers or toggling batch multi-selection mode."
+    },
+    "barebones_url": "demos/patterns/touch-long-press/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "TAC-06",
+    "category": "touch",
+    "cat_name": {
+      "pt": "8. Ergonomia Tátil & Gestos",
+      "en": "8. Touch Ergonomics & Gestures"
+    },
+    "name": {
+      "pt": "Edge Swipe / Back Gesture (Deslizar da Borda)",
+      "en": "Edge Swipe / Back Gesture"
+    },
+    "desc": {
+      "pt": "Gesto de deslize a partir da margem lateral do ecrã para voltar à vista anterior ou abrir a gaveta de navegação.",
+      "en": "Bezel swipe gesture executing browser back history or drawing off-canvas navigation panels into view."
+    },
+    "barebones_url": "demos/patterns/touch-edge-swipe/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "TAC-07",
+    "category": "touch",
+    "cat_name": {
+      "pt": "8. Ergonomia Tátil & Gestos",
+      "en": "8. Touch Ergonomics & Gestures"
+    },
+    "name": {
+      "pt": "Card Swipe (Deslize de Cartão)",
+      "en": "Card Swipe"
+    },
+    "desc": {
+      "pt": "Interação em que o utilizador descarta ou aceita cartões de conteúdo arrastando-os para a esquerda ou direita.",
+      "en": "Gestural card discarding or archiving moving elements laterally off-screen with inertia and spring physics."
+    },
+    "barebones_url": "demos/patterns/touch-card-swipe/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "TAC-08",
+    "category": "touch",
+    "cat_name": {
+      "pt": "8. Ergonomia Tátil & Gestos",
+      "en": "8. Touch Ergonomics & Gestures"
+    },
+    "name": {
+      "pt": "Haptic Feedback (Retorno Háptico)",
+      "en": "Haptic Feedback"
+    },
+    "desc": {
+      "pt": "Vibração curta produzida pelo dispositivo móvel para confirmar toques em botões, ações críticas ou alternâncias de estado.",
+      "en": "Subtle device vibration confirming critical touchscreen taps, mode toggles, or successful scans."
+    },
+    "barebones_url": "demos/patterns/touch-haptic-feedback/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "TAC-09",
+    "category": "touch",
+    "cat_name": {
+      "pt": "8. Ergonomia Tátil & Gestos",
+      "en": "8. Touch Ergonomics & Gestures"
+    },
+    "name": {
+      "pt": "Sticky Bottom Action / CTA Bar (Barra de Ação Inferior Fixa)",
+      "en": "Sticky Bottom Action / CTA Bar"
+    },
+    "desc": {
+      "pt": "Barra persistente fixa na base do ecrã mobile contendo o botão de compra sempre acessível ao alcance do polegar.",
+      "en": "Persistent footer bar pinning essential checkout or submission CTAs permanently within thumb reach."
+    },
+    "barebones_url": "demos/patterns/touch-sticky-bottom-bar/index.html",
+    "drumtiks_url": "demos/tp06-responsive/index.html#pricing-simulator",
+    "has_drumtiks": true
+  },
+  {
+    "id": "A11Y-01",
+    "category": "a11y",
+    "cat_name": {
+      "pt": "9. Acessibilidade & Semântica (ARIA/WCAG)",
+      "en": "9. Accessibility & Semantics (ARIA/WCAG)"
+    },
+    "name": {
+      "pt": "Landmark Regions (Regiões de Marco ARIA)",
+      "en": "Landmark Regions (HTML5 Landmarks)"
+    },
+    "desc": {
+      "pt": "Identificação semântica das grandes áreas da página (&lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;article&gt;, &lt;aside&gt;, &lt;footer&gt;).",
+      "en": "Semantic architectural sectioning via header, nav, main, article, aside, and footer informing assistive technology."
+    },
+    "barebones_url": "demos/patterns/a11y-landmarks/index.html",
+    "drumtiks_url": "demos/hello-warp/index.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "A11Y-02",
+    "category": "a11y",
+    "cat_name": {
+      "pt": "9. Acessibilidade & Semântica (ARIA/WCAG)",
+      "en": "9. Accessibility & Semantics (ARIA/WCAG)"
+    },
+    "name": {
+      "pt": "Live Regions (Regiões Vivas - assertive / polite)",
+      "en": "Live Regions (aria-live)"
+    },
+    "desc": {
+      "pt": "Áreas de texto dinâmico monitorizadas pelo leitor de ecrã para anunciar atualizações sem transferir o foco do utilizador.",
+      "en": "Dynamic DOM zones announced asynchronously by screen readers without disrupting active keyboard focus."
+    },
+    "barebones_url": "demos/patterns/a11y-live-regions/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "A11Y-03",
+    "category": "a11y",
+    "cat_name": {
+      "pt": "9. Acessibilidade & Semântica (ARIA/WCAG)",
+      "en": "9. Accessibility & Semantics (ARIA/WCAG)"
+    },
+    "name": {
+      "pt": "Focus Ring / Focus-Visible (Anel de Foco Visível)",
+      "en": "Focus Ring / Focus-Visible"
+    },
+    "desc": {
+      "pt": "Indicador visual nítido exibido em torno do elemento ativo apenas durante a navegação por teclado (:focus-visible).",
+      "en": "High-contrast outline indicator rendered around focused interactive nodes solely during keyboard navigation."
+    },
+    "barebones_url": "demos/patterns/a11y-focus-visible/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "A11Y-04",
+    "category": "a11y",
+    "cat_name": {
+      "pt": "9. Acessibilidade & Semântica (ARIA/WCAG)",
+      "en": "9. Accessibility & Semantics (ARIA/WCAG)"
+    },
+    "name": {
+      "pt": "Keyboard Trapping &amp; Restoration (Confinamento de Foco)",
+      "en": "Keyboard Trapping &amp; Restoration"
+    },
+    "desc": {
+      "pt": "Retenção do ciclo do tabulador (Tab/Shift+Tab) dentro de modais abertas e restauro do foco no botão de abertura ao fechar.",
+      "en": "Looping Tab focus strictly within open modal dialogs and safely restoring focus to triggering button upon dismissal."
+    },
+    "barebones_url": "demos/patterns/a11y-focus-trap/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#modal-pass-vip",
+    "has_drumtiks": true
+  },
+  {
+    "id": "A11Y-05",
+    "category": "a11y",
+    "cat_name": {
+      "pt": "9. Acessibilidade & Semântica (ARIA/WCAG)",
+      "en": "9. Accessibility & Semantics (ARIA/WCAG)"
+    },
+    "name": {
+      "pt": "ARIA Switch (Interruptor Semântico)",
+      "en": "ARIA Switch (role=&#x27;switch&#x27;)"
+    },
+    "desc": {
+      "pt": "Aplicação do papel role=&#x27;switch&#x27; e estado aria-checked para leitores de ecrã identificarem um toggle interativo.",
+      "en": "Applying role=&#x27;switch&#x27; and aria-checked=&#x27;true|false&#x27; allowing assistive tech to announce binary toggle controls."
+    },
+    "barebones_url": "demos/patterns/a11y-switch-role/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#xray-toggle",
+    "has_drumtiks": true
+  },
+  {
+    "id": "A11Y-06",
+    "category": "a11y",
+    "cat_name": {
+      "pt": "9. Acessibilidade & Semântica (ARIA/WCAG)",
+      "en": "9. Accessibility & Semantics (ARIA/WCAG)"
+    },
+    "name": {
+      "pt": "Feed (Fluxo Dinâmico ARIA)",
+      "en": "Feed (role=&#x27;feed&#x27;)"
+    },
+    "desc": {
+      "pt": "Estrutura em lista com role=&#x27;feed&#x27; que gere o foco do leitor de ecrã ao navegar entre blocos dinâmicos e infinitos de artigos.",
+      "en": "Scrollable container structure managing keyboard focus smoothly across infinite dynamic streams of articles (role=&#x27;feed&#x27;)."
+    },
+    "barebones_url": "demos/patterns/a11y-feed-role/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "A11Y-07",
+    "category": "a11y",
+    "cat_name": {
+      "pt": "9. Acessibilidade & Semântica (ARIA/WCAG)",
+      "en": "9. Accessibility & Semantics (ARIA/WCAG)"
+    },
+    "name": {
+      "pt": "Radio &amp; Checkbox Groups (Grupos Semânticos de Seleção)",
+      "en": "Radio &amp; Checkbox A11y Groups"
+    },
+    "desc": {
+      "pt": "Agrupamento de controlos sob &lt;fieldset&gt; e &lt;legend&gt; ou com role=&#x27;radiogroup&#x27; e aria-labelledby para clareza em leitores de ecrã.",
+      "en": "Encapsulating option inputs inside fieldset/legend or role=&#x27;radiogroup&#x27; ensuring screen readers announce group legends."
+    },
+    "barebones_url": "demos/patterns/a11y-option-groups/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html#pricing-simulator",
+    "has_drumtiks": true
+  },
+  {
+    "id": "A11Y-08",
+    "category": "a11y",
+    "cat_name": {
+      "pt": "9. Acessibilidade & Semântica (ARIA/WCAG)",
+      "en": "9. Accessibility & Semantics (ARIA/WCAG)"
+    },
+    "name": {
+      "pt": "Accessible Tooltip Trigger (Gatilho de Tooltip Acessível)",
+      "en": "Accessible Tooltip Trigger"
+    },
+    "desc": {
+      "pt": "Associação estrita entre o elemento de foco e a caixa de ajuda flutuante usando aria-describedby.",
+      "en": "Linking active focusable triggers to their explanatory tooltip boxes using aria-describedby for accessibility."
+    },
+    "barebones_url": "demos/patterns/a11y-tooltip-trigger/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  },
+  {
+    "id": "A11Y-09",
+    "category": "a11y",
+    "cat_name": {
+      "pt": "9. Acessibilidade & Semântica (ARIA/WCAG)",
+      "en": "9. Accessibility & Semantics (ARIA/WCAG)"
+    },
+    "name": {
+      "pt": "Scroll Margin Compensation (Compensação de Margem)",
+      "en": "Scroll Margin Compensation"
+    },
+    "desc": {
+      "pt": "Uso de scroll-margin-top em elementos com ID alvo de âncoras para evitar que fiquem ocultados por cabeçalhos fixos.",
+      "en": "Applying scroll-margin-top on anchor target containers preventing sticky headers from concealing section titles."
+    },
+    "barebones_url": "demos/patterns/a11y-scroll-margin/index.html",
+    "drumtiks_url": "demos/tp11-integrated-responsive-project/index.html",
+    "has_drumtiks": true
+  },
+  {
+    "id": "A11Y-10",
+    "category": "a11y",
+    "cat_name": {
+      "pt": "9. Acessibilidade & Semântica (ARIA/WCAG)",
+      "en": "9. Accessibility & Semantics (ARIA/WCAG)"
+    },
+    "name": {
+      "pt": "Accessible Rating / Star Rating (Classificação por Estrelas)",
+      "en": "Accessible Rating / Star Rating"
+    },
+    "desc": {
+      "pt": "Controlo interativo de avaliação por estrelas mapeado semanticamente como um slider (role=&#x27;slider&#x27;) ou grupo de opções.",
+      "en": "Star evaluation widget structured accessibly as an ARIA slider (role=&#x27;slider&#x27;) or radiogroup with keyboard arrow control."
+    },
+    "barebones_url": "demos/patterns/a11y-star-rating/index.html",
+    "drumtiks_url": null,
+    "has_drumtiks": false
+  }
+]
