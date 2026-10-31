@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <!--
+    ==========================================================================
+    GUIÃO PEDAGÓGICO: TRANSIÇÃO PARA IA & MODO ANTIGRAVITY ADE
+    Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+    Unidade Curricular: Web Design (WD101) — 2026/27
+    Licenciatura em Design de Comunicação • i2ADS
+    Autoria: Prof. Pedro Amado (FBAUP/i2ADS) & Google Gemini (Antigravity)
+    ==========================================================================
+    MDN & SCHOLARLY CANONICAL REFERENCES:
+    - Harvard CS50: Teaching CS50 with AI (David J. Malan et al.):
+      https://cs50.harvard.edu
+    - Ethan & Lilach Mollick: Assigning AI: Seven Approaches for Students:
+      https://oneusefulthing.org
+    - MDN Web Docs: Learn Web Development:
+      https://developer.mozilla.org/en-US/docs/Learn
+    - Google web.dev: Modern Web Guidance & Core Web Vitals:
+      https://web.dev/learn/css
+    - The Front-End Checklist (David Dias):
+      https://frontendchecklist.io
+    - The A11Y Project Checklist:
+      https://www.a11yproject.com/checklist/
+    ==========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transição para IA &amp; Modo Antigravity ADE • WD101 FBAUP</title>
+  <meta name="description" content="Manual pedagógico e ético de transição do código manual em VS Code para o modo Antigravity ADE. Aprenda a usar a IA como mentor socrático, criar sandboxes de aprendizagem com links MDN e aplicar checklists de controlo de qualidade.">
+
+  <!-- Previne FOUC de tema e idioma -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || 
+                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
+
+  <!-- CSS Layer Hierarchy -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+
+  <style>
+    :root {
+      --color-guide-accent: #10b981; /* Esmeralda / Transversal Mentor */
+      --color-guide-accent-hover: #059669;
+      --color-ide: #0284c7;
+      --color-ade: #a855f7;
+    }
+
+    .guide-hero {
+      border-bottom: 2px solid var(--color-guide-accent);
+      padding: var(--space-8) 0;
+      margin-bottom: var(--space-8);
+    }
+    .guide-back-link {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-guide-accent);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: var(--space-3);
+      text-decoration: none;
+    }
+    .guide-back-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Comparison Box */
+    .engine-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--space-4);
+      margin: var(--space-6) 0;
+    }
+    .engine-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: var(--space-5);
+      position: relative;
+    }
+    .engine-card--ide {
+      border-top: 4px solid var(--color-ide);
+    }
+    .engine-card--ade {
+      border-top: 4px solid var(--color-ade);
+    }
+    .engine-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: var(--space-2);
+    }
+    .engine-badge--ide {
+      background: rgba(2, 132, 199, 0.15);
+      color: var(--color-ide);
+    }
+    .engine-badge--ade {
+      background: rgba(168, 85, 247, 0.15);
+      color: var(--color-ade);
+    }
+
+    /* Step Card */
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--color-guide-accent);
+      border-radius: 6px;
+      padding: var(--space-5);
+      margin-bottom: var(--space-5);
+    }
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-guide-accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-1);
+    }
+
+    /* Prompt Box with Copy */
+    .prompt-box {
+      background: var(--bg-surface-subtle);
+      border: 1px solid var(--border-color-strong);
+      border-radius: 6px;
+      margin: var(--space-4) 0;
+      overflow: hidden;
+    }
+    .prompt-header {
+      background: var(--bg-surface-elevated);
+      padding: var(--space-2) var(--space-4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+    }
+    .prompt-content {
+      padding: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .btn-copy {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-copy:hover {
+      background: var(--color-guide-accent);
+      color: #000;
+      border-color: var(--color-guide-accent);
+    }
+
+    /* Interactive Checklist */
+    .checklist-container {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: var(--space-5);
+      margin: var(--space-6) 0;
+    }
+    .checklist-progress-bar {
+      height: 8px;
+      background: var(--border-color);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: var(--space-3) 0 var(--space-5) 0;
+    }
+    .checklist-progress-fill {
+      height: 100%;
+      background: var(--color-guide-accent);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .check-category {
+      margin-bottom: var(--space-4);
+    }
+    .check-category-title {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      color: var(--color-guide-accent);
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+      border-bottom: 1px dashed var(--border-color);
+      padding-bottom: var(--space-1);
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-2) 0;
+      font-size: var(--text-sm);
+      cursor: pointer;
+    }
+    .check-item input[type="checkbox"] {
+      margin-top: 3px;
+      accent-color: var(--color-guide-accent);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    /* Interactive Simulator */
+    .sim-container {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: var(--space-5);
+      margin: var(--space-6) 0;
+    }
+    .sim-tabs {
+      display: flex;
+      gap: var(--space-2);
+      margin-bottom: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .sim-tab-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      padding: var(--space-2) var(--space-4);
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .sim-tab-btn.active {
+      background: var(--color-guide-accent);
+      color: #000;
+      border-color: var(--color-guide-accent);
+    }
+    .sim-panel {
+      display: none;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: var(--space-4);
+    }
+    .sim-panel.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de Acessibilidade & Cabeçalho -->
+  <header style="background:var(--bg-surface); border-bottom:1px solid var(--border-color); padding:var(--space-2) 0; position:sticky; top:0; z-index:100; backdrop-filter:blur(8px);">
+    <div style="max-width:1200px; margin:0 auto; padding:0 var(--space-4); display:flex; justify-content:space-between; align-items:center;">
+      <a href="index.html#study-goals" class="guide-back-link" style="margin-bottom:0;">
+        ← <span class="lang-pt">Andaime Pedagógico (Objetivos de Estudo)</span><span class="lang-en">Learning Scaffold (Study Goals)</span>
+      </a>
+
+      <div style="display:flex; gap:var(--space-2); align-items:center;">
+        <button id="theme-toggle-btn" class="btn-control" style="font-size:var(--text-xs); padding:4px 8px;">
+          🌙 <span>Escuro</span>
+        </button>
+        <button id="lang-toggle-btn" class="btn-control" style="font-size:var(--text-xs); padding:4px 8px;">
+          English
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main style="max-width:1100px; margin:0 auto; padding:var(--space-6) var(--space-4);">
+
+    <!-- Hero Section -->
+    <section class="guide-hero">
+      <span class="badge badge-transversal" style="margin-bottom:var(--space-3); border-color:var(--color-guide-accent); color:var(--color-guide-accent);">
+        <span class="lang-pt">Módulo Transversal • Tutoria IA &amp; Metodologia</span>
+        <span class="lang-en">Transversal Module • AI Mentorship &amp; Methodology</span>
+      </span>
+
+      <h1 style="font-size:clamp(1.8rem, 3.5vw + 0.5rem, 3rem); line-height:1.15; margin-bottom:var(--space-3);">
+        <span class="lang-pt">Transição para IA &amp; Modo Antigravity ADE</span>
+        <span class="lang-en">Transition to AI &amp; Antigravity ADE Mode</span>
+      </h1>
+
+      <p style="font-size:var(--text-lg); color:var(--text-secondary); max-width:75ch; margin-bottom:var(--space-4); line-height:1.6;">
+        <span class="lang-pt">Como transitar da codificação manual no Visual Studio Code para orquestrar agentes autónomos no Antigravity. Use a IA como mentor socrático, crie sandboxes paralelas de teste com referências canónicas da Living Standard MDN e aplique rotinas de controlo de qualidade 360°.</span>
+        <span class="lang-en">How to transition from manual coding in Visual Studio Code to orchestrating autonomous agents in Antigravity. Use AI as a Socratic mentor, build parallel learning sandboxes with canonical MDN references, and enforce 360° quality assurance protocols.</span>
+      </p>
+
+      <div style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-muted); display:flex; flex-wrap:wrap; gap:var(--space-4); border-top:1px solid var(--border-color); padding-top:var(--space-3);">
+        <span><strong>Direção Pedagógica:</strong> Prof. Pedro Amado (FBAUP / i2ADS)</span>
+        <span><strong>Co-Autoria:</strong> Google Gemini (DeepMind Antigravity)</span>
+        <span><strong>Curso:</strong> Web Design 101 • 2026/27</span>
+        <a href="AI-MENTOR-TRANSITION-GUIDE.md" style="color:var(--color-guide-accent); font-weight:700;">📄 Versão Markdown (.md) ↗</a>
+      </div>
+    </section>
+
+    <!-- Índice de Navegação Interno -->
+    <nav style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-radius:6px; padding:var(--space-4); margin-bottom:var(--space-8);">
+      <strong style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-primary); text-transform:uppercase; display:block; margin-bottom:var(--space-2);">
+        <span class="lang-pt">Neste Guia:</span><span class="lang-en">In this Guide:</span>
+      </strong>
+      <div style="display:flex; flex-wrap:wrap; gap:var(--space-2) var(--space-4); font-size:var(--text-sm);">
+        <a href="#manifesto" style="color:var(--text-secondary);">1. <span class="lang-pt">Manifesto Ético &amp; Carta de Condução</span><span class="lang-en">Ethical Manifesto &amp; Driver's License</span></a>
+        <a href="#dual-engine" style="color:var(--text-secondary);">2. <span class="lang-pt">Arquitetura Dupla: IDE vs. ADE</span><span class="lang-en">Dual Architecture: IDE vs. ADE</span></a>
+        <a href="#workflows" style="color:var(--text-secondary);">3. <span class="lang-pt">Os 4 Fluxos de Trabalho</span><span class="lang-en">The 4 Practical Workflows</span></a>
+        <a href="#sandbox-pattern" style="color:var(--text-secondary);">4. <span class="lang-pt">O Padrão Socratic Sandbox</span><span class="lang-en">The Socratic Sandbox Pattern</span></a>
+        <a href="#checklist" style="color:var(--text-secondary);">5. <span class="lang-pt">Checklist 360° de Qualidade Web</span><span class="lang-en">360° Web Quality Checklist</span></a>
+        <a href="#prompts" style="color:var(--text-secondary);">6. <span class="lang-pt">Biblioteca de Prompts para Alunos</span><span class="lang-en">Student Prompt Library</span></a>
+        <a href="#simulator" style="color:var(--text-secondary);">7. <span class="lang-pt">Laboratório Comparativo Interativo</span><span class="lang-en">Interactive Comparison Lab</span></a>
+      </div>
+    </nav>
+
+    <!-- 1. MANIFESTO & CARTA DE CONDUÇÃO -->
+    <section id="manifesto" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-3); border-bottom:1px solid var(--border-color); padding-bottom:var(--space-2);">
+        <span class="lang-pt">1. Manifesto Pedagógico: A Armadilha do Assistente &amp; A "Carta de Condução"</span>
+        <span class="lang-en">1. Pedagogical Manifesto: The Assistant Trap &amp; The "Driver's License"</span>
+      </h2>
+
+      <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:var(--space-4);">
+        <span class="lang-pt">Na aprendizagem de Web Design e Design de Comunicação, a inteligência artificial generativa sem restrições é perigosa: ela sofre do <em>"Viés do Assistente Prestável"</em>. Ao fornecer de imediato blocos de código prontos a colar, o modelo rouba ao estudante o <strong>esforço produtivo</strong> (<em>productive struggle</em>), criando a ilusão de competência. O estudante cola o código, o layout funciona no momento, mas na primeira avaria ou necessidade de ajuste visual fino, fica completamente indefeso.</span>
+        <span class="lang-en">In communication and web design education, unrestricted generative AI carries a severe pedagogical risk: the <em>"Helpful Assistant Bias"</em>. By immediately providing turnkey code snippets, standard LLMs rob the student of the <strong>productive struggle</strong>, generating an illusion of competence. The layout renders, but as soon as a breakpoint breaks or fine typographic adjustments are required, the learner is completely helpless.</span>
+      </p>
+
+      <!-- Auto-Avaliação da Carta de Condução -->
+      <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-left:4px solid var(--color-guide-accent); border-radius:6px; padding:var(--space-4); margin:var(--space-5) 0;">
+        <strong style="color:var(--color-guide-accent); font-family:var(--font-mono); font-size:var(--text-sm); display:block; margin-bottom:var(--space-2);">
+          <span class="lang-pt">🚗 TESTE DE PRONTIDÃO: Tens a tua "Carta de Condução" de Código?</span>
+          <span class="lang-en">🚗 READINESS TEST: Do You Have Your Code "Driver's License"?</span>
+        </strong>
+        <p style="font-size:var(--text-xs); color:var(--text-muted); margin-bottom:var(--space-3);">
+          <span class="lang-pt">Só deves convidar o modo Antigravity ADE para os teus projetos quando responderes <strong>SIM</strong> a todas estas quatro perguntas:</span>
+          <span class="lang-en">You should only invite Antigravity ADE mode into your workflow once you answer <strong>YES</strong> to all four questions:</span>
+        </p>
+        <div style="display:flex; flex-direction:column; gap:var(--space-2); font-size:var(--text-sm);">
+          <label style="display:flex; gap:var(--space-2); align-items:center;">
+            <input type="checkbox"> 
+            <span class="lang-pt">Consigo escrever de memória a árvore semântica HTML5 de um documento sem recorrer a <code>&lt;div&gt;</code>s desnecessários.</span>
+            <span class="lang-en">I can write a semantic HTML5 skeleton from memory without resorting to unnecessary wrapper <code>&lt;div&gt;</code>s.</span>
+          </label>
+          <label style="display:flex; gap:var(--space-2); align-items:center;">
+            <input type="checkbox"> 
+            <span class="lang-pt">Compreendo a diferença entre Content, Padding, Border e Margin no separador Computed das DevTools do browser.</span>
+            <span class="lang-en">I understand the difference between Content, Padding, Border, and Margin in browser DevTools Computed panel.</span>
+          </label>
+          <label style="display:flex; gap:var(--space-2); align-items:center;">
+            <input type="checkbox"> 
+            <span class="lang-pt">Sei diagnosticar um erro 404 de imagem ou estilo corrigindo caminhos relativos (<code>../</code> vs. <code>./</code>).</span>
+            <span class="lang-en">I can diagnose a 404 asset error by fixing relative paths (<code>../</code> vs. <code>./</code>).</span>
+          </label>
+          <label style="display:flex; gap:var(--space-2); align-items:center;">
+            <input type="checkbox"> 
+            <span class="lang-pt">Tenho a disciplina de <strong>recusar</strong> qualquer snippet de IA cuja função não consiga explicar linha por linha.</span>
+            <span class="lang-en">I have the discipline to <strong>reject</strong> any AI-generated snippet I cannot explain line-by-line.</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. ARQUITETURA DUPLA: IDE VS ADE -->
+    <section id="dual-engine" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-3); border-bottom:1px solid var(--border-color); padding-bottom:var(--space-2);">
+        <span class="lang-pt">2. Arquitetura Dupla: O Editor IDE vs. O Modo Agente ADE</span>
+        <span class="lang-en">2. Dual Architecture: The IDE Editor vs. The ADE Agent Mode</span>
+      </h2>
+
+      <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:var(--space-4);">
+        <span class="lang-pt">O Antigravity combina dois motores complementares. Aprender a alternar deliberadamente entre eles é a chave para a mestria técnica e criativa:</span>
+        <span class="lang-en">Antigravity combines two complementary engines. Learning to deliberately switch between them is the key to technical and creative mastery:</span>
+      </p>
+
+      <div class="engine-grid">
+        <div class="engine-card engine-card--ide">
+          <span class="engine-badge engine-badge--ide">Modo 1 • Editor IDE (VS Code / Antigravity)</span>
+          <h3 style="font-size:var(--text-lg); margin-bottom:var(--space-2);">
+            <span class="lang-pt">A Bancada de Trabalho Táctil</span>
+            <span class="lang-en">The Tactile Workbench</span>
+          </h3>
+          <ul style="color:var(--text-secondary); font-size:var(--text-sm); line-height:1.6; padding-left:var(--space-4);">
+            <li><span class="lang-pt"><strong>Unidade de trabalho:</strong> Linhas de código, seletores individuais, cursor e teclas.</span><span class="lang-en"><strong>Unit of work:</strong> Keystrokes, individual selectors, cursor, and files.</span></li>
+            <li><span class="lang-pt"><strong>Postura mental:</strong> Foco micro, precisão tipográfica, memória muscular da sintaxe.</span><span class="lang-en"><strong>Mental stance:</strong> Micro focus, typographic nuance, syntactic muscle memory.</span></li>
+            <li><span class="lang-pt"><strong>Papel:</strong> Onde tu lês o código linha por linha, fazes ajustes estéticos e sentes a cascata.</span><span class="lang-en"><strong>Role:</strong> Where you read code line-by-line, tune aesthetics, and feel the cascade.</span></li>
+          </ul>
+        </div>
+
+        <div class="engine-card engine-card--ade">
+          <span class="engine-badge engine-badge--ade">Modo 2 • Antigravity ADE (Agentic Mode)</span>
+          <h3 style="font-size:var(--text-lg); margin-bottom:var(--space-2);">
+            <span class="lang-pt">O Arquiteto Sénior &amp; Laboratório QA</span>
+            <span class="lang-en">The Senior Architect &amp; QA Lab</span>
+          </h3>
+          <ul style="color:var(--text-secondary); font-size:var(--text-sm); line-height:1.6; padding-left:var(--space-4);">
+            <li><span class="lang-pt"><strong>Unidade de trabalho:</strong> Especificações, objetivos curriculares, tarefas autónomas e testes.</span><span class="lang-en"><strong>Unit of work:</strong> Specifications, learning goals, autonomous tasks, and tests.</span></li>
+            <li><span class="lang-pt"><strong>Postura mental:</strong> Direção criativa, orquestração, pensamento sistémico e escrutínio crítico.</span><span class="lang-en"><strong>Mental stance:</strong> Creative direction, orchestration, systems thinking, and critical scrutiny.</span></li>
+            <li><span class="lang-pt"><strong>Papel:</strong> Andaime de estruturas, geração de sandboxes de aprendizagem e auditorias 360°.</span><span class="lang-en"><strong>Role:</strong> Scaffolding skeletons, generating learning sandboxes, and running 360° audits.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. OS 4 FLUXOS DE TRABALHO -->
+    <section id="workflows" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-3); border-bottom:1px solid var(--border-color); padding-bottom:var(--space-2);">
+        <span class="lang-pt">3. O Ciclo de Transição em 4 Fases Práticas</span>
+        <span class="lang-en">3. The 4-Phase Practical Transition Workflow</span>
+      </h2>
+
+      <!-- FASE 1 -->
+      <article class="step-card">
+        <div class="step-num">Fase 01 • Scaffolding Estrutural</div>
+        <h3 style="font-size:var(--text-lg); margin-bottom:var(--space-2);">
+          <span class="lang-pt">Pedir a Estrutura Semântica Sem Estilos Precoces</span>
+          <span class="lang-en">Prompting for Semantic Skeletons Without Premature Styling</span>
+        </h3>
+        <p style="color:var(--text-secondary); font-size:var(--text-sm); line-height:1.6;">
+          <span class="lang-pt">Nunca peças: <em>"Cria um site para o meu festival."</em> Pede uma especificação estrutural rigorosa para um componente ou secção. Exige apenas HTML5 semântico com comentários que justifiquem a escolha de cada tag.</span>
+          <span class="lang-en">Never prompt: <em>"Build a festival website."</em> Instead, request a rigorous structural specification for a section. Mandate clean HTML5 with comments explaining why each tag was chosen.</span>
+        </p>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span>Prompt Modelo: Esqueleto Semântico</span>
+            <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
+          </div>
+          <pre class="prompt-content">Atua como Arquiteto Web e Mentor de Web Design na FBAUP.
+Gera APENAS a estrutura semântica em HTML5 para uma secção de programação musical (lineup) do festival DRUMTIKS '26.
+
+Restrições Obrigatórias:
+1. Zero &lt;div&gt;s ornamentais ou desnecessários. Usa exclusivamente marcos (&lt;main&gt;, &lt;section&gt;, &lt;article&gt;, &lt;header&gt;, &lt;time&gt;).
+2. Adiciona comentários HTML a justificar por que razão cada tag foi escolhida.
+3. Não escrevas CSS nem JavaScript. Eu vou inspecionar o HTML no meu IDE e escrever os meus próprios estilos.</pre>
+        </div>
+      </article>
+
+      <!-- FASE 2 -->
+      <article class="step-card">
+        <div class="step-num">Fase 02 • Inspeção &amp; Diálogo no IDE</div>
+        <h3 style="font-size:var(--text-lg); margin-bottom:var(--space-2);">
+          <span class="lang-pt">Ler Linha a Linha e Questionar o Agente</span>
+          <span class="lang-en">Reading Line-by-Line and Interrogating the Agent</span>
+        </h3>
+        <p style="color:var(--text-secondary); font-size:var(--text-sm); line-height:1.6;">
+          <span class="lang-pt">Abre o ficheiro no teu IDE. Percorre as linhas com o cursor. Se encontrares um atributo desconhecido (ex: <code>&lt;time datetime="2026-11-20T22:00"&gt;</code> ou <code>scope="col"</code> numa tabela), interroga o Antigravity ADE antes de avançares:</span>
+          <span class="lang-en">Open the file in your IDE. Step through every line with your cursor. If you encounter an unfamiliar tag or attribute (e.g. <code>&lt;time datetime="..."&gt;</code> or table <code>scope="col"</code>), interrogate Antigravity ADE before moving on:</span>
+        </p>
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span>Prompt Modelo: Interrogação de Linha no IDE</span>
+            <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
+          </div>
+          <pre class="prompt-content">No ficheiro index.html, linhas 34-38, usaste o elemento &lt;time&gt; com o atributo datetime. 
+Explica-me:
+1. Qual é o benefício real disto para tecnologias de apoio (leitores de ecrã) e motores de busca?
+2. Como é que o browser lida com fusos horários neste formato ISO?</pre>
+        </div>
+      </article>
+
+      <!-- FASE 3 -->
+      <article class="step-card" id="sandbox-pattern">
+        <div class="step-num">Fase 03 • O Padrão Socratic Sandbox (Projetos Paralelos)</div>
+        <h3 style="font-size:var(--text-lg); margin-bottom:var(--space-2);">
+          <span class="lang-pt">Quando em Dúvida, Criar um Demonstrador Isolado</span>
+          <span class="lang-en">When in Doubt, Spin Up an Isolated Demonstrator</span>
+        </h3>
+        <p style="color:var(--text-secondary); font-size:var(--text-sm); line-height:1.6;">
+          <span class="lang-pt">Quando um conceito novo ou snippet complexo surgir (ex: <code>grid-auto-flow: dense</code>, <code>position: sticky</code> que não cola, ou fontes variáveis com <code>font-variation-settings</code>), <strong>NÃO tentes adivinhar no teu projeto capstone</strong>. Pede ao Antigravity ADE para criar um mini-projeto independente na pasta <code>demos/</code> com links oficiais da MDN e 3 experiências para o browser:</span>
+          <span class="lang-en">When a complex snippet appears (e.g. <code>grid-auto-flow: dense</code>, a failing <code>position: sticky</code>, or <code>clamp()</code> equations), <strong>do not experiment blindly in your capstone project</strong>. Prompt Antigravity ADE to spin up an isolated demo in the <code>demos/</code> folder with official MDN links and 3 browser experiments:</span>
+        </p>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span>Prompt Modelo: Criação de Socratic Sandbox</span>
+            <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
+          </div>
+          <pre class="prompt-content">Antigravity, tenho dúvidas sobre como funciona 'position: sticky' quando o elemento-pai tem 'overflow: hidden'.
+Cria um projeto de aprendizagem isolado na pasta 'demos/sandbox-sticky/' com:
+1. 'index.html': Página minimalista que demonstra lado a lado o caso com erro e o caso resolvido.
+2. 'styles.css': Estilos com contornos visuais coloridos para revelar o scroll e a caixa de contenção.
+3. Links canónicos para as páginas oficiais da MDN sobre 'position' e 'overflow'.
+4. Três desafios práticos em comentário para eu testar diretamente nas DevTools do browser.</pre>
+        </div>
+      </article>
+
+      <!-- FASE 4 -->
+      <article class="step-card">
+        <div class="step-num">Fase 04 • O Laboratório Empírico das DevTools</div>
+        <h3 style="font-size:var(--text-lg); margin-bottom:var(--space-2);">
+          <span class="lang-pt">O Código é Teoria; As DevTools são a Verdade</span>
+          <span class="lang-en">Code is Theory; Browser DevTools are the Truth</span>
+        </h3>
+        <p style="color:var(--text-secondary); font-size:var(--text-sm); line-height:1.6;">
+          <span class="lang-pt">O teu ambiente primário de validação visual não é o editor de texto, é a consola de inspeção do navegador. Pede ao agente para guiar a tua inspeção empírica:</span>
+          <span class="lang-en">Your primary validation environment is not your code editor; it is the browser inspection tools. Prompt your agent to direct your empirical debugging:</span>
+        </p>
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span>Prompt Modelo: Diagnóstico Empírico nas DevTools</span>
+            <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
+          </div>
+          <pre class="prompt-content">O meu layout móvel está a criar uma barra de scroll horizontal indesejada em ecrãs com menos de 480px.
+Não me dês a solução de código imediatamente.
+Guia-me passo a passo nas DevTools do Chrome/Firefox:
+1. Qual separador devo abrir?
+2. Que script de consola de uma linha posso correr para encontrar o elemento que excede 100vw?
+3. Como utilizo a insígnia 'grid' ou 'flex' para ver onde a grelha colapsou?</pre>
+        </div>
+      </article>
+    </section>
+
+    <!-- 4. CHECKLIST 360° DE QUALIDADE WEB -->
+    <section id="checklist" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-3); border-bottom:1px solid var(--border-color); padding-bottom:var(--space-2);">
+        <span class="lang-pt">4. Checklist Interativa 360° de Qualidade Web &amp; Publicação</span>
+        <span class="lang-en">4. Interactive 360° Web Quality &amp; Deployment Checklist</span>
+      </h2>
+
+      <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:var(--space-4);">
+        <span class="lang-pt">Antes de submeteres um exercício ou publicares no GitHub Pages / servidor web institucional, pede ao Antigravity ADE para verificar todos estes pontos críticos, ou testa-os tu mesmo abaixo:</span>
+        <span class="lang-en">Before submitting an assignment or publishing to GitHub Pages / your web server, prompt Antigravity ADE to audit these critical checks, or verify them yourself below:</span>
+      </p>
+
+      <div class="checklist-container">
+        <div style="display:flex; justify-content:space-between; align-items:center; font-family:var(--font-mono); font-size:var(--text-xs);">
+          <span>PROGRESSO DE CONFORMIDADE: <strong id="check-counter">0 / 12</strong></span>
+          <span id="check-percent" style="color:var(--color-guide-accent); font-weight:700;">0%</span>
+        </div>
+
+        <div class="checklist-progress-bar">
+          <div class="checklist-progress-fill" id="check-bar"></div>
+        </div>
+
+        <!-- Categoria 1 -->
+        <div class="check-category">
+          <div class="check-category-title">📁 1. Arquitetura de Ficheiros &amp; Caminhos Relativos</div>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Nomenclatura rigorosa:</strong> Todos os ficheiros e pastas em minúsculas (kebab-case), sem espaços nem acentos (ex: <code>festival-lineup.webp</code> e nunca <code>Lineup Final 2.JPG</code>).</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Caminhos relativos portáteis:</strong> Utilização estrita de caminhos relativos (<code>./css/styles.css</code> ou <code>../assets/img/</code>) em vez de caminhos absolutos a partir da raiz (<code>/css/styles.css</code>), garantindo que o site abre localmente e em subpastas do GitHub Pages.</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Index obrigatório:</strong> O ponto de entrada principal de cada pasta é sempre <code>index.html</code> em minúsculas.</span>
+          </label>
+        </div>
+
+        <!-- Categoria 2 -->
+        <div class="check-category">
+          <div class="check-category-title">🌐 2. Servidores Web, Caching &amp; Publicação</div>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Consciência de cache:</strong> Testar sempre as alterações com Hard Refresh (<code>Cmd+Shift+R</code> ou <code>Ctrl+F5</code>) ou com o separador Network com <em>"Disable cache"</em> ativado.</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Técnica de Cache-Busting:</strong> Em críticas e apresentações rápidas, anexar <code>?v=1.1</code> ao link do CSS (ex: <code>styles.css?v=2</code>) para forçar o proxy/servidor a descartar versões antigas.</span>
+          </label>
+        </div>
+
+        <!-- Categoria 3 -->
+        <div class="check-category">
+          <div class="check-category-title">🔤 3. Tipografia &amp; Fontes Variáveis Locais</div>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Fontes modernas WOFF2:</strong> Ficheiros de fonte auto-hospedados localmente na pasta de assets para garantir soberania e zero dependência de CDNs externas que bloqueiam sem internet.</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>font-display: swap:</strong> Declarado explicitamente em todas as regras <code>@font-face</code> para evitar texto invisível (FOIT) durante o descarregamento.</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Pilha de reserva (Fallback):</strong> Declarar sempre uma família genérica final (<code>sans-serif</code> ou <code>serif</code>) correspondente à métrica visual.</span>
+          </label>
+        </div>
+
+        <!-- Categoria 4 -->
+        <div class="check-category">
+          <div class="check-category-title">🖼️ 4. Multimédia Responsiva &amp; Prevenção de CLS</div>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Dimensões intrínsecas:</strong> Todos os <code>&lt;img&gt;</code> têm atributos explícitos <code>width="..."</code> e <code>height="..."</code> ou regra CSS <code>aspect-ratio</code> para prevenir saltos de layout (Cumulative Layout Shift).</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Formatos de nova geração:</strong> Imagens convertidas para WebP ou AVIF, reservando SVG para gráficos vetoriais puros sem metadados inúteis de editores.</span>
+          </label>
+        </div>
+
+        <!-- Categoria 5 -->
+        <div class="check-category">
+          <div class="check-category-title">♿ 5. Acessibilidade &amp; Zero Erros de Consola</div>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Consola limpa:</strong> Zero erros vermelhos no separador Console (sem recursos 404, fontes em falta ou scripts quebrados).</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Hierarquia e Contraste:</strong> Apenas um <code>&lt;h1&gt;</code> lógico por página, sem salto de níveis de títulos, e rácio de contraste &ge; 4.5:1 para texto corrente.</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. BIBLIOTECA DE PROMPTS -->
+    <section id="prompts" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-3); border-bottom:1px solid var(--border-color); padding-bottom:var(--space-2);">
+        <span class="lang-pt">5. Biblioteca de Prompts de Tutoria para Alunos</span>
+        <span class="lang-en">5. Student Mentorship Prompt Library</span>
+      </h2>
+
+      <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:var(--space-4);">
+        <span class="lang-pt">Guarda estes cinco arquétipos de prompt no teu ficheiro de regras do Antigravity (<code>.gemini/antigravity/rules/</code>) ou nas instruções do teu projeto para moldar o comportamento do agente:</span>
+        <span class="lang-en">Save these five prompt archetypes into your Antigravity project rules or chat to anchor your agent's behavior:</span>
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:var(--space-4);">
+        
+        <!-- PROMPT A -->
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <strong>Arquétipo 1: O Mentor Socrático (Explicação de Conceitos)</strong>
+            <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
+          </div>
+          <pre class="prompt-content">Atua como o meu Mentor de Web Design na FBAUP. 
+Estou a estudar [INSERE O CONCEITO, ex: a função CSS clamp() para tipografia fluida].
+NÃO escrevas o código do meu projeto por mim.
+Em vez disso:
+1. Explica o modelo mental com uma metáfora visual ligada ao design.
+2. Fornece um exemplo mínimo de 8 linhas de código funcional barebones.
+3. Dá-me o link direto para a documentação canónica da MDN.
+4. Faz-me duas perguntas de diagnóstico para verificar se compreendi verdadeiramente.</pre>
+        </div>
+
+        <!-- PROMPT B -->
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <strong>Arquétipo 2: O Revisor de Código &amp; Arquiteto de Design</strong>
+            <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
+          </div>
+          <pre class="prompt-content">Atua como Designer Tecnologista Sénior e Revisor de Código. 
+Inspeciona o meu ficheiro [CAMINHO, ex: css/styles.css] e [index.html].
+Avalia a qualidade do meu trabalho segundo estes três critérios estritos:
+1. Pureza semântica: Tenho divs desnecessários ou classes que duplicam seletores nativos?
+2. A Regra de Ouro do Layout: Estou a usar CSS Grid para a estrutura 2D e Flexbox para micro-alinhamentos 1D?
+3. Design Tokens: Estou a usar variáveis CSS consistentes para espaçamento, tipografia e cor?
+Indica apenas as 3 correções mais urgentes e explica a razão técnica de cada uma.</pre>
+        </div>
+
+        <!-- PROMPT C -->
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <strong>Arquétipo 3: O Auditor de Pré-Publicação (Strict QA)</strong>
+            <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
+          </div>
+          <pre class="prompt-content">Assume o papel de Líder de Controlo de Qualidade Web (QA). 
+Inspeciona todos os ficheiros da pasta [CAMINHO DO PROJETO] antes da publicação:
+1. Verifica se todos os nomes de ficheiros seguem o padrão minúsculo kebab-case sem acentos nem espaços.
+2. Inspeciona todos os links em &lt;link&gt;, &lt;script&gt;, &lt;img&gt; e &lt;a&gt; para garantir que são estritamente relativos.
+3. Verifica se as fontes locais WOFF2 têm 'font-display: swap' e se as imagens têm dimensões explícitas para evitar CLS.
+Devolve um relatório com a classificação: APROVADO, AVISO ou DEFEITO CRÍTICO, com as instruções de correção.</pre>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. LABORATÓRIO COMPARATIVO INTERATIVO -->
+    <section id="simulator" class="sim-container">
+      <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-2);">
+        <span class="lang-pt">6. Laboratório Comparativo: Oráculo Ingénuo vs. Mentor Socrático ADE</span>
+        <span class="lang-en">6. Comparative Lab: Naive Oracle vs. Socratic ADE Mentor</span>
+      </h2>
+      <p style="color:var(--text-secondary); font-size:var(--text-sm); margin-bottom:var(--space-4);">
+        <span class="lang-pt">Compara o impacto na aprendizagem entre recorrer a um modelo como "gerador de código pronto" versus utilizá-lo como "mentor e laboratório socrático":</span>
+        <span class="lang-en">Compare the learning outcome between using an AI as a "code generator" versus a "Socratic mentor &amp; sandboxing lab":</span>
+      </p>
+
+      <div class="sim-tabs">
+        <button class="sim-tab-btn active" onclick="switchSimTab('naive', this)">
+          ❌ Abordagem 1: O "Oráculo" Ingénuo (Anti-Padrão)
+        </button>
+        <button class="sim-tab-btn" onclick="switchSimTab('socratic', this)">
+          ✅ Abordagem 2: Mentor Socrático &amp; Sandboxes ADE
+        </button>
+      </div>
+
+      <!-- PAINEL INGÉNUO -->
+      <div id="sim-panel-naive" class="sim-panel active">
+        <div style="background:rgba(230, 0, 0, 0.08); border-left:4px solid var(--color-swiss-red); padding:var(--space-3); border-radius:4px; margin-bottom:var(--space-3);">
+          <strong style="color:var(--color-swiss-red); font-size:var(--text-sm);">O Pedido do Estudante:</strong>
+          <p style="font-style:italic; font-size:var(--text-sm); margin-top:4px;">"Faz-me uma grelha para os artistas do festival Drumtiks."</p>
+        </div>
+        <div style="font-size:var(--text-sm); line-height:1.6; color:var(--text-secondary);">
+          <strong>O que a IA vulgar responde:</strong> Gera 150 linhas de HTML genérico repleto de classes <code>class="col-md-4 card-wrapper"</code>, CSS estático e talvez até dependências externas.<br><br>
+          <strong style="color:var(--color-swiss-red);">O Resultado Pedagógico:</strong>
+          <ul style="padding-left:var(--space-4); margin-top:var(--space-2);">
+            <li>O estudante não aprendeu a sintaxe de <code>grid-template-columns</code> nem <code>minmax()</code>.</li>
+            <li>Quando o professor pedir para adicionar um vazio editorial (void) ou alterar um breakpoint, o estudante fica paralisado.</li>
+            <li>Zero retenção na memória de longo prazo; perda de controlo do projeto.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PAINEL SOCRÁTICO -->
+      <div id="sim-panel-socratic" class="sim-panel">
+        <div style="background:rgba(16, 185, 129, 0.08); border-left:4px solid var(--color-guide-accent); padding:var(--space-3); border-radius:4px; margin-bottom:var(--space-3);">
+          <strong style="color:var(--color-guide-accent); font-size:var(--text-sm);">O Pedido do Estudante no Modo Antigravity ADE:</strong>
+          <p style="font-style:italic; font-size:var(--text-sm); margin-top:4px;">"Cria uma sandbox isolada em 'demos/sandbox-grid/' com 6 cartões para eu testar 'minmax(240px, 1fr)' e dá-me o link MDN para 'grid-template-columns'."</p>
+        </div>
+        <div style="font-size:var(--text-sm); line-height:1.6; color:var(--text-secondary);">
+          <strong>O que o Antigravity ADE responde:</strong> Cria a pasta, instala um ficheiro <code>index.html</code> minimalista com 6 caixas coloridas, adiciona links diretos para a documentação e sugere que o estudante abra as DevTools para ver o recálculo das pistas em tempo real.<br><br>
+          <strong style="color:var(--color-guide-accent);">O Resultado Pedagógico:</strong>
+          <ul style="padding-left:var(--space-4); margin-top:var(--space-2);">
+            <li>O estudante compreende exatamente o que a unidade fracionária <code>1fr</code> faz em conjunto com <code>minmax()</code>.</li>
+            <li>O projeto capstone principal permanece imaculado e sob o controlo total do autor.</li>
+            <li>Construção de competências de engenharia visual transferíveis e duradouras.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Conclusão & Próximos Passos -->
+    <footer style="border-top:1px solid var(--border-color); padding-top:var(--space-6); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-3); margin-top:var(--space-10);">
+      <a href="index.html#study-goals" class="btn-control" style="background:var(--color-guide-accent); color:#000; border-color:var(--color-guide-accent); font-weight:700;">
+        ← <span class="lang-pt">Voltar ao Andaime Pedagógico (Objetivos de Estudo)</span><span class="lang-en">Return to Learning Scaffold (Study Goals)</span>
+      </a>
+      <span style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-muted);">
+        WD101 • FBAUP 2026/27
+      </span>
+    </footer>
+
+  </main>
+
+  <script>
+    // Checklist Calculator
+    function updateChecklist() {
+      const allChecks = document.querySelectorAll('.checklist-container input[type="checkbox"]');
+      const total = allChecks.length;
+      let checked = 0;
+      allChecks.forEach(c => { if (c.checked) checked++; });
+      const percent = Math.round((checked / total) * 100);
+      
+      document.getElementById('check-counter').textContent = `${checked} / ${total}`;
+      document.getElementById('check-percent').textContent = `${percent}%`;
+      document.getElementById('check-bar').style.width = `${percent}%`;
+    }
+
+    // Simulator Tab Switcher
+    function switchSimTab(tabName, btn) {
+      document.querySelectorAll('.sim-tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.sim-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const target = document.getElementById(`sim-panel-${tabName}`);
+      if (target) target.classList.add('active');
+    }
+
+    // Copy Prompt Functionality
+    function copyPrompt(btn) {
+      const box = btn.closest('.prompt-box');
+      const content = box.querySelector('.prompt-content').textContent;
+      navigator.clipboard.writeText(content).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = '✓ Copiado!';
+        btn.style.background = 'var(--color-guide-accent)';
+        btn.style.color = '#000';
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.style.background = '';
+          btn.style.color = '';
+        }, 2000);
+      });
+    }
+
+    // Theme & Language Handlers
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    function updateThemeBtnState() {
+      if (!themeBtn) return;
+      const current = document.documentElement.getAttribute('data-theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const isDark = current === 'dark';
+      const lang = document.documentElement.getAttribute('lang') || 'pt';
+      const label = isDark ? (lang === 'pt' ? 'Escuro' : 'Dark') : (lang === 'pt' ? 'Claro' : 'Light');
+      const icon = isDark ? '🌙' : '☀';
+      themeBtn.innerHTML = `${icon} <span>${label}</span>`;
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('wd101_theme', next);
+        updateThemeBtnState();
+      });
+      const savedTheme = localStorage.getItem('wd101_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      updateThemeBtnState();
+    }
+
+    const langBtn = document.getElementById('lang-toggle-btn');
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('wd101_lang', lang);
+      if (langBtn) {
+        langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
+      }
+      updateThemeBtnState();
+    }
+
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('lang') || 'pt';
+        const next = current === 'pt' ? 'en' : 'pt';
+        setLanguage(next);
+      });
+      setLanguage(localStorage.getItem('wd101_lang') || 'pt');
+    }
+  </script>
+
+</body>
+</html>

@@ -43,6 +43,9 @@ window.I18N = {
       goal_6_desc: "Domine o seletor relacional :has(), construa reatividade sem JavaScript com :checked, :focus-within, :target e Popover API, reduza especificidade com :where() e agrupe com :is().",
       goal_7_title: "7. Princípios de Design de Interação",
       goal_7_desc: "Alie a engenharia CSS aos modelos mentais da interação: Affordance perceptível, Signifiers explícitos, Feedback imediato, Mapeamento natural, Divulgação Progressiva e prevenção de Anti-Padrões.",
+      goal_8_title: "8. Transição para IA & Antigravity ADE",
+      goal_8_desc: "Transite do código manual no VS Code para o potencial do Antigravity (Modo ADE + Editor IDE). Use a IA como mentor socrático, crie sandboxes paralelas em /demos/ com links MDN e aplique checklists 360° de controlo de qualidade.",
+      goal_8_link: "🤖 Guião Detalhado: Transição para Antigravity ADE ↗",
 
       // Assignments Section
       assign_heading: "Enunciados & Decomposição Pedagógica",
@@ -131,6 +134,9 @@ window.I18N = {
       goal_6_desc: "Master relational parent queries with :has(), architect pure CSS reactive state machines using :checked, :focus-within, :target, and Popover API, flatten specificity with :where() and group with :is().",
       goal_7_title: "7. Interaction Design Principles",
       goal_7_desc: "Connect CSS engineering to cognitive interaction mental models: Perceptible Affordance, Explicit Signifiers, Immediate Feedback, Natural Mapping, Progressive Disclosure, and preventing Web Anti-Patterns.",
+      goal_8_title: "8. Transition to AI & Antigravity ADE",
+      goal_8_desc: "Transition from manual coding in VS Code to harness Antigravity (ADE Mode + IDE Editor). Use AI as a Socratic mentor, spin up parallel learning sandboxes in /demos/ with MDN links, inspect the browser via DevTools, and enforce rigorous quality & asset path checklists.",
+      goal_8_link: "🤖 Detailed Guide: Transition to Antigravity ADE ↗",
 
       // Assignments Section
       assign_heading: "Assignments & Pedagogical Progression",

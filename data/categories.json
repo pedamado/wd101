@@ -115,5 +115,14 @@
     "title": { "pt": "Princípios de Interação & Teoria UX", "en": "Interaction Principles & UX Theory" },
     "tier": "transversal",
     "lev": 0
+  },
+  {
+    "uid": "cat-14",
+    "num_id": 14,
+    "id": "cat-ai-mentorship",
+    "slug": "ai-mentorship",
+    "title": { "pt": "Transição para IA & Modo Antigravity ADE", "en": "AI Mentorship & Antigravity ADE Mode" },
+    "tier": "transversal",
+    "lev": 0
   }
 ]
