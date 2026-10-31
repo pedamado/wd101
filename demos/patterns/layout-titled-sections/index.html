@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAY-14: Titled Sections (Secções Tituladas) • WD101 Drumtiks</title>
+  
+  <!-- Prevenção de FOUC de Tema e Idioma -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || 
+                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
+
+  <!-- Estilos Globais do Sistema Modernista -->
+  <link rel="stylesheet" href="../../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../../assets/css/modernist.css">
+
+  <style>
+    /* Estilos da Página do Padrão */
+    .pattern-page-hero {
+      border-bottom: 2px solid var(--border-color);
+      padding: var(--space-8) 0 var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+    .guide-back-link {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: var(--space-3);
+    }
+    .guide-back-link:hover {
+      color: var(--color-swiss-red);
+    }
+    .meta-badges-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-2);
+    }
+    .pattern-hero-title {
+      font-size: var(--text-3xl);
+      color: var(--text-primary);
+      margin: var(--space-2) 0 var(--space-3);
+      line-height: 1.2;
+    }
+    .pattern-hero-desc {
+      font-size: var(--text-base);
+      color: var(--text-secondary);
+      max-width: 82ch;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Sandbox Container */
+    .pattern-sandbox-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      margin-bottom: var(--space-8);
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .pattern-sandbox-header {
+      padding: var(--space-3) var(--space-4);
+      background: var(--bg-surface-elevated);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .pattern-tabs-group {
+      display: flex;
+      gap: var(--space-1);
+    }
+    .pattern-controls-group {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .xray-toggle-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+    .xray-toggle-pill:hover {
+      border-color: #00d2ff;
+      color: #00d2ff;
+    }
+    .xray-toggle-pill input[type="checkbox"] {
+      cursor: pointer;
+    }
+
+    /* Live Preview Pane */
+    .pattern-live-preview {
+      padding: var(--space-8) var(--space-6);
+      background-color: var(--bg-page);
+      min-height: 240px;
+      overflow-x: auto;
+      display: block;
+      transition: outline 0.2s ease, background 0.2s ease;
+    }
+
+    /* Code Views */
+    .pattern-code-pane {
+      display: none;
+      position: relative;
+      background-color: #090a0f;
+      color: #f1f5f9;
+      padding: var(--space-6);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      line-height: 1.65;
+      overflow-x: auto;
+      max-height: 520px;
+    }
+    .pattern-code-pane pre {
+      margin: 0;
+      white-space: pre;
+    }
+
+    /* Modo Raio-X Ativo */
+    .xray-active-container {
+      outline: 2px dashed #00d2ff !important;
+      outline-offset: 4px;
+      background-image: radial-gradient(rgba(0, 210, 255, 0.12) 1px, transparent 1px) !important;
+      background-size: 16px 16px !important;
+    }
+    .xray-active-container * {
+      outline: 1px dashed rgba(2, 132, 199, 0.4);
+    }
+    .xray-active-container button,
+    .xray-active-container a,
+    .xray-active-container input,
+    .xray-active-container select,
+    .xray-active-container summary {
+      outline: 2px solid #10b981 !important;
+      outline-offset: 2px;
+    }
+    .xray-badge {
+      display: none;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 800;
+      background: #00d2ff;
+      color: #060608;
+      padding: 1px 6px;
+      border-radius: 2px;
+      margin-left: 6px;
+      vertical-align: middle;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .xray-active-container .xray-badge {
+      display: inline-block !important;
+    }
+
+    /* Análise Anatómica */
+    .code-analysis-section {
+      margin-bottom: var(--space-8);
+    }
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-4);
+    }
+    .analysis-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: var(--space-4);
+    }
+    .analysis-card-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+    .analysis-card-header h4 {
+      font-size: var(--text-sm);
+      margin: 0;
+      color: var(--text-primary);
+    }
+    .analysis-card p {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Prevenção de Dark Patterns */
+    .anti-pattern-section {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-left: 6px solid #e11d48;
+      border-radius: 0 4px 4px 0;
+      padding: var(--space-6);
+      margin-bottom: var(--space-12);
+    }
+    .anti-pattern-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+    .anti-pattern-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+    @media (min-width: 768px) {
+      .anti-pattern-content {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-6);
+      }
+    }
+    .anti-pattern-hazard {
+      background: rgba(225, 29, 72, 0.05);
+      border: 1px solid rgba(225, 29, 72, 0.2);
+      border-radius: 4px;
+      padding: var(--space-4);
+    }
+    .anti-pattern-hazard h4 {
+      font-size: var(--text-xs);
+      color: #e11d48;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      margin-bottom: var(--space-2);
+    }
+    .anti-pattern-hazard p {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .anti-pattern-guidelines {
+      background: rgba(16, 185, 129, 0.05);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 4px;
+      padding: var(--space-4);
+    }
+    .anti-pattern-guidelines h4 {
+      font-size: var(--text-xs);
+      color: #059669;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      margin-bottom: var(--space-2);
+    }
+    .anti-pattern-guidelines ul {
+      margin: 0;
+      padding-left: var(--space-4);
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Navegação Sequencial de Rodapé */
+    .pattern-sequence-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      margin-bottom: var(--space-12);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+    }
+
+    /* CSS Específico do Componente */
+
+    .demo-canvas {
+      padding: var(--space-6);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+    }
+    .demo-title {
+      font-size: var(--text-base);
+      font-weight: 700;
+      margin-bottom: var(--space-3);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .demo-badge-cyan {
+      background: rgba(0, 210, 255, 0.15);
+      color: #00d2ff;
+      border: 1px solid #00d2ff;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 2px;
+    }
+    
+    .layout-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-3);
+      margin-top: var(--space-2);
+    }
+    .layout-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-top: 3px solid var(--color-swiss-red);
+      padding: var(--space-4);
+      border-radius: 2px;
+    }
+    .layout-card h4 {
+      font-size: var(--text-sm);
+      margin: var(--space-2) 0 var(--space-1);
+    }
+    .layout-card p {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      margin: 0;
+      line-height: 1.5;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- Site Header Landmark -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="../../../index.html" class="brand-logo">WD<span>101</span></a>
+        <span class="brand-meta">FBAUP Design 2026/27</span>
+      </div>
+
+      <nav class="site-nav" aria-label="Navegação do Padrão">
+        <ul>
+          <li><a href="../../../interaction-patterns.html"><span class="lang-pt">← Catálogo (142)</span><span class="lang-en">← Catalog (142)</span></a></li>
+          <li><a href="../../../index.html#interaction-design"><span class="lang-pt">Princípios</span><span class="lang-en">Principles</span></a></li>
+          <li><a href="../../tp11-integrated-responsive-project/index.html" target="_blank" rel="noopener noreferrer"><span class="lang-pt">🚀 Drumtiks Capstone</span><span class="lang-en">🚀 Drumtiks Capstone</span> ↗</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-controls">
+        <a href="../../../interaction-patterns.html" class="btn-control">
+          <span class="lang-pt">← Catálogo</span>
+          <span class="lang-en">← Catalog</span>
+        </a>
+        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
+        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+
+    <!-- Hero / Enquadramento do Padrão -->
+    <header class="pattern-page-hero">
+      <a href="../../../interaction-patterns.html" class="guide-back-link">
+        <span class="lang-pt">← Voltar ao Catálogo Global de 142 Padrões</span>
+        <span class="lang-en">← Back to Global 142 Patterns Catalog</span>
+      </a>
+
+      <div class="meta-badges-row">
+        <span class="badge badge-transversal">LAY-14</span>
+        <span class="badge badge-intermediate"><span class="lang-pt">Layout, Estruturação de Conteúdo &amp; RWD Macro</span><span class="lang-en">Layout, Content Structure &amp; Macro RWD</span></span>
+        <span class="badge badge-foundational"><span class="lang-pt">Festival Drumtiks '26</span><span class="lang-en">Drumtiks '26 Festival</span></span>
+        <span class="badge badge-drumtiks" title="Implementado no Capstone Drumtiks '26">✨ Implementado no Capstone</span>
+      </div>
+
+      <h1 class="pattern-hero-title">
+        <span class="lang-pt">Titled Sections (Secções Tituladas)</span>
+        <span class="lang-en">Titled Sections</span>
+      </h1>
+
+      <p class="pattern-hero-desc">
+        <span class="lang-pt">Divisão clara de uma página longa em secções temáticas encabeçadas por títulos semânticos (&lt;h2&gt;), essenciais para leitura rápida e acessibilidade.</span>
+        <span class="lang-en">Structural segmentation of long-form pages under clear semantic headers (&lt;h2&gt;), crucial for skimming and screen reader navigation.</span>
+      </p>
+
+      <div style="margin-top:var(--space-3); font-family:var(--font-mono); font-size:11px; color:var(--text-muted);">
+        <strong><span class="lang-pt">Fonte Bibliográfica:</span><span class="lang-en">Bibliographic Source:</span></strong> Ethan Marcotte (Responsive Web Design) • Scott Jehl (Responsible Responsive Design) • Jenifer Tidwell (Ch. 3: Organizing the Page) • Brad Frost (Atomic Design)
+      </div>
+    </header>
+
+    <!-- Code-Pen Style Sandbox Component -->
+    <section class="pattern-sandbox-card" aria-label="Demonstração Interativa do Padrão">
+      <div class="pattern-sandbox-header">
+        <div class="pattern-tabs-group" role="tablist">
+          <button type="button" class="tab-btn active" data-tab="preview" role="tab" aria-selected="true">
+            🚀 <span class="lang-pt">Demonstração</span><span class="lang-en">Rendered Demo</span>
+          </button>
+          <button type="button" class="tab-btn" data-tab="html" role="tab" aria-selected="false">
+            📄 <span class="lang-pt">Código HTML</span><span class="lang-en">HTML Code</span>
+          </button>
+          <button type="button" class="tab-btn" data-tab="css" role="tab" aria-selected="false">
+            🎨 <span class="lang-pt">Código CSS</span><span class="lang-en">CSS Code</span>
+          </button>
+        </div>
+
+        <div class="pattern-controls-group">
+          <label class="xray-toggle-pill" title="Ativar Modo Raio-X para inspecionar alvos táteis, grelhas e limites de acessibilidade">
+            <input type="checkbox" id="xray-toggle" class="xray-checkbox">
+            <span>🩻 <span class="lang-pt">Modo Raio-X</span><span class="lang-en">X-Ray Mode</span></span>
+          </label>
+          <button type="button" class="btn-control" id="btn-copy-code" title="Copiar código do separador ativo">
+            📋 <span class="lang-pt">Copiar Código</span><span class="lang-en">Copy Code</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab Content 1: Live Rendered Sandbox -->
+      <div class="pattern-live-preview" id="pane-preview">
+<div class="drumtiks-layout-demo">
+  <div class="demo-title">
+    <span>📐</span> <span>Drumtiks '26 • Titled Sections (Secções Tituladas)</span>
+    <span class="xray-badge">[LAY-14 &bull; CSS GRID / FLEXBOX]</span>
+  </div>
+  <div class="layout-demo-grid">
+    <article class="layout-card">
+      <span class="badge badge-foundational">PALCO ALFÂNDEGA</span>
+      <h4>DJ Warp (Live)</h4>
+      <p>Modular techno &amp; live drum kinetics a 140 BPM.</p>
+      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
+    </article>
+    <article class="layout-card">
+      <span class="badge badge-intermediate">PALCO DOURO</span>
+      <h4>Helena Hauff</h4>
+      <p>Raw analog electro e batidas industriais acid.</p>
+      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
+    </article>
+    <article class="layout-card">
+      <span class="badge badge-advanced">CLUBBING VAULT</span>
+      <h4>Surgeon</h4>
+      <p>Hypnotic Birmingham techno nas abóbadas subterrâneas.</p>
+      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
+    </article>
+  </div>
+</div>
+      </div>
+
+      <!-- Tab Content 2: HTML Source Code -->
+      <div class="pattern-code-pane" id="pane-html">
+        <pre><code>&lt;div class=&quot;drumtiks-layout-demo&quot;&gt;
+  &lt;div class=&quot;demo-title&quot;&gt;
+    &lt;span&gt;📐&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Titled Sections (Secções Tituladas)&lt;/span&gt;
+    &lt;span class=&quot;xray-badge&quot;&gt;[LAY-14 &amp;bull; CSS GRID / FLEXBOX]&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;layout-demo-grid&quot;&gt;
+    &lt;article class=&quot;layout-card&quot;&gt;
+      &lt;span class=&quot;badge badge-foundational&quot;&gt;PALCO ALFÂNDEGA&lt;/span&gt;
+      &lt;h4&gt;DJ Warp (Live)&lt;/h4&gt;
+      &lt;p&gt;Modular techno &amp;amp; live drum kinetics a 140 BPM.&lt;/p&gt;
+      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
+    &lt;/article&gt;
+    &lt;article class=&quot;layout-card&quot;&gt;
+      &lt;span class=&quot;badge badge-intermediate&quot;&gt;PALCO DOURO&lt;/span&gt;
+      &lt;h4&gt;Helena Hauff&lt;/h4&gt;
+      &lt;p&gt;Raw analog electro e batidas industriais acid.&lt;/p&gt;
+      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
+    &lt;/article&gt;
+    &lt;article class=&quot;layout-card&quot;&gt;
+      &lt;span class=&quot;badge badge-advanced&quot;&gt;CLUBBING VAULT&lt;/span&gt;
+      &lt;h4&gt;Surgeon&lt;/h4&gt;
+      &lt;p&gt;Hypnotic Birmingham techno nas abóbadas subterrâneas.&lt;/p&gt;
+      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
+    &lt;/article&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+
+      <!-- Tab Content 3: CSS Source Code -->
+      <div class="pattern-code-pane" id="pane-css">
+        <pre><code>.demo-canvas {
+      padding: var(--space-6);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+    }
+    .demo-title {
+      font-size: var(--text-base);
+      font-weight: 700;
+      margin-bottom: var(--space-3);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .demo-badge-cyan {
+      background: rgba(0, 210, 255, 0.15);
+      color: #00d2ff;
+      border: 1px solid #00d2ff;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 2px;
+    }
+    
+    .layout-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-3);
+      margin-top: var(--space-2);
+    }
+    .layout-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-top: 3px solid var(--color-swiss-red);
+      padding: var(--space-4);
+      border-radius: 2px;
+    }
+    .layout-card h4 {
+      font-size: var(--text-sm);
+      margin: var(--space-2) 0 var(--space-1);
+    }
+    .layout-card p {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      margin: 0;
+      line-height: 1.5;
+    }</code></pre>
+      </div>
+    </section>
+
+    <!-- Análise Anatómica do Código -->
+    <section class="code-analysis-section">
+      <h3 style="font-size:var(--text-lg); margin-bottom:var(--space-3); color:var(--text-primary); display:flex; align-items:center; gap:var(--space-2);">
+        <span>🔬</span>
+        <span class="lang-pt">Análise Anatómica do Padrão</span>
+        <span class="lang-en">Anatomical Code Walkthrough</span>
+      </h3>
+
+      <div class="analysis-grid">
+        <div class="analysis-card">
+          <div class="analysis-card-header">
+            <span class="badge badge-foundational">HTML &amp; ARIA</span>
+            <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
+          </div>
+          <p>
+            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
+            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+          </p>
+        </div>
+
+        <div class="analysis-card">
+          <div class="analysis-card-header">
+            <span class="badge badge-intermediate">CSS ENGINE</span>
+            <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
+          </div>
+          <p>
+            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
+            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+          </p>
+        </div>
+
+        <div class="analysis-card">
+          <div class="analysis-card-header">
+            <span class="badge badge-transversal">UX &amp; TOUCH</span>
+            <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
+          </div>
+          <p>
+            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Ethan Marcotte (Responsive Web Design), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
+            <span class="lang-en">Engineered following human-interface principles from Ethan Marcotte (Responsive Web Design), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prevenção de Dark Patterns & Anti-Padrões -->
+    <section class="anti-pattern-section" aria-label="Prevenção de Dark Patterns">
+      <div class="anti-pattern-header">
+        <span class="badge badge-advanced">⚠️ ÉTICA &amp; DARK PATTERNS</span>
+        <h3 style="font-size:var(--text-lg); margin:0; color:var(--text-primary);">
+          <span class="lang-pt">Como Evitar a Degradação em Dark Pattern / Anti-Padrão</span>
+          <span class="lang-en">How to Avoid Degenerating into a Dark Pattern / Anti-Pattern</span>
+        </h3>
+      </div>
+
+      <div class="anti-pattern-content">
+        <div class="anti-pattern-hazard">
+          <h4>
+            <span class="lang-pt">🚨 O Risco de Abuso / Anti-Padrão:</span>
+            <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
+          </h4>
+          <p>
+            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
+            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+          </p>
+        </div>
+
+        <div class="anti-pattern-guidelines">
+          <h4>
+            <span class="lang-pt">🛡️ Diretrizes de Design Ético &amp; Transparência:</span>
+            <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
+          </h4>
+          <ul>
+            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
+            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
+            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navegação Sequencial de Rodapé -->
+    <nav class="pattern-sequence-nav" aria-label="Navegação entre padrões do catálogo">
+      <a href="../layout-center-stage/index.html" class="btn-control" title="Padrão anterior: LAY-13 - Center Stage (Palco Central)">
+      ← <span class="lang-pt">Anterior: <strong>LAY-13</strong></span><span class="lang-en">Prev: <strong>LAY-13</strong></span>
+    </a>
+      <a href="../../../interaction-patterns.html" class="btn-control" style="font-weight:700;">
+        📑 <span class="lang-pt">Catálogo (142 Padrões)</span><span class="lang-en">Catalog (142 Patterns)</span>
+      </a>
+      <a href="../layout-accordion/index.html" class="btn-control" title="Padrão seguinte: LAY-15 - Accordion (Acordeão)">
+      <span class="lang-pt">Seguinte: <strong>LAY-15</strong></span><span class="lang-en">Next: <strong>LAY-15</strong></span> →
+    </a>
+    </nav>
+
+  </main>
+
+  <!-- Site Footer Landmark -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div>
+        <p><strong>WD101 • Web Design 2026/27</strong> — Licenciatura em Design de Comunicação</p>
+        <p style="font-size:var(--text-xs);color:var(--text-secondary);margin-top:var(--space-1);">
+          Faculdade de Belas Artes da Universidade do Porto (FBAUP) • Investigação i2ADS
+        </p>
+      </div>
+      <div>
+        <p style="font-size:var(--text-xs);color:var(--text-secondary);text-align:right;">
+          Coordenação: Prof. Pedro Amado • Assistência IA: Google Gemini (Pro 3 Flash &amp; Pro4 Argon)<br>
+          <span style="font-family:var(--font-mono);color:var(--badge-transversal-border, #64748b);">DRUMTIKS '26 BAREBONES PATTERN ENGINE • LAY-14</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script de Interação: Separadores, Modo Raio-X, Cópia de Código & Tema/Idioma -->
+  <script>
+    (function() {
+      // 1. Tema & Idioma
+      const langBtn = document.getElementById('lang-toggle-btn');
+      const themeBtn = document.getElementById('theme-toggle-btn');
+
+      function updateLanguageUI(lang) {
+        document.documentElement.setAttribute('lang', lang);
+        localStorage.setItem('wd101_lang', lang);
+        if (langBtn) {
+          langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
+        }
+      }
+
+      function updateThemeUI(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('wd101_theme', theme);
+        if (themeBtn) {
+          themeBtn.innerHTML = theme === 'dark' ? '☀ <span>Tema</span>' : '◐ <span>Tema</span>';
+        }
+      }
+
+      if (langBtn) {
+        langBtn.addEventListener('click', function() {
+          const currentLang = document.documentElement.getAttribute('lang') || 'pt';
+          updateLanguageUI(currentLang === 'pt' ? 'en' : 'pt');
+        });
+      }
+
+      if (themeBtn) {
+        themeBtn.addEventListener('click', function() {
+          const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+          updateThemeUI(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+      }
+
+      const initialLang = localStorage.getItem('wd101_lang') || 'pt';
+      updateLanguageUI(initialLang);
+      const initialTheme = localStorage.getItem('wd101_theme') || 
+                           (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      updateThemeUI(initialTheme);
+
+      // 2. Tab Switching (Rendered / HTML / CSS)
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const previewPane = document.getElementById('pane-preview');
+      const htmlPane = document.getElementById('pane-html');
+      const cssPane = document.getElementById('pane-css');
+      const btnCopyCode = document.getElementById('btn-copy-code');
+
+      let currentTab = 'preview';
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          tabBtns.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          this.classList.add('active');
+          this.setAttribute('aria-selected', 'true');
+          currentTab = this.getAttribute('data-tab');
+
+          if (currentTab === 'preview') {
+            previewPane.style.display = 'block';
+            htmlPane.style.display = 'none';
+            cssPane.style.display = 'none';
+          } else if (currentTab === 'html') {
+            previewPane.style.display = 'none';
+            htmlPane.style.display = 'block';
+            cssPane.style.display = 'none';
+          } else if (currentTab === 'css') {
+            previewPane.style.display = 'none';
+            htmlPane.style.display = 'none';
+            cssPane.style.display = 'block';
+          }
+        });
+      });
+
+      // 3. X-Ray Mode Toggle
+      const xrayCheckbox = document.getElementById('xray-toggle');
+      if (xrayCheckbox) {
+        xrayCheckbox.addEventListener('change', function() {
+          if (this.checked) {
+            previewPane.classList.add('xray-active-container');
+          } else {
+            previewPane.classList.remove('xray-active-container');
+          }
+        });
+      }
+
+      // 4. Copy Code
+      if (btnCopyCode) {
+        btnCopyCode.addEventListener('click', function() {
+          let codeToCopy = '';
+          if (currentTab === 'html') {
+            codeToCopy = htmlPane.innerText;
+          } else if (currentTab === 'css') {
+            codeToCopy = cssPane.innerText;
+          } else {
+            codeToCopy = previewPane.innerHTML;
+          }
+
+          navigator.clipboard.writeText(codeToCopy).then(() => {
+            const originalText = btnCopyCode.innerHTML;
+            btnCopyCode.innerHTML = '✓ <span class="lang-pt">Copiado!</span><span class="lang-en">Copied!</span>';
+            setTimeout(() => {
+              btnCopyCode.innerHTML = originalText;
+            }, 1800);
+          }).catch(err => {
+            console.error('Falha ao copiar:', err);
+          });
+        });
+      }
+
+    })();
+  </script>
+
+</body>
+</html>
