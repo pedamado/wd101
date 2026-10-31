@@ -30,8 +30,11 @@ learning-scaffold/
 │
 ├── mobile-first-foundation.html                # 📘 Guião profundo: Semanas 1-2, HTML5 e Arquitetura Web
 ├── intrinsic-sizing-box-model.html             # 📘 Guião profundo: Dimensionamento Intrínseco e Box Model
+├── fluid-variable-typography.html              # 📘 Guião profundo: Tipografia Fluida, Escalas & Fontes Variáveis
+├── AI-MENTOR-TRANSITION-GUIDE.md               # 🤖 MANUAL DO ESTUDANTE: Transição do Código Manual para Antigravity ADE
 ├── ex1-hello-warp-guide.html                   # 📘 Guião Passo a Passo: EX1 (Hello Warp!)
 ├── ex2-guide.html                              # 📘 Guião Passo a Passo: EX2 (Media & Box Model)
+├── tp06-early-prototype-guide.html             # 📘 Guião Passo a Passo: Fase 1 — Protótipo Preliminar (TP06)
 │
 ├── assets/                                     # CSS modular (@layer), fontes variáveis e scripts
 │   ├── css/                                    # reset.css, modernist.css, patterns-demo.css

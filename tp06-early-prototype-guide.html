@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TP06: DRUMTIKS '26 — Protótipo Preliminar • Guião Técnico &amp; Resolução • WD101</title>
+  
+  <!-- Previne FOUC de tema e idioma -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || 
+                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
+
+  <!-- CSS Layer Hierarchy -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+
+  <style>
+    .guide-hero {
+      border-bottom: 2px solid var(--color-swiss-red);
+      padding: var(--space-8) 0;
+      margin-bottom: var(--space-8);
+    }
+    .guide-back-link {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-swiss-red);
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: var(--space-3);
+    }
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--color-swiss-red);
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+      border-radius: 0 4px 4px 0;
+    }
+    .step-card h3 {
+      font-size: var(--text-xl);
+      color: var(--text-primary);
+      margin-bottom: var(--space-2);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+    .step-badge {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      background: var(--color-swiss-red);
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+    }
+
+    /* Explicação Técnica Sempre Visível (Sem Acordeões nem Cliques) */
+    .tech-deep-dive-visible {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--color-accent-blue);
+      border-radius: 4px;
+      margin-top: var(--space-4);
+      padding: var(--space-4);
+      font-size: var(--text-xs);
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+    .deep-dive-header {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--color-accent-blue);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-3);
+      padding-bottom: var(--space-2);
+      border-bottom: 1px dashed var(--border-color);
+    }
+    .deep-dive-badge {
+      font-size: var(--text-2xs);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      padding: 0.15rem 0.45rem;
+      border-radius: 2px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tag-item-list {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-3) 0 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .tag-item-list li {
+      padding-left: var(--space-4);
+      border-left: 2px solid var(--color-swiss-red);
+    }
+    .tag-item-list code {
+      font-weight: 700;
+      color: var(--text-primary);
+      background: var(--bg-surface);
+      padding: 0.15rem 0.35rem;
+      border-radius: 2px;
+      border: 1px solid var(--border-color);
+    }
+    .tag-item-list a {
+      color: var(--color-swiss-red);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    /* Banner do Mini-Site Demo */
+    .demo-callout-banner {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-left: 6px solid var(--color-swiss-red);
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+      border-radius: 0 4px 4px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    /* Tabela da Rubrica */
+    .rubric-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-xs);
+      margin: var(--space-4) 0;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+    }
+    .rubric-table th, .rubric-table td {
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--border-color);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .rubric-table th {
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .rubric-score {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--color-swiss-red);
+      white-space: nowrap;
+    }
+
+    /* Contentores de Código */
+    .code-container {
+      background: #0d1117;
+      color: #e6edf3;
+      border: 1px solid var(--border-color);
+      padding: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      line-height: 1.6;
+      border-radius: 4px;
+      margin-bottom: var(--space-4);
+      overflow-x: auto;
+      overflow-y: visible;
+      height: auto;
+      max-height: none;
+    }
+    .code-container pre {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      white-space: pre;
+      overflow-x: auto;
+    }
+    .code-container code {
+      background: transparent;
+      border: none;
+      padding: 0;
+      font-family: inherit;
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header Landmark -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-logo">WD<span>101</span></a>
+        <span class="brand-meta">FBAUP Design 2026/27</span>
+      </div>
+
+      <nav class="site-nav" aria-label="Navegação do Guião">
+        <ul>
+          <li><a href="index.html#assignments"><span class="lang-pt">← Enunciados</span><span class="lang-en">← Assignments</span></a></li>
+          <li><a href="#enquadramento"><span class="lang-pt">Enquadramento</span><span class="lang-en">Overview</span></a></li>
+          <li><a href="#passos"><span class="lang-pt">Passo a Passo</span><span class="lang-en">Step-by-Step</span></a></li>
+          <li><a href="#rubrica"><span class="lang-pt">Rubrica Docente</span><span class="lang-en">Grading Rubric</span></a></li>
+          <li><a href="#checklist"><span class="lang-pt">Checklist</span><span class="lang-en">Checklist</span></a></li>
+          <li><a href="#codigo-completo"><span class="lang-pt">Código Oficial</span><span class="lang-en">Official Code</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="header-controls">
+        <a href="demos/tp06-responsive/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);">
+          <span class="lang-pt">🚀 Ver Mini-Site Demo ↗</span>
+          <span class="lang-en">🚀 View Live Demo ↗</span>
+        </a>
+        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
+        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+
+    <!-- Hero / Enquadramento -->
+    <header class="guide-hero" id="inicio">
+      <a href="index.html#assignments" class="guide-back-link">
+        <span class="lang-pt">← Voltar aos Enunciados da Plataforma WD101</span>
+        <span class="lang-en">← Back to Course Assignments</span>
+      </a>
+      <span class="hero-eyebrow">
+        <span class="lang-pt">Fase 1 • Projeto Final — Protótipo Preliminar • WD101</span>
+        <span class="lang-en">Stage 1 • Final Project — Early Prototype • WD101</span>
+      </span>
+      <h1 class="hero-title" style="font-size:var(--text-3xl);margin:var(--space-2) 0 var(--space-4);">
+        <span class="lang-pt">TP06: "DRUMTIKS '26" — Portal Web Responsivo &amp; Motor Reativo Pure CSS</span>
+        <span class="lang-en">TP06: "DRUMTIKS '26" — Responsive Web Portal &amp; Pure CSS Reactive Engine</span>
+      </h1>
+      <p style="font-size:var(--text-lg);color:var(--text-secondary);max-width:72ch;line-height:1.5;">
+        <span class="lang-pt">A transposição integral do protótipo mobile Figma para a Web real: arquitetura multi-página, orquestração de especificidade com <code>@layer</code>, tipografia fluida com matemática <code>clamp()</code>, direção de arte fotográfica com <code>&lt;picture&gt;</code>, layout responsivo a 2 colunas com palco sticky e motor reativo de cálculo de bilhetes via seletor relacional <code>:has()</code> — estritamente sem JavaScript.</span>
+        <span class="lang-en">Full translation of the mobile Figma prototype to the living Web: multi-page architecture, specificity management with <code>@layer</code>, fluid typography via mathematical <code>clamp()</code>, photographic art direction with <code>&lt;picture&gt;</code>, 2-column responsive layout with sticky stage, and reactive ticket pricing simulator via <code>:has()</code> relational selector — strictly zero JavaScript.</span>
+      </p>
+    </header>
+
+    <!-- BANNER DE ACESSO AO MINI-SITE OFICIAL -->
+    <div class="demo-callout-banner">
+      <div>
+        <h3 style="font-size:var(--text-base);color:var(--text-primary);margin-bottom:var(--space-1);">
+          <span class="lang-pt">Solução de Referência Oficial Disponível (TP06)</span>
+          <span class="lang-en">Official Reference Solution Ready (TP06)</span>
+        </h3>
+        <p style="font-size:var(--text-xs);color:var(--text-secondary);margin:0;">
+          <span class="lang-pt">O protótipo responsivo preliminar a 2 colunas com arquitetura multi-página (<code>index.html</code>, <code>dj-warp.html</code>, <code>battle-rules.html</code>, <code>credits.html</code>), carrossel magnético e simulador <code>:has()</code> está compilado na pasta <code>learning-scaffold/demos/tp06-responsive/</code>.</span>
+          <span class="lang-en">The preliminary 2-column responsive prototype featuring multi-page architecture (<code>index.html</code>, <code>dj-warp.html</code>, <code>battle-rules.html</code>, <code>credits.html</code>), magnetic carousel, and <code>:has()</code> simulator is compiled inside <code>learning-scaffold/demos/tp06-responsive/</code>.</span>
+        </p>
+      </div>
+      <div>
+        <a href="demos/tp06-responsive/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);font-weight:700;">
+          <span class="lang-pt">Abrir Mini-Site TP06 no Browser ↗</span>
+          <span class="lang-en">Open TP06 Live Site in Browser ↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 1. Enquadramento Pedagógico & Metodologia -->
+    <section id="enquadramento" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-4);">
+        <span class="lang-pt">1. Enquadramento Pedagógico &amp; Conceitos Centrais</span>
+        <span class="lang-en">1. Pedagogical Framing &amp; Core Concepts</span>
+      </h2>
+
+      <div class="grid-3" style="margin-bottom:var(--space-6);">
+        <div class="card-item">
+          <h4 style="font-size:var(--text-base);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
+            <span class="lang-pt">RWD Focado: 2 Breakpoints</span>
+            <span class="lang-en">Focused RWD: 2 Breakpoints</span>
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;margin:0;">
+            <span class="lang-pt">Foco estrito no salto estrutural: <strong>Mobile Portrait</strong> (base &lt; 600px em coluna única com barra de compra fixa no polegar) e <strong>Desktop Widescreen</strong> (&ge; 960px com grelha de 2 colunas e palco sticky persistente).</span>
+            <span class="lang-en">Laser focus on structural shift: <strong>Mobile Portrait</strong> (base &lt; 600px single column with sticky bottom bar) and <strong>Desktop Widescreen</strong> (&ge; 960px 2-column layout with persistent sticky stage).</span>
+          </p>
+        </div>
+
+        <div class="card-item">
+          <h4 style="font-size:var(--text-base);color:var(--color-accent-blue);margin-bottom:var(--space-2);">
+            <span class="lang-pt">Strictly Zero JavaScript</span>
+            <span class="lang-en">Strictly Zero JavaScript</span>
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;margin:0;">
+            <span class="lang-pt">Todos os componentes dinâmicos (simulador de preços <code>:has()</code>, carrossel de fotos <code>scroll-snap</code>, acordeão <code>&lt;details&gt;</code>, animações de scroll e modais) funcionam exclusivamente com padrões nativos da Web.</span>
+            <span class="lang-en">All dynamic components (<code>:has()</code> price calculator, <code>scroll-snap</code> carousel, <code>&lt;details&gt;</code> accordion, scroll animations, modals) run purely via native Web standards.</span>
+          </p>
+        </div>
+
+        <div class="card-item">
+          <h4 style="font-size:var(--text-base);color:var(--color-accent-emerald);margin-bottom:var(--space-2);">
+            <span class="lang-pt">Orquestração com @layer</span>
+            <span class="lang-en">@layer Cascade Control</span>
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;margin:0;">
+            <span class="lang-pt">A organização em <code>@layer</code> (reset, theme, base, layout, components, interactive) elimina para sempre guerras de especificidade e a necessidade do destrutivo <code>!important</code>.</span>
+            <span class="lang-en">Formal <code>@layer</code> hierarchy (reset, theme, base, layout, components, interactive) permanently neutralizes selector specificity wars and banishes <code>!important</code>.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Guião Passo a Passo (8 Passos Completos & Visíveis) -->
+    <section id="passos" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-4);">
+        <span class="lang-pt">2. Guião de Execução Passo a Passo (Do Figma ao Código)</span>
+        <span class="lang-en">2. Step-by-Step Practical Execution Guide (Figma to Code)</span>
+      </h2>
+
+      <!-- PASSO 1: ESTRUTURA MULTI-PÁGINA & LANDMARKS -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 1</span> Estrutura Multi-Página &amp; Landmarks Semânticos HTML5 (Marco 1)</span>
+          <span class="lang-en"><span class="step-badge">Step 1</span> Multi-Page Infrastructure &amp; Semantic HTML5 Landmarks (Milestone 1)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">O TP06 exige a separação da experiência em quatro documentos interligados na raiz e a organização rigorosa de ficheiros de suporte em <code>assets/</code> e <code>css/</code>:</span>
+          <span class="lang-en">TP06 mandates partitioning the festival experience across four linked documents at the project root, with clean assets segregation in <code>assets/</code> and <code>css/</code>:</span>
+        </p>
+
+        <div class="code-container">
+          <pre><code>TP06-responsive/
+├── index.html                  # Portal principal do festival &amp; simulador de bilhetes
+├── dj-warp.html                # Perfil do artista headliner &amp; masterclass de vinil
+├── battle-rules.html           # Regulamento do torneio 808 Clash &amp; grelha de júri
+├── credits.html                # Ficha técnica, equipa de design e mapa de tokens
+├── assets/
+│   ├── icons/                  # Vetores SVG (favicon, prato vinil, check-badge)
+│   ├── fonts/                  # Webfonts variáveis WOFF2 locais (Syne, Inter, Martian Mono)
+│   └── images/                 # Fotografias responsivas otimizadas (1400w, 960w, 600w, 400w)
+└── css/
+    ├── fonts.css               # Declarações @font-face locais com continuous axes
+    └── styles.css              # Folha de estilos unificada orquestrada por @layer</code></pre>
+        </div>
+
+        <div class="tech-deep-dive-visible">
+          <div class="deep-dive-header">
+            <span>🔍 <span class="lang-pt">Landmarks Estruturais &amp; Acessibilidade Semântica</span><span class="lang-en">Structural Landmarks &amp; Semantic Accessibility</span></span>
+            <span class="deep-dive-badge">HTML5 Standards</span>
+          </div>
+          <p>
+            <span class="lang-pt">Para assegurar que tecnologias de apoio (como leitores de ecrã VoiceOver e NVDA) mapeiam a página com rigor, cada secção principal deve utilizar um elemento semântico adequado:</span>
+            <span class="lang-en">To ensure assistive technologies (like VoiceOver and NVDA) accurately parse the interface, every primary region must utilize its semantic HTML element:</span>
+          </p>
+          <ul class="tag-item-list">
+            <li>
+              <code>&lt;header class="site-header" role="banner"&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header" target="_blank" rel="noopener noreferrer">MDN header ↗</a> — 
+              <span class="lang-pt">Identidade global do festival, logótipo vetorial e navegação primária.</span>
+              <span class="lang-en">Global festival identity, scalable SVG mark, and primary navigation links.</span>
+            </li>
+            <li>
+              <code>&lt;nav class="site-nav" aria-label="Festival Primary Navigation"&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav" target="_blank" rel="noopener noreferrer">MDN nav ↗</a> — 
+              <span class="lang-pt">Agrupamento semântico de hiperligações com rótulo acessível descritivo.</span>
+              <span class="lang-en">Semantic link cluster equipped with a descriptive accessibility label.</span>
+            </li>
+            <li>
+              <code>&lt;main class="site-main-content" role="main"&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main" target="_blank" rel="noopener noreferrer">MDN main ↗</a> — 
+              <span class="lang-pt">Contentor singular do conteúdo representativo da página (proibido existir mais de um <code>&lt;main&gt;</code> visível por documento).</span>
+              <span class="lang-en">Unique container for the central document payload (strictly one visible <code>&lt;main&gt;</code> allowed per page).</span>
+            </li>
+            <li>
+              <code>&lt;article class="hero-card"&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article" target="_blank" rel="noopener noreferrer">MDN article ↗</a> — 
+              <span class="lang-pt">Entidade de informação autónoma e reutilizável que faz sentido fora do contexto (o perfil do DJ Warp).</span>
+              <span class="lang-en">Self-contained composition that makes sense independently (DJ Warp profile).</span>
+            </li>
+            <li>
+              <code>&lt;aside class="sticky-footer-bar"&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside" target="_blank" rel="noopener noreferrer">MDN aside ↗</a> — 
+              <span class="lang-pt">Barra de compra rápida fixada no fundo no ecrã mobile, tangencial ao fluxo de leitura principal.</span>
+              <span class="lang-en">Quick checkout mobile bar pinned to screen bottom, supplementary to the core document flow.</span>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- PASSO 2: ORQUESTRAÇÃO COM @LAYER & DESIGN TOKENS -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 2</span> Orquestração da Cascata com <code>@layer</code> &amp; Design Tokens no <code>:root</code> (Marco 2)</span>
+          <span class="lang-en"><span class="step-badge">Step 2</span> Cascade Management with <code>@layer</code> &amp; Centralized Tokens in <code>:root</code> (Milestone 2)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">No topo do ficheiro <code>css/styles.css</code>, declare a lista formal de camadas para blindar a especificidade e centralize as variáveis extraídas do Figma no pseudo-class <code>:root</code>:</span>
+          <span class="lang-en">At the very top of <code>css/styles.css</code>, declare the formal layers list to govern specificity and centralize Figma-extracted variables in the <code>:root</code> pseudo-class:</span>
+        </p>
+
+        <div class="code-container">
+          <pre><code>/* 1. Declaração Formal da Ordem de Camadas CSS */
+@layer reset, fonts, theme, base, layout, components, gallery, accordion, subpages, simulator, modals, animations, utilities;
+
+@layer theme {
+  :root {
+    /* Paleta Cromática Base */
+    --color-black: #0a0a0c;
+    --color-charcoal-black: #16171a;
+    --color-medium-gray: #71747e;
+    --color-light-gray: #d1d3d8;
+    --color-off-white: #f4f4f6;
+    --color-white: #ffffff;
+
+    /* Cores de Acento */
+    --color-accent-red: #e60000;
+    --color-accent-red-hover: #ff1a1a;
+    --color-accent-purple: #8a2be2;
+    --color-card-selected-bg: #201826;
+    --color-box-bg-dark: #121217;
+    --color-divider: rgba(113, 116, 126, 0.3);
+
+    /* Famílias Tipográficas Locais */
+    --font-family-display: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-family-mono: 'Martian Mono', monospace;
+    --font-family-body: 'Inter', sans-serif;
+
+    /* Escala de Espaçamento Atómico */
+    --space-2xs: 4px;
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+
+    /* Transições & Sombras */
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --shadow-elevated: 0 8px 24px rgba(0, 0, 0, 0.5);
+  }
+}</code></pre>
+        </div>
+
+        <div class="tech-deep-dive-visible">
+          <div class="deep-dive-header">
+            <span>🔍 <span class="lang-pt">Porquê @layer e Design Tokens Centralizados?</span><span class="lang-en">Why @layer and Centralized Design Tokens?</span></span>
+            <span class="deep-dive-badge">CSS Cascade Layers</span>
+          </div>
+          <p>
+            <span class="lang-pt">A especificação <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@layer" target="_blank" rel="noopener noreferrer">CSS Cascade Layers (MDN) ↗</a> estabelece que a ordem declarada no cabeçalho tem prioridade absoluta sobre o cálculo clássico de especificidade (IDs vs Classes vs Tags). Qualquer seletor simples dentro da camada <code>components</code> sobrepõe automaticamente seletores mais específicos da camada <code>base</code>, garantindo previsibilidade total e eliminando o recurso a <code>!important</code>.</span>
+            <span class="lang-en">The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@layer" target="_blank" rel="noopener noreferrer">CSS Cascade Layers (MDN) ↗</a> specification enforces that the declared header order overrides traditional selector specificity calculations. A simple selector inside <code>components</code> always beats a high-specificity selector in <code>base</code>, providing deterministic maintenance without hacky <code>!important</code> declarations.</span>
+          </p>
+        </div>
+      </article>
+
+      <!-- PASSO 3: TIPOGRAFIA FLUIDA COM CLAMP() -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 3</span> Tipografia Fluida com a Função Matemática <code>clamp()</code> (Marco 3)</span>
+          <span class="lang-en"><span class="step-badge">Step 3</span> Fluid Typography with the Mathematical <code>clamp()</code> Function (Milestone 3)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Elimine dezenas de media queries tipográficas rígidas. Utilize a função matemática <code>clamp(min, preferred, max)</code> para que a escala escale organicamente entre smartphones compactos e monitores panorâmicos:</span>
+          <span class="lang-en">Banish dozens of rigid typographic media queries. Harness <code>clamp(min, preferred, max)</code> to allow font sizes to interpolate smoothly between mobile viewports and widescreen displays:</span>
+        </p>
+
+        <div class="code-container">
+          <pre><code>@layer theme {
+  :root {
+    /* Escala Tipográfica Fluida Calculada via clamp(min, base + slope*vw, max) */
+    --text-size-hero-title: clamp(1.6rem, 1.1rem + 2.4vw, 2.6rem);
+    --text-size-section-header: clamp(1.2rem, 0.95rem + 1.2vw, 1.7rem);
+    --text-size-pass-title: clamp(1.0rem, 0.88rem + 0.6vw, 1.25rem);
+    --text-size-body: clamp(0.875rem, 0.82rem + 0.28vw, 1.0rem);
+    --text-size-sim-price: clamp(1.6rem, 1.2rem + 2.0vw, 2.4rem);
+    --text-size-badge: clamp(0.7rem, 0.65rem + 0.2vw, 0.8rem);
+  }
+}
+
+/* Aplicação Direta Sem Media Queries */
+.hero-title {
+  font-family: var(--font-family-display);
+  font-size: var(--text-size-hero-title);
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.section-title {
+  font-family: var(--font-family-display);
+  font-size: var(--text-size-section-header);
+  font-weight: 700;
+  line-height: 1.2;
+}</code></pre>
+        </div>
+
+        <div class="tech-deep-dive-visible">
+          <div class="deep-dive-header">
+            <span>🔍 <span class="lang-pt">Anatomia Matemática de clamp()</span><span class="lang-en">Mathematical Anatomy of clamp()</span></span>
+            <span class="deep-dive-badge">CSS Math Functions</span>
+          </div>
+          <p>
+            <span class="lang-pt">Consulte <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clamp" target="_blank" rel="noopener noreferrer">MDN clamp() ↗</a>. A função aceita três parâmetros obrigatórios:</span>
+            <span class="lang-en">Refer to <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clamp" target="_blank" rel="noopener noreferrer">MDN clamp() ↗</a>. The function accepts three mandatory parameters:</span>
+          </p>
+          <ul class="tag-item-list">
+            <li>
+              <code>Valor Mínimo (Ex: 1.6rem)</code>: 
+              <span class="lang-pt">Garante que o texto nunca fica ilegível ou microscópico em smartphones pequenos (como o iPhone SE de 375px ou ecrãs de 320px).</span>
+              <span class="lang-en">Guarantees that body text never shrinks into illegibility on small mobile displays (320px–375px).</span>
+            </li>
+            <li>
+              <code>Valor Preferido (Ex: 1.1rem + 2.4vw)</code>: 
+              <span class="lang-pt">A inclinação da curva (<em>slope</em>). O valor em <code>rem</code> protege o respeito pelas preferências de zoom do utilizador (WCAG 1.4.4), enquanto o valor em <code>vw</code> escala dinamicamente com a largura da janela.</span>
+              <span class="lang-en">The slope equation. The <code>rem</code> component guarantees user zoom preferences (WCAG 1.4.4), while the <code>vw</code> component expands dynamically with viewport width.</span>
+            </li>
+            <li>
+              <code>Valor Máximo (Ex: 2.6rem)</code>: 
+              <span class="lang-pt">Impede que o título cresça desmesuradamente em ecrãs Ultrawide e 4K, preservando a harmonia gráfica planeada no design.</span>
+              <span class="lang-en">Caps headline scaling on Ultrawide and 4K displays, preserving the intentional visual balance conceived in Figma.</span>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- PASSO 4: ART-DIRECTION COM PICTURE -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 4</span> Direção de Arte Fotográfica com <code>&lt;picture&gt;</code> &amp; Formato WebP (Marco 4)</span>
+          <span class="lang-en"><span class="step-badge">Step 4</span> Photographic Art Direction with <code>&lt;picture&gt;</code> &amp; Modern WebP (Milestone 4)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Ecrãs móveis e ecrãs panorâmicos desktop exigem enquadramentos fotográficos distintos. Implemente direção de arte com 3 rácios de corte e fallbacks universais:</span>
+          <span class="lang-en">Mobile phones and widescreen desktops require fundamentally distinct aspect ratios. Implement photographic art direction with 3 crop geometries and universal fallbacks:</span>
+        </p>
+
+        <div class="code-container">
+          <pre><code>&lt;picture class="hero-picture"&gt;
+  &lt;!-- 1. Desktop Widescreen (&gt;= 1024px): Panorâmica 16:9 destacando abóbadas da Alfândega --&gt;
+  &lt;source media="(min-width: 1024px)" 
+          type="image/webp" 
+          srcset="assets/images/dj-warp-vault-16x9-960w.webp 960w, assets/images/dj-warp-vault-16x9-1400w.webp 1400w" 
+          sizes="(min-width: 1200px) 1160px, 92vw"&gt;
+
+  &lt;!-- 2. Tablet &amp; Phablet (&gt;= 600px): Rácio Quadrado 1:1 focado no artista e gira-discos --&gt;
+  &lt;source media="(min-width: 600px)" 
+          type="image/webp" 
+          srcset="assets/images/dj-warp-vault-1x1-600w.webp 600w, assets/images/dj-warp-vault-1x1-960w.webp 960w" 
+          sizes="88vw"&gt;
+
+  &lt;!-- 3. Mobile Default (&lt; 600px): Rácio Vertical 9:16 centrado no scratch e no teto de granito --&gt;
+  &lt;source type="image/webp" 
+          srcset="assets/images/dj-warp-vault-9x16-400w.webp 400w, assets/images/dj-warp-vault-9x16-600w.webp 600w" 
+          sizes="100vw"&gt;
+
+  &lt;!-- 4. Fallback Universal JPEG com Dimensões Intrínsecas e LCP Priority --&gt;
+  &lt;img src="assets/images/dj-warp-vault-16x9-960w.jpg" 
+       alt="DJ Warp em turntablism virtuoso no Vault 02 subterrâneo da Alfândega do Porto" 
+       width="1200" height="675" 
+       loading="eager" fetchpriority="high"&gt;
+&lt;/picture&gt;</code></pre>
+        </div>
+
+        <div class="tech-deep-dive-visible">
+          <div class="deep-dive-header">
+            <span>🔍 <span class="lang-pt">Regras Críticas do Elemento &lt;picture&gt;</span><span class="lang-en">Critical Rules of the &lt;picture&gt; Element</span></span>
+            <span class="deep-dive-badge">MDN Responsive Images</span>
+          </div>
+          <ul class="tag-item-list">
+            <li>
+              <code>fetchpriority="high"</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/fetchPriority" target="_blank" rel="noopener noreferrer">MDN fetchPriority ↗</a> — 
+              <span class="lang-pt">Como a imagem do DJ Warp é o elemento Hero principal, instrui o navegador a descarregá-la imediatamente, otimizando o LCP (Largest Contentful Paint).</span>
+              <span class="lang-en">Signals high networking priority for the hero visual, drastically slashing LCP (Largest Contentful Paint) latency.</span>
+            </li>
+            <li>
+              <code>type="image/webp"</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/source" target="_blank" rel="noopener noreferrer">MDN source ↗</a> — 
+              <span class="lang-pt">Permite poupar até 35% de largura de banda face ao JPEG tradicional. Navegadores antigos ignoram o <code>&lt;source&gt;</code> e descarregam o <code>&lt;img&gt;</code> JPEG de fallback.</span>
+              <span class="lang-en">Saves up to 35% cellular bandwidth over legacy JPEG. Older clients simply fall through to the universal <code>&lt;img&gt;</code> fallback.</span>
+            </li>
+            <li>
+              <code>width</code> e <code>height</code> explícitos: 
+              <span class="lang-pt">Previnem o Cumulative Layout Shift (CLS), permitindo ao browser reservar o rácio de aspeto antes do descarregamento dos bytes.</span>
+              <span class="lang-en">Prevents Cumulative Layout Shift (CLS) by allowing browsers to reserve bounding aspect ratio space prior to image download.</span>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- PASSO 5: LAYOUT 2 COLUNAS & STICKY STAGE -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 5</span> Layout Responsivo Mobile-First &amp; Transição para 2 Colunas com Palco Sticky (Marco 5)</span>
+          <span class="lang-en"><span class="step-badge">Step 5</span> Mobile-First Responsive Layout &amp; 2-Column Grid with Sticky Stage (Milestone 5)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Construa o fluxo em coluna única para ecrãs móveis com barra de compra rápida no polegar. No breakpoint de desktop (<code>min-width: 960px</code>), expanda para 2 colunas e ancore o artista principal com <code>position: sticky</code>:</span>
+          <span class="lang-en">Engineer single-column linear flow for mobile viewports with thumb-friendly sticky purchase bar. At desktop breakpoint (<code>min-width: 960px</code>), transition to 2 columns and anchor headliner via <code>position: sticky</code>:</span>
+        </p>
+
+        <div class="code-container">
+          <pre><code>/* 1. Mobile Default (< 960px): Coluna Única Fluida */
+.festival-grid-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  padding: var(--space-md);
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+/* Barra de Ação Mobile Fixa na Base */
+.sticky-footer-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(10, 10, 12, 0.95);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--color-divider);
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 2. Desktop Widescreen Breakpoint (>= 960px): Grelha 2 Colunas */
+@media (min-width: 960px) {
+  .festival-grid-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: var(--space-2xl);
+    padding: var(--space-xl);
+  }
+
+  /* Coluna 1 (Esquerda): Palco Sticky que Acompanha o Scroll */
+  .grid-column-primary {
+    position: sticky;
+    top: 32px;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  /* Ocultar Barra Mobile e Ativar CTA no Cabeçalho */
+  .sticky-footer-bar {
+    display: none !important;
+  }
+}</code></pre>
+        </div>
+
+        <div class="tech-deep-dive-visible">
+          <div class="deep-dive-header">
+            <span>🔍 <span class="lang-pt">Mecânica do Position: Sticky e minmax(0, 1fr)</span><span class="lang-en">Position: Sticky Mechanics &amp; minmax(0, 1fr)</span></span>
+            <span class="deep-dive-badge">MDN CSS Positioning</span>
+          </div>
+          <p>
+            <span class="lang-pt">Para que <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position#sticky" target="_blank" rel="noopener noreferrer">position: sticky (MDN) ↗</a> funcione corretamente numa grelha CSS, são necessárias duas regras indispensáveis:</span>
+            <span class="lang-en">For <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position#sticky" target="_blank" rel="noopener noreferrer">position: sticky (MDN) ↗</a> to execute predictably inside CSS Grid, two rules are non-negotiable:</span>
+          </p>
+          <ul class="tag-item-list">
+            <li>
+              <code>align-self: start;</code>: 
+              <span class="lang-pt">Por padrão, os itens de grelha esticam-se até à altura total da linha (<code>align-self: stretch</code>). Sem <code>align-self: start</code>, a coluna esquerda teria a mesma altura da coluna direita e nunca flutuaria durante o scroll!</span>
+              <span class="lang-en">Grid items default to stretching the row's full height (<code>align-self: stretch</code>). Without <code>align-self: start</code>, the column matches parent height and cannot float on scroll.</span>
+            </li>
+            <li>
+              <code>minmax(0, 1fr)</code>: 
+              <span class="lang-pt">Resolve o problema de transbordo (overflow) de elementos multimédia. O valor mínimo <code>0</code> impede que imagens ou tabelas forcem a expansão da coluna além da fração estipulada.</span>
+              <span class="lang-en">Solves layout blowouts. Declaring <code>0</code> as minimum prevents media children from inflating grid track widths beyond allocated fraction units.</span>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- PASSO 6: CARROSSEL COM SCROLL-SNAP -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 6</span> Galeria Fotográfica em Carrossel Magnético com <code>scroll-snap-type</code> (Marco 6)</span>
+          <span class="lang-en"><span class="step-badge">Step 6</span> Magnetic Photo Carousel with <code>scroll-snap-type</code> (Milestone 6)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">A atmosfera das abóbadas do festival ganha vida através de um carrossel fotográfico deslizante nativo, com comportamento magnético suave (scroll-snap) e paginação por âncoras sem JavaScript:</span>
+          <span class="lang-en">The underground vault ambiance comes alive through a native sliding photo carousel with buttery scroll-snap behavior and zero-JS anchor pagination:</span>
+        </p>
+
+        <div class="code-container">
+          <pre><code>/* Contentor com Deslizamento Magnético */
+.gallery-viewport {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: var(--space-md);
+  padding-bottom: var(--space-sm);
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Slides com Alinhamento ao Centro */
+.gallery-slide {
+  flex: 0 0 88%;
+  scroll-snap-align: center;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--color-divider);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+@media (min-width: 600px) {
+  .gallery-slide {
+    flex: 0 0 calc(50% - var(--space-sm));
+  }
+}
+
+/* Destaque Ativo via Pseudo-Classe :target */
+.gallery-slide:target {
+  border-color: var(--color-accent-red);
+  box-shadow: 0 0 20px rgba(230, 0, 0, 0.4);
+}</code></pre>
+        </div>
+
+        <div class="tech-deep-dive-visible">
+          <div class="deep-dive-header">
+            <span>🔍 <span class="lang-pt">Como Opera o CSS Scroll Snap?</span><span class="lang-en">How Does CSS Scroll Snap Operate?</span></span>
+            <span class="deep-dive-badge">MDN Scroll Snap</span>
+          </div>
+          <p>
+            <span class="lang-pt">Consulte <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap" target="_blank" rel="noopener noreferrer">MDN CSS Scroll Snap ↗</a>. A propriedade <code>scroll-snap-type: x mandatory;</code> força o viewport a prender o scroll no ponto de paragem mais próximo definido por <code>scroll-snap-align: center;</code> no slide. A pseudoclasse <code>:target</code> deteta o ID ativo no URL e aplica realce visual imediato.</span>
+            <span class="lang-en">Refer to <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap" target="_blank" rel="noopener noreferrer">MDN CSS Scroll Snap ↗</a>. The property <code>scroll-snap-type: x mandatory;</code> compels the viewport to latch onto the closest snap target specified by <code>scroll-snap-align: center;</code> on child cards. The <code>:target</code> pseudo-class highlights the active slide ID.</span>
+          </p>
+        </div>
+      </article>
+
+      <!-- PASSO 7: ACCORDION COM DETAILS E CSS GRID -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 7</span> Acordeão Articulado com <code>&lt;details&gt;</code> &amp; Transição Fluida em CSS Grid (Marco 7)</span>
+          <span class="lang-en"><span class="step-badge">Step 7</span> Articulated Accordion with <code>&lt;details&gt;</code> &amp; Fluid CSS Grid Transition (Milestone 7)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">A secção de Perguntas Frequentes (FAQ) utiliza o elemento semântico <code>&lt;details&gt;</code> e animação a 60 fps através da transição de linhas de CSS Grid (<code>grid-template-rows: 0fr -> 1fr</code>):</span>
+          <span class="lang-en">The Frequently Asked Questions (FAQ) region uses semantic <code>&lt;details&gt;</code> coupled with buttery 60fps expansion powered by CSS Grid row interpolation (<code>grid-template-rows: 0fr -> 1fr</code>):</span>
+        </p>
+
+        <div class="code-container">
+          <pre><code>/* Item de Acordeão Semântico */
+.faq-accordion-item {
+  border: 1px solid var(--color-divider);
+  border-radius: 6px;
+  margin-bottom: var(--space-sm);
+  background: var(--color-box-bg-dark);
+}
+
+.faq-summary {
+  padding: var(--space-md);
+  font-family: var(--font-family-body);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Animação Fluida do Conteúdo via CSS Grid */
+.faq-grid-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  opacity: 0;
+}
+
+.faq-accordion-item[open] .faq-grid-wrapper {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.faq-content-inner {
+  overflow: hidden;
+  padding: 0 var(--space-md) var(--space-md);
+  color: var(--color-light-gray);
+  line-height: 1.6;
+}</code></pre>
+        </div>
+
+        <div class="tech-deep-dive-visible">
+          <div class="deep-dive-header">
+            <span>🔍 <span class="lang-pt">Porquê Grid para Animar Height: Auto?</span><span class="lang-en">Why Grid to Animate Height: Auto?</span></span>
+            <span class="deep-dive-badge">MDN Details &amp; Summary</span>
+          </div>
+          <p>
+            <span class="lang-pt">Consulte <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details" target="_blank" rel="noopener noreferrer">MDN details ↗</a>. Historicamente, transicionar a propriedade <code>height</code> de <code>0</code> para <code>auto</code> era impossível sem JavaScript. Com CSS Grid, interpolar a faixa de <code>0fr</code> para <code>1fr</code> permite animar alturas dinâmicas desconhecidas com aceleração por hardware perfeita.</span>
+            <span class="lang-en">Refer to <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details" target="_blank" rel="noopener noreferrer">MDN details ↗</a>. Interpolating <code>height</code> from <code>0</code> to <code>auto</code> was traditionally impossible without script measurements. CSS Grid solves this elegantly: animating a track from <code>0fr</code> to <code>1fr</code> delivers hardware-accelerated expansion of variable text.</span>
+          </p>
+        </div>
+      </article>
+
+      <!-- PASSO 8: MOTOR DE PREÇOS COM :HAS() -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 8</span> Motor Reativo de Bilheteira Pure CSS com o Seletor Relacional <code>:has()</code> (Marco 8)</span>
+          <span class="lang-en"><span class="step-badge">Step 8</span> Pure CSS Reactive Ticket Pricing Engine via Relational <code>:has()</code> (Milestone 8)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Transforme o CSS num motor de estados reativo: quando o utilizador clica num passe de bilheteira (<code>&lt;input type="radio"&gt;</code>), o seletor <code>:root:has(...)</code> deteta a escolha na raiz do DOM e atualiza instantaneamente os totais do recibo via conteúdo gerado:</span>
+          <span class="lang-en">Turn CSS into a reactive state machine: when the attendee checks an admission tier radio button, <code>:root:has(...)</code> detects the selection at DOM root and dynamically rewrites receipt sums via generated pseudo-content:</span>
+        </p>
+
+        <div class="code-container">
+          <pre><code>/* 1. Estado Base (Passe All-Access €30.00 Ativo por Padrão) */
+#sim-price::after { content: "30.00 €"; }
+#sim-summary-title::after { content: "PASSE COMPLETO: ALL-ACCESS FESTIVAL"; }
+#receipt-total::after { content: "30.00 €"; }
+
+/* 2. Estado Reativo A: Torneio 808 Clash Selecionado (10.00 €) */
+:root:has(#pass-battle:checked) {
+  #sim-price::after { content: "10.00 €"; }
+  #sim-summary-title::after { content: "PASSE CONCORRENTE: THE 808 CLASH"; }
+  #receipt-total::after { content: "10.00 €"; }
+  .receipt-battle-row { display: flex; }
+  .receipt-warp-row { display: none; }
+  .receipt-combo-row { display: none; }
+}
+
+/* 3. Estado Reativo B: Concerto Headliner DJ Warp Selecionado (25.00 €) */
+:root:has(#pass-warp:checked) {
+  #sim-price::after { content: "25.00 €"; }
+  #sim-summary-title::after { content: "PASSE CONCERTO: DJ WARP HEADLINER"; }
+  #receipt-total::after { content: "25.00 €"; }
+  .receipt-battle-row { display: none; }
+  .receipt-warp-row { display: flex; }
+  .receipt-combo-row { display: none; }
+}</code></pre>
+        </div>
+
+        <div class="tech-deep-dive-visible">
+          <div class="deep-dive-header">
+            <span>🔍 <span class="lang-pt">O Poder Arquitetural do Seletor :has()</span><span class="lang-en">The Architectural Power of the :has() Selector</span></span>
+            <span class="deep-dive-badge">MDN Relational Pseudo-Class</span>
+          </div>
+          <p>
+            <span class="lang-pt">Consulte <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:has" target="_blank" rel="noopener noreferrer">MDN :has() ↗</a>. O seletor <code>:root:has(#pass-battle:checked)</code> atua como um <em>state machine</em> declarativo global. Permite que a estilização de um componente completamente separado no ecrã (o terminal de recibo do carrinho) responda ao estado de clique de outro componente (os botões de seleção de passes), sem recorrer a uma única linha de JavaScript.</span>
+            <span class="lang-en">Refer to <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:has" target="_blank" rel="noopener noreferrer">MDN :has() ↗</a>. The rule <code>:root:has(#pass-battle:checked)</code> functions as a global declarative state listener. It empowers an isolated component (the receipt checkout terminal) to reactively sync with clicks registered inside an admission tier radio cluster, zero JavaScript required.</span>
+          </p>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- 3. Rubrica Docente de Avaliação Oficial (5 Critérios - 20 Valores) -->
+    <section id="rubrica" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">3. Rubrica Docente de Avaliação Oficial (20 Valores / 100%)</span>
+        <span class="lang-en">3. Official Grading Rubric (20 Points / 100%)</span>
+      </h2>
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);">
+        <span class="lang-pt">A avaliação do TP06 rege-se pelos 5 critérios estritos da equipa docente da FBAUP:</span>
+        <span class="lang-en">TP06 evaluation is governed by the 5 strict criteria of the FBAUP academic faculty:</span>
+      </p>
+
+      <div class="table-responsive">
+        <table class="rubric-table">
+          <thead>
+            <tr>
+              <th><span class="lang-pt">Critério de Avaliação</span><span class="lang-en">Evaluation Criterion</span></th>
+              <th><span class="lang-pt">Peso</span><span class="lang-en">Weight</span></th>
+              <th><span class="lang-pt">Excelente (16–20 v)</span><span class="lang-en">Excellence (16–20 pts)</span></th>
+              <th><span class="lang-pt">Suficiente (10–15 v)</span><span class="lang-en">Sufficient (10–15 pts)</span></th>
+              <th><span class="lang-pt">Insuficiente / Falha (0–9 v)</span><span class="lang-en">Penalty / Failure (0–9 pts)</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong class="lang-pt">1. Rigor Semântico &amp; Multi-Página</strong>
+                <strong class="lang-en">1. Semantic Rigor &amp; Multi-Page</strong>
+              </td>
+              <td class="rubric-score">20% (4.0v)</td>
+              <td>
+                <span class="lang-pt">Uso exímio de landmarks HTML5 (<code>header</code>, <code>nav</code>, <code>main</code>, <code>article</code>, <code>aside</code>, <code>footer</code>). 4 páginas interligadas (<code>index</code>, <code>dj-warp</code>, <code>battle-rules</code>, <code>credits</code>). Zero erros no W3C Nu Validator.</span>
+                <span class="lang-en">Flawless HTML5 landmarks. All 4 pages linked (<code>index</code>, <code>dj-warp</code>, <code>battle-rules</code>, <code>credits</code>). Zero errors in W3C Nu Validator.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Páginas presentes com pequenos lapsos semânticos (excesso de divs ou aria-labels ausentes). Links funcionais.</span>
+                <span class="lang-en">Pages present with minor semantic lapses (div soup or missing aria labels). Functional links.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Páginas em falta, links partidos, ausência de marcos semânticos essenciais ou erros graves de validação.</span>
+                <span class="lang-en">Missing subpages, broken navigation links, missing core semantic landmarks.</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong class="lang-pt">2. Arquitetura CSS com @layer &amp; Tokens</strong>
+                <strong class="lang-en">2. CSS Architecture with @layer &amp; Tokens</strong>
+              </td>
+              <td class="rubric-score">20% (4.0v)</td>
+              <td>
+                <span class="lang-pt">Orquestração formal com <code>@layer</code>. Variáveis centralizadas no <code>:root</code> correspondendo fielmente ao Figma. Tipografia fluida com matemática <code>clamp()</code> rigorosa.</span>
+                <span class="lang-en">Formal <code>@layer</code> architecture. Centralized <code>:root</code> tokens matching Figma. Strict mathematical <code>clamp()</code> fluid typography.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Uso de variáveis CSS mas com valores hardcoded residuais. Camadas <code>@layer</code> implementadas de forma básica.</span>
+                <span class="lang-en">CSS custom properties present with scattered hardcoded values. Rudimentary <code>@layer</code> implementation.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Ausência de <code>@layer</code>, variáveis ausentes, uso abusivo de <code>!important</code> ou quebra da cascata.</span>
+                <span class="lang-en">Absence of <code>@layer</code>, missing variables, abusive <code>!important</code> usage or broken cascade.</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong class="lang-pt">3. Responsividade Mobile-First &amp; 2 Colunas</strong>
+                <strong class="lang-en">3. Mobile-First RWD &amp; 2-Column Grid</strong>
+              </td>
+              <td class="rubric-score">20% (4.0v)</td>
+              <td>
+                <span class="lang-pt">Código base sem media queries perfeitamente adaptado a telemóveis (&lt; 600px). Transição fluida para 2 colunas com palco sticky (&ge; 960px). Zero scroll horizontal parasita.</span>
+                <span class="lang-en">Base code purely optimized for mobile viewports (&lt; 600px). Seamless transition to 2-column layout with sticky stage (&ge; 960px). Zero horizontal scroll.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Layout funcional no mobile e desktop, mas com pequenos desajustes de espaçamento ou sticky imperfeito.</span>
+                <span class="lang-en">Functional mobile and desktop layouts with minor spacing quirks or awkward sticky snapping.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Layout concebido para desktop que colapsa em smartphones. Elementos cortados ou overflow incontrolado.</span>
+                <span class="lang-en">Desktop-first layout collapsing on mobile. Clipped elements or unchecked horizontal overflow.</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong class="lang-pt">4. Direção de Arte &amp; Multimédia WebP</strong>
+                <strong class="lang-en">4. Art Direction &amp; WebP Optimization</strong>
+              </td>
+              <td class="rubric-score">20% (4.0v)</td>
+              <td>
+                <span class="lang-pt">Uso correto de <code>&lt;picture&gt;</code> com 3 rácios de enquadramento (16:9, 1:1, 9:16). Ficheiros WebP otimizados com fallbacks JPEG. <code>fetchpriority="high"</code> no LCP.</span>
+                <span class="lang-en">Flawless <code>&lt;picture&gt;</code> with 3 crops (16:9, 1:1, 9:16). WebP optimization with JPEG fallbacks. <code>fetchpriority="high"</code> on LCP.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Imagens responsivas com <code>&lt;picture&gt;</code> presentes, mas sem variação de corte artístico entre mobile e desktop.</span>
+                <span class="lang-en">Responsive images present via <code>&lt;picture&gt;</code>, but lacking art-directed aspect ratio differentiation.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Imagens pesadas sem formatos modernos, ausência de atributos <code>alt</code> ou distorção de rácios.</span>
+                <span class="lang-en">Bloated legacy assets, missing <code>alt</code> attributes, or stretched image proportions.</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong class="lang-pt">5. Interatividade Pure CSS (Zero JavaScript)</strong>
+                <strong class="lang-en">5. Pure CSS Interactivity (Zero JavaScript)</strong>
+              </td>
+              <td class="rubric-score">20% (4.0v)</td>
+              <td>
+                <span class="lang-pt">Simulador de bilhetes <code>:has()</code> reativo e funcional. Carrossel <code>scroll-snap</code> suave. Acordeão <code>&lt;details&gt;</code> animado com CSS Grid. Estritamente Zero JS.</span>
+                <span class="lang-en">Functional <code>:has()</code> ticket pricing engine. Silky <code>scroll-snap</code> carousel. Smooth <code>&lt;details&gt;</code> CSS Grid accordion. Strictly Zero JS.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Interações CSS implementadas mas com pequenas falhas cosméticas de transição ou sincronização de preços.</span>
+                <span class="lang-en">CSS interactions implemented with minor cosmetic transition glitches or price mismatch.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Presença de tags <code>&lt;script&gt;</code> (penalização grave) ou interações de bilheteira completamente inoperacionais.</span>
+                <span class="lang-en">Presence of <code>&lt;script&gt;</code> tags (critical penalty) or non-functioning ticket interaction states.</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. Checklist de Autoavaliação para Estudantes -->
+    <section id="checklist" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">4. Checklist de Autoavaliação para Estudantes (TP06)</span>
+        <span class="lang-en">4. Student Self-Assessment Checklist (TP06)</span>
+      </h2>
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);">
+        <span class="lang-pt">Antes de submeter o URL do seu projeto no repositório GitHub Pages da turma, verifique cada um dos seguintes pontos:</span>
+        <span class="lang-en">Before submitting your project URL to the shared GitHub Pages spreadsheet, verify each of the following checkpoints:</span>
+      </p>
+
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:4px;padding:var(--space-6);">
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--space-3);font-size:var(--text-sm);line-height:1.6;color:var(--text-secondary);">
+          <li>
+            <strong>1. <span class="lang-pt">Quatro Ficheiros HTML:</span><span class="lang-en">Four HTML Files:</span></strong> 
+            <span class="lang-pt">Existem <code>index.html</code>, <code>dj-warp.html</code>, <code>battle-rules.html</code> e <code>credits.html</code> na raiz? Todas as páginas partilham a mesma barra de navegação?</span>
+            <span class="lang-en">Do <code>index.html</code>, <code>dj-warp.html</code>, <code>battle-rules.html</code>, and <code>credits.html</code> exist at the root level? Do they share consistent navigation?</span>
+          </li>
+          <li>
+            <strong>2. <span class="lang-pt">Strictly Zero JavaScript:</span><span class="lang-en">Strictly Zero JavaScript:</span></strong> 
+            <span class="lang-pt">Confirmou que não existe nenhuma tag <code>&lt;script&gt;</code> ou manipulador inline (como <code>onclick</code>) em nenhum dos 4 ficheiros HTML do portal?</span>
+            <span class="lang-en">Did you confirm that zero <code>&lt;script&gt;</code> tags or inline event handlers (like <code>onclick</code>) exist across all 4 portal HTML files?</span>
+          </li>
+          <li>
+            <strong>3. <span class="lang-pt">Ordem em @layer:</span><span class="lang-en">@layer Order:</span></strong> 
+            <span class="lang-pt">A declaração <code>@layer reset, fonts, theme, base, layout, components, ...;</code> encabeça a folha de estilos?</span>
+            <span class="lang-en">Does <code>@layer reset, fonts, theme, base, layout, components, ...;</code> stand at the very top of your stylesheet?</span>
+          </li>
+          <li>
+            <strong>4. <span class="lang-pt">Tipografia Fluida:</span><span class="lang-en">Fluid Typography:</span></strong> 
+            <span class="lang-pt">Os tamanhos de títulos e parágrafos utilizam equações com <code>clamp()</code> em vez de valores estáticos em pixels?</span>
+            <span class="lang-en">Are headings and body sizes declared with <code>clamp()</code> equations rather than static pixel numbers?</span>
+          </li>
+          <li>
+            <strong>5. <span class="lang-pt">Direção de Arte com &lt;picture&gt;:</span><span class="lang-en">Art Direction with &lt;picture&gt;:</span></strong> 
+            <span class="lang-pt">O elemento <code>&lt;picture&gt;</code> do DJ Warp serve o rácio 16:9 no desktop widescreen, 1:1 no tablet e 9:16 vertical no smartphone?</span>
+            <span class="lang-en">Does the DJ Warp <code>&lt;picture&gt;</code> serve 16:9 on widescreen, 1:1 on tablet, and 9:16 on mobile smartphones?</span>
+          </li>
+          <li>
+            <strong>6. <span class="lang-pt">Palco Sticky a 2 Colunas:</span><span class="lang-en">2-Column Sticky Stage:</span></strong> 
+            <span class="lang-pt">A partir dos 960px, o layout passa a 2 colunas e a coluna esquerda do artista fixa-se suavemente no ecrã com <code>position: sticky; top: 32px; align-self: start;</code>?</span>
+            <span class="lang-en">At &ge; 960px, does the layout transition to 2 columns with the headliner stage floating via <code>position: sticky; top: 32px; align-self: start;</code>?</span>
+          </li>
+          <li>
+            <strong>7. <span class="lang-pt">Carrossel Magnético:</span><span class="lang-en">Magnetic Carousel:</span></strong> 
+            <span class="lang-pt">A galeria desliza horizontalmente com efeito elástico magnético através de <code>scroll-snap-type: x mandatory;</code>?</span>
+            <span class="lang-en">Does the photo gallery glide horizontally with smooth snapping via <code>scroll-snap-type: x mandatory;</code>?</span>
+          </li>
+          <li>
+            <strong>8. <span class="lang-pt">Motor de Bilhetes :has():</span><span class="lang-en">:has() Pricing Engine:</span></strong> 
+            <span class="lang-pt">Ao alternar entre passes de bilheteira, os preços e sumários no terminal de recibo atualizam-se instantaneamente em puro CSS?</span>
+            <span class="lang-en">When switching between admission tiers, do receipt lines and totals dynamically update via pure CSS?</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. Código Oficial de Referência -->
+    <section id="codigo-completo" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">5. Arquitetura de Código Oficial (Esqueleto de Referência)</span>
+        <span class="lang-en">5. Official Code Architecture (Reference Skeleton)</span>
+      </h2>
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);">
+        <span class="lang-pt">Estrutura semântica fundamental do documento <code>index.html</code>:</span>
+        <span class="lang-en">Core semantic structure of the <code>index.html</code> document:</span>
+      </p>
+
+      <div class="code-container">
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"&gt;
+  &lt;title&gt;DRUMTIKS '26 • Portal do Festival&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/styles.css"&gt;
+&lt;/head&gt;
+&lt;body class="festival-portal-body"&gt;
+
+  &lt;!-- Barra de Progresso de Leitura Orientada ao Scroll --&gt;
+  &lt;div class="scroll-progress-bar" aria-hidden="true"&gt;&lt;/div&gt;
+
+  &lt;!-- Landmark 1: Cabeçalho com Logótipo &amp; Navegação --&gt;
+  &lt;header class="site-header" role="banner"&gt;
+    &lt;div class="header-inner"&gt;
+      &lt;a href="index.html" class="brand-logo"&gt;DRUMTIKS&lt;span&gt;'26&lt;/span&gt;&lt;/a&gt;
+      &lt;nav class="site-nav" aria-label="Main Navigation"&gt;
+        &lt;a href="index.html" class="nav-link active"&gt;Festival&lt;/a&gt;
+        &lt;a href="dj-warp.html" class="nav-link"&gt;DJ Warp&lt;/a&gt;
+        &lt;a href="battle-rules.html" class="nav-link"&gt;808 Clash&lt;/a&gt;
+        &lt;a href="credits.html" class="nav-link"&gt;Créditos&lt;/a&gt;
+      &lt;/nav&gt;
+      &lt;a href="#tickets" class="header-desktop-cta"&gt;Comprar Passes&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;!-- Landmark 2: Conteúdo Principal em Grelha Responsiva a 2 Colunas --&gt;
+  &lt;main class="site-main-content" role="main"&gt;
+    &lt;div class="festival-grid-layout"&gt;
+      
+      &lt;!-- Coluna 1 (Esquerda): Palco Sticky do Artista Headliner --&gt;
+      &lt;div class="grid-column-primary"&gt;
+        &lt;article class="hero-card" id="lineup"&gt;
+          &lt;span class="eyebrow"&gt;Cabeça de Cartaz • Alfândega do Porto&lt;/span&gt;
+          &lt;h1 class="hero-title"&gt;DJ WARP: 808 LIVE IN THE VAULTS&lt;/h1&gt;
+          &lt;!-- Direção de Arte Fotográfica &lt;picture&gt; --&gt;
+          &lt;picture class="hero-picture"&gt; ... &lt;/picture&gt;
+        &lt;/article&gt;
+        &lt;aside class="venue-info-box"&gt;
+          &lt;h3&gt;Recinto Histórico da Alfândega&lt;/h3&gt;
+          &lt;p&gt;Abóbadas subterrâneas em granito com acústica personalizada para turntablism.&lt;/p&gt;
+        &lt;/aside&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Coluna 2 (Direita): Fluxo Dinâmico de Conteúdos --&gt;
+      &lt;div class="grid-column-secondary"&gt;
+        &lt;section class="program-section"&gt; ... &lt;/section&gt;
+        &lt;section class="festival-gallery-section"&gt; ... &lt;/section&gt;
+        &lt;section class="simulator-panel" id="tickets"&gt; ... &lt;/section&gt;
+        &lt;section class="festival-accordion-section"&gt; ... &lt;/section&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+  &lt;/main&gt;
+
+  &lt;!-- Barra de Compra Rápida Mobile no Fundo --&gt;
+  &lt;aside class="sticky-footer-bar" aria-label="Acesso Rápido a Bilhetes"&gt;
+    &lt;span&gt;Passes desde 10.00 €&lt;/span&gt;
+    &lt;a href="#tickets" class="btn-cta-mobile"&gt;Comprar Agora&lt;/a&gt;
+  &lt;/aside&gt;
+
+  &lt;!-- Landmark 3: Rodapé Global --&gt;
+  &lt;footer class="site-footer" role="contentinfo"&gt;
+    &lt;div class="footer-inner"&gt;
+      &lt;p&gt;&amp;copy; 2026/27 DRUMTIKS Festival • FBAUP Web Design (WD101) Open Courseware.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sincronização Progressiva de Tema e Idioma com localStorage -->
+  <script>
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    function updateThemeBtnState() {
+      if (!themeBtn) return;
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
+                     (!document.documentElement.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      const lang = document.documentElement.getAttribute('lang') || 'pt';
+      const label = isDark ? (lang === 'pt' ? 'Escuro' : 'Dark') : (lang === 'pt' ? 'Claro' : 'Light');
+      const icon = isDark ? '🌙' : '☀';
+      themeBtn.innerHTML = `${icon} <span>${label}</span>`;
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('wd101_theme', next);
+        updateThemeBtnState();
+      });
+      const savedTheme = localStorage.getItem('wd101_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      updateThemeBtnState();
+    }
+
+    const langBtn = document.getElementById('lang-toggle-btn');
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('wd101_lang', lang);
+      if (langBtn) {
+        langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
+      }
+      updateThemeBtnState();
+    }
+
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('lang') || 'pt';
+        const next = current === 'pt' ? 'en' : 'pt';
+        setLanguage(next);
+      });
+      setLanguage(localStorage.getItem('wd101_lang') || 'pt');
+    }
+  </script>
+
+</body>
+</html>

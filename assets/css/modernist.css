@@ -63,6 +63,9 @@
     --badge-no-bg: #f4f4f5;
     --badge-no-color: #71717a;
     --badge-no-border: #e4e4e7;
+    --badge-transversal-bg: #f1f5f9;
+    --badge-transversal-color: #334155;
+    --badge-transversal-border: #cbd5e1;
   }
 
   /* Explicit Overrides when user toggles Theme Switcher */
@@ -97,6 +100,9 @@
     --badge-no-bg: #27272a;
     --badge-no-color: #a1a1aa;
     --badge-no-border: #3f3f46;
+    --badge-transversal-bg: #1e293b;
+    --badge-transversal-color: #e2e8f0;
+    --badge-transversal-border: #475569;
   }
 
   html[data-theme="light"],
@@ -130,6 +136,9 @@
     --badge-no-bg: #f4f4f5;
     --badge-no-color: #71717a;
     --badge-no-border: #e4e4e7;
+    --badge-transversal-bg: #f1f5f9;
+    --badge-transversal-color: #334155;
+    --badge-transversal-border: #cbd5e1;
   }
 
   /* Automatic Dark Mode if OS prefers dark and user has not set explicit theme */
@@ -163,6 +172,9 @@
       --badge-no-bg: #27272a;
       --badge-no-color: #a1a1aa;
       --badge-no-border: #3f3f46;
+      --badge-transversal-bg: #1e293b;
+      --badge-transversal-color: #e2e8f0;
+      --badge-transversal-border: #475569;
     }
   }
 
@@ -455,6 +467,13 @@
     background-color: var(--badge-no-bg);
     color: var(--badge-no-color);
     border-color: var(--badge-no-border);
+  }
+
+  .badge-transversal {
+    background-color: var(--badge-transversal-bg);
+    color: var(--badge-transversal-color);
+    border-color: var(--badge-transversal-border);
+    letter-spacing: 0.05em;
   }
 
   /* Declarative Bilingual Switching (Zero JS Overhead) */
