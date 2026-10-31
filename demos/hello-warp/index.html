@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!--
+  ==========================================================================
+  WD101 — Web Design 101 | Faculdade de Belas Artes da Universidade do Porto
+  EXERCÍCIO 1: HELLO WARP! (Adaptação Oficial do "Hello Wendy!")
+  Autor: DJ Warp & Estudante WD101
+  Docente: Prof. Pedro Amado (pamado@fba.up.pt)
+  Data: 2026-10-24
+  
+  OBJETIVO PEDAGÓGICO:
+  Demonstrar o domínio absoluto do fluxo normal do documento HTML5, landmarks
+  semânticos puros, hierarquia tipográfica em rem/em, seletores descendentes
+  e modelo de caixa com restrições elásticas (min-width: 320px, max-width: 75ch).
+  ESTRITAMENTE ZERO CLASSES COSMÉTICAS, ZERO DIVS E ZERO IMAGENS.
+  ==========================================================================
+-->
+<html lang="pt-PT">
+<head>
+  <!-- 1. METADADOS TÉCNICOS FUNDAMENTAIS -->
+  <meta charset="UTF-8">
+  <!-- Viewport obrigatória para Responsive Web Design (Mobile-First) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Hello Warp! — Apresentação Oficial DJ Warp • Drumtiks '26 FBAUP</title>
+  <meta name="description" content="Apresentação do artista DJ Warp para o Festival Drumtiks '26. Exercício 1 de Web Design 101 na FBAUP focado em HTML5 semântico, fluxo normal e tipografia relativa.">
+  <meta name="author" content="DJ Warp (FBAUP WD101)">
+
+  <!-- 2. LIGAÇÃO AO FICHEIRO CSS EXTERNO (Caminho relativo estrito) -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       MARCO 1 / LANDMARK: HEADER (Cabeçalho Introdutório)
+       Apenas um H1 em todo o documento!
+       ====================================================================== -->
+  <header id="inicio">
+    <h1>Hello, I'm DJ Warp!</h1>
+    <p>
+      Produtor musical, baterista experimental e artista residente no 
+      <strong>Festival DRUMTIKS '26</strong> na Faculdade de Belas Artes da Universidade do Porto.
+    </p>
+
+    <!-- LANDMARK: NAV (Navegação por Lista com Seletores Descendentes) -->
+    <nav aria-label="Navegação da Apresentação">
+      <ul>
+        <!-- Tipologia 1: Named Anchors (Âncoras Internas com #id) -->
+        <li><a href="#biografia">Biografia</a></li>
+        <li><a href="#live-setup">Live Setup &amp; Tecnologia</a></li>
+        <li><a href="#alinhamento">Palcos &amp; Horários</a></li>
+        <li><a href="#manifesto">Manifesto Sonoro</a></li>
+        <li><a href="#dicionario">Termos Técnicos</a></li>
+        <!-- Tipologia 2: Ligação Externa Absoluta com boas práticas de segurança -->
+        <li><a href="https://sigarra.up.pt/fbaup/" target="_blank" rel="noopener noreferrer">FBAUP ↗</a></li>
+        <!-- Tipologia 3: Ligação de Email Direta -->
+        <li><a href="mailto:djwarp@drumtiks.up.pt?subject=Contacto%20Hello%20Warp">Booking &amp; Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ======================================================================
+       MARCO 2 / LANDMARK: MAIN (Conteúdo Central do Documento)
+       Estruturado em Secções Temáticas sem qualquer elemento DIV!
+       ====================================================================== -->
+  <main>
+
+    <!-- SECÇÃO 1: BIOGRAFIA E TRAJETÓRIA -->
+    <section id="biografia">
+      <h2>1. Quem é o DJ Warp?</h2>
+      <p>
+        Nascido entre Berlim e o Porto, o projeto <strong>DJ Warp</strong> explora a fricção acústica entre a 
+        percussão física crua e a síntese analógica modular. Longe do conceito tradicional de DJ que apenas reproduz 
+        gravações pré-existentes, as apresentações assentam em <em>baterias acústicas modificadas</em> equipadas com 
+        sensores piezoelétricos de alta sensibilidade.
+      </p>
+      <p>
+        Iniciou o seu percurso na música industrial em <time datetime="2018">2018</time>, colaborando com laboratórios de 
+        design de som e artes digitais. O seu objetivo é <mark>humanizar o som mecânico</mark> e trazer a expressividade 
+        do gesto manual de volta às pistas de dança contemporâneas.
+      </p>
+      <blockquote>
+        <p>
+          &ldquo;O ritmo não é uma grelha matemática rígida desenhada num monitor. O ritmo é a pulsação imperfeita 
+          do choque da madeira contra o metal e a tensão da membrana sob a força muscular.&rdquo;
+        </p>
+      </blockquote>
+    </section>
+
+    <!-- SECÇÃO 2: LIVE SETUP (COM ARTIGOS ESPECÍFICOS) -->
+    <section id="live-setup">
+      <h2>2. Arquitetura do Live Setup</h2>
+      <p>
+        Cada atuação ao vivo dispensa computadores portáteis virados para o público. A instrumentação técnica é 
+        completamente analógica e tátil:
+      </p>
+
+      <!-- Artigo A: Módulo Percussivo -->
+      <article id="equipamento-percussao">
+        <h3>A. Bateria Acústica Híbrida &amp; Triggers Piezo</h3>
+        <p>
+          Kit de percussão construído a partir de tarolas militares dos anos 60, equipadas com cápsulas piezoelétricas 
+          artesanais. O impacto físico das baquetas gera impulsos de voltagem (<abbr title="Control Voltage">CV</abbr>) 
+          instantâneos que alimentam a cadeia de síntese modular.
+        </p>
+      </article>
+
+      <!-- Artigo B: Sintetizador Modular Eurorack -->
+      <article id="equipamento-eurorack">
+        <h3>B. Sistema Modular Eurorack (9U)</h3>
+        <p>
+          Painel de osciladores analógicos, filtros passa-baixo de 24dB e módulos de distorção a válvulas. 
+          As voltagens geradas pelos tambores modulam em tempo real o corte de frequência (<abbr title="Filter Cutoff">VCF</abbr>) 
+          e os tempos de reverberação estéreo.
+        </p>
+      </article>
+
+      <!-- Artigo C: Fita Magnética & Delays -->
+      <article id="equipamento-fita">
+        <h3>C. Ecos de Fita Magnética Space Echo</h3>
+        <p>
+          Uma unidade clássica de fita de quarto de polegada cria atrasos flutuantes e saturação harmónica quente, 
+          adicionando instabilidade e profundidade espacial orgânica ao som dos pratos.
+        </p>
+      </article>
+    </section>
+
+    <!-- SECÇÃO 3: ALINHAMENTO E PALCOS NO FESTIVAL -->
+    <section id="alinhamento">
+      <h2>3. Apresentações no Festival DRUMTIKS '26</h2>
+      <p>
+        O DJ Warp apresentará três formatos distintos ao longo dos três dias de festival nos jardins da FBAUP:
+      </p>
+
+      <ol>
+        <li>
+          <strong>Sexta-feira, 24 de Outubro • 22h30:</strong> 
+          <em>Abertura do Palco Beat Foundry</em> — Apresentação imersiva a solo de 90 minutos focada em polirritmias de alta intensidade.
+        </li>
+        <li>
+          <strong>Sábado, 25 de Outubro • 16h00:</strong> 
+          <em>Masterclass Técnica de Bateria Híbrida</em> — Sessão aberta no Pavilhão de Escultura com demonstração prática de sensores piezo.
+        </li>
+        <li>
+          <strong>Domingo, 26 de Outubro • 21h00:</strong> 
+          <em>Encerramento com o Coletivo Drumtiks All-Stars</em> — Batalha sonora cruzada entre 4 bateristas e sistemas generativos ao vivo.
+        </li>
+      </ol>
+      <p>
+        <a href="#inicio">↑ Regressar ao topo da página</a>
+      </p>
+    </section>
+
+    <!-- SECÇÃO 4: MANIFESTO ESTÉTICO -->
+    <section id="manifesto">
+      <h2>4. Manifesto: Princípios de Criação Sonora</h2>
+      <p>
+        Sete princípios orientadores que regem todo o trabalho sonoro de DJ Warp:
+      </p>
+      <ul>
+        <li><strong>Fidelidade Física:</strong> Cada som ouvido na sala teve origem num objeto real a vibrar.</li>
+        <li><strong>Sem Telas no Palco:</strong> Interação com botões, potenciómetros, cabos e baquetas.</li>
+        <li><strong>Impermanência:</strong> Nenhuma faixa é exatamente igual de noite para noite; o erro faz parte da partitura.</li>
+        <li><strong>Diálogo com a Arquitetura:</strong> A reverberação do espaço molda a velocidade do andamento (<abbr title="Batimentos Por Minuto">BPM</abbr>).</li>
+      </ul>
+      <p>
+        Notas históricas: as primeiras apresentações foram pensadas para <del>galerias de arte fechadas</del>, 
+        sendo agora concebidas especificamente para <ins>espaços abertos e pavilhões industriais</ins>.
+      </p>
+    </section>
+
+    <!-- SECÇÃO 5 / ASIDE: DICIONÁRIO TÉCNICO & VOCABULÁRIO -->
+    <aside id="dicionario">
+      <h2>5. Vocabulário &amp; Dicionário Técnico</h2>
+      <p>Termos fundamentais para compreender a linguagem do espetáculo:</p>
+
+      <dl>
+        <dt>Sensor Piezoelétrico</dt>
+        <dd>Componente eletrónico que converte vibração mecânica e pressão física diretamente em corrente elétrica proporcional.</dd>
+
+        <dt>Control Voltage (CV)</dt>
+        <dd>Sinal elétrico contínuo utilizado na síntese modular analógica para controlar alturas de nota, filtros e envelopes de tempo.</dd>
+
+        <dt>Polirritmia</dt>
+        <dd>Execução simultânea de duas métricas com compassos contrastantes (ex.: 3 batidas sobrepostas a 4 batidas no mesmo intervalo de tempo).</dd>
+
+        <dt>Eurorack</dt>
+        <dd>Formato padrão internacional de sintetizadores modulares criado nos anos 90, permitindo combinar módulos de diferentes fabricantes.</dd>
+      </dl>
+    </aside>
+
+  </main>
+
+  <!-- ======================================================================
+       MARCO 3 / LANDMARK: FOOTER (Rodapé Informativo & Metadados)
+       ====================================================================== -->
+  <footer id="contacto">
+    <p>
+      &copy; 2026 <strong>Hello Warp!</strong> &bull; Criado no âmbito de <code>Web Design 101</code>.<br>
+      Licenciatura em Design de Comunicação &bull; Faculdade de Belas Artes da Universidade do Porto.<br>
+      Docente Responsável: <a href="mailto:pamado@fba.up.pt">Prof. Pedro Amado</a> &bull; 
+      <a href="#inicio">↑ Voltar ao Início</a>
+    </p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    ==========================================================================
+    PAGE 02: CSS GRID LAYOUT MASTERCLASS
+    Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+    Course: Web Design (WD101) — 2026/27
+    Festival Context: DRUMTIKS '26 (Alfândega do Porto)
+    Subject: DJ Warp Discography & Asymmetric Masonry Exploration
+    Author: Pedro Amado / Advanced Agentic Coding Pair
+    ==========================================================================
+    MDN GUIDES REFERENCED:
+    - Overview: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout
+    - Basic Concepts: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Basic_concepts
+    - Relationships: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Relationship_with_other_layout_methods
+    - Auto-placement: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Auto-placement
+    ==========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02 • CSS Grid Layout | DJ Warp Discography Masonry | DRUMTIKS '26</title>
+  <meta name="description" content="Pedagogical interactive laboratory for CSS Grid: 2D tracks, fr units, minmax(), modular units, negative whitespace, and asymmetric masonry packing.">
+
+  <!-- Local variable fonts (Inter, Martian Mono, Syne) -->
+  <link rel="stylesheet" href="css/fonts.css">
+  <!-- Shared design system tokens, typography, resets and header -->
+  <link rel="stylesheet" href="css/base.css">
+  <!-- Dedicated CSS Grid module styles and variation selectors -->
+  <link rel="stylesheet" href="css/grid-demo.css">
+</head>
+<body>
+
+  <!--
+    LANDMARK: <header class="site-header">
+    Sticky global top bar with links to Hub and other Masterclass demonstrators.
+  -->
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <div class="brand-group">
+        <a href="index.html" class="brand-logo" aria-label="Return to Curriculum Hub">
+          DRUMTIKS<span class="tag">'26</span>
+        </a>
+        <span class="brand-badge">WD101 • LAB 02</span>
+      </div>
+
+      <nav class="main-nav" aria-label="Curriculum Navigation">
+        <a href="index.html" class="nav-link">
+          <span>🏠 Hub</span>
+        </a>
+        <a href="01-flexbox-tracks.html" class="nav-link">
+          <span class="nav-pill-num">01</span>
+          <span>Flexbox Tracks</span>
+        </a>
+        <a href="02-grid-albums.html" class="nav-link active" aria-current="page">
+          <span class="nav-pill-num">02</span>
+          <span>CSS Grid Albums</span>
+        </a>
+        <a href="03-hybrid-discography.html" class="nav-link">
+          <span class="nav-pill-num">03</span>
+          <span>Hybrid Architecture</span>
+        </a>
+        <a href="04-container-queries.html" class="nav-link">
+          <span class="nav-pill-num">04</span>
+          <span>Container Queries</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!--
+    LANDMARK: <main>
+    Primary educational document body containing the hero explanation,
+    interactive grid variation switcher, and the responsive 2D grid matrix.
+  -->
+  <main id="main-content" role="main">
+
+    <!-- HERO SECTION: Explains 2D mental model and pedagogical objectives -->
+    <section class="page-hero" aria-labelledby="grid-hero-title">
+      <div class="hero-meta-strip">
+        <span class="hero-chip chip-amber">CSS Grid Masterclass</span>
+        <span class="hero-chip chip-cyan">2-Dimensional Layout (Rows + Columns)</span>
+        <span class="hero-chip chip-purple">Asymmetric &amp; Modular Variations</span>
+      </div>
+      <h1 id="grid-hero-title" class="hero-title">02 • CSS Grid: Asymmetric Discography Masonry</h1>
+      <p class="hero-description">
+        CSS Grid is a <strong>two-dimensional layout system</strong> that simultaneously choreographs columns and rows. In this laboratory, DJ Warp's releases are orchestrated with intentional proportions: full LPs occupy larger prominent coordinates, while EPs take compact satellite areas. Toggle between 3 distinct architectural variations below.
+      </p>
+    </section>
+
+    <!--
+      PEDAGOGICAL INTERACTIVE TOOLBAR (Pure HTML + CSS)
+      Includes CodePen-style View Mode Switcher, X-Ray Matrix Guide, and 3 Grid Variations!
+    -->
+    <section class="grid-laboratory-workspace" aria-label="Interactive CSS Grid Playground">
+      <div class="demo-control-bar" role="toolbar" aria-label="CSS Grid Layout Engine Controls">
+        <div class="control-bar-header">
+          <div class="control-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Interactive CSS Grid Matrix &amp; Code Sandbox Controls
+          </div>
+          <div class="control-explainer">Pure CSS :has() State Engine • Zero JavaScript</div>
+        </div>
+
+        <!-- CODEPEN-STYLE VIEW MODE TOGGLES (Preview vs HTML vs CSS) -->
+        <div class="control-group">
+          <span class="control-group-label" style="color:var(--color-accent-cyan);">Active View Mode:</span>
+          <div class="sandbox-view-tabs" role="tablist">
+            <input type="radio" name="sandbox_view" id="tab-view-preview" checked>
+            <label for="tab-view-preview" role="tab" aria-selected="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              Rendered Preview
+            </label>
+
+            <input type="radio" name="sandbox_view" id="tab-view-html">
+            <label for="tab-view-html" role="tab" aria-selected="false">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              HTML View
+            </label>
+
+            <input type="radio" name="sandbox_view" id="tab-view-css">
+            <label for="tab-view-css" role="tab" aria-selected="false">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l8-4 8 4V2z"/></svg>
+              CSS View
+            </label>
+          </div>
+        </div>
+
+        <!-- 1. THREE GRID VARIATIONS -->
+        <div class="control-group">
+          <span class="control-group-label" style="color:var(--color-accent-amber);">Select Grid Variation:</span>
+          <div class="segmented-options">
+            <!-- Variation 1: Modular (Equal Units) -->
+            <input type="radio" name="grid_variant" id="grid-var-modular" checked>
+            <label for="grid-var-modular">1. Modular (Equal Units: repeat(4, 1fr))</label>
+
+            <!-- Variation 2: Modular with Intentional Negative Space -->
+            <input type="radio" name="grid_variant" id="grid-var-negative">
+            <label for="grid-var-negative">2. Modular with Intentional Negative Space</label>
+
+            <!-- Variation 3: Asymmetric / Irregular Spaces -->
+            <input type="radio" name="grid_variant" id="grid-var-asymmetric">
+            <label for="grid-var-asymmetric">3. Asymmetric / Irregular Spaces (Dense Packing)</label>
+          </div>
+        </div>
+
+        <!-- 2. X-RAY GUIDE OVERLAY -->
+        <div class="control-group">
+          <span class="control-group-label" style="color:var(--color-text-muted);">Visual Inspector:</span>
+          <div class="segmented-options">
+            <input type="radio" name="grid_guide_mode" id="grid-inspect-off" checked>
+            <label for="grid-inspect-off">Normal Preview</label>
+
+            <input type="radio" name="grid_guide_mode" id="grid-inspect-guides">
+            <label for="grid-inspect-guides">X-Ray Grid Tracks &amp; Coordinate Outlines</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           PANE 1: RENDERED PREVIEW (Live Interactive Sandbox)
+           ==================================================================== -->
+      <div class="sandbox-pane-preview" id="pane-rendered-preview">
+        <!--
+          THE MASTER GRID CONTAINER (.discography-grid-stage)
+          Mobile First: Single column (grid-template-columns: 1fr;)
+          Desktop (min-width: 900px): Switches between Modular, Negative Space, and Asymmetric tracks!
+        -->
+        <div class="discography-grid-stage" id="grid-stage" role="region" aria-label="DJ Warp Discography Grid Matrix">
+
+        <!-- ================================================================
+             ITEM 1: Full Album 1 — WARP THEORY (The 808 Chronicles)
+             Full Album: Takes larger footprint (spans 2 columns, 2 rows)
+             ================================================================ -->
+        <article class="grid-album-card album-warp-theory" data-format="lp" data-year="2024">
+          <div class="card-art-holder">
+            <img src="assets/images/album-1-warp-theory.jpg" alt="Warp Theory Album Cover" width="400" height="250" loading="eager">
+          </div>
+          <div class="card-content-body">
+            <span class="card-type-tag">Full Length LP • 10 Cuts</span>
+            <h3 class="card-album-title">WARP THEORY — The 808 Chronicles</h3>
+            <p class="card-album-desc">
+              Heavyweight boom bap fundamentals with massive analog 808 sub-bass harmonics and Alfândega harbor hydrophone echoes.
+            </p>
+          </div>
+          <div class="card-grid-meta-footer">
+            <span>BPM: <span class="spec">85–96</span></span>
+            <span>Duration: <span class="spec">42:34</span></span>
+            <span>RPM: <span class="spec">33⅓ Shellac</span></span>
+          </div>
+        </article>
+
+        <!-- ================================================================
+             ITEM 2: Full Album 2 — CONCRETE PULSE (Alfândega Vault Sessions)
+             Full Album: Introspective & Ambient Turntablism
+             ================================================================ -->
+        <article class="grid-album-card album-concrete-pulse" data-format="lp" data-year="2025">
+          <div class="card-art-holder">
+            <img src="assets/images/album-2-concrete-pulse.jpg" alt="Concrete Pulse Album Cover" width="400" height="250" loading="lazy">
+          </div>
+          <div class="card-content-body">
+            <span class="card-type-tag">Full Length LP • 10 Cuts</span>
+            <h3 class="card-album-title">CONCRETE PULSE</h3>
+            <p class="card-album-desc">
+              Midnight vault reverberations, 78 RPM shellac surface crackle, and moody cello chops recorded in subterranean acoustic chambers.
+            </p>
+          </div>
+          <div class="card-grid-meta-footer">
+            <span>BPM: <span class="spec">70–83</span></span>
+            <span>Duration: <span class="spec">38:17</span></span>
+            <span>RPM: <span class="spec">33⅓ Ambient</span></span>
+          </div>
+        </article>
+
+        <!-- ================================================================
+             ITEM 3: Full Album 3 — DUST & GROOVES (Subterranean Cuts Vol. 1)
+             Full Album: Aggressive Battle Turntablism & Rapid Flares
+             ================================================================ -->
+        <article class="grid-album-card album-dust-grooves" data-format="lp" data-year="2025">
+          <div class="card-art-holder">
+            <img src="assets/images/album-3-dust-and-grooves.jpg" alt="Dust and Grooves Album Cover" width="400" height="250" loading="lazy">
+          </div>
+          <div class="card-content-body">
+            <span class="card-type-tag">Full Length LP • 11 Cuts</span>
+            <h3 class="card-album-title">DUST &amp; GROOVES</h3>
+            <p class="card-album-desc">
+              High-velocity battle routines, raw funk drum rolls, optical crossfader demolition, and relentless dual-turntable beat juggling.
+            </p>
+          </div>
+          <div class="card-grid-meta-footer">
+            <span>BPM: <span class="spec">92–104</span></span>
+            <span>Duration: <span class="spec">44:03</span></span>
+            <span>RPM: <span class="spec">33⅓ Battle</span></span>
+          </div>
+        </article>
+
+        <!-- ================================================================
+             ITEM 4: EP 1 — FADER KINETICS (The Needle & The Iron)
+             EP Format: Smaller area (spans 1 column)
+             ================================================================ -->
+        <article class="grid-album-card album-fader-kinetics" data-format="ep" data-year="2026">
+          <div class="card-art-holder">
+            <img src="assets/images/album-4-fader-kinetics.jpg" alt="Fader Kinetics EP Cover" width="400" height="250" loading="lazy">
+          </div>
+          <div class="card-content-body">
+            <span class="card-type-tag card-type-ep">Special EP • 5 Cuts</span>
+            <h3 class="card-album-title">FADER KINETICS</h3>
+            <p class="card-album-desc">
+              Sampling &amp; scratching physics showcase: motor decelerations, tonearm friction, and 32nd-note fader strikes.
+            </p>
+          </div>
+          <div class="card-grid-meta-footer">
+            <span>BPM: <span class="spec">88–105</span></span>
+            <span>Duration: <span class="spec">19:00</span></span>
+            <span>RPM: <span class="spec">45 RPM Vinyl</span></span>
+          </div>
+        </article>
+
+        <!-- ================================================================
+             ITEM 5: EP 2 — CIRCUIT BENDER (Riverbank Sonics)
+             EP Format: Smaller area (spans 1 column)
+             ================================================================ -->
+        <article class="grid-album-card album-circuit-bender" data-format="ep" data-year="2026">
+          <div class="card-art-holder">
+            <img src="assets/images/album-5-circuit-bender.jpg" alt="Circuit Bender EP Cover" width="400" height="250" loading="lazy">
+          </div>
+          <div class="card-content-body">
+            <span class="card-type-tag card-type-ep">Special EP • 5 Cuts</span>
+            <h3 class="card-album-title">CIRCUIT BENDER</h3>
+            <p class="card-album-desc">
+              Porto Tram 1 rail friction, dock crane hydrophones, and concrete resonance chopped on a circuit-bent 12-bit sampler.
+            </p>
+          </div>
+          <div class="card-grid-meta-footer">
+            <span>BPM: <span class="spec">84–92</span></span>
+            <span>Duration: <span class="spec">18:22</span></span>
+            <span>RPM: <span class="spec">45 RPM Vinyl</span></span>
+          </div>
+        </article>
+
+        <!-- ================================================================
+             EDITORIAL ACCENTS & INTENTIONAL NEGATIVE SPACE MODULES
+             Used in Variations 2 & 3 to illustrate empty space and pull-quotes!
+             ================================================================ -->
+
+        <!-- Editorial Quote Cell -->
+        <aside class="editorial-quote-cell" aria-label="Artist Manifesto Quote">
+          <div class="quote-mark">“</div>
+          <p class="quote-text">
+            The crossfader is not just a volume switch; it is a percussive reed that carves continuous sound into rhythmic matter.
+          </p>
+          <div class="quote-author">— DJ WARP • DRUMTIKS FESTIVAL MASTERCLASS</div>
+        </aside>
+
+        <!-- Stat Callout Meter -->
+        <div class="stat-meter-cell" aria-label="Discography Statistics">
+          <div class="stat-meter-header">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Sonic Archive Specs
+          </div>
+          <div class="stat-big-number">41</div>
+          <div class="stat-sublabel">Original turntable compositions recorded across 5 releases (3 LPs + 2 EPs)</div>
+        </div>
+
+        <!-- Negative Space / Breathing Room Indicator Cell 1 -->
+        <div class="empty-negative-cell spacer-cell-1" aria-hidden="true">
+          <span class="empty-cell-label">Intentional Negative Space</span>
+          <span class="empty-cell-coord">Coord [Col 3 / Row 1]</span>
+        </div>
+
+        <!-- Negative Space / Breathing Room Indicator Cell 2 -->
+        <div class="empty-negative-cell spacer-cell-2" aria-hidden="true">
+          <span class="empty-cell-label">Unoccupied Track Void</span>
+          <span class="empty-cell-coord">Coord [Col 4 / Row 2]</span>
+        </div>
+
+        <!-- Negative Space / Breathing Room Indicator Cell 3 -->
+        <div class="empty-negative-cell spacer-cell-3" aria-hidden="true">
+          <span class="empty-cell-label">Breathing Room Buffer</span>
+          <span class="empty-cell-coord">Coord [Col 1 / Row 3]</span>
+        </div>
+
+      </div><!-- Close .discography-grid-stage -->
+      </div><!-- Close .sandbox-pane-preview -->
+
+      <!-- ====================================================================
+           PANE 2: HTML VIEW (Semantic Grid Markup & Landmarks)
+           ==================================================================== -->
+      <div class="sandbox-pane-html pattern-code-view" id="pane-html-view">
+        <div class="code-view-header">
+          <span class="code-lang-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            HTML View • Grid Landmarks &amp; Cell Hierarchy
+          </span>
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">Live Semantic Source</span>
+        </div>
+        <pre class="code-view-content"><code>&lt;!-- 1. MASTER LANDMARK CONTAINER --&gt;
+&lt;main id="main-content" role="main"&gt;
+
+  &lt;!-- 2. THE 2D GRID CONTAINER --&gt;
+  &lt;!-- Mobile: single column (grid-template-columns: 1fr;) --&gt;
+  &lt;!-- Desktop: 4-column matrix with varied spanning rules --&gt;
+  &lt;div class="discography-grid-stage" id="grid-stage" role="region" aria-label="DJ Warp Discography Grid Matrix"&gt;
+
+    &lt;!-- FULL ALBUM 1 (Headline Cut: Spans 2 Columns, 2 Rows) --&gt;
+    &lt;article class="grid-album-card album-warp-theory" data-format="lp" data-year="2024"&gt;
+      &lt;div class="card-art-holder"&gt;
+        &lt;img src="assets/images/album-1-warp-theory.jpg" alt="Warp Theory Album Cover"&gt;
+      &lt;/div&gt;
+      &lt;div class="card-content-body"&gt;
+        &lt;span class="card-type-tag"&gt;Full Length LP • 10 Cuts&lt;/span&gt;
+        &lt;h3 class="card-album-title"&gt;WARP THEORY — The 808 Chronicles&lt;/h3&gt;
+        &lt;p class="card-album-desc"&gt;Heavyweight boom bap fundamentals with massive 808 sub-bass.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="card-grid-meta-footer"&gt;
+        &lt;span&gt;BPM: 85–96&lt;/span&gt;
+        &lt;span&gt;Duration: 42:34&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;!-- FULL ALBUM 2 (Spans 2 Columns) --&gt;
+    &lt;article class="grid-album-card album-concrete-pulse" data-format="lp" data-year="2025"&gt;
+      &lt;div class="card-art-holder"&gt;
+        &lt;img src="assets/images/album-2-concrete-pulse.jpg" alt="Concrete Pulse Album Cover"&gt;
+      &lt;/div&gt;
+      &lt;div class="card-content-body"&gt;
+        &lt;span class="card-type-tag"&gt;Full Length LP • 10 Cuts&lt;/span&gt;
+        &lt;h3 class="card-album-title"&gt;CONCRETE PULSE&lt;/h3&gt;
+        &lt;p class="card-album-desc"&gt;Midnight vault reverberations and 78 RPM shellac crackle.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;!-- FULL ALBUM 3 (Spans 2 Columns) --&gt;
+    &lt;article class="grid-album-card album-dust-grooves" data-format="lp" data-year="2025"&gt;
+      &lt;div class="card-art-holder"&gt;
+        &lt;img src="assets/images/album-3-dust-and-grooves.jpg" alt="Dust and Grooves Album Cover"&gt;
+      &lt;/div&gt;
+      &lt;div class="card-content-body"&gt;
+        &lt;span class="card-type-tag"&gt;Full Length LP • 11 Cuts&lt;/span&gt;
+        &lt;h3 class="card-album-title"&gt;DUST &amp; GROOVES&lt;/h3&gt;
+        &lt;p class="card-album-desc"&gt;Battle routines, raw funk drum rolls, and fader demolition.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;!-- EP 1 (Compact Footprint: Spans 1 Column) --&gt;
+    &lt;article class="grid-album-card album-fader-kinetics" data-format="ep" data-year="2026"&gt;
+      &lt;div class="card-art-holder"&gt;
+        &lt;img src="assets/images/album-4-fader-kinetics.jpg" alt="Fader Kinetics EP Cover"&gt;
+      &lt;/div&gt;
+      &lt;div class="card-content-body"&gt;
+        &lt;span class="card-type-tag"&gt;Special EP • 5 Cuts&lt;/span&gt;
+        &lt;h3 class="card-album-title"&gt;FADER KINETICS&lt;/h3&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;!-- EP 2 (Compact Footprint: Spans 1 Column) --&gt;
+    &lt;article class="grid-album-card album-circuit-bender" data-format="ep" data-year="2026"&gt;
+      &lt;div class="card-art-holder"&gt;
+        &lt;img src="assets/images/album-5-circuit-bender.jpg" alt="Circuit Bender EP Cover"&gt;
+      &lt;/div&gt;
+      &lt;div class="card-content-body"&gt;
+        &lt;span class="card-type-tag"&gt;Special EP • 5 Cuts&lt;/span&gt;
+        &lt;h3 class="card-album-title"&gt;CIRCUIT BENDER&lt;/h3&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;!-- EDITORIAL ACCENT: Pull-Quote Cell --&gt;
+    &lt;aside class="editorial-quote-cell"&gt;
+      &lt;p class="quote-text"&gt;“The crossfader is a percussive reed...”&lt;/p&gt;
+    &lt;/aside&gt;
+
+    &lt;!-- INTENTIONAL NEGATIVE SPACE VOID --&gt;
+    &lt;div class="empty-negative-cell spacer-cell-1" aria-hidden="true"&gt;
+      &lt;span&gt;Intentional Negative Space [Col 3 / Row 1]&lt;/span&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/main&gt;</code></pre>
+      </div>
+
+      <!-- ====================================================================
+           PANE 3: CSS VIEW (Active Grid Rules Across the 3 Variations)
+           ==================================================================== -->
+      <div class="sandbox-pane-css pattern-code-view" id="pane-css-view">
+        <div class="code-view-header">
+          <span class="code-lang-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l8-4 8 4V2z"/></svg>
+            CSS View • Active Grid Layout Rules Across the 3 Variations
+          </span>
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">Pure Layout CSS</span>
+        </div>
+        <pre class="code-view-content"><code>/* ==========================================================================
+   MOBILE FIRST BASE (Single Column Stack)
+   ========================================================================== */
+.discography-grid-stage {
+  display: grid;
+  grid-template-columns: 1fr;     /* 1 column taking 100% width on mobile */
+  gap: 1.5rem;                    /* Uniform row and column gap */
+}
+
+/* ==========================================================================
+   VARIATION 1: MODULAR (EQUAL UNITS)
+   ========================================================================== */
+@media (min-width: 900px) {
+  body:has(#grid-var-modular:checked) .discography-grid-stage {
+    grid-template-columns: repeat(4, 1fr);   /* 4 equal fractional columns */
+    grid-auto-rows: minmax(260px, auto);     /* Rows auto-expand to content */
+  }
+
+  /* Full LPs occupy 2 columns (larger areas) */
+  body:has(#grid-var-modular:checked) .album-warp-theory {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  body:has(#grid-var-modular:checked) .album-concrete-pulse { grid-column: span 2; }
+  body:has(#grid-var-modular:checked) .album-dust-grooves    { grid-column: span 2; }
+
+  /* EPs occupy 1 column (compact satellite areas) */
+  body:has(#grid-var-modular:checked) .album-fader-kinetics { grid-column: span 1; }
+  body:has(#grid-var-modular:checked) .album-circuit-bender { grid-column: span 1; }
+}
+
+/* ==========================================================================
+   VARIATION 2: MODULAR WITH INTENTIONAL NEGATIVE SPACE (EMPTY CELLS)
+   ========================================================================== */
+@media (min-width: 900px) {
+  body:has(#grid-var-negative:checked) .discography-grid-stage {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(240px, auto);
+  }
+
+  /* Explicit line placement: leave [Col 3 / Row 1] EMPTY! */
+  body:has(#grid-var-negative:checked) .album-warp-theory {
+    grid-column: 1 / 3;           /* Lines 1 to 3 */
+    grid-row: 1 / 3;
+  }
+  body:has(#grid-var-negative:checked) .spacer-cell-1 {
+    grid-column: 3 / 4;           /* Occupies empty slot with negative space */
+    grid-row: 1 / 2;
+  }
+  body:has(#grid-var-negative:checked) .album-fader-kinetics {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+  }
+}
+
+/* ==========================================================================
+   VARIATION 3: ASYMMETRIC / IRREGULAR SPACES (DENSE PACKING)
+   ========================================================================== */
+@media (min-width: 900px) {
+  body:has(#grid-var-asymmetric:checked) .discography-grid-stage {
+    /* Non-uniform column tracks: 1.2fr, 2.2fr (hero), 0.9fr (spine), 1.5fr */
+    grid-template-columns: 1.2fr 2.2fr 0.9fr 1.5fr;
+    grid-auto-rows: minmax(180px, auto);
+    grid-auto-flow: dense;        /* Backfills unoccupied algorithm holes! */
+  }
+
+  body:has(#grid-var-asymmetric:checked) .album-warp-theory {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+  }
+  body:has(#grid-var-asymmetric:checked) .editorial-quote-cell {
+    grid-column: 3 / 5;
+    grid-row: 1 / 2;
+  }
+  body:has(#grid-var-asymmetric:checked) .album-dust-grooves {
+    grid-column: 2 / 4;
+    grid-row: 3 / 5;
+  }
+}</code></pre>
+      </div>
+
+      <!-- ====================================================================
+           BAREBONE STRUCTURAL BLUEPRINT (Pedagogical Cheat Sheet)
+           Answers user requirement:
+           "a brief summary explanation with just the barebone HTML 5 Landmarks
+           and the core fundamental selectors and propertis for the containers
+           and items and the most relevant properties just pertaining to the
+           css grid (just the main structural aspects, no need for visual design
+           details, like colors, fonts, etc.)"
+           ==================================================================== -->
+      <section class="blueprint-card" aria-labelledby="grid-blueprint-title">
+        <div class="blueprint-header">
+          <div>
+            <span class="blueprint-badge">Pedagogical Cheat Sheet</span>
+            <h2 id="grid-blueprint-title" class="blueprint-title">Barebone Structural Blueprint: Pure CSS Grid</h2>
+          </div>
+        </div>
+        <p class="blueprint-summary-text">
+          <strong>Summary of Structural Requirements:</strong> CSS Grid is a 2-dimensional layout tool. To build responsive modular and asymmetric layouts, you establish tracks on the <strong>Grid Container</strong> (columns and rows) and position <strong>Grid Items</strong> using coordinate spans (<code>grid-column: span 2</code>), explicit line boundaries (<code>grid-column: 1 / 3</code>), or the auto-placement packing algorithm (<code>grid-auto-flow: dense</code>). No decorative styling (colors, fonts, borders, shadows) is needed for the grid matrix to operate.
+        </p>
+
+        <div class="blueprint-grid">
+          <!-- Column 1: Barebone HTML5 Landmarks -->
+          <div class="blueprint-column">
+            <div class="blueprint-col-title">
+              <span>1. Barebone HTML5 Landmarks</span>
+              <span style="color:var(--color-text-dim);">HTML</span>
+            </div>
+            <pre class="blueprint-code"><code>&lt;!-- Landmark: Main Content --&gt;
+&lt;main&gt;
+
+  &lt;!-- Landmark: Section acting as 2D Grid Container --&gt;
+  &lt;section class="grid-container"&gt;
+
+    &lt;!-- Landmark: Article acting as Dominant Item (LP) --&gt;
+    &lt;article class="grid-item item-dominant"&gt;
+      &lt;h3&gt;Large Item 1 (Spans 2x2)&lt;/h3&gt;
+      &lt;p&gt;Content...&lt;/p&gt;
+    &lt;/article&gt;
+
+    &lt;!-- Landmark: Compact Satellite Item (EP) --&gt;
+    &lt;article class="grid-item item-compact"&gt;
+      &lt;h3&gt;Small Item 2 (Spans 1x1)&lt;/h3&gt;
+      &lt;p&gt;Content...&lt;/p&gt;
+    &lt;/article&gt;
+
+    &lt;!-- Deliberate Negative Space Void --&gt;
+    &lt;div class="grid-void" aria-hidden="true"&gt;&lt;/div&gt;
+
+    &lt;!-- Landmark: Aside acting as Editorial Span --&gt;
+    &lt;aside class="grid-item item-wide"&gt;
+      &lt;p&gt;Editorial Callout / Quote...&lt;/p&gt;
+    &lt;/aside&gt;
+
+  &lt;/section&gt;
+
+&lt;/main&gt;</code></pre>
+          </div>
+
+          <!-- Column 2: Core Fundamental Structural CSS -->
+          <div class="blueprint-column">
+            <div class="blueprint-col-title">
+              <span>2. Core Structural Selectors &amp; Properties</span>
+              <span style="color:var(--color-accent-green);">CSS (Zero Visual Fluff)</span>
+            </div>
+            <pre class="blueprint-code"><code>/* 1. CONTAINER LEVEL (Columns, Rows &amp; Packing) */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;     /* Mobile single column */
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  /* Variation 1: Modular Equal Units */
+  .grid-container.mode-modular {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(200px, auto);
+  }
+
+  /* Variation 2: Asymmetric Tracks + Dense Packing */
+  .grid-container.mode-asymmetric {
+    grid-template-columns: 1.2fr 2fr 1fr 1.5fr; /* Non-uniform widths */
+    grid-auto-flow: dense;        /* Backfills unoccupied slots */
+  }
+}
+
+/* 2. ITEM LEVEL (Line Placement &amp; Spanning) */
+.item-dominant {
+  grid-column: span 2;            /* Spans 2 horizontal tracks */
+  grid-row: span 2;               /* Spans 2 vertical tracks */
+}
+
+.item-compact {
+  grid-column: span 1;            /* Standard 1-cell footprint */
+}
+
+.item-wide {
+  grid-column: 1 / -1;            /* Spans all columns edge-to-edge */
+}
+
+/* Coordinate-based Negative Space */
+.grid-void {
+  grid-column: 3 / 4;             /* Leaves slot unoccupied by content */
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+
+    <!--
+      PEDAGOGICAL EXPLANATION & MDN REFERENCE PANEL
+      Explains the 2D model, fr units, minmax, auto-placement algorithms,
+      shorthands vs longhands, and canonical MDN links.
+    -->
+    <section class="pedagogy-panel" aria-labelledby="grid-pedagogy-heading">
+      <div class="pedagogy-card">
+        <h2 id="grid-pedagogy-heading" class="pedagogy-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Pedagogical Anatomy: The CSS Grid Engine
+        </h2>
+
+        <div class="pedagogy-grid">
+          <!-- Box 1: 2D Matrix -->
+          <div class="pedagogy-box">
+            <h4>1. Two-Dimensional Orchestration</h4>
+            <p>
+              Unlike Flexbox (which is 1D), CSS Grid manages <strong>columns and rows simultaneously</strong>. A grid item can span multiple columns (<code>grid-column: span 2</code>) and multiple rows (<code>grid-row: span 2</code>), creating hierarchical graphic design layouts without nested wrapper divs.
+            </p>
+          </div>
+
+          <!-- Box 2: fr unit and minmax -->
+          <div class="pedagogy-box">
+            <h4>2. The fr Unit &amp; minmax()</h4>
+            <p>
+              The <code>fr</code> (fractional unit) allocates free space proportionally. Combined with <code>minmax(260px, 1fr)</code>, it guarantees elements never collapse below a legible minimum width while expanding fluidly into surplus space.
+            </p>
+          </div>
+
+          <!-- Box 3: Dense Packing -->
+          <div class="pedagogy-box">
+            <h4>3. grid-auto-flow: dense</h4>
+            <p>
+              By default, Grid places items in strict DOM order. With <code>grid-auto-flow: dense</code>, the browser's auto-placement algorithm backtracks to fill empty voids left behind when larger spanning cards move down, creating tight, dynamic masonry-style compositions.
+            </p>
+          </div>
+
+          <!-- Box 4: Shorthand vs Longhand -->
+          <div class="pedagogy-box">
+            <h4>4. Shorthand vs Longhand Syntax</h4>
+            <p>
+              • Shorthand: <code>grid-column: 1 / 3;</code>
+              <br>• Longhand: <code>grid-column-start: 1; grid-column-end: 3;</code>
+              <br>Both denote the starting grid line and ending grid line (not the cell count). Line 1 is the leftmost edge, and <code>-1</code> represents the rightmost edge of explicit tracks!
+            </p>
+          </div>
+        </div>
+
+        <!-- MDN Reference Links (Strictly requested by User) -->
+        <h3 style="margin-top: 2rem; font-family: var(--font-display); font-size: 1.15rem; color: #fff;">
+          Official MDN Web Docs Canonical Guides
+        </h3>
+        <ul class="mdn-resource-list">
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout" target="_blank" rel="noopener noreferrer">
+              <span>CSS Grid Layout Complete Guide</span>
+              <span class="mdn-tag">MDN Core</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Basic_concepts" target="_blank" rel="noopener noreferrer">
+              <span>Basic Concepts of Grid Layout (Tracks, Lines, Cells &amp; fr Units)</span>
+              <span class="mdn-tag">MDN Concepts</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Relationship_with_other_layout_methods" target="_blank" rel="noopener noreferrer">
+              <span>Relationship of Grid Layout with Flexbox &amp; Other Methods</span>
+              <span class="mdn-tag">MDN Architecture</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Auto-placement" target="_blank" rel="noopener noreferrer">
+              <span>Auto-placement in CSS Grid Layout (dense vs sparse packing)</span>
+              <span class="mdn-tag">MDN Placement</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          DRUMTIKS '26 • FBAUP Web Design (WD101)
+        </div>
+        <div class="footer-academic-meta">
+          Licenciatura em Design de Comunicação • 2026/27 • Prof. Pedro Amado
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Theme: DJ Warp Turntablist Master Discography • Pure HTML5 &amp; CSS3</span>
+        <span>Laboratory Suite 02 / 03</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,457 @@
+[
+  {
+    "uid": "pat-1",
+    "num_id": 1,
+    "pat": 1,
+    "code": "P1",
+    "id": "P1",
+    "slug": "p01-dual-navigation",
+    "canonical_id": "2026-10-24-101",
+    "title": {
+      "pt": "P1: Navegação Dual (Desktop Flyout & Mobile Off-Canvas Drawer)",
+      "en": "P1: Dual Navigation (Desktop Flyout & Mobile Off-Canvas Drawer)"
+    },
+    "tier": "intermediate",
+    "lev": 2,
+    "assignment": "Projeto Final",
+    "ass_ids": [3],
+    "proj": 1,
+    "cat_ids": [1, 5, 6, 8],
+    "categories": ["cat-landmarks", "cat-pseudo", "cat-flex-grid"],
+    "summary": {
+      "pt": "Menu com submenus acessíveis no desktop via :focus-within e gaveta off-canvas no mobile via Checkbox Hack, sem JavaScript.",
+      "en": "Accessible desktop submenus via :focus-within and mobile off-canvas drawer via Checkbox Hack, zero JavaScript."
+    },
+    "purpose": {
+      "pt": "Demonstrar como criar interfaces acessíveis pelo teclado no desktop (:focus-within) e menus deslizantes móveis usando estados de formulário (:checked).",
+      "en": "Demonstrate keyboard-accessible desktop menus (:focus-within) and sliding mobile drawers using form states (:checked)."
+    },
+    "mdn_links": [
+      { "label": ":focus-within", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-within" },
+      { "label": ":checked", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:checked" }
+    ],
+    "html_code": "<!-- P1: Navegação Dual Drumtiks -->\n<nav class=\"demo-p1-nav\" aria-label=\"Navegação Principal\">\n  <div class=\"nav-bar\">\n    <div class=\"brand\">DRUMTIKS '26</div>\n    <input type=\"checkbox\" id=\"p1-drawer-toggle\" class=\"menu-toggle\" aria-label=\"Abrir Menu\">\n    <label for=\"p1-drawer-toggle\" class=\"burger-label\">☰ Menu</label>\n    <ul class=\"nav-list\">\n      <li><a href=\"#\">Início</a></li>\n      <li class=\"has-sub\">\n        <a href=\"#\" aria-haspopup=\"true\">Palcos ▾</a>\n        <ul class=\"sub-menu\">\n          <li><a href=\"#\">Main Stage</a></li>\n          <li><a href=\"#\">Club Arena</a></li>\n        </ul>\n      </li>\n      <li><a href=\"#\">Bilhetes</a></li>\n    </ul>\n  </div>\n</nav>",
+    "css_code": "/* P1: Desktop Flyout e Mobile Drawer */\n.has-sub { position: relative; }\n.sub-menu {\n  position: absolute; top: 100%; left: 0;\n  opacity: 0; visibility: hidden; transform: translateY(6px);\n  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;\n}\n.has-sub:hover .sub-menu,\n.has-sub:focus-within .sub-menu {\n  opacity: 1; visibility: visible; transform: translateY(0);\n}\n@media (max-width: 768px) {\n  .menu-toggle:checked ~ .nav-list { display: flex; }\n}",
+    "demo_html": "<nav class=\"demo-p1-nav\"><div class=\"nav-bar\"><div class=\"brand\">DRUMTIKS '26</div><input type=\"checkbox\" id=\"p1-demo-check\" class=\"menu-toggle\"><label for=\"p1-demo-check\" class=\"burger-label\">☰ Menu</label><ul class=\"nav-list\"><li><a href=\"#\">Início</a></li><li class=\"has-sub\"><a href=\"#\">Palcos ▾</a><ul class=\"sub-menu\"><li><a href=\"#\">Main Stage</a></li><li><a href=\"#\">Club Arena</a></li></ul></li><li><a href=\"#\">Bilhetes</a></li></ul></div></nav>"
+  },
+  {
+    "uid": "pat-2",
+    "num_id": 2,
+    "pat": 2,
+    "code": "P2",
+    "id": "P2",
+    "slug": "p02-art-direction",
+    "canonical_id": "2026-10-24-102",
+    "title": {
+      "pt": "P2: Direção de Arte Fotográfica (<picture> & aspect-ratio)",
+      "en": "P2: Photographic Art Direction (<picture> & aspect-ratio)"
+    },
+    "tier": "intermediate",
+    "lev": 2,
+    "assignment": "EX2 & Projeto",
+    "ass_ids": [2, 3],
+    "proj": 1,
+    "cat_ids": [3, 7],
+    "categories": ["cat-media", "cat-boxmodel"],
+    "summary": {
+      "pt": "Alternância inteligente entre rácios 16:9 (desktop) e 1:1 (mobile) com formatos WebP/JPEG e prevenção de salto de layout (CLS).",
+      "en": "Smart aspect-ratio switching between 16:9 (desktop) and 1:1 (mobile) with WebP/JPEG formats and zero CLS."
+    },
+    "purpose": {
+      "pt": "Ensinar a servir a imagem exata para cada contexto visual, poupando dados móveis e evitando Cumulative Layout Shift através de aspect-ratio.",
+      "en": "Teach serving optimal images for each screen context, saving mobile bandwidth and preventing Cumulative Layout Shift with aspect-ratio."
+    },
+    "mdn_links": [
+      { "label": "<picture>", "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/picture" },
+      { "label": "aspect-ratio", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio" }
+    ],
+    "html_code": "<!-- P2: Direção de Arte Drumtiks -->\n<figure class=\"demo-p2-art\">\n  <picture>\n    <source media=\"(min-width: 960px)\" srcset=\"assets/hero-dj-warp-1400w.webp\" type=\"image/webp\">\n    <source media=\"(min-width: 600px)\" srcset=\"assets/hero-dj-warp-960w.webp\" type=\"image/webp\">\n    <img src=\"assets/hero-dj-warp-600w.jpg\" alt=\"DJ Warp no Palco Drumtiks\" width=\"600\" height=\"338\" loading=\"lazy\">\n  </picture>\n  <figcaption>DJ Warp • Live Showcase (Porto)</figcaption>\n</figure>",
+    "css_code": "/* P2: Prevenção de CLS e Geometria */\npicture img {\n  width: 100%;\n  height: auto;\n  aspect-ratio: 16 / 9;\n  object-fit: cover;\n  display: block;\n}",
+    "demo_html": "<div class=\"demo-p2-art\"><figure><picture><img src=\"TP06-responsive/assets/hero-dj-warp-600w.jpg\" alt=\"DJ Warp\" style=\"width:100%;aspect-ratio:16/9;object-fit:cover;\"></picture><figcaption>DJ Warp • Headliner Showcase</figcaption></figure></div>"
+  },
+  {
+    "uid": "pat-3",
+    "num_id": 3,
+    "pat": 3,
+    "code": "P3",
+    "id": "P3",
+    "slug": "p03-scroll-snap-carousel",
+    "canonical_id": "2026-10-24-103",
+    "title": {
+      "pt": "P3: Carrossel Magnético com CSS Scroll Snap",
+      "en": "P3: Magnetic Carousel with CSS Scroll Snap"
+    },
+    "tier": "intermediate",
+    "lev": 2,
+    "assignment": "Projeto Final",
+    "ass_ids": [3],
+    "proj": 1,
+    "cat_ids": [7, 10],
+    "categories": ["cat-boxmodel", "cat-effects-animations"],
+    "summary": {
+      "pt": "Carrossel horizontal suave que ancora as fotos perfeitamente nos limites da viewport sem qualquer JavaScript.",
+      "en": "Smooth horizontal carousel snapping items precisely into view without JavaScript."
+    },
+    "purpose": {
+      "pt": "Compreender a aceleração por hardware nativa do browser para rolagem tátil através de scroll-snap-type e scroll-snap-align.",
+      "en": "Understand native browser hardware-accelerated touch gestures using scroll-snap-type and scroll-snap-align."
+    },
+    "mdn_links": [
+      { "label": "scroll-snap-type", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-type" },
+      { "label": "scroll-snap-align", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-align" }
+    ],
+    "html_code": "<!-- P3: Carrossel Drumtiks -->\n<div class=\"demo-p3-carousel\">\n  <article class=\"demo-p3-card\">\n    <h4>Palco 1: Beat Foundry</h4>\n    <p>Percussão industrial e live-coding sensorial.</p>\n  </article>\n  <article class=\"demo-p3-card\">\n    <h4>Palco 2: Warp Tunnel</h4>\n    <p>Subgraves pesados e sintetizadores analógicos.</p>\n  </article>\n  <article class=\"demo-p3-card\">\n    <h4>Palco 3: Ambient Garden</h4>\n    <p>Paisagens sonoras relaxantes e frequências binaurais.</p>\n  </article>\n</div>",
+    "css_code": "/* P3: Scroll Snap Magnético */\n.demo-p3-carousel {\n  display: flex; gap: 1rem;\n  overflow-x: auto;\n  scroll-snap-type: x mandatory;\n  scroll-behavior: smooth;\n}\n.demo-p3-card {\n  flex: 0 0 75%;\n  scroll-snap-align: start;\n}",
+    "demo_html": "<div class=\"demo-p3-carousel\"><article class=\"demo-p3-card\"><h4>Palco 1: Beat Foundry</h4><p>Percussão industrial e live-coding sensorial.</p></article><article class=\"demo-p3-card\"><h4>Palco 2: Warp Tunnel</h4><p>Subgraves pesados e sintetizadores analógicos.</p></article><article class=\"demo-p3-card\"><h4>Palco 3: Ambient Garden</h4><p>Paisagens sonoras relaxantes e frequências binaurais.</p></article></div>"
+  },
+  {
+    "uid": "pat-4",
+    "num_id": 4,
+    "pat": 4,
+    "code": "P4",
+    "id": "P4",
+    "slug": "p04-grid-accordion",
+    "canonical_id": "2026-10-24-104",
+    "title": {
+      "pt": "P4: Acordeão Dobrável Animado (<details> + CSS Grid)",
+      "en": "P4: Smooth Expandable Accordion (<details> + CSS Grid)"
+    },
+    "tier": "advanced",
+    "lev": 3,
+    "assignment": "Projeto Final",
+    "ass_ids": [3],
+    "proj": 1,
+    "cat_ids": [1, 8, 10],
+    "categories": ["cat-landmarks", "cat-flex-grid", "cat-effects-animations"],
+    "summary": {
+      "pt": "Animação suave de abertura e fecho de acordeão sem altura fixa, recorrendo à técnica moderna grid-template-rows: 0fr -> 1fr.",
+      "en": "Smooth accordion expansion animation without fixed heights via grid-template-rows: 0fr -> 1fr."
+    },
+    "purpose": {
+      "pt": "Superar a limitação histórica de animar height: auto através de CSS Grid e preservar a acessibilidade semântica nativa de details/summary.",
+      "en": "Overcome the historic limitation of animating height: auto using CSS Grid while retaining native accessibility."
+    },
+    "mdn_links": [
+      { "label": "<details>", "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details" },
+      { "label": "grid-template-rows", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows" }
+    ],
+    "html_code": "<!-- P4: Acordeão de Horários Drumtiks -->\n<div class=\"demo-p4-accordion\">\n  <details open>\n    <summary>Sexta-Feira, 24 Outubro</summary>\n    <div class=\"accordion-content\">\n      <div class=\"content-inner\">\n        <p>21:00 — Abertura de Portas & Soundcheck</p>\n        <p>22:30 — DJ Warp (Live Drums & Modular)</p>\n      </div>\n    </div>\n  </details>\n  <details>\n    <summary>Sábado, 25 Outubro</summary>\n    <div class=\"accordion-content\">\n      <div class=\"content-inner\">\n        <p>19:00 — Workshop de Percussão Experimental</p>\n        <p>23:00 — Drumtiks All-Stars Battle</p>\n      </div>\n    </div>\n  </details>\n</div>",
+    "css_code": "/* P4: Animação Fluida via Grid */\n.accordion-content {\n  display: grid;\n  grid-template-rows: 0fr;\n  transition: grid-template-rows 0.3s ease-out;\n}\ndetails[open] .accordion-content {\n  grid-template-rows: 1fr;\n}\n.content-inner { overflow: hidden; }",
+    "demo_html": "<div class=\"demo-p4-accordion\"><details open><summary>Sexta-Feira, 24 Outubro</summary><div class=\"accordion-content\"><div class=\"content-inner\"><p>21:00 — Abertura de Portas & Soundcheck</p><p>22:30 — DJ Warp (Live Drums & Modular)</p></div></div></details><details><summary>Sábado, 25 Outubro</summary><div class=\"accordion-content\"><div class=\"content-inner\"><p>19:00 — Workshop de Percussão Experimental</p><p>23:00 — Drumtiks All-Stars Battle</p></div></div></details></div>"
+  },
+  {
+    "uid": "pat-5",
+    "num_id": 5,
+    "pat": 5,
+    "code": "P5",
+    "id": "P5",
+    "slug": "p05-pure-css-modal",
+    "canonical_id": "2026-10-24-105",
+    "title": {
+      "pt": "P5: Janela Modal Pure CSS (:target & Popover API)",
+      "en": "P5: Pure CSS Modal (:target & HTML Popover API)"
+    },
+    "tier": "intermediate",
+    "lev": 2,
+    "assignment": "Projeto Final",
+    "ass_ids": [3],
+    "proj": 1,
+    "cat_ids": [6, 9],
+    "categories": ["cat-pseudo", "cat-positioning"],
+    "summary": {
+      "pt": "Janela modal com escurecimento de fundo (backdrop) e botão de fechar, utilizando o clássico :target ou a nova Popover API.",
+      "en": "Modal dialog with backdrop dimming and close button, leveraging classic :target or the modern Popover API."
+    },
+    "purpose": {
+      "pt": "Aprender a manipular camadas superiores (top layer / z-index) e histórico de navegação para janelas de diálogo sem scripts.",
+      "en": "Master top layer / z-index manipulation and navigation history for scriptless dialog windows."
+    },
+    "mdn_links": [
+      { "label": ":target", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:target" },
+      { "label": "popover", "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover" }
+    ],
+    "html_code": "<!-- P5: Modal de Regras Drumtiks -->\n<a href=\"#regras-modal\" class=\"demo-p5-modal-btn\">Ver Regras do Festival</a>\n\n<aside id=\"regras-modal\" class=\"demo-p5-modal\">\n  <div class=\"demo-p5-modal-box\">\n    <a href=\"#\" class=\"demo-p5-modal-close\" aria-label=\"Fechar\">✕</a>\n    <h3>Regras da Bilheteira</h3>\n    <p>A entrada no recinto exige pulseira eletrónica colocada no check-in. É proibida a entrada com recipientes de vidro.</p>\n  </div>\n</aside>",
+    "css_code": "/* P5: Modal com :target */\n.demo-p5-modal {\n  display: none;\n  position: fixed; inset: 0;\n  background: rgba(0, 0, 0, 0.75);\n  backdrop-filter: blur(4px);\n  align-items: center; justify-content: center;\n}\n.demo-p5-modal:target { display: flex; }",
+    "demo_html": "<div><a href=\"#demo-p5-box\" class=\"demo-p5-modal-btn\">Abrir Modal de Exemplo</a><aside id=\"demo-p5-box\" class=\"demo-p5-modal\"><div class=\"demo-p5-modal-box\"><a href=\"#\" class=\"demo-p5-modal-close\">✕</a><h3>Regulamento Drumtiks '26</h3><p>Entrada livre para estudantes com cartão UP. Pulseiras levantadas no átrio da FBAUP.</p></div></aside></div>"
+  },
+  {
+    "uid": "pat-6",
+    "num_id": 6,
+    "pat": 6,
+    "code": "P6",
+    "id": "P6",
+    "slug": "p06-scroll-driven-animations",
+    "canonical_id": "2026-10-24-106",
+    "title": {
+      "pt": "P6: Animações Orientadas ao Scroll (Scroll-Driven Animations)",
+      "en": "P6: Scroll-Driven Animations (scroll() & view())"
+    },
+    "tier": "advanced",
+    "lev": 3,
+    "assignment": "Projeto Final",
+    "ass_ids": [3],
+    "proj": 1,
+    "cat_ids": [10, 12],
+    "categories": ["cat-effects-animations", "cat-functions-units"],
+    "summary": {
+      "pt": "Barra de progresso de leitura no topo e revelação gradual de cartões de artistas acionados pelo scroll da página.",
+      "en": "Top reading progress bar and entrance animations driven directly by page scroll position."
+    },
+    "purpose": {
+      "pt": "Dominar a nova API de animações do W3C sem IntersectionObserver nem listeners de scroll em JavaScript.",
+      "en": "Master the modern W3C animation timeline API replacing heavy JS scroll listeners."
+    },
+    "mdn_links": [
+      { "label": "animation-timeline", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline" },
+      { "label": "scroll()", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll" }
+    ],
+    "html_code": "<!-- P6: Barra de Progresso Drumtiks -->\n<div class=\"demo-p6-box\">\n  <div class=\"demo-p6-progress\"></div>\n  <p>Role o conteúdo abaixo para observar a barra de leitura a progredir sincronizada...</p>\n  <div style=\"height: 350px; padding: 1rem 0;\"><p>Alinhamento de Artistas...</p><p>Palco Principal...</p><p>Fim da Programação.</p></div>\n</div>",
+    "css_code": "/* P6: Scroll Timeline Progress Bar */\n.demo-p6-progress {\n  position: sticky; top: 0;\n  height: 4px; background: #e60000;\n  transform-origin: 0 50%;\n  animation: fill-bar auto linear;\n  animation-timeline: scroll(nearest);\n}\n@keyframes fill-bar {\n  from { transform: scaleX(0); }\n  to { transform: scaleX(1); }\n}",
+    "demo_html": "<div class=\"demo-p6-box\"><div class=\"demo-p6-progress\"></div><p>Role esta caixa para testar o progresso visual:</p><div style=\"height: 300px; padding-top: 1rem;\"><p>22:00 — DJ Warp</p><p>23:30 — Beat Foundry</p><p>01:00 — Encerramento</p></div></div>"
+  },
+  {
+    "uid": "pat-7",
+    "num_id": 7,
+    "pat": 7,
+    "code": "P7",
+    "id": "P7",
+    "slug": "p07-grid-sticky-stage",
+    "canonical_id": "2026-10-24-107",
+    "title": {
+      "pt": "P7: Grelha Assimétrica de 2 Colunas com Palco Sticky",
+      "en": "P7: Asymmetrical 2-Column Grid with Sticky Stage"
+    },
+    "tier": "intermediate",
+    "lev": 2,
+    "assignment": "EX2 & Projeto",
+    "ass_ids": [2, 3],
+    "proj": 1,
+    "cat_ids": [8, 9],
+    "categories": ["cat-flex-grid", "cat-positioning"],
+    "summary": {
+      "pt": "Coluna lateral esquerda informativa fixa no viewport enquanto a coluna direita de cartões de artistas desliza.",
+      "en": "Sticky left sidebar info panel while the right artist card catalog scrolls freely."
+    },
+    "purpose": {
+      "pt": "Aprender a articular CSS Grid bi-dimensional com position: sticky em elementos filhos de grelha.",
+      "en": "Learn to combine 2D CSS Grid with position: sticky on grid child containers."
+    },
+    "mdn_links": [
+      { "label": "position: sticky", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position" },
+      { "label": "CSS Grid", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/grid" }
+    ],
+    "html_code": "<!-- P7: Layout de Palco Drumtiks -->\n<div class=\"demo-p7-layout\">\n  <aside class=\"demo-p7-sticky\">\n    <h3>Palco Principal</h3>\n    <p>Capacidade: 800 lugares • FBAUP Jardim</p>\n  </aside>\n  <div class=\"demo-p7-cards\">\n    <div class=\"demo-p7-card\">DJ Warp • 22h</div>\n    <div class=\"demo-p7-card\">Beat Foundry • 23h30</div>\n    <div class=\"demo-p7-card\">Sub-Modular • 01h</div>\n  </div>\n</div>",
+    "css_code": "/* P7: Grelha Assimétrica e Sticky */\n.demo-p7-layout {\n  display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem;\n}\n.demo-p7-sticky {\n  position: sticky; top: 1rem;\n  align-self: start;\n}",
+    "demo_html": "<div class=\"demo-p7-layout\"><aside class=\"demo-p7-sticky\"><h4>Palco Jardim</h4><p style=\"font-size:0.8rem;color:#aaa;\">Painel fixo durante a rolagem.</p></aside><div class=\"demo-p7-cards\"><div class=\"demo-p7-card\">DJ Warp</div><div class=\"demo-p7-card\">Beat Foundry</div><div class=\"demo-p7-card\">Sub-Modular</div></div></div>"
+  },
+  {
+    "uid": "pat-8",
+    "num_id": 8,
+    "pat": 8,
+    "code": "P8",
+    "id": "P8",
+    "slug": "p08-reactive-pricing-engine",
+    "canonical_id": "2026-10-24-108",
+    "title": {
+      "pt": "P8: Motor Reativo de Seleção & Preços (:has() & :checked)",
+      "en": "P8: Pure CSS Reactive Pricing Engine (:has() & :checked)"
+    },
+    "tier": "advanced",
+    "lev": 3,
+    "assignment": "Projeto Final",
+    "ass_ids": [3],
+    "proj": 1,
+    "cat_ids": [4, 6],
+    "categories": ["cat-pseudo", "cat-forms"],
+    "summary": {
+      "pt": "Simulador de bilheteira que calcula o total e destaca os cartões selecionados puramente em CSS através de :has().",
+      "en": "Ticket shop simulator calculating subtotals and styling selected cards purely via :has() and generated content."
+    },
+    "purpose": {
+      "pt": "Dominar o seletor relacional :has(), o 'Santo Graal' do CSS moderno que permite aos pais reagirem aos estados dos filhos.",
+      "en": "Master the relational :has() pseudo-class, the Holy Grail of CSS allowing parents to react to child states."
+    },
+    "mdn_links": [
+      { "label": ":has()", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:has" },
+      { "label": "content", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/content" }
+    ],
+    "html_code": "<!-- P8: Simulador de Bilhetes Drumtiks -->\n<div class=\"demo-p8-shop\">\n  <h3>Passe Drumtiks '26</h3>\n  <div class=\"demo-p8-options\">\n    <label class=\"demo-p8-option\">\n      <input type=\"checkbox\" id=\"opt-standard\"> Bilhete Geral (+35€)\n    </label>\n    <label class=\"demo-p8-option\">\n      <input type=\"checkbox\" id=\"opt-vip\"> Acesso VIP & Backstage (+75€)\n    </label>\n  </div>\n  <div class=\"demo-p8-total\"><span>Total a Pagar:</span><span class=\"total-price\"></span></div>\n</div>",
+    "css_code": "/* P8: Motor de Preços em CSS */\n.demo-p8-shop:has(#opt-standard:checked):not(:has(#opt-vip:checked)) .total-price::after { content: \"35 €\"; }\n.demo-p8-shop:has(#opt-vip:checked):not(:has(#opt-standard:checked)) .total-price::after { content: \"75 €\"; }\n.demo-p8-shop:has(#opt-standard:checked):has(#opt-vip:checked) .total-price::after { content: \"110 €\"; }\n.demo-p8-shop:not(:has(input:checked)) .total-price::after { content: \"0 €\"; }",
+    "demo_html": "<div class=\"demo-p8-shop\"><h4>Simulador de Bilhetes Drumtiks</h4><div class=\"demo-p8-options\"><label class=\"demo-p8-option\"><input type=\"checkbox\" id=\"opt-standard\"> Geral (35€)</label><label class=\"demo-p8-option\"><input type=\"checkbox\" id=\"opt-vip\"> VIP (75€)</label></div><div class=\"demo-p8-total\"><span>Total Estimado:</span><span class=\"total-price\"></span></div></div>"
+  },
+  {
+    "uid": "pat-9",
+    "num_id": 9,
+    "pat": 9,
+    "code": "P9",
+    "id": "P9",
+    "slug": "p09-theme-switcher",
+    "canonical_id": "2026-10-24-109",
+    "title": {
+      "pt": "P9: Alternador de Tema Escuro/Claro (light-dark())",
+      "en": "P9: Light/Dark Theme Switcher (light-dark())"
+    },
+    "tier": "intermediate",
+    "lev": 2,
+    "assignment": "Projeto Final",
+    "ass_ids": [3],
+    "proj": 1,
+    "cat_ids": [11, 12],
+    "categories": ["cat-functions-units", "cat-tokens"],
+    "summary": {
+      "pt": "Suporte a tema claro e escuro sem duplicação de regras CSS, recorrendo à nova função CSS light-dark().",
+      "en": "Seamless light and dark theming without CSS rule duplication via modern light-dark() function."
+    },
+    "purpose": {
+      "pt": "Eliminar blocos repetidos de @media (prefers-color-scheme) através de tokens semânticos unificados.",
+      "en": "Eliminate redundant @media query blocks using unified semantic tokens and light-dark()."
+    },
+    "mdn_links": [
+      { "label": "light-dark()", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark" },
+      { "label": "color-scheme", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme" }
+    ],
+    "html_code": "<!-- P9: Seletor de Tema -->\n<div class=\"theme-box\">\n  <p>Esta caixa adapta as suas cores sem JavaScript através de light-dark().</p>\n</div>",
+    "css_code": "/* P9: Tokens com light-dark() */\n:root {\n  color-scheme: light dark;\n  --card-bg: light-dark(#ffffff, #18181b);\n  --card-text: light-dark(#09090b, #fafafa);\n}\n.theme-box {\n  background: var(--card-bg);\n  color: var(--card-text);\n  padding: 1.5rem;\n  border: 1px solid currentColor;\n}",
+    "demo_html": "<div style=\"padding:1rem;border:1px solid #71717a;border-radius:4px;\"><p>O tema respeita a preferência do sistema operativo ou o botão 'Tema' no topo do site.</p></div>"
+  },
+  {
+    "uid": "pat-10",
+    "num_id": 10,
+    "pat": 10,
+    "code": "P10",
+    "id": "P10",
+    "slug": "p10-anchor-positioning",
+    "canonical_id": "2026-10-24-110",
+    "title": {
+      "pt": "P10: Menus Flutuantes e Tooltips (CSS Anchor Positioning)",
+      "en": "P10: Floating Menus & Tooltips (CSS Anchor Positioning)"
+    },
+    "tier": "advanced",
+    "lev": 3,
+    "assignment": "Projeto Final",
+    "ass_ids": [3],
+    "proj": 1,
+    "cat_ids": [9],
+    "categories": ["cat-positioning"],
+    "summary": {
+      "pt": "Ancoragem precisa de caixas flutuantes a botões de referência sem JavaScript nem wrappers envolventes.",
+      "en": "Pixel-perfect anchoring of floating tooltips to reference buttons without JS or parent wrappers."
+    },
+    "purpose": {
+      "pt": "Introduzir a especificação do CSS Anchor Positioning (anchor-name, position-anchor, position-area).",
+      "en": "Introduce CSS Anchor Positioning standards (anchor-name, position-anchor, position-area)."
+    },
+    "mdn_links": [
+      { "label": "anchor-name", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/anchor-name" },
+      { "label": "position-anchor", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position-anchor" }
+    ],
+    "html_code": "<!-- P10: Tooltip Ancorada -->\n<button class=\"anchor-trigger\">Info DJ Warp</button>\n<div class=\"anchor-tooltip\">Pioneiro do live-drumming eletrónico no Porto.</div>",
+    "css_code": "/* P10: CSS Anchor Positioning */\n.anchor-trigger {\n  anchor-name: --warp-btn;\n}\n.anchor-tooltip {\n  position: absolute;\n  position-anchor: --warp-btn;\n  position-area: bottom center;\n  position-try-fallbacks: flip-block;\n}",
+    "demo_html": "<div style=\"display:flex;gap:1rem;align-items:center;\"><button style=\"background:#e60000;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:3px;\">DJ Warp (Info)</button><span style=\"font-size:0.8rem;color:#a1a1aa;\">← Ancoragem automática por baixo</span></div>"
+  },
+  {
+    "uid": "pat-11",
+    "num_id": 11,
+    "pat": 11,
+    "code": "P11",
+    "id": "P11",
+    "slug": "p11-container-queries",
+    "canonical_id": "2026-10-24-111",
+    "title": {
+      "pt": "P11: Contentores Responsivos Intrínsecos (Container Queries)",
+      "en": "P11: Intrinsic Responsive Cards (CSS Container Queries)"
+    },
+    "tier": "advanced",
+    "lev": 3,
+    "assignment": "Projeto Final",
+    "ass_ids": [3],
+    "proj": 1,
+    "cat_ids": [7, 11],
+    "categories": ["cat-atrules", "cat-boxmodel"],
+    "summary": {
+      "pt": "Cartões de artistas que alteram a sua disposição (coluna para linha) consoante a largura do seu contentor e não da janela.",
+      "en": "Artist cards adapting their internal layout based on parent container width rather than viewport."
+    },
+    "purpose": {
+      "pt": "Construir componentes 100% reutilizáveis e autónomos com container-type: inline-size e @container.",
+      "en": "Build truly autonomous, modular components with container-type: inline-size and @container."
+    },
+    "mdn_links": [
+      { "label": "@container", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@container" },
+      { "label": "container-type", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/container-type" }
+    ],
+    "html_code": "<!-- P11: Cartão com Container Query -->\n<div class=\"demo-p11-wrapper\">\n  <article class=\"demo-p11-card\">\n    <div class=\"demo-p11-thumb\">FOTO</div>\n    <div>\n      <h4>Beat Foundry</h4>\n      <p>Redimensione a largura desta caixa para ver o cartão mudar de disposição.</p>\n    </div>\n  </article>\n</div>",
+    "css_code": "/* P11: Container Queries */\n.demo-p11-wrapper {\n  container-type: inline-size;\n  container-name: card-box;\n}\n@container card-box (min-width: 380px) {\n  .demo-p11-card { flex-direction: row; }\n}",
+    "demo_html": "<div class=\"demo-p11-wrapper\"><article class=\"demo-p11-card\"><div class=\"demo-p11-thumb\">LIVE</div><div><h4>Beat Foundry</h4><p style=\"font-size:0.8rem;color:#aaa;\">Arraste o canto inferior direito para redimensionar.</p></div></article></div>"
+  },
+  {
+    "uid": "pat-12",
+    "num_id": 12,
+    "pat": 12,
+    "code": "P12",
+    "id": "P12",
+    "slug": "p12-sticky-cards-deck",
+    "canonical_id": "2026-10-24-112",
+    "title": {
+      "pt": "P12: Cartões Empilhados com Sobrescrita (Sticky Stacking Deck)",
+      "en": "P12: Stacking Sticky Cards Deck (Sibling Overwrite)"
+    },
+    "tier": "advanced",
+    "lev": 3,
+    "assignment": "Projeto Final",
+    "ass_ids": [3],
+    "proj": 1,
+    "cat_ids": [7, 9],
+    "categories": ["cat-positioning", "cat-boxmodel"],
+    "summary": {
+      "pt": "Baralho de cartões sticky onde os irmãos subsequentes sobem no scroll e sobrepõem os anteriores em cascata.",
+      "en": "Card deck where following sticky sibling elements overlap and cover prior cards."
+    },
+    "purpose": {
+      "pt": "Explorar stacking contexts, z-index e cálculos com top escalonado através de variáveis CSS.",
+      "en": "Explore stacking contexts, z-index, and staggered top calculations using CSS variables."
+    },
+    "mdn_links": [
+      { "label": "position: sticky", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position" },
+      { "label": "z-index", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/z-index" }
+    ],
+    "html_code": "<!-- P12: Baralho de Cartões Drumtiks -->\n<div class=\"demo-p12-deck\">\n  <div class=\"demo-p12-card\">Cartão 1: Abertura e Credenciação</div>\n  <div class=\"demo-p12-card\">Cartão 2: Concertos e Live Acts</div>\n  <div class=\"demo-p12-card\">Cartão 3: Encerramento com DJs</div>\n</div>",
+    "css_code": "/* P12: Efeito Baralho de Cartas */\n.demo-p12-card {\n  position: sticky;\n  top: 1rem;\n  box-shadow: 0 -4px 12px rgba(0,0,0,0.3);\n}\n.demo-p12-card:nth-child(2) { top: 2rem; }\n.demo-p12-card:nth-child(3) { top: 3rem; }",
+    "demo_html": "<div class=\"demo-p12-deck\"><div class=\"demo-p12-card\">Cartão 1: Abertura e Credenciação</div><div class=\"demo-p12-card\">Cartão 2: Concertos e Live Acts</div><div class=\"demo-p12-card\">Cartão 3: Encerramento com DJs</div></div>"
+  },
+  {
+    "uid": "pat-13",
+    "num_id": 13,
+    "pat": 13,
+    "code": "P13",
+    "id": "P13",
+    "slug": "p13-parallax-scrolling",
+    "canonical_id": "2026-10-24-113",
+    "title": {
+      "pt": "P13: Efeitos de Parallax Puro no Scroll (3D & Scroll-Driven)",
+      "en": "P13: Pure CSS Parallax Scrolling (3D & Scroll-Driven)"
+    },
+    "tier": "advanced",
+    "lev": 3,
+    "assignment": "Projeto Final",
+    "ass_ids": [3],
+    "proj": 1,
+    "cat_ids": [9, 10],
+    "categories": ["cat-effects-animations", "cat-positioning"],
+    "summary": {
+      "pt": "Profundidade visual de camadas em diferentes velocidades de scroll sem dependências de JavaScript.",
+      "en": "Multi-layered depth moving at different scroll speeds without any JavaScript dependencies."
+    },
+    "purpose": {
+      "pt": "Demonstrar a técnica de perspectiva 3D (perspective: 1px) e a nova API de scroll timelines.",
+      "en": "Demonstrate the 3D perspective technique (perspective: 1px) and the modern scroll timeline API."
+    },
+    "mdn_links": [
+      { "label": "perspective", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/perspective" },
+      { "label": "transform: translateZ()", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/translateZ" }
+    ],
+    "html_code": "<!-- P13: Parallax Drumtiks -->\n<div class=\"parallax-stage\">\n  <div class=\"parallax-layer-back\">CAMADA DE FUNDO (Lenta)</div>\n  <div class=\"parallax-layer-front\">CAMADA FRONTAL (Normal)</div>\n</div>",
+    "css_code": "/* P13: Parallax 3D Puro */\n.parallax-stage {\n  perspective: 1px;\n  height: 300px; overflow-y: auto;\n}\n.parallax-layer-back {\n  transform: translateZ(-1px) scale(2);\n}",
+    "demo_html": "<div style=\"height:140px;background:#18181b;border:1px solid #333;display:flex;align-items:center;justify-content:center;color:#fff;border-radius:4px;\"><p>Efeito de profundidade com perspective: 1px e translateZ(-1px) scale(2)</p></div>"
+  }
+]

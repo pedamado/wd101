@@ -1,0 +1,82 @@
+/**
+ * Modernized Eric Meyer Reset v2.0
+ * Encapsulated within @layer reset to ensure zero specificity conflicts.
+ * Augmented with modern CSS defaults: universal box-sizing, fluid media, and form inheritance.
+ * MDN Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
+ */
+@layer reset {
+  /* 1. Reset standard HTML elements based on Meyer Reset v2.0 */
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  b, u, i, center,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td,
+  article, aside, canvas, details, embed, 
+  figure, figcaption, footer, header, hgroup, 
+  menu, nav, output, ruby, section, summary,
+  time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+
+  /* 2. HTML5 display-role reset for older browsers */
+  article, aside, details, figcaption, figure, 
+  footer, header, hgroup, menu, nav, section, summary {
+    display: block;
+  }
+
+  /* 3. Modern box-sizing inheritance */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /* 4. Natural line height & text rendering */
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* 5. List item resets */
+  ol, ul {
+    list-style: none;
+  }
+
+  /* 6. Quote resets */
+  blockquote, q {
+    quotes: none;
+  }
+  blockquote::before, blockquote::after,
+  q::before, q::after {
+    content: '';
+    content: none;
+  }
+
+  /* 7. Table border collapse */
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  /* 8. Responsive media defaults (Fluid by default) */
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 9. Form controls inheritance */
+  input, button, textarea, select {
+    font: inherit;
+    color: inherit;
+  }
+}

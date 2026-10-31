@@ -1,0 +1,756 @@
+/* ==========================================================================
+   HYBRID ARCHITECTURE STYLESHEET (PAGE 03)
+   FBAUP • Web Design 2026-27 (WD101) • Festival DRUMTIKS '26
+   Theme: DJ Warp Complete Discography & Turntable Control Console
+   
+   PEDAGOGICAL CORE & GOLDEN RULE OF WEB LAYOUT:
+   ==========================================================================
+   "CSS Grid for Macro-Layout (2D Page Skeleton & Structural Regions)
+    Flexbox for Micro-Layout (1D Section Internals, Toolbars & Item Lists)"
+   ==========================================================================
+   
+   DEMONSTRATED IN THIS STYLESHEET:
+   1. Grid Macro-Approach A: Named Template Areas (grid-template-areas)
+   2. Grid Macro-Approach B: Named Grid Lines ([line-start] ... [line-end])
+   3. Grid Macro-Approach C: Line-Based Placement (coordinates & span)
+   4. Flexbox Micro-Components:
+      - Audio Player Deck (horizontal alignment, flex-grow scrubber, auto-margin)
+      - Sidebar Festival Setlist (vertical stack, badge clusters)
+      - Discography Thumbnails (wrapping flex strip)
+      - Track Console Rows (nested flex alignments, pill tags, timecodes)
+   5. Interactive Pure CSS Layout Inspector (X-Ray Matrix Overlay)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   MDN DOCUMENTATION REFERENCES:
+   - CSS Grid Layout Guide:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout
+   - Grid Template Areas:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Grid_template_areas
+   - Using Named Grid Lines:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Named_grid_lines
+   - Line-Based Placement:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Line-based_placement
+   - Relationship with other layout methods:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Relationship_with_other_layout_methods
+   - Flexbox Basic Concepts:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Basic_concepts
+   - Flexbox Typical Use Cases:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Use_cases
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   1. HYBRID WORKSPACE SKELETON
+   -------------------------------------------------------------------------- */
+.hybrid-workspace {
+  max-width: var(--site-max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+  width: 100%;
+}
+
+/* Pedagogical Confirmation Banner */
+.architecture-verdict-banner {
+  background: linear-gradient(135deg, rgba(0, 210, 255, 0.12), rgba(255, 51, 68, 0.08));
+  border: 1px solid var(--color-accent-cyan);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.verdict-icon {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.verdict-content h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+
+.verdict-content p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.verdict-content code {
+  font-family: var(--font-mono);
+  color: var(--color-accent-cyan);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   2. MACRO LAYOUT: THE MASTER 2D GRID (.hybrid-app-shell)
+   Mobile First: 1 single column stack.
+   Desktop: Orchestrated via CSS Grid (Template Areas, Named Lines, or Line Coordinates).
+   -------------------------------------------------------------------------- */
+.hybrid-app-shell {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column stack on mobile devices */
+  gap: 1.5rem;
+  width: 100%;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+/* Assigning Grid Area Names to Structural Landmarks */
+.shell-hero         { grid-area: area-hero; }
+.shell-player       { grid-area: area-player; }
+.shell-sidebar      { grid-area: area-sidebar; }
+.shell-catalog-strip{ grid-area: area-catalog; }
+.shell-tracklist    { grid-area: area-tracklist; }
+.shell-liner-notes  { grid-area: area-liner; }
+
+/* ==========================================================================
+   APPROACH A (DEFAULT DESKTOP): NAMED TEMPLATE AREAS (grid-template-areas)
+   The visual ASCII-art approach. The layout of the page is written as literal words!
+   ========================================================================== */
+@media (min-width: 980px) {
+  body:has(#macro-approach-areas:checked) .hybrid-app-shell {
+    grid-template-columns: 320px 1fr 1fr;
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas:
+      "area-hero      area-hero       area-hero"
+      "area-player    area-player     area-player"
+      "area-sidebar   area-catalog    area-catalog"
+      "area-sidebar   area-tracklist  area-tracklist"
+      "area-liner     area-liner      area-liner";
+  }
+}
+
+/* ==========================================================================
+   APPROACH B: NAMED GRID LINES ([line-start] ... [line-end])
+   Uses named brackets inside grid-template-columns and grid-template-rows.
+   ========================================================================== */
+@media (min-width: 980px) {
+  body:has(#macro-approach-lines:checked) .hybrid-app-shell {
+    /*
+      Named lines syntax: [name] width [name] width...
+      Lines can have multiple names inside brackets: [edge-start full-start]
+    */
+    grid-template-columns:
+      [col-start sidebar-start] 340px [sidebar-end content-start]
+      1fr [mid-content]
+      1fr [content-end col-end];
+    grid-template-rows:
+      [row-start hero-start] auto [hero-end player-start]
+      auto [player-end main-start]
+      auto [catalog-end tracklist-start]
+      auto [tracklist-end liner-start]
+      auto [liner-end row-end];
+    grid-template-areas: none; /* Disables template areas */
+  }
+
+  body:has(#macro-approach-lines:checked) .shell-hero {
+    grid-column: col-start / col-end;
+    grid-row: hero-start / hero-end;
+  }
+
+  body:has(#macro-approach-lines:checked) .shell-player {
+    grid-column: col-start / col-end;
+    grid-row: player-start / player-end;
+  }
+
+  body:has(#macro-approach-lines:checked) .shell-sidebar {
+    grid-column: sidebar-start / sidebar-end;
+    grid-row: main-start / tracklist-end;
+  }
+
+  body:has(#macro-approach-lines:checked) .shell-catalog-strip {
+    grid-column: content-start / col-end;
+    grid-row: main-start / catalog-end;
+  }
+
+  body:has(#macro-approach-lines:checked) .shell-tracklist {
+    grid-column: content-start / col-end;
+    grid-row: tracklist-start / tracklist-end;
+  }
+
+  body:has(#macro-approach-lines:checked) .shell-liner-notes {
+    grid-column: col-start / col-end;
+    grid-row: liner-start / liner-end;
+  }
+}
+
+/* ==========================================================================
+   APPROACH C: LINE-BASED COORDINATE PLACEMENT & SPAN
+   Uses numerical indices (1 / -1) and relative span keywords (span 2).
+   ========================================================================== */
+@media (min-width: 980px) {
+  body:has(#macro-approach-coords:checked) .hybrid-app-shell {
+    grid-template-columns: 320px 1fr 1fr;
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas: none;
+  }
+
+  /* Full bleed across all 3 columns: grid-column: 1 / -1 (-1 is the last explicit line) */
+  body:has(#macro-approach-coords:checked) .shell-hero {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  body:has(#macro-approach-coords:checked) .shell-player {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  /* Sidebar spans 2 rows vertically (Rows 3 and 4) */
+  body:has(#macro-approach-coords:checked) .shell-sidebar {
+    grid-column: 1 / 2;
+    grid-row: 3 / span 2;
+  }
+
+  /* Catalog spans columns 2 and 3 */
+  body:has(#macro-approach-coords:checked) .shell-catalog-strip {
+    grid-column: 2 / 4;
+    grid-row: 3;
+  }
+
+  /* Tracklist spans columns 2 and 3 on row 4 */
+  body:has(#macro-approach-coords:checked) .shell-tracklist {
+    grid-column: 2 / span 2;
+    grid-row: 4;
+  }
+
+  body:has(#macro-approach-coords:checked) .shell-liner-notes {
+    grid-column: 1 / -1;
+    grid-row: 5;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. MICRO-LAYOUTS: FLEXBOX INSIDE THE GRID SECTIONS
+   Every individual section now uses Flexbox for 1D content alignment!
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   MICRO SECTION 1: HERO SPOTLIGHT (Flexbox row with avatar and bio badges)
+   -------------------------------------------------------------------------- */
+.shell-hero {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  /* MICRO FLEXBOX: Arranges portrait and biography horizontally */
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.hero-dj-portrait {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--color-accent-cyan);
+  flex-shrink: 0; /* Prevents portrait distortion */
+  box-shadow: 0 0 20px var(--color-accent-cyan-glow);
+}
+
+.hero-dj-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-dj-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex-grow: 1;
+}
+
+.hero-dj-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.hero-dj-name {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.hero-dj-bio-text {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  max-width: 800px;
+}
+
+/* --------------------------------------------------------------------------
+   MICRO SECTION 2: AUDIO PLAYER DECK (Flexbox linear toolbar)
+   -------------------------------------------------------------------------- */
+.shell-player {
+  background: var(--color-charcoal);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.5rem;
+  /* MICRO FLEXBOX: Master horizontal control strip */
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.player-vinyl-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.spinning-vinyl-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #333 15%, #111 16%, #222 45%, #050505 85%);
+  border: 2px solid #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.8);
+  animation: vinylSpin 3.5s linear infinite;
+}
+
+.vinyl-center-sticker {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-accent-red);
+  border: 2px solid #000;
+}
+
+@keyframes vinylSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.player-track-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 180px;
+}
+
+.now-playing-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-accent-red);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.player-track-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Audio Scrubber Timeline (FLEX-GROW: 1 consumes remaining row width) */
+.player-scrubber-bar {
+  flex-grow: 1; /* Automatically stretches to fill free horizontal space */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 240px;
+}
+
+.timecode {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-dim);
+}
+
+.scrubber-track {
+  flex-grow: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.scrubber-fill {
+  width: 42%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent-cyan), var(--color-accent-red));
+  border-radius: var(--radius-full);
+}
+
+.player-gear-badges {
+  /* MARGIN-LEFT AUTO TRICK: Pins the gear badges to the far right! */
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+/* --------------------------------------------------------------------------
+   MICRO SECTION 3: SIDEBAR (Turntable Setup & Festival Schedule)
+   -------------------------------------------------------------------------- */
+.shell-sidebar {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  /* MICRO FLEXBOX: Vertical column of cards */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-box {
+  background: var(--color-charcoal);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.sidebar-title {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  color: var(--color-accent-amber);
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stage-slot-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: 0.5rem;
+}
+
+.slot-time {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-accent-cyan);
+}
+
+.gear-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.gear-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gear-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent-red);
+}
+
+/* --------------------------------------------------------------------------
+   MICRO SECTION 4: DISCOGRAPHY MINI-CATALOG STRIP
+   -------------------------------------------------------------------------- */
+.shell-catalog-strip {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.strip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.strip-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Flexbox Horizontal Strip of Releases */
+.album-mini-flex-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.mini-album-card {
+  flex: 0 0 160px; /* Fixed flex basis */
+  background: var(--color-charcoal);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.mini-album-card:hover,
+.mini-album-card.active {
+  border-color: var(--color-accent-cyan);
+  background: var(--color-surface-hover);
+  transform: translateY(-2px);
+}
+
+.mini-art {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.mini-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mini-title {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.mini-meta {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-text-dim);
+}
+
+/* --------------------------------------------------------------------------
+   MICRO SECTION 5: ACTIVE TRACKLIST CONSOLE
+   -------------------------------------------------------------------------- */
+.shell-tracklist {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.tracklist-console-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: 0.85rem;
+}
+
+.console-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.tracklist-console-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* Individual Flex Track Row */
+.console-track-row {
+  background: var(--color-charcoal);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1.15rem;
+  /* MICRO FLEXBOX: Horizontal alignment of track attributes */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: all var(--transition-fast);
+}
+
+.console-track-row:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-accent-cyan);
+}
+
+.track-left-group {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.track-row-num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-accent-cyan);
+  width: 24px;
+}
+
+.track-row-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.track-right-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  /* MARGIN-LEFT AUTO: Pushes time & play button to the right */
+  margin-left: auto;
+}
+
+/* --------------------------------------------------------------------------
+   MICRO SECTION 6: LINER NOTES & TECHNICAL SPECS
+   -------------------------------------------------------------------------- */
+.shell-liner-notes {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.liner-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 600px;
+}
+
+.liner-heading {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.liner-text {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.liner-specs-cluster {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.spec-badge-box {
+  background: var(--color-charcoal);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.spec-badge-box span.val {
+  color: var(--color-accent-cyan);
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   4. INTERACTIVE X-RAY MATRIX OVERLAY
+   Activated via pure CSS when "Show Architectural X-Ray" is checked.
+   Demonstrates both the 2D Grid Macro Cells AND the 1D Flexbox Micro Containers!
+   -------------------------------------------------------------------------- */
+body:has(#macro-inspect-xray:checked) .hybrid-app-shell {
+  outline: 3px dashed var(--color-accent-cyan) !important;
+  outline-offset: 4px;
+}
+
+body:has(#macro-inspect-xray:checked) .hybrid-app-shell > section,
+body:has(#macro-inspect-xray:checked) .hybrid-app-shell > aside,
+body:has(#macro-inspect-xray:checked) .hybrid-app-shell > div {
+  position: relative;
+  outline: 2px dashed rgba(255, 51, 68, 0.7) !important;
+  background-color: rgba(255, 51, 68, 0.04) !important;
+}
+
+body:has(#macro-inspect-xray:checked) .hybrid-app-shell > section::before,
+body:has(#macro-inspect-xray:checked) .hybrid-app-shell > aside::before,
+body:has(#macro-inspect-xray:checked) .hybrid-app-shell > div::before {
+  content: '2D GRID MACRO REGION [' attr(class) ']';
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  background: var(--color-accent-red);
+  color: #fff;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  z-index: 50;
+  pointer-events: none;
+  box-shadow: 0 0 8px var(--color-accent-red-glow);
+}
+
+/* Micro Flexbox Annotations in X-Ray Mode */
+body:has(#macro-inspect-xray:checked) .shell-player,
+body:has(#macro-inspect-xray:checked) .console-track-row,
+body:has(#macro-inspect-xray:checked) .shell-hero {
+  outline: 1.5px dashed var(--color-accent-cyan) !important;
+}
+
+body:has(#macro-inspect-xray:checked) .player-scrubber-bar {
+  outline: 1px dashed var(--color-accent-green);
+  position: relative;
+}
+
+body:has(#macro-inspect-xray:checked) .player-scrubber-bar::after {
+  content: 'FLEX-GROW: 1 (STRETCHES)';
+  position: absolute;
+  bottom: -14px;
+  left: 0;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--color-accent-green);
+}
+
+body:has(#macro-inspect-xray:checked) .player-gear-badges,
+body:has(#macro-inspect-xray:checked) .track-right-group {
+  outline: 1px dashed var(--color-accent-amber);
+}
+

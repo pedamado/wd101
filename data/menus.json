@@ -1,0 +1,22 @@
+[
+  {
+    "id": "menu-goals",
+    "target": "#study-goals",
+    "title": { "pt": "Objetivos & Como Estudar", "en": "Study Goals & How-To" }
+  },
+  {
+    "id": "menu-assignments",
+    "target": "#assignments",
+    "title": { "pt": "Enunciados (EX1, EX2, Projeto)", "en": "Assignments (EX1, EX2, Project)" }
+  },
+  {
+    "id": "menu-matrix",
+    "target": "#matrix",
+    "title": { "pt": "Matriz MDN (Tags & CSS)", "en": "MDN Matrix (Tags & CSS)" }
+  },
+  {
+    "id": "menu-patterns",
+    "target": "#patterns",
+    "title": { "pt": "Padrões Interativos (Drumtiks)", "en": "Interactive Patterns (Drumtiks)" }
+  }
+]

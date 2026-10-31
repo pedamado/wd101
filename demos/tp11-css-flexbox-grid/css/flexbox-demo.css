@@ -1,0 +1,711 @@
+/* ==========================================================================
+   CSS FLEXBOX MASTERCLASS STYLESHEET (PAGE 01)
+   FBAUP • Web Design 2026-27 (WD101) • Festival DRUMTIKS '26
+   Theme: DJ Warp Track Listing & Dynamic Flex Mechanics
+   
+   PEDAGOGICAL CORE:
+   1. The 1-Dimensional Box Model: Main Axis vs Cross Axis
+   2. Direction & Flow (flex-direction, flex-wrap, flex-flow)
+   3. Alignment along the Main Axis (justify-content)
+   4. Alignment along the Cross Axis (align-items, align-self, align-content)
+   5. Proportional Sizing (flex-grow, flex-shrink, flex-basis)
+   6. Reordering without altering DOM accessibility (order)
+   7. Auto-margins in Flexbox for spatial pinning
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   MDN DOCUMENTATION REFERENCES:
+   - Flexible Box Layout Guide:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout
+   - Basic Concepts of Flexbox:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Basic_concepts
+   - Relationship with other layout methods:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Relationship_with_other_layout_methods
+   - Aligning items in a flex container:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Aligning_items
+   - Ordering flex items:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Ordering_items
+   - Controlling ratios of flex items:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Controlling_flex_item_ratios
+   - Wrapping flex items:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Wrapping_items
+   - Typical use cases of Flexbox:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Use_cases
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   1. ALBUM SELECTION CRATE (Top Horizontal Flex Showcase)
+   Shows the 5 albums in a responsive flex row with hover fan-out & active selection.
+   -------------------------------------------------------------------------- */
+.album-selector-section {
+  max-width: var(--site-max-width);
+  margin: 0 auto 2.5rem;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--color-accent-cyan);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  margin-bottom: 1.25rem;
+}
+
+/*
+  FLEX CONTAINER: .album-crate
+  - display: flex initializes a flex formatting context.
+  - All direct children become "flex items".
+  - Default flex-direction is 'row' (main axis runs left-to-right).
+  - Default flex-wrap is 'nowrap' (all items forced onto one line).
+  - gap: 1.25rem replaces fragile margin hacks between flex items!
+*/
+.album-crate {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 1.25rem;
+  overflow-x: auto;
+  padding: 1rem 0.5rem 2rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide raw input radios used for pure HTML/CSS album switching */
+.album-crate input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/*
+  FLEX ITEM: .album-card-trigger
+  - flex: 0 0 220px shorthand for:
+    * flex-grow: 0 (do NOT expand to fill leftover space)
+    * flex-shrink: 0 (do NOT shrink below 220px width even if container overflows)
+    * flex-basis: 220px (initial size along main axis before growing/shrinking)
+*/
+.album-card-trigger {
+  flex: 0 0 220px;
+  scroll-snap-align: start;
+  cursor: pointer;
+  background-color: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.album-card-trigger:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-border-medium);
+  background-color: var(--color-surface-2);
+}
+
+.album-thumb-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--color-charcoal);
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.album-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.album-card-trigger:hover .album-thumb-wrap img {
+  transform: scale(1.05);
+}
+
+.album-meta-brief {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.album-badge-type {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-accent-amber);
+}
+
+.album-badge-ep {
+  color: var(--color-accent-cyan);
+}
+
+.album-title-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.25;
+  color: #fff;
+}
+
+.album-subtext {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+
+/* Active Album Selection Highlight via :checked + label */
+.album-crate input[type="radio"]:checked + .album-card-trigger {
+  border-color: var(--color-accent-cyan);
+  background-color: var(--color-surface-2);
+  box-shadow: 0 0 20px var(--color-accent-cyan-glow);
+  transform: translateY(-4px);
+}
+
+.album-crate input[type="radio"]:checked + .album-card-trigger::after {
+  content: 'ACTIVE DISC';
+  position: absolute;
+  top: -10px;
+  right: 12px;
+  background: var(--color-accent-cyan);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+/* --------------------------------------------------------------------------
+   2. DYNAMIC ALBUM CONTENT PANELS (Pure HTML/CSS Toggle)
+   Using :has() on parent container to show only the selected album's tracklist!
+   -------------------------------------------------------------------------- */
+.album-display-pane {
+  display: none; /* Hidden by default */
+  width: 100%;
+}
+
+/* When album 1 is checked, show pane 1 */
+body:has(#album-sel-1:checked) .pane-album-1 { display: block; }
+body:has(#album-sel-2:checked) .pane-album-2 { display: block; }
+body:has(#album-sel-3:checked) .pane-album-3 { display: block; }
+body:has(#album-sel-4:checked) .pane-album-4 { display: block; }
+body:has(#album-sel-5:checked) .pane-album-5 { display: block; }
+
+/* --------------------------------------------------------------------------
+   3. THE MAIN FLEXBOX LABORATORY CONTAINER (.flex-tracklist-container)
+   This is the core educational demonstration element!
+   -------------------------------------------------------------------------- */
+.tracklist-workspace {
+  max-width: var(--site-max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+  width: 100%;
+}
+
+.album-header-banner {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.album-hero-art {
+  width: 160px;
+  height: 160px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex-shrink: 0; /* Prevents artwork from shrinking */
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--color-border-medium);
+}
+
+.album-hero-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.album-hero-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-grow: 1; /* Takes available remaining space */
+  min-width: 260px;
+}
+
+.album-badge-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.album-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.album-hero-bio {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  max-width: 720px;
+}
+
+.album-stat-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-text-dim);
+  flex-wrap: wrap;
+}
+
+.album-stat-item span {
+  color: var(--color-text-main);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   4. FLEXBOX TRACKLIST CARDS LAYOUT
+   Demonstrates:
+   - Mobile: Single column (flex-direction: column)
+   - Desktop: Multi-row wrapping grid (flex-direction: row; flex-wrap: wrap;)
+   - Flexible sizing (flex-grow, flex-shrink, flex-basis)
+   - Order manipulation (reordering)
+   - Alignment along both axes
+   -------------------------------------------------------------------------- */
+.tracklist-flex-board {
+  /*
+    MOBILE FIRST DEFAULT:
+    display: flex with flex-direction: column arranges items in a vertical stack (single column).
+  */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 1.25rem;
+  width: 100%;
+  padding: 1.5rem;
+  background-color: var(--color-surface-1);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-lg);
+  min-height: 400px;
+  transition: all var(--transition-normal);
+}
+
+/*
+  DESKTOP BREAKPOINT (min-width: 768px):
+  Switches from single-column vertical stack into a multi-row card wrapping layout!
+  This directly satisfies the user's requirement:
+  "Single column mobile layout. And a multiple-row desktop card layout breakpoint."
+*/
+@media (min-width: 768px) {
+  .tracklist-flex-board {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. INDIVIDUAL TRACK CARD (Flex Item & Internal Flex Container)
+   Notice: A flex item can ITSELF be a flex container!
+   -------------------------------------------------------------------------- */
+.track-card {
+  /*
+    FLEX ITEM PROPERTIES:
+    flex: 1 1 320px
+    - flex-grow: 1 -> Will expand to fill remaining row space
+    - flex-shrink: 1 -> Will shrink proportionally if space is constrained
+    - flex-basis: 320px -> Ideal starting width on desktop before wrapping!
+  */
+  flex: 1 1 320px;
+  min-width: 280px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex; /* CARD ITSELF IS A FLEX CONTAINER! */
+  flex-direction: column; /* Internal items flow vertically */
+  justify-content: space-between; /* Pushes footer tags to bottom */
+  gap: 1rem;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.track-card:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-accent-cyan);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Variable content widths for wrapping demonstration */
+.track-card.card-wide {
+  flex-basis: 460px; /* Wider card, forces wrapping sooner! */
+}
+
+.track-card.card-compact {
+  flex-basis: 260px; /* Narrower card, packs into smaller spaces */
+}
+
+.track-card.card-featured {
+  border-color: var(--color-accent-amber);
+  background: linear-gradient(145deg, rgba(245, 166, 35, 0.08), var(--color-surface-2));
+}
+
+.track-card.card-featured::before {
+  content: '★ HEADLINE CUT';
+  position: absolute;
+  top: -10px;
+  left: 1rem;
+  background: var(--color-accent-amber);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+/* Track Card Internal Top Row (Track #, Title, Play Icon) */
+.track-top-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.track-index-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.track-number {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-accent-cyan);
+  background: rgba(0, 210, 255, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(0, 210, 255, 0.25);
+  flex-shrink: 0;
+}
+
+.track-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+}
+
+.track-play-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-charcoal);
+  border: 1px solid var(--color-border-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  color: var(--color-text-main);
+  transition: all var(--transition-fast);
+}
+
+.track-play-btn:hover {
+  background: var(--color-accent-red);
+  border-color: var(--color-accent-red);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* Track Card Middle Row (Acoustic and DJ Scratch Technique Bio) */
+.track-technique-bio {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  /* flex-grow: 1 ensures cards with less text stretch to match tallest card */
+  flex-grow: 1;
+}
+
+/* Track Card Bottom Footer Row (BPM, Duration, Scratch Tags) */
+.track-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: 0.75rem;
+}
+
+.track-badges-cluster {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tag-pill {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-muted);
+}
+
+.tag-bpm {
+  color: var(--color-accent-green);
+  border-color: rgba(0, 230, 118, 0.3);
+  background: rgba(0, 230, 118, 0.08);
+  font-weight: 700;
+}
+
+.tag-duration {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-accent-amber);
+  margin-left: auto; /* MARGIN-LEFT AUTO TRICK: Pushes duration to the far right! */
+}
+
+/* --------------------------------------------------------------------------
+   6. PURE HTML/CSS DYNAMIC CONTROLS FOR FLEXBOX PLAYGROUND
+   Controlled by radio inputs in the .demo-control-bar using :has() selectors!
+   -------------------------------------------------------------------------- */
+
+/* A. ORIENTATION (flex-direction) */
+body:has(#ctrl-dir-row:checked) .tracklist-flex-board {
+  flex-direction: row;
+}
+
+body:has(#ctrl-dir-row-rev:checked) .tracklist-flex-board {
+  flex-direction: row-reverse;
+}
+
+body:has(#ctrl-dir-col:checked) .tracklist-flex-board {
+  flex-direction: column;
+}
+
+body:has(#ctrl-dir-col-rev:checked) .tracklist-flex-board {
+  flex-direction: column-reverse;
+}
+
+/* B. WRAPPING BEHAVIOR (flex-wrap) */
+body:has(#ctrl-wrap-wrap:checked) .tracklist-flex-board {
+  flex-wrap: wrap;
+}
+
+body:has(#ctrl-wrap-nowrap:checked) .tracklist-flex-board {
+  flex-wrap: nowrap;
+  overflow-x: auto; /* Prevent blowout when wrap is disabled */
+}
+
+body:has(#ctrl-wrap-rev:checked) .tracklist-flex-board {
+  flex-wrap: wrap-reverse;
+}
+
+/* C. JUSTIFY CONTENT (Alignment on Main Axis) */
+body:has(#ctrl-jc-start:checked) .tracklist-flex-board {
+  justify-content: flex-start;
+}
+
+body:has(#ctrl-jc-center:checked) .tracklist-flex-board {
+  justify-content: center;
+}
+
+body:has(#ctrl-jc-end:checked) .tracklist-flex-board {
+  justify-content: flex-end;
+}
+
+body:has(#ctrl-jc-between:checked) .tracklist-flex-board {
+  justify-content: space-between;
+}
+
+body:has(#ctrl-jc-around:checked) .tracklist-flex-board {
+  justify-content: space-around;
+}
+
+body:has(#ctrl-jc-evenly:checked) .tracklist-flex-board {
+  justify-content: space-evenly;
+}
+
+/* D. ALIGN ITEMS (Alignment on Cross Axis) */
+body:has(#ctrl-ai-stretch:checked) .tracklist-flex-board {
+  align-items: stretch;
+}
+
+body:has(#ctrl-ai-start:checked) .tracklist-flex-board {
+  align-items: flex-start;
+}
+
+body:has(#ctrl-ai-center:checked) .tracklist-flex-board {
+  align-items: center;
+}
+
+body:has(#ctrl-ai-end:checked) .tracklist-flex-board {
+  align-items: flex-end;
+}
+
+/* E. ORDERING & PLACEMENT VARIANTS (order property) */
+
+/* Option: Default Natural DOM Order */
+body:has(#ctrl-order-default:checked) .track-card {
+  order: 0;
+}
+
+/* Option: Highlight / Pin Feature Cut to First Position (order: -1) */
+body:has(#ctrl-order-featured:checked) .track-card.card-featured {
+  order: -10;
+  box-shadow: 0 0 20px var(--color-accent-amber-glow);
+  border-color: var(--color-accent-amber);
+}
+
+/* Option: Reorder by Tempo / BPM (Fastest Breaks First) */
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="104"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="105"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="102"] {
+  order: 1;
+}
+
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="101"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="100"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="99"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="98"] {
+  order: 2;
+}
+
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="96"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="95"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="94"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="92"] {
+  order: 3;
+}
+
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="90"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="89"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="88"] {
+  order: 4;
+}
+
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="85"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="83"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="80"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="78"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="75"],
+body:has(#ctrl-order-bpm:checked) .track-card[data-bpm="70"] {
+  order: 5;
+}
+
+/* Visual indicator when BPM sorting is active */
+body:has(#ctrl-order-bpm:checked) .track-card::after {
+  content: 'BPM RANK ' attr(data-bpm) ' BPM';
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--color-accent-green);
+  opacity: 0.7;
+}
+
+/* Option: Reverse Track Order (Last Track to First) */
+body:has(#ctrl-order-reverse:checked) .tracklist-flex-board {
+  flex-direction: row-reverse;
+}
+
+/* --------------------------------------------------------------------------
+   7. X-RAY LAYOUT INSPECTOR (Pure CSS Visualizer for Flexbox)
+   Visualizes the Flex Container boundary, Main Axis flow, and Flex Item ratios!
+   -------------------------------------------------------------------------- */
+body:has(#ctrl-inspect-xray:checked) .tracklist-flex-board {
+  outline: 3px dashed var(--color-accent-cyan) !important;
+  outline-offset: 4px;
+  position: relative;
+  background-color: rgba(0, 210, 255, 0.03) !important;
+}
+
+body:has(#ctrl-inspect-xray:checked) .tracklist-flex-board::before {
+  content: 'FLEX CONTAINER // MAIN AXIS ACTIVE // GAP: 1.25rem';
+  position: sticky;
+  top: 0;
+  display: block;
+  width: fit-content;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: var(--color-accent-cyan);
+  color: #000;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-sm);
+  z-index: 50;
+  box-shadow: 0 0 10px var(--color-accent-cyan-glow);
+}
+
+body:has(#ctrl-inspect-xray:checked) .track-card {
+  outline: 2px dashed var(--color-accent-amber) !important;
+  outline-offset: -1px;
+  position: relative;
+}
+
+body:has(#ctrl-inspect-xray:checked) .track-card::before {
+  content: 'FLEX ITEM [flex: 1 1 320px]';
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  background: rgba(245, 166, 35, 0.25);
+  color: var(--color-accent-amber);
+  border: 1px solid var(--color-accent-amber);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+body:has(#ctrl-inspect-xray:checked) .track-card.card-wide::before {
+  content: 'FLEX ITEM [flex-basis: 460px] (WIDE)';
+}
+
+body:has(#ctrl-inspect-xray:checked) .track-card.card-compact::before {
+  content: 'FLEX ITEM [flex-basis: 260px] (COMPACT)';
+}
+
+body:has(#ctrl-inspect-xray:checked) .tag-duration {
+  outline: 1px dashed var(--color-accent-green);
+  background: rgba(0, 230, 118, 0.1);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+}
+

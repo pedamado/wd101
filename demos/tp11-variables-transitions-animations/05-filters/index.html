@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Módulo 5 • CSS Filter Effects (Cor, Desfoque &amp; Efeitos) | DRUMTIKS '26</title>
+    <meta
+      name="description"
+      content="Laboratório interativo demonstrador de CSS Filters: blur, brightness, contrast, grayscale, sepia, hue-rotate, invert, saturate, drop-shadow e backdrop-filter."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  </head>
+  <body>
+    <!-- ========================================================================
+       LANDMARK: <header class="site-header">
+       - ARIA Landmark Role: 'banner'
+       - Demonstração em tempo real de 'backdrop-filter: blur(14px)' no cabeçalho.
+       ======================================================================== -->
+    <header class="site-header">
+      <div class="nav-container">
+        <!-- Logótipo e Marca DRUMTIKS -->
+        <a href="index.html" class="brand" aria-label="DRUMTIKS 2026 Início">
+          <img src="assets/icons/favicon.svg" alt="Ícone de Gira-discos e Vinil DRUMTIKS" class="logo-icon" />
+          <span>DRUMTIKS</span>
+          <span class="tag">TP11 • FILTERS</span>
+        </a>
+
+        <!-- Navegação de Retorno ao Índice Geral -->
+        <a href="../index.html" class="nav-link-btn" title="Voltar ao Índice Geral do TP11">
+          <span>← Voltar ao Índice Geral</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ========================================================================
+       LANDMARK: <main class="main-content">
+       - ARIA Landmark Role: 'main'
+       ======================================================================== -->
+    <main class="main-content">
+      <header class="page-header">
+        <span class="badge-eyebrow">Development: HTML &amp; CSS • Visual Filter Processing</span>
+        <h1 class="page-title">Efeitos de Filtro CSS: Cor, Desfoque &amp; Composição Gráfica</h1>
+        <p class="page-desc">
+          A especificação de <strong>CSS Filters (<code>filter</code> e <code>backdrop-filter</code>)</strong> disponibiliza operações gráficas comparáveis às de software de edição fotográfica diretamente no navegador. Permite ajustar exposição, matiz, saturação, criar desfoques ópticos e produzir sombras com recorte alfa fiel via <code>drop-shadow()</code>.
+        </p>
+      </header>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="filter-controls">
+         - Painel de Presets Interativos de Filtro
+         ==================================================================== -->
+      <section class="filter-controls" aria-label="Seletor de Predefinições de Filtros">
+        <div class="controls-label">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 2a10 10 0 0 0-10 10c0 5.52 4.48 10 10 10s10-4.48 10-10A10 10 0 0 0 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8v16z"/>
+          </svg>
+          <strong>Laboratório Interativo • Seleciona um Filtro para Aplicar à Imagem:</strong>
+        </div>
+
+        <div class="filter-chips-grid">
+          <!-- Reset / Original -->
+          <label class="filter-chip" title="Imagem original sem filtros">
+            <input type="radio" name="filter-demo" id="filter-none" checked />
+            <span>Original (none)</span>
+          </label>
+
+          <!-- 1. Desfoque / Blur -->
+          <label class="filter-chip" title="Desfoque gaussiano óptico de 6px">
+            <input type="radio" name="filter-demo" id="filter-blur" />
+            <span>1. Desfoque (blur: 6px)</span>
+          </label>
+
+          <!-- 2. Brilho / Brightness -->
+          <label class="filter-chip" title="Aumenta o brilho em 160%">
+            <input type="radio" name="filter-demo" id="filter-brightness" />
+            <span>2. Brilho (brightness: 1.6)</span>
+          </label>
+
+          <!-- 3. Contraste / Contrast -->
+          <label class="filter-chip" title="Aumenta o contraste dinâmico em 220%">
+            <input type="radio" name="filter-demo" id="filter-contrast" />
+            <span>3. Contraste (contrast: 2.2)</span>
+          </label>
+
+          <!-- 4. Monocromático / Grayscale -->
+          <label class="filter-chip" title="Conversão total a preto e branco">
+            <input type="radio" name="filter-demo" id="filter-grayscale" />
+            <span>4. P&amp;B (grayscale: 100%)</span>
+          </label>
+
+          <!-- 5. Sépia Vintage -->
+          <label class="filter-chip" title="Tonalidade quente analógica dos anos 70">
+            <input type="radio" name="filter-demo" id="filter-sepia" />
+            <span>5. Vintage (sepia: 90%)</span>
+          </label>
+
+          <!-- 6. Rotação de Matiz / Hue Rotate -->
+          <label class="filter-chip" title="Roda o círculo cromático 180 graus (vermelho passa a ciano)">
+            <input type="radio" name="filter-demo" id="filter-huerotate" />
+            <span>6. Círculo de Cor (hue-rotate: 180deg)</span>
+          </label>
+
+          <!-- 7. Inversão / Negativo -->
+          <label class="filter-chip" title="Inverte as cores como negativo de filme fotográfico">
+            <input type="radio" name="filter-demo" id="filter-invert" />
+            <span>7. Negativo (invert: 100%)</span>
+          </label>
+
+          <!-- 8. Saturação Extrema -->
+          <label class="filter-chip" title="Multiplica a vivacidade cromática por 3">
+            <input type="radio" name="filter-demo" id="filter-saturate" />
+            <span>8. Saturação (saturate: 3)</span>
+          </label>
+
+          <!-- 9. Encadeamento Composto -->
+          <label class="filter-chip" title="Combina múltiplos filtros em cadeia">
+            <input type="radio" name="filter-demo" id="filter-composite" />
+            <span>9. Encadeamento Master</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="lab-stage-container">
+         - Palco Visual Interativo de Pré-visualização com Inspetor de Código
+         ==================================================================== -->
+      <section class="lab-stage-container" aria-label="Visualizador de Filtros em Tempo Real">
+        <!-- Visualizador da Imagem com o Filtro Aplicado -->
+        <div class="filter-preview-viewport">
+          <img
+            src="assets/images/album-1-warp-theory.jpg"
+            alt="Capa de Álbum Fictícia DRUMTIKS Warp Theory com filtro ativo"
+            class="filtered-artwork"
+            width="280"
+            height="280"
+          />
+          <span class="preview-caption">Capa do Álbum "WARP THEORY" sob <code>filter</code></span>
+        </div>
+
+        <!-- Inspetor de Código e Explicação -->
+        <div class="filter-code-inspector">
+          <div>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-accent-cyan);">
+              Processamento Gráfico e Matrizes de Cor
+            </h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.55; margin-bottom: 1rem;">
+              O motor CSS executa uma passagem de shader no raster da imagem. Ao contrário de recalcular estilos geométricos, os filtros são calculados pixel-a-pixel por aceleração GPU.
+            </p>
+            <div class="code-snippet-box"><code>/* Regra CSS Aplicada à Imagem */
+.filtered-artwork {
+  /* Filtro ativo interpolado suavemente */
+  filter: var(--active-filter);
+
+  /* Transição de interpolação entre estados de filtro */
+  transition: filter 0.4s ease;
+}</code></div>
+          </div>
+
+          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-muted);">
+            💡 <strong>Encadeamento (Chaining):</strong> Podes encadear vários filtros separando-os por espaços (ex: <code>filter: brightness(1.2) contrast(1.4) blur(1px);</code>). A ordem afeta o resultado final!
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="shadow-comparison-section">
+         - Destaque Didático Fundamental: drop-shadow() versus box-shadow
+         ==================================================================== -->
+      <section class="shadow-comparison-section" aria-labelledby="shadow-diff-heading">
+        <h3 id="shadow-diff-heading" style="font-family: var(--font-display); font-size: 1.35rem;">
+          Distinção Fundamental: <code>box-shadow</code> versus <code>filter: drop-shadow()</code>
+        </h3>
+        <p style="color: var(--color-text-muted); font-size: 0.92rem; line-height: 1.6;">
+          Um dos erros mais comuns no desenvolvimento frontend é tentar aplicar sombra a um ícone vetorial SVG ou imagem transparente com <code>box-shadow</code>.
+          O <code>box-shadow</code> cria uma sombra quadrada em torno da <strong>caixa retangular do elemento</strong>. O <code>filter: drop-shadow()</code>, pelo contrário, respeita os <strong>contornos reais dos píxeis opacos (canal alfa)</strong>!
+        </p>
+
+        <div class="shadow-comparison-grid">
+          <!-- Exemplo Incorreto: box-shadow -->
+          <div class="shadow-demo-card">
+            <h4>1. Com <code>box-shadow</code> (Caixa Rígida)</h4>
+            <div style="padding: 1.5rem; display: flex; align-items: center; justify-content: center;">
+              <svg class="demo-svg-box-shadow" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="22" cy="22" r="20" stroke="#e60000" stroke-width="4" fill="#141518"/>
+                <circle cx="22" cy="22" r="8" fill="#e60000"/>
+              </svg>
+            </div>
+            <p>
+              ❌ A sombra projeta-se em torno do retângulo exterior da tag <code>&lt;svg&gt;</code>, arruinando o recorte circular do disco de vinil.
+            </p>
+          </div>
+
+          <!-- Exemplo Correto: drop-shadow() -->
+          <div class="shadow-demo-card">
+            <h4>2. Com <code>filter: drop-shadow()</code> (Recorte Alfa Fiel)</h4>
+            <div style="padding: 1.5rem; display: flex; align-items: center; justify-content: center;">
+              <svg class="demo-svg-drop-shadow" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="22" cy="22" r="20" stroke="#00d2ff" stroke-width="4" fill="#141518"/>
+                <circle cx="22" cy="22" r="8" fill="#00d2ff"/>
+              </svg>
+            </div>
+            <p>
+              ✅ A sombra contorna perfeitamente a circunferência do vinil vazado, adaptando-se com precisão à transparência!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="filters-catalog-grid">
+         - Catálogo dos Filtros CSS Disponíveis
+         ==================================================================== -->
+      <section aria-labelledby="catalog-heading">
+        <h2 id="catalog-heading" style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; margin-bottom: 1.25rem;">
+          Catálogo das Funções de Filtro CSS
+        </h2>
+
+        <div class="filters-catalog-grid">
+          <article class="catalog-card">
+            <h3>blur(raio)</h3>
+            <p>Desfoca os píxeis com distribuição gaussiana. Ideal para fundos desfocados (depth of field) ou modais modulares.</p>
+            <div><code>filter: blur(8px);</code></div>
+          </article>
+
+          <article class="catalog-card">
+            <h3>brightness(fator)</h3>
+            <p>Multiplicador de luminosidade. Valores abaixo de 1 escurecem; acima de 1 iluminam.</p>
+            <div><code>filter: brightness(1.5);</code></div>
+          </article>
+
+          <article class="catalog-card">
+            <h3>contrast(fator)</h3>
+            <p>Altera a amplitude entre os valores mais escuros e mais claros da imagem.</p>
+            <div><code>filter: contrast(2.0);</code></div>
+          </article>
+
+          <article class="catalog-card">
+            <h3>hue-rotate(ângulo)</h3>
+            <p>Roda todas as cores ao longo da roda cromática de 0deg a 360deg.</p>
+            <div><code>filter: hue-rotate(90deg);</code></div>
+          </article>
+
+          <article class="catalog-card">
+            <h3>grayscale(percentagem)</h3>
+            <p>Remove a saturação transformando a paleta em tons neutros de cinzento.</p>
+            <div><code>filter: grayscale(100%);</code></div>
+          </article>
+
+          <article class="catalog-card">
+            <h3>backdrop-filter</h3>
+            <p>Aplica o efeito aos elementos situados <em>atrás</em> do elemento atual (efeito vidro fosco / glassmorphism).</p>
+            <div><code>backdrop-filter: blur(12px);</code></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section id="mdn-references">
+         - Links Oficiais para a Documentação MDN
+         ==================================================================== -->
+      <section class="filter-controls" style="margin-top: 1rem;" aria-labelledby="mdn-filters-heading">
+        <h3 id="mdn-filters-heading" style="font-family: var(--font-display); font-size: 1.25rem; color: var(--color-accent-cyan);">
+          Documentação Oficial MDN Web Docs:
+        </h3>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.85rem;">
+          <li>
+            🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Filter_effects" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-cyan); text-decoration: underline;">
+              MDN: CSS Filter Effects Guide
+            </a>
+          </li>
+          <li>
+            🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-cyan); text-decoration: underline;">
+              MDN: CSS filter Property Reference
+            </a>
+          </li>
+          <li>
+            🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-cyan); text-decoration: underline;">
+              MDN: CSS backdrop-filter Property Reference
+            </a>
+          </li>
+          <li>
+            🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/drop-shadow" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-cyan); text-decoration: underline;">
+              MDN: CSS drop-shadow() Function (Alpha Channel Shadows)
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- LANDMARK: <nav class="exercises-nav"> -->
+      <nav class="exercises-nav" aria-label="Navegação do TP11">
+        <span>Módulo Complementar: <strong>CSS Filters (Cor, Desfoque &amp; Efeitos)</strong></span>
+        <div class="nav-prev-next">
+          <a href="../04-transforms/index.html" class="nav-link-btn">← Módulo Transforms</a>
+          <a href="../index.html" class="nav-link-btn">Índice Geral TP11 →</a>
+        </div>
+      </nav>
+    </main>
+  </body>
+</html>

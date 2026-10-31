@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercício 3 (Versão B) • Viewport Reveal com Percentagens | DRUMTIKS '26</title>
+    <meta
+      name="description"
+      content="Demonstrador de Scroll-Driven Animations Pure CSS sincronizadas com a entrada de elementos no viewport via animation-timeline: view() e animation-range."
+    />
+    <link rel="stylesheet" href="css/viewport-reveal.css" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  </head>
+  <body>
+    <!-- ========================================================================
+       LANDMARK: <aside class="viewport-ruler">
+       - ARIA Landmark Role: 'complementary'
+       - Régua Visual Lateral de Referência do Viewport.
+       ======================================================================== -->
+    <aside class="viewport-ruler" aria-hidden="true">
+      <div class="ruler-mark"><span>Topo (100%)</span></div>
+      <div class="ruler-mark"><span>Cover (70%)</span></div>
+      <div class="ruler-mark"><span>Centro (50%)</span></div>
+      <div class="ruler-mark"><span>Cover (40%)</span></div>
+      <div class="ruler-mark"><span>Entrada (0%)</span></div>
+    </aside>
+
+    <!-- ========================================================================
+       LANDMARK: <header class="site-header">
+       - ARIA Landmark Role: 'banner'
+       ======================================================================== -->
+    <header class="site-header">
+      <div class="nav-container">
+        <!-- Logótipo e Marca -->
+        <a href="index.html" class="brand" aria-label="DRUMTIKS 2026 Início">
+          <img src="assets/icons/favicon.svg" alt="Ícone Vinil" class="logo-icon" />
+          <span>DRUMTIKS</span>
+          <span class="tag">TP11 • EX3 (VERSÃO B)</span>
+        </a>
+
+        <!-- Botão para voltar à Versão A (Scroll Total Progress Bar) -->
+        <a href="index.html" class="version-switch-btn" title="Voltar ao Scroll Total">
+          <span>← Voltar ao Scroll Total (Progress Bar)</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ========================================================================
+       LANDMARK: <main class="main-content">
+       - ARIA Landmark Role: 'main'
+       ======================================================================== -->
+    <main class="main-content">
+      <header class="page-header">
+        <span class="badge-eyebrow">Development: HTML &amp; CSS • Viewport Timeline</span>
+        <h1 class="page-title">Animação por Entrada no Viewport com Percentagens</h1>
+        <p class="page-desc">
+          Nesta <strong>Versão B</strong>, a animação ativa-se <em>exclusivamente quando cada elemento entra no campo visual</em> (<code>animation-timeline: view()</code>). Através de <code>animation-range: entry &lt;início%&gt; cover &lt;fim%&gt;</code>, calibramos a percentagem exata da janela onde a interpolação começa e termina.
+        </p>
+      </header>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="range-controls">
+         - Painel de Controlo dos Presets de Animation-Range
+         ==================================================================== -->
+      <section class="range-controls" aria-label="Seletor de Predefinições de Animation Range">
+        <div class="range-controls-label">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          <span>Ajustar <code>animation-range</code> Global:</span>
+        </div>
+
+        <div class="range-chips-group">
+          <label class="range-chip" title="Inicia e conclui logo na borda inferior">
+            <input type="radio" name="range-preset" id="range-preset-early" />
+            <span>Borda Imediata (entry 0% entry 100%)</span>
+          </label>
+
+          <label class="range-chip" title="Entrada natural e progressiva até ao terço inferior do ecrã">
+            <input type="radio" name="range-preset" id="range-preset-balanced" checked />
+            <span>Equilibrado (entry 15% cover 40%)</span>
+          </label>
+
+          <label class="range-chip" title="Transição que só termina quando o elemento atinge 70% do ecrã">
+            <input type="radio" name="range-preset" id="range-preset-deep" />
+            <span>Profundo (entry 30% cover 70%)</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="cards-flow-section">
+         - Fluxo de Cartões que se Revelam com o Scroll
+         ==================================================================== -->
+      <section class="cards-flow-section" aria-label="Demonstração Prática de Cartões com Animação por Viewport">
+        
+        <!-- ================================================================
+           LANDMARK: <article class="reveal-card" data-range-demo="fast-edge">
+           - Range: entry 0% entry 100%
+           ================================================================ -->
+        <article class="reveal-card" data-range-demo="fast-edge">
+          <div class="card-range-badge">
+            <span class="badge-dot" aria-hidden="true"></span>
+            <span>range: entry 0% entry 100%</span>
+          </div>
+
+          <div class="card-content">
+            <div class="card-meta">
+              <span>Palco Subterrâneo • Piso -2</span>
+            </div>
+            <h2 class="card-title">Cofre de Granito: Sistema Acústico Funktion-One</h2>
+            <p class="card-description">
+              As paredes centenárias de cantaria da Alfândega do Porto proporcionam um amortecimento natural de frequências graves. Este cartão conclui a sua animação assim que a sua altura atravessa integralmente a borda inferior do ecrã (<code>entry 100%</code>).
+            </p>
+            <div class="card-specs">
+              <span>Pressão Sonora: 118 dB</span>
+              <span>Gama: 25Hz – 20kHz</span>
+            </div>
+          </div>
+
+          <div class="card-media">
+            <img
+              src="assets/images/dj-warp-vault-16x9-600w.webp"
+              alt="Sala abobadada com iluminação cénica e amplificadores vintage"
+              width="600"
+              height="375"
+              loading="lazy"
+            />
+          </div>
+        </article>
+
+        <!-- ================================================================
+           LANDMARK: <article class="reveal-card" data-range-demo="balanced">
+           - Range: entry 15% cover 40%
+           ================================================================ -->
+        <article class="reveal-card" data-range-demo="balanced">
+          <div class="card-range-badge">
+            <span class="badge-dot" aria-hidden="true"></span>
+            <span>range: entry 15% cover 40%</span>
+          </div>
+
+          <div class="card-content">
+            <div class="card-meta">
+              <span>Oficina Prática • 25 Outubro</span>
+            </div>
+            <h2 class="card-title">Laboratório de Corte e Torno de Acetato</h2>
+            <p class="card-description">
+              Demonstração ao vivo de gravação de master de vinil com agulha de diamante e microscópio estéreo. Este cartão inicia a revelação aos <code>entry 15%</code> e estabiliza suavemente quando <code>40%</code> do elemento cobre o viewport.
+            </p>
+            <div class="card-specs">
+              <span>Lotação: 25 Produtores</span>
+              <span>Torno: Neumann VMS-70</span>
+            </div>
+          </div>
+
+          <div class="card-media">
+            <img
+              src="assets/images/dj-warp-600w.webp"
+              alt="Mesa de som e gira-discos de alta precisão"
+              width="600"
+              height="375"
+              loading="lazy"
+            />
+          </div>
+        </article>
+
+        <!-- ================================================================
+           LANDMARK: <article class="reveal-card" data-range-demo="late-center">
+           - Range: entry 25% cover 65%
+           ================================================================ -->
+        <article class="reveal-card" data-range-demo="late-center">
+          <div class="card-range-badge">
+            <span class="badge-dot" aria-hidden="true"></span>
+            <span>range: entry 25% cover 65%</span>
+          </div>
+
+          <div class="card-content">
+            <div class="card-meta">
+              <span>Sessão Noturna • 26 Outubro</span>
+            </div>
+            <h2 class="card-title">Quad Turntablism &amp; Visual Mapping</h2>
+            <p class="card-description">
+              Sincronização de sinais de áudio analógico com projeções generativas mapeadas nos arcos do claustro. A transição estende-se até ao centro superior do viewport (<code>cover 65%</code>), criando uma sensação cinematográfica prolongada.
+            </p>
+            <div class="card-specs">
+              <span>Horário: 00:00 — 03:30</span>
+              <span>Formatos: 33/45 RPM + Visuals</span>
+            </div>
+          </div>
+
+          <div class="card-media">
+            <img
+              src="assets/images/dj-warp-vault-16x9-600w.webp"
+              alt="Projeções visuais nos arcos de pedra com público"
+              width="600"
+              height="375"
+              loading="lazy"
+            />
+          </div>
+        </article>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="animation-explainer">
+         - Análise Técnica da Sintaxe animation-range e Links MDN
+         ==================================================================== -->
+      <section class="animation-explainer" aria-labelledby="range-explainer-heading">
+        <h3 id="range-explainer-heading">Desmistificando a Sintaxe <code>animation-range</code></h3>
+        <p>
+          Enquanto a timeline <code>scroll(root)</code> observa a página inteira, a timeline <code>view()</code> calcula a posição relativa do elemento relativamente à janela de visualização do utilizador:
+        </p>
+
+        <div class="code-card"><code>/* 1. Atribuição da Timeline de Visualização */
+.reveal-card {
+  animation: revealOnViewportEntry auto linear both;
+  animation-timeline: view();
+}
+
+/* 2. Definição dos Pontos de Início e Fim da Interpolação */
+/* Inicia quando 15% do elemento entra no ecrã (entry 15%) */
+/* Termina quando o elemento preenche 40% da área visível (cover 40%) */
+.reveal-card {
+  animation-range: entry 15% cover 40%;
+}
+
+/* 3. Interpolação Limpa e Sem Recálculos de Layout (GPU Accelerated) */
+@keyframes revealOnViewportEntry {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.92);
+    filter: blur(6px);
+  }
+  40% {
+    opacity: 0.6;
+    transform: translateY(20px) scale(0.97);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}</code></div>
+
+        <!-- Links Oficiais MDN Web Docs -->
+        <div style="margin-top: 1rem; border-top: 1px solid var(--color-border-subtle); padding-top: 1rem;">
+          <h4 style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-accent-cyan); margin-bottom: 0.5rem;">Documentação Oficial MDN Web Docs:</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.8rem;">
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/view" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-cyan); text-decoration: underline;">MDN: CSS view() Timeline Function</a></li>
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-range" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-cyan); text-decoration: underline;">MDN: CSS animation-range Property</a></li>
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-cyan); text-decoration: underline;">MDN: CSS @keyframes Rule</a></li>
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Animations/Using" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-cyan); text-decoration: underline;">MDN: Using CSS Animations Guide</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- LANDMARK: <nav class="exercises-nav"> -->
+      <nav class="exercises-nav" aria-label="Navegação do TP11">
+        <span>Exercício 3 (Versão B): <strong>Viewport Trigger (%)</strong></span>
+        <div class="nav-prev-next">
+          <a href="index.html" class="nav-link-btn">← Versão A (Scroll Total)</a>
+          <a href="../index.html" class="nav-link-btn">Índice Geral TP11 →</a>
+        </div>
+      </nav>
+    </main>
+  </body>
+</html>

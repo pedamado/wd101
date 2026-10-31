@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    ==========================================================================
+    PAGE 03: MODERN HYBRID ARCHITECTURE MASTERCLASS (GRID + FLEXBOX)
+    Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+    Course: Web Design (WD101) — 2026/27
+    Festival Context: DRUMTIKS '26 (Alfândega do Porto)
+    Subject: DJ Warp Complete Discography, Master Console & Macro/Micro Layout
+    Author: Pedro Amado / Advanced Agentic Coding Pair
+    ==========================================================================
+    MDN GUIDES REFERENCED:
+    - Grid Template Areas: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Grid_template_areas
+    - Named Grid Lines: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Named_grid_lines
+    - Line-based Placement: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Line-based_placement
+    - Relationship with other layout methods: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Relationship_with_other_layout_methods
+    - Flexbox Basic Concepts: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Basic_concepts
+    - Flexbox Use Cases: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Use_cases
+    ==========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03 • Hybrid Architecture: Grid + Flexbox | DJ Warp Console | DRUMTIKS '26</title>
+  <meta name="description" content="Pedagogical masterclass combining CSS Grid for 2D macro architecture (named areas, named lines, line placement) and Flexbox for 1D micro layout components.">
+
+  <!-- Local variable fonts (Inter, Martian Mono, Syne) -->
+  <link rel="stylesheet" href="css/fonts.css">
+  <!-- Shared design system tokens, typography, resets and header -->
+  <link rel="stylesheet" href="css/base.css">
+  <!-- Dedicated Hybrid module styles, macro grid templates, and micro flex components -->
+  <link rel="stylesheet" href="css/hybrid-demo.css">
+</head>
+<body>
+
+  <!--
+    LANDMARK: <header class="site-header">
+    Sticky global top bar with links to Hub and Masterclass pages.
+  -->
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <div class="brand-group">
+        <a href="index.html" class="brand-logo" aria-label="Return to Curriculum Hub">
+          DRUMTIKS<span class="tag">'26</span>
+        </a>
+        <span class="brand-badge">WD101 • LAB 03</span>
+      </div>
+
+      <nav class="main-nav" aria-label="Curriculum Navigation">
+        <a href="index.html" class="nav-link">
+          <span>🏠 Hub</span>
+        </a>
+        <a href="01-flexbox-tracks.html" class="nav-link">
+          <span class="nav-pill-num">01</span>
+          <span>Flexbox Tracks</span>
+        </a>
+        <a href="02-grid-albums.html" class="nav-link">
+          <span class="nav-pill-num">02</span>
+          <span>CSS Grid Albums</span>
+        </a>
+        <a href="03-hybrid-discography.html" class="nav-link active" aria-current="page">
+          <span class="nav-pill-num">03</span>
+          <span>Hybrid Architecture</span>
+        </a>
+        <a href="04-container-queries.html" class="nav-link">
+          <span class="nav-pill-num">04</span>
+          <span>Container Queries</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!--
+    LANDMARK: <main>
+    Primary educational document body combining the overarching CSS Grid
+    macro-skeleton with rich internal Flexbox components.
+  -->
+  <main id="main-content" role="main">
+
+    <!-- HERO SECTION: Explains the Hybrid Philosophy -->
+    <section class="page-hero" aria-labelledby="hybrid-hero-title">
+      <div class="hero-meta-strip">
+        <span class="hero-chip chip-red">Modern Hybrid Layout</span>
+        <span class="hero-chip chip-cyan">Grid (2D Macro) + Flexbox (1D Micro)</span>
+        <span class="hero-chip chip-amber">Pure HTML + CSS (Zero JS)</span>
+      </div>
+      <h1 id="hybrid-hero-title" class="hero-title">03 • Hybrid Architecture: Grid + Flexbox</h1>
+      <p class="hero-description">
+        The ultimate industry standard: <strong>CSS Grid</strong> orchestrates the outer page skeleton across two dimensions, while <strong>Flexbox</strong> powers the internal alignment of linear components, toolbars, list rows, and badge clusters.
+      </p>
+    </section>
+
+    <div class="hybrid-workspace">
+
+      <!--
+        PEDAGOGICAL VERDICT BANNER:
+        Answers the user's architectural question directly!
+      -->
+      <aside class="architecture-verdict-banner" role="note" aria-label="Architectural Concept Check">
+        <div class="verdict-icon">💡</div>
+        <div class="verdict-content">
+          <h3>Architectural Concept Verification: You Are 100% Correct!</h3>
+          <p>
+            <strong>"Grid for overall areas, and Flexbox for section content":</strong> This is the universal gold standard of modern responsive web development.
+            <br>• <strong>CSS Grid (Two-Dimensional):</strong> Orchestrates simultaneous rows and columns. It creates the page structure (hero, player deck, sidebar, active catalog, track console, liner notes).
+            <br>• <strong>CSS Flexbox (One-Dimensional):</strong> Arranges elements along a single direction (row or column) based on intrinsic content size. It powers the audio scrubber, navigation bars, pill tag clouds, and metadata rows inside each grid cell.
+          </p>
+        </div>
+      </aside>
+
+      <!--
+        PEDAGOGICAL INTERACTIVE TOOLBAR (Pure HTML + CSS)
+        Includes CodePen-style View Mode Switcher, X-Ray Inspector, and 3 Macro Grid Approaches!
+      -->
+      <div class="demo-control-bar" role="toolbar" aria-label="Macro Grid Technique Switcher">
+        <div class="control-bar-header">
+          <div class="control-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            Interactive Hybrid Engine &amp; Code Sandbox Controls
+          </div>
+          <div class="control-explainer">Pure CSS :has() State Engine • Zero JavaScript</div>
+        </div>
+
+        <!-- CODEPEN-STYLE VIEW MODE TOGGLES (Preview vs HTML vs CSS) -->
+        <div class="control-group">
+          <span class="control-group-label" style="color:var(--color-accent-cyan);">Active View Mode:</span>
+          <div class="sandbox-view-tabs" role="tablist">
+            <input type="radio" name="sandbox_view" id="tab-view-preview" checked>
+            <label for="tab-view-preview" role="tab" aria-selected="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              Rendered Preview
+            </label>
+
+            <input type="radio" name="sandbox_view" id="tab-view-html">
+            <label for="tab-view-html" role="tab" aria-selected="false">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              HTML View
+            </label>
+
+            <input type="radio" name="sandbox_view" id="tab-view-css">
+            <label for="tab-view-css" role="tab" aria-selected="false">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l8-4 8 4V2z"/></svg>
+              CSS View
+            </label>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <span class="control-group-label" style="color:var(--color-accent-amber);">Macro Grid Approach:</span>
+          <div class="segmented-options">
+            <!-- Technique A: Named Template Areas -->
+            <input type="radio" name="macro_approach" id="macro-approach-areas" checked>
+            <label for="macro-approach-areas">A. Named Template Areas (grid-template-areas)</label>
+
+            <!-- Technique B: Named Grid Lines -->
+            <input type="radio" name="macro_approach" id="macro-approach-lines">
+            <label for="macro-approach-lines">B. Named Grid Lines ([sidebar-start] ... [content-end])</label>
+
+            <!-- Technique C: Line-Based Placement -->
+            <input type="radio" name="macro_approach" id="macro-approach-coords">
+            <label for="macro-approach-coords">C. Line Coordinates &amp; Span (1 / -1, span 2)</label>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <span class="control-group-label" style="color:var(--color-text-muted);">Visual Inspector:</span>
+          <div class="segmented-options">
+            <input type="radio" name="macro_inspect" id="macro-inspect-normal" checked>
+            <label for="macro-inspect-normal">Normal View</label>
+
+            <input type="radio" name="macro_inspect" id="macro-inspect-xray">
+            <label for="macro-inspect-xray">X-Ray 2D Grid Cells &amp; 1D Flex Axes</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           PANE 1: RENDERED PREVIEW (Live Interactive Sandbox)
+           ==================================================================== -->
+      <div class="sandbox-pane-preview" id="pane-rendered-preview">
+        <!-- ==================================================================
+             THE 2D MACRO GRID CONTAINER: .hybrid-app-shell
+             Governed by CSS Grid at the macro level.
+             Each child section is placed into a designated cell/area!
+             ================================================================== -->
+        <div class="hybrid-app-shell" id="app-shell" role="region" aria-label="Master DJ Warp Discography Application Shell">
+
+        <!-- ------------------------------------------------------------------
+             REGION 1 (MACRO): .shell-hero
+             Grid Area: area-hero (Spans full width across top)
+             Internal Micro-Layout: Flexbox horizontal row (avatar + bio)
+             ------------------------------------------------------------------ -->
+        <section class="shell-hero" aria-labelledby="artist-headline">
+          <div class="hero-dj-portrait">
+            <img src="assets/images/dj-warp-600w.webp" alt="DJ Warp portrait at the turntables" width="90" height="90">
+          </div>
+          <div class="hero-dj-details">
+            <div class="hero-dj-header-row">
+              <h2 id="artist-headline" class="hero-dj-name">DJ WARP</h2>
+              <span class="hero-chip chip-cyan">HEADLINE TURNTABLIST</span>
+              <span class="hero-chip chip-amber">ALFÂNDEGA STAGE 01</span>
+            </div>
+            <p class="hero-dj-bio-text">
+              Pioneer of concrete turntablism and atmospheric boom bap. Fusing raw analog battle routines, acoustic hydrophone sampling, and heavy 808 sub-bass. 5 official catalog releases on the Drumtiks imprint.
+            </p>
+          </div>
+        </section>
+
+        <!-- ------------------------------------------------------------------
+             REGION 2 (MACRO): .shell-player
+             Grid Area: area-player (Full bleed horizontal control strip)
+             Internal Micro-Layout: Flexbox linear deck with auto-margin
+             ------------------------------------------------------------------ -->
+        <section class="shell-player" aria-label="Live Vinyl Audio Controller">
+          <div class="player-vinyl-cluster">
+            <div class="spinning-vinyl-icon" aria-hidden="true">
+              <div class="vinyl-center-sticker"></div>
+            </div>
+            <div class="player-track-info">
+              <span class="now-playing-tag">● NOW MONITORING</span>
+              <div class="player-track-title">Alfândega Dock Pressure (Live Cut)</div>
+            </div>
+          </div>
+
+          <!-- Flexbox Scrubber with flex-grow: 1 -->
+          <div class="player-scrubber-bar" aria-label="Track Progress Bar">
+            <span class="timecode">01:48</span>
+            <div class="scrubber-track" role="progressbar" aria-valuenow="42" aria-valuemin="0" aria-valuemax="100">
+              <div class="scrubber-fill"></div>
+            </div>
+            <span class="timecode">04:12</span>
+          </div>
+
+          <!-- Pushed to far right via margin-left: auto -->
+          <div class="player-gear-badges">
+            <span class="tag-pill tag-bpm">92.0 BPM</span>
+            <span class="tag-pill" style="color:var(--color-accent-cyan);">PITCH +1.4%</span>
+            <span class="tag-pill">33⅓ RPM</span>
+          </div>
+        </section>
+
+        <!-- ------------------------------------------------------------------
+             REGION 3 (MACRO): .shell-sidebar
+             Grid Area: area-sidebar (Vertical column along the left)
+             Internal Micro-Layout: Flexbox vertical stack of cards
+             ------------------------------------------------------------------ -->
+        <aside class="shell-sidebar" aria-label="Festival Stage Schedule & Gear">
+          <!-- Sidebar Card 1: Festival Timetable -->
+          <div class="sidebar-box">
+            <div class="sidebar-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Drumtiks Festival Sets
+            </div>
+            <div class="stage-slot-item">
+              <div>
+                <strong>Night 1: The 808 Vault</strong>
+                <div style="font-size:0.75rem;color:var(--color-text-dim);">Alfândega Underground</div>
+              </div>
+              <span class="slot-time">00:30</span>
+            </div>
+            <div class="stage-slot-item">
+              <div>
+                <strong>Night 2: Battle Showcase</strong>
+                <div style="font-size:0.75rem;color:var(--color-text-dim);">Main Soundstage</div>
+              </div>
+              <span class="slot-time">23:00</span>
+            </div>
+            <div class="stage-slot-item">
+              <div>
+                <strong>Masterclass: Fader Optics</strong>
+                <div style="font-size:0.75rem;color:var(--color-text-dim);">FBAUP Tech Lab</div>
+              </div>
+              <span class="slot-time">16:00</span>
+            </div>
+          </div>
+
+          <!-- Sidebar Card 2: Turntable Rig Specs -->
+          <div class="sidebar-box">
+            <div class="sidebar-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              Turntable Rig Specs
+            </div>
+            <ul class="gear-list">
+              <li><span class="gear-bullet"></span> 2x Technics SL-1200MK7 (Custom Tonearms)</li>
+              <li><span class="gear-bullet"></span> Pioneer DJM-S11 Battle Mixer</li>
+              <li><span class="gear-bullet"></span> Ortofon Concorde MkII Scratch Cartridges</li>
+              <li><span class="gear-bullet"></span> Akai MPC 3000 (Field Drum Chops)</li>
+              <li><span class="gear-bullet"></span> Aquarian Audio H2a Hydrophone Rig</li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- ------------------------------------------------------------------
+             REGION 4 (MACRO): .shell-catalog-strip
+             Grid Area: area-catalog (Top right area beside sidebar)
+             Internal Micro-Layout: Flexbox horizontal album strip
+             ------------------------------------------------------------------ -->
+        <section class="shell-catalog-strip" aria-labelledby="catalog-title">
+          <div class="strip-header">
+            <h3 id="catalog-title" class="strip-title">5 Discography Releases (3 LPs + 2 EPs)</h3>
+            <span class="hero-chip chip-amber">All Solo Works</span>
+          </div>
+
+          <!-- Flexbox row of albums with flex-basis: 160px -->
+          <div class="album-mini-flex-row" role="list">
+            <!-- Mini Album 1 -->
+            <div class="mini-album-card active" role="listitem">
+              <div class="mini-art">
+                <img src="assets/images/album-1-warp-theory.jpg" alt="Warp Theory" width="160" height="160">
+              </div>
+              <div class="mini-title">WARP THEORY</div>
+              <div class="mini-meta">Full LP • 10 Cuts • 2024</div>
+            </div>
+
+            <!-- Mini Album 2 -->
+            <div class="mini-album-card" role="listitem">
+              <div class="mini-art">
+                <img src="assets/images/album-2-concrete-pulse.jpg" alt="Concrete Pulse" width="160" height="160">
+              </div>
+              <div class="mini-title">CONCRETE PULSE</div>
+              <div class="mini-meta">Full LP • 10 Cuts • 2025</div>
+            </div>
+
+            <!-- Mini Album 3 -->
+            <div class="mini-album-card" role="listitem">
+              <div class="mini-art">
+                <img src="assets/images/album-3-dust-and-grooves.jpg" alt="Dust and Grooves" width="160" height="160">
+              </div>
+              <div class="mini-title">DUST &amp; GROOVES</div>
+              <div class="mini-meta">Full LP • 11 Cuts • 2025</div>
+            </div>
+
+            <!-- Mini Album 4 -->
+            <div class="mini-album-card" role="listitem">
+              <div class="mini-art">
+                <img src="assets/images/album-4-fader-kinetics.jpg" alt="Fader Kinetics" width="160" height="160">
+              </div>
+              <div class="mini-title">FADER KINETICS</div>
+              <div class="mini-meta">EP • 5 Cuts • 2026</div>
+            </div>
+
+            <!-- Mini Album 5 -->
+            <div class="mini-album-card" role="listitem">
+              <div class="mini-art">
+                <img src="assets/images/album-5-circuit-bender.jpg" alt="Circuit Bender" width="160" height="160">
+              </div>
+              <div class="mini-title">CIRCUIT BENDER</div>
+              <div class="mini-meta">EP • 5 Cuts • 2026</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ------------------------------------------------------------------
+             REGION 5 (MACRO): .shell-tracklist
+             Grid Area: area-tracklist (Bottom right area below catalog)
+             Internal Micro-Layout: Flexbox column of interactive track rows
+             ------------------------------------------------------------------ -->
+        <section class="shell-tracklist" aria-labelledby="active-track-console">
+          <div class="tracklist-console-header">
+            <h3 id="active-track-console" class="console-title">Active Track Console: WARP THEORY (10 Cuts)</h3>
+            <span class="hero-chip chip-cyan">Fader Optics Active</span>
+          </div>
+
+          <div class="tracklist-console-rows" role="list">
+            <!-- Row 1 -->
+            <div class="console-track-row" role="listitem">
+              <div class="track-left-group">
+                <span class="track-row-num">01</span>
+                <span class="track-row-title">Alfândega Dock Pressure</span>
+                <span class="tag-pill tag-bpm">92 BPM</span>
+                <span class="tag-pill">Hydrophone 808</span>
+              </div>
+              <div class="track-right-group">
+                <span class="timecode">04:12</span>
+                <button class="track-play-btn" aria-label="Play Track 01">▶</button>
+              </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="console-track-row" role="listitem">
+              <div class="track-left-group">
+                <span class="track-row-num">02</span>
+                <span class="track-row-title">The 808 Frequency Sweep</span>
+                <span class="tag-pill tag-bpm">88 BPM</span>
+                <span class="tag-pill">2-Click Flare</span>
+              </div>
+              <div class="track-right-group">
+                <span class="timecode">03:45</span>
+                <button class="track-play-btn" aria-label="Play Track 02">▶</button>
+              </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="console-track-row" role="listitem">
+              <div class="track-left-group">
+                <span class="track-row-num">03</span>
+                <span class="track-row-title">Subterranean Transit</span>
+                <span class="tag-pill tag-bpm">94 BPM</span>
+                <span class="tag-pill">Transformer Cuts</span>
+              </div>
+              <div class="track-right-group">
+                <span class="timecode">04:30</span>
+                <button class="track-play-btn" aria-label="Play Track 03">▶</button>
+              </div>
+            </div>
+
+            <!-- Row 4 -->
+            <div class="console-track-row" role="listitem">
+              <div class="track-left-group">
+                <span class="track-row-num">04</span>
+                <span class="track-row-title">Concrete Resonator</span>
+                <span class="tag-pill tag-bpm">90 BPM</span>
+                <span class="tag-pill">Granite Transients</span>
+              </div>
+              <div class="track-right-group">
+                <span class="timecode">03:18</span>
+                <button class="track-play-btn" aria-label="Play Track 04">▶</button>
+              </div>
+            </div>
+
+            <!-- Row 5 -->
+            <div class="console-track-row" role="listitem">
+              <div class="track-left-group">
+                <span class="track-row-num">05</span>
+                <span class="track-row-title">Fader Friction Pt. 1</span>
+                <span class="tag-pill tag-bpm">96 BPM</span>
+                <span class="tag-pill">Dual-Turntable Juggle</span>
+              </div>
+              <div class="track-right-group">
+                <span class="timecode">04:55</span>
+                <button class="track-play-btn" aria-label="Play Track 05">▶</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ------------------------------------------------------------------
+             REGION 6 (MACRO): .shell-liner-notes
+             Grid Area: area-liner (Spans full width across bottom)
+             Internal Micro-Layout: Flexbox horizontal distribution
+             ------------------------------------------------------------------ -->
+        <section class="shell-liner-notes" aria-labelledby="liner-heading">
+          <div class="liner-left">
+            <h3 id="liner-heading" class="liner-heading">Master Audio Engineering &amp; Environmental Recording</h3>
+            <p class="liner-text">
+              Recorded natively onto 2-inch 24-track analog tape inside the Alfândega Vaults, Porto. Environmental impulse responses captured using binaural and hydrophone arrays along the Douro riverbank.
+            </p>
+          </div>
+          <div class="liner-specs-cluster">
+            <div class="spec-badge-box">
+              <span>Mastering Format</span>
+              <span class="val">1/2" Analog Tape @ 30 IPS</span>
+            </div>
+            <div class="spec-badge-box">
+              <span>Vinyl Pressing</span>
+              <span class="val">180g Direct Metal Mastering</span>
+            </div>
+            <div class="spec-badge-box">
+              <span>Acoustic Chamber</span>
+              <span class="val">Granite Vault RT60: 2.8s</span>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- Close .hybrid-app-shell -->
+      </div><!-- Close .sandbox-pane-preview -->
+
+      <!-- ====================================================================
+           PANE 2: HTML VIEW (Semantic Landmarks: Macro Grid + Micro Flexbox)
+           ==================================================================== -->
+      <div class="sandbox-pane-html pattern-code-view" id="pane-html-view">
+        <div class="code-view-header">
+          <span class="code-lang-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            HTML View • Landmarks: 2D Grid Skeleton + 1D Flex Components
+          </span>
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">Live Semantic Source</span>
+        </div>
+        <pre class="code-view-content"><code>&lt;!-- ========================================================================
+     1. MACRO 2D GRID CONTAINER (.hybrid-app-shell)
+     Establishes the structural 2D skeleton of the application.
+     ======================================================================== --&gt;
+&lt;div class="hybrid-app-shell" role="region" aria-label="DJ Warp Master Discography"&gt;
+
+  &lt;!-- REGION 1: Hero Banner (Grid Area: area-hero) --&gt;
+  &lt;!-- Internal Micro-Layout: Flexbox horizontal alignment --&gt;
+  &lt;section class="shell-hero"&gt;
+    &lt;div class="hero-dj-portrait"&gt;
+      &lt;img src="assets/images/dj-warp-600w.webp" alt="DJ Warp"&gt;
+    &lt;/div&gt;
+    &lt;div class="hero-dj-details"&gt;
+      &lt;h2&gt;DJ WARP&lt;/h2&gt;
+      &lt;p&gt;Pioneer of concrete turntablism and atmospheric boom bap.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- REGION 2: Audio Player Bar (Grid Area: area-player) --&gt;
+  &lt;!-- Internal Micro-Layout: Flexbox with flex-grow scrubber &amp; margin-left auto --&gt;
+  &lt;section class="shell-player"&gt;
+    &lt;div class="player-vinyl-cluster"&gt;
+      &lt;span&gt;● NOW MONITORING&lt;/span&gt;
+      &lt;strong&gt;Alfândega Dock Pressure&lt;/strong&gt;
+    &lt;/div&gt;
+    &lt;!-- Flex-grow: 1 scrubber --&gt;
+    &lt;div class="player-scrubber-bar"&gt;
+      &lt;span&gt;01:48&lt;/span&gt;
+      &lt;div class="scrubber-track"&gt;&lt;div class="scrubber-fill"&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;span&gt;04:12&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;!-- Pinned right via margin-left: auto --&gt;
+    &lt;div class="player-gear-badges"&gt;
+      &lt;span&gt;92.0 BPM&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- REGION 3: Landmark Aside (Grid Area: area-sidebar) --&gt;
+  &lt;!-- Internal Micro-Layout: Flexbox vertical column stack --&gt;
+  &lt;aside class="shell-sidebar"&gt;
+    &lt;div class="sidebar-box"&gt;
+      &lt;h4&gt;Drumtiks Festival Sets&lt;/h4&gt;
+      &lt;div class="stage-slot-item"&gt;
+        &lt;span&gt;Night 1: The 808 Vault&lt;/span&gt;
+        &lt;span&gt;00:30&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/aside&gt;
+
+  &lt;!-- REGION 4: Catalog Mini-Strip (Grid Area: area-catalog) --&gt;
+  &lt;!-- Internal Micro-Layout: Flexbox horizontal album card strip --&gt;
+  &lt;section class="shell-catalog-strip"&gt;
+    &lt;div class="album-mini-flex-row"&gt;
+      &lt;div class="mini-album-card"&gt;WARP THEORY&lt;/div&gt;
+      &lt;div class="mini-album-card"&gt;CONCRETE PULSE&lt;/div&gt;
+      &lt;div class="mini-album-card"&gt;DUST &amp; GROOVES&lt;/div&gt;
+      &lt;div class="mini-album-card"&gt;FADER KINETICS&lt;/div&gt;
+      &lt;div class="mini-album-card"&gt;CIRCUIT BENDER&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- REGION 5: Tracklist Console (Grid Area: area-tracklist) --&gt;
+  &lt;!-- Internal Micro-Layout: Flexbox list of interactive rows --&gt;
+  &lt;section class="shell-tracklist"&gt;
+    &lt;div class="console-track-row"&gt;
+      &lt;div class="track-left-group"&gt;
+        &lt;span&gt;01&lt;/span&gt;
+        &lt;strong&gt;Alfândega Dock Pressure&lt;/strong&gt;
+      &lt;/div&gt;
+      &lt;div class="track-right-group"&gt;
+        &lt;span&gt;04:12&lt;/span&gt;
+        &lt;button&gt;▶&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- REGION 6: Landmark Footer / Liner Notes (Grid Area: area-liner) --&gt;
+  &lt;!-- Internal Micro-Layout: Flexbox horizontal distribution --&gt;
+  &lt;footer class="shell-liner-notes"&gt;
+    &lt;div class="liner-left"&gt;Master Tape Audio Engineering&lt;/div&gt;
+    &lt;div class="liner-specs-cluster"&gt;180g Direct Metal Mastering&lt;/div&gt;
+  &lt;/footer&gt;
+
+&lt;/div&gt;</code></pre>
+      </div>
+
+      <!-- ====================================================================
+           PANE 3: CSS VIEW (Macro Grid Approaches & Micro Flexbox)
+           ==================================================================== -->
+      <div class="sandbox-pane-css pattern-code-view" id="pane-css-view">
+        <div class="code-view-header">
+          <span class="code-lang-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l8-4 8 4V2z"/></svg>
+            CSS View • Macro Grid Architecture + Micro Flexbox Components
+          </span>
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">Pure Layout CSS</span>
+        </div>
+        <pre class="code-view-content"><code>/* ==========================================================================
+   PART 1: MACRO 2D GRID ARCHITECTURE
+   ========================================================================== */
+
+/* Approach A: Named Template Areas (ASCII visual layout) */
+@media (min-width: 980px) {
+  body:has(#macro-approach-areas:checked) .hybrid-app-shell {
+    display: grid;
+    grid-template-columns: 320px 1fr 1fr;
+    grid-template-areas:
+      "area-hero      area-hero       area-hero"
+      "area-player    area-player     area-player"
+      "area-sidebar   area-catalog    area-catalog"
+      "area-sidebar   area-tracklist  area-tracklist"
+      "area-liner     area-liner      area-liner";
+    gap: 1.5rem;
+  }
+
+  .shell-hero          { grid-area: area-hero; }
+  .shell-player        { grid-area: area-player; }
+  .shell-sidebar       { grid-area: area-sidebar; }
+  .shell-catalog-strip { grid-area: area-catalog; }
+  .shell-tracklist     { grid-area: area-tracklist; }
+  .shell-liner-notes   { grid-area: area-liner; }
+}
+
+/* Approach B: Named Grid Lines */
+@media (min-width: 980px) {
+  body:has(#macro-approach-lines:checked) .hybrid-app-shell {
+    display: grid;
+    grid-template-columns:
+      [col-start sidebar-start] 340px [sidebar-end content-start]
+      1fr [mid-content]
+      1fr [content-end col-end];
+  }
+  body:has(#macro-approach-lines:checked) .shell-sidebar {
+    grid-column: sidebar-start / sidebar-end;
+  }
+  body:has(#macro-approach-lines:checked) .shell-tracklist {
+    grid-column: content-start / col-end;
+  }
+}
+
+/* Approach C: Line Coordinates & -1 Full Bleed */
+@media (min-width: 980px) {
+  body:has(#macro-approach-coords:checked) .hybrid-app-shell {
+    display: grid;
+    grid-template-columns: 320px 1fr 1fr;
+  }
+  body:has(#macro-approach-coords:checked) .shell-hero   { grid-column: 1 / -1; }
+  body:has(#macro-approach-coords:checked) .shell-player { grid-column: 1 / -1; }
+  body:has(#macro-approach-coords:checked) .shell-sidebar{ grid-column: 1 / 2; grid-row: 3 / span 2; }
+}
+
+/* ==========================================================================
+   PART 2: MICRO 1D FLEXBOX COMPONENTS
+   ========================================================================== */
+
+/* Player Bar: Horizontal alignment, fluid scrubber, pinned badges */
+.shell-player {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.player-scrubber-bar {
+  flex-grow: 1;                   /* Consumes remaining horizontal space */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.player-gear-badges {
+  margin-left: auto;              /* Pushes gear badges to far right */
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Sidebar: Vertical column of cards */
+.shell-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Track Row: Fluid horizontal alignment */
+.console-track-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.track-right-group {
+  margin-left: auto;              /* Pushes duration and button to right */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}</code></pre>
+      </div>
+
+      <!-- ====================================================================
+           BAREBONE STRUCTURAL BLUEPRINT (Pedagogical Cheat Sheet)
+           Answers user requirement:
+           "a brief summary explanation with just the barebone HTML 5 Landmarks
+           and the core fundamental selectors and propertis for the containers
+           and items and the most relevant properties just pertaining to the
+           flexbox and the css grid containers and items positionind (just the
+           main structural aspects, no need for visual design details, like colors, fonts, etc.)"
+           ==================================================================== -->
+      <section class="blueprint-card" aria-labelledby="hybrid-blueprint-title">
+        <div class="blueprint-header">
+          <div>
+            <span class="blueprint-badge">Pedagogical Cheat Sheet</span>
+            <h2 id="hybrid-blueprint-title" class="blueprint-title">Barebone Structural Blueprint: Hybrid Grid + Flexbox</h2>
+          </div>
+        </div>
+        <p class="blueprint-summary-text">
+          <strong>Summary of Structural Requirements:</strong> The modern standard combines <strong>2D CSS Grid for macro-layout</strong> (overall page architecture: landmarks, sidebars, main columns) with <strong>1D Flexbox for micro-layout</strong> (internal contents: toolbars, scrubbers, track rows, pill tags). Below is the exact minimal skeleton required to implement this architecture with zero visual styling details.
+        </p>
+
+        <div class="blueprint-grid">
+          <!-- Column 1: Barebone HTML5 Landmarks -->
+          <div class="blueprint-column">
+            <div class="blueprint-col-title">
+              <span>1. Barebone HTML5 Landmarks</span>
+              <span style="color:var(--color-text-dim);">HTML</span>
+            </div>
+            <pre class="blueprint-code"><code>&lt;!-- Landmark: Main Container (Macro Grid) --&gt;
+&lt;main class="macro-grid"&gt;
+
+  &lt;!-- Header: Full bleed top banner (Flex Row) --&gt;
+  &lt;header class="area-hero micro-flex-row"&gt;
+    &lt;div&gt;Avatar&lt;/div&gt;
+    &lt;div&gt;Bio&lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;!-- Section: Audio toolbar (Flex Row + Scrubber) --&gt;
+  &lt;section class="area-player micro-flex-row"&gt;
+    &lt;div&gt;Title&lt;/div&gt;
+    &lt;div class="flex-stretcher"&gt;Timeline&lt;/div&gt;
+    &lt;div class="push-end"&gt;Badges&lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- Aside: Left Sidebar (Flex Column) --&gt;
+  &lt;aside class="area-sidebar micro-flex-col"&gt;
+    &lt;div&gt;Schedule Box 1&lt;/div&gt;
+    &lt;div&gt;Schedule Box 2&lt;/div&gt;
+  &lt;/aside&gt;
+
+  &lt;!-- Section: Main Content (Flex Column Rows) --&gt;
+  &lt;section class="area-content micro-flex-col"&gt;
+    &lt;article class="track-row micro-flex-row"&gt;
+      &lt;span&gt;01 Title&lt;/span&gt;
+      &lt;span class="push-end"&gt;04:12&lt;/span&gt;
+    &lt;/article&gt;
+  &lt;/section&gt;
+
+  &lt;!-- Footer: Full bleed bottom notes (Flex Row) --&gt;
+  &lt;footer class="area-footer micro-flex-row"&gt;
+    &lt;div&gt;Liner Notes&lt;/div&gt;
+    &lt;div class="push-end"&gt;Specs&lt;/div&gt;
+  &lt;/footer&gt;
+
+&lt;/main&gt;</code></pre>
+          </div>
+
+          <!-- Column 2: Core Fundamental Structural CSS -->
+          <div class="blueprint-column">
+            <div class="blueprint-col-title">
+              <span>2. Core Structural Selectors &amp; Properties</span>
+              <span style="color:var(--color-accent-green);">CSS (Zero Visual Fluff)</span>
+            </div>
+            <pre class="blueprint-code"><code>/* 1. MACRO 2D GRID CONTAINER */
+.macro-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr 1fr;
+  grid-template-areas:
+    "hero    hero    hero"
+    "player  player  player"
+    "sidebar content content"
+    "footer  footer  footer";
+  gap: 1.5rem;
+}
+
+/* Assign Macro Grid Areas */
+.area-hero    { grid-area: hero; }
+.area-player  { grid-area: player; }
+.area-sidebar { grid-area: sidebar; }
+.area-content { grid-area: content; }
+.area-footer  { grid-area: footer; }
+
+/* 2. MICRO 1D FLEXBOX CONTAINERS */
+.micro-flex-row {
+  display: flex;                  /* Horizontal alignment */
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.micro-flex-col {
+  display: flex;                  /* Vertical stack */
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Micro Flex Sizing & Positioning */
+.flex-stretcher {
+  flex-grow: 1;                   /* Stretches to fill horizontal gap */
+}
+
+.push-end {
+  margin-left: auto;              /* Pushes item to far right perimeter */
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+
+    <!--
+      PEDAGOGICAL EXPLANATION & MDN REFERENCE PANEL
+      Comprehensive breakdown of the 3 macro grid techniques and micro flexbox
+    -->
+    <section class="pedagogy-panel" aria-labelledby="hybrid-pedagogy-heading">
+      <div class="pedagogy-card">
+        <h2 id="hybrid-pedagogy-heading" class="pedagogy-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Pedagogical Deep-Dive: Macro Grid vs. Micro Flexbox
+        </h2>
+
+        <div class="pedagogy-grid">
+          <!-- Box 1: Named Template Areas -->
+          <div class="pedagogy-box">
+            <h4>A. Named Template Areas</h4>
+            <p>
+              <code>grid-template-areas</code> creates a direct visual map of your page in ASCII string format. Each word corresponds to an element's <code>grid-area</code> property. Empty cells can be designated with a period (<code>.</code>). It is the most readable macro-layout notation in CSS!
+            </p>
+          </div>
+
+          <!-- Box 2: Named Grid Lines -->
+          <div class="pedagogy-box">
+            <h4>B. Named Grid Lines</h4>
+            <p>
+              By wrapping line names in square brackets (e.g. <code>[sidebar-start] 340px [sidebar-end]</code>), grid items can be placed semantically via <code>grid-column: sidebar-start / sidebar-end</code> rather than cryptic numeric coordinate indices.
+            </p>
+          </div>
+
+          <!-- Box 3: Line-based Coordinates -->
+          <div class="pedagogy-box">
+            <h4>C. Line Coordinates &amp; -1 Edge</h4>
+            <p>
+              Numeric line coordinates count lines, not tracks! Specifying <code>grid-column: 1 / -1</code> causes an element to span from the first line all the way to the last explicit grid line, creating full-bleed horizontal banners effortlessly.
+            </p>
+          </div>
+
+          <!-- Box 4: Why Flexbox for Micro Content -->
+          <div class="pedagogy-box">
+            <h4>D. Micro Content in Flexbox</h4>
+            <p>
+              Inside each grid cell, Flexbox provides fluid content-driven distribution. Controls like our audio scrubber use <code>flex-grow: 1</code> to absorb remaining space, while <code>margin-left: auto</code> snaps gear badges to the opposing perimeter.
+            </p>
+          </div>
+        </div>
+
+        <!-- MDN Reference Links -->
+        <h3 style="margin-top: 2rem; font-family: var(--font-display); font-size: 1.15rem; color: #fff;">
+          Official MDN Web Docs Canonical Guides
+        </h3>
+        <ul class="mdn-resource-list">
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Grid_template_areas" target="_blank" rel="noopener noreferrer">
+              <span>Grid Template Areas (Visual ASCII Layout Notation)</span>
+              <span class="mdn-tag">MDN Areas</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Named_grid_lines" target="_blank" rel="noopener noreferrer">
+              <span>Using Named Grid Lines in Layout Design</span>
+              <span class="mdn-tag">MDN Named Lines</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Line-based_placement" target="_blank" rel="noopener noreferrer">
+              <span>Line-based Placement and Span Notation</span>
+              <span class="mdn-tag">MDN Lines</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Relationship_with_other_layout_methods" target="_blank" rel="noopener noreferrer">
+              <span>Relationship of Grid Layout with Flexbox (Macro vs Micro)</span>
+              <span class="mdn-tag">MDN Synthesis</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Basic_concepts" target="_blank" rel="noopener noreferrer">
+              <span>Flexbox Basic Concepts (1D Axes &amp; Flow)</span>
+              <span class="mdn-tag">MDN Flexbox</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Use_cases" target="_blank" rel="noopener noreferrer">
+              <span>Typical Use Cases of Flexbox in Component Design</span>
+              <span class="mdn-tag">MDN Use Cases</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          DRUMTIKS '26 • FBAUP Web Design (WD101)
+        </div>
+        <div class="footer-academic-meta">
+          Licenciatura em Design de Comunicação • 2026/27 • Prof. Pedro Amado
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Theme: DJ Warp Turntablist Master Discography • Pure HTML5 &amp; CSS3</span>
+        <span>Laboratory Suite 03 / 03</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

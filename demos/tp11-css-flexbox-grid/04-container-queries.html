@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    ==========================================================================
+    PAGE 04: CSS CONTAINER QUERIES MASTERCLASS (@container)
+    Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+    Course: Web Design (WD101) — 2026/27
+    Festival Context: DRUMTIKS '26 (Alfândega do Porto)
+    Subject: Component-Driven Responsive Architecture via CSS Container Queries
+    Author: Pedro Amado / Advanced Agentic Coding Pair
+    ==========================================================================
+    MDN GUIDES REFERENCED:
+    - Container Queries: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries
+    - container-type: https://developer.mozilla.org/en-US/docs/Web/CSS/container-type
+    - container-name: https://developer.mozilla.org/en-US/docs/Web/CSS/container-name
+    - @container At-Rule: https://developer.mozilla.org/en-US/docs/Web/CSS/@container
+    - Container Size & Style Queries: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_size_and_style_queries
+    ==========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04 • Container Queries | Component-Driven Layout | DRUMTIKS '26</title>
+  <meta name="description" content="Pedagogical interactive masterclass on CSS Container Queries (@container): responsive components without global viewport @media queries using Flexbox and CSS Grid.">
+
+  <!-- Local variable fonts (Inter, Martian Mono, Syne) -->
+  <link rel="stylesheet" href="css/fonts.css">
+  <!-- Shared design system tokens, typography, resets and header -->
+  <link rel="stylesheet" href="css/base.css">
+  <!-- Dedicated Container Queries module styles, resizable playground and adaptive rules -->
+  <link rel="stylesheet" href="css/container-queries-demo.css">
+</head>
+<body>
+
+  <!-- Sticky Global Top Bar -->
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <div class="brand-group">
+        <a href="index.html" class="brand-logo" aria-label="Return to Curriculum Hub">
+          DRUMTIKS<span class="tag">'26</span>
+        </a>
+        <span class="brand-badge">WD101 • LAB 04</span>
+      </div>
+
+      <!-- Navigation tabs between all 4 Masterclass pages and the Hub -->
+      <nav class="main-nav" aria-label="Curriculum Navigation">
+        <a href="index.html" class="nav-link">
+          <span>🏠 Hub</span>
+        </a>
+        <a href="01-flexbox-tracks.html" class="nav-link">
+          <span class="nav-pill-num">01</span>
+          <span>Flexbox Tracks</span>
+        </a>
+        <a href="02-grid-albums.html" class="nav-link">
+          <span class="nav-pill-num">02</span>
+          <span>CSS Grid Albums</span>
+        </a>
+        <a href="03-hybrid-discography.html" class="nav-link">
+          <span class="nav-pill-num">03</span>
+          <span>Hybrid Architecture</span>
+        </a>
+        <a href="04-container-queries.html" class="nav-link active" aria-current="page">
+          <span class="nav-pill-num">04</span>
+          <span>Container Queries</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Primary Document Body -->
+  <main id="main-content" role="main">
+
+    <!-- HERO SECTION: Explains Container Queries Paradigm Shift -->
+    <section class="page-hero" aria-labelledby="cq-hero-title">
+      <div class="hero-meta-strip">
+        <span class="hero-chip chip-green">CSS Container Queries (@container)</span>
+        <span class="hero-chip chip-cyan">Component-Driven Responsiveness</span>
+        <span class="hero-chip chip-amber">Zero Global Viewport @media Required</span>
+      </div>
+      <h1 id="cq-hero-title" class="hero-title">04 • Container Queries: Fast &amp; Modular Layouts</h1>
+      <p class="hero-description">
+        Traditional <code>@media</code> queries force you to re-architect all selectors across the whole site based on the <em>viewport width</em>. With <strong>CSS Container Queries (<code>@container</code>)</strong>, a component adapts intrinsically based strictly on the <strong>width of its immediate parent container</strong> (<code>container-type: inline-size</code>). The same component works identically in a 320px sidebar, a 540px grid column, or a 920px hero banner without writing a single viewport query!
+      </p>
+    </section>
+
+    <div class="cq-workspace">
+
+      <!-- PEDAGOGICAL TOOLBAR (Pure HTML + CSS) -->
+      <div class="demo-control-bar" role="toolbar" aria-label="Container Queries Engine Controls">
+        <div class="control-bar-header">
+          <div class="control-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3"/><path d="M21 16v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+            Interactive Container Queries &amp; Code Sandbox Controls
+          </div>
+          <div class="control-explainer">Pure CSS :has() State Engine • Zero JavaScript</div>
+        </div>
+
+        <!-- CODEPEN-STYLE VIEW MODE TOGGLES (Preview vs HTML vs CSS) -->
+        <div class="control-group">
+          <span class="control-group-label" style="color:var(--color-accent-cyan);">Active View Mode:</span>
+          <div class="sandbox-view-tabs" role="tablist">
+            <input type="radio" name="sandbox_view" id="tab-view-preview" checked>
+            <label for="tab-view-preview" role="tab" aria-selected="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              Rendered Preview
+            </label>
+
+            <input type="radio" name="sandbox_view" id="tab-view-html">
+            <label for="tab-view-html" role="tab" aria-selected="false">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              HTML View
+            </label>
+
+            <input type="radio" name="sandbox_view" id="tab-view-css">
+            <label for="tab-view-css" role="tab" aria-selected="false">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l8-4 8 4V2z"/></svg>
+              CSS View
+            </label>
+          </div>
+        </div>
+
+        <!-- CONTAINER WIDTH PRESETS SWITCHER (For Testing Breakpoints) -->
+        <div class="control-group">
+          <span class="control-group-label" style="color:var(--color-accent-green);">Container Width Presets:</span>
+          <div class="segmented-options">
+            <input type="radio" name="cq_preset_width" id="preset-w-fluid" checked>
+            <label for="preset-w-fluid">Fluid (Drag Right Handle ↔)</label>
+
+            <input type="radio" name="cq_preset_width" id="preset-w-320">
+            <label for="preset-w-320">320px (Narrow Sidebar / Mobile Stack)</label>
+
+            <input type="radio" name="cq_preset_width" id="preset-w-540">
+            <label for="preset-w-540">540px (Half Grid Track / Flex Row)</label>
+
+            <input type="radio" name="cq_preset_width" id="preset-w-920">
+            <label for="preset-w-920">920px (Full Span Hero / 2D Grid)</label>
+          </div>
+        </div>
+
+        <!-- X-RAY INSPECTOR TOGGLE -->
+        <div class="control-group">
+          <span class="control-group-label" style="color:var(--color-text-muted);">Visual Inspector:</span>
+          <div class="segmented-options">
+            <input type="radio" name="ctrl_inspect" id="ctrl-inspect-normal" checked>
+            <label for="ctrl-inspect-normal">Normal View</label>
+
+            <input type="radio" name="ctrl_inspect" id="ctrl-inspect-xray">
+            <label for="ctrl-inspect-xray">X-Ray Container Query Boundaries</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           PANE 1: RENDERED PREVIEW (Live Interactive Sandbox)
+           ==================================================================== -->
+      <div class="sandbox-pane-preview" id="pane-rendered-preview">
+
+        <div style="margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-accent-cyan);">
+            ● DEMO 1: LIVE RESIZABLE CONTAINER (DRAG HORIZONTALLY OR CLICK PRESETS ABOVE)
+          </span>
+          <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--color-text-dim);">
+            Breakpoints: &lt;440px (Flex Col) | 440px+ (Flex Row) | 740px+ (2D Grid)
+          </span>
+        </div>
+
+        <!-- ==================================================================
+             THE QUERY CONTAINER: .playground-resizable-box
+             Declares container-type: inline-size;
+             ================================================================== -->
+        <div class="playground-resizable-box" aria-label="Interactive Resizable Container">
+
+          <!-- THE ADAPTIVE COMPONENT: .adaptive-disc-card -->
+          <article class="adaptive-disc-card" data-album="warp-theory">
+            <div class="disc-art-wrapper">
+              <img src="assets/images/album-1-warp-theory.jpg" alt="Warp Theory Album Cover" width="300" height="300" loading="eager">
+            </div>
+
+            <div class="disc-info-body">
+              <span class="disc-format-badge">Full Length LP • 10 Cuts • 33⅓ RPM</span>
+              <h3 class="disc-card-title">WARP THEORY — The 808 Chronicles</h3>
+              <p class="disc-card-bio">
+                Heavyweight boom bap fundamentals recorded live in the Alfândega Vaults. Massive 808 harmonics, hydrophone harbor echoes, and fader acoustics.
+              </p>
+
+              <!-- Conditionally rendered by @container (min-width: 740px) -->
+              <div class="disc-extended-tracklist">
+                <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--color-accent-green);font-weight:700;">
+                  FEATURED CUTS (CONTAINER &gt;= 740px):
+                </span>
+                <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-muted);">
+                  01. Alfândega Dock Pressure (92 BPM) • 02. The 808 Frequency Sweep (88 BPM) • 05. Fader Friction (96 BPM)
+                </span>
+              </div>
+
+              <!-- Audio Progress Snippet -->
+              <div class="disc-preview-player">
+                <button class="track-play-btn" style="width:28px;height:28px;font-size:0.7rem;" aria-label="Play snippet">▶</button>
+                <div class="disc-audio-track">
+                  <div class="disc-audio-fill"></div>
+                </div>
+                <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--color-accent-amber);">04:12</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- ==================================================================
+             DEMO 2: THE "DROP-IN TEST" (SIDEBAR VS MAIN GRID PROOF)
+             Demonstrates dropping the EXACT SAME HTML component into both a
+             narrow sidebar (~320px) and a wide main column (~780px).
+             ================================================================== -->
+        <section class="dropin-proof-section" aria-labelledby="dropin-heading">
+          <div class="section-eyebrow">The Universal Design System Test</div>
+          <h2 id="dropin-heading" class="section-heading">The "Drop-in Test": Sidebar vs. Main Area Proof</h2>
+          <p style="font-size:0.92rem;color:var(--color-text-muted);margin-bottom:1.5rem;line-height:1.6;">
+            Both slots below contain the <strong>exact same HTML markup</strong>. Notice how the card in the sidebar automatically formats as a vertical card, while the card in the main column automatically formats as an expansive 2D banner — <strong>without writing a single viewport media query or adding modifier classes!</strong>
+          </p>
+
+          <div class="dropin-outer-grid">
+
+            <!-- SLOT 1: Narrow Sidebar Container (~320px) -->
+            <aside class="slot-sidebar" aria-label="Narrow Sidebar Slot">
+              <div class="slot-header">
+                <span class="slot-label">Sidebar Slot</span>
+                <span class="slot-width-indicator">Width: ~320px (&lt;440px)</span>
+              </div>
+
+              <!-- EXACT SAME COMPONENT MARKUP -->
+              <article class="adaptive-disc-card">
+                <div class="disc-art-wrapper">
+                  <img src="assets/images/album-4-fader-kinetics.jpg" alt="Fader Kinetics" width="300" height="300">
+                </div>
+                <div class="disc-info-body">
+                  <span class="disc-format-badge">Special EP • 5 Cuts</span>
+                  <h3 class="disc-card-title">FADER KINETICS</h3>
+                  <p class="disc-card-bio">Scratching physics showcase: tonearm friction and 32nd-note strikes.</p>
+                  <div class="disc-preview-player">
+                    <button class="track-play-btn" style="width:28px;height:28px;font-size:0.7rem;">▶</button>
+                    <div class="disc-audio-track"><div class="disc-audio-fill" style="width:75%;"></div></div>
+                    <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--color-accent-amber);">03:20</span>
+                  </div>
+                </div>
+              </article>
+            </aside>
+
+            <!-- SLOT 2: Wide Main Column Container (~780px) -->
+            <section class="slot-main" aria-label="Wide Main Area Slot">
+              <div class="slot-header">
+                <span class="slot-label">Main Area Slot</span>
+                <span class="slot-width-indicator">Width: ~780px (&gt;=740px)</span>
+              </div>
+
+              <!-- EXACT SAME COMPONENT MARKUP -->
+              <article class="adaptive-disc-card">
+                <div class="disc-art-wrapper">
+                  <img src="assets/images/album-3-dust-and-grooves.jpg" alt="Dust and Grooves" width="300" height="300">
+                </div>
+                <div class="disc-info-body">
+                  <span class="disc-format-badge">Full Length LP • 11 Cuts</span>
+                  <h3 class="disc-card-title">DUST &amp; GROOVES</h3>
+                  <p class="disc-card-bio">High-velocity battle routines, raw funk drum rolls, optical crossfader demolition, and relentless dual-turntable beat juggling.</p>
+                  <div class="disc-extended-tracklist">
+                    <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--color-accent-green);font-weight:700;">AUTONOMOUS EXPANSION:</span>
+                    <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-muted);">01. Battle Protocol 1200 (104 BPM) • 03. Iron Crossfader (102 BPM) • 05. The Orbit Mechanic (96 BPM)</span>
+                  </div>
+                  <div class="disc-preview-player">
+                    <button class="track-play-btn" style="width:28px;height:28px;font-size:0.7rem;">▶</button>
+                    <div class="disc-audio-track"><div class="disc-audio-fill" style="width:30%;"></div></div>
+                    <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--color-accent-amber);">03:44</span>
+                  </div>
+                </div>
+              </article>
+            </section>
+
+          </div>
+        </section>
+
+      </div><!-- Close .sandbox-pane-preview -->
+
+      <!-- ====================================================================
+           PANE 2: HTML VIEW (Semantic Container Queries Markup)
+           ==================================================================== -->
+      <div class="sandbox-pane-html pattern-code-view" id="pane-html-view">
+        <div class="code-view-header">
+          <span class="code-lang-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            HTML View • Query Container &amp; Adaptive Component Markup
+          </span>
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">Live Semantic Source</span>
+        </div>
+        <pre class="code-view-content"><code>&lt;!-- ========================================================================
+     1. THE PARENT QUERY CONTAINER (Declares container-type: inline-size)
+     Descendant components query THIS element rather than the window/viewport!
+     ======================================================================== --&gt;
+&lt;div class="query-container"&gt;
+
+  &lt;!-- 2. THE SELF-CONTAINED ADAPTIVE COMPONENT --&gt;
+  &lt;!-- Identical markup can be dropped into any slot on the site! --&gt;
+  &lt;article class="adaptive-disc-card"&gt;
+    &lt;div class="disc-art-wrapper"&gt;
+      &lt;img src="assets/images/album-1-warp-theory.jpg" alt="Warp Theory"&gt;
+    &lt;/div&gt;
+
+    &lt;div class="disc-info-body"&gt;
+      &lt;span class="disc-format-badge"&gt;Full LP • 10 Cuts&lt;/span&gt;
+      &lt;!-- Fluid title scaling with cqi units (Container Query Inline Size) --&gt;
+      &lt;h3 class="disc-card-title"&gt;WARP THEORY — The 808 Chronicles&lt;/h3&gt;
+      &lt;p class="disc-card-bio"&gt;Heavyweight boom bap fundamentals with 808 sub-bass.&lt;/p&gt;
+
+      &lt;!-- Conditionally revealed only when container width &gt;= 740px --&gt;
+      &lt;div class="disc-extended-tracklist"&gt;
+        &lt;span&gt;01. Alfândega Dock Pressure • 02. Frequency Sweep&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;div class="disc-preview-player"&gt;
+        &lt;button&gt;▶&lt;/button&gt;
+        &lt;div class="disc-audio-track"&gt;&lt;div class="disc-audio-fill"&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;span&gt;04:12&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;
+
+&lt;/div&gt;</code></pre>
+      </div>
+
+      <!-- ====================================================================
+           PANE 3: CSS VIEW (Active @container Rules & cqi Units)
+           ==================================================================== -->
+      <div class="sandbox-pane-css pattern-code-view" id="pane-css-view">
+        <div class="code-view-header">
+          <span class="code-lang-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l8-4 8 4V2z"/></svg>
+            CSS View • Active Container Query Engine Rules
+          </span>
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">Pure Layout CSS</span>
+        </div>
+        <pre class="code-view-content"><code>/* ==========================================================================
+   1. DECLARE THE CONTAINER CONTEXT
+   ========================================================================== */
+.query-container {
+  /* Allows descendants to query this container's horizontal inline size */
+  container-type: inline-size;
+  container-name: disc-slot;      /* Optional named container */
+  width: 100%;
+}
+
+/* ==========================================================================
+   2. DEFAULT / NARROW LAYOUT (< 440px)
+   Applied when inside a narrow slot (e.g. mobile screen or sidebar).
+   1D Flexbox Vertical Stack.
+   ========================================================================== */
+.adaptive-disc-card {
+  display: flex;
+  flex-direction: column;         /* Stack artwork and details vertically */
+  gap: 1rem;
+}
+
+/* Fluid Typography using Container Query Units (cqi = 1% of container inline width) */
+.disc-card-title {
+  font-size: clamp(1.15rem, 2cqi + 0.6rem, 1.85rem);
+}
+
+.disc-extended-tracklist {
+  display: none;                  /* Hidden in tight containers */
+}
+
+/* ==========================================================================
+   3. MEDIUM CONTAINER BREAKPOINT (>= 440px)
+   Triggers when the PARENT CONTAINER reaches 440px!
+   1D Flexbox Horizontal Row.
+   ========================================================================== */
+@container disc-slot (min-width: 440px) {
+  .adaptive-disc-card {
+    flex-direction: row;          /* Horizontal side-by-side flow */
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .disc-art-wrapper {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* ==========================================================================
+   4. WIDE CONTAINER BREAKPOINT (>= 740px)
+   Triggers when the PARENT CONTAINER reaches 740px!
+   Switches internally to a 2D CSS Grid Matrix with rich multi-column data!
+   ========================================================================== */
+@container disc-slot (min-width: 740px) {
+  .adaptive-disc-card {
+    display: grid;
+    grid-template-columns: 200px 1fr 240px; /* 3-column panoramic grid */
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .disc-art-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+
+  .disc-extended-tracklist {
+    display: flex;                /* Reveal extended tracks in wide containers */
+  }
+}</code></pre>
+      </div>
+
+      <!-- ====================================================================
+           BAREBONE STRUCTURAL BLUEPRINT (Pedagogical Cheat Sheet)
+           Answers user requirement:
+           "a brief summary explanation with just the barebone HTML 5 Landmarks
+           and the core fundamental selectors and propertis for the containers
+           and items and the most relevant properties just pertaining to the
+           flexbox and the css grid containers and items positionind (just the
+           main structural aspects, no need for visual design details, like colors, fonts, etc.)"
+           ==================================================================== -->
+      <section class="blueprint-card" aria-labelledby="cq-blueprint-title">
+        <div class="blueprint-header">
+          <div>
+            <span class="blueprint-badge">Pedagogical Cheat Sheet</span>
+            <h2 id="cq-blueprint-title" class="blueprint-title">Barebone Structural Blueprint: Container Queries</h2>
+          </div>
+        </div>
+        <p class="blueprint-summary-text">
+          <strong>Summary of Structural Requirements:</strong> Container queries decouple responsive component design from the global viewport. Instead of coordinating complex, fragile <code>@media</code> queries across the entire page, you simply declare <code>container-type: inline-size</code> on any parent element. Inside, the component uses <code>@container (min-width: ...)</code> to transition seamlessly between 1D Flexbox (vertical stack or horizontal row) and 2D CSS Grid. Below is the minimal structural blueprint with zero visual styling details.
+        </p>
+
+        <div class="blueprint-grid">
+          <!-- Column 1: Barebone HTML5 Landmarks -->
+          <div class="blueprint-column">
+            <div class="blueprint-col-title">
+              <span>1. Barebone HTML5 Landmarks</span>
+              <span style="color:var(--color-text-dim);">HTML</span>
+            </div>
+            <pre class="blueprint-code"><code>&lt;!-- Landmark: Main Content --&gt;
+&lt;main&gt;
+
+  &lt;!-- Parent Query Container (Declares container-type) --&gt;
+  &lt;div class="query-container"&gt;
+
+    &lt;!-- Adaptive Child Component --&gt;
+    &lt;article class="adaptive-card"&gt;
+      &lt;div class="card-media"&gt;Media/Art&lt;/div&gt;
+
+      &lt;div class="card-content"&gt;
+        &lt;h3&gt;Item Title&lt;/h3&gt;
+        &lt;p&gt;Item Description...&lt;/p&gt;
+        &lt;div class="card-extra"&gt;Extra Info&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+  &lt;/div&gt;
+
+&lt;/main&gt;</code></pre>
+          </div>
+
+          <!-- Column 2: Core Fundamental Structural CSS -->
+          <div class="blueprint-column">
+            <div class="blueprint-col-title">
+              <span>2. Core Structural Selectors &amp; Properties</span>
+              <span style="color:var(--color-accent-green);">CSS (Zero Visual Fluff)</span>
+            </div>
+            <pre class="blueprint-code"><code>/* 1. CONTAINER LEVEL (Enables Container Queries) */
+.query-container {
+  container-type: inline-size;    /* Queries horizontal width */
+  container-name: card-slot;      /* Optional named reference */
+  width: 100%;
+}
+
+/* 2. BASE COMPONENT (Narrow / Mobile: 1D Flex Stack) */
+.adaptive-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card-extra {
+  display: none;                  /* Hidden in tight containers */
+}
+
+/* 3. CONTAINER BREAKPOINT 1 (Medium: 1D Flex Row) */
+@container card-slot (min-width: 440px) {
+  .adaptive-card {
+    flex-direction: row;          /* Horizontal side-by-side */
+    align-items: center;
+  }
+}
+
+/* 4. CONTAINER BREAKPOINT 2 (Wide: 2D CSS Grid Matrix) */
+@container card-slot (min-width: 740px) {
+  .adaptive-card {
+    display: grid;
+    grid-template-columns: 200px 1fr auto;
+    align-items: center;
+  }
+
+  .card-extra {
+    display: block;               /* Reveal in wide spaces */
+  }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- PEDAGOGICAL DEEP DIVE & MDN REFERENCE PANEL -->
+    <section class="pedagogy-panel" aria-labelledby="cq-pedagogy-heading">
+      <div class="pedagogy-card">
+        <h2 id="cq-pedagogy-heading" class="pedagogy-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          Pedagogical Anatomy: Why Container Queries Win Over @media
+        </h2>
+
+        <div class="pedagogy-grid">
+          <!-- Box 1: The @media Flaw -->
+          <div class="pedagogy-box">
+            <h4>1. The Viewport Query Flaw</h4>
+            <p>
+              Traditional <code>@media (min-width: 768px)</code> only measures the browser window. If you place a card inside a narrow 300px sidebar on a 1920px screen, <code>@media</code> thinks you have plenty of room and breaks the layout!
+            </p>
+          </div>
+
+          <!-- Box 2: Intrinsic Container Size -->
+          <div class="pedagogy-box">
+            <h4>2. container-type: inline-size</h4>
+            <p>
+              Declaring <code>container-type: inline-size</code> instructs the browser to monitor the width of the containing element. The child component queries <em>its own allocated real estate</em>, rendering identically anywhere in the application.
+            </p>
+          </div>
+
+          <!-- Box 3: Container Units -->
+          <div class="pedagogy-box">
+            <h4>3. Container Query Units (cqi)</h4>
+            <p>
+              Just as <code>vw</code> represents 1% of the viewport, <code>1cqi</code> represents 1% of the container's inline width. With <code>font-size: clamp(1rem, 2cqi, 1.8rem)</code>, typography scales with component size, not screen size.
+            </p>
+          </div>
+
+          <!-- Box 4: Architecture Simplification -->
+          <div class="pedagogy-box">
+            <h4>4. Zero Modifier Classes</h4>
+            <p>
+              You no longer need brittle BEM modifier classes like <code>.card--sidebar</code> or <code>.card--hero</code>. The component detects its parent's geometry and morphs autonomously between Flexbox and CSS Grid!
+            </p>
+          </div>
+        </div>
+
+        <!-- MDN Reference Links -->
+        <h3 style="margin-top: 2rem; font-family: var(--font-display); font-size: 1.15rem; color: #fff;">
+          Official MDN Web Docs Canonical Guides
+        </h3>
+        <ul class="mdn-resource-list">
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries" target="_blank" rel="noopener noreferrer">
+              <span>CSS Container Queries Complete Guide</span>
+              <span class="mdn-tag">MDN Core</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/container-type" target="_blank" rel="noopener noreferrer">
+              <span>container-type Property (normal, size, inline-size)</span>
+              <span class="mdn-tag">MDN Property</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/container-name" target="_blank" rel="noopener noreferrer">
+              <span>container-name Property (Scoped Targeting)</span>
+              <span class="mdn-tag">MDN Property</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@container" target="_blank" rel="noopener noreferrer">
+              <span>@container At-Rule Syntax &amp; Query Conditions</span>
+              <span class="mdn-tag">MDN At-Rule</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_size_and_style_queries" target="_blank" rel="noopener noreferrer">
+              <span>Container Size and Style Queries Guide</span>
+              <span class="mdn-tag">MDN Guide</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          DRUMTIKS '26 • FBAUP Web Design (WD101)
+        </div>
+        <div class="footer-academic-meta">
+          Licenciatura em Design de Comunicação • 2026/27 • Prof. Pedro Amado
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Theme: DJ Warp Turntablist Master Discography • Pure HTML5 &amp; CSS3</span>
+        <span>Laboratory Suite 04 / 04</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

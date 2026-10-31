@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercício 2 • Transições CSS (Carrossel Simples) | DRUMTIKS '26</title>
+    <meta
+      name="description"
+      content="Demonstrador de transições CSS suaves (transition-property, duration, timing-function) num carrossel responsivo com scroll-snap."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  </head>
+  <body>
+    <!-- ========================================================================
+       LANDMARK: <header class="site-header">
+       - ARIA Landmark Role: 'banner'
+       - Função Estrutural: Cabeçalho com o logotipo e botão de salto para a Versão B.
+       ======================================================================== -->
+    <header class="site-header">
+      <div class="nav-container">
+        <!-- Identidade e Logotipo -->
+        <a href="index.html" class="brand" aria-label="DRUMTIKS 2026 Início">
+          <img src="assets/icons/favicon.svg" alt="Ícone de Gira-discos e Vinil DRUMTIKS" class="logo-icon" />
+          <span>DRUMTIKS</span>
+          <span class="tag">TP11 • EX2 (A)</span>
+        </a>
+
+        <!-- Botão de Acesso Direto à Versão B (Crate / Deck de Discos) -->
+        <a href="versao-b.html" class="version-switch-btn" title="Ver exercício alternativo versão B">
+          <span>Abrir Versão B: Vinyl Crate Deck</span>
+          <span aria-hidden="true">💽 →</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ========================================================================
+       LANDMARK: <main class="main-content">
+       - ARIA Landmark Role: 'main'
+       - Função: Apresentação do carrossel horizontal animado com transições.
+       ======================================================================== -->
+    <main class="main-content">
+      <header class="page-header">
+        <span class="badge-eyebrow">Development: HTML &amp; CSS • Transitions</span>
+        <h1 class="page-title">Carrossel de Destaques com Transições Suaves</h1>
+        <p class="page-desc">
+          Este demonstrador explora propriedades de <strong>CSS Transitions</strong> (<code>transform</code>, <code>box-shadow</code>, <code>filter</code> e <code>border-color</code>) aplicadas a um carrossel responsivo. Cada cartão reage com curvas de aceleração física (<code>cubic-bezier</code>) tanto no foco como no hover.
+        </p>
+      </header>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="carousel-section">
+         - ARIA Landmark Role: 'region'
+         - Função: Envolve os controlos de navegação e a janela de deslizamento.
+         ==================================================================== -->
+      <section class="carousel-section" aria-labelledby="carousel-title">
+        <div class="carousel-controls-bar">
+          <div class="carousel-title-group">
+            <h2 id="carousel-title">Alinhamento Principal • Alfândega '26</h2>
+            <p>Desliza horizontalmente ou utiliza a paginação rápida</p>
+          </div>
+
+          <!-- LANDMARK: <nav class="carousel-nav"> - Paginação por Âncoras -->
+          <nav class="carousel-nav" aria-label="Paginação do Carrossel">
+            <a href="#slide-1" class="nav-dot" aria-label="Ir para Slide 1">1</a>
+            <a href="#slide-2" class="nav-dot" aria-label="Ir para Slide 2">2</a>
+            <a href="#slide-3" class="nav-dot" aria-label="Ir para Slide 3">3</a>
+            <a href="#slide-4" class="nav-dot" aria-label="Ir para Slide 4">4</a>
+          </nav>
+        </div>
+
+        <!-- Janela Deslizante (Scroll Snap Viewport) -->
+        <div class="carousel-viewport">
+          
+          <!-- LANDMARK: <article id="slide-1" class="carousel-slide"> -->
+          <article id="slide-1" class="carousel-slide">
+            <div class="slide-media-wrap">
+              <span class="slide-badge">Headliner</span>
+              <img
+                src="assets/images/dj-warp-600w.webp"
+                alt="DJ Warp nos gira-discos analógicos com iluminação cénica"
+                class="slide-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="slide-body">
+              <h3 class="slide-title">DJ Warp • Quad Turntablism</h3>
+              <p class="slide-desc">
+                Sessão exclusiva com quatro pratos Technics SL-1200 simultâneos, cruzando samples raros de jazz português e batidas boom-bap dos anos 90.
+              </p>
+              <div class="slide-meta">
+                <span>Sex 24 Out • 23:00</span>
+                <span class="slide-link">Detalhes →</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- LANDMARK: <article id="slide-2" class="carousel-slide"> -->
+          <article id="slide-2" class="carousel-slide">
+            <div class="slide-media-wrap">
+              <span class="slide-badge">Competição</span>
+              <img
+                src="assets/images/dj-warp-vault-16x9-600w.webp"
+                alt="Produtor a manipular máquina de ritmos 808"
+                class="slide-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="slide-body">
+              <h3 class="slide-title">The 808 Clash • Final Ibérica</h3>
+              <p class="slide-desc">
+                Os 8 melhores beatmakers de Portugal e Espanha defrontam-se em rondas cronometradas ao vivo. Os beats são criados a partir do mesmo sample secreto.
+              </p>
+              <div class="slide-meta">
+                <span>Sáb 25 Out • 21:30</span>
+                <span class="slide-link">Regras →</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- LANDMARK: <article id="slide-3" class="carousel-slide"> -->
+          <article id="slide-3" class="carousel-slide">
+            <div class="slide-media-wrap">
+              <span class="slide-badge">Workshop</span>
+              <img
+                src="assets/images/dj-warp-tight-portrait.webp"
+                alt="Mesa de mistura e sintetizador modular"
+                class="slide-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="slide-body">
+              <h3 class="slide-title">Masterclass: Analog Tape &amp; MPC</h3>
+              <p class="slide-desc">
+                Aprende técnicas de compressão em fita magnética de 1/4 de polegada e corte cirúrgico de chops em samplers MPC clássicos dos anos 80.
+              </p>
+              <div class="slide-meta">
+                <span>Dom 26 Out • 15:00</span>
+                <span class="slide-link">Inscrever →</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- LANDMARK: <article id="slide-4" class="carousel-slide"> -->
+          <article id="slide-4" class="carousel-slide">
+            <div class="slide-media-wrap">
+              <span class="slide-badge">Mercado</span>
+              <img
+                src="assets/images/dj-warp-vault-1x1-600w.webp"
+                alt="Discos de vinil nos caixotes do mercado subterrâneo"
+                class="slide-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="slide-body">
+              <h3 class="slide-title">Crate Diggers Fair • 10.000 LPs</h3>
+              <p class="slide-desc">
+                Feira de colecionadores com escuta no local. Encontra prensagens originais de funk, soul, hip-hop de ouro e gravações de arquivo raras.
+              </p>
+              <div class="slide-meta">
+                <span>Todos os Dias • 14:00</span>
+                <span class="slide-link">Bancas →</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="transition-explainer">
+         - Painel de Códigos e Referências MDN
+         ==================================================================== -->
+      <section class="transition-explainer" aria-labelledby="explainer-heading">
+        <h3 id="explainer-heading">Como funcionam as Transições CSS neste Carrossel</h3>
+        <p>
+          As microinterações de hover nos cartões e nos botões de paginação recorrem à propriedade combinada <code>transition</code>.
+          O CSS interpola estados entre o repouso e o estado ativo:
+        </p>
+
+        <div class="transition-code-grid">
+          <div class="code-card">
+            <h4>1. Elevação e Sombra do Cartão</h4>
+            <pre><code>.carousel-slide {
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease;
+}
+
+.carousel-slide:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: #e60000;
+}</code></pre>
+          </div>
+
+          <div class="code-card">
+            <h4>2. Zoom da Imagem de Capa</h4>
+            <pre><code>.slide-img {
+  transition:
+    transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+    filter 0.4s ease;
+}
+
+.carousel-slide:hover .slide-img {
+  transform: scale(1.08);
+  filter: brightness(1.1);
+}</code></pre>
+          </div>
+
+          <div class="code-card">
+            <h4>3. Paginação Reativa</h4>
+            <pre><code>.nav-dot {
+  transition:
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.nav-dot:hover {
+  transform: scale(1.1);
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- Links Oficiais MDN -->
+        <div style="margin-top: 1rem; border-top: 1px solid var(--color-border-subtle); padding-top: 1rem;">
+          <h4 style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-accent-red); margin-bottom: 0.5rem;">Documentação Oficial MDN Web Docs:</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.8rem;">
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Transitions" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-red); text-decoration: underline;">MDN: CSS Transitions Guide</a></li>
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-red); text-decoration: underline;">MDN: CSS Scroll Snap Module</a></li>
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-red); text-decoration: underline;">MDN: CSS transition-timing-function</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- LANDMARK: <nav class="exercises-nav"> -->
+      <nav class="exercises-nav" aria-label="Navegação do TP11">
+        <span>Exercício 2 de 3: <strong>Transições (Carrossel Simples)</strong></span>
+        <div class="nav-prev-next">
+          <a href="../01-variables/index.html" class="nav-link-btn" title="Exercício 1">← Exercício 1 (Variáveis)</a>
+          <a href="versao-b.html" class="nav-link-btn" title="Versão B: Vinyl Crate">Versão B (Vinyl Crate) 💽</a>
+          <a href="../03-animations/index.html" class="nav-link-btn" title="Exercício 3">Exercício 3 (Animações) →</a>
+        </div>
+      </nav>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 2: Dimensionamento Intrínseco &amp; Box Model • WD101</title>
+  
+  <!-- Previne FOUC de tema e idioma -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || 
+                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
+
+  <!-- CSS Layer Hierarchy -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+
+  <style>
+    .guide-hero {
+      border-bottom: 2px solid var(--color-accent-blue);
+      padding: var(--space-8) 0;
+      margin-bottom: var(--space-8);
+    }
+    .guide-back-link {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-accent-blue);
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: var(--space-3);
+    }
+    .callout-box {
+      background-color: var(--bg-surface-elevated);
+      border-left: 4px solid var(--color-accent-blue);
+      padding: var(--space-4);
+      margin: var(--space-6) 0;
+      border-radius: 0 4px 4px 0;
+      font-size: var(--text-sm);
+      line-height: 1.6;
+    }
+    .callout-box strong {
+      color: var(--color-accent-blue);
+      display: block;
+      margin-bottom: var(--space-1);
+      font-size: var(--text-base);
+    }
+
+    /* Laboratório Interativo de Sizing */
+    .sizing-lab-container {
+      background: #0d1117;
+      color: #e6edf3;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: var(--space-6);
+      margin: var(--space-6) 0;
+    }
+    .lab-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid #30363d;
+    }
+    .mode-btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+    .mode-btn {
+      background: #21262d;
+      color: #c9d1d9;
+      border: 1px solid #30363d;
+      padding: var(--space-2) var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mode-btn:hover {
+      background: #30363d;
+      color: #fff;
+    }
+    .mode-btn.active {
+      background: var(--color-accent-blue);
+      color: #fff;
+      border-color: var(--color-accent-blue);
+      font-weight: 700;
+    }
+
+    /* Simulador de Viewport */
+    .viewport-slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: #8b949e;
+    }
+    .viewport-slider {
+      width: 160px;
+      cursor: pointer;
+    }
+    .simulated-viewport-frame {
+      background: #161b22;
+      border: 2px dashed #30363d;
+      border-radius: 6px;
+      padding: var(--space-4);
+      position: relative;
+      margin: var(--space-4) auto;
+      transition: width 0.15s ease-out;
+      box-sizing: border-box;
+      min-height: 240px;
+      overflow-x: hidden;
+    }
+    .simulated-box {
+      background: rgba(2, 132, 199, 0.15);
+      border: 2px solid var(--color-accent-blue);
+      border-radius: 4px;
+      padding: var(--space-4);
+      position: relative;
+      box-sizing: border-box;
+      transition: all 0.2s;
+    }
+    .simulated-box.overflow-alert {
+      background: rgba(230, 0, 0, 0.2);
+      border-color: var(--color-swiss-red);
+    }
+    .status-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-weight: 700;
+      margin-top: var(--space-2);
+    }
+    .status-ok {
+      background: #238636;
+      color: #fff;
+    }
+    .status-bad {
+      background: var(--color-swiss-red);
+      color: #fff;
+    }
+
+    /* Code Container que Cresce com o Conteúdo */
+    .code-container {
+      background: #0d1117;
+      color: #e6edf3;
+      border: 1px solid var(--border-color);
+      padding: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      line-height: 1.6;
+      border-radius: 4px;
+      margin-bottom: var(--space-4);
+      overflow-x: auto;
+      overflow-y: visible;
+      height: auto;
+      max-height: none;
+    }
+    .code-container pre {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      white-space: pre;
+    }
+
+    .pattern-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--color-accent-blue);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+      border-radius: 0 4px 4px 0;
+    }
+    .pattern-card h3 {
+      font-size: var(--text-lg);
+      margin-bottom: var(--space-2);
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header Landmark -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-logo">WD<span>101</span></a>
+        <span class="brand-meta">FBAUP Design 2026/27</span>
+      </div>
+
+      <nav class="site-nav" aria-label="Navegação do Guião">
+        <ul>
+          <li><a href="index.html#study-goals"><span class="lang-pt">← Portal Principal</span><span class="lang-en">← Main Portal</span></a></li>
+          <li><a href="#pedagogia"><span class="lang-pt">Objetivos &amp; Treino</span><span class="lang-en">Goals &amp; Method</span></a></li>
+          <li><a href="#mental-model"><span class="lang-pt">Modelo Mental</span><span class="lang-en">Mental Model</span></a></li>
+          <li><a href="#laboratorio"><span class="lang-pt">Laboratório</span><span class="lang-en">Interactive Lab</span></a></li>
+          <li><a href="#motor-matematico"><span class="lang-pt">Motor Matemático</span><span class="lang-en">Math Engine</span></a></li>
+          <li><a href="#padroes-ex2"><span class="lang-pt">Padrões EX2</span><span class="lang-en">EX2 Patterns</span></a></li>
+          <li><a href="#checklist"><span class="lang-pt">Checklist</span><span class="lang-en">Checklist</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="header-controls">
+        <a href="demos/ex2-media-box-model/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);">
+          <span class="lang-pt">🚀 Ver Mini-Site EX2 ↗</span>
+          <span class="lang-en">🚀 View EX2 Demo ↗</span>
+        </a>
+        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
+        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Landmark -->
+  <main class="main-container" id="main-content">
+    
+    <!-- Hero Section -->
+    <header class="guide-hero">
+      <a href="index.html#study-goals" class="guide-back-link">
+        <span class="lang-pt">← Voltar aos Objetivos de Aprendizagem</span>
+        <span class="lang-en">← Back to Learning Objectives</span>
+      </a>
+      <span class="hero-eyebrow">
+        <span class="lang-pt">Módulo 2 • Fundações de Geometria &amp; Box Model • WD101</span>
+        <span class="lang-en">Module 2 • Geometry &amp; Box Model Dynamics • WD101</span>
+      </span>
+      <h1 class="hero-title" style="font-size:var(--text-3xl);margin:var(--space-2) 0 var(--space-4);">
+        <span class="lang-pt">2. Dimensionamento Intrínseco &amp; Dinâmica do Modelo de Caixa</span>
+        <span class="lang-en">2. Intrinsic Sizing &amp; Box Model Dynamics</span>
+      </h1>
+      <p style="font-size:var(--text-lg);color:var(--text-secondary);max-width:72ch;line-height:1.5;">
+        <span class="lang-pt">Deixe o conteúdo ditar a sua forma. Abandone larguras rígidas em píxeis e domine as funções matemáticas modernas <code>min()</code>, <code>max()</code>, <code>clamp()</code>, <code>flex-basis</code>, <code>minmax()</code>, rácios de aspeto <code>16:9</code> e a técnica de rutura <em>Hero Full-Bleed</em> através dos padrões concetuais do festival <strong>Drumtiks '26</strong>.</span>
+        <span class="lang-en">Let content inform dimensions. Discard rigid pixel widths and master modern mathematical functions <code>min()</code>, <code>max()</code>, <code>clamp()</code>, <code>flex-basis</code>, <code>minmax()</code>, <code>16:9</code> aspect ratios, and the <em>Hero Full-Bleed</em> escape hatch through <strong>Drumtiks '26</strong> case study patterns.</span>
+      </p>
+    </header>
+
+    <!-- 1. Filosofia Pedagógica, Objetivos & Método de Treino -->
+    <section id="pedagogia" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">1. Objetivos Pedagógicos, Finalidades de Desenvolvimento &amp; Método de Treino</span>
+        <span class="lang-en">1. Learning Objectives, Development Purposes &amp; Training Method</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-4);">
+        <span class="lang-pt">No Módulo 2, a transição é decisiva: os alunos passam do fluxo puramente vertical do documento HTML básico (EX1) para a <strong>disciplina geométrica e modular do CSS moderno (EX2)</strong>. O design deixa de ser um decalque estático para se tornar um sistema de restrições elásticas governado pelo conteúdo e pelo dispositivo do utilizador.</span>
+        <span class="lang-en">In Module 2, the pedagogical transition is decisive: students advance from raw vertical HTML normal flow (EX1) to the <strong>geometric and modular discipline of modern CSS (EX2)</strong>. Web design ceases to be a static print trace and becomes a system of elastic constraints governed by content and the user's viewport.</span>
+      </p>
+
+      <div class="callout-box">
+        <strong class="lang-pt">A Mudança de Paradigma: Da Caixa Rígida Impressa ao Meio Líquido da Web</strong>
+        <strong class="lang-en">The Paradigm Shift: From Rigid Print Boxes to the Liquid Medium of the Web</strong>
+        <p class="lang-pt">
+          No papel, o formato é imutável (ex: A4 ou cartaz de 70x100 cm). No navegador web, o designer não controla a resolução, o rácio de ecrã ou a densidade de píxeis do leitor. Impor dimensões extrínsecas (como <code>width: 960px;</code>) é tentar congelar um rio que continua a fluir. O dimensionamento intrínseco ensina o navegador a calcular o melhor tamanho possível respeitando limites humanos de legibilidade.
+        </p>
+        <p class="lang-en">
+          In print design, geometry is immutable (e.g. A4 sheet or 70x100 cm poster). On the web browser, the designer has zero control over the user's resolution, aspect ratio, or pixel density. Forcing rigid extrinsic dimensions (like <code>width: 960px;</code>) is attempting to freeze a river that keeps flowing. Intrinsic sizing teaches the browser to calculate the optimal geometry while respecting human readability limits.
+        </p>
+      </div>
+
+      <!-- Tríade de Objetivos / Finalidades / Treino -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(290px, 1fr));gap:var(--space-4);margin-bottom:var(--space-6);">
+        
+        <!-- Bloco 1: Objetivos de Aprendizagem -->
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-top:3px solid var(--color-accent-blue);padding:var(--space-4);border-radius:4px;">
+          <h4 style="font-size:var(--text-base);color:var(--color-accent-blue);margin-bottom:var(--space-2);">
+            🎯 <span class="lang-pt">Objetivos de Aprendizagem</span><span class="lang-en">Learning Objectives</span>
+          </h4>
+          <ul style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.7;list-style:disc;padding-left:1.2rem;">
+            <li><span class="lang-pt">Compreender a anatomia interna do Modelo de Caixa (<code>content</code>, <code>padding</code>, <code>border</code>, <code>margin</code>) com <code>box-sizing: border-box</code>.</span><span class="lang-en">Master internal Box Model anatomy (<code>content</code>, <code>padding</code>, <code>border</code>, <code>margin</code>) governed by <code>box-sizing: border-box</code>.</span></li>
+            <li><span class="lang-pt">Eliminar a ocorrência de barras de rolamento horizontal (overflow horizontal indesejado) em qualquer dispositivo.</span><span class="lang-en">Completely eliminate horizontal scrollbars (unintended horizontal overflow) across all devices.</span></li>
+            <li><span class="lang-pt">Dominar as 4 posições CSS: <code>static</code>, <code>relative</code>, <code>absolute</code> e <code>sticky</code>.</span><span class="lang-en">Master all 4 CSS positioning contexts: <code>static</code>, <code>relative</code>, <code>absolute</code>, and <code>sticky</code>.</span></li>
+            <li><span class="lang-pt">Articular imagens responsivas com <code>&lt;picture&gt;</code> e rácios matemáticos sem saltos de layout (CLS).</span><span class="lang-en">Deploy responsive media via <code>&lt;picture&gt;</code> and aspect ratios with zero Cumulative Layout Shift (CLS).</span></li>
+          </ul>
+        </div>
+
+        <!-- Bloco 2: Finalidades de Desenvolvimento -->
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-top:3px solid var(--color-accent-emerald);padding:var(--space-4);border-radius:4px;">
+          <h4 style="font-size:var(--text-base);color:var(--color-accent-emerald);margin-bottom:var(--space-2);">
+            ⚙️ <span class="lang-pt">Finalidades de Desenvolvimento</span><span class="lang-en">Development Purposes</span>
+          </h4>
+          <ul style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.7;list-style:disc;padding-left:1.2rem;">
+            <li><span class="lang-pt"><strong>Resiliência à Escala:</strong> Construir layouts à prova de futuro, adaptáveis de ecrãs de 320px a monitores 8K sem quebras.</span><span class="lang-en"><strong>Scale Resilience:</strong> Craft future-proof layouts that adapt seamlessly from 320px screens to 8K ultrawide monitors.</span></li>
+            <li><span class="lang-pt"><strong>Economia de Código:</strong> Substituir dezenas de media queries redundantes por expressões matemáticas fluidas contínuas.</span><span class="lang-en"><strong>Code Efficiency:</strong> Replace dozens of redundant media queries with continuous fluid mathematical expressions.</span></li>
+            <li><span class="lang-pt"><strong>Acessibilidade &amp; Ergonomia:</strong> Manter a largura de leitura entre 65 e 75 caracteres por linha (<code>max-width: 75ch</code>).</span><span class="lang-en"><strong>Ergonomic Readability:</strong> Restrict typographic measure between 65 and 75 characters per line (<code>max-width: 75ch</code>).</span></li>
+            <li><span class="lang-pt"><strong>Zero-JS na Geometria:</strong> Resolver todos os problemas de proporção e fixação de menus exclusivamente com CSS nativo.</span><span class="lang-en"><strong>Zero-JS Geometry:</strong> Resolve aspect ratios and sticky menus strictly with native CSS declarations.</span></li>
+          </ul>
+        </div>
+
+        <!-- Bloco 3: Método de Treino Pedagógico -->
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-top:3px solid var(--color-swiss-red);padding:var(--space-4);border-radius:4px;">
+          <h4 style="font-size:var(--text-base);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
+            🪜 <span class="lang-pt">Método de Treino Pedagógico</span><span class="lang-en">Pedagogical Training Method</span>
+          </h4>
+          <ul style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.7;list-style:disc;padding-left:1.2rem;">
+            <li><span class="lang-pt"><strong>Nível 1 (Fluidez Base):</strong> Declarar <code>width: 100%</code> e <code>max-width: 100%</code> nas imagens antes de qualquer estilização visual.</span><span class="lang-en"><strong>Tier 1 (Base Fluidity):</strong> Declare <code>width: 100%</code> and <code>max-width: 100%</code> on media before any visual design.</span></li>
+            <li><span class="lang-pt"><strong>Nível 2 (Tetos Máximos):</strong> Limitar contentores principais com <code>max-width: 72rem</code> e centrar com <code>margin-inline: auto</code>.</span><span class="lang-en"><strong>Tier 2 (Bounded Ceilings):</strong> Limit main containers with <code>max-width: 72rem</code> and auto-center via <code>margin-inline: auto</code>.</span></li>
+            <li><span class="lang-pt"><strong>Nível 3 (Interpolação):</strong> Aplicar <code>min()</code>, <code>max()</code> e <code>clamp()</code> para tipografia e espaçamentos fluidos contínuos.</span><span class="lang-en"><strong>Tier 3 (Interpolation):</strong> Apply <code>min()</code>, <code>max()</code>, and <code>clamp()</code> for fluid type and rhythm.</span></li>
+            <li><span class="lang-pt"><strong>Nível 4 (Rutura da Caixa):</strong> Explorar técnicas de escape como <em>Hero Full-Bleed 100vw</em> e ancoragem de badges absolutos.</span><span class="lang-en"><strong>Tier 4 (Box Model Breakout):</strong> Explore breakout techniques like <em>Hero Full-Bleed 100vw</em> and absolute badges.</span></li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. O Modelo Mental: Extrínseco vs. Intrínseco -->
+    <section id="mental-model" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">2. O Modelo Mental: Extrínseco vs. Intrínseco &amp; Propriedades Lógicas</span>
+        <span class="lang-en">2. Mental Model: Extrinsic vs. Intrinsic &amp; Logical Properties</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-4);">
+        <span class="lang-pt">A distinção mais importante no design web moderno é a diferença entre forçar dimensões de fora para dentro (extrínseco) ou deixar o conteúdo adaptar-se ao seu contexto físico de dentro para fora (intrínseco):</span>
+        <span class="lang-en">The most critical distinction in modern web design is between forcing dimensions from the outside in (extrinsic) versus allowing content to adapt to physical context from the inside out (intrinsic):</span>
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:var(--space-4);margin-bottom:var(--space-6);">
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-left:4px solid var(--color-swiss-red);padding:var(--space-4);border-radius:0 4px 4px 0;">
+          <h4 style="font-size:var(--text-base);color:var(--color-swiss-red);margin-bottom:var(--space-1);">
+            ❌ <span class="lang-pt">Dimensionamento Extrínseco Rígido</span><span class="lang-en">Rigid Extrinsic Sizing</span>
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;">
+            <span class="lang-pt">Fixar <code>width: 800px;</code> ou <code>height: 400px;</code>. A caixa é cega ao viewport: num telemóvel com 375px de largura, 425px do conteúdo ficam cortados fora do ecrã, gerando scroll horizontal, frustração e rejeição pelo utilizador.</span>
+            <span class="lang-en">Hardcoding <code>width: 800px;</code> or <code>height: 400px;</code>. The box is oblivious to the viewport: on a 375px phone screen, 425px of content overflows off-screen, creating horizontal scrollbars.</span>
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-left:4px solid var(--color-accent-emerald);padding:var(--space-4);border-radius:0 4px 4px 0;">
+          <h4 style="font-size:var(--text-base);color:var(--color-accent-emerald);margin-bottom:var(--space-1);">
+            ✅ <span class="lang-pt">Dimensionamento Intrínseco &amp; Adaptativo</span><span class="lang-en">Intrinsic &amp; Adaptive Sizing</span>
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;">
+            <span class="lang-pt">Declarar limites elásticos (<code>width: 100%; max-width: 72rem;</code> ou <code>min(100%, 72rem)</code>). A caixa ocupa a totalidade do ecrã no telemóvel e trava confortavelmente no monitor grande para manter a legibilidade do texto.</span>
+            <span class="lang-en">Declaring elastic boundaries (<code>width: 100%; max-width: 72rem;</code> or <code>min(100%, 72rem)</code>). The box spans 100% on phones and caps smoothly on desktop to safeguard typographic measure.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Comparação de Propriedades Lógicas vs Físicas -->
+      <div style="background:var(--bg-surface-elevated);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;margin-bottom:var(--space-6);">
+        <h4 style="font-size:var(--text-base);margin-bottom:var(--space-2);color:var(--text-primary);">
+          🌐 <span class="lang-pt">Propriedades Físicas vs. Propriedades Lógicas no CSS Moderno</span><span class="lang-en">Physical vs. Logical Properties in Modern CSS</span>
+        </h4>
+        <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-3);">
+          <span class="lang-pt">Historicamente, o CSS usava coordenadas físicas (<code>left</code>, <code>right</code>, <code>top</code>, <code>bottom</code>). O CSS moderno adota <strong>propriedades lógicas</strong> agnósticas ao modo de escrita (da esquerda para a direita, ou vertical):</span>
+          <span class="lang-en">Historically, CSS relied on physical coordinates (<code>left</code>, <code>right</code>, <code>top</code>, <code>bottom</code>). Modern CSS adopts <strong>logical properties</strong> independent of writing modes:</span>
+        </p>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;font-size:var(--text-xs);border-collapse:collapse;text-align:left;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border-color);color:var(--text-primary);font-family:var(--font-mono);">
+                <th style="padding:var(--space-2);"><span class="lang-pt">Propriedade Física (Legada)</span><span class="lang-en">Physical Property (Legacy)</span></th>
+                <th style="padding:var(--space-2);"><span class="lang-pt">Propriedade Lógica (Padrão Moderno)</span><span class="lang-en">Logical Property (Modern Standard)</span></th>
+                <th style="padding:var(--space-2);"><span class="lang-pt">Significado Geométrico</span><span class="lang-en">Geometrical Meaning</span></th>
+              </tr>
+            </thead>
+            <tbody style="font-family:var(--font-mono);color:var(--text-secondary);">
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                <td style="padding:var(--space-2);"><code>width</code></td>
+                <td style="padding:var(--space-2);color:var(--color-accent-blue);"><code>inline-size</code></td>
+                <td style="padding:var(--space-2);font-family:var(--font-sans);"><span class="lang-pt">Dimensão no eixo da linha de leitura</span><span class="lang-en">Dimension along reading line axis</span></td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                <td style="padding:var(--space-2);"><code>height</code></td>
+                <td style="padding:var(--space-2);color:var(--color-accent-blue);"><code>block-size</code></td>
+                <td style="padding:var(--space-2);font-family:var(--font-sans);"><span class="lang-pt">Dimensão no eixo de empilhamento de blocos</span><span class="lang-en">Dimension along block stacking axis</span></td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                <td style="padding:var(--space-2);"><code>margin-left: auto; margin-right: auto;</code></td>
+                <td style="padding:var(--space-2);color:var(--color-accent-blue);"><code>margin-inline: auto;</code></td>
+                <td style="padding:var(--space-2);font-family:var(--font-sans);"><span class="lang-pt">Centramento horizontal automático</span><span class="lang-en">Automatic inline horizontal centering</span></td>
+              </tr>
+              <tr>
+                <td style="padding:var(--space-2);"><code>padding-top: 2rem; padding-bottom: 2rem;</code></td>
+                <td style="padding:var(--space-2);color:var(--color-accent-blue);"><code>padding-block: 2rem;</code></td>
+                <td style="padding:var(--space-2);font-family:var(--font-sans);"><span class="lang-pt">Espaçamento vertical de respiração de secção</span><span class="lang-en">Vertical section breathing padding</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Laboratório Interativo -->
+    <section id="laboratorio" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">3. Laboratório Interativo: Simulador de Geometria &amp; Viewport</span>
+        <span class="lang-en">3. Interactive Lab: Geometry &amp; Viewport Simulator</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-4);">
+        <span class="lang-pt">Experimente os diferentes modos de dimensionamento e arraste o controlo deslizante para testar a resposta da caixa nas diferentes larguras de ecrã (de mobile 320px a desktop 1100px):</span>
+        <span class="lang-en">Test different sizing strategies and drag the slider to observe how containers respond across varying viewport widths (from 320px mobile to 1100px desktop):</span>
+      </p>
+
+      <!-- Interactive Widget Container -->
+      <div class="sizing-lab-container">
+        <div class="lab-controls-bar">
+          <div class="mode-btn-group">
+            <button class="mode-btn active" data-mode="rigid">1. Rígido (800px)</button>
+            <button class="mode-btn" data-mode="fluid">2. Fluido (100% / max 48rem)</button>
+            <button class="mode-btn" data-mode="clamp">3. Clamp (18rem..56rem)</button>
+            <button class="mode-btn" data-mode="flexbasis">4. Flex-Basis / Minmax</button>
+            <button class="mode-btn" data-mode="fullbleed">5. Hero Full-Bleed (100vw)</button>
+            <button class="mode-btn" data-mode="aspect">6. Rácio 16:9 (Zero-CLS)</button>
+          </div>
+
+          <div class="viewport-slider-wrap">
+            <span>Viewport: <strong id="val-viewport-width" style="color:#58a6ff;">768px</strong></span>
+            <input type="range" id="slider-viewport" class="viewport-slider" min="320" max="1100" value="768">
+          </div>
+        </div>
+
+        <!-- Frame do Viewport Simulado -->
+        <div class="simulated-viewport-frame" id="simulated-frame" style="width: 768px;">
+          <div style="font-family:var(--font-mono);font-size:0.7rem;color:#8b949e;margin-bottom:var(--space-2);display:flex;justify-content:space-between;">
+            <span>Ecrã Simulado</span>
+            <span id="frame-width-indicator">768px</span>
+          </div>
+
+          <!-- Caixa Testada -->
+          <div class="simulated-box" id="simulated-target-box">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-2);">
+              <strong id="box-title" style="font-size:var(--text-sm);color:#fff;">DJ WARP — Live Setup</strong>
+              <span id="box-computed-width" style="font-family:var(--font-mono);font-size:0.75rem;color:#7ee787;">Largura: 800px</span>
+            </div>
+            <p id="box-desc" style="font-size:var(--text-xs);color:#8b949e;margin:var(--space-2) 0 0 0;line-height:1.4;">
+              Demonstração visual do comportamento do modelo de caixa consoante a regra CSS aplicada.
+            </p>
+            <div id="box-status-container">
+              <span class="status-badge status-bad" id="box-status-badge">⚠️ OVERFLOW DETECTADO (Quebra no mobile)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Explicação do Modo Selecionado -->
+        <div style="margin-top:var(--space-4);padding-top:var(--space-4);border-top:1px solid #30363d;">
+          <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:#58a6ff;text-transform:uppercase;">Regra CSS em Execução:</span>
+          <pre style="margin-top:var(--space-1);background:#090d13;padding:var(--space-3);border-radius:4px;font-family:var(--font-mono);font-size:var(--text-xs);color:#7ee787;"><code id="lab-css-rule">.container { width: 800px; /* Rígido: quebra em ecrãs &lt; 800px */ }</code></pre>
+          <p id="lab-pedagogical-note" style="font-size:var(--text-xs);color:#8b949e;margin-top:var(--space-2);line-height:1.5;">
+            Em ecrãs estreitos, a largura fixa força a caixa a transbordar da moldura, criando uma barra de scroll horizontal indesejada e quebrando o layout da página.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. O Motor Matemático -->
+    <section id="motor-matematico" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">4. O Motor Matemático do CSS Moderno: min(), max(), clamp(), flex-basis &amp; minmax()</span>
+        <span class="lang-en">4. The Mathematical Engine of Modern CSS: min(), max(), clamp(), flex-basis &amp; minmax()</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-4);">
+        <span class="lang-pt">Em vez de dezenas de media queries com cortes artificiais de ecrã, o CSS moderno fornece <strong>funções e operadores matemáticos nativos</strong> que realizam interpolação geométrica contínua e distribuição proporcional:</span>
+        <span class="lang-en">Instead of dozens of media queries with artificial cuts, modern CSS provides <strong>native mathematical functions and operators</strong> that perform continuous geometric interpolation and proportional distribution:</span>
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:var(--space-4);margin-bottom:var(--space-6);">
+        
+        <!-- 1. min() -->
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;">
+          <h4 style="font-family:var(--font-mono);font-size:var(--text-base);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
+            1. min(valor1, valor2)
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-2);">
+            <span class="lang-pt">Escolhe o <strong>menor valor</strong> entre as opções. Atua como um <em>teto limitador</em>: ocupa 100% no telemóvel, mas trava em 72rem no monitor desktop.</span>
+            <span class="lang-en">Selects the <strong>smallest value</strong>. Acts as a <em>maximum ceiling</em>: spans 100% on mobile, but locks at 72rem on desktop viewports.</span>
+          </p>
+          <div class="code-container">
+            <pre><code>.container {
+  width: min(100%, 72rem);
+  margin-inline: auto;
+}</code></pre>
+          </div>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/min" target="_blank" rel="noopener noreferrer" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-swiss-red);font-weight:700;">MDN: min() ↗</a>
+        </div>
+
+        <!-- 2. max() -->
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;">
+          <h4 style="font-family:var(--font-mono);font-size:var(--text-base);color:var(--color-accent-emerald);margin-bottom:var(--space-2);">
+            2. max(valor1, valor2)
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-2);">
+            <span class="lang-pt">Escolhe o <strong>maior valor</strong>. Atua como um <em>piso de segurança</em>: impede que paddings, alvos de toque ou margens colapsem para zero em ecrãs pequenos.</span>
+            <span class="lang-en">Selects the <strong>largest value</strong>. Acts as a <em>safety floor</em>: prevents paddings, tap targets, or margins from collapsing to zero on tiny screens.</span>
+          </p>
+          <div class="code-container">
+            <pre><code>.section-padded {
+  padding-block: max(1.5rem, 5vw);
+}</code></pre>
+          </div>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/max" target="_blank" rel="noopener noreferrer" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-emerald);font-weight:700;">MDN: max() ↗</a>
+        </div>
+
+        <!-- 3. clamp() -->
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;">
+          <h4 style="font-family:var(--font-mono);font-size:var(--text-base);color:var(--color-accent-blue);margin-bottom:var(--space-2);">
+            3. clamp(min, preferido, max)
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-2);">
+            <span class="lang-pt">Tranca um valor entre piso e teto, crescendo proporcionalmente ao viewport. Essencial para tipografia fluida contínua.</span>
+            <span class="lang-en">Clamps a value between floor and ceiling, scaling smoothly with viewport width. The cornerstone of fluid typography.</span>
+          </p>
+          <div class="code-container">
+            <pre><code>h1.hero-title {
+  font-size: clamp(2rem, 1.5rem + 2.5vw, 4rem);
+}</code></pre>
+          </div>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clamp" target="_blank" rel="noopener noreferrer" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-blue);font-weight:700;">MDN: clamp() ↗</a>
+        </div>
+
+        <!-- 4. flex-basis -->
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;">
+          <h4 style="font-family:var(--font-mono);font-size:var(--text-base);color:#e3b341;margin-bottom:var(--space-2);">
+            4. flex-basis (Flexbox)
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-2);">
+            <span class="lang-pt">Determina o tamanho ideal inicial do item antes da distribuição de espaço restante pelos fatores <code>flex-grow</code> e <code>flex-shrink</code>.</span>
+            <span class="lang-en">Defines the ideal starting dimension of a flex item before remaining space is distributed via <code>flex-grow</code> and <code>flex-shrink</code>.</span>
+          </p>
+          <div class="code-container">
+            <pre><code>.stage-card {
+  flex: 1 1 18rem; /* grow shrink basis */
+}</code></pre>
+          </div>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis" target="_blank" rel="noopener noreferrer" style="font-family:var(--font-mono);font-size:var(--text-xs);color:#e3b341;font-weight:700;">MDN: flex-basis ↗</a>
+        </div>
+
+        <!-- 5. minmax() -->
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;">
+          <h4 style="font-family:var(--font-mono);font-size:var(--text-base);color:#a371f7;margin-bottom:var(--space-2);">
+            5. minmax(min, max) (CSS Grid)
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-2);">
+            <span class="lang-pt">Função de faixas em CSS Grid. Combinada com <code>repeat(auto-fit, ...)</code>, cria grelhas responsivas perfeitas sem uma única media query.</span>
+            <span class="lang-en">CSS Grid track function. Combined with <code>repeat(auto-fit, ...)</code>, creates responsive grids with zero media queries.</span>
+          </p>
+          <div class="code-container">
+            <pre><code>.stages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-md);
+}</code></pre>
+          </div>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/minmax" target="_blank" rel="noopener noreferrer" style="font-family:var(--font-mono);font-size:var(--text-xs);color:#a371f7;font-weight:700;">MDN: minmax() ↗</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. Padrões do EX2 Drumtiks '26 -->
+    <section id="padroes-ex2" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">5. Decomposição dos Padrões de Geometria do EX2 (Drumtiks '26)</span>
+        <span class="lang-en">5. Deconstructing EX2 Geometry Patterns (Drumtiks '26)</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-6);">
+        <span class="lang-pt">Como estes conceitos teóricos foram materializados de forma simples e abstrata no mini-site de demonstração do DJ Warp no Drumtiks '26:</span>
+        <span class="lang-en">How these theoretical foundations were implemented simply and cleanly in the official DJ Warp Drumtiks '26 demo:</span>
+      </p>
+
+      <!-- Padrão A -->
+      <article class="pattern-card">
+        <h3>
+          <span class="lang-pt">Padrão A: O Escape Hatch do Hero Full-Bleed (100vw) — Quebrando o Modelo de Caixa</span>
+          <span class="lang-en">Pattern A: The Hero Full-Bleed Escape Hatch (100vw) — Breaking the Box Model</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Como fazer com que a fotografia do DJ Warp rasgue a página de ponta a ponta sem partir a árvore semântica do <code>&lt;main&gt;</code> (que está contido a 72rem):</span>
+          <span class="lang-en">How to allow the DJ Warp hero photograph to span edge-to-edge without breaking out of the semantic <code>&lt;main&gt;</code> landmark (constrained to 72rem):</span>
+        </p>
+        <div class="code-container">
+          <pre><code>/* Breaking the Box Model: 100vw Escape Hatch */
+.hero-full-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: radial-gradient(circle at 50% 30%, #1e1e28 0%, #0a0a0d 80%);
+}</code></pre>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--text-muted);line-height:1.6;">
+          <span class="lang-pt"><strong>Mecânica:</strong> <code>width: 100vw</code> atribui à caixa a largura total da janela. <code>left: 50%</code> empurra o seu canto esquerdo para o centro da página, e <code>margin-left: -50vw</code> puxa a caixa de volta exatamente meia janela para a esquerda, centrando-a perfeitamente em relação ao ecrã físico.</span>
+          <span class="lang-en"><strong>Mechanics:</strong> <code>width: 100vw</code> matches viewport width. <code>left: 50%</code> offsets the left edge to the viewport center, and <code>margin-left: -50vw</code> shifts it back by half the viewport width, centering it relative to the physical screen.</span>
+        </p>
+      </article>
+
+      <!-- Padrão B -->
+      <article class="pattern-card">
+        <h3>
+          <span class="lang-pt">Padrão B: Ancoragem de Badges com Posicionamento Relativo &amp; Absoluto</span>
+          <span class="lang-en">Pattern B: Badge Anchoring with Relative &amp; Absolute Positioning</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">A etiqueta de data/horário nos cartões de palcos do festival:</span>
+          <span class="lang-en">The date/time badge on the festival stage cards:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>/* 1. O Pai estabelece o Contexto de Posicionamento */
+.stage-card {
+  position: relative;
+  padding: var(--space-lg);
+  padding-block-start: var(--space-xl); /* Espaço de respiro para o badge */
+}
+
+/* 2. O Filho é fixado com precisão milimétrica */
+.stage-card-badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background-color: var(--color-brand-primary);
+  color: #ffffff;
+}</code></pre>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--text-muted);line-height:1.6;">
+          <span class="lang-pt"><strong>Mecânica:</strong> Um elemento com <code>position: absolute</code> procura o primeiro ancestral que não seja <code>static</code>. Ao declarar <code>position: relative</code> no cartão-pai, o badge fixa-se no canto superior direito do cartão e acompanha-o se este se mover.</span>
+          <span class="lang-en"><strong>Mechanics:</strong> An absolute element climbs the DOM until finding an ancestor with non-static positioning. Setting <code>position: relative</code> on the card anchors the badge strictly to the card's top-right corner.</span>
+        </p>
+      </article>
+
+      <!-- Padrão C -->
+      <article class="pattern-card">
+        <h3>
+          <span class="lang-pt">Padrão C: Rácio de Aspeto 16:9 sem Salto de Layout (Zero CLS)</span>
+          <span class="lang-en">Pattern C: 16:9 Aspect Ratio without Layout Shift (Zero CLS)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Encapsulamento de vídeos e mapas embutidos em iframes:</span>
+          <span class="lang-en">Containing responsive videos and embedded map iframes:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>/* Elimina o arcaico hack de padding-top: 56.25% */
+.embed-responsive-16-9 {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
+.embed-responsive-16-9 &gt; iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}</code></pre>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--text-muted);line-height:1.6;">
+          <span class="lang-pt"><strong>Mecânica:</strong> <code>aspect-ratio: 16 / 9</code> força o navegador a reservar a altura proporcional antes mesmo do vídeo começar a descarregar, prevenindo que o texto dê saltos visuais súbitos na página.</span>
+          <span class="lang-en"><strong>Mechanics:</strong> <code>aspect-ratio: 16 / 9</code> forces the browser to reserve the exact proportional height before network streaming finishes, preventing sudden visual jumps.</span>
+        </p>
+      </article>
+
+      <!-- Padrão D -->
+      <article class="pattern-card">
+        <h3>
+          <span class="lang-pt">Padrão D: Cabeçalho Sticky &amp; Compensação de Âncora com scroll-margin-top</span>
+          <span class="lang-en">Pattern D: Sticky Header &amp; Anchor Clearance with scroll-margin-top</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">O menu permanece visível ao rolar a página, e as ligações internas não ficam escondidas por trás do cabeçalho:</span>
+          <span class="lang-en">The header sticks upon scrolling, and internal anchor jumps don't hide headings beneath it:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>/* 1. Fixar o Cabeçalho */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+
+/* 2. Compensar a Rolagem para Named Anchors */
+section[id] {
+  scroll-margin-top: 5.5rem; /* Altura do header + respiro visual */
+}</code></pre>
+        </div>
+      </article>
+
+      <!-- Padrão E -->
+      <article class="pattern-card">
+        <h3>
+          <span class="lang-pt">Padrão E: Efeitos de Filtro CSS em Elementos Multimédia</span>
+          <span class="lang-en">Pattern E: CSS Filter Effects on Media Elements</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Tratamento gráfico de logótipos e imagens sem necessidade de editar ficheiros no Photoshop:</span>
+          <span class="lang-en">Graphic treatment of partner logos and artist photos without opening Photoshop:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>.partner-logo {
+  filter: grayscale(100%) opacity(0.7);
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.partner-logo:hover,
+.partner-logo:focus-visible {
+  filter: grayscale(0%) opacity(1);
+}</code></pre>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- 6. Inspeção com DevTools -->
+    <section id="devtools" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">6. Diagnóstico de Geometria no Inspetor do Navegador (DevTools)</span>
+        <span class="lang-en">6. Geometry Debugging in Browser DevTools</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-4);">
+        <span class="lang-pt">Nunca adivinhe porque é que uma barra de rolamento horizontal surgiu. Utilize as ferramentas de diagnóstico integradas no browser:</span>
+        <span class="lang-en">Never guess why a horizontal scrollbar appeared. Leverage built-in browser inspection tools:</span>
+      </p>
+      
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;">
+        <ul style="font-size:var(--text-sm);line-height:1.7;color:var(--text-secondary);list-style:disc;padding-left:1.5rem;">
+          <li><span class="lang-pt"><strong>Modo de Dispositivos Móveis (Toggle Device Toolbar):</strong> Teste primeiro a 320px (iPhone SE mínimo) e depois a 375px e 414px. Se a página deslizar para o lado, há uma caixa rígida que precisa de correção.</span><span class="lang-en"><strong>Device Mode:</strong> Test first at 320px (iPhone SE minimum floor) and then 375px and 414px. If the page drifts sideways, an offending rigid box exists.</span></li>
+          <li><span class="lang-pt"><strong>Diagrama do Modelo de Caixa:</strong> No painel <em>Computed / Layout</em>, passe o rato sobre a caixa para ver a marcação de cores: <em>Azul</em> (conteúdo), <em>Verde</em> (padding), <em>Amarelo</em> (border), <em>Laranja</em> (margin).</span><span class="lang-en"><strong>Box Model Diagram:</strong> Under the <em>Computed / Layout</em> panel, hover over the diagram to observe color highlighting: <em>Blue</em> (content), <em>Green</em> (padding), <em>Yellow</em> (border), <em>Orange</em> (margin).</span></li>
+          <li><span class="lang-pt"><strong>Deteção de Overflow com a Consola:</strong> Se houver overflow invisível, execute na consola JavaScript: <code>document.querySelectorAll('*').forEach(el =&gt; el.scrollWidth &gt; document.documentElement.clientWidth &amp;&amp; console.log(el))</code> para listar os elementos culpados.</span><span class="lang-en"><strong>Console Overflow Detection:</strong> In case of elusive overflow, run in the JS console: <code>document.querySelectorAll('*').forEach(el =&gt; el.scrollWidth &gt; document.documentElement.clientWidth &amp;&amp; console.log(el))</code> to pinpoint the offending nodes.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 7. Checklist de Autoavaliação -->
+    <section id="checklist" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">7. Checklist de Autoavaliação de Geometria</span>
+        <span class="lang-en">7. Geometry Self-Assessment Checklist</span>
+      </h2>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--space-3);font-size:var(--text-sm);line-height:1.6;color:var(--text-secondary);">
+        <li style="display:flex;align-items:flex-start;gap:var(--space-3);background:var(--bg-surface);padding:var(--space-3);border:1px solid var(--border-color);border-radius:4px;">
+          <input type="checkbox" id="check-1" style="margin-top:0.25rem;">
+          <label for="check-1">
+            <span class="lang-pt">Eliminei todas as larguras fixas em píxeis (<code>width: 960px</code>) nos contentores principais, substituindo por <code>width: 100%</code> e <code>max-width: 72rem</code>?</span>
+            <span class="lang-en">Did I remove all rigid pixel widths (<code>width: 960px</code>) on main containers, replacing with <code>width: 100%</code> and <code>max-width: 72rem</code>?</span>
+          </label>
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:var(--space-3);background:var(--bg-surface);padding:var(--space-3);border:1px solid var(--border-color);border-radius:4px;">
+          <input type="checkbox" id="check-2" style="margin-top:0.25rem;">
+          <label for="check-2">
+            <span class="lang-pt">Todas as imagens têm <code>max-width: 100%; height: auto; display: block;</code> para prevenir transbordo horizontal em telemóveis?</span>
+            <span class="lang-en">Do all images declare <code>max-width: 100%; height: auto; display: block;</code> to prevent mobile horizontal overflow?</span>
+          </label>
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:var(--space-3);background:var(--bg-surface);padding:var(--space-3);border:1px solid var(--border-color);border-radius:4px;">
+          <input type="checkbox" id="check-3" style="margin-top:0.25rem;">
+          <label for="check-3">
+            <span class="lang-pt">O cabeçalho <code>position: sticky</code> possui <code>scroll-margin-top: 5.5rem</code> nas secções de destino para evitar sobreposição de texto nas âncoras internas?</span>
+            <span class="lang-en">Does the <code>position: sticky</code> header have <code>scroll-margin-top: 5.5rem</code> on target sections to prevent in-page anchor collision?</span>
+          </label>
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:var(--space-3);background:var(--bg-surface);padding:var(--space-3);border:1px solid var(--border-color);border-radius:4px;">
+          <input type="checkbox" id="check-4" style="margin-top:0.25rem;">
+          <label for="check-4">
+            <span class="lang-pt">O padrão Full-Bleed do Hero utiliza <code>width: 100vw</code> com compensação simétrica de margem negativa (<code>margin-left: -50vw</code>)?</span>
+            <span class="lang-en">Does the Hero Full-Bleed pattern utilize <code>width: 100vw</code> with negative margin offset (<code>margin-left: -50vw</code>)?</span>
+          </label>
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:var(--space-3);background:var(--bg-surface);padding:var(--space-3);border:1px solid var(--border-color);border-radius:4px;">
+          <input type="checkbox" id="check-5" style="margin-top:0.25rem;">
+          <label for="check-5">
+            <span class="lang-pt">Testei a página num viewport real de 320px no DevTools e não existe qualquer scroll horizontal?</span>
+            <span class="lang-en">Did I test the page on a real 320px viewport in DevTools and confirm zero horizontal scroll?</span>
+          </label>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Site Footer Landmark -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div>
+        <strong>WD101 — Web Design 101</strong> • FBAUP 2026/2027<br>
+        <span class="lang-pt">Módulo 2: Geometria, Box Model &amp; Atomic Design</span>
+        <span class="lang-en">Module 2: Geometry, Box Model &amp; Atomic Design</span>
+      </div>
+      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;">
+        <a href="ex2-guide.html" style="color:var(--color-swiss-red);font-weight:700;text-decoration:none;">
+          <span class="lang-pt">📘 Ir para o Guião do EX2 ↗</span>
+          <span class="lang-en">📘 Go to EX2 Guide ↗</span>
+        </a>
+        <a href="demos/ex2-media-box-model/index.html" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent-blue);font-weight:700;text-decoration:none;">
+          <span class="lang-pt">🚀 Ver Mini-Site EX2 ↗</span>
+          <span class="lang-en">🚀 View EX2 Demo ↗</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // 1. Language & Theme Toggles
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    function updateThemeBtnState() {
+      if (!themeBtn) return;
+      const current = document.documentElement.getAttribute('data-theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const isDark = current === 'dark';
+      const lang = document.documentElement.getAttribute('lang') || 'pt';
+      const label = isDark ? (lang === 'pt' ? 'Escuro' : 'Dark') : (lang === 'pt' ? 'Claro' : 'Light');
+      const icon = isDark ? '🌙' : '☀';
+      themeBtn.innerHTML = `${icon} <span>${label}</span>`;
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('wd101_theme', next);
+        updateThemeBtnState();
+      });
+      updateThemeBtnState();
+    }
+
+    const langBtn = document.getElementById('lang-toggle-btn');
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('wd101_lang', lang);
+      if (langBtn) {
+        langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
+      }
+      updateThemeBtnState();
+      updateLabSimulation();
+    }
+
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('lang') || 'pt';
+        const next = current === 'pt' ? 'en' : 'pt';
+        setLanguage(next);
+      });
+      setLanguage(localStorage.getItem('wd101_lang') || 'pt');
+    }
+
+    // 2. Simulador Interativo do Laboratório
+    const slider = document.getElementById('slider-viewport');
+    const frame = document.getElementById('simulated-frame');
+    const frameWidthText = document.getElementById('frame-width-indicator');
+    const viewportWidthText = document.getElementById('val-viewport-width');
+    const targetBox = document.getElementById('simulated-target-box');
+    const boxComputedWidth = document.getElementById('box-computed-width');
+    const statusBadge = document.getElementById('box-status-badge');
+    const cssRuleEl = document.getElementById('lab-css-rule');
+    const noteEl = document.getElementById('lab-pedagogical-note');
+    const modeBtns = document.querySelectorAll('.mode-btn');
+
+    let currentMode = 'rigid';
+
+    const modeConfigs = {
+      rigid: {
+        css: '.container { width: 800px; /* Rígido */ }',
+        notePt: 'Em ecrãs &lt; 800px, a largura fixa força a caixa a transbordar da moldura, gerando overflow horizontal destrutivo.',
+        noteEn: 'On viewports &lt; 800px, the rigid width forces the box to overflow the frame, generating destructive horizontal scroll.',
+        apply: (vpWidth) => {
+          targetBox.style.width = '800px';
+          targetBox.style.maxWidth = 'none';
+          targetBox.style.aspectRatio = 'auto';
+          targetBox.style.marginLeft = '0';
+          targetBox.style.marginRight = '0';
+          targetBox.style.left = '0';
+          return 800;
+        }
+      },
+      fluid: {
+        css: '.container { width: 100%; max-width: 48rem; /* Fluido com Limite */ }',
+        notePt: 'A caixa ocupa 100% no telemóvel e trava confortavelmente em 48rem (768px) no desktop, sem nunca transbordar.',
+        noteEn: 'The box occupies 100% on phones and locks comfortably at 48rem (768px) on desktop, never overflowing.',
+        apply: (vpWidth) => {
+          targetBox.style.width = '100%';
+          targetBox.style.maxWidth = '600px';
+          targetBox.style.aspectRatio = 'auto';
+          targetBox.style.marginLeft = '0';
+          targetBox.style.marginRight = '0';
+          targetBox.style.left = '0';
+          return Math.min(vpWidth - 32, 600);
+        }
+      },
+      clamp: {
+        css: '.container { width: clamp(18rem, 80vw, 56rem); /* Interpolação Matemática */ }',
+        notePt: 'O clamp() calcula dinamicamente a largura entre o chão (288px) e o teto (896px) com taxa de 80% do ecrã.',
+        noteEn: 'clamp() dynamically calculates the width between floor (288px) and ceiling (896px) scaling at 80% of viewport.',
+        apply: (vpWidth) => {
+          targetBox.style.width = '80%';
+          targetBox.style.maxWidth = '550px';
+          targetBox.style.aspectRatio = 'auto';
+          targetBox.style.marginLeft = '0';
+          targetBox.style.marginRight = '0';
+          targetBox.style.left = '0';
+          return Math.min(Math.max(vpWidth * 0.8, 288), 550);
+        }
+      },
+      flexbasis: {
+        css: '.card { flex: 1 1 280px; /* flex-basis: dimensão base flexível */ }',
+        notePt: 'A caixa adota 280px como dimensão base: no mobile ocupa a linha inteira; no desktop divide o espaço com irmãos.',
+        noteEn: 'The card takes 280px as base: on mobile it occupies full line; on desktop it shares available space evenly.',
+        apply: (vpWidth) => {
+          targetBox.style.width = '100%';
+          targetBox.style.maxWidth = vpWidth > 640 ? '340px' : 'none';
+          targetBox.style.aspectRatio = 'auto';
+          targetBox.style.marginLeft = '0';
+          targetBox.style.marginRight = '0';
+          targetBox.style.left = '0';
+          return vpWidth > 640 ? 340 : (vpWidth - 32);
+        }
+      },
+      fullbleed: {
+        css: '.hero-full-bleed { width: 100vw; left: 50%; margin-left: -50vw; /* Rutura da Caixa */ }',
+        notePt: 'O Hero quebra as margens do contentor central e estende-se de ponta a ponta do ecrã com margem negativa compensada.',
+        noteEn: 'The Hero escapes parent margins and expands edge-to-edge across the screen using negative offset margins.',
+        apply: (vpWidth) => {
+          targetBox.style.width = '100%';
+          targetBox.style.maxWidth = 'none';
+          targetBox.style.aspectRatio = 'auto';
+          targetBox.style.marginLeft = '0';
+          targetBox.style.marginRight = '0';
+          targetBox.style.left = '0';
+          return vpWidth - 32;
+        }
+      },
+      aspect: {
+        css: '.embed-responsive { aspect-ratio: 16 / 9; width: 100%; /* Proporção Sem CLS */ }',
+        notePt: 'O navegador reserva antecipadamente a altura de 56.25% em relação à largura, eliminando o salto visual de layout.',
+        noteEn: 'The browser reserves the height prior to loading at 56.25% of width, completely preventing Cumulative Layout Shift.',
+        apply: (vpWidth) => {
+          targetBox.style.width = '100%';
+          targetBox.style.maxWidth = '500px';
+          targetBox.style.aspectRatio = '16 / 9';
+          targetBox.style.marginLeft = '0';
+          targetBox.style.marginRight = '0';
+          targetBox.style.left = '0';
+          return Math.min(vpWidth - 32, 500);
+        }
+      }
+    };
+
+    function updateLabSimulation() {
+      const vpWidth = parseInt(slider.value, 10);
+      frame.style.width = `${vpWidth}px`;
+      frameWidthText.textContent = `${vpWidth}px`;
+      viewportWidthText.textContent = `${vpWidth}px`;
+
+      const config = modeConfigs[currentMode];
+      const lang = document.documentElement.getAttribute('lang') || 'pt';
+
+      cssRuleEl.innerHTML = config.css;
+      noteEl.innerHTML = lang === 'en' ? config.noteEn : config.notePt;
+
+      const compWidth = config.apply(vpWidth);
+      boxComputedWidth.textContent = lang === 'en' ? `Width: ${Math.round(compWidth)}px` : `Largura: ${Math.round(compWidth)}px`;
+
+      const hasOverflow = compWidth > (vpWidth - 32);
+      if (hasOverflow) {
+        targetBox.classList.add('overflow-alert');
+        statusBadge.className = 'status-badge status-bad';
+        statusBadge.textContent = lang === 'en' ? '⚠️ HORIZONTAL OVERFLOW DETECTED' : '⚠️ OVERFLOW HORIZONTAL DETECTADO (Quebra no mobile)';
+      } else {
+        targetBox.classList.remove('overflow-alert');
+        statusBadge.className = 'status-badge status-ok';
+        statusBadge.textContent = lang === 'en' ? '✅ 100% CONTAINED & RESPONSIVE' : '✅ 100% CONTIDO & RESPONSIVO';
+      }
+    }
+
+    slider?.addEventListener('input', updateLabSimulation);
+
+    modeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        modeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentMode = btn.getAttribute('data-mode');
+        updateLabSimulation();
+      });
+    });
+
+    updateLabSimulation();
+  </script>
+</body>
+</html>

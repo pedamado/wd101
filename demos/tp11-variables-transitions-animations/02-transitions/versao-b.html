@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercício 2 (Versão B) • Vinyl Crate Card Deck Fan-out | DRUMTIKS '26</title>
+    <meta
+      name="description"
+      content="Metáfora física de uma caixa de vinis (Record Crate) onde as capas de álbuns saem e abrem em leque no hover usando CSS Transitions e curvas de easing."
+    />
+    <link rel="stylesheet" href="css/crate.css" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  </head>
+  <body>
+    <!-- ========================================================================
+       LANDMARK: <header class="site-header">
+       - ARIA Landmark Role: 'banner'
+       - Função Estrutural: Cabeçalho com o logotipo DRUMTIKS e navegação de retorno.
+       ======================================================================== -->
+    <header class="site-header">
+      <div class="nav-container">
+        <!-- Logótipo e Marca -->
+        <a href="index.html" class="brand" aria-label="DRUMTIKS 2026 Início">
+          <img src="assets/icons/favicon.svg" alt="Ícone Vinil" class="logo-icon" />
+          <span>DRUMTIKS</span>
+          <span class="tag">TP11 • EX2 (VERSÃO B)</span>
+        </a>
+
+        <!-- Botão para voltar à Versão A (Carrossel) -->
+        <a href="index.html" class="version-switch-btn" title="Voltar ao Carrossel Simples">
+          <span>← Voltar à Versão A (Carrossel)</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ========================================================================
+       LANDMARK: <main class="main-content">
+       - ARIA Landmark Role: 'main'
+       - Função: Apresentação da metáfora interativa de Vinyl Crate Digging.
+       ======================================================================== -->
+    <main class="main-content">
+      <header class="page-header">
+        <span class="badge-eyebrow">Development: HTML &amp; CSS • Transitions &amp; Easing</span>
+        <h1 class="page-title">Caixa de Discos (Vinyl Crate) &amp; Deck em Leque</h1>
+        <p class="page-desc">
+          Uma metáfora tangível da cultura <em>crate digging</em> do festival DRUMTIKS: uma caixa de discos de vinil onde, ao passar o rato (<code>:hover</code>), os 3 álbuns fictícios emergem e <strong>abrem em leque</strong>. Ao passar diretamente sobre um dos discos, o vinil físico desliza para fora da manga e roda.
+        </p>
+      </header>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="timing-control-panel">
+         - Painel de Seleção Interativa de Curvas de Easing (IPO Curves)
+         - Mecanismo: Permuta a variável --active-ease através de :root:has()
+         ==================================================================== -->
+      <section class="timing-control-panel" aria-label="Seletor de Curvas de Easing">
+        <div class="timing-label-text">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span>Curva de Aceleração (<code>transition-timing-function</code>):</span>
+        </div>
+
+        <!-- Rádios para alterar a variável --active-ease via CSS :root:has() -->
+        <div class="timing-radio-group">
+          <label class="timing-chip" title="Mola elástica com overshoot (efeito físico com retorno)">
+            <input type="radio" name="timing-curve" id="timing-spring" checked />
+            <span>cubic-bezier (Spring / Mola)</span>
+          </label>
+
+          <label class="timing-chip" title="Aceleração rápida inicial e desaceleração suave">
+            <input type="radio" name="timing-curve" id="timing-ease-out" />
+            <span>ease-out</span>
+          </label>
+
+          <label class="timing-chip" title="Aceleração e desaceleração progressivas e suaves">
+            <input type="radio" name="timing-curve" id="timing-ease-in-out" />
+            <span>ease-in-out</span>
+          </label>
+
+          <label class="timing-chip" title="Curva padrão CSS ease">
+            <input type="radio" name="timing-curve" id="timing-ease" />
+            <span>ease (Padrão)</span>
+          </label>
+
+          <label class="timing-chip" title="Velocidade perfeitamente constante sem aceleração">
+            <input type="radio" name="timing-curve" id="timing-linear" />
+            <span>linear</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="crate-stage-section">
+         - Palco 3D onde vive a caixa de vinis e a pilha de álbuns.
+         ==================================================================== -->
+      <section class="crate-stage-section" aria-label="Demonstrador Interativo da Caixa de Vinis">
+        <div class="crate-hint">
+          <span aria-hidden="true">👇</span>
+          <span>Passa o cursor por cima da caixa para abrir em leque • Passa sobre um disco para o retirar</span>
+        </div>
+
+        <!-- .crate-container: Define perspective: 1000px para o palco 3D -->
+        <div class="crate-container" tabindex="0" role="region" aria-label="Caixa de Vinis Drumtiks">
+          
+          <!-- .crate-records: Contentor posicionado das 3 mangas de vinil -->
+          <div class="crate-records">
+            
+            <!-- ==============================================================
+               LANDMARK: <article class="album-card" data-index="1">
+               Álbum 1: DJ Warp - Warp Theory
+               - Eixo de Rotação: transform-origin: bottom center
+               - Hover: translate3d(-150px, -110px, 30px) rotate(-16deg)
+               ============================================================== -->
+            <article class="album-card" data-index="1" tabindex="0" aria-label="Álbum 1: Warp Theory - The 808 Chronicles">
+              <img
+                src="assets/images/album-1-warp-theory.jpg"
+                alt="Capa de Álbum Fictícia: Warp Theory The 808 Chronicles por DJ Warp com pads analógicos vermelhos"
+                class="album-cover-img"
+                width="260"
+                height="260"
+              />
+              <!-- Vinil preto interno que desliza no hover -->
+              <div class="vinyl-disc" aria-hidden="true">
+                <div class="vinyl-label">
+                  <span>WARP</span>
+                  <span>92 BPM</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- ==============================================================
+               LANDMARK: <article class="album-card" data-index="2">
+               Álbum 2: Vault Collective - Concrete Pulse
+               - Eixo de Rotação: transform-origin: bottom center
+               - Hover: translate3d(0, -150px, 70px) rotate(0deg) scale(1.08)
+               ============================================================== -->
+            <article class="album-card" data-index="2" tabindex="0" aria-label="Álbum 2: Concrete Pulse - Alfândega Vault Sessions">
+              <img
+                src="assets/images/album-2-concrete-pulse.jpg"
+                alt="Capa de Álbum Fictícia: Concrete Pulse Alfândega Vault Sessions com arquitetura brutalista e néon roxo"
+                class="album-cover-img"
+                width="260"
+                height="260"
+              />
+              <!-- Vinil preto interno com rótulo púrpura -->
+              <div class="vinyl-disc" aria-hidden="true">
+                <div class="vinyl-label" style="background-color: var(--color-accent-purple);">
+                  <span>VAULT</span>
+                  <span>124 BPM</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- ==============================================================
+               LANDMARK: <article class="album-card" data-index="3">
+               Álbum 3: Crate Diggers Porto - Dust & Grooves
+               - Eixo de Rotação: transform-origin: bottom center
+               - Hover: translate3d(150px, -110px, 30px) rotate(16deg)
+               ============================================================== -->
+            <article class="album-card" data-index="3" tabindex="0" aria-label="Álbum 3: Dust &amp; Grooves - Subterranean Cuts Vol. 1">
+              <img
+                src="assets/images/album-3-dust-and-grooves.jpg"
+                alt="Capa de Álbum Fictícia: Dust and Grooves Subterranean Cuts Vol 1 com pormenor dourado de sulcos de vinil"
+                class="album-cover-img"
+                width="260"
+                height="260"
+              />
+              <!-- Vinil preto interno com rótulo dourado -->
+              <div class="vinyl-disc" aria-hidden="true">
+                <div class="vinyl-label" style="background-color: var(--color-accent-gold); color: #0a0a0c;">
+                  <span>DUST</span>
+                  <span>88 BPM</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Caixa Física (.crate-box: Ripas de madeira em gradiente e stencil) -->
+          <div class="crate-box" aria-hidden="true">
+            <div class="crate-slat"></div>
+            <div class="crate-slat"></div>
+            <div class="crate-details">
+              <div>
+                <span class="crate-stencil">DRUMTIKS</span>
+                <div>CRATE #01 • VAULT</div>
+              </div>
+              <div>
+                <div>33⅓ RPM</div>
+                <div>STEREO ARCHIVE</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section aria-labelledby="albums-heading">
+         - Ficha Informativa das 3 Capas Criadas com o Gemini
+         ==================================================================== -->
+      <section aria-labelledby="albums-heading">
+        <h2 id="albums-heading" style="font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.5rem;">
+          Álbuns Fictícios DRUMTIKS '26 (Gerados pelo Gemini)
+        </h2>
+        <p style="color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+          Três capas exclusivas geradas para apoiar a narrativa visual e a metáfora do exercício.
+        </p>
+
+        <div class="albums-info-grid">
+          <div class="album-info-card">
+            <span class="album-tag tag-red">Disco 1 (Esquerda)</span>
+            <h3 class="album-name">WARP THEORY</h3>
+            <span class="album-artist">DJ Warp • The 808 Chronicles</span>
+            <p class="album-notes">
+              Foco em boom-bap analógico cru, pads retroiluminados em carmesim e tipografia de desgaste industrial.
+              No leque roda a <strong>-16deg</strong> com transição sequencial imediata.
+            </p>
+          </div>
+
+          <div class="album-info-card">
+            <span class="album-tag tag-purple">Disco 2 (Centro)</span>
+            <h3 class="album-name">CONCRETE PULSE</h3>
+            <span class="album-artist">Vault Collective • Alfândega Sessions</span>
+            <p class="album-notes">
+              Brutalismo arquitetónico e ondas modulares em tons de néon violeta elétrico.
+              No leque eleva-se pelo centro com atraso de <strong>0.08s</strong>.
+            </p>
+          </div>
+
+          <div class="album-info-card">
+            <span class="album-tag tag-gold">Disco 3 (Direita)</span>
+            <h3 class="album-name">DUST &amp; GROOVES</h3>
+            <span class="album-artist">Crate Diggers Porto • Cuts Vol. 1</span>
+            <p class="album-notes">
+              Macro close-up de sulcos fonográficos com reflexos dourados e braço de gira-discos.
+              No leque roda a <strong>+16deg</strong> com atraso escalonado de <strong>0.16s</strong>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="transition-explainer">
+         - Análise Técnica: Curvas IPO, Bézier Cúbica, Desfasamento e Links MDN
+         ==================================================================== -->
+      <section class="transition-explainer" aria-labelledby="timing-explainer-heading">
+        <h3 id="timing-explainer-heading">Análise Técnica: O Modelo IPO das Curvas Bézier e Abertura em Leque</h3>
+        <p>
+          O efeito de leque físico é alcançado através de transformações combinadas no espaço 3D (<code>translate3d</code>, <code>rotateZ</code>) orquestradas com valores desfasados de <code>transition-delay</code> e curvas de aceleração:
+        </p>
+
+        <div class="code-explainer-box"><code>/* 1. Transição Master com curva de mola dinâmica */
+.album-card {
+  transform-origin: bottom center; /* Ponto de ancoragem na base */
+  transition:
+    transform var(--active-duration) var(--active-ease),
+    box-shadow var(--active-duration) var(--active-ease);
+}
+
+/* 2. No hover do contentor, os discos abrem em leque com delay escalonado */
+.crate-container:hover .album-card[data-index="1"] {
+  transform: translate3d(-150px, -110px, 30px) rotate(-16deg) scale(1.02);
+  transition-delay: 0.0s;
+}
+
+.crate-container:hover .album-card[data-index="2"] {
+  transform: translate3d(0, -150px, 70px) rotate(0deg) scale(1.08);
+  transition-delay: 0.08s;
+}
+
+.crate-container:hover .album-card[data-index="3"] {
+  transform: translate3d(150px, -110px, 30px) rotate(16deg) scale(1.02);
+  transition-delay: 0.16s;
+}
+
+/* 3. Disco de vinil sai da capa quando se passa o rato diretamente no álbum */
+.album-card:hover .vinyl-disc {
+  transform: translateX(52%) rotate(135deg);
+  transition: transform 0.5s var(--active-ease);
+}</code></div>
+
+        <!-- Links Oficiais MDN Web Docs -->
+        <div style="margin-top: 1rem; border-top: 1px solid var(--color-border-subtle); padding-top: 1rem;">
+          <h4 style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-accent-purple); margin-bottom: 0.5rem;">Documentação Oficial MDN Web Docs:</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.8rem;">
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Transitions" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-purple); text-decoration: underline;">MDN: CSS Transitions Guide</a></li>
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-purple); text-decoration: underline;">MDN: CSS transition-timing-function (Cubic-Bézier Curves)</a></li>
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-purple); text-decoration: underline;">MDN: CSS transform-origin Property</a></li>
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/perspective" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-purple); text-decoration: underline;">MDN: CSS perspective Property (3D Rendering)</a></li>
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Transforms" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-purple); text-decoration: underline;">MDN: CSS Transforms Guide</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- LANDMARK: <nav class="exercises-nav"> -->
+      <nav class="exercises-nav" aria-label="Navegação do TP11">
+        <span>Exercício 2 (Versão B): <strong>Vinyl Crate Fan-out</strong></span>
+        <div class="nav-prev-next">
+          <a href="index.html" class="nav-link-btn">← Versão A (Carrossel)</a>
+          <a href="../03-animations/index.html" class="nav-link-btn">Exercício 3 (Animações) →</a>
+        </div>
+      </nav>
+    </main>
+  </body>
+</html>

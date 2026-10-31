@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    ==========================================================================
+    PAGE 01: CSS FLEXBOX LAYOUT MASTERCLASS
+    Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+    Course: Web Design (WD101) — 2026/27
+    Festival Context: DRUMTIKS '26 (Alfândega do Porto)
+    Subject: DJ Warp Turntablist Track Listing & Dynamic Flex Mechanics
+    Author: Pedro Amado / Advanced Agentic Coding Pair
+    ==========================================================================
+    MDN GUIDES REFERENCED:
+    - Overview: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Flexbox
+    - Concepts: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Basic_concepts
+    - Relationships: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Relationship_with_other_layout_methods
+    - Alignment: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Aligning_items
+    - Ordering: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Ordering_items
+    - Ratios: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Controlling_flex_item_ratios
+    - Wrapping: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Wrapping_items
+    - Use cases: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Use_cases
+    ==========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01 • Flexbox Layout | DJ Warp Track Listing | DRUMTIKS '26</title>
+  <meta name="description" content="Pedagogical interactive laboratory for CSS Flexbox: 1D axes, direction, wrapping, alignment, order, and responsive breakpoints using DJ Warp's discography.">
+
+  <!-- Local variable fonts (Inter, Martian Mono, Syne) -->
+  <link rel="stylesheet" href="css/fonts.css">
+  <!-- Shared design system tokens, typography, resets and header -->
+  <link rel="stylesheet" href="css/base.css">
+  <!-- Dedicated Flexbox module styles, layout rules, and interactive pure-CSS states -->
+  <link rel="stylesheet" href="css/flexbox-demo.css">
+</head>
+<body>
+
+  <!--
+    LANDMARK: <header class="site-header">
+    Sticky global top bar. Uses Flexbox (display: flex; justify-content: space-between;)
+    to anchor brand typography to the left and navigation pills to the right.
+  -->
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <div class="brand-group">
+        <a href="index.html" class="brand-logo" aria-label="Return to Curriculum Hub">
+          DRUMTIKS<span class="tag">'26</span>
+        </a>
+        <span class="brand-badge">WD101 • LAB 01</span>
+      </div>
+
+      <!-- Navigation tabs between all 3 Masterclass pages and the Hub -->
+      <nav class="main-nav" aria-label="Curriculum Navigation">
+        <a href="index.html" class="nav-link">
+          <span>🏠 Hub</span>
+        </a>
+        <a href="01-flexbox-tracks.html" class="nav-link active" aria-current="page">
+          <span class="nav-pill-num">01</span>
+          <span>Flexbox Tracks</span>
+        </a>
+        <a href="02-grid-albums.html" class="nav-link">
+          <span class="nav-pill-num">02</span>
+          <span>CSS Grid Albums</span>
+        </a>
+        <a href="03-hybrid-discography.html" class="nav-link">
+          <span class="nav-pill-num">03</span>
+          <span>Hybrid Architecture</span>
+        </a>
+        <a href="04-container-queries.html" class="nav-link">
+          <span class="nav-pill-num">04</span>
+          <span>Container Queries</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!--
+    LANDMARK: <main>
+    Primary educational document body containing the hero explanation,
+    interactive album selector crate, control toolbar, and dynamic flexboard.
+  -->
+  <main id="main-content" role="main">
+
+    <!-- HERO SECTION: Explains 1D mental model and pedagogical objectives -->
+    <section class="page-hero" aria-labelledby="hero-title">
+      <div class="hero-meta-strip">
+        <span class="hero-chip chip-cyan">CSS Flexbox Masterclass</span>
+        <span class="hero-chip chip-amber">1-Dimensional Layout (1D)</span>
+        <span class="hero-chip chip-red">Pure HTML + CSS (No JS)</span>
+      </div>
+      <h1 id="hero-title" class="hero-title">01 • CSS Flexbox: Orientation, Wrapping &amp; Order</h1>
+      <p class="hero-description">
+        Flexbox is optimized for distributing space and aligning items along a <strong>single dimension at a time</strong> (either horizontal row or vertical column). Explore how single-column mobile layouts transition cleanly into multi-row wrapping desktop card grids, and test orientation, alignment, and visual reordering in real-time.
+      </p>
+    </section>
+
+    <!--
+      LANDMARK: <section class="album-selector-section">
+      HORIZONTAL FLEX SHOWCASE:
+      Presents all 5 DJ Warp releases. Clicking any album activates its track listing
+      below via pure CSS radio input selectors and the :has() parent pseudo-class.
+    -->
+    <section class="album-selector-section" aria-labelledby="crate-heading">
+      <div class="section-eyebrow">Discography Crate Digging</div>
+      <h2 id="crate-heading" class="section-heading">Select Release to Inspect Track Architecture</h2>
+
+      <!-- Flex container: .album-crate (horizontal flex row with scroll-snap) -->
+      <div class="album-crate" role="radiogroup" aria-label="Select Album to view tracks">
+
+        <!-- Album 01: WARP THEORY (Full Album) -->
+        <input type="radio" name="album_selection" id="album-sel-1" checked>
+        <label for="album-sel-1" class="album-card-trigger">
+          <div class="album-thumb-wrap">
+            <img src="assets/images/album-1-warp-theory.jpg" alt="Warp Theory album cover" width="220" height="220" loading="eager">
+          </div>
+          <div class="album-meta-brief">
+            <span class="album-badge-type">Full LP • 10 Tracks</span>
+            <div class="album-title-text">WARP THEORY</div>
+            <div class="album-subtext">The 808 Chronicles (2024)</div>
+          </div>
+        </label>
+
+        <!-- Album 02: CONCRETE PULSE (Full Album) -->
+        <input type="radio" name="album_selection" id="album-sel-2">
+        <label for="album-sel-2" class="album-card-trigger">
+          <div class="album-thumb-wrap">
+            <img src="assets/images/album-2-concrete-pulse.jpg" alt="Concrete Pulse album cover" width="220" height="220" loading="lazy">
+          </div>
+          <div class="album-meta-brief">
+            <span class="album-badge-type">Full LP • 10 Tracks</span>
+            <div class="album-title-text">CONCRETE PULSE</div>
+            <div class="album-subtext">Alfândega Vault Sessions</div>
+          </div>
+        </label>
+
+        <!-- Album 03: DUST & GROOVES (Full Album) -->
+        <input type="radio" name="album_selection" id="album-sel-3">
+        <label for="album-sel-3" class="album-card-trigger">
+          <div class="album-thumb-wrap">
+            <img src="assets/images/album-3-dust-and-grooves.jpg" alt="Dust and Grooves album cover" width="220" height="220" loading="lazy">
+          </div>
+          <div class="album-meta-brief">
+            <span class="album-badge-type">Full LP • 11 Tracks</span>
+            <div class="album-title-text">DUST &amp; GROOVES</div>
+            <div class="album-subtext">Subterranean Cuts Vol. 1</div>
+          </div>
+        </label>
+
+        <!-- Album 04: FADER KINETICS (EP) -->
+        <input type="radio" name="album_selection" id="album-sel-4">
+        <label for="album-sel-4" class="album-card-trigger">
+          <div class="album-thumb-wrap">
+            <img src="assets/images/album-4-fader-kinetics.jpg" alt="Fader Kinetics EP cover" width="220" height="220" loading="lazy">
+          </div>
+          <div class="album-meta-brief">
+            <span class="album-badge-type album-badge-ep">EP • 5 Tracks</span>
+            <div class="album-title-text">FADER KINETICS</div>
+            <div class="album-subtext">The Needle &amp; The Iron</div>
+          </div>
+        </label>
+
+        <!-- Album 05: CIRCUIT BENDER (EP) -->
+        <input type="radio" name="album_selection" id="album-sel-5">
+        <label for="album-sel-5" class="album-card-trigger">
+          <div class="album-thumb-wrap">
+            <img src="assets/images/album-5-circuit-bender.jpg" alt="Circuit Bender EP cover" width="220" height="220" loading="lazy">
+          </div>
+          <div class="album-meta-brief">
+            <span class="album-badge-type album-badge-ep">EP • 5 Tracks</span>
+            <div class="album-title-text">CIRCUIT BENDER</div>
+            <div class="album-subtext">Riverbank Sonics &amp; Glitch</div>
+          </div>
+        </label>
+
+      </div>
+    </section>
+
+    <!--
+      PEDAGOGICAL INTERACTIVE TOOLBAR (Pure HTML + CSS)
+      Includes CodePen-like View Mode Switcher, X-Ray Inspector, and Flexbox Engine Controls!
+    -->
+    <section class="tracklist-workspace" aria-label="Interactive Flexbox Playground">
+      <div class="demo-control-bar" role="toolbar" aria-label="Flexbox Layout Engine Controls">
+        <div class="control-bar-header">
+          <div class="control-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+            Interactive Flexbox Engine &amp; Code Sandbox Controls
+          </div>
+          <div class="control-explainer">Pure CSS :has() State Engine • Zero JavaScript</div>
+        </div>
+
+        <!-- CODEPEN-STYLE VIEW MODE TOGGLES (Preview vs HTML vs CSS) -->
+        <div class="control-group">
+          <span class="control-group-label" style="color:var(--color-accent-cyan);">Active View Mode:</span>
+          <div class="sandbox-view-tabs" role="tablist">
+            <input type="radio" name="sandbox_view" id="tab-view-preview" checked>
+            <label for="tab-view-preview" role="tab" aria-selected="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              Rendered Preview
+            </label>
+
+            <input type="radio" name="sandbox_view" id="tab-view-html">
+            <label for="tab-view-html" role="tab" aria-selected="false">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              HTML View
+            </label>
+
+            <input type="radio" name="sandbox_view" id="tab-view-css">
+            <label for="tab-view-css" role="tab" aria-selected="false">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l8-4 8 4V2z"/></svg>
+              CSS View
+            </label>
+          </div>
+        </div>
+
+        <!-- X-RAY LAYOUT INSPECTOR TOGGLE -->
+        <div class="control-group">
+          <span class="control-group-label" style="color:var(--color-accent-amber);">Layout Inspector:</span>
+          <div class="segmented-options">
+            <input type="radio" name="ctrl_inspect" id="ctrl-inspect-normal" checked>
+            <label for="ctrl-inspect-normal">Normal View</label>
+
+            <input type="radio" name="ctrl_inspect" id="ctrl-inspect-xray">
+            <label for="ctrl-inspect-xray">X-Ray Layout Inspector (Main Axis &amp; Item Ratios)</label>
+          </div>
+        </div>
+
+        <!-- 1. FLEX-DIRECTION (Orientation) -->
+        <div class="control-group">
+          <span class="control-group-label">1. Orientation (flex-direction):</span>
+          <div class="segmented-options">
+            <input type="radio" name="ctrl_dir" id="ctrl-dir-row" checked>
+            <label for="ctrl-dir-row">row (Desktop default)</label>
+
+            <input type="radio" name="ctrl_dir" id="ctrl-dir-row-rev">
+            <label for="ctrl-dir-row-rev">row-reverse</label>
+
+            <input type="radio" name="ctrl_dir" id="ctrl-dir-col">
+            <label for="ctrl-dir-col">column (Mobile stack)</label>
+
+            <input type="radio" name="ctrl_dir" id="ctrl-dir-col-rev">
+            <label for="ctrl-dir-col-rev">column-reverse</label>
+          </div>
+        </div>
+
+        <!-- 2. FLEX-WRAP (Wrapping Behavior) -->
+        <div class="control-group">
+          <span class="control-group-label">2. Wrapping (flex-wrap):</span>
+          <div class="segmented-options">
+            <input type="radio" name="ctrl_wrap" id="ctrl-wrap-wrap" checked>
+            <label for="ctrl-wrap-wrap">wrap (Multi-row)</label>
+
+            <input type="radio" name="ctrl_wrap" id="ctrl-wrap-nowrap">
+            <label for="ctrl-wrap-nowrap">nowrap (Single-line)</label>
+
+            <input type="radio" name="ctrl_wrap" id="ctrl-wrap-rev">
+            <label for="ctrl-wrap-rev">wrap-reverse</label>
+          </div>
+        </div>
+
+        <!-- 3. JUSTIFY-CONTENT (Main Axis Alignment) -->
+        <div class="control-group">
+          <span class="control-group-label">3. Main Axis (justify-content):</span>
+          <div class="segmented-options">
+            <input type="radio" name="ctrl_jc" id="ctrl-jc-start" checked>
+            <label for="ctrl-jc-start">flex-start</label>
+
+            <input type="radio" name="ctrl_jc" id="ctrl-jc-center">
+            <label for="ctrl-jc-center">center</label>
+
+            <input type="radio" name="ctrl_jc" id="ctrl-jc-between">
+            <label for="ctrl-jc-between">space-between</label>
+
+            <input type="radio" name="ctrl_jc" id="ctrl-jc-around">
+            <label for="ctrl-jc-around">space-around</label>
+
+            <input type="radio" name="ctrl_jc" id="ctrl-jc-evenly">
+            <label for="ctrl-jc-evenly">space-evenly</label>
+          </div>
+        </div>
+
+        <!-- 4. ALIGN-ITEMS (Cross Axis Alignment) -->
+        <div class="control-group">
+          <span class="control-group-label">4. Cross Axis (align-items):</span>
+          <div class="segmented-options">
+            <input type="radio" name="ctrl_ai" id="ctrl-ai-stretch" checked>
+            <label for="ctrl-ai-stretch">stretch (Equal heights)</label>
+
+            <input type="radio" name="ctrl_ai" id="ctrl-ai-start">
+            <label for="ctrl-ai-start">flex-start</label>
+
+            <input type="radio" name="ctrl_ai" id="ctrl-ai-center">
+            <label for="ctrl-ai-center">center</label>
+
+            <input type="radio" name="ctrl_ai" id="ctrl-ai-end">
+            <label for="ctrl-ai-end">flex-end</label>
+          </div>
+        </div>
+
+        <!-- 5. PLACEMENT & ORDER (Visual Reordering) -->
+        <div class="control-group">
+          <span class="control-group-label">5. Placement (order):</span>
+          <div class="segmented-options">
+            <input type="radio" name="ctrl_order" id="ctrl-order-default" checked>
+            <label for="ctrl-order-default">Natural DOM (order: 0)</label>
+
+            <input type="radio" name="ctrl_order" id="ctrl-order-featured">
+            <label for="ctrl-order-featured">Pin Headline Track (order: -10)</label>
+
+            <input type="radio" name="ctrl_order" id="ctrl-order-bpm">
+            <label for="ctrl-order-bpm">Sort by BPM (Fast Breaks 1st)</label>
+
+            <input type="radio" name="ctrl_order" id="ctrl-order-reverse">
+            <label for="ctrl-order-reverse">Reverse Flow (order mapping)</label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ====================================================================
+           PANE 1: RENDERED PREVIEW (Live Interactive Sandbox)
+           ==================================================================== -->
+      <div class="sandbox-pane-preview" id="pane-rendered-preview">
+      <div class="album-display-pane pane-album-1" role="region" aria-label="Warp Theory Track Details">
+        <header class="album-header-banner">
+          <div class="album-hero-art">
+            <img src="assets/images/album-1-warp-theory.jpg" alt="Warp Theory Album Cover" width="160" height="160">
+          </div>
+          <div class="album-hero-info">
+            <div class="album-badge-row">
+              <span class="hero-chip chip-amber">Full Length Album</span>
+              <span class="hero-chip chip-cyan">Alfândega Dock Soundstage</span>
+              <span class="hero-chip chip-red">Boom Bap &amp; 808s</span>
+            </div>
+            <h2 class="album-hero-title">WARP THEORY — The 808 Chronicles</h2>
+            <p class="album-hero-bio">
+              A hard-hitting study in heavyweight boom bap syncopation, massive 808 sub-harmonics, and live scratch orchestration recorded inside the stone vaults of Alfândega do Porto. No guest vocalists — 100% turntable virtuosity.
+            </p>
+            <div class="album-stat-row">
+              <div class="album-stat-item">Year: <span>2024</span></div>
+              <div class="album-stat-item">Tracks: <span>10 Cuts</span></div>
+              <div class="album-stat-item">Length: <span>42:34</span></div>
+              <div class="album-stat-item">Mastering: <span>33⅓ RPM Shellac Heavyweight</span></div>
+            </div>
+          </div>
+        </header>
+
+        <!-- THE FLEX CONTAINER (Mobile single-column, Desktop multi-row wrapping) -->
+        <div class="tracklist-flex-board" data-axis="main-x" role="list">
+
+          <!-- Track 01 -->
+          <article class="track-card card-wide card-featured" data-track="01" data-bpm="92" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group">
+                <span class="track-number">01</span>
+                <h3 class="track-title">Alfândega Dock Pressure</h3>
+              </div>
+              <button class="track-play-btn" aria-label="Preview track 01">▶</button>
+            </div>
+            <p class="track-technique-bio">
+              Opening sonic manifesto. Hydrophone harbor reverberation layered with sub-frequency 808 sine waves and precision chirps on 180g vinyl.
+            </p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster">
+                <span class="tag-pill tag-bpm">92 BPM</span>
+                <span class="tag-pill">Hydrophone Reverb</span>
+                <span class="tag-pill">Chirp Scratch</span>
+              </div>
+              <span class="tag-duration">04:12</span>
+            </div>
+          </article>
+
+          <!-- Track 02 -->
+          <article class="track-card" data-track="02" data-bpm="88" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group">
+                <span class="track-number">02</span>
+                <h3 class="track-title">The 808 Frequency Sweep</h3>
+              </div>
+              <button class="track-play-btn" aria-label="Preview track 02">▶</button>
+            </div>
+            <p class="track-technique-bio">
+              Pitch-shifted analog boom bap kicks, fast 2-click flares, and low-frequency resonance tuned to 36 Hz.
+            </p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster">
+                <span class="tag-pill tag-bpm">88 BPM</span>
+                <span class="tag-pill">2-Click Flare</span>
+                <span class="tag-pill">Analog Sine</span>
+              </div>
+              <span class="tag-duration">03:45</span>
+            </div>
+          </article>
+
+          <!-- Track 03 -->
+          <article class="track-card card-compact" data-track="03" data-bpm="94" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group">
+                <span class="track-number">03</span>
+                <h3 class="track-title">Subterranean Transit</h3>
+              </div>
+              <button class="track-play-btn" aria-label="Preview track 03">▶</button>
+            </div>
+            <p class="track-technique-bio">
+              Metro line rumble captured with magnetic coil pickups, rapid transformer cuts, and raw breakbeat chops.
+            </p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster">
+                <span class="tag-pill tag-bpm">94 BPM</span>
+                <span class="tag-pill">Transformer Scratch</span>
+              </div>
+              <span class="tag-duration">04:30</span>
+            </div>
+          </article>
+
+          <!-- Track 04 -->
+          <article class="track-card" data-track="04" data-bpm="90" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group">
+                <span class="track-number">04</span>
+                <h3 class="track-title">Concrete Resonator</h3>
+              </div>
+              <button class="track-play-btn" aria-label="Preview track 04">▶</button>
+            </div>
+            <p class="track-technique-bio">
+              Granite stone impacts converted into crisp snare transients, backed by an MPC 3000 swing quantization.
+            </p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster">
+                <span class="tag-pill tag-bpm">90 BPM</span>
+                <span class="tag-pill">MPC-3000 Swing</span>
+                <span class="tag-pill">Granite Transients</span>
+              </div>
+              <span class="tag-duration">03:18</span>
+            </div>
+          </article>
+
+          <!-- Track 05 -->
+          <article class="track-card card-wide" data-track="05" data-bpm="96" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group">
+                <span class="track-number">05</span>
+                <h3 class="track-title">Fader Friction Pt. 1</h3>
+              </div>
+              <button class="track-play-btn" aria-label="Preview track 05">▶</button>
+            </div>
+            <p class="track-technique-bio">
+              Dual turntable beat juggle routine at breakneck speed. The crossfader clicks become an independent percussive instrument.
+            </p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster">
+                <span class="tag-pill tag-bpm">96 BPM</span>
+                <span class="tag-pill">Dual-Turntable Juggle</span>
+                <span class="tag-pill">Orbit Scratch</span>
+              </div>
+              <span class="tag-duration">04:55</span>
+            </div>
+          </article>
+
+          <!-- Track 06 -->
+          <article class="track-card card-compact" data-track="06" data-bpm="89" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group">
+                <span class="track-number">06</span>
+                <h3 class="track-title">Analog Voltage Surge</h3>
+              </div>
+              <button class="track-play-btn" aria-label="Preview track 06">▶</button>
+            </div>
+            <p class="track-technique-bio">
+              Modular synthesizer patch routed through vintage vacuum tube preamps with backspinning vinyl textures.
+            </p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster">
+                <span class="tag-pill tag-bpm">89 BPM</span>
+                <span class="tag-pill">Backspin Texture</span>
+              </div>
+              <span class="tag-duration">03:50</span>
+            </div>
+          </article>
+
+          <!-- Track 07 -->
+          <article class="track-card" data-track="07" data-bpm="87" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group">
+                <span class="track-number">07</span>
+                <h3 class="track-title">Night Shift at the Pier</h3>
+              </div>
+              <button class="track-play-btn" aria-label="Preview track 07">▶</button>
+            </div>
+            <p class="track-technique-bio">
+              Late night Douro rain on corrugated metal containers, chopped Rhodes keyboard licks, and slow drag scratches.
+            </p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster">
+                <span class="tag-pill tag-bpm">87 BPM</span>
+                <span class="tag-pill">Slow Drag</span>
+                <span class="tag-pill">Rhodes Chops</span>
+              </div>
+              <span class="tag-duration">04:15</span>
+            </div>
+          </article>
+
+          <!-- Track 08 -->
+          <article class="track-card card-compact" data-track="08" data-bpm="93" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group">
+                <span class="track-number">08</span>
+                <h3 class="track-title">Magnetic Tape Flutter</h3>
+              </div>
+              <button class="track-play-btn" aria-label="Preview track 08">▶</button>
+            </div>
+            <p class="track-technique-bio">
+              Reel-to-reel tape saturation, wow &amp; flutter pitch drift, and rapid crab scratch fills.
+            </p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster">
+                <span class="tag-pill tag-bpm">93 BPM</span>
+                <span class="tag-pill">Tape Saturation</span>
+                <span class="tag-pill">Crab Scratch</span>
+              </div>
+              <span class="tag-duration">03:38</span>
+            </div>
+          </article>
+
+          <!-- Track 09 -->
+          <article class="track-card" data-track="09" data-bpm="91" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group">
+                <span class="track-number">09</span>
+                <h3 class="track-title">Hydraulic Boom Bap</h3>
+              </div>
+              <button class="track-play-btn" aria-label="Preview track 09">▶</button>
+            </div>
+            <p class="track-technique-bio">
+              Industrial crane hydraulics sampled and pitched into heavy rhythmic backbeats with razor-sharp scribble scratches.
+            </p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster">
+                <span class="tag-pill tag-bpm">91 BPM</span>
+                <span class="tag-pill">Scribble Scratch</span>
+                <span class="tag-pill">Industrial Hits</span>
+              </div>
+              <span class="tag-duration">04:02</span>
+            </div>
+          </article>
+
+          <!-- Track 10 -->
+          <article class="track-card card-wide" data-track="10" data-bpm="85" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group">
+                <span class="track-number">10</span>
+                <h3 class="track-title">Final Orbit Run-Out</h3>
+              </div>
+              <button class="track-play-btn" aria-label="Preview track 10">▶</button>
+            </div>
+            <p class="track-technique-bio">
+              Hypnotic locked groove turntable loop dissolving into vinyl surface noise and subterranean Alfândega acoustics.
+            </p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster">
+                <span class="tag-pill tag-bpm">85 BPM</span>
+                <span class="tag-pill">Locked Groove</span>
+                <span class="tag-pill">Run-Out Crackle</span>
+              </div>
+              <span class="tag-duration">05:20</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           ALBUM PANE 2: CONCRETE PULSE — Alfândega Vault Sessions (Full LP)
+           ==================================================================== -->
+      <div class="album-display-pane pane-album-2" role="region" aria-label="Concrete Pulse Track Details">
+        <header class="album-header-banner">
+          <div class="album-hero-art">
+            <img src="assets/images/album-2-concrete-pulse.jpg" alt="Concrete Pulse Album Cover" width="160" height="160">
+          </div>
+          <div class="album-hero-info">
+            <div class="album-badge-row">
+              <span class="hero-chip chip-purple">Full Length Album</span>
+              <span class="hero-chip chip-cyan">Ambient Turntablism</span>
+              <span class="hero-chip chip-amber">Catacomb Acoustics</span>
+            </div>
+            <h2 class="album-hero-title">CONCRETE PULSE — Alfândega Vault Sessions</h2>
+            <p class="album-hero-bio">
+              Introspective, moody, vinyl crackle and subterranean reverberation recorded at 3 AM beneath the Porto customs house. Melancholic cello chops and delicate needle textures.
+            </p>
+            <div class="album-stat-row">
+              <div class="album-stat-item">Year: <span>2025</span></div>
+              <div class="album-stat-item">Tracks: <span>10 Cuts</span></div>
+              <div class="album-stat-item">Length: <span>38:17</span></div>
+              <div class="album-stat-item">Style: <span>Introspective Ambient Turntablism</span></div>
+            </div>
+          </div>
+        </header>
+
+        <div class="tracklist-flex-board" role="list">
+          <article class="track-card card-wide card-featured" data-track="01" data-bpm="78" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">01</span><h3 class="track-title">Vault Echoes at 3 AM</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Catacomb acoustics, muted trumpet sample reversed through an analog delay, and whisper-quiet needle drag.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">78 BPM</span><span class="tag-pill">Muted Horn</span><span class="tag-pill">Slow Drag</span></div>
+              <span class="tag-duration">03:42</span>
+            </div>
+          </article>
+
+          <article class="track-card" data-track="02" data-bpm="82" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">02</span><h3 class="track-title">Dust on the Stylus</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">78 RPM shellac surface crackle modulated into a warm rhythmic pulse using low-pass resonant filtering.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">82 BPM</span><span class="tag-pill">Shellac Crackle</span></div>
+              <span class="tag-duration">04:08</span>
+            </div>
+          </article>
+
+          <article class="track-card card-compact" data-track="03" data-bpm="76" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">03</span><h3 class="track-title">Isolation Chamber Cuts</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Detuned acoustic upright bass with rhythmic silence gaps and subtle fader rub textures.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">76 BPM</span><span class="tag-pill">Upright Bass</span></div>
+              <span class="tag-duration">03:15</span>
+            </div>
+          </article>
+
+          <article class="track-card" data-track="04" data-bpm="80" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">04</span><h3 class="track-title">The Blue Needle</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Wurlitzer chords chopped into melancholic minor intervals with rhythmic tonearm vibration.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">80 BPM</span><span class="tag-pill">Wurlitzer Chop</span></div>
+              <span class="tag-duration">04:22</span>
+            </div>
+          </article>
+
+          <article class="track-card card-wide" data-track="05" data-bpm="74" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">05</span><h3 class="track-title">Douro Mist Descent</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Foghorns drifting across the river gorge paired with half-speed breakbeats and delicate orbit scratches.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">74 BPM</span><span class="tag-pill">River Foghorn</span><span class="tag-pill">Half-Speed Break</span></div>
+              <span class="tag-duration">04:45</span>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           ALBUM PANE 3: DUST & GROOVES — Subterranean Cuts Vol. 1 (Full LP)
+           ==================================================================== -->
+      <div class="album-display-pane pane-album-3" role="region" aria-label="Dust and Grooves Track Details">
+        <header class="album-header-banner">
+          <div class="album-hero-art">
+            <img src="assets/images/album-3-dust-and-grooves.jpg" alt="Dust and Grooves Album Cover" width="160" height="160">
+          </div>
+          <div class="album-hero-info">
+            <div class="album-badge-row">
+              <span class="hero-chip chip-red">Full Length Album</span>
+              <span class="hero-chip chip-amber">Battle Turntablism</span>
+              <span class="hero-chip chip-cyan">Raw Breakbeats</span>
+            </div>
+            <h2 class="album-hero-title">DUST &amp; GROOVES — Subterranean Cuts Vol. 1</h2>
+            <p class="album-hero-bio">
+              Raw funk drum breaks, high-velocity battle routines, aggressive 2-click flares, and relentless beat juggling. The technical peak of DJ Warp's analog turntable virtuosity.
+            </p>
+            <div class="album-stat-row">
+              <div class="album-stat-item">Year: <span>2025</span></div>
+              <div class="album-stat-item">Tracks: <span>11 Cuts</span></div>
+              <div class="album-stat-item">Length: <span>44:03</span></div>
+              <div class="album-stat-item">Style: <span>Aggressive Battle Cuts &amp; Juggles</span></div>
+            </div>
+          </div>
+        </header>
+
+        <div class="tracklist-flex-board" role="list">
+          <article class="track-card card-wide card-featured" data-track="01" data-bpm="104" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">01</span><h3 class="track-title">Battle Protocol 1200</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Relentless 104 BPM battle juggle. Lightning fast flare scratches alternating between left and right platters.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">104 BPM</span><span class="tag-pill">Fast Flares</span><span class="tag-pill">Battle Routine</span></div>
+              <span class="tag-duration">03:44</span>
+            </div>
+          </article>
+
+          <article class="track-card" data-track="02" data-bpm="98" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">02</span><h3 class="track-title">Needle to the Groove</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Raw 1970s library funk break sliced down to sixteenth notes with clean crab fader clicks.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">98 BPM</span><span class="tag-pill">Funk Break</span><span class="tag-pill">Crab Scratch</span></div>
+              <span class="tag-duration">03:10</span>
+            </div>
+          </article>
+
+          <article class="track-card card-compact" data-track="03" data-bpm="102" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">03</span><h3 class="track-title">Iron Crossfader</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Sharp optical fader cuts chopping snare rolls into rhythmic polyrhythms with zero bleed.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">102 BPM</span><span class="tag-pill">Optical Fader</span></div>
+              <span class="tag-duration">04:01</span>
+            </div>
+          </article>
+
+          <article class="track-card" data-track="04" data-bpm="100" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">04</span><h3 class="track-title">Breakbeat Demolition</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Deconstructed Skull Snaps drum pattern rearranged on two Technics turntables into a syncopated groove.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">100 BPM</span><span class="tag-pill">Skull Snaps Chop</span></div>
+              <span class="tag-duration">03:28</span>
+            </div>
+          </article>
+
+          <article class="track-card card-wide" data-track="05" data-bpm="96" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">05</span><h3 class="track-title">The Orbit Mechanic</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Four-click orbit scratches over an infectious driving bass groove, demonstrating fluid hand coordination.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">96 BPM</span><span class="tag-pill">4-Click Orbit</span><span class="tag-pill">Driving Bass</span></div>
+              <span class="tag-duration">04:15</span>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           ALBUM PANE 4: FADER KINETICS — The Needle & The Iron (EP)
+           ==================================================================== -->
+      <div class="album-display-pane pane-album-4" role="region" aria-label="Fader Kinetics Track Details">
+        <header class="album-header-banner">
+          <div class="album-hero-art">
+            <img src="assets/images/album-4-fader-kinetics.jpg" alt="Fader Kinetics EP Cover" width="160" height="160">
+          </div>
+          <div class="album-hero-info">
+            <div class="album-badge-row">
+              <span class="hero-chip chip-cyan">Special Edition EP</span>
+              <span class="hero-chip chip-red">Sampling &amp; Scratching</span>
+              <span class="hero-chip chip-amber">5 Track Showcase</span>
+            </div>
+            <h2 class="album-hero-title">FADER KINETICS — The Needle &amp; The Iron (EP)</h2>
+            <p class="album-hero-bio">
+              A high-octane experimental showcase focused purely on the physics of scratching: fader drag, motor decelerations, needle scrape harmonics, and rapid-fire turntable manipulation.
+            </p>
+            <div class="album-stat-row">
+              <div class="album-stat-item">Year: <span>2026</span></div>
+              <div class="album-stat-item">Format: <span>Extended Play (EP)</span></div>
+              <div class="album-stat-item">Tracks: <span>5 Cuts</span></div>
+              <div class="album-stat-item">Length: <span>19:00</span></div>
+            </div>
+          </div>
+        </header>
+
+        <div class="tracklist-flex-board" role="list">
+          <article class="track-card card-wide card-featured" data-track="01" data-bpm="96" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">01</span><h3 class="track-title">Kinetic Impulse</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Pulsing electro-acoustic break with ultra-fast chirp scratch variations and chopped bell tones.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">96 BPM</span><span class="tag-pill">Chirp Variations</span></div>
+              <span class="tag-duration">03:20</span>
+            </div>
+          </article>
+
+          <article class="track-card" data-track="02" data-bpm="105" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">02</span><h3 class="track-title">The 1/32nd Fader Strike</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Micro-timing precision scratch cut dividing 105 BPM bars into razor-thin 32nd-note segments.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">105 BPM</span><span class="tag-pill">32nd Notes</span></div>
+              <span class="tag-duration">03:45</span>
+            </div>
+          </article>
+
+          <article class="track-card card-compact" data-track="03" data-bpm="92" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">03</span><h3 class="track-title">Tone Scrape &amp; Pinch</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Direct stylus pressure manipulation creating microtonal pitch bends and screech harmonics.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">92 BPM</span><span class="tag-pill">Microtonal Harmonics</span></div>
+              <span class="tag-duration">04:10</span>
+            </div>
+          </article>
+
+          <article class="track-card" data-track="04" data-bpm="88" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">04</span><h3 class="track-title">Motor Off Freefall</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Technics direct-drive power switch cut mid-break, allowing momentum to create a dizzying glissando drop.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">88 BPM</span><span class="tag-pill">Motor-Brake Glissando</span></div>
+              <span class="tag-duration">03:35</span>
+            </div>
+          </article>
+
+          <article class="track-card card-wide" data-track="05" data-bpm="100" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">05</span><h3 class="track-title">Iron Stylus Finale</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Continuous three-minute scratch solo featuring 3-click flares, tears, and polyrhythmic juggling.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">100 BPM</span><span class="tag-pill">3-Click Flare Solo</span></div>
+              <span class="tag-duration">04:10</span>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           ALBUM PANE 5: CIRCUIT BENDER — Riverbank Sonics (EP)
+           ==================================================================== -->
+      <div class="album-display-pane pane-album-5" role="region" aria-label="Circuit Bender Track Details">
+        <header class="album-header-banner">
+          <div class="album-hero-art">
+            <img src="assets/images/album-5-circuit-bender.jpg" alt="Circuit Bender EP Cover" width="160" height="160">
+          </div>
+          <div class="album-hero-info">
+            <div class="album-badge-row">
+              <span class="hero-chip chip-amber">Special Edition EP</span>
+              <span class="hero-chip chip-green">Industrial Glitch Boom Bap</span>
+              <span class="hero-chip chip-cyan">Douro Field Audio</span>
+            </div>
+            <h2 class="album-hero-title">CIRCUIT BENDER — Riverbank Sonics (EP)</h2>
+            <p class="album-hero-bio">
+              Porto's historic tram rails, riverboat engine thrums, and electrical transformer coils recorded in the field and mangled on a circuit-bent 12-bit sampler alongside raw boom bap beats.
+            </p>
+            <div class="album-stat-row">
+              <div class="album-stat-item">Year: <span>2026</span></div>
+              <div class="album-stat-item">Format: <span>Extended Play (EP)</span></div>
+              <div class="album-stat-item">Tracks: <span>5 Cuts</span></div>
+              <div class="album-stat-item">Length: <span>18:22</span></div>
+            </div>
+          </div>
+        </header>
+
+        <div class="tracklist-flex-board" role="list">
+          <article class="track-card card-wide card-featured" data-track="01" data-bpm="90" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">01</span><h3 class="track-title">Tram 1 Rail Friction</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Contact microphone on Porto Tram 1 rails as it climbs the riverbank, pitch-shifted into a screaming lead tone.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">90 BPM</span><span class="tag-pill">Contact Mic</span><span class="tag-pill">Rail Friction</span></div>
+              <span class="tag-duration">03:15</span>
+            </div>
+          </article>
+
+          <article class="track-card" data-track="02" data-bpm="86" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">02</span><h3 class="track-title">Hydrophone Dock Bass</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Submerged underwater hydrophone recording of Douro current converted into a rolling 40 Hz sub-bass groove.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">86 BPM</span><span class="tag-pill">Underwater Sub</span></div>
+              <span class="tag-duration">04:02</span>
+            </div>
+          </article>
+
+          <article class="track-card card-compact" data-track="03" data-bpm="92" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">03</span><h3 class="track-title">Bitcrushed Alfândega</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Warehouse stone acoustics resampled at 8-bit / 11 kHz with gritty distortion and lightning crab scratches.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">92 BPM</span><span class="tag-pill">8-Bit Crunch</span></div>
+              <span class="tag-duration">03:40</span>
+            </div>
+          </article>
+
+          <article class="track-card" data-track="04" data-bpm="89" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">04</span><h3 class="track-title">Electromagnetic Coil Hum</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Stray electromagnetic radiation from the festival lighting rigs captured as syncopated percussion.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">89 BPM</span><span class="tag-pill">EMF Transients</span></div>
+              <span class="tag-duration">03:30</span>
+            </div>
+          </article>
+
+          <article class="track-card card-wide" data-track="05" data-bpm="84" role="listitem">
+            <div class="track-top-bar">
+              <div class="track-index-group"><span class="track-number">05</span><h3 class="track-title">Low Tide Granite Dub</h3></div>
+              <button class="track-play-btn">▶</button>
+            </div>
+            <p class="track-technique-bio">Gentle water splashing against the ancient granite dock quays layered with heavy space-echo fader cuts.</p>
+            <div class="track-footer-row">
+              <div class="track-badges-cluster"><span class="tag-pill tag-bpm">84 BPM</span><span class="tag-pill">Space Echo</span><span class="tag-pill">Low Tide Audio</span></div>
+              <span class="tag-duration">03:55</span>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      </div><!-- Close .sandbox-pane-preview -->
+
+      <!-- ====================================================================
+           PANE 2: HTML VIEW (Semantic Markup & Landmarks)
+           ==================================================================== -->
+      <div class="sandbox-pane-html pattern-code-view" id="pane-html-view">
+        <div class="code-view-header">
+          <span class="code-lang-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            HTML View • Landmarks &amp; Flexbox Structure
+          </span>
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">Live Semantic Source</span>
+        </div>
+        <pre class="code-view-content"><code>&lt;!-- 1. THE MAIN DOCUMENT WRAPPER (Landmark) --&gt;
+&lt;main id="main-content" role="main"&gt;
+
+  &lt;!-- 2. THE FLEX CONTAINER (Establishes Flex Formatting Context) --&gt;
+  &lt;!-- Mobile: single column (flex-direction: column) --&gt;
+  &lt;!-- Desktop: multi-row card grid (flex-direction: row; flex-wrap: wrap;) --&gt;
+  &lt;div class="tracklist-flex-board" role="list" data-axis="main-x"&gt;
+
+    &lt;!-- 3. FLEX ITEM (Headline / Featured Cut) --&gt;
+    &lt;!-- flex: 1 1 320px; flex-basis: 460px (wide); order: -10 when pinned --&gt;
+    &lt;article class="track-card card-wide card-featured" data-track="01" data-bpm="92" role="listitem"&gt;
+      &lt;!-- Internal Nested Flex Container: Track Header --&gt;
+      &lt;div class="track-top-bar"&gt;
+        &lt;div class="track-index-group"&gt;
+          &lt;span class="track-number"&gt;01&lt;/span&gt;
+          &lt;h3 class="track-title"&gt;Alfândega Dock Pressure&lt;/h3&gt;
+        &lt;/div&gt;
+        &lt;button class="track-play-btn" aria-label="Preview track 01"&gt;▶&lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Internal Flex Item: flex-grow: 1 to ensure equal card heights --&gt;
+      &lt;p class="track-technique-bio"&gt;
+        Hydrophone harbor reverberation layered with sub-frequency 808 sine waves.
+      &lt;/p&gt;
+
+      &lt;!-- Internal Nested Flex Container: Track Footer --&gt;
+      &lt;div class="track-footer-row"&gt;
+        &lt;div class="track-badges-cluster"&gt;
+          &lt;span class="tag-pill tag-bpm"&gt;92 BPM&lt;/span&gt;
+          &lt;span class="tag-pill"&gt;Hydrophone Reverb&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;!-- Pushed to far right via margin-left: auto --&gt;
+        &lt;span class="tag-duration"&gt;04:12&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;!-- 4. STANDARD FLEX ITEM --&gt;
+    &lt;article class="track-card" data-track="02" data-bpm="88" role="listitem"&gt;
+      &lt;div class="track-top-bar"&gt;
+        &lt;div class="track-index-group"&gt;
+          &lt;span class="track-number"&gt;02&lt;/span&gt;
+          &lt;h3 class="track-title"&gt;The 808 Frequency Sweep&lt;/h3&gt;
+        &lt;/div&gt;
+        &lt;button class="track-play-btn" aria-label="Preview track 02"&gt;▶&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;p class="track-technique-bio"&gt;
+        Pitch-shifted analog boom bap kicks and 2-click flares.
+      &lt;/p&gt;
+      &lt;div class="track-footer-row"&gt;
+        &lt;div class="track-badges-cluster"&gt;
+          &lt;span class="tag-pill tag-bpm"&gt;88 BPM&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;span class="tag-duration"&gt;03:45&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;!-- 5. COMPACT FLEX ITEM (Narrower flex-basis: 260px) --&gt;
+    &lt;article class="track-card card-compact" data-track="03" data-bpm="94" role="listitem"&gt;
+      &lt;div class="track-top-bar"&gt;
+        &lt;div class="track-index-group"&gt;
+          &lt;span class="track-number"&gt;03&lt;/span&gt;
+          &lt;h3 class="track-title"&gt;Subterranean Transit&lt;/h3&gt;
+        &lt;/div&gt;
+        &lt;button class="track-play-btn" aria-label="Preview track 03"&gt;▶&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;p class="track-technique-bio"&gt;
+        Metro line rumble captured with magnetic coil pickups and transformer cuts.
+      &lt;/p&gt;
+      &lt;div class="track-footer-row"&gt;
+        &lt;div class="track-badges-cluster"&gt;
+          &lt;span class="tag-pill tag-bpm"&gt;94 BPM&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;span class="tag-duration"&gt;04:30&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+  &lt;/div&gt;
+&lt;/main&gt;</code></pre>
+      </div>
+
+      <!-- ====================================================================
+           PANE 3: CSS VIEW (Active Layout Rules)
+           ==================================================================== -->
+      <div class="sandbox-pane-css pattern-code-view" id="pane-css-view">
+        <div class="code-view-header">
+          <span class="code-lang-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l8-4 8 4V2z"/></svg>
+            CSS View • Active Flexbox Engine Rules
+          </span>
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">Pure Layout CSS</span>
+        </div>
+        <pre class="code-view-content"><code>/* ==========================================================================
+   1. FLEX CONTAINER RULES (.tracklist-flex-board)
+   ========================================================================== */
+
+/* Mobile First (Single Column Stack) */
+.tracklist-flex-board {
+  display: flex;                  /* Initializes the flex formatting context */
+  flex-direction: column;         /* Main axis runs top-to-bottom */
+  flex-wrap: nowrap;              /* All items stack vertically on mobile */
+  gap: 1.25rem;                   /* Modern gutter spacing between all flex items */
+  width: 100%;
+}
+
+/* Desktop Breakpoint: Multi-Row Wrapping Card Layout */
+@media (min-width: 768px) {
+  .tracklist-flex-board {
+    flex-direction: row;          /* Main axis switches to horizontal (left-to-right) */
+    flex-wrap: wrap;              /* Items break onto new lines when row fills */
+    justify-content: flex-start;  /* Pack items toward start of main axis */
+    align-items: stretch;         /* Cross-axis: stretch items to match tallest in row */
+  }
+}
+
+/* ==========================================================================
+   2. FLEX ITEM SIZING & RATIOS (.track-card)
+   ========================================================================== */
+.track-card {
+  /*
+    Shorthand: flex: <flex-grow> <flex-shrink> <flex-basis>
+    - flex-grow: 1   (expands to fill leftover empty space on its row)
+    - flex-shrink: 1 (shrinks proportionally if viewport is constrained)
+    - flex-basis: 320px (ideal starting size on desktop before wrapping)
+  */
+  flex: 1 1 320px;
+  min-width: 280px;               /* Safety floor: prevents item collapsing below legibility */
+
+  /* Internal Card Alignment (Item is also a Flex Container!) */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes technique bio and footer to opposite ends */
+  gap: 1rem;
+}
+
+/* Wide Variation: Forces earlier wrap */
+.track-card.card-wide {
+  flex-basis: 460px;
+}
+
+/* Compact Variation: Fits in tighter rows */
+.track-card.card-compact {
+  flex-basis: 260px;
+}
+
+/* Internal Flex Stretcher */
+.track-technique-bio {
+  flex-grow: 1;                   /* Absorbs internal vertical space */
+}
+
+/* Spatial Pinning via Auto-Margin */
+.tag-duration {
+  margin-left: auto;              /* Consumes all remaining row space; pins to far right! */
+}
+
+/* ==========================================================================
+   3. VISUAL REORDERING (order property)
+   ========================================================================== */
+/* Move pinned/featured track to the first position */
+.track-card.card-featured {
+  order: -10;                     /* Negative order renders BEFORE natural order: 0 */
+}</code></pre>
+      </div>
+
+      <!-- ====================================================================
+           BAREBONE STRUCTURAL BLUEPRINT (Pedagogical Cheat Sheet)
+           Answers user requirement:
+           "a brief summary explanation with just the barebone HTML 5 Landmarks
+           and the core fundamental selectors and propertis for the containers
+           and items and the most relevant properties just pertaining to the
+           flexbox (just the main structural aspects, no need for visual design
+           details, like colors, fonts, etc.)"
+           ==================================================================== -->
+      <section class="blueprint-card" aria-labelledby="flex-blueprint-title">
+        <div class="blueprint-header">
+          <div>
+            <span class="blueprint-badge">Pedagogical Cheat Sheet</span>
+            <h2 id="flex-blueprint-title" class="blueprint-title">Barebone Structural Blueprint: Pure Flexbox</h2>
+          </div>
+        </div>
+        <p class="blueprint-summary-text">
+          <strong>Summary of Structural Requirements:</strong> Flexbox is a 1-dimensional layout tool. To build a responsive card layout that transitions from a single mobile column to a desktop wrapping grid, only two structural components are strictly required: (1) a <strong>Flex Container</strong> establishing the main axis and wrapping rules, and (2) <strong>Flex Items</strong> with proportional sizing (<code>flex-grow</code>, <code>flex-shrink</code>, <code>flex-basis</code>). No decorative styling (colors, fonts, borders, shadows) is needed for the layout logic to work.
+        </p>
+
+        <div class="blueprint-grid">
+          <!-- Column 1: Barebone HTML5 Landmarks -->
+          <div class="blueprint-column">
+            <div class="blueprint-col-title">
+              <span>1. Barebone HTML5 Landmarks</span>
+              <span style="color:var(--color-text-dim);">HTML</span>
+            </div>
+            <pre class="blueprint-code"><code>&lt;!-- Landmark: Main Content --&gt;
+&lt;main&gt;
+
+  &lt;!-- Landmark: Section acting as Flex Container --&gt;
+  &lt;section class="flex-container"&gt;
+
+    &lt;!-- Landmark: Article acting as Flex Item --&gt;
+    &lt;article class="flex-item flex-wide"&gt;
+      &lt;h3&gt;Item 1&lt;/h3&gt;
+      &lt;p&gt;Item content...&lt;/p&gt;
+      &lt;span class="pin-right"&gt;End&lt;/span&gt;
+    &lt;/article&gt;
+
+    &lt;article class="flex-item"&gt;
+      &lt;h3&gt;Item 2&lt;/h3&gt;
+      &lt;p&gt;Item content...&lt;/p&gt;
+      &lt;span class="pin-right"&gt;End&lt;/span&gt;
+    &lt;/article&gt;
+
+    &lt;article class="flex-item flex-pinned"&gt;
+      &lt;h3&gt;Item 3 (Pinned)&lt;/h3&gt;
+      &lt;p&gt;Item content...&lt;/p&gt;
+      &lt;span class="pin-right"&gt;End&lt;/span&gt;
+    &lt;/article&gt;
+
+  &lt;/section&gt;
+
+&lt;/main&gt;</code></pre>
+          </div>
+
+          <!-- Column 2: Core Fundamental Structural CSS -->
+          <div class="blueprint-column">
+            <div class="blueprint-col-title">
+              <span>2. Core Structural Selectors &amp; Properties</span>
+              <span style="color:var(--color-accent-green);">CSS (Zero Visual Fluff)</span>
+            </div>
+            <pre class="blueprint-code"><code>/* 1. CONTAINER LEVEL (Axes, Flow &amp; Distribution) */
+.flex-container {
+  display: flex;                  /* Activates 1D flex context */
+  flex-direction: column;         /* Mobile: single column stack */
+  gap: 1.5rem;                    /* Gutters between items */
+}
+
+@media (min-width: 768px) {
+  .flex-container {
+    flex-direction: row;          /* Desktop: horizontal flow */
+    flex-wrap: wrap;              /* Wraps onto multiple rows */
+    justify-content: flex-start;  /* Main axis alignment */
+    align-items: stretch;         /* Cross axis: equal heights */
+  }
+}
+
+/* 2. ITEM LEVEL (Sizing Ratios &amp; Positioning) */
+.flex-item {
+  flex: 1 1 300px;                /* grow: 1, shrink: 1, basis: 300px */
+  min-width: 250px;               /* Safety width limit */
+  display: flex;                  /* Nested flex for internal push */
+  flex-direction: column;
+}
+
+.flex-wide {
+  flex-basis: 450px;              /* Wider basis = wraps earlier */
+}
+
+.flex-pinned {
+  order: -1;                      /* Visually moved to first slot */
+}
+
+.pin-right {
+  margin-left: auto;              /* Consumes space; pushes to right */
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+
+    <!--
+      PEDAGOGICAL EXPLANATION & MDN REFERENCE PANEL
+      Contains in-depth explanations of the CSS properties, the 1D model,
+      margin: auto tricks, and all required official MDN documentation links.
+    -->
+    <section class="pedagogy-panel" aria-labelledby="pedagogy-heading">
+      <div class="pedagogy-card">
+        <h2 id="pedagogy-heading" class="pedagogy-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          Pedagogical Anatomy: The CSS Flexbox Engine
+        </h2>
+
+        <div class="pedagogy-grid">
+          <!-- Box 1: 1D Axis Mental Model -->
+          <div class="pedagogy-box">
+            <h4>1. Main Axis vs. Cross Axis</h4>
+            <p>
+              Unlike standard Block/Inline flow or CSS Grid, Flexbox operates along <strong>one axis at a time</strong>. When <code>flex-direction: row</code> is active, the Main Axis runs horizontally (left to right in LTR), and the Cross Axis runs vertically. When set to <code>column</code>, the axes flip: the Main Axis runs top-to-bottom.
+            </p>
+          </div>
+
+          <!-- Box 2: Sizing Shorthand -->
+          <div class="pedagogy-box">
+            <h4>2. flex: grow shrink basis</h4>
+            <p>
+              The <code>flex: 1 1 320px</code> shorthand defines:
+              <br>• <strong>flex-grow (1):</strong> How much extra space the card absorbs.
+              <br>• <strong>flex-shrink (1):</strong> Rate at which the card shrinks if space is tight.
+              <br>• <strong>flex-basis (320px):</strong> The ideal starting size before distribution.
+            </p>
+          </div>
+
+          <!-- Box 3: Auto Margins -->
+          <div class="pedagogy-box">
+            <h4>3. The Magical Auto-Margin</h4>
+            <p>
+              In Flexbox, <code>margin-left: auto</code> or <code>margin-inline-start: auto</code> consumes <em>all available leftover space</em> along the main axis, pushing elements like our track duration (<code>.tag-duration</code>) cleanly to the opposing edge without requiring float or absolute positioning!
+            </p>
+          </div>
+
+          <!-- Box 4: Accessibility & Order -->
+          <div class="pedagogy-box">
+            <h4>4. The order Property &amp; A11y Caveat</h4>
+            <p>
+              The <code>order</code> property alters <strong>visual rendering order only</strong>. The DOM source order and keyboard TAB navigation order remain strictly unchanged. Never use <code>order</code> to replace logical HTML markup sequence for screen readers!
+            </p>
+          </div>
+        </div>
+
+        <!-- MDN Reference Links (Strictly requested by User) -->
+        <h3 style="margin-top: 2rem; font-family: var(--font-display); font-size: 1.15rem; color: #fff;">
+          Official MDN Web Docs Canonical Guides
+        </h3>
+        <ul class="mdn-resource-list">
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Flexbox" target="_blank" rel="noopener noreferrer">
+              <span>Core Tutorial: Flexible Box Layout Fundamentals</span>
+              <span class="mdn-tag">MDN Learn</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Basic_concepts" target="_blank" rel="noopener noreferrer">
+              <span>Basic Concepts of Flexbox (Main &amp; Cross Axis)</span>
+              <span class="mdn-tag">MDN Guide</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Relationship_with_other_layout_methods" target="_blank" rel="noopener noreferrer">
+              <span>Relationship of Flexbox with other Layout Methods</span>
+              <span class="mdn-tag">MDN Architecture</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Aligning_items" target="_blank" rel="noopener noreferrer">
+              <span>Aligning Items in a Flex Container (justify-content, align-items)</span>
+              <span class="mdn-tag">MDN Alignment</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Ordering_items" target="_blank" rel="noopener noreferrer">
+              <span>Ordering Flex Items (The order Property and Source Order)</span>
+              <span class="mdn-tag">MDN Ordering</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Controlling_flex_item_ratios" target="_blank" rel="noopener noreferrer">
+              <span>Controlling Ratios of Flex Items (flex-grow, flex-shrink, flex-basis)</span>
+              <span class="mdn-tag">MDN Ratios</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Wrapping_items" target="_blank" rel="noopener noreferrer">
+              <span>Mastering Wrapping of Flex Items (flex-wrap: wrap)</span>
+              <span class="mdn-tag">MDN Wrapping</span>
+            </a>
+          </li>
+          <li class="mdn-resource-item">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Use_cases" target="_blank" rel="noopener noreferrer">
+              <span>Typical Use Cases of Flexbox (Navigation, Badges, Media Objects)</span>
+              <span class="mdn-tag">MDN Patterns</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!--
+    LANDMARK: <footer>
+    Standard academic attribution, university metadata, and professor credits.
+  -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          DRUMTIKS '26 • FBAUP Web Design (WD101)
+        </div>
+        <div class="footer-academic-meta">
+          Licenciatura em Design de Comunicação • 2026/27 • Prof. Pedro Amado
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Theme: DJ Warp Turntablist Master Discography • Pure HTML5 &amp; CSS3</span>
+        <span>Laboratory Suite 01 / 03</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,2297 @@
+@import 'fonts.css';
+
+/* ==========================================================================
+   DRUMTIKS 2026 - Responsive Desktop & Mobile Breakpoint Architecture
+   Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+   Web Design Course (2026 Edition)
+   Pure CSS Pricing Simulator (TP06-B :has Pattern) + Fluid clamp() Typography
+   ========================================================================== */
+
+@layer reset, fonts, theme, base, layout, components, gallery, accordion, subpages, simulator, modals, animations, utilities;
+
+@layer theme {
+  :root {
+    /* ------------------------------------------------------------------------
+       1. Styleguide Color Tokens (Exact Figma Variables & Values)
+       ------------------------------------------------------------------------ */
+    --color-black: #0a0a0c;
+    --color-charcoal-black: #16171a;
+    --color-medium-gray: #71747e;
+    --color-light-gray: #d1d3d8;
+    --color-off-white: #f4f4f6;
+    --color-white: #ffffff;
+    --color-accent-red: #e60000;
+    --color-accent-red-hover: #ff1a1a;
+    --color-accent-purple: #8a2be2;
+    --color-card-selected-bg: #201826;
+    --color-box-bg-dark: #121217;
+    --color-box-bg-alt: #1e1e24;
+    --color-pill-bg: #1a1a1f;
+    --color-divider: rgba(113, 116, 126, 0.3);
+    --color-red-tint: rgba(230, 0, 0, 0.15);
+    --color-red-tint-subtle: rgba(230, 0, 0, 0.12);
+    --color-purple-tint: rgba(138, 43, 226, 0.25);
+    --color-backdrop: rgba(0, 0, 0, 0.85);
+
+    /* ------------------------------------------------------------------------
+       2. Font Families
+       ------------------------------------------------------------------------ */
+    --font-family-display: 'Syne', sans-serif;
+    --font-family-mono: 'Martian Mono', monospace;
+    --font-family-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+    /* ------------------------------------------------------------------------
+       3. Fluid Typography Tokens with clamp(min, preferred, max)
+          Combines viewport and font units for impactful, resilient scaling
+       ------------------------------------------------------------------------ */
+    --text-size-splash-logo: clamp(3rem, 1.8rem + 6vw, 6.5rem);
+    --text-lh-splash-logo: 1.05;
+
+    --text-size-header-logo: clamp(1.25rem, 1rem + 1vw, 1.85rem);
+    --text-lh-header-logo: 1.2;
+
+    --text-size-hero-eyebrow: clamp(0.625rem, 0.58rem + 0.25vw, 0.75rem);
+    --text-lh-hero-eyebrow: 1.2;
+    --text-tracking-hero-eyebrow: 0.05em;
+
+    --text-size-hero-title: clamp(1.25rem, 0.95rem + 1.8vw, 2.25rem);
+    --text-lh-hero-title: 1.2;
+
+    --text-size-hero-subhead: clamp(0.85rem, 0.78rem + 0.4vw, 1.05rem);
+    --text-lh-hero-subhead: 1.4;
+
+    --text-size-hero-body: clamp(0.75rem, 0.7rem + 0.3vw, 0.9rem);
+    --text-lh-hero-body: 1.55;
+
+    --text-size-section-header: clamp(1.05rem, 0.9rem + 0.8vw, 1.5rem);
+    --text-lh-section-header: 1.3;
+
+    --text-size-program-time: clamp(0.6875rem, 0.65rem + 0.2vw, 0.8125rem);
+    --text-lh-program-time: 1.2;
+
+    --text-size-program-title: clamp(0.95rem, 0.85rem + 0.5vw, 1.25rem);
+    --text-lh-program-title: 1.3;
+
+    --text-size-program-desc: clamp(0.75rem, 0.72rem + 0.2vw, 0.875rem);
+    --text-lh-program-desc: 1.5;
+
+    --text-size-btn-primary: clamp(0.85rem, 0.8rem + 0.3vw, 1rem);
+    --text-lh-btn-primary: 1.2;
+
+    --text-size-btn-secondary: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+    --text-lh-btn-secondary: 1.2;
+
+    --text-size-pass-title: clamp(0.95rem, 0.88rem + 0.4vw, 1.15rem);
+    --text-lh-pass-title: 1.3;
+
+    --text-size-pass-price: clamp(0.95rem, 0.88rem + 0.4vw, 1.25rem);
+    --text-lh-pass-price: 1.2;
+
+    --text-size-pass-desc: clamp(0.75rem, 0.72rem + 0.2vw, 0.85rem);
+    --text-lh-pass-desc: 1.45;
+
+    --text-size-sim-price: clamp(1.4rem, 1.1rem + 1.5vw, 2.25rem);
+    --text-lh-sim-price: 1.1;
+
+    --text-size-badge-date: clamp(0.625rem, 0.58rem + 0.2vw, 0.75rem);
+    --text-size-badge-tag: clamp(0.5rem, 0.48rem + 0.15vw, 0.625rem);
+
+    --text-size-footer: clamp(0.5625rem, 0.52rem + 0.2vw, 0.6875rem);
+    --text-size-credits-link: clamp(0.625rem, 0.58rem + 0.25vw, 0.75rem);
+
+    /* ------------------------------------------------------------------------
+       4. Sizing & Breakpoints Variables
+       ------------------------------------------------------------------------ */
+    --site-max-width: 1240px;
+    --mobile-max-width: 560px;
+    --desktop-breakpoint: 960px;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 18px;
+    --radius-pill: 999px;
+  }
+}
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: #060608;
+    color: var(--color-off-white);
+    font-family: var(--font-family-body);
+    font-size: var(--text-size-hero-body);
+    line-height: var(--text-lh-hero-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  img, svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  button, input, select, textarea, fieldset {
+    font: inherit;
+    color: inherit;
+    border: none;
+    background: none;
+  }
+
+  fieldset {
+    padding: 0;
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@layer layout {
+  /* ==========================================================================
+     Responsive Site Wrapper (Mobile first -> Desktop 2-Column Grid)
+     ========================================================================== */
+  .site-wrapper {
+    width: 100%;
+    max-width: var(--mobile-max-width);
+    min-height: 100dvh;
+    background-color: var(--color-black);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 96px; /* Clearance for sticky bottom bar on mobile */
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.7);
+    transition: max-width 0.3s ease;
+  }
+
+  .site-header {
+    width: 100%;
+    padding: 16px 20px;
+    background-color: var(--color-black);
+    border-bottom: 1px solid var(--color-light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    backdrop-filter: blur(12px);
+  }
+
+  /* --------------------------------------------------------------------------
+     SEMANTIC NAVIGATION (Header Navigation Landmark)
+     Progressive enhancement: fluid flex on mobile, horizontal bar on desktop
+     -------------------------------------------------------------------------- */
+  .site-nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+
+  .nav-link {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--color-light-gray);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    border: 1px solid transparent;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: var(--color-white);
+    background-color: var(--color-pill-bg);
+    border-color: var(--color-divider);
+  }
+
+  .nav-link.active {
+    color: var(--color-white);
+    background-color: var(--color-charcoal-black);
+    border-color: var(--color-accent-red);
+  }
+
+  @media (max-width: 599px) {
+    .site-header {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .site-nav {
+      width: 100%;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .nav-list {
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+  }
+
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .site-main-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* Mobile Single-Column Flow */
+  .festival-grid-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 20px;
+    width: 100%;
+  }
+
+  .grid-column-primary {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .grid-column-secondary {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .site-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px 20px 10px;
+    text-align: center;
+  }
+
+  /* --------------------------------------------------------------------------
+     DESKTOP BREAKPOINT (min-width: 960px)
+     Two-Column Architecture with Sticky Headliner Stage & Wide Canvas
+     -------------------------------------------------------------------------- */
+  @media (min-width: 960px) {
+    body {
+      background-color: #060608;
+      background-image: 
+        radial-gradient(circle at 12% 15%, rgba(138, 43, 226, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 88% 50%, rgba(230, 0, 0, 0.08) 0%, transparent 45%);
+      background-attachment: fixed;
+    }
+
+    .site-wrapper {
+      max-width: var(--site-max-width);
+      padding: 0 40px 60px;
+      background: transparent;
+      box-shadow: none;
+      padding-bottom: 40px;
+    }
+
+    .site-header {
+      padding: 28px 0;
+      background: transparent;
+      border-bottom: 1px solid var(--color-divider);
+      margin-bottom: 36px;
+      position: static;
+    }
+
+    /* 2-Column Desktop Grid */
+    .festival-grid-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
+      gap: 48px;
+      align-items: start;
+      padding: 0;
+    }
+
+    /* Column 1: Left Sticky Headliner Stage */
+    .grid-column-primary {
+      position: sticky;
+      top: 32px;
+      gap: 24px;
+    }
+
+    /* Column 2: Right Dynamic Content Flow */
+    .grid-column-secondary {
+      gap: 36px;
+    }
+
+    /* Desktop CTA Navigation in Header */
+    .header-desktop-cta {
+      display: inline-flex !important;
+    }
+
+    /* Hide redundant sticky footer bar on desktop */
+    .sticky-footer-bar {
+      display: none;
+    }
+  }
+}
+
+@layer components {
+  /* Logo */
+  .site-logo {
+    font-family: var(--font-family-display);
+    font-weight: 700;
+    font-size: var(--text-size-header-logo);
+    line-height: var(--text-lh-header-logo);
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .site-logo-accent {
+    color: var(--color-accent-red);
+  }
+
+  /* Primary Action Button (State=Default, State=Hover, State=Pressed) */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-accent-red);
+    color: var(--color-white);
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: var(--text-size-btn-primary);
+    line-height: var(--text-lh-btn-primary);
+    padding: 16px 26px;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    transition: background-color 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-red-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(230, 0, 0, 0.45);
+  }
+
+  .btn-primary:active {
+    background-color: var(--color-accent-purple);
+    transform: translateY(1px);
+    box-shadow: none;
+  }
+
+  /* Secondary Button */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: var(--color-off-white);
+    border: 1.5px solid var(--color-light-gray);
+    font-family: var(--font-family-mono);
+    font-weight: 500;
+    font-size: var(--text-size-btn-secondary);
+    line-height: var(--text-lh-btn-secondary);
+    padding: 12px 20px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-white);
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--color-white);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary:active {
+    border-color: var(--color-accent-purple);
+    color: var(--color-accent-purple);
+    transform: translateY(1px);
+  }
+
+  .btn-block {
+    width: 100%;
+  }
+
+  /* Badges */
+  .date-badge {
+    background-color: var(--color-red-tint);
+    border: 1px solid var(--color-accent-red);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .date-badge-text {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: var(--text-size-badge-date);
+    color: var(--color-accent-red);
+    white-space: nowrap;
+  }
+
+  .tag-badge {
+    background-color: var(--color-black);
+    border: 1px solid var(--color-accent-purple);
+    padding: 5px 8px;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .tag-badge-text {
+    font-family: var(--font-family-mono);
+    font-weight: 500;
+    font-size: var(--text-size-badge-tag);
+    color: var(--color-white);
+    white-space: nowrap;
+  }
+
+  .badge-best-value {
+    background-color: var(--color-purple-tint);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 11px;
+    color: var(--color-accent-purple);
+    white-space: nowrap;
+  }
+
+  .institutional-badge {
+    background-color: var(--color-red-tint);
+    border: 1px solid var(--color-accent-red);
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .institutional-badge-text {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: var(--text-size-badge-date);
+    color: var(--color-accent-red);
+    white-space: nowrap;
+  }
+
+  .ref-pill {
+    background-color: var(--color-red-tint);
+    border: 1px solid var(--color-accent-red);
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .ref-pill-text {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 13px;
+    color: var(--color-accent-red);
+    white-space: nowrap;
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-divider);
+    flex-shrink: 0;
+  }
+
+  .credits-link {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: var(--text-size-credits-link);
+    color: var(--color-accent-purple);
+    text-decoration: underline;
+    text-underline-position: from-font;
+    display: inline-block;
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+
+  .credits-link:hover {
+    color: #b06bf0;
+  }
+
+  /* --------------------------------------------------------------------------
+     Hero Card: DJ WARP Showcase
+     -------------------------------------------------------------------------- */
+  .hero-card {
+    background-color: var(--color-charcoal-black);
+    border: 1px solid var(--color-medium-gray);
+    border-radius: var(--radius-xl);
+    padding: clamp(18px, 1.2rem + 1vw, 28px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: var(--text-size-hero-eyebrow);
+    line-height: var(--text-lh-hero-eyebrow);
+    letter-spacing: var(--text-tracking-hero-eyebrow);
+    color: var(--color-accent-red);
+    white-space: nowrap;
+  }
+
+  .hero-title {
+    font-family: var(--font-family-display);
+    font-weight: 700;
+    font-size: var(--text-size-hero-title);
+    line-height: var(--text-lh-hero-title);
+    color: var(--color-white);
+  }
+
+  .hero-subhead {
+    font-family: var(--font-family-body);
+    font-weight: 700;
+    font-size: var(--text-size-hero-subhead);
+    line-height: var(--text-lh-hero-subhead);
+    color: var(--color-off-white);
+  }
+
+  /* Visual Frame with Real DJ WARP Photo */
+  .hero-visual-frame {
+    background-color: var(--color-box-bg-alt);
+    border: 1px solid var(--color-medium-gray);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dj-photo-img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+    filter: contrast(1.05) brightness(0.95);
+    transition: transform 0.5s ease;
+  }
+
+  .hero-card:hover .dj-photo-img {
+    transform: scale(1.025);
+  }
+
+  .hero-visual-bar {
+    background-color: rgba(22, 23, 26, 0.95);
+    border-top: 1px solid var(--color-medium-gray);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .turntable-decks-graphic {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .vinyl-platter {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    animation: rotateVinyl 8s linear infinite;
+  }
+
+  @keyframes rotateVinyl {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .waveform-eq {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 32px;
+  }
+
+  .eq-bar {
+    width: 4px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    animation: eqPulse 1.2s ease-in-out infinite alternate;
+  }
+
+  .bar-1 { height: 12px; background-color: var(--color-accent-red); animation-delay: 0.1s; }
+  .bar-2 { height: 26px; background-color: var(--color-accent-purple); animation-delay: 0.3s; }
+  .bar-3 { height: 18px; background-color: var(--color-accent-red); animation-delay: 0.2s; }
+  .bar-4 { height: 32px; background-color: var(--color-accent-purple); animation-delay: 0.5s; }
+  .bar-5 { height: 22px; background-color: var(--color-accent-red); animation-delay: 0.15s; }
+  .bar-6 { height: 28px; background-color: var(--color-accent-purple); animation-delay: 0.4s; }
+  .bar-7 { height: 16px; background-color: var(--color-accent-red); animation-delay: 0.25s; }
+  .bar-8 { height: 24px; background-color: var(--color-accent-purple); animation-delay: 0.35s; }
+  .bar-9 { height: 12px; background-color: var(--color-accent-red); animation-delay: 0.05s; }
+
+  @keyframes eqPulse {
+    0% { transform: scaleY(0.6); }
+    100% { transform: scaleY(1.15); }
+  }
+
+  .visual-label {
+    font-family: var(--font-family-mono);
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 14px;
+    color: var(--color-off-white);
+  }
+
+  .hero-bio {
+    font-family: var(--font-family-body);
+    font-weight: 400;
+    font-size: var(--text-size-hero-body);
+    line-height: var(--text-lh-hero-body);
+    color: var(--color-off-white);
+  }
+
+  .badges-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* Venue Card in Left Column */
+  .venue-info-box {
+    background-color: var(--color-box-bg-dark);
+    border: 1px solid var(--color-medium-gray);
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .venue-info-label {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--color-medium-gray);
+  }
+
+  .venue-location {
+    font-family: var(--font-family-body);
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 17px;
+    color: var(--color-off-white);
+  }
+
+  .venue-doors {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--color-accent-red);
+  }
+
+  /* --------------------------------------------------------------------------
+     Program Schedule Section
+     -------------------------------------------------------------------------- */
+  .program-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .section-header {
+    font-family: var(--font-family-display);
+    font-weight: 700;
+    font-size: var(--text-size-section-header);
+    line-height: var(--text-lh-section-header);
+    color: var(--color-white);
+  }
+
+  .program-item {
+    background-color: var(--color-charcoal-black);
+    border: 1px solid var(--color-medium-gray);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+
+  .program-item:hover {
+    border-color: var(--color-light-gray);
+    transform: translateY(-1px);
+  }
+
+  .program-item-featured {
+    gap: 12px;
+    background: linear-gradient(180deg, #1b1c20 0%, #16171a 100%);
+    border-color: rgba(138, 43, 226, 0.4);
+  }
+
+  .program-time {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: var(--text-size-program-time);
+    line-height: var(--text-lh-program-time);
+    color: var(--color-accent-red);
+    white-space: nowrap;
+  }
+
+  .program-title {
+    font-family: var(--font-family-display);
+    font-weight: 700;
+    font-size: var(--text-size-program-title);
+    line-height: var(--text-lh-program-title);
+    color: var(--color-white);
+  }
+
+  .program-desc {
+    font-family: var(--font-family-body);
+    font-weight: 400;
+    font-size: var(--text-size-program-desc);
+    line-height: var(--text-lh-program-desc);
+    color: var(--color-medium-gray);
+  }
+
+  /* Sticky Footer CTA Bar (Mobile only) */
+  .sticky-footer-bar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: var(--mobile-max-width);
+    background-color: var(--color-charcoal-black);
+    border-top: 1px solid var(--color-light-gray);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 500;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.6);
+  }
+
+  .sticky-price-label {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 14px;
+    color: var(--color-off-white);
+    white-space: nowrap;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+@layer simulator {
+  /* ==========================================================================
+     Pricing Simulator Engine (Inspired by TP06-B :has + content pattern)
+     Pure CSS, Zero JavaScript
+     ========================================================================== */
+  .simulator-panel {
+    background-color: var(--color-charcoal-black);
+    border: 1px solid var(--color-medium-gray);
+    border-radius: var(--radius-xl);
+    padding: clamp(20px, 1.2rem + 1vw, 28px);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .step-eyebrow {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 14px;
+    letter-spacing: 0.44px;
+    color: var(--color-accent-red);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .pass-cards-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .pass-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+    background-color: var(--color-black);
+    border: 1.5px solid var(--color-medium-gray);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    user-select: none;
+  }
+
+  .pass-card:hover {
+    transform: translateY(-1px);
+    border-color: var(--color-light-gray);
+  }
+
+  .pass-card-bundle-default {
+    border-color: var(--color-accent-purple);
+  }
+
+  .pass-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .pass-card-title {
+    font-family: var(--font-family-display);
+    font-weight: 700;
+    font-size: var(--text-size-pass-title);
+    line-height: var(--text-lh-pass-title);
+    color: var(--color-white);
+    text-align: left;
+    flex: 1;
+  }
+
+  .checkbox-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border: 1.5px solid var(--color-medium-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+
+  .pass-card-price-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .pass-card-price {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: var(--text-size-pass-price);
+    line-height: var(--text-lh-pass-price);
+    color: var(--color-accent-red);
+    white-space: nowrap;
+  }
+
+  .pass-card-savings {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .pass-card-desc {
+    font-family: var(--font-family-body);
+    font-weight: 400;
+    font-size: var(--text-size-pass-desc);
+    line-height: var(--text-lh-pass-desc);
+    color: var(--color-off-white);
+    text-align: left;
+  }
+
+  /* Active card styling via :checked */
+  .pass-radio-input:checked + .pass-card {
+    background-color: var(--color-card-selected-bg);
+    border-color: var(--color-accent-purple);
+  }
+
+  .pass-radio-input:checked + .pass-card .checkbox-indicator {
+    border: none;
+    background-image: url('../assets/checkbox-indicator.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  /* Live Pricing Simulator Calculation Display (TP06-B Engine) */
+  .pricing-simulator-box {
+    background: linear-gradient(145deg, #1d162a 0%, #121217 100%);
+    border: 1.5px solid var(--color-accent-purple);
+    border-radius: var(--radius-lg);
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    box-shadow: 0 6px 24px rgba(138, 43, 226, 0.2);
+  }
+
+  .simulator-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .simulator-caption {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 14px;
+    color: var(--color-medium-gray);
+    letter-spacing: 0.5px;
+  }
+
+  .simulator-calc-price {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: var(--text-size-sim-price);
+    line-height: var(--text-lh-sim-price);
+    color: var(--color-accent-red);
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  .simulator-calc-summary {
+    font-family: var(--font-family-body);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--color-off-white);
+  }
+
+  .simulator-calc-savings {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 14px;
+    color: #b06bf0;
+    display: block;
+  }
+
+  /* --- TP06-B Default Values (Option C / Bundle Checked) --- */
+  #sim-price::after,
+  #sim-price-modal::after {
+    content: "€30.00";
+  }
+
+  #sim-summary::after,
+  #sim-summary-modal::after {
+    content: "Selected: ALL-ACCESS FESTIVAL PASS (Full Floor & Battle Pass)";
+  }
+
+  #sim-savings::after,
+  #sim-savings-modal::after {
+    content: "🔥 COMBO SAVINGS: -€5.00 discount applied!";
+  }
+
+  /* --- TP06-B Reactive State A: Battle Competitor Pass (€10.00) --- */
+  :root:has(#pass-battle:checked),
+  body:has(#pass-battle:checked) {
+    #sim-price::after,
+    #sim-price-modal::after {
+      content: "€10.00";
+    }
+
+    #sim-summary::after,
+    #sim-summary-modal::after {
+      content: "Selected: 'THE 808 CLASH' Competitor Producer Pass";
+    }
+
+    #sim-savings,
+    #sim-savings-modal {
+      display: none;
+    }
+
+    /* Sticky Footer Bar reflection */
+    #sticky-total-tag::after {
+      content: " (SELECTED: €10.00)";
+      color: var(--color-accent-red);
+    }
+
+    /* Receipt screen reflection */
+    .receipt-row-battle { display: flex; }
+    .receipt-row-warp { display: none; }
+    .receipt-row-combo { display: none; }
+    #receipt-dyn-total::after { content: "€10.00"; }
+  }
+
+  /* --- TP06-B Reactive State B: DJ WARP Concert Pass (€25.00) --- */
+  :root:has(#pass-warp:checked),
+  body:has(#pass-warp:checked) {
+    #sim-price::after,
+    #sim-price-modal::after {
+      content: "€25.00";
+    }
+
+    #sim-summary::after,
+    #sim-summary-modal::after {
+      content: "Selected: DJ WARP Headline Concert & Masterclass Pass";
+    }
+
+    #sim-savings,
+    #sim-savings-modal {
+      display: none;
+    }
+
+    /* Sticky Footer Bar reflection */
+    #sticky-total-tag::after {
+      content: " (SELECTED: €25.00)";
+      color: var(--color-accent-red);
+    }
+
+    /* Receipt screen reflection */
+    .receipt-row-battle { display: none; }
+    .receipt-row-warp { display: flex; }
+    .receipt-row-combo { display: none; }
+    #receipt-dyn-total::after { content: "€25.00"; }
+  }
+
+  /* --- TP06-B Reactive State C: All-Access Bundle (€30.00) --- */
+  :root:has(#pass-bundle:checked),
+  body:has(#pass-bundle:checked) {
+    #sim-price::after,
+    #sim-price-modal::after {
+      content: "€30.00";
+    }
+
+    #sim-summary::after,
+    #sim-summary-modal::after {
+      content: "Selected: ALL-ACCESS FESTIVAL PASS (Full Access + Savings)";
+    }
+
+    #sim-savings,
+    #sim-savings-modal {
+      display: block;
+    }
+
+    /* Sticky Footer Bar reflection */
+    #sticky-total-tag::after {
+      content: " (BUNDLE: €30.00)";
+      color: var(--color-accent-purple);
+    }
+
+    /* Receipt screen reflection */
+    .receipt-row-battle { display: none; }
+    .receipt-row-warp { display: none; }
+    .receipt-row-combo { display: flex; }
+    #receipt-dyn-total::after { content: "€30.00"; }
+  }
+
+  /* Form Fields */
+  .form-fields-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .form-field-input {
+    width: 100%;
+    background-color: var(--color-black);
+    border: 1px solid var(--color-medium-gray);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-family: var(--font-family-mono);
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 15px;
+    color: var(--color-white);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .form-field-input::placeholder {
+    color: var(--color-medium-gray);
+  }
+
+  .form-field-input:focus {
+    outline: none;
+    border-color: var(--color-accent-purple);
+    box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.3);
+  }
+}
+
+@layer modals {
+  /* ==========================================================================
+     Pure CSS Modals & Popups via :target (Zero JavaScript)
+     ========================================================================== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: var(--color-backdrop);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow-y: auto;
+  }
+
+  .modal-overlay:target {
+    display: flex;
+    animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .modal-content-card {
+    background-color: var(--color-black);
+    border: 1px solid var(--color-medium-gray);
+    border-radius: var(--radius-xl);
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.95), 0 0 40px rgba(138, 43, 226, 0.25);
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--color-light-gray);
+    flex-shrink: 0;
+  }
+
+  .modal-title {
+    font-family: var(--font-family-display);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: var(--color-white);
+  }
+
+  .modal-close-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: var(--color-charcoal-black);
+    border: 1px solid var(--color-medium-gray);
+    color: var(--color-off-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+  }
+
+  .modal-close-btn:hover {
+    background-color: var(--color-accent-red);
+    border-color: var(--color-accent-red);
+    color: white;
+  }
+
+  /* Receipt Confirmation */
+  .receipt-header-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .check-badge-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  .confirmation-card {
+    background-color: var(--color-charcoal-black);
+    border: 1px solid var(--color-medium-gray);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .status-banner {
+    font-family: var(--font-family-body);
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 20px;
+    color: var(--color-white);
+  }
+
+  .receipt-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-family: var(--font-family-body);
+    font-size: 13px;
+    line-height: 16px;
+    color: var(--color-accent-purple);
+  }
+
+  .receipt-row-amount {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+  }
+
+  .receipt-row-battle,
+  .receipt-row-warp {
+    color: var(--color-off-white);
+  }
+
+  .total-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .total-label {
+    font-family: var(--font-family-display);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: var(--color-white);
+  }
+
+  .total-price {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: var(--color-accent-red);
+  }
+
+  #receipt-dyn-total::after {
+    content: "€30.00";
+  }
+
+  /* Academic Context Card in Modal */
+  .academic-card {
+    background-color: var(--color-charcoal-black);
+    border: 1px solid var(--color-medium-gray);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .academic-faculty {
+    font-family: var(--font-family-display);
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 22px;
+    color: var(--color-white);
+  }
+
+  .academic-course {
+    font-family: var(--font-family-body);
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--color-off-white);
+  }
+
+  .academic-edition {
+    font-family: var(--font-family-body);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: var(--color-off-white);
+  }
+
+  .academic-leads {
+    font-family: var(--font-family-body);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 18px;
+    color: var(--color-white);
+  }
+
+  .academic-scope {
+    font-family: var(--font-family-body);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--color-medium-gray);
+  }
+
+  .academic-body {
+    font-family: var(--font-family-body);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: var(--color-off-white);
+  }
+}
+
+
+/* ==========================================================================
+   FEATURE SECTION: PURE CSS IMAGE GALLERY / CAROUSEL
+   Pedagogical Documentation (FBAUP WD101):
+   - Pure CSS horizontal scroll snap container without JavaScript.
+   - scroll-snap-type: x mandatory forces smooth snap points to slide bounds.
+   - Paginator anchor dots navigate directly using URL fragment identifiers.
+   - Progressive enhancement: scroll-marker-group and ::scroll-marker support
+     modern native CSS carousel indicators.
+   ========================================================================== */
+@layer gallery {
+  .festival-gallery-section {
+    background-color: var(--color-charcoal-black);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 12px;
+  }
+
+  .gallery-subhead {
+    font-family: var(--font-family-body);
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--color-light-gray);
+    margin-top: 4px;
+  }
+
+  /* Scroll Snap Container */
+  .gallery-viewport {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 16px;
+    padding: 6px 2px 14px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-accent-red) var(--color-box-bg-dark);
+    scroll-marker-group: after;
+  }
+
+  .gallery-viewport::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .gallery-viewport::-webkit-scrollbar-track {
+    background: var(--color-box-bg-dark);
+    border-radius: 3px;
+  }
+
+  .gallery-viewport::-webkit-scrollbar-thumb {
+    background: var(--color-accent-red);
+    border-radius: 3px;
+  }
+
+  /* Slide Items */
+  .gallery-slide {
+    flex: 0 0 88%;
+    scroll-snap-align: center;
+    background-color: var(--color-box-bg-dark);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .gallery-slide:hover {
+    border-color: var(--color-accent-purple);
+    transform: translateY(-2px);
+  }
+
+  @media (min-width: 600px) {
+    .gallery-slide {
+      flex: 0 0 calc(50% - 10px);
+    }
+  }
+
+  .gallery-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid var(--color-divider);
+  }
+
+  .gallery-caption {
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .gallery-tag {
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--color-accent-purple);
+    text-transform: uppercase;
+  }
+
+  .gallery-title {
+    font-family: var(--font-family-display);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-white);
+  }
+
+  .gallery-desc {
+    font-family: var(--font-family-body);
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--color-light-gray);
+  }
+
+  /* Pure CSS Paginator Controls */
+  .gallery-paginator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding-top: 4px;
+  }
+
+  .paginator-label {
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    color: var(--color-medium-gray);
+    letter-spacing: 0.5px;
+  }
+
+  .paginator-dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: var(--color-box-bg-dark);
+    border: 1px solid var(--color-divider);
+    color: var(--color-light-gray);
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    text-decoration: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .paginator-dot:hover,
+  .paginator-dot:focus-visible {
+    background-color: var(--color-accent-red);
+    border-color: var(--color-accent-red);
+    color: var(--color-white);
+  }
+
+  /* Target state highlight */
+  .gallery-slide:target {
+    border-color: var(--color-accent-red);
+    box-shadow: 0 0 16px rgba(230, 0, 0, 0.3);
+  }
+}
+
+
+/* ==========================================================================
+   PURE CSS ACCORDION (<details> / <summary>)
+   Pedagogical Documentation (FBAUP WD101):
+   - Uses native HTML5 <details> and <summary> disclosure widgets.
+   - Smooth height folding animation is achieved without JavaScript using
+     CSS Grid (grid-template-rows: 0fr -> 1fr).
+   - Rotating SVG/text icon toggles state via [open] attribute selector.
+   ========================================================================== */
+@layer accordion {
+  .festival-accordion-section {
+    background-color: var(--color-charcoal-black);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  .accordion-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .accordion-item {
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-md);
+    background-color: var(--color-box-bg-dark);
+    overflow: hidden;
+    transition: border-color 0.25s ease, background-color 0.25s ease;
+  }
+
+  .accordion-item[open] {
+    border-color: var(--color-accent-purple);
+    background-color: #17141f;
+  }
+
+  .accordion-summary {
+    padding: 16px 20px;
+    font-family: var(--font-family-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--color-white);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: color 0.2s ease;
+  }
+
+  .accordion-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .accordion-summary:hover {
+    color: var(--color-off-white);
+  }
+
+  .accordion-icon {
+    font-family: var(--font-family-mono);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-accent-red);
+    line-height: 1;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+  }
+
+  .accordion-item[open] .accordion-icon {
+    transform: rotate(45deg);
+    color: var(--color-accent-purple);
+  }
+
+  /* Grid Transition Animation for Smooth Folding */
+  .accordion-body-grid {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  .accordion-item[open] .accordion-body-grid {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .accordion-body-content {
+    overflow: hidden;
+    padding: 0 20px 20px;
+    font-family: var(--font-family-body);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--color-light-gray);
+  }
+}
+
+
+/* ==========================================================================
+   STANDALONE SUBPAGES ARCHITECTURE (dj-warp.html, battle-rules.html, credits.html)
+   Pedagogical Documentation (FBAUP WD101):
+   - Consistent design token hierarchy across multi-page information architecture.
+   - Editorial grid adapting from single column mobile to 2-column desktop.
+   - Fluid typography clamp() formulas for high-impact headings without overflow.
+   ========================================================================== */
+@layer subpages {
+  /* Breadcrumbs Navigation Landmark */
+  .breadcrumb-nav {
+    margin-bottom: 24px;
+    padding: 8px 0;
+  }
+
+  .breadcrumb-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-medium-gray);
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb-item a {
+    color: var(--color-light-gray);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumb-item a:hover {
+    color: var(--color-accent-red);
+  }
+
+  .breadcrumb-item.active {
+    color: var(--color-white);
+  }
+
+  /* Subpage Hero Sections */
+  .artist-hero-section,
+  .battle-hero-section,
+  .credits-hero-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .artist-page-title {
+    font-family: var(--font-family-display);
+    font-weight: 800;
+    font-size: clamp(1.75rem, 4vw, 3.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    color: var(--color-white);
+    margin: 0;
+  }
+
+  .artist-hero-lead {
+    font-family: var(--font-family-body);
+    font-size: clamp(0.95rem, 1.8vw, 1.25rem);
+    line-height: 1.5;
+    color: var(--color-light-gray);
+    max-width: 880px;
+    margin: 0;
+  }
+
+  /* Artist Quick Stats Row */
+  .artist-quick-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .stat-pill {
+    background-color: var(--color-charcoal-black);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-sm);
+    padding: 10px 16px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .stat-number {
+    font-family: var(--font-family-display);
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--color-accent-red);
+  }
+
+  .stat-label {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-light-gray);
+    letter-spacing: 0.5px;
+  }
+
+  /* Figures & Captions */
+  .artist-hero-figure,
+  .inline-editorial-figure,
+  .banner-figure {
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-divider);
+    background-color: var(--color-box-bg-dark);
+  }
+
+  .artist-hero-img,
+  .inline-portrait-img,
+  .banner-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .artist-figure-caption {
+    padding: 14px 18px;
+    background-color: var(--color-box-bg-dark);
+    font-family: var(--font-family-body);
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--color-light-gray);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .caption-tag {
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--color-accent-purple);
+    letter-spacing: 0.5px;
+  }
+
+  /* Subpage Two-Column Editorial Layout */
+  .artist-editorial-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+
+  @media (min-width: 960px) {
+    .artist-editorial-grid {
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 48px;
+      align-items: start;
+    }
+
+    .artist-sidebar-column {
+      position: sticky;
+      top: 32px;
+    }
+  }
+
+  .artist-bio-column {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .artist-sidebar-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* Editorial Blocks */
+  .editorial-block {
+    background-color: var(--color-charcoal-black);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .editorial-heading {
+    font-family: var(--font-family-display);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.5px;
+    color: var(--color-white);
+    margin: 0;
+  }
+
+  .editorial-paragraph {
+    font-family: var(--font-family-body);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-off-white);
+    margin: 0;
+  }
+
+  /* Quotes Aside */
+  .artist-quote-aside {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.15) 0%, rgba(22, 23, 26, 0.9) 100%);
+    border: 1px solid var(--color-accent-purple);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+  }
+
+  .quote-aside-inner {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .quote-aside-thumb img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-accent-purple);
+  }
+
+  .artist-quote {
+    font-family: var(--font-family-display);
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-white);
+    margin: 0 0 6px 0;
+  }
+
+  .artist-quote-author {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-accent-red);
+    font-style: normal;
+  }
+
+  /* Info Card Boxes in Sidebar */
+  .info-card-box {
+    background-color: var(--color-charcoal-black);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .info-card-eyebrow {
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--color-accent-red);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .info-card-title {
+    font-family: var(--font-family-display);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--color-white);
+    margin: 0;
+  }
+
+  .info-card-text {
+    font-family: var(--font-family-body);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-light-gray);
+    margin: 0;
+  }
+
+  /* Tracklist */
+  .track-breakdown-title {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-medium-gray);
+    letter-spacing: 0.5px;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .tracklist-ordered-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tracklist-item {
+    padding: 10px;
+    background-color: var(--color-box-bg-dark);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--color-accent-red);
+  }
+
+  .track-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .track-time {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-accent-red);
+    font-weight: 700;
+  }
+
+  .track-name {
+    font-family: var(--font-family-display);
+    font-size: 13px;
+    color: var(--color-white);
+  }
+
+  .track-desc {
+    font-family: var(--font-family-body);
+    font-size: 12px;
+    color: var(--color-light-gray);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  /* Gear List */
+  .gear-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .gear-item {
+    font-family: var(--font-family-body);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-light-gray);
+  }
+
+  .gear-item strong {
+    color: var(--color-white);
+  }
+
+  /* CTA Pass Box */
+  .cta-pass-box {
+    border-color: var(--color-accent-red);
+    background: linear-gradient(180deg, rgba(230, 0, 0, 0.08) 0%, var(--color-charcoal-black) 100%);
+  }
+
+  .price-highlight-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 0;
+  }
+
+  .price-big {
+    font-family: var(--font-family-display);
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--color-white);
+  }
+
+  .price-sub {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-accent-red);
+  }
+
+  /* Battle Rules Step Cards */
+  .rules-step-card {
+    background-color: var(--color-box-bg-dark);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .rule-step-final {
+    border-color: var(--color-accent-purple);
+    background-color: #171322;
+  }
+
+  .rule-step-number {
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--color-accent-red);
+    letter-spacing: 1px;
+  }
+
+  .rule-step-final .rule-step-number {
+    color: var(--color-accent-purple);
+  }
+
+  .rule-step-title {
+    font-family: var(--font-family-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-white);
+    margin: 0;
+  }
+
+  /* Alert Box */
+  .alert-box-warning {
+    background-color: rgba(230, 0, 0, 0.12);
+    border: 1px solid var(--color-accent-red);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .alert-badge {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-accent-red);
+    letter-spacing: 0.5px;
+  }
+
+  .alert-text {
+    font-family: var(--font-family-body);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-off-white);
+    margin: 0;
+  }
+
+  /* Judging Rubric Items */
+  .rubric-item {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-divider);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .rubric-item:last-child {
+    border-bottom: none;
+  }
+
+  .rubric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-family-display);
+    font-size: 13px;
+    color: var(--color-white);
+  }
+
+  .rubric-points {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-accent-red);
+  }
+
+  .rubric-desc {
+    font-family: var(--font-family-body);
+    font-size: 12px;
+    color: var(--color-light-gray);
+    margin: 0;
+  }
+
+  /* Two Image Banner Grid */
+  .two-image-banner-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  @media (min-width: 600px) {
+    .two-image-banner-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Token Swatch Matrix */
+  .token-swatch-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .token-swatch-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    background-color: var(--color-box-bg-dark);
+    border-radius: var(--radius-sm);
+  }
+
+  .swatch-box {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-divider);
+    flex-shrink: 0;
+  }
+
+  .swatch-meta {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-white);
+  }
+
+  .swatch-meta span {
+    font-size: 10px;
+    color: var(--color-medium-gray);
+  }
+
+  .code-inline {
+    font-family: var(--font-family-mono);
+    font-size: 12px;
+    background-color: var(--color-box-bg-dark);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--color-divider);
+    color: var(--color-light-gray);
+  }
+
+  .credits-inline-link {
+    color: var(--color-accent-red);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+  }
+
+  .credits-inline-link:hover {
+    color: var(--color-accent-red-hover);
+  }
+}
+
+
+/* ==========================================================================
+   PURE CSS SCROLL-DRIVEN ANIMATIONS & MICRO-INTERACTIONS
+   Pedagogical Documentation (FBAUP WD101):
+   - Uses native CSS Scroll-Driven Animations: .
+   - Top progress bar scales horizontally with scroll position without JS.
+   - Vinyl platter graphic executes continuous rotation as the user traverses
+     down the festival page.
+   - Progressively enhanced using @supports (animation-timeline: scroll()).
+   ========================================================================== */
+@layer animations {
+  /* Scroll Progress Bar at the top of the viewport */
+  .scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-accent-red) 0%, #ff4b4b 50%, var(--color-accent-purple) 100%);
+    transform-origin: 0% 50%;
+    transform: scaleX(0);
+    z-index: 9999;
+    pointer-events: none;
+    box-shadow: 0 0 10px rgba(230, 0, 0, 0.7);
+  }
+
+  /* Progressive Enhancement for modern Chrome / Safari supporting CSS Scroll-Driven Animations */
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress-bar {
+      animation: growProgressBar auto linear;
+      animation-timeline: scroll(root);
+    }
+
+    @keyframes growProgressBar {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    /* Scroll-driven turntable vinyl spin */
+    .vinyl-platter img {
+      animation: spinPlatterWithScroll auto linear;
+      animation-timeline: scroll(root);
+    }
+
+    @keyframes spinPlatterWithScroll {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(720deg);
+      }
+    }
+  }
+
+  /* Subtle pulse micro-interaction on primary ticket CTAs */
+  .btn-cta-pulse {
+    animation: ctaGlowPulse 2.8s infinite ease-in-out;
+  }
+
+  @keyframes ctaGlowPulse {
+    0%, 100% {
+      box-shadow: 0 0 0 rgba(230, 0, 0, 0);
+    }
+    50% {
+      box-shadow: 0 0 16px rgba(230, 0, 0, 0.6);
+    }
+  }
+}

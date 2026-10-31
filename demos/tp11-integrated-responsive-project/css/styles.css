@@ -1,0 +1,42 @@
+/* ==========================================================================
+   MASTER INTEGRATED RESPONSIVE STYLESHEET
+   Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+   Course: Web Design (WD101) — 2026/27
+   Festival Context: DRUMTIKS '26 (Alfândega do Porto)
+   Master Capstone: TP11 Integrated Responsive Project
+   ==========================================================================
+   PEDAGOGICAL ARCHITECTURE:
+   1. @layer Cascade Hierarchy (reset -> tokens -> layout -> components -> interactive -> xray)
+   2. Zero-JS Dynamic Theming via CSS Variables & light-dark()
+   3. 2D CSS Grid Macro-Architecture with Mobile-First 4-Breakpoint Escalation
+   4. Asymmetric Dense Masonry Gallery with Editorial Whitespace (Voids)
+   5. 1D Flexbox Micro-Alignments (Alternating Column ↔ Wrapping Row)
+   6. 3D Vinyl Crate Fan-out with Spring Physics (cubic-bezier)
+   7. Native Scroll-Driven Animations: scroll(root) & view()
+   8. Pure CSS X-Ray Matrix Diagnostics Inspector
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   MDN CANONICAL REFERENCES:
+   - Cascade Layers (@layer):
+     https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
+   - Specificity in CSS:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Cascade_and_inheritance/Specificity
+   - Cascade and Inheritance:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Cascade_and_inheritance
+   - Responsive Web Design Basics:
+     https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design
+   -------------------------------------------------------------------------- */
+
+/* Declare formal Cascade Layer order to guarantee predictable precedence */
+@layer reset, tokens, layout, components, interactive, xray;
+
+/* Import Modular Component Files */
+@import url("fonts.css");
+@import url("tokens.css");
+@import url("reset.css");
+@import url("layout-macro-grid.css");
+@import url("layout-micro-flexbox.css");
+@import url("components.css");
+@import url("animations-transitions.css");
+@import url("xray-inspector.css");

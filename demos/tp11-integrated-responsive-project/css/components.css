@@ -1,0 +1,437 @@
+/* ==========================================================================
+   FESTIVAL COMPONENTS & PURE CSS REACTIVE UI
+   FBAUP • Web Design WD101 • Festival DRUMTIKS '26
+   Master Capstone: TP11 Integrated Responsive Project
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   MDN DOCUMENTATION REFERENCES:
+   - <details> and <summary> disclosure elements:
+     https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
+   - <dialog> element:
+     https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
+   - :checked pseudo-class:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/:checked
+   - :has() relational selector:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/:has
+   - backdrop-filter:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter
+   -------------------------------------------------------------------------- */
+
+@layer components {
+  /* --------------------------------------------------------------------------
+     1. HERO DJ WARP STAGE CARD
+     Specificity: (0, 1, 0)
+     -------------------------------------------------------------------------- */
+  .hero-stage-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    color: var(--color-accent-red);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    display: inline-block;
+    margin-bottom: var(--space-xs);
+  }
+
+  .hero-title {
+    font-size: var(--font-size-h1);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-xs);
+    color: var(--color-text-primary);
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-body);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-visual-frame {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: var(--space-lg);
+    border: 1px solid var(--color-border-subtle);
+    background-color: var(--color-bg-canvas);
+  }
+
+  .hero-visual-frame img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .hero-stage-card:hover .hero-visual-frame img {
+    transform: scale(1.02);
+  }
+
+  /* Venue Card Sub-component */
+  .venue-info-box {
+    background-color: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    font-size: var(--font-size-small);
+  }
+
+  .venue-info-box h3 {
+    font-size: var(--font-size-body);
+    margin-bottom: var(--space-2xs);
+    color: var(--color-text-primary);
+  }
+
+  /* --------------------------------------------------------------------------
+     2. SECTION HEADINGS & INTROS
+     Specificity: (0, 1, 0)
+     -------------------------------------------------------------------------- */
+  .section-header-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    margin-bottom: var(--space-lg);
+  }
+
+  .section-tag {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    color: var(--color-accent-red);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+
+  .section-title {
+    font-size: var(--font-size-h2);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  /* --------------------------------------------------------------------------
+     3. PRICING SIMULATOR & PURE CSS REACTIVE RECEIPT
+     Calculates totals without JavaScript using :has() and :checked
+     Specificity: (0, 1, 0) to (0, 3, 0)
+     -------------------------------------------------------------------------- */
+  .simulator-panel {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+  }
+
+  .ticket-tier-card {
+    display: block;
+    position: relative;
+    padding: var(--space-md);
+    border: 2px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    background-color: var(--color-bg-surface-elevated);
+    transition: all var(--transition-fast);
+  }
+
+  .ticket-tier-card:hover {
+    border-color: var(--color-text-muted);
+  }
+
+  /* Visually hidden native radio button */
+  .ticket-tier-card input[type="radio"],
+  .addon-checkbox-label input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Active selection state via :has(:checked) */
+  .ticket-tier-card:has(input:checked) {
+    border-color: var(--color-accent-red);
+    background-color: var(--color-accent-red-subtle);
+  }
+
+  .tier-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2xs);
+  }
+
+  .tier-title {
+    font-weight: 700;
+    font-size: var(--font-size-body);
+  }
+
+  .tier-price {
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    color: var(--color-accent-red);
+  }
+
+  /* Addon Checkboxes */
+  .addon-option-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-top: var(--space-md);
+  }
+
+  .addon-checkbox-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: var(--font-size-small);
+    transition: background-color var(--transition-fast);
+  }
+
+  .addon-checkbox-label:hover {
+    background-color: var(--color-bg-surface-elevated);
+  }
+
+  .addon-checkbox-label:has(input:checked) {
+    border-color: var(--color-accent-cyan);
+    background-color: rgba(0, 210, 255, 0.08);
+  }
+
+  /* Receipt Breakdown Terminal Card */
+  .receipt-terminal-card {
+    background-color: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    font-family: var(--font-family-mono);
+  }
+
+  .receipt-header {
+    font-size: var(--font-size-micro);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding-bottom: var(--space-xs);
+    margin-bottom: var(--space-md);
+  }
+
+  /* --------------------------------------------------------------------------
+     4. FAQ ACCORDION (<details> and <summary>)
+     Zero-JS accessible disclosure widget
+     Specificity: (0, 1, 0)
+     -------------------------------------------------------------------------- */
+  .faq-accordion-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .faq-accordion-item {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color var(--transition-fast);
+  }
+
+  .faq-accordion-item[open] {
+    border-color: var(--color-accent-red);
+  }
+
+  .faq-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    list-style: none; /* Removes browser default triangle marker */
+  }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-summary::after {
+    content: '+';
+    font-family: var(--font-family-mono);
+    font-size: 1.25rem;
+    color: var(--color-accent-red);
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-accordion-item[open] .faq-summary::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-content-body {
+    padding: 0 var(--space-lg) var(--space-lg);
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-body);
+  }
+
+  /* --------------------------------------------------------------------------
+     5. CONTROLS & THEME TOGGLE WIDGET
+     Specificity: (0, 1, 0)
+     -------------------------------------------------------------------------- */
+  .theme-toggle-cluster {
+    display: inline-flex;
+    background-color: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-full);
+    padding: 2px;
+  }
+
+  .theme-radio-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    cursor: pointer;
+    color: var(--color-text-muted);
+    transition: all var(--transition-fast);
+  }
+
+  .theme-radio-pill input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .theme-radio-pill:has(input:checked) {
+    background-color: var(--color-accent-red);
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  /* Primary Action Button (CTA) */
+  .btn-primary-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-md);
+    background-color: var(--color-accent-red);
+    color: #ffffff !important;
+    font-family: var(--font-family-display);
+    font-weight: 700;
+    font-size: var(--font-size-small);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .btn-primary-cta:hover {
+    background-color: var(--color-accent-red-hover);
+    transform: translateY(-1px);
+  }
+
+  /* --------------------------------------------------------------------------
+     6. PEDAGOGICAL CODE SNIPPET CALLOUT BLOCK
+     Displays real live code inside the layout for in-context study
+     Specificity: (0, 1, 0)
+     -------------------------------------------------------------------------- */
+  .pedagogical-code-callout {
+    background-color: #0c0d10;
+    border: 1px solid #2d3039;
+    border-left: 4px solid var(--color-accent-cyan);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin: var(--space-md) 0;
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    color: #d1d5db;
+    overflow-x: auto;
+  }
+
+  .code-callout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xs);
+    padding-bottom: var(--space-xs);
+    border-bottom: 1px solid #1f2229;
+    font-weight: 700;
+    color: var(--color-accent-cyan);
+  }
+
+  /* --------------------------------------------------------------------------
+     7. SITE FOOTER (Global Academic Navigation Landmark)
+     Specificity: (0, 1, 0)
+     -------------------------------------------------------------------------- */
+  .site-footer {
+    border-top: 1px solid var(--color-border-subtle);
+    padding-top: var(--space-2xl);
+    margin-top: var(--space-3xl);
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+  }
+
+  @media (min-width: 640px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 960px) {
+    .footer-grid {
+      grid-template-columns: 2fr repeat(3, 1fr);
+    }
+  }
+
+  .footer-col h4 {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-body);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .footer-link-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .footer-link-list a:hover {
+    color: var(--color-accent-red);
+  }
+
+  .footer-bottom-bar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding-top: var(--space-lg);
+    border-top: 1px dashed var(--color-border-subtle);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 768px) {
+    .footer-bottom-bar {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}

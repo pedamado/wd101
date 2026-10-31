@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="hero-grad-md" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0e"/>
+      <stop offset="100%" stop-color="#2a0808"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#hero-grad-md)"/>
+  
+  <!-- Eurorack Graphic -->
+  <rect x="420" y="80" width="340" height="340" rx="6" fill="#12131a" stroke="#333745" stroke-width="2"/>
+  <path d="M 460 140 C 500 300, 640 220, 680 340" fill="none" stroke="#e60000" stroke-width="3"/>
+  <path d="M 520 200 C 580 320, 700 160, 720 120" fill="none" stroke="#0284c7" stroke-width="3"/>
+  
+  <!-- Oscilloscope -->
+  <rect x="40" y="240" width="340" height="180" rx="4" fill="#05080c" stroke="#22c55e" stroke-width="2"/>
+  <path d="M 50 330 Q 90 260, 130 330 T 210 330 T 290 330 T 370 330" fill="none" stroke="#22c55e" stroke-width="2.5"/>
+
+  <!-- Typography -->
+  <text x="40" y="120" font-family="'Fraunces', Georgia, serif" font-weight="900" font-size="38" fill="#ffffff">DJ WARP</text>
+  <text x="42" y="155" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="24" fill="#e60000">LIVE AT DRUMTIKS '26</text>
+  <text x="42" y="190" font-family="'Arimo', sans-serif" font-weight="600" font-size="14" fill="#a1a1aa" letter-spacing="2">TABLET ART DIRECTION</text>
+</svg>

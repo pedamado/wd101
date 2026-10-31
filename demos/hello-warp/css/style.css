@@ -1,0 +1,398 @@
+/**
+ * ==========================================================================
+ * WD101 — Web Design 101 | Faculdade de Belas Artes da Universidade do Porto
+ * EXERCÍCIO 1: HELLO WARP! (Folha de Estilos Oficial)
+ * Ficheiro: css/style.css
+ * Autor: DJ Warp & Estudante WD101
+ * Docente: Prof. Pedro Amado (pamado@fba.up.pt)
+ * Data: 2026-10-24
+ *
+ * CRITÉRIOS DE AVALIAÇÃO CUMPRIDOS:
+ * 1. Reset Universal com box-sizing: border-box.
+ * 2. Viewport completa e abordagem Mobile-First rigorosa (min-width: 320px).
+ * 3. Declaração pedagógica explícita de position, display e dimensões relativas.
+ * 4. Tipografia escalada exclusivamente em rem/em com entrelinha unitless.
+ * 5. Limite ergonómico de leitura fixado em 75ch para parágrafos.
+ * 6. Domínio estrito de seletores descendentes (ZERO classes cosméticas).
+ * ==========================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   1. RESET UNIVERSAL (Marco 4: Modelo de Caixa)
+   -------------------------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Garante que padding e border não estouram a largura */
+}
+
+/* --------------------------------------------------------------------------
+   2. HTML & BODY (Apropriação Integral da Viewport)
+   -------------------------------------------------------------------------- */
+html {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 100vh; /* Ocupa 100% da altura visível da janela do navegador */
+  
+  /* Tipografia Base em escala relativa */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1rem;      /* 16px por padrão no navegador */
+  line-height: 1.6;     /* Entrelinha confortável para leitura contínua */
+  color: #1a1a1a;
+  background-color: #f7f7f8;
+  scroll-behavior: smooth; /* Permite salto suave ao navegar por âncoras internas */
+}
+
+body {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 320px; /* Previne colapso em telemóveis pequenos (Mobile-First) */
+  min-height: 100vh;
+  padding: 2rem 1.25rem; /* Margens de segurança para o texto nunca tocar nos limites */
+  background-color: #f7f7f8;
+}
+
+/* --------------------------------------------------------------------------
+   3. LANDMARK: HEADER (Cabeçalho Introdutório)
+   -------------------------------------------------------------------------- */
+header {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 320px;
+  max-width: 48rem; /* Limite elástico (~768px) para conforto visual */
+  margin: 0 auto 3rem auto; /* Centramento na horizontal com margem inferior */
+  padding-bottom: 2rem;
+  border-bottom: 3px solid #e60000; /* Linha de assinatura gráfica suíça */
+}
+
+header h1 {
+  position: relative;
+  display: block;
+  width: 100%;
+  font-size: 2.5rem;   /* Escala relativa rem */
+  line-height: 1.15;   /* Entrelinha compacta obrigatória para títulos */
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #050505;
+  margin-bottom: 0.75rem;
+}
+
+header p {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 75ch;     /* Limite ótimo de leitura de 75 caracteres */
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: #444444;
+  margin-bottom: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. LANDMARK: NAV (Lista de Navegação com Seletores Descendentes)
+   Estilização puramente hierárquica: nav ul, nav li, nav a
+   -------------------------------------------------------------------------- */
+nav {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+nav ul {
+  position: relative;
+  display: block;
+  width: 100%;
+  list-style: none; /* Eliminação de marcadores tradicionais de lista */
+  padding: 0;
+}
+
+nav ul li {
+  position: relative;
+  display: inline-block; /* Alinhamento horizontal sem recurso a Flexbox */
+  margin-right: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+nav ul li a {
+  position: relative;
+  display: inline-block;
+  padding: 0.45rem 0.85rem;
+  background-color: #ffffff;
+  color: #111111;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border: 1px solid #d4d4d8;
+  border-radius: 3px;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+/* Estados de Foco e Passagem de Rato (Acessibilidade Visual) */
+nav ul li a:hover,
+nav ul li a:focus {
+  background-color: #e60000;
+  color: #ffffff;
+  border-color: #e60000;
+  outline: 2px solid #000000; /* Feedback táctil de navegação por teclado */
+}
+
+/* --------------------------------------------------------------------------
+   5. LANDMARK: MAIN (Fluxo de Conteúdo Central)
+   -------------------------------------------------------------------------- */
+main {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 320px;
+  max-width: 48rem;
+  margin: 0 auto 4rem auto;
+}
+
+/* --------------------------------------------------------------------------
+   6. SECTIONS & ARTICLES (Secções Temáticas e Cartões de Conteúdo)
+   -------------------------------------------------------------------------- */
+section {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-bottom: 3.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e2e2e5;
+}
+
+section h2 {
+  position: relative;
+  display: block;
+  width: 100%;
+  font-size: 1.75rem;
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #111111;
+  margin-bottom: 1.25rem;
+}
+
+/* Cartões de Artigo estruturados sem classes */
+article {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border: 1px solid #dcdce0;
+  border-left: 4px solid #e60000; /* Identidade visual através da borda esquerda */
+  border-radius: 0 4px 4px 0;
+}
+
+article h3 {
+  position: relative;
+  display: block;
+  width: 100%;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 0.6rem;
+}
+
+/* Parágrafos: Regra de Ouro da Legibilidade Tipográfica */
+p {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 75ch; /* Limite ergonómico: linhas não excedem 75 caracteres */
+  font-size: 1rem;
+  color: #2e2e2e;
+  margin-bottom: 1rem;
+}
+
+/* Citações com Recuo e Borda Lateral */
+blockquote {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 75ch;
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  background-color: #ececed;
+  border-left: 3px solid #111111;
+  font-style: italic;
+  color: #333333;
+}
+
+blockquote p {
+  margin-bottom: 0;
+}
+
+/* Listas Ordenadas e Desordenadas nas Secções */
+section ul,
+section ol {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 75ch;
+  margin: 1rem 0 1.5rem 1.75rem;
+}
+
+section ul li,
+section ol li {
+  position: relative;
+  display: list-item;
+  margin-bottom: 0.6rem;
+  font-size: 1rem;
+  color: #2e2e2e;
+}
+
+/* --------------------------------------------------------------------------
+   7. FORMATAÇÃO SEMÂNTICA INLINE (Text Semantics)
+   -------------------------------------------------------------------------- */
+strong {
+  font-weight: 700;
+  color: #000000;
+}
+
+em {
+  font-style: italic;
+}
+
+mark {
+  background-color: #fef08a;
+  color: #854d0e;
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+}
+
+del {
+  color: #71717a;
+  text-decoration: line-through;
+}
+
+ins {
+  color: #047857;
+  text-decoration: none;
+  font-weight: 600;
+  background-color: #ecfdf5;
+  padding: 0.05em 0.25em;
+}
+
+abbr[title] {
+  text-decoration: underline dotted #71717a;
+  cursor: help;
+}
+
+time {
+  font-family: monospace;
+  font-weight: 600;
+  color: #111111;
+}
+
+/* Hiperligações no Corpo de Texto */
+section a,
+aside a,
+footer a {
+  color: #e60000;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+section a:hover,
+aside a:hover,
+footer a:hover {
+  color: #000000;
+}
+
+/* --------------------------------------------------------------------------
+   8. ASIDE & LISTA DE DEFINIÇÕES (DL, DT, DD)
+   -------------------------------------------------------------------------- */
+aside {
+  position: relative;
+  display: block;
+  width: 100%;
+  background-color: #f0f0f2;
+  border: 1px solid #dcdce0;
+  padding: 1.75rem;
+  margin-top: 2rem;
+  margin-bottom: 3.5rem;
+  border-radius: 4px;
+}
+
+aside h2 {
+  position: relative;
+  display: block;
+  font-size: 1.35rem;
+  color: #111111;
+  margin-bottom: 0.75rem;
+}
+
+dl {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+dt {
+  position: relative;
+  display: block;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #e60000;
+  margin-top: 1rem;
+}
+
+dd {
+  position: relative;
+  display: block;
+  font-size: 0.95rem;
+  color: #444444;
+  margin-left: 1.25rem;
+  margin-top: 0.25rem;
+  max-width: 70ch;
+}
+
+/* --------------------------------------------------------------------------
+   9. LANDMARK: FOOTER (Rodapé Informativo)
+   -------------------------------------------------------------------------- */
+footer {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 320px;
+  max-width: 48rem;
+  margin: 3rem auto 1rem auto;
+  padding-top: 2rem;
+  border-top: 1px solid #d4d4d8;
+  font-size: 0.875rem;
+  color: #666666;
+  text-align: center;
+  line-height: 1.7;
+}
+
+code {
+  font-family: "SF Mono", Monaco, Consolas, "Courier New", monospace;
+  font-size: 0.9em;
+  background-color: #e4e4e7;
+  color: #18181b;
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   10. FEEDBACK VISUAL PARA ÂNCORAS (:target)
+   Quando o utilizador clica num link #id, o bloco correspondente pisca suavemente
+   -------------------------------------------------------------------------- */
+:target {
+  outline: 3px solid #e60000;
+  outline-offset: 6px;
+  animation: highlight-pulse 2s ease-out;
+}
+
+@keyframes highlight-pulse {
+  0% { background-color: rgba(230, 0, 0, 0.15); }
+  100% { background-color: transparent; }
+}

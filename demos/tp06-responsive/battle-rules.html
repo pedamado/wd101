@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ========================================================================
+       DOCUMENT METADATA & ENCODING
+       Pedagogical Note (FBAUP WD101):
+       - Explains HTML5 <head> configuration, character encoding, and viewport.
+       - Mobile-first responsive optimization with viewport-fit=cover.
+       ======================================================================== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>The 808 Clash • Official Battle Rules &amp; Tournament Structure • DRUMTIKS '26</title>
+  <meta name="description" content="Official tournament rules, hardware regulations, and scoring rubric for THE 808 CLASH Regional Beat Battle at DRUMTIKS 2026, Alfândega do Porto.">
+  
+  <!-- Self-hosted Variable Fonts & Core Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Scalable Vector Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+</head>
+<body class="page-battle-rules">
+
+  <!-- Pure CSS Scroll-Driven Viewport Progress Bar -->
+  <div class="scroll-progress-bar" aria-hidden="true"></div>
+
+  <!-- Primary Site Wrapper -->
+  <div class="site-wrapper">
+
+    <!-- ======================================================================
+         SITE HEADER LANDMARK (<header>)
+         Global navigation bar and responsive header actions.
+         ====================================================================== -->
+    <header class="site-header" data-node-id="header-battle">
+      <a href="index.html" class="site-logo" aria-label="DRUMTIKS 2026 Home">
+        DRUMTIKS <span class="site-logo-accent">'26</span>
+      </a>
+
+      <!-- Primary Navigation Bar (Pure HTML/CSS, Progressive Enhancement) -->
+      <nav class="site-nav" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="index.html" class="nav-link">HOME</a></li>
+          <li class="nav-item"><a href="dj-warp.html" class="nav-link">DJ WARP</a></li>
+          <li class="nav-item"><a href="battle-rules.html" class="nav-link active" aria-current="page">808 CLASH</a></li>
+          <li class="nav-item"><a href="index.html#festival-gallery" class="nav-link">ATMOSPHERE</a></li>
+          <li class="nav-item"><a href="credits.html" class="nav-link">CREDITS</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="date-badge">
+          <span class="date-badge-text">14.NOV.2026 • PORTO</span>
+        </div>
+        <a href="index.html#pricing-simulator" class="btn-primary header-desktop-cta">REGISTER</a>
+      </div>
+    </header>
+
+
+    <!-- ======================================================================
+         MAIN CONTENT LANDMARK (<main>)
+         Tournament regulations, hardware guidelines, judging rubrics,
+         and responsive visual showcase for The 808 Clash.
+         ====================================================================== -->
+    <main class="site-main-content">
+
+      <!-- Breadcrumbs Navigation Landmark -->
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li class="breadcrumb-item"><a href="index.html">Festival Home</a></li>
+          <li class="breadcrumb-item" aria-hidden="true">/</li>
+          <li class="breadcrumb-item"><a href="index.html#program-title">Program Lineup</a></li>
+          <li class="breadcrumb-item" aria-hidden="true">/</li>
+          <li class="breadcrumb-item active" aria-current="page">The 808 Clash Rules</li>
+        </ol>
+      </nav>
+
+      <!-- BATTLE HEADER SECTION -->
+      <section class="battle-hero-section">
+        <span class="hero-eyebrow">REGIONAL PRODUCER TOURNAMENT // 16 BEATMAKERS // 1 CHAMPION</span>
+        <h1 class="artist-page-title">THE 808 CLASH: OFFICIAL BATTLE RULES</h1>
+        <p class="artist-hero-lead">
+          Underground Vault 02 transforms into an electrified sonic battle ring. Sixteen producers face off over hardware samplers and twin turntables. No presets, no pre-rendered laptop stems—pure spontaneous groove warfare judged by Grand Master DJ WARP.
+        </p>
+
+        <!-- ====================================================================
+             RESPONSIVE PICTURE: 2 PRODUCERS HEAD-TO-HEAD BATTLE
+             Asset Manifest: watermarked_img_14192630104313829256 (battle-producers)
+             ==================================================================== -->
+        <figure class="artist-hero-figure">
+          <picture class="artist-responsive-picture">
+            <source media="(min-width: 960px)" 
+                    type="image/webp" 
+                    srcset="assets/images/battle-producers-960w.webp 960w, assets/images/battle-producers-1400w.webp 1400w, assets/images/battle-producers.webp 2752w" 
+                    sizes="(min-width: 1240px) 1160px, 92vw">
+            <source media="(min-width: 960px)" 
+                    type="image/jpeg" 
+                    srcset="assets/images/battle-producers-960w.jpg 960w, assets/images/battle-producers-1400w.jpg 1400w, assets/images/battle-producers.jpg 2752w" 
+                    sizes="(min-width: 1240px) 1160px, 92vw">
+            <source type="image/webp" 
+                    srcset="assets/images/battle-producers-600w.webp 600w, assets/images/battle-producers-960w.webp 960w" 
+                    sizes="100vw">
+            <source type="image/jpeg" 
+                    srcset="assets/images/battle-producers-600w.jpg 600w, assets/images/battle-producers-960w.jpg 960w" 
+                    sizes="100vw">
+            <img src="assets/images/battle-producers-960w.jpg" 
+                 alt="Two producers battling over MPC hardware drum machines and turntables under red and purple spotlights" 
+                 class="artist-hero-img" 
+                 width="1200" 
+                 height="675" 
+                 loading="eager" 
+                 fetchpriority="high">
+          </picture>
+          <figcaption class="artist-figure-caption">
+            <span class="caption-tag">LIVE BATTLE ARENA</span>
+            <span>Two contestants engaged in intense 60-second beat rounds under split crimson and violet rim lighting.</span>
+          </figcaption>
+        </figure>
+      </section>
+
+
+      <!-- TOURNAMENT STRUCTURE & RULES GRID -->
+      <div class="artist-editorial-grid">
+
+        <!-- COLUMN 1: TOURNAMENT FORMAT & HARDWARE REGULATIONS -->
+        <article class="artist-bio-column">
+
+          <section class="editorial-block">
+            <h2 class="editorial-heading">1. TOURNAMENT BRACKET &amp; FORMAT</h2>
+            <div class="rules-step-card">
+              <span class="rule-step-number">PHASE 01</span>
+              <h3 class="rule-step-title">Round of 16: The Crate Flip (60 Seconds)</h3>
+              <p class="editorial-paragraph">
+                Each competitor plays one 60-second original beat chopped from an assigned 1970s jazz/funk vinyl sample provided 24 hours prior. Coin toss decides who drops first.
+              </p>
+            </div>
+
+            <div class="rules-step-card">
+              <span class="rule-step-number">PHASE 02</span>
+              <h3 class="rule-step-title">Quarterfinals: 808 Sub Warfare (Two 45s Rounds)</h3>
+              <p class="editorial-paragraph">
+                Producers exchange two consecutive 45-second rounds. Focus is strictly on low-end weight, sub-bass tuning, and drum groove dynamics through the vault sound system.
+              </p>
+            </div>
+
+            <div class="rules-step-card">
+              <span class="rule-step-number">PHASE 03</span>
+              <h3 class="rule-step-title">Semifinals: Live Finger Drumming Sprint (90 Seconds)</h3>
+              <p class="editorial-paragraph">
+                No sequencer playback allowed. Beats must be tapped live on rubber pads in real time. Tempo must stay between 86 and 96 BPM.
+              </p>
+            </div>
+
+            <div class="rules-step-card rule-step-final">
+              <span class="rule-step-number">GRAND FINAL</span>
+              <h3 class="rule-step-title">The Mystery Acetate Blind Flip (3 Rounds)</h3>
+              <p class="editorial-paragraph">
+                Both finalists receive an unlabelled vinyl dubplate selected on the spot by DJ WARP. They get 3 minutes on stage to sample, chop, and play their live routine.
+              </p>
+            </div>
+          </section>
+
+
+          <section class="editorial-block">
+            <h2 class="editorial-heading">2. HARDWARE &amp; GEAR REGULATIONS</h2>
+            <div class="alert-box-warning">
+              <span class="alert-badge">STRICT HARDWARE ENFORCEMENT</span>
+              <p class="alert-text">
+                To preserve analog immediacy, <strong>NO LAPTOPS, TABLETS, OR PRE-RENDERED DIGITAL AUDIO WORKSTATIONS (DAWs)</strong> are allowed on the competition stage.
+              </p>
+            </div>
+
+            <ul class="gear-list" style="margin-top: 16px;">
+              <li class="gear-item">
+                <strong>Permitted Samplers:</strong> Akai MPC (all standalone models), Roland SP-404 / SP-303, Native Instruments Maschine+ (standalone mode), Elektron Octatrack / Digitakt.
+              </li>
+              <li class="gear-item">
+                <strong>Audio Outputs:</strong> Two balanced 1/4" TRS or RCA lines directly to the main battle mixer.
+              </li>
+              <li class="gear-item">
+                <strong>Pre-Loaded Sounds:</strong> Drums and sound clips may be pre-loaded onto SD cards or flash memory; however, all arrangement and trigger patterns must be triggered or modulated live.
+              </li>
+            </ul>
+          </section>
+
+        </article>
+
+
+        <!-- COLUMN 2: JUDGING RUBRIC & PRIZES -->
+        <aside class="artist-sidebar-column">
+
+          <!-- JUDGING SCORECARD BREAKDOWN -->
+          <div class="info-card-box">
+            <span class="info-card-eyebrow">OFFICIAL EVALUATION CRITERIA</span>
+            <h3 class="info-card-title">JUDGING RUBRIC (100 PTS TOTAL)</h3>
+            <p class="info-card-text">
+              Judged by Grand Master DJ WARP alongside two guest veteran producers from the Porto underground circuit.
+            </p>
+
+            <div class="divider"></div>
+
+            <div class="rubric-item">
+              <div class="rubric-header">
+                <strong>Swing, Pocket &amp; Human Groove</strong>
+                <span class="rubric-points">25 PTS</span>
+              </div>
+              <p class="rubric-desc">Micro-timing, unquantized shuffle, snare pocket, and head-nod factor.</p>
+            </div>
+
+            <div class="rubric-item">
+              <div class="rubric-header">
+                <strong>Sound Design &amp; 808 Sub Control</strong>
+                <span class="rubric-points">25 PTS</span>
+              </div>
+              <p class="rubric-desc">Clean low-end harmonic saturation, kick punch, and kick/bass phase alignment.</p>
+            </div>
+
+            <div class="rubric-item">
+              <div class="rubric-header">
+                <strong>Sample Chopping &amp; Harmonic Cleverness</strong>
+                <span class="rubric-points">25 PTS</span>
+              </div>
+              <p class="rubric-desc">Creative re-contextualization of source material, melodic flips, and pitch manipulation.</p>
+            </div>
+
+            <div class="rubric-item">
+              <div class="rubric-header">
+                <strong>Stage Energy &amp; Decibel Meter Response</strong>
+                <span class="rubric-points">25 PTS</span>
+              </div>
+              <p class="rubric-desc">Crowd uproar, performance flair, pad attack technique, and battle presence.</p>
+            </div>
+          </div>
+
+
+          <!-- PRIZES & REWARDS CARD -->
+          <div class="info-card-box gear-rider-box">
+            <span class="badge-best-value">AWARDS &amp; RECOGNITION</span>
+            <h3 class="info-card-title" style="margin-top: 8px;">CHAMPIONSHIP PACKAGE</h3>
+            <ul class="gear-list">
+              <li class="gear-item">
+                <strong>1st Place Champion:</strong> Official DRUMTIKS 2026 Heavyweight Brass Belt + Custom Custom Akai MPC One+ Gold Edition + 15-min live on-stage cypher with DJ WARP.
+              </li>
+              <li class="gear-item">
+                <strong>2nd Place:</strong> Roland SP-404MKII Sampler + 100 Vinyl Pressing run of their EP.
+              </li>
+              <li class="gear-item">
+                <strong>All 16 Contestants:</strong> Exclusive archival DRUMTIKS sample vault on custom USB cassette, artist backstage catering, and entry into the FBAUP Web Design showcase compilation.
+              </li>
+            </ul>
+          </div>
+
+          <!-- REGISTRATION CTA BOX -->
+          <div class="info-card-box cta-pass-box">
+            <span class="info-card-eyebrow">LIMITED COMPETITOR SLOTS</span>
+            <h3 class="info-card-title">SECURE YOUR BATTLE PASS</h3>
+            <p class="info-card-text">
+              Only 16 producer spots are available in the tournament draw. Registration includes entry into the qualifying round and full venue access.
+            </p>
+            <div class="price-highlight-row">
+              <span class="price-big">€10.00</span>
+              <span class="price-sub">Competitor Entry / Or €30 All-Access</span>
+            </div>
+            <a href="index.html#pricing-simulator" class="btn-primary btn-block">REGISTER AS COMPETITOR -&gt;</a>
+            <a href="index.html" class="btn-secondary btn-block" style="margin-top: 10px;">&lt;- BACK TO FESTIVAL HOME</a>
+          </div>
+
+        </aside>
+
+      </div>
+
+
+      <!-- ADDITIONAL BATTLE ATMOSPHERE ASSETS -->
+      <section class="artist-crowd-row">
+        <h2 class="section-header">BATTLE ATMOSPHERE &amp; CREW JAMS</h2>
+        <div class="two-image-banner-grid">
+          <figure class="banner-figure">
+            <picture>
+              <source type="image/webp" 
+                      srcset="assets/images/battle-mc-600w.webp 600w, assets/images/battle-mc-960w.webp 960w, assets/images/battle-mc.webp 2752w" 
+                      sizes="(min-width: 960px) 48vw, 100vw">
+              <source type="image/jpeg" 
+                      srcset="assets/images/battle-mc-600w.jpg 600w, assets/images/battle-mc-960w.jpg 960w, assets/images/battle-mc.jpg 2752w" 
+                      sizes="(min-width: 960px) 48vw, 100vw">
+              <img src="assets/images/battle-mc-960w.jpg" 
+                   alt="One-on-one MC battle hosting the 808 Clash showdown" 
+                   class="banner-img" 
+                   width="800" 
+                   height="450" 
+                   loading="lazy">
+            </picture>
+            <figcaption class="artist-figure-caption">
+              <span class="caption-tag">HOST MC &amp; VOCAL FACEOFF</span>
+              <span>Hosts hyping the crowd between producer rounds under high-saturation crimson spotlights.</span>
+            </figcaption>
+          </figure>
+
+          <figure class="banner-figure">
+            <picture>
+              <source type="image/webp" 
+                      srcset="assets/images/battle-crew-600w.webp 600w, assets/images/battle-crew-960w.webp 960w, assets/images/battle-crew.webp 2752w" 
+                      sizes="(min-width: 960px) 48vw, 100vw">
+              <source type="image/jpeg" 
+                      srcset="assets/images/battle-crew-600w.jpg 600w, assets/images/battle-crew-960w.jpg 960w, assets/images/battle-crew.jpg 2752w" 
+                      sizes="(min-width: 960px) 48vw, 100vw">
+              <img src="assets/images/battle-crew-960w.jpg" 
+                   alt="Crew vs crew team battle with beatmakers and turntablists across large gear table" 
+                   class="banner-img" 
+                   width="800" 
+                   height="450" 
+                   loading="lazy">
+            </picture>
+            <figcaption class="artist-figure-caption">
+              <span class="caption-tag">CREW JAM &amp; CYPHERS</span>
+              <span>Contestants and warmup crews testing vinyl crates and hardware samplers across the U-shaped gear table.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+    </main>
+
+
+    <!-- ======================================================================
+         SITE FOOTER LANDMARK (<footer>)
+         Academic credits, design attribution, copyright, and validation links.
+         ====================================================================== -->
+    <footer class="site-footer" data-node-id="footer-battle">
+      <div class="footer-top">
+        <a href="index.html" class="site-logo">
+          DRUMTIKS <span class="site-logo-accent">'26</span>
+        </a>
+        <p class="footer-tagline">
+          Hip Hop &amp; Beat Making Festival • Alfândega do Porto • Responsive Web Design Architecture
+        </p>
+      </div>
+
+      <div class="footer-nav-row">
+        <ul class="footer-nav-list">
+          <li><a href="index.html">Festival Home</a></li>
+          <li><a href="dj-warp.html">DJ WARP Profile</a></li>
+          <li><a href="battle-rules.html" class="active">808 Clash Battle</a></li>
+          <li><a href="index.html#festival-gallery">Photo Gallery</a></li>
+          <li><a href="index.html#pricing-simulator">Pass Simulator</a></li>
+          <li><a href="credits.html">Academic Credits</a></li>
+        </ul>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="footer-academic-meta">
+        <p>Faculdade de Belas Artes da Universidade do Porto (FBAUP) • Web Design (WD101) 2026-27</p>
+        <p>Pedagogical prototype engineered with pure HTML5 + CSS3 (No JavaScript). Mobile-First Responsive Design.</p>
+        <p><a href="credits.html" class="credits-inline-link">View Full Course Credits &amp; Token Architecture &rarr;</a></p>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

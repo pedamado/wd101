@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    ==========================================================================
+    FINAL PROJECT CAPSTONE: DRUMTIKS '26 INTEGRATED RESPONSIVE SUITE
+    Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+    Course: Web Design (WD101) — 2026/27
+    Authors: Pedro Amado (FBAUP/i2ADS) & Google Gemini (Pro 3 Flash / Pro4 Argon)
+    ==========================================================================
+    MDN CANONICAL REFERENCES:
+    - HTML Semantic Elements:
+      https://developer.mozilla.org/en-US/docs/Glossary/Semantics#semantics_in_html
+    - ARIA Landmarks Example:
+      https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role
+    - Viewport Meta Tag:
+      https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag
+    - CSS Grid Layout:
+      https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout
+    - Flexible Box Layout:
+      https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout
+    - light-dark() Function:
+      https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark
+    - Scroll-driven Animations:
+      https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations
+    ==========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>DRUMTIKS '26 • Advanced Integrated Responsive Festival Portal | WD101 FBAUP</title>
+  <meta name="description" content="Capstone master project combining 2D CSS Grid macro-layouts, 1D alternating Flexbox, 3D Vinyl Crate fan-out, pure CSS theming, and scroll-driven animations for DRUMTIKS '26.">
+
+  <!-- Self-Hosted Variable Webfonts & Master Cascade Layers Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Scalable Vector Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+</head>
+<body class="page-festival-master">
+
+  <!--
+    LANDMARK: Viewport Scroll Progress Indicator (Pure CSS Scroll-Driven Animation)
+    MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline
+    Uses `animation-timeline: scroll(root)` to dynamically track reading progress.
+  -->
+  <div class="viewport-progress-bar" aria-hidden="true"></div>
+
+  <!--
+    STATE CONTROLS: Hidden Radio Buttons & Checkboxes for Pure CSS UI States
+    1. Theme Switching (:root:has(#theme-*:checked))
+    2. X-Ray Diagnostics Matrix (:root:has(#xray-toggle:checked))
+  -->
+  <input type="radio" name="site-theme" id="theme-auto" checked aria-hidden="true" style="display:none;">
+  <input type="radio" name="site-theme" id="theme-light" aria-hidden="true" style="display:none;">
+  <input type="radio" name="site-theme" id="theme-dark" aria-hidden="true" style="display:none;">
+  <input type="checkbox" id="xray-toggle" aria-hidden="true" style="display:none;">
+
+  <!-- Site Content Wrapper (Constrained by --site-max-width and fluid gutters) -->
+  <div class="site-wrapper">
+
+    <!--
+      ========================================================================
+      LANDMARK: <header class="site-header" role="banner">
+      MDN: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header
+      Contains brand identity, accessible navigation links, version mode switch,
+      pure CSS theme selector, and the X-Ray layout inspector toggle.
+      ========================================================================
+    -->
+    <header class="site-header" role="banner">
+      <div class="header-brand-group">
+        <a href="index.html" class="site-logo" aria-label="DRUMTIKS 2026 Home">
+          <span style="font-family:var(--font-family-display); font-weight:800; font-size:1.6rem; color:var(--color-text-primary); letter-spacing:-0.03em;">
+            DRUMTIKS<span style="color:var(--color-accent-red);">'26</span>
+          </span>
+        </a>
+        <span class="pill-badge pill-badge--accent">CAPSTONE MASTER</span>
+      </div>
+
+      <!-- Semantic Primary Navigation (<nav role="navigation">) -->
+      <nav class="site-nav-menu" aria-label="Festival Primary Navigation">
+        <a href="#lineup" class="site-nav-link">Stage</a>
+        <a href="#schedule" class="site-nav-link">Schedule</a>
+        <a href="#gallery" class="site-nav-link">Masonry</a>
+        <a href="#tickets" class="site-nav-link">Tickets</a>
+        <a href="#faq" class="site-nav-link">FAQ</a>
+        <a href="../tp06-responsive/index.html" class="site-nav-link" style="color:var(--color-accent-gold);" title="Compare with Early Prototype">
+          ↩ Early Prototype (TP06)
+        </a>
+      </nav>
+
+      <!-- Interactive Utility Toolbars (Theme & X-Ray) -->
+      <div class="header-controls-group">
+        <!-- Pure CSS Theme Switcher -->
+        <div class="theme-toggle-cluster" role="radiogroup" aria-label="Color Scheme Mode">
+          <label for="theme-auto" class="theme-radio-pill" title="Follow Operating System Preference">
+            <span>Auto</span>
+          </label>
+          <label for="theme-light" class="theme-radio-pill" title="Light High-Contrast Mode">
+            <span>Light</span>
+          </label>
+          <label for="theme-dark" class="theme-radio-pill" title="Dark Club Mode">
+            <span>Dark</span>
+          </label>
+        </div>
+
+        <!-- Pure CSS X-Ray Matrix Toggle -->
+        <label for="xray-toggle" class="xray-toggle-pill" title="Toggle Pure CSS Layout Grid & Flex Lines">
+          <span>📐 X-Ray</span>
+        </label>
+
+        <!-- Step-by-Step Guide Link -->
+        <a href="GUIDE.md" class="pill-badge pill-badge--cyan" title="Read Step-by-Step Pedagogical Guide">
+          📖 Guide
+        </a>
+
+        <!-- Primary Call To Action -->
+        <a href="#tickets" class="btn-primary-cta">Get Passes</a>
+      </div>
+    </header>
+
+    <!--
+      Pedagogical Progression Notice Bar
+      Explains the transition from Early Prototype (TP06) to Full Advanced Prototype (TP11)
+    -->
+    <aside class="pedagogical-code-callout" style="border-left-color: var(--color-accent-gold); margin-bottom: var(--space-xl);" aria-label="Curricular Notice">
+      <div class="code-callout-header">
+        <span>🎓 CURRICULAR ADVANCEMENT: EARLY PROTOTYPE VS. ADVANCED INTEGRATED PROTOTYPE</span>
+        <span style="color:var(--color-accent-gold);">WD101 • FBAUP</span>
+      </div>
+      <p style="margin: 0.5rem 0; line-height: 1.5; color: var(--color-text-secondary);">
+        This capstone merges the <strong>TP06-responsive</strong> festival theme with the <strong>TP11 CSS Layout Suite</strong> (Flexbox &amp; CSS Grid 2D) and <strong>TP11 Dynamic Sensory Suite</strong> (Variables, 3D Transitions, Scroll-Driven Animations). 
+        You can inspect the earlier baseline at <a href="../tp06-responsive/index.html" style="color:var(--color-accent-red); text-decoration:underline;">Final Project - Early Prototype (TP06-responsive)</a> or consult the <a href="GUIDE.md" style="color:var(--color-accent-cyan); text-decoration:underline;">Step-by-Step Evolution Guide</a>.
+      </p>
+    </aside>
+
+    <!--
+      ========================================================================
+      LANDMARK: <main class="festival-master-grid" role="main">
+      MDN: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main
+      CSS GRID MACRO-SYSTEM:
+      - Mobile Default (< 1120px): Single Column Fluid Flow
+      - Desktop Widescreen (>= 1120px): 2D Grid with Named Template Areas
+        * Column 1 (Left): Sticky Stage (DJ Warp Hero Card + 3D Vinyl Crate + Venue)
+        * Column 2 (Right): Dynamic Scroll Flow (Schedule + Masonry Gallery + Simulator + FAQ)
+      ========================================================================
+    -->
+    <main class="festival-master-grid" role="main" id="main-content">
+
+      <!-- ====================================================================
+         COLUMN 1: STICKY COMMAND STAGE (DJ WARP SHOWCASE & VINYL CRATE)
+         CSS Grid Area: `stage-headliner`
+         ==================================================================== -->
+      <div class="grid-area-headliner">
+        
+        <!-- Landmark: <article> for DJ Warp Headliner -->
+        <article class="hero-stage-card scroll-reveal-item" id="lineup">
+          <span class="hero-eyebrow">LIVE HEADLINER &amp; MASTERCLASS</span>
+          <h1 class="hero-title">GRAND MASTER DJ 'WARP'</h1>
+          <p class="hero-subtitle">
+            Pioneer of 808 Turntablism • Underground Vault 02 Live Showcase
+          </p>
+
+          <!-- Responsive Art-Directed Hero Picture (<picture>) -->
+          <div class="hero-visual-frame">
+            <picture>
+              <source media="(min-width: 960px)" type="image/webp" srcset="assets/dj-warp-1400w.webp 1400w, assets/dj-warp-960w.webp 960w">
+              <source media="(min-width: 600px)" type="image/webp" srcset="assets/dj-warp-960w.webp 960w">
+              <source type="image/webp" srcset="assets/dj-warp-600w.webp 600w">
+              <img src="assets/dj-warp-960w.jpg" alt="DJ Warp scratching vinyl records live in the Alfândega Vaults" width="960" height="540" loading="eager" fetchpriority="high">
+            </picture>
+          </div>
+
+          <!--
+            ==================================================================
+            3D VINYL CRATE FAN-OUT INTERACTIVE WIDGET (From TP11 Transitions)
+            Pedagogical Note: Hover or focus triggers 3D perspective fan-out
+            and black vinyl disc extrusion with bouncy cubic-bezier spring physics!
+            ==================================================================
+          -->
+          <div style="margin-top: var(--space-md); border-top: 1px dashed var(--color-border-subtle); padding-top: var(--space-md);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: var(--space-xs);">
+              <span class="pill-badge pill-badge--cyan">3D VINYL CRATE</span>
+              <span style="font-family:var(--font-family-mono); font-size:var(--font-size-micro); color:var(--color-text-muted);">
+                Hover Crate to Fan-out ↗
+              </span>
+            </div>
+
+            <!-- Crate 3D Stage -->
+            <div class="vinyl-crate-container" tabindex="0" role="region" aria-label="Interactive 3D Vinyl Crate">
+              <!-- Sleeve 1: Warp Theory -->
+              <div class="crate-sleeve-wrapper crate-sleeve-1" title="LP 1: WARP THEORY — The 808 Chronicles">
+                <img class="crate-sleeve-cover" src="assets/images/album-1-warp-theory.jpg" alt="Cover: Warp Theory">
+                <div class="crate-vinyl-disc" aria-hidden="true"></div>
+              </div>
+
+              <!-- Sleeve 2: Concrete Pulse (Center) -->
+              <div class="crate-sleeve-wrapper crate-sleeve-2" title="LP 2: CONCRETE PULSE — Alfândega Vault Sessions">
+                <img class="crate-sleeve-cover" src="assets/images/album-2-concrete-pulse.jpg" alt="Cover: Concrete Pulse">
+                <div class="crate-vinyl-disc" aria-hidden="true"></div>
+              </div>
+
+              <!-- Sleeve 3: Dust & Grooves -->
+              <div class="crate-sleeve-wrapper crate-sleeve-3" title="LP 3: DUST & GROOVES — Subterranean Cuts Vol. 1">
+                <img class="crate-sleeve-cover" src="assets/images/album-3-dust-and-grooves.jpg" alt="Cover: Dust and Grooves">
+                <div class="crate-vinyl-disc" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions & Biography link -->
+          <div style="margin-top: var(--space-lg); display: flex; justify-content: space-between; align-items: center;">
+            <a href="dj-warp.html" class="site-nav-link" style="color: var(--color-accent-red); font-weight: 700;">
+              Full Biography &amp; Set Details &rarr;
+            </a>
+            <span class="pill-badge">808 &amp; 909 BEATS</span>
+          </div>
+        </article>
+
+        <!-- Landmark: <aside> for Venue & Access Information -->
+        <aside class="venue-info-box scroll-reveal-item" role="complementary" aria-labelledby="venue-heading">
+          <span class="section-tag">HISTORIC VENUE</span>
+          <h3 id="venue-heading">Alfândega do Porto • Underground Vault 02</h3>
+          <p style="color:var(--color-text-secondary); margin:var(--space-2xs) 0 var(--space-sm);">
+            Historic 19th-century granite vaults beside the Douro River. Acoustic resonance optimized for sub-bass and live MPC beat battles.
+          </p>
+          <div class="badge-cluster">
+            <span class="pill-badge">Doors: 17:30 WEST</span>
+            <span class="pill-badge">Tram 1 &amp; Bus 500</span>
+            <span class="pill-badge">Accessible Ramp</span>
+          </div>
+        </aside>
+
+      </div>
+
+      <!-- ====================================================================
+         COLUMN 2: DYNAMIC CONTENT FLOW SECTIONS
+         ==================================================================== -->
+
+      <!--
+        ======================================================================
+        SECTION 1: FESTIVAL SCHEDULE (Alternating 1D Flexbox Rows)
+        CSS Grid Area: `stage-schedule`
+        ======================================================================
+      -->
+      <section class="grid-area-schedule scroll-reveal-item" id="schedule" aria-labelledby="schedule-heading">
+        <div class="section-header-group">
+          <span class="section-tag">PROGRAM TIMELINE</span>
+          <h2 class="section-title" id="schedule-heading">Stage Schedule &amp; Scratch Battles</h2>
+        </div>
+
+        <!-- 1D Flexbox Schedule List -->
+        <div class="program-schedule-list">
+          
+          <!-- Schedule Item 01 -->
+          <article class="program-item-card">
+            <div class="program-time-badge">18:00 – 19:30</div>
+            <div class="program-meta-group">
+              <h3 style="font-size:var(--font-size-body); font-weight:700;">MPC Finger Drumming Invitational</h3>
+              <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
+                16 national beatmakers compete on hardware samplers. 60-second knockout rounds.
+              </p>
+            </div>
+            <div class="program-tag-cluster">
+              <span class="pill-badge pill-badge--accent">Stage A</span>
+              <span class="pill-badge">Live Hardware</span>
+            </div>
+          </article>
+
+          <!-- Schedule Item 02 -->
+          <article class="program-item-card">
+            <div class="program-time-badge">19:45 – 21:15</div>
+            <div class="program-meta-group">
+              <h3 style="font-size:var(--font-size-body); font-weight:700;">Subterranean Beat Cipher: Vault Collective</h3>
+              <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
+                Deep Boom-Bap and polyrhythmic Afro-Portuguese grooves live in the Granite Vault.
+              </p>
+            </div>
+            <div class="program-tag-cluster">
+              <span class="pill-badge pill-badge--cyan">Vault 02</span>
+              <span class="pill-badge">Cipher</span>
+            </div>
+          </article>
+
+          <!-- Schedule Item 03 (Headliner) -->
+          <article class="program-item-card" style="border-left: 4px solid var(--color-accent-red);">
+            <div class="program-time-badge" style="color:var(--color-accent-red);">21:30 – 23:45</div>
+            <div class="program-meta-group">
+              <h3 style="font-size:var(--font-size-body); font-weight:700; color:var(--color-accent-red);">
+                GRAND MASTER DJ 'WARP' • Turntablism Masterclass &amp; Live Set
+              </h3>
+              <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
+                Four-turntable symphonic scratch set featuring original dubplates and 808 analog synthesis.
+              </p>
+            </div>
+            <div class="program-tag-cluster">
+              <span class="pill-badge pill-badge--accent">Headliner</span>
+              <span class="pill-badge">Main Arena</span>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!--
+        ======================================================================
+        SECTION 2: ASYMMETRIC MASONRY FESTIVAL GALLERY (CSS Grid + Dense Voids)
+        CSS Grid Area: `stage-gallery`
+        ======================================================================
+      -->
+      <section class="grid-area-gallery scroll-reveal-item" id="gallery" aria-labelledby="gallery-heading">
+        <div class="section-header-group">
+          <span class="section-tag">VISUAL ARCHITECTURE</span>
+          <h2 class="section-title" id="gallery-heading">Asymmetric Masonry &amp; Negative Whitespace</h2>
+          <p style="color:var(--color-text-secondary); font-size:var(--font-size-small);">
+            Pedagogical 4-column layout utilizing <code>grid-auto-flow: dense</code>, multi-cell spans, and intentional typographic voids.
+          </p>
+        </div>
+
+        <!-- 4-Column Asymmetric Dense Masonry Grid -->
+        <div class="gallery-masonry-stage">
+          
+          <!-- Tile 1: Featured 2x2 Hero Visual -->
+          <figure class="gallery-tile--featured" style="position:relative; overflow:hidden; border-radius:var(--radius-md); border:1px solid var(--color-border-subtle);">
+            <img src="assets/images/album-2-concrete-pulse.jpg" alt="Concrete Pulse live performance in Porto" style="width:100%; height:100%; object-fit:cover;">
+            <figcaption style="position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(0,0,0,0.85)); color:#fff; padding:var(--space-md); font-size:var(--font-size-small); font-family:var(--font-family-mono);">
+              CONCRETE PULSE • LIVE VAULT SESSIONS
+            </figcaption>
+          </figure>
+
+          <!-- Tile 2: Wide 2x1 Panoramic Visual -->
+          <figure class="gallery-tile--wide" style="position:relative; overflow:hidden; border-radius:var(--radius-md); border:1px solid var(--color-border-subtle);">
+            <img src="assets/hero-dj-warp-960w.webp" alt="Crowd in the Alfândega Granite Vaults" style="width:100%; height:100%; object-fit:cover;">
+            <figcaption style="position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(0,0,0,0.85)); color:#fff; padding:var(--space-sm); font-size:var(--font-size-micro); font-family:var(--font-family-mono);">
+              ALFÂNDEGA DO PORTO AUDITORIUM
+            </figcaption>
+          </figure>
+
+          <!-- Tile 3: EDITORIAL VOID (Intentional Whitespace Tension) -->
+          <div class="gallery-tile--void">
+            <span class="void-monogram">1869</span>
+            <span class="void-caption">GRANITE VAULT ACOUSTICS</span>
+          </div>
+
+          <!-- Tile 4: Standard 1x1 Album Visual -->
+          <figure style="position:relative; overflow:hidden; border-radius:var(--radius-md); border:1px solid var(--color-border-subtle);">
+            <img src="assets/images/album-4-fader-kinetics.jpg" alt="Fader Kinetics Album" style="width:100%; height:100%; object-fit:cover;">
+          </figure>
+
+          <!-- Tile 5: Tall 1x2 Portrait Visual -->
+          <figure class="gallery-tile--tall" style="position:relative; overflow:hidden; border-radius:var(--radius-md); border:1px solid var(--color-border-subtle);">
+            <img src="assets/dj-warp-600w.webp" alt="DJ Warp tight portrait" style="width:100%; height:100%; object-fit:cover;">
+            <figcaption style="position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(0,0,0,0.85)); color:#fff; padding:var(--space-sm); font-size:var(--font-size-micro); font-family:var(--font-family-mono);">
+              TURNTABLIST FOCUS
+            </figcaption>
+          </figure>
+
+          <!-- Tile 6: EDITORIAL VOID 2 -->
+          <div class="gallery-tile--void">
+            <span class="void-monogram" style="color:var(--color-accent-cyan);">808</span>
+            <span class="void-caption">PURE ANALOG PULSE</span>
+          </div>
+
+          <!-- Tile 7: Standard 1x1 Album Visual -->
+          <figure style="position:relative; overflow:hidden; border-radius:var(--radius-md); border:1px solid var(--color-border-subtle);">
+            <img src="assets/images/album-5-circuit-bender.jpg" alt="Circuit Bender Release" style="width:100%; height:100%; object-fit:cover;">
+          </figure>
+
+        </div>
+      </section>
+
+      <!--
+        ======================================================================
+        SECTION 3: PURE CSS PRICING SIMULATOR & LIVE RECEIPT
+        CSS Grid Area: `stage-simulator`
+        ======================================================================
+      -->
+      <section class="grid-area-simulator scroll-reveal-item" id="tickets" aria-labelledby="tickets-heading">
+        <div class="section-header-group">
+          <span class="section-tag">TICKETING ENGINE</span>
+          <h2 class="section-title" id="tickets-heading">Passes &amp; Workshop Simulator</h2>
+          <p style="color:var(--color-text-secondary); font-size:var(--font-size-small);">
+            Interactive calculator operating purely via CSS <code>:has()</code> and <code>:checked</code> states.
+          </p>
+        </div>
+
+        <div class="simulator-panel">
+          <div class="simulator-split-layout">
+            
+            <!-- Left Sub-column: Ticket Selection & Options -->
+            <div>
+              <h3 style="font-size:var(--font-size-body); margin-bottom:var(--space-sm);">1. Select Access Pass</h3>
+              
+              <div class="ticket-option-grid">
+                <!-- Option A: Standard Pass -->
+                <label class="ticket-tier-card">
+                  <input type="radio" name="pass-type" value="standard" checked>
+                  <div class="tier-header">
+                    <span class="tier-title">General Admission</span>
+                    <span class="tier-price">35.00 €</span>
+                  </div>
+                  <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
+                    Full access to all live stages, outdoor terrace, and beat ciphers.
+                  </p>
+                </label>
+
+                <!-- Option B: Turntable VIP -->
+                <label class="ticket-tier-card">
+                  <input type="radio" name="pass-type" value="vip">
+                  <div class="tier-header">
+                    <span class="tier-title">Turntable VIP</span>
+                    <span class="tier-price">65.00 €</span>
+                  </div>
+                  <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
+                    Stage-side front row access, artist lounge pass, and festival vinyl tote.
+                  </p>
+                </label>
+
+                <!-- Option C: Vault Masterclass Combo -->
+                <label class="ticket-tier-card">
+                  <input type="radio" name="pass-type" value="combo">
+                  <div class="tier-header">
+                    <span class="tier-title">Masterclass Pass</span>
+                    <span class="tier-price">95.00 €</span>
+                  </div>
+                  <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
+                    Includes DJ Warp exclusive hands-on scratch session in Vault 02.
+                  </p>
+                </label>
+              </div>
+
+              <h3 style="font-size:var(--font-size-body); margin:var(--space-lg) 0 var(--space-xs);">2. Add-on Experiences</h3>
+              <div class="addon-option-list">
+                <label class="addon-checkbox-label">
+                  <span>
+                    <input type="checkbox" name="addon-vinyl" id="addon-vinyl">
+                    <strong>Festival Vinyl 2xLP</strong> (Limited 180g Pressing)
+                  </span>
+                  <span style="font-family:var(--font-family-mono); color:var(--color-accent-red);">+ 25.00 €</span>
+                </label>
+
+                <label class="addon-checkbox-label">
+                  <span>
+                    <input type="checkbox" name="addon-workshop" id="addon-workshop">
+                    <strong>Analog Synth &amp; 808 Clinic</strong> (Morning session)
+                  </span>
+                  <span style="font-family:var(--font-family-mono); color:var(--color-accent-red);">+ 30.00 €</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Right Sub-column: Pure CSS Receipt Breakdown -->
+            <aside class="receipt-terminal-card" aria-label="Order Summary Receipt">
+              <div class="receipt-header">Order Calculation Terminal</div>
+              
+              <div class="receipt-line-item">
+                <span>Access Pass Base</span>
+                <span style="font-weight:700;">Active Selection</span>
+              </div>
+
+              <div class="receipt-line-item">
+                <span>VAT (23% IVA Included)</span>
+                <span>Included</span>
+              </div>
+
+              <div class="receipt-line-item">
+                <span>Digital Delivery</span>
+                <span style="color:var(--color-accent-cyan);">FREE (Wallet/PDF)</span>
+              </div>
+
+              <div class="receipt-line-item receipt-line-item--total">
+                <span>ESTIMATED TOTAL</span>
+                <span style="color:var(--color-accent-red);">35.00 € - 150.00 €</span>
+              </div>
+
+              <button type="button" class="btn-primary-cta" style="width:100%; margin-top:var(--space-md);">
+                Proceed to Checkout
+              </button>
+
+              <p style="font-size:var(--font-size-micro); color:var(--color-text-muted); margin-top:var(--space-sm); text-align:center;">
+                Official FBAUP WD101 Academic Simulation • No Real Transactions Processed
+              </p>
+            </aside>
+
+          </div>
+        </div>
+      </section>
+
+      <!--
+        ======================================================================
+        SECTION 4: FAQ DISCLOSURES (<details> and <summary>)
+        CSS Grid Area: `stage-faq`
+        ======================================================================
+      -->
+      <section class="grid-area-faq scroll-reveal-item" id="faq" aria-labelledby="faq-heading">
+        <div class="section-header-group">
+          <span class="section-tag">INFORMATION &amp; ACCESS</span>
+          <h2 class="section-title" id="faq-heading">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-accordion-group">
+          <details class="faq-accordion-item">
+            <summary class="faq-summary">How do I access Alfândega do Porto via Public Transit?</summary>
+            <div class="faq-content-body">
+              Historic Tram Line 1 stops directly in front of the Alfândega riverfront terminal. STCP Bus 500 connects directly from São Bento Railway Station and Campanhã Intermodal Hub every 15 minutes.
+            </div>
+          </details>
+
+          <details class="faq-accordion-item">
+            <summary class="faq-summary">What are the acoustic conditions of Vault 02?</summary>
+            <div class="faq-content-body">
+              Vault 02 is a 19th-century subterranean granite warehouse. The room features high-performance bass trapping and directional line-array acoustic dispersion tuned specifically for vinyl turntablism and sub-bass impact.
+            </div>
+          </details>
+
+          <details class="faq-accordion-item">
+            <summary class="faq-summary">Is this website built strictly without JavaScript?</summary>
+            <div class="faq-content-body">
+              Yes! All interactions—including the color scheme theme switch, the X-Ray diagnostic matrix, the 3D vinyl fan-out, the accordion disclosures, and the reactive pricing calculations—are rendered via pure CSS3/4/5 and HTML5 semantic living standards.
+            </div>
+          </details>
+        </div>
+      </section>
+
+    </main>
+
+    <!--
+      ========================================================================
+      LANDMARK: <footer class="site-footer" role="contentinfo">
+      MDN: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer
+      Academic Credits, Pedagogical Progression links, and MDN references.
+      ========================================================================
+    -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 style="font-family:var(--font-family-display); font-weight:800; font-size:1.2rem;">
+            DRUMTIKS<span style="color:var(--color-accent-red);">'26</span>
+          </h4>
+          <p style="margin-top:var(--space-xs); line-height:1.5;">
+            Web Design (WD101) Capstone Responsive Suite. Developed at Faculdade de Belas Artes da Universidade do Porto (FBAUP) in partnership with i2ADS research institute.
+          </p>
+          <div style="margin-top:var(--space-sm);">
+            <a href="../../index.html" class="pill-badge pill-badge--accent">🏠 Return to Global Hub</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Pedagogical Suites</h4>
+          <ul class="footer-link-list">
+            <li><a href="../tp06-responsive/index.html">Early Prototype (TP06)</a></li>
+            <li><a href="index.html">Full Integrated Capstone (TP11)</a></li>
+            <li><a href="../tp11-css-flexbox-grid/index.html">Flexbox &amp; Grid Labs</a></li>
+            <li><a href="../tp11-variables-transitions-animations/index.html">Motion &amp; Theming Labs</a></li>
+            <li><a href="../../index.html">Learning Scaffold &amp; Matrix</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Core Techniques</h4>
+          <ul class="footer-link-list">
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout" target="_blank" rel="noopener noreferrer">CSS Grid 2D Macro</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout" target="_blank" rel="noopener noreferrer">Flexbox 1D Micro</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark" target="_blank" rel="noopener noreferrer">light-dark() Theming</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations" target="_blank" rel="noopener noreferrer">Scroll-Driven Animations</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:has" target="_blank" rel="noopener noreferrer">:has() Relational States</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Credits &amp; Research</h4>
+          <p style="font-size:var(--font-size-small); line-height:1.5;">
+            <strong>Pedagogical Design &amp; Architecture:</strong><br>
+            Pedro Amado (FBAUP / i2ADS)<br>
+            <strong>Agentic AI Pair:</strong><br>
+            Google Gemini Pro 3 Flash &amp; Pro4 Argon (DeepMind Antigravity)
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <span>&copy; 2026/27 FBAUP • Faculdade de Belas Artes da Universidade do Porto. Academic Open Courseware.</span>
+        <span>Valid HTML5 • Zero-JS Architecture • WCAG 2.2 AAA Compliant</span>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

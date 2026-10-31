@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <!-- Regra Mobile-First Obrigatória: Escala Inicial de Viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DJ Warp — Live Hybrid Act • Drumtiks '26 Porto</title>
+  <meta name="description" content="Apresentação gráfica e multimédia oficial do DJ Warp no Festival Drumtiks '26. Engenharia de percussão híbrida e sintetizadores modulares analógicos.">
+
+  <!-- Favicon Obrigatório nos Formatos SVG e Fallback -->
+  <link rel="icon" type="image/svg+xml" href="assets/graphics/favicon.svg">
+  <link rel="alternate icon" href="assets/graphics/favicon.svg">
+
+  <!-- 1. Google Fonts Variáveis (Nuvem / Fallback para as Fontes Locais @font-face) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Fraunces:opsz,wght@9..144,300..900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- 2. Ordem Estrita de Carregamento CSS: Eric Meyer Reset v2.0 primeiro, Folha de Estilos depois -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Wrapper Global de Controlo (#page) para Contenção e Rutura de Caixa -->
+  <div id="page">
+
+    <!-- CABEÇALHO COM STICKY HEADER PERSISTENTE (POSITION: STICKY) -->
+    <header class="site-header" id="topo">
+      <div class="site-header-inner">
+        <a href="index.html" class="brand-link" aria-label="Drumtiks '26 Início">
+          <img src="assets/graphics/logo.svg" alt="Logótipo Drumtiks '26" class="brand-logo-img">
+          <span class="brand-title">DRUMTIKS<span>'26</span></span>
+        </a>
+
+        <!-- Navegação Principal com Estados LVHA & Combinadores Planos -->
+        <nav class="main-nav" aria-label="Navegação Principal do Artista">
+          <ul>
+            <li><a href="index.html" aria-current="page">Início</a></li>
+            <li><a href="about.html">Sobre / Setup</a></li>
+            <li><a href="#feature">Cartaz</a></li>
+            <li><a href="#bio">Biografia</a></li>
+            <li><a href="#palcos">Palcos</a></li>
+            <li><a href="#live-media">Multimédia</a></li>
+            <li><a href="#parceiros">Parceiros</a></li>
+            <li><a href="#contactos">Contactos</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_box_model" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent-amber);">MDN Box Model ↗</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL (LANDMARK MAIN) -->
+    <main id="conteudo">
+
+      <!-- HERO SECTION: BREAKING THE BOX MODEL (FULL-BLEED ESCAPE HATCH 100vw) -->
+      <section class="hero-full-bleed" id="feature" aria-labelledby="titulo-hero">
+        <div class="hero-inner">
+          <span class="hero-tag">Artista Residente • Drumtiks '26 Porto</span>
+          <h1 class="hero-title" id="titulo-hero">DJ WARP — LIVE HYBRID ACT</h1>
+          <p class="hero-subtitle">
+            Fusão visceral entre bateria acústica piezoelétrica, sistemas modulares Eurorack 9U e síntese analógica contínua. Sem computadores portáteis no palco.
+          </p>
+
+          <!-- Figura Hero com Picture Responsivo e Otimizado em Formatos WebP + JPG -->
+          <figure class="hero-picture-frame">
+            <picture>
+              <!-- Ecrãs Desktop / Monitores Grandes (≥ 960px): Panorâmica 1400w WebP + fallback JPG -->
+              <source media="(min-width: 960px)" srcset="assets/images/hero-dj-warp-1400w.webp" type="image/webp">
+              <source media="(min-width: 960px)" srcset="assets/images/hero-dj-warp-1400w.jpg" type="image/jpeg">
+              <!-- Ecrãs Tablet / Médios (≥ 600px): Enquadramento 960w WebP + fallback JPG -->
+              <source media="(min-width: 600px)" srcset="assets/images/hero-dj-warp-960w.webp" type="image/webp">
+              <source media="(min-width: 600px)" srcset="assets/images/hero-dj-warp-960w.jpg" type="image/jpeg">
+              <!-- Mobile / Fallback por defeito (< 600px): Corte 600w WebP + fallback JPG -->
+              <source srcset="assets/images/hero-dj-warp-600w.webp" type="image/webp">
+              <img src="assets/images/hero-dj-warp-600w.jpg" alt="DJ Warp em palco analógico no Drumtiks '26" width="1400" height="600" loading="eager">
+            </picture>
+            <figcaption>
+              Direção de arte fotográfica e responsiva: o sintetizador Eurorack e o kit de bateria acústica adaptam-se à resolução do dispositivo.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- SECÇÃO DE BIOGRAFIA & CONCEITO ACÚSTICO -->
+      <section id="bio" style="margin-block-end:var(--space-2xl);">
+        <h2 class="section-title">Biografia &amp; Conceito: A Bateria como Oscilador</h2>
+        <p class="section-desc">
+          Pesquisa pioneira sobre a conversão de energia cinética mecânica em voltagem de controlo analógica contínua (CV):
+        </p>
+
+        <div class="bio-grid">
+          <!-- Retrato com Picture Responsivo -->
+          <figure class="bio-portrait">
+            <picture>
+              <source media="(min-width: 600px)" srcset="assets/images/dj-warp-960w.webp" type="image/webp">
+              <source media="(min-width: 600px)" srcset="assets/images/dj-warp-960w.jpg" type="image/jpeg">
+              <source srcset="assets/images/dj-warp-600w.webp" type="image/webp">
+              <img src="assets/images/dj-warp-600w.jpg" alt="DJ Warp no estúdio de percussão analógica da FBAUP" width="960" height="640" loading="lazy">
+            </picture>
+            <figcaption>
+              DJ Warp durante a residência de investigação sonora na FBAUP (Foto oficial: Drumtiks '26).
+            </figcaption>
+          </figure>
+
+          <!-- Texto Semântico Rico com Todas as Formatações Exigidas -->
+          <div class="bio-text">
+            <div class="meta-bar">
+              <strong>Artista:</strong> DJ Warp • <strong>Data:</strong> <time datetime="2026-08-14">14 a 16 de Agosto de 2026</time> • <strong>Origem:</strong> Porto, Portugal
+            </div>
+
+            <p>
+              No âmbito da unidade curricular de <abbr title="Web Design 101">WD101</abbr> e do festival <strong>Drumtiks '26</strong>, o DJ Warp é o pioneiro da percussão controlada por voltagem analógica pura. Rejeitando os vulgares controladores <del>MIDI via USB</del> e a dependência de computadores em palco, o artista utiliza <em>transdutores piezoelétricos de alta sensibilidade</em> acoplados à madeira dos tambores acústicos.
+            </p>
+
+            <p>
+              Cada impacto de baqueta produz um impulso elétrico direto que aciona circuitos <em>Envelope Follower</em> e <em>Trigger-to-Gate</em>, modulando filtros de transístores sem qualquer latência perceptiva. Como o próprio afirma:
+            </p>
+
+            <blockquote style="background-color:var(--color-surface-card);border-left:3px solid var(--color-brand-primary);padding:var(--space-md);margin-block:var(--space-md);font-style:italic;color:var(--color-text-main);">
+              <q>O fluxo de voltagem elétrica num circuito analógico espelha o fluxo de uma página Web: cada elemento responde à geometria e à pressão do meio que o envolve.</q>
+            </blockquote>
+
+            <!-- Imagem com Ligação (Exigência Explícita do Enunciado EX2) -->
+            <a href="about.html" class="linked-media-badge" aria-label="Ver Especificações Técnicas de Hardware do DJ Warp">
+              <img src="assets/graphics/vinyl-platter.svg" alt="Ícone de Disco de Vinil e Patch Analógico" width="32" height="32">
+              <span>Consultar Ficha Técnica de Hardware Eurorack 9U ↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECÇÃO DE PALCOS: CARTÕES MODULARES COM BADGE ABSOLUTO -->
+      <section id="palcos" style="margin-block-end:var(--space-2xl);">
+        <h2 class="section-title">Palcos &amp; Atuações Confirmadas</h2>
+        <p class="section-desc">
+          Três intervenções acústicas desenhadas especificamente para a arquitetura industrial do Parque da Cidade do Porto:
+        </p>
+
+        <!-- Grelha de Cartões (Mobile-First: 1 coluna no mobile, 3 colunas em ecrãs ≥ 960px) -->
+        <div class="cards-grid">
+          
+          <!-- Card 1 -->
+          <article class="stage-card">
+            <!-- Badge com Posicionamento Absoluto ancorado ao Card Relativo -->
+            <span class="stage-card-badge">Sexta • 14 Ago</span>
+            <span class="stage-card-time">23:00 — 01:30</span>
+            <h3 class="stage-card-name">Palco Sonoridades Cinéticas</h3>
+            <p class="stage-card-desc">
+              Sessão de abertura com improvisação de ritmos polimétricos a 138 BPM, utilizando sensores piezoelétricos na tarola e pratos.
+            </p>
+            <div class="stage-card-setup">
+              <strong>Equipamento:</strong> Eurorack 9U + Kit Acústico Mapex Birch
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="stage-card">
+            <span class="stage-card-badge" style="background-color:var(--color-accent-blue);">Sábado • 15 Ago</span>
+            <span class="stage-card-time">02:00 — 04:00</span>
+            <h3 class="stage-card-name">Cúpula Sub-Grave (360°)</h3>
+            <p class="stage-card-desc">
+              Experiência imersiva em som surround octofónico. Frequências sub-graves puras moduladas em tempo real por voltagem de controlo (CV).
+            </p>
+            <div class="stage-card-setup">
+              <strong>Equipamento:</strong> Moog Subharmonicon + 4 Subwoofers 21"
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="stage-card">
+            <span class="stage-card-badge" style="background-color:var(--color-accent-emerald);">Domingo • 16 Ago</span>
+            <span class="stage-card-time">19:00 — 21:00</span>
+            <h3 class="stage-card-name">Oficina: Percussão &amp; Voltagem</h3>
+            <p class="stage-card-desc">
+              Masterclass aberta a estudantes e músicos sobre construção de microfones de contacto caseiros e integração com mesas de mistura.
+            </p>
+            <div class="stage-card-setup">
+              <strong>Formato:</strong> Workshop Prático Aberto (Lotação: 50 vagas)
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Fotografia Panorâmica do Recinto Alfândega ao Entardecer -->
+        <figure style="margin-block-start:var(--space-lg);border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--color-border-subtle);">
+          <picture>
+            <source srcset="assets/images/alfandega-exterior-dusk-960w.webp" type="image/webp">
+            <img src="assets/images/alfandega-exterior-dusk-960w.jpg" alt="Edifício da Alfândega do Porto ao entardecer à beira do Rio Douro" width="960" height="540" loading="lazy" style="width:100%;height:auto;display:block;">
+          </picture>
+          <figcaption style="font-size:var(--text-xs);color:var(--text-dim);padding:var(--space-xs);background-color:var(--color-surface-card);">
+            Recinto oficial do festival: Edifício histórico da Alfândega do Porto junto à margem ribeirinha.
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- SECÇÃO DE MULTIMÉDIA CONTÍNUA (ÁUDIO, VÍDEO & IFRAME RESPONSIVO) -->
+      <section id="live-media" style="margin-block-end:var(--space-2xl);">
+        <h2 class="section-title">Laboratório Sonoro &amp; Transmissão ao Vivo</h2>
+        <p class="section-desc">
+          Explore as gravações analógicas diretas de estúdio e os registos visuais captados durante os ensaios no Porto:
+        </p>
+
+        <div class="media-showcase-grid">
+          
+          <!-- Box 1: Áudio Nativo HTML5 com Fallback Semântico -->
+          <div class="media-box">
+            <h3 class="media-box-title">🔊 Faixa Exclusiva: "Piezo Kinetic Pulse" (138 BPM)</h3>
+            <p style="font-size:var(--text-xs);color:var(--text-muted);margin-block-end:var(--space-sm);">
+              Gravação direta estéreo do master analógico. Mistura sem compressão digital.
+            </p>
+            <audio controls preload="metadata">
+              <source src="assets/media/dj-warp-piezo-pulse.mp3" type="audio/mpeg">
+              <p>O seu navegador não suporta a reprodução nativa de áudio HTML5. <a href="assets/media/dj-warp-piezo-pulse.mp3">Descarregue o MP3 aqui</a>.</p>
+            </audio>
+          </div>
+
+          <!-- Box 2: Vídeo Nativo HTML5 com Poster e Fallback -->
+          <div class="media-box">
+            <h3 class="media-box-title">📹 Registo Visual: Calibração de Sensores de Contacto</h3>
+            <p style="font-size:var(--text-xs);color:var(--text-muted);margin-block-end:var(--space-sm);">
+              Demonstração do atraso acústico zero na conversão de toque mecânico em impulso CV.
+            </p>
+            <video controls width="640" height="360" poster="assets/images/hero-dj-warp-600w.jpg" preload="none">
+              <source src="assets/media/dj-warp-rehearsal.mp4" type="video/mp4">
+              <p>O seu navegador não suporta reprodução de vídeo HTML5. <a href="assets/media/dj-warp-rehearsal.mp4">Descarregue o vídeo MP4</a>.</p>
+            </video>
+          </div>
+
+          <!-- Box 3: Embed Externo em Iframe com Aspect-Ratio 16 / 9 -->
+          <div class="media-box" style="grid-column: 1 / -1;">
+            <h3 class="media-box-title">🗺️ Localização do Festival &amp; Palco Principal (Embed Responsivo)</h3>
+            <p style="font-size:var(--text-xs);color:var(--text-muted);margin-block-end:var(--space-sm);">
+              Contentor responsivo utilizando a propriedade moderna <code>aspect-ratio: 16 / 9;</code> para prevenir quebras visuais e saltos de layout (CLS).
+            </p>
+            <div class="embed-responsive-16-9">
+              <iframe 
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-8.695%2C41.165%2C-8.675%2C41.175&amp;layer=mapnik&amp;marker=41.170%2C-8.685" 
+                title="Mapa do Parque da Cidade do Porto • Festival Drumtiks '26" 
+                loading="lazy" 
+                allowfullscreen>
+              </iframe>
+            </div>
+            <figcaption style="font-size:var(--text-xs);color:var(--text-dim);margin-block-start:var(--space-xs);text-align:right;">
+              Coordenadas: 41.170° N, -8.685° W • Entrada pela Estrada da Circunvalação
+            </figcaption>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- DEMONSTRAÇÃO PEDAGÓGICA DO MODELO DE CAIXA: OVERFLOW & SCROLL -->
+      <section class="box-model-demo-panel">
+        <h3 style="font-family:var(--font-family-mono);font-size:var(--text-sm);color:var(--color-brand-primary);margin-block-start:0;margin-block-end:var(--space-xs);">
+          📦 Demonstração do Modelo de Caixa: Limites, Padding &amp; Overflow Scroll
+        </h3>
+        <p style="font-size:var(--text-xs);color:var(--text-muted);margin-block-end:var(--space-sm);">
+          Exemplo pedagógico (conforme guião EX2 e Hicks, 2004): contentor com altura máxima fixa (<code>max-height: 8rem;</code>) e barra de rolamento automática (<code>overflow: auto;</code>):
+        </p>
+        <div class="box-overflow">
+          <p>
+            <strong>Teoria do Box Model no CSS:</strong> Cada elemento no HTML gera uma caixa retangular composta por quatro camadas concêntricas: Conteúdo (<em>Content</em>), Espaçamento Interno (<em>Padding</em>), Borda (<em>Border</em>) e Margem Externa (<em>Margin</em>).
+          </p>
+          <p>
+            Ao utilizar <code>box-sizing: border-box;</code>, as dimensões totais declaradas em <code>width</code> e <code>height</code> incluem tanto o preenchimento como as bordas, garantindo previsibilidade no dimensionamento responsivo.
+          </p>
+          <p>
+            Quando o volume do texto ultrapassa o espaço vertical estipulado pela propriedade <code>max-height</code>, a diretiva <code>overflow: auto;</code> cria barras de deslocamento locais sem quebrar o layout exterior da página.
+          </p>
+        </div>
+      </section>
+
+      <!-- SECÇÃO DE PARCEIROS COM FILTROS GRÁFICOS CSS -->
+      <section class="partners-section" id="parceiros">
+        <h2 class="section-title">Parceiros Tecnológicos &amp; Coletivos Sonoros</h2>
+        <p class="section-desc">
+          Entidades e laboratórios de investigação sonora que apoiam a produção do DJ Warp. 
+          Passe o cursor sobre os logótipos para testar os <strong>filtros gráficos CSS</strong> (conversão de escala de cinzentos para cor saturada):
+        </p>
+
+        <div class="partners-grid">
+          <div class="partner-logo-item">
+            <img src="assets/images/partner-1.svg" alt="Modular Lab Porto" class="partner-logo-img">
+          </div>
+          <div class="partner-logo-item">
+            <img src="assets/images/partner-2.svg" alt="Porto Sound System" class="partner-logo-img">
+          </div>
+          <div class="partner-logo-item">
+            <img src="assets/images/partner-3.svg" alt="FBAUP Kinetic Arts" class="partner-logo-img">
+          </div>
+        </div>
+      </section>
+
+      <!-- SECÇÃO DE CONTACTOS & RESERVAS (MAILTO & TEL) -->
+      <section class="contacts-panel" id="contactos">
+        <h2 style="font-family:var(--font-family-title);font-size:var(--text-lg);color:#ffffff;margin-block-start:0;margin-block-end:var(--space-xs);">
+          Bilheteira, Imprensa &amp; Informações
+        </h2>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-block-end:var(--space-md);">
+          Para reservas de workshops de percussão analógica, parcerias académicas ou acreditações de imprensa:
+        </p>
+        <p style="font-size:var(--text-sm);margin:0;margin-block-end:var(--space-xs);">
+          📧 Email Oficial: <a href="mailto:bilhetes@drumtiks.org">bilhetes@drumtiks.org</a>
+        </p>
+        <p style="font-size:var(--text-sm);margin:0;margin-block-end:var(--space-xs);">
+          📞 Linha de Apoio FBAUP: <a href="tel:+351220000000">+351 220 000 000</a>
+        </p>
+        <p style="font-size:var(--text-xs);color:var(--color-text-dim);margin-block-start:var(--space-sm);">
+          <a href="#topo">↑ Voltar ao início da página</a>
+        </p>
+      </section>
+
+    </main>
+
+    <!-- BOTÃO FIXO "VOLTAR AO TOPO" (POSITION: FIXED) -->
+    <a href="#topo" class="btn-fixed-top" aria-label="Voltar ao início da página">
+      ↑ Topo
+    </a>
+
+    <!-- RODAPÉ DO DOCUMENTO (LANDMARK FOOTER) -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-inner">
+        <div>
+          <strong>DRUMTIKS '26</strong> • Festival de Percussão &amp; Som Experimental<br>
+          Licenciatura em Design de Comunicação • Unidade Curricular de Web Design 101 • FBAUP
+        </div>
+        <div>
+          <a href="about.html" style="color:var(--color-accent-amber);text-decoration:none;font-weight:700;">Biografia Completa &amp; Especificações do DJ Warp ↗</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

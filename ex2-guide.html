@@ -1,0 +1,2696 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EX2: Media &amp; Box Model — Guião Técnico, Atomic Design &amp; Resolução • WD101</title>
+  
+  <!-- Previne FOUC de tema e idioma -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || 
+                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
+
+  <!-- CSS Layer Hierarchy -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+
+  <style>
+    .guide-hero {
+      border-bottom: 2px solid var(--color-swiss-red);
+      padding: var(--space-8) 0;
+      margin-bottom: var(--space-8);
+    }
+    .guide-back-link {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-swiss-red);
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: var(--space-3);
+    }
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--color-swiss-red);
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+      border-radius: 0 4px 4px 0;
+    }
+    .step-card h3 {
+      font-size: var(--text-xl);
+      color: var(--text-primary);
+      margin-bottom: var(--space-2);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+    .step-badge {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      background: var(--color-swiss-red);
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+    }
+
+    /* Accordion de Explicação Técnica */
+    details.tech-deep-dive {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      margin-top: var(--space-4);
+      overflow: hidden;
+    }
+    details.tech-deep-dive summary {
+      padding: var(--space-3) var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--text-primary);
+      cursor: pointer;
+      user-select: none;
+      background: var(--bg-surface-subtle);
+      border-bottom: 1px solid transparent;
+      transition: background 0.15s;
+    }
+    details.tech-deep-dive[open] summary {
+      border-bottom-color: var(--border-color);
+      color: var(--color-swiss-red);
+    }
+    details.tech-deep-dive summary:hover {
+      background: var(--border-color);
+    }
+    .deep-dive-content {
+      padding: var(--space-4);
+      font-size: var(--text-xs);
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+    .tag-item-list {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-3) 0 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .tag-item-list li {
+      padding-left: var(--space-4);
+      border-left: 2px solid var(--color-swiss-red);
+    }
+    .tag-item-list code {
+      font-weight: 700;
+      color: var(--text-primary);
+      background: var(--bg-surface);
+      padding: 0.15rem 0.35rem;
+      border-radius: 2px;
+      border: 1px solid var(--border-color);
+    }
+    .tag-item-list a {
+      color: var(--color-swiss-red);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    /* Banner do Mini-Site Demo */
+    .demo-callout-banner {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-left: 6px solid var(--color-accent-blue);
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+      border-radius: 0 4px 4px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    /* Tabela da Rubrica */
+    .rubric-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-xs);
+      margin-top: var(--space-4);
+    }
+    .rubric-table th,
+    .rubric-table td {
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--border-color);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .rubric-table th {
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .rubric-score {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--color-swiss-red);
+      white-space: nowrap;
+    }
+
+    /* Tabs de Código */
+    .code-tabs-nav {
+      display: flex;
+      gap: var(--space-1);
+      margin-bottom: -1px;
+      position: relative;
+      z-index: 2;
+    }
+    .code-tab-btn {
+      padding: var(--space-2) var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      background: var(--bg-surface-elevated);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      border-bottom: none;
+      cursor: pointer;
+      border-radius: 4px 4px 0 0;
+    }
+    .code-tab-btn.active {
+      background: #0d1117;
+      color: #58a6ff;
+      border-color: #30363d;
+      border-bottom: 1px solid #0d1117;
+    }
+    .code-tab-pane {
+      display: none;
+    }
+    .code-tab-pane.active {
+      display: block;
+    }
+    /* Contentores de Código que Crescem com o Conteúdo */
+    .code-container {
+      background: #0d1117;
+      color: #e6edf3;
+      border: 1px solid var(--border-color);
+      padding: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      line-height: 1.6;
+      border-radius: 4px;
+      margin-bottom: var(--space-4);
+      overflow-x: auto;
+      overflow-y: visible;
+      height: auto;
+      max-height: none;
+    }
+    .code-container pre {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      white-space: pre;
+      overflow-x: auto;
+    }
+    .code-container code {
+      background: transparent;
+      border: none;
+      padding: 0;
+      font-family: inherit;
+      color: inherit;
+    }
+    .code-tab-pane .code-container {
+      max-height: 600px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header Landmark -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-logo">WD<span>101</span></a>
+        <span class="brand-meta">FBAUP Design 2026/27</span>
+      </div>
+
+      <nav class="site-nav" aria-label="Navegação do Guião">
+        <ul>
+          <li><a href="index.html#assignments"><span class="lang-pt">← Enunciados</span><span class="lang-en">← Assignments</span></a></li>
+          <li><a href="#enquadramento"><span class="lang-pt">Enquadramento</span><span class="lang-en">Overview</span></a></li>
+          <li><a href="#passos"><span class="lang-pt">Passo a Passo</span><span class="lang-en">Step-by-Step</span></a></li>
+          <li><a href="#rubrica"><span class="lang-pt">Rubrica Docente</span><span class="lang-en">Grading Rubric</span></a></li>
+          <li><a href="#checklist"><span class="lang-pt">Checklist</span><span class="lang-en">Checklist</span></a></li>
+          <li><a href="#codigo-completo"><span class="lang-pt">Código Oficial</span><span class="lang-en">Official Code</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="header-controls">
+        <a href="demos/ex2-media-box-model/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="background:var(--color-accent-blue);color:#fff;border-color:var(--color-accent-blue);">
+          <span class="lang-pt">🚀 Ver Mini-Site Demo ↗</span>
+          <span class="lang-en">🚀 View Live Demo ↗</span>
+        </a>
+        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
+        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+
+    <!-- Hero / Enquadramento -->
+    <header class="guide-hero" id="inicio">
+      <a href="index.html#assignments" class="guide-back-link">
+        <span class="lang-pt">← Voltar aos Enunciados da Plataforma WD101</span>
+        <span class="lang-en">← Back to Course Assignments</span>
+      </a>
+      <span class="hero-eyebrow">
+        <span class="lang-pt">Módulo 2 • Fundações de HTML &amp; CSS • WD101</span>
+        <span class="lang-en">Module 2 • HTML &amp; CSS Foundations • WD101</span>
+      </span>
+      <h1 class="hero-title" style="font-size:var(--text-3xl);margin:var(--space-2) 0 var(--space-4);">
+        <span class="lang-pt">EX2: Media &amp; Box Model — Imagens Responsivas, Geometria &amp; Atomic Design</span>
+        <span class="lang-en">EX2: Media &amp; Box Model — Responsive Images, Geometry &amp; Atomic Design</span>
+      </h1>
+      <p style="font-size:var(--text-lg);color:var(--text-secondary);max-width:72ch;line-height:1.5;">
+        <span class="lang-pt">A transição da estrutura linear (EX1) para o controlo espacial avançado: pratique a "Quebra da Caixa" (Hero Full-Bleed), os 4 modos de posicionamento, o ecossistema multimédia adaptativo (&lt;picture&gt;, &lt;video&gt;, &lt;audio&gt;, iframe 16:9), Webfonts variáveis e a arquitetura de Design Tokens sem recurso a CSS Nesting.</span>
+        <span class="lang-en">The shift from linear document flow (EX1) to advanced spatial control: master "Breaking the Box Model" (Hero Full-Bleed), all 4 positioning modes, rich adaptive media (&lt;picture&gt;, &lt;video&gt;, &lt;audio&gt;, 16:9 iframe), variable Webfonts, and Design Tokens architecture strictly without CSS Nesting.</span>
+      </p>
+    </header>
+
+    <!-- BANNER DE ACESSO AO MINI-SITE OFICIAL -->
+    <div class="demo-callout-banner">
+      <div>
+        <h3 style="font-size:var(--text-base);color:var(--text-primary);margin-bottom:var(--space-1);">
+          <span class="lang-pt">Solução de Referência Oficial Disponível</span>
+          <span class="lang-en">Official Reference Solution Ready</span>
+        </h3>
+        <p style="font-size:var(--text-xs);color:var(--text-secondary);margin:0;">
+          <span class="lang-pt">A resolução completa com arquitetura multi-página (<code>index.html</code> e <code>about.html</code>), cartões de palco, sticky header e hero full-bleed está compilada na pasta <code>learning-scaffold/demos/ex2-media-box-model/</code>.</span>
+          <span class="lang-en">The full multi-page reference implementation (<code>index.html</code> and <code>about.html</code>), stage cards, sticky header, and full-bleed hero is compiled inside <code>learning-scaffold/demos/ex2-media-box-model/</code>.</span>
+        </p>
+      </div>
+      <div>
+        <a href="demos/ex2-media-box-model/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);font-weight:700;">
+          <span class="lang-pt">Abrir Mini-Site DJ Warp no Browser ↗</span>
+          <span class="lang-en">Open DJ Warp Live Site in Browser ↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 1. Enquadramento Pedagógico & Atomic Design -->
+    <section id="enquadramento" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">1. Enquadramento Pedagógico: Da Caixa Linear ao Sistema Atómico</span>
+        <span class="lang-en">1. Pedagogical Overview: From Linear Box to Atomic Systems</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-4);">
+        <span class="lang-pt">No Exercício 1, a aprendizagem focou-se no esqueleto semântico e no fluxo normal descendente sem classes. No <strong>Exercício 2</strong>, damos um salto qualitativo ao explorar a <strong>tridimensionalidade do ecrã</strong> e a <strong>reutilização sistemática de componentes</strong>:</span>
+        <span class="lang-en">In Exercise 1, focus was placed on semantic skeletons and document normal flow without cosmetic classes. In <strong>Exercise 2</strong>, we take a qualitative leap exploring <strong>spatial depth</strong> and <strong>systematic component reusability</strong>:</span>
+      </p>
+
+      <div class="grid-3" style="margin-bottom:var(--space-6);">
+        <div class="card-item">
+          <h4 style="font-size:var(--text-base);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
+            <span class="lang-pt">Breaking the Box Model</span>
+            <span class="lang-en">Breaking the Box Model</span>
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;margin:0;">
+            <span class="lang-pt">Dominar o padrão <em>Escape Hatch</em> (Full-Bleed): fazer um elemento visual (Hero) expandir a 100vw rompendo os limites contidos de um contentor central de 72rem sem partir o HTML.</span>
+            <span class="lang-en">Master the <em>Escape Hatch</em> (Full-Bleed) pattern: allow a hero visual to break out to 100vw beyond a constrained 72rem parent container without breaking semantic DOM trees.</span>
+          </p>
+        </div>
+
+        <div class="card-item">
+          <h4 style="font-size:var(--text-base);color:var(--color-accent-blue);margin-bottom:var(--space-2);">
+            <span class="lang-pt">Atomic Design &amp; Tokens</span>
+            <span class="lang-en">Atomic Design &amp; Tokens</span>
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;margin:0;">
+            <span class="lang-pt">Pensar a interface como um sistema: definir Tokens e Átomos no <code>:root</code> (cores, tipografia, espaçamentos), combiná-los em Moléculas (cartões) e Organismos (cabeçalho persistente).</span>
+            <span class="lang-en">Conceive the interface as a design system: define Tokens and Atoms in <code>:root</code> (colors, typography, spacing), assembling them into Molecules (cards) and Organisms (persistent header).</span>
+          </p>
+        </div>
+
+        <div class="card-item">
+          <h4 style="font-size:var(--text-base);color:var(--color-accent-emerald);margin-bottom:var(--space-2);">
+            <span class="lang-pt">Proibição Estrita de Nesting</span>
+            <span class="lang-en">Zero CSS Nesting Rule</span>
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;margin:0;">
+            <span class="lang-pt">Nesta etapa, o CSS Nesting (<code>&amp;</code>) é <strong>estritamente proibido</strong>. O objetivo é dominar com precisão cirúrgica os seletores combinadores clássicos (<code>&gt;</code>, <code>+</code>, <code>~</code>) e a cascata antes de usar atalhos.</span>
+            <span class="lang-en">In this assignment, CSS Nesting (<code>&amp;</code>) is <strong>strictly forbidden</strong>. The pedagogical goal is mastering flat combinators (<code>&gt;</code>, <code>+</code>, <code>~</code>) and cascade specificity before introducing nesting syntax.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Guião de Execução Passo a Passo (13 Passos) -->
+    <section id="passos" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-4);">
+        <span class="lang-pt">2. Guião de Execução Passo a Passo (Do Enunciado à Solução)</span>
+        <span class="lang-en">2. Step-by-Step Practical Execution Guide (Brief to Solution)</span>
+      </h2>
+
+      <!-- PASSO 1: INFRAESTRUTURA & MULTI-PÁGINA -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 1</span> Estrutura Multi-Página &amp; Arquitetura de Pastas (Marco 1)</span>
+          <span class="lang-en"><span class="step-badge">Step 1</span> Multi-Page Infrastructure &amp; Directory Hierarchy (Milestone 1)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">O EX2 exige obrigatoriamente a presença de duas páginas interligadas na raiz (<code>index.html</code> e <code>about.html</code>) e a separação rigorosa de recursos estáticos na pasta <code>assets/</code>:</span>
+          <span class="lang-en">EX2 strictly mandates two interconnected pages at directory root (<code>index.html</code> and <code>about.html</code>) and clean separation of static assets in <code>assets/</code>:</span>
+        </p>
+        <div style="background:#090d13;color:#7ee787;padding:var(--space-3);font-family:var(--font-mono);font-size:var(--text-xs);border-radius:4px;margin-bottom:var(--space-3);">
+          site_root/<br>
+          ├── index.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Página 1: Cartaz Gráfico Principal do Artista<br>
+          ├── about.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Página 2: Biografia &amp; Especificações Analógicas<br>
+          └── assets/<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;├── css/ (reset.css, style.css)&nbsp;# Folha de reset Eric Meyer e folha de estilos<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;├── images/ (svg, webp, jpg)&nbsp;&nbsp;&nbsp;&nbsp;# Fotografias e ilustrações responsivas<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;├── graphics/ (logo.svg)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Logótipos e vetores escaláveis<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;├── media/ (mp3, mp4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Gravações de áudio e vídeo de estúdio<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;└── fonts/ (woff2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Fontes locais (quando aplicável)
+        </div>
+
+        <!-- ACORDEÃO TÉCNICO PASSO 1 -->
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação de marcas, propriedades e seletores utilizados aqui</span>
+            <span class="lang-en">🔍 View explanation of tags, properties and selectors used here</span>
+          </summary>
+          <div class="deep-dive-content">
+            <p>
+              <strong class="lang-pt">Ordem de Carregamento &amp; Caminhos Relativos:</strong>
+              <strong class="lang-en">Loading Sequence &amp; Relative Paths:</strong>
+            </p>
+            <ul class="tag-item-list">
+              <li>
+                <code>&lt;link rel="stylesheet" href="assets/css/reset.css"&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link" target="_blank" rel="noopener noreferrer">MDN link ↗</a> — 
+                <span class="lang-pt">Tem de ser declarado obrigatoriamente <strong>antes</strong> do <code>style.css</code>. O reset zera as discrepâncias nativas dos navegadores; carregar o reset depois destruiria as regras da folha principal.</span>
+                <span class="lang-en">Must be declared strictly <strong>before</strong> <code>style.css</code>. The reset neutralizes browser inconsistencies; declaring it after would override project styling.</span>
+              </li>
+              <li>
+                <code>Caminhos Relativos Multi-Página</code>: <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Creating_hyperlinks#a_quick_primer_on_urls_and_paths" target="_blank" rel="noopener noreferrer">MDN Hyperlinks Primer ↗</a> — 
+                <span class="lang-pt">Tanto o <code>index.html</code> como o <code>about.html</code> estão na raiz, pelo que partilham caminhos idênticos como <code>assets/css/style.css</code> e ligam-se mutuamente através de <code>href="about.html"</code> e <code>href="index.html"</code>.</span>
+                <span class="lang-en">Because both <code>index.html</code> and <code>about.html</code> live at the root level, they share identical asset paths like <code>assets/css/style.css</code> and link to each other via simple relative references.</span>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 2: DESIGN TOKENS NO :ROOT -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 2</span> Design Tokens no <code>:root</code> &amp; Abordagem Atómica (Marco 2)</span>
+          <span class="lang-en"><span class="step-badge">Step 2</span> Design Tokens in <code>:root</code> &amp; Atomic Design (Milestone 2)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">No topo da folha de estilos <code>style.css</code>, centralize todas as decisões visuais em variáveis no pseudo-class <code>:root</code>. Proibido usar valores arbitrários (hardcoded) nas classes:</span>
+          <span class="lang-en">At the top of <code>style.css</code>, centralize all design decisions in custom properties inside the <code>:root</code> pseudo-class. Hardcoded color and spacing values are strictly penalized:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>:root {
+  /* 1. Cores de Marca &amp; Superfície (Átomos) */
+  --color-brand-primary: #e60000;
+  --color-brand-hover: #ff2222;
+  --color-surface-base: #0a0a0d;
+  --color-surface-card: #14141a;
+  --color-text-main: #f4f4f6;
+  --color-text-muted: #9e9ea8;
+  --color-border-subtle: #262633;
+
+  /* 2. Escala de Espaçamento Atómico */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+
+  /* 3. Sombras &amp; Bordas */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+}</code></pre>
+        </div>
+
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação de marcas, propriedades e seletores utilizados aqui</span>
+            <span class="lang-en">🔍 View explanation of tags, properties and selectors used here</span>
+          </summary>
+          <div class="deep-dive-content">
+            <ul class="tag-item-list">
+              <li>
+                <code>:root</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:root" target="_blank" rel="noopener noreferrer">MDN :root Pseudo-Class ↗</a> — 
+                <span class="lang-pt">Representa o elemento raiz da árvore (o elemento <code>&lt;html&gt;</code>), mas com maior especificidade. É o local canónico para declaração de variáveis globais de CSS.</span>
+                <span class="lang-en">Matches the document root element (<code>&lt;html&gt;</code>) with higher specificity. Canonical location for declaring global CSS variables.</span>
+              </li>
+              <li>
+                <code>var(--nome-variavel)</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/var" target="_blank" rel="noopener noreferrer">MDN CSS Custom Properties / var() ↗</a> — 
+                <span class="lang-pt">Insere o valor de uma propriedade personalizada. Permite alterar todo o tema visual do festival modificando apenas um valor no topo da folha.</span>
+                <span class="lang-en">Substitutes the value of a custom property. Allows instantly adjusting festival brand colors across hundreds of rules from a single point of origin.</span>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 3: WEBFONTS VARIÁVEIS & TIPOGRAFIA FLUIDA -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 3</span> Webfonts Variáveis com Fallbacks &amp; clamp() (Marco 2)</span>
+          <span class="lang-en"><span class="step-badge">Step 3</span> Variable Webfonts with Fallbacks &amp; clamp() (Milestone 2)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Integre fontes variáveis com eixos contínuos de peso, definindo pilhas de fallbacks seguras no CSS e tipografia fluida com <code>clamp()</code>:</span>
+          <span class="lang-en">Integrate variable webfonts with continuous weight axes, declaring safe system fallbacks in CSS and fluid typography using <code>clamp()</code>:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>/* No &lt;head&gt;: Fraunces (títulos) + Arimo (texto) */
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400..700&amp;family=Fraunces:opsz,wght@9..144,300..900&amp;display=swap" rel="stylesheet"&gt;
+
+/* No CSS: Pilhas com Fallbacks Genéricos Seguros */
+:root {
+  --font-family-title: 'Fraunces', Georgia, serif;
+  --font-family-base: 'Arimo', -apple-system, system-ui, sans-serif;
+  --text-hero: clamp(2rem, 1.6rem + 2vw, 3.75rem);
+}</code></pre>
+        </div>
+
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação de marcas, propriedades e seletores utilizados aqui</span>
+            <span class="lang-en">🔍 View explanation of tags, properties and selectors used here</span>
+          </summary>
+          <div class="deep-dive-content">
+            <ul class="tag-item-list">
+              <li>
+                <code>rel="preconnect"</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preconnect" target="_blank" rel="noopener noreferrer">MDN preconnect ↗</a> — 
+                <span class="lang-pt">Inicia o handshake DNS, TCP e TLS com o servidor de fontes antes do pedido CSS, reduzindo a latência percecionada pelo utilizador.</span>
+                <span class="lang-en">Initiates DNS, TCP, and TLS handshake with font CDN servers before CSS arrives, drastically cutting latency.</span>
+              </li>
+              <li>
+                <code>display=swap</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display" target="_blank" rel="noopener noreferrer">MDN font-display ↗</a> — 
+                <span class="lang-pt">Instrui o browser a renderizar imediatamente o texto com a fonte do sistema (fallback) e a trocá-la assim que a Webfont termine de descarregar, prevenindo o "Flash of Invisible Text" (FOIT).</span>
+                <span class="lang-en">Tells the browser to render text immediately using a system fallback font, swapping in the webfont once loaded (prevents FOIT).</span>
+              </li>
+              <li>
+                <code>clamp(MIN, PREFERRED, MAX)</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clamp" target="_blank" rel="noopener noreferrer">MDN clamp() ↗</a> — 
+                <span class="lang-pt">Função matemática que restringe um valor entre um mínimo e um máximo, variando dinamicamente com o viewport sem necessidade de dezenas de media queries.</span>
+                <span class="lang-en">Clamps a value between an absolute minimum and maximum boundary, smoothly interpolating across viewport widths without media query bloat.</span>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 4: ESTADOS DOS LINKS LVHA -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 4</span> Estados de Hiperligação: Sequência LVHA &amp; :focus-visible (Marco 5)</span>
+          <span class="lang-en"><span class="step-badge">Step 4</span> Hyperlink States: LVHA Sequence &amp; :focus-visible (Milestone 5)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">A ordem de declaração dos estados das ligações no CSS é vital devido à cascata. Siga obrigatoriamente a sequência <strong>LVHA</strong> e nunca elimine o anel de foco sem <code>:focus-visible</code>:</span>
+          <span class="lang-en">The declaration order of link states is critical due to cascade rules. You must strictly follow the <strong>LVHA</strong> sequence and preserve keyboard access with <code>:focus-visible</code>:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>/* 1. Link Base (L) */
+nav &gt; ul &gt; li &gt; a:link {
+  color: var(--color-text-main);
+  text-decoration: none;
+}
+
+/* 2. Link Visitado (V) */
+nav &gt; ul &gt; li &gt; a:visited {
+  color: var(--color-text-muted);
+}
+
+/* 3. Hover com Cursor (H) */
+nav &gt; ul &gt; li &gt; a:hover {
+  color: #ffffff;
+  background-color: var(--color-brand-primary);
+}
+
+/* 4. Active ao Clicar (A) */
+nav &gt; ul &gt; li &gt; a:active {
+  background-color: var(--color-brand-active);
+}
+
+/* 5. Acessibilidade de Teclado (WCAG AA) */
+nav &gt; ul &gt; li &gt; a:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 3px;
+}</code></pre>
+        </div>
+
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação de marcas, propriedades e seletores utilizados aqui</span>
+            <span class="lang-en">🔍 View explanation of tags, properties and selectors used here</span>
+          </summary>
+          <div class="deep-dive-content">
+            <ul class="tag-item-list">
+              <li>
+                <code>:link, :visited, :hover, :active</code>: <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Text_styling/Styling_links" target="_blank" rel="noopener noreferrer">MDN Styling Links ↗</a> — 
+                <span class="lang-pt">Se <code>:hover</code> for declarado antes de <code>:visited</code>, o hover deixa de funcionar para links que o utilizador já visitou na sua história de navegação. A sequência LVHA é a única matematicamente estável na cascata.</span>
+                <span class="lang-en">If <code>:hover</code> precedes <code>:visited</code>, the hover state stops triggering on links present in user browser history. LVHA is the only mathematically stable declaration order.</span>
+              </li>
+              <li>
+                <code>:focus-visible</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible" target="_blank" rel="noopener noreferrer">MDN :focus-visible ↗</a> — 
+                <span class="lang-pt">Mostra o anel de foco apenas quando o utilizador navega por teclado (Tab), sem exibir contornos indesejados ao clicar com o rato. Substitui o perigoso <code>outline: none !important</code>.</span>
+                <span class="lang-en">Presents an outline ring only when the user navigates via keyboard (Tab key), avoiding ugly focus rings on mouse click while preserving WCAG accessibility.</span>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 5: TEXTO SEMÂNTICO & IDS/CLASSES -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 5</span> Semântica Textual, Citações &amp; IDs Funcionais (Marco 2)</span>
+          <span class="lang-en"><span class="step-badge">Step 5</span> Inline Semantics, Quotes &amp; Functional IDs (Milestone 2)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Utilize marcação semântica com toque visual consciente e aplique pelo menos 2 IDs funcionais únicos para navegação por âncoras:</span>
+          <span class="lang-en">Use expressive inline semantic tags and assign at least 2 unique functional IDs for in-page anchor targeting:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>&lt;!-- ID Funcional para Alvo de Âncora --&gt;
+&lt;section id="palcos"&gt;
+  &lt;h2 class="section-title"&gt;Palcos &amp; Atuações&lt;/h2&gt;
+  &lt;p&gt;O DJ Warp apresenta &lt;strong&gt;sensores piezoelétricos&lt;/strong&gt; calibrados a &lt;em&gt;138 BPM&lt;/em&gt;.&lt;/p&gt;
+
+  &lt;blockquote&gt;
+    &lt;q&gt;O ritmo morre no momento em que o baterista olha para um ecrã de computador.&lt;/q&gt;
+    &lt;cite&gt;— DJ Warp&lt;/cite&gt;
+  &lt;/blockquote&gt;
+&lt;/section&gt;</code></pre>
+        </div>
+
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação de marcas, propriedades e seletores utilizados aqui</span>
+            <span class="lang-en">🔍 View explanation of tags, properties and selectors used here</span>
+          </summary>
+          <div class="deep-dive-content">
+            <ul class="tag-item-list">
+              <li><code>&lt;blockquote&gt;, &lt;q&gt;, &lt;cite&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/blockquote" target="_blank" rel="noopener noreferrer">MDN Quotations Elements ↗</a> — <span class="lang-pt">Semântica de citações extensas (em bloco) e em linha com indicação canónica da fonte.</span><span class="lang-en">Semantic containers for block and inline quotes with canonical attribution.</span></li>
+              <li><code>&lt;strong&gt;, &lt;em&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/strong" target="_blank" rel="noopener noreferrer">MDN strong ↗</a> — <span class="lang-pt">Importância crítica e ênfase vocal transmitida a sintetizadores de fala.</span><span class="lang-en">Critical semantic importance and vocal stress conveyed to screen readers.</span></li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 6: BOX MODEL & BORDER-BOX -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 6</span> Modelo de Caixa Previsível: box-sizing &amp; Wrapper #page (Marco 4)</span>
+          <span class="lang-en"><span class="step-badge">Step 6</span> Predictable Box Model: box-sizing &amp; #page Wrapper (Milestone 4)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Garanta o cálculo geométrico robusto através do reset universal <code>border-box</code> e envolva o documento num contentor de controlo geral <code>#page</code> com largura mínima garantida:</span>
+          <span class="lang-en">Enforce predictable box sizing using universal <code>border-box</code> and contain the layout inside a <code>#page</code> wrapper with guaranteed minimum width:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>/* 1. Reset Universal do Modelo de Caixa */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Contentor de Controlo (#page) */
+#page {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 20rem; /* 320px: Limite inferior para telemóveis pequenos */
+}
+
+/* 3. Limites Centrais do Conteúdo Principal */
+main {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}</code></pre>
+        </div>
+
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação de marcas, propriedades e seletores utilizados aqui</span>
+            <span class="lang-en">🔍 View explanation of tags, properties and selectors used here</span>
+          </summary>
+          <div class="deep-dive-content">
+            <ul class="tag-item-list">
+              <li>
+                <code>box-sizing: border-box;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing" target="_blank" rel="noopener noreferrer">MDN box-sizing ↗</a> — 
+                <span class="lang-pt">Altera o algoritmo padrão (<code>content-box</code>), absorvendo o <code>padding</code> e a <code>border</code> dentro da largura indicada, eliminando para sempre barras de scroll horizontal acidentais.</span>
+                <span class="lang-en">Alters standard CSS geometry, incorporating padding and border inside the specified width dimension, completely eliminating accidental horizontal scrollbars.</span>
+              </li>
+              <li>
+                <code>margin-inline: auto;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline" target="_blank" rel="noopener noreferrer">MDN margin-inline ↗</a> — 
+                <span class="lang-pt">Propriedade lógica equivalente a <code>margin-left: auto; margin-right: auto;</code>. Centraliza contentores em modos de escrita horizontais (LTR e RTL).</span>
+                <span class="lang-en">Logical property shorthand for centering blocks horizontally in both LTR and RTL writing modes.</span>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 7: MEDIA ESTÁTICA: FIGURE, SVG & PICTURE -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 7</span> Multimédia Estática: &lt;figure&gt;, SVG &amp; &lt;picture&gt; com srcset (Marco 3)</span>
+          <span class="lang-en"><span class="step-badge">Step 7</span> Static Media: &lt;figure&gt;, SVG &amp; &lt;picture&gt; with srcset (Milestone 3)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Implemente direção de arte responsiva com o elemento <code>&lt;picture&gt;</code>, servindo enquadramentos otimizados conforme o breakpoint do ecrã:</span>
+          <span class="lang-en">Implement responsive art direction using <code>&lt;picture&gt;</code>, serving custom crops and resolutions tailored to device viewport breakpoints:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>&lt;figure class="hero-picture-frame"&gt;
+  &lt;picture&gt;
+    &lt;!-- Monitores Grandes (≥ 960px): Panorâmica completa de sintetizadores --&gt;
+    &lt;source media="(min-width: 960px)" srcset="assets/images/dj-warp-hero-large.svg"&gt;
+    &lt;!-- Tablets (≥ 600px): Enquadramento balanceado --&gt;
+    &lt;source media="(min-width: 600px)" srcset="assets/images/dj-warp-hero-medium.svg"&gt;
+    &lt;!-- Mobile / Fallback (&lt; 600px): Corte focal vertical --&gt;
+    &lt;img src="assets/images/dj-warp-hero-small.svg" alt="Live Setup do DJ Warp com sintetizador Eurorack" width="1600" height="600"&gt;
+  &lt;/picture&gt;
+  &lt;figcaption&gt;Sintetizadores modulares analógicos calibrados em tempo real.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+        </div>
+
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação de marcas, propriedades e seletores utilizados aqui</span>
+            <span class="lang-en">🔍 View explanation of tags, properties and selectors used here</span>
+          </summary>
+          <div class="deep-dive-content">
+            <ul class="tag-item-list">
+              <li>
+                <code>&lt;picture&gt;</code> e <code>&lt;source&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/picture" target="_blank" rel="noopener noreferrer">MDN picture element ↗</a> — 
+                <span class="lang-pt">Contentor que permite avaliar media queries diretamente no motor do browser, descarregando apenas a imagem específica e poupando largura de banda móvel.</span>
+                <span class="lang-en">Wrapper allowing browser engines to evaluate media queries directly, saving mobile bandwidth by downloading solely the matching asset.</span>
+              </li>
+              <li>
+                <code>&lt;figure&gt; e &lt;figcaption&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/figure" target="_blank" rel="noopener noreferrer">MDN figure element ↗</a> — 
+                <span class="lang-pt">Unidade semântica autónoma acompanhada de legenda explicativa, fundamental para leitores de ecrã e indexação de imagem.</span>
+                <span class="lang-en">Self-contained semantic figure container with associated caption text, vital for screen reader accessibility.</span>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 8: TIME-BASED MEDIA: VÍDEO, ÁUDIO & IFRAME 16:9 -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 8</span> Multimédia Contínua: &lt;video&gt;, &lt;audio&gt; &amp; Embed 16:9 (Marco 3)</span>
+          <span class="lang-en"><span class="step-badge">Step 8</span> Time-Based Media: &lt;video&gt;, &lt;audio&gt; &amp; 16:9 Responsive Embed (Milestone 3)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Incorpore reprodutores nativos com fallbacks acessíveis e encapsule iframes externos em contentores com <code>aspect-ratio: 16 / 9;</code> para prevenir Cumulative Layout Shift (CLS):</span>
+          <span class="lang-en">Embed native audio/video players with accessible fallbacks and contain external iframes inside containers with <code>aspect-ratio: 16 / 9;</code> to prevent CLS:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>&lt;!-- Reprodutor de Áudio Nativo --&gt;
+&lt;audio controls preload="metadata"&gt;
+  &lt;source src="assets/media/dj-warp-piezo-pulse.mp3" type="audio/mpeg"&gt;
+  &lt;p&gt;O seu browser não suporta áudio HTML5. &lt;a href="assets/media/dj-warp-piezo-pulse.mp3"&gt;Descarregue aqui&lt;/a&gt;.&lt;/p&gt;
+&lt;/audio&gt;
+
+&lt;!-- Embed Responsivo com Aspect-Ratio 16 / 9 --&gt;
+&lt;div class="embed-responsive-16-9"&gt;
+  &lt;iframe src="https://www.openstreetmap.org/export/embed.html?..." title="Mapa do Festival Drumtiks" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação de marcas, propriedades e seletores utilizados aqui</span>
+            <span class="lang-en">🔍 View explanation of tags, properties and selectors used here</span>
+          </summary>
+          <div class="deep-dive-content">
+            <ul class="tag-item-list">
+              <li>
+                <code>aspect-ratio: 16 / 9;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio" target="_blank" rel="noopener noreferrer">MDN aspect-ratio ↗</a> — 
+                <span class="lang-pt">Substitui o arcaico hack de <code>padding-top: 56.25%</code>, reservando a proporção exata da caixa antes do carregamento do iframe, eliminando saltos de layout (CLS).</span>
+                <span class="lang-en">Replaces archaic <code>padding-top: 56.25%</code> hacks, automatically reserving rectangular frame geometry to prevent Cumulative Layout Shift (CLS).</span>
+              </li>
+              <li>
+                <code>&lt;audio controls&gt;, &lt;video controls&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/HTML_video_and_audio" target="_blank" rel="noopener noreferrer">MDN HTML Video &amp; Audio ↗</a> — 
+                <span class="lang-pt">Ativa a interface de reprodução acessível nativa fornecida pelo sistema operativo do utilizador.</span>
+                <span class="lang-en">Exposes native OS-level playback controls for accessible user manipulation.</span>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 9: BREAKING THE BOX: HERO FULL-BLEED -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 9</span> Quebra da Caixa: Padrão Hero Full-Bleed (Escape Hatch) (Marco 4)</span>
+          <span class="lang-en"><span class="step-badge">Step 9</span> Breaking the Box: Hero Full-Bleed (Escape Hatch Pattern) (Milestone 4)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Faça um elemento expandir-se a 100vw rompendo os limites contidos de um contentor pai centrado através de margens negativas calculadas:</span>
+          <span class="lang-en">Force a hero banner to break out to 100vw beyond its centered parent container using calculated negative margins:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>.hero-full-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: #060608;
+  border-bottom: 2px solid var(--color-brand-primary);
+}
+
+/* Conteúdo interior volta a respeitar a grelha central */
+.hero-inner {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: var(--space-xl) var(--space-md);
+}</code></pre>
+        </div>
+
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação de marcas, propriedades e seletores utilizados aqui</span>
+            <span class="lang-en">🔍 View explanation of tags, properties and selectors used here</span>
+          </summary>
+          <div class="deep-dive-content">
+            <ul class="tag-item-list">
+              <li>
+                <code>100vw &amp; -50vw</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length#viewport-percentage_lengths" target="_blank" rel="noopener noreferrer">MDN Viewport Units ↗</a> — 
+                <span class="lang-pt">A combinação de <code>left: 50%</code> com <code>margin-left: -50vw</code> reposiciona o eixo do elemento na margem esquerda exata do ecrã físico, permitindo criar heros imersivos sem fechar e reabrir divs no HTML.</span>
+                <span class="lang-en">Combining <code>left: 50%</code> with <code>margin-left: -50vw</code> anchors the container to the physical viewport edge, enabling edge-to-edge banners without messy markup hacks.</span>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 10: OS 4 MODOS DE POSICIONAMENTO -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 10</span> Os 4 Modos de Posicionamento: relative, absolute, sticky, fixed (Marco 4)</span>
+          <span class="lang-en"><span class="step-badge">Step 10</span> The 4 Positioning Modes: relative, absolute, sticky, fixed (Milestone 4)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Demonstre a aplicação intencional e coordenada de cada um dos quatro modos de posicionamento no projeto:</span>
+          <span class="lang-en">Demonstrate deliberate and coordinated mastery across all four CSS positioning contexts:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>/* 1. Relative: Cria contexto de posicionamento */
+.stage-card {
+  position: relative;
+  padding: var(--space-lg);
+}
+
+/* 2. Absolute: Ancorado ao canto superior do Card pai */
+.stage-card-badge {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 2;
+}
+
+/* 3. Sticky: Header persistente durante o scroll */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* 4. Fixed: Botão 'Voltar ao Topo' ancorado à viewport */
+.btn-fixed-top {
+  position: fixed;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  z-index: 900;
+}</code></pre>
+        </div>
+
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação de marcas, propriedades e seletores utilizados aqui</span>
+            <span class="lang-en">🔍 View explanation of tags, properties and selectors used here</span>
+          </summary>
+          <div class="deep-dive-content">
+            <ul class="tag-item-list">
+              <li>
+                <code>position: sticky;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position#sticky" target="_blank" rel="noopener noreferrer">MDN position: sticky ↗</a> — 
+                <span class="lang-pt">Híbrido entre <code>relative</code> e <code>fixed</code>. Permanece no fluxo natural até que o topo atinja o limiar especificado (<code>top: 0</code>), fixando-se no ecrã enquanto o seu pai estiver visível.</span>
+                <span class="lang-en">Hybrid between relative and fixed. Behaves in normal flow until its threshold is reached, pinning to viewport while within parent visibility boundaries.</span>
+              </li>
+              <li>
+                <code>z-index</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/z-index" target="_blank" rel="noopener noreferrer">MDN z-index ↗</a> — 
+                <span class="lang-pt">Determina a ordem de empilhamento no eixo Z perpendicular ao ecrã para elementos posicionados (diferentes de static).</span>
+                <span class="lang-en">Governs stacking context order along the perpendicular Z-axis for positioned elements.</span>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 11: SELETORES COMBINADORES SEM NESTING -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 11</span> Seletores Combinadores Planos: &gt;, +, ~ (Sem Nesting) (Marco 5)</span>
+          <span class="lang-en"><span class="step-badge">Step 11</span> Flat Combinator Selectors: &gt;, +, ~ (Zero Nesting) (Milestone 5)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Substitua o nesting por combinadores CSS explícitos para modular relações de parentesco e adjacência com especificidade previsível:</span>
+          <span class="lang-en">Replace nesting with explicit combinators to express parentage and sibling relationships with predictable specificity:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>/* 1. Filho Direto (&gt;): Estiliza apenas a navegação de nível 1 */
+.main-nav &gt; ul &gt; li &gt; a {
+  font-weight: 700;
+}
+
+/* 2. Irmão Adjacente (+): Lobotomized Owl para parágrafos consecutivos */
+p + p {
+  margin-block-start: var(--space-md);
+}
+
+/* 3. Descrição Técnica (&gt;): dl diretos */
+.spec-list &gt; dt {
+  color: var(--color-brand-primary);
+}</code></pre>
+        </div>
+
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação de marcas, propriedades e seletores utilizados aqui</span>
+            <span class="lang-en">🔍 View explanation of tags, properties and selectors used here</span>
+          </summary>
+          <div class="deep-dive-content">
+            <ul class="tag-item-list">
+              <li>
+                <code>A &gt; B (Filho Direto)</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator" target="_blank" rel="noopener noreferrer">MDN Child combinator ↗</a> — 
+                <span class="lang-pt">Aplica estilos a B apenas se for filho imediato de A, evitando formatar acidentalmente submenus de níveis inferiores.</span>
+                <span class="lang-en">Targets B only if it is an immediate direct child of A, preventing accidental bleed into nested submenus.</span>
+              </li>
+              <li>
+                <code>A + B (Irmão Adjacente)</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator" target="_blank" rel="noopener noreferrer">MDN Adjacent sibling ↗</a> — 
+                <span class="lang-pt">Seleciona B apenas se for imediatamente precedido por A ao mesmo nível hierárquico. O padrão ouro para espaçamento vertical entre parágrafos consecutivos.</span>
+                <span class="lang-en">Selects B only if preceded immediately by A on the same hierarchy level. Ideal for consecutive paragraph stacks.</span>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 12: PROPRIEDADES LÓGICAS & FILTROS CSS -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 12</span> Propriedades Lógicas &amp; Filtros Gráficos CSS (Marco 3 &amp; 4)</span>
+          <span class="lang-en"><span class="step-badge">Step 12</span> Logical Properties &amp; CSS Graphic Filters (Milestone 3 &amp; 4)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Abandone direções físicas estáticas e aplique filtros gráficos diretamente no browser para tratamento visual de logótipos:</span>
+          <span class="lang-en">Abandon rigid physical directions and apply browser-native graphic filters for partner logos:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>/* 1. Propriedades Lógicas Multilíngua */
+.stage-card {
+  padding-block: var(--space-lg);   /* Vertical */
+  padding-inline: var(--space-md);  /* Horizontal */
+  margin-block-end: var(--space-md);
+  border-inline-start: 4px solid var(--color-brand-primary);
+}
+
+/* 2. Filtros Gráficos CSS (Escala de Cinzentos com revelação no Hover) */
+.partner-logo-img {
+  filter: grayscale(100%) opacity(60%);
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.partner-logo-item:hover .partner-logo-img {
+  filter: grayscale(0%) opacity(100%) contrast(110%);
+}</code></pre>
+        </div>
+
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação de marcas, propriedades e seletores utilizados aqui</span>
+            <span class="lang-en">🔍 View explanation of tags, properties and selectors used here</span>
+          </summary>
+          <div class="deep-dive-content">
+            <ul class="tag-item-list">
+              <li>
+                <code>padding-block, padding-inline</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Logical_properties_and_values/Basic_concepts" target="_blank" rel="noopener noreferrer">MDN Logical Properties ↗</a> — 
+                <span class="lang-pt">Abstração do eixo físico. Em escritas ocidentais (LTR), block é vertical e inline é horizontal. Em layouts árabes (RTL), as margens e bordas invertem-se automaticamente sem duplicar código.</span>
+                <span class="lang-en">Flow-relative dimensions. Adapts automatically between LTR and RTL scripts without rewriting directional margins.</span>
+              </li>
+              <li>
+                <code>filter: grayscale() contrast()</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter" target="_blank" rel="noopener noreferrer">MDN filter property ↗</a> — 
+                <span class="lang-pt">Aplica transformações visuais diretamente no canal de renderização gráfica, evitando ter de carregar duas versões de imagem diferentes para o hover.</span>
+                <span class="lang-en">Applies graphics pipeline transformations directly in browser, eliminating wasteful dual image loads for hover states.</span>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 13: BREAKPOINT DESKTOP PROGRESSIVO -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 13</span> Breakpoint Desktop Progressivo (@media min-width: 960px) (Marco 5)</span>
+          <span class="lang-en"><span class="step-badge">Step 13</span> Progressive Desktop Breakpoint (@media min-width: 960px) (Milestone 5)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Estruture a folha com abordagem estritamente Mobile-First. Adicione complexidade visual e grelhas multi-coluna apenas dentro de media queries progressivas:</span>
+          <span class="lang-en">Maintain a strictly Mobile-First stylesheet foundation, introducing multi-column grid layouts only inside progressive media queries:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>/* Mobile por defeito: 1 Coluna em fluxo vertical */
+.cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Breakpoint Desktop Progressivo (≥ 960px) */
+@media screen and (min-width: 960px) {
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .media-showcase-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+}</code></pre>
+        </div>
+
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação de marcas, propriedades e seletores utilizados aqui</span>
+            <span class="lang-en">🔍 View explanation of tags, properties and selectors used here</span>
+          </summary>
+          <div class="deep-dive-content">
+            <ul class="tag-item-list">
+              <li>
+                <code>@media screen and (min-width: 960px)</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Media_queries/Using" target="_blank" rel="noopener noreferrer">MDN Media Queries ↗</a> — 
+                <span class="lang-pt">Garante que dispositivos móveis não carregam regras desnecessárias de grelha pesada, aplicando otimizações espaciais apenas quando o ecrã tem largura suficiente.</span>
+                <span class="lang-en">Ensures mobile clients parse lightweight single-column layouts first, applying spatial grid enhancements only when screen real estate permits.</span>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+    </section>
+
+    <!-- 3. Rubrica Docente de Avaliação Oficial (5 Marcos) -->
+    <section id="rubrica" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">3. Rubrica Docente de Avaliação Oficial (20 Valores)</span>
+        <span class="lang-en">3. Official Grading Rubric (20 Points)</span>
+      </h2>
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);">
+        <span class="lang-pt">A avaliação do Exercício 2 rege-se pelos 5 marcos qualitativos do compêndio docente:</span>
+        <span class="lang-en">Exercise 2 evaluation is governed by the 5 academic qualitative milestones:</span>
+      </p>
+
+      <div class="table-responsive">
+        <table class="rubric-table">
+          <thead>
+            <tr>
+              <th><span class="lang-pt">Marco de Avaliação</span><span class="lang-en">Evaluation Milestone</span></th>
+              <th><span class="lang-pt">Peso</span><span class="lang-en">Weight</span></th>
+              <th><span class="lang-pt">Excelente (15–20 v)</span><span class="lang-en">Excellence (15–20 pts)</span></th>
+              <th><span class="lang-pt">Suficiente (10–14 v)</span><span class="lang-en">Sufficient (10–14 pts)</span></th>
+              <th><span class="lang-pt">Insuficiente / Falha (0–9 v)</span><span class="lang-en">Penalty / Critical Failure (0–9 pts)</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong class="lang-pt">1. Infraestrutura &amp; Páginas</strong>
+                <strong class="lang-en">1. Infrastructure &amp; Pages</strong>
+              </td>
+              <td class="rubric-score">15% (3.0v)</td>
+              <td>
+                <span class="lang-pt">Estrutura de pastas exemplar dentro de <code>assets/</code>. Páginas <code>index.html</code> e <code>about.html</code> totalmente ligadas. Inclusão estrita de <code>reset.css</code> antes de <code>style.css</code>.</span>
+                <span class="lang-en">Exemplary folder structure inside <code>assets/</code>. Pages <code>index.html</code> and <code>about.html</code> linked. Strict inclusion of <code>reset.css</code> before <code>style.css</code>.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Estrutura funcional mas com falhas menores de organização. Páginas ligadas. Erros ligeiros em caminhos relativos.</span>
+                <span class="lang-en">Functional structure with minor folder flaws. Pages linked. Slight errors in relative path syntax.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Ficheiros na raiz sem pastas de ativos. Ausência de <code>about.html</code>. Inversão ou omissão do ficheiro de reset.</span>
+                <span class="lang-en">Files in root with no assets hierarchy. Missing <code>about.html</code>. Inverted or missing CSS reset.</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong class="lang-pt">2. Tipografia &amp; Design Tokens</strong>
+                <strong class="lang-en">2. Typography &amp; Design Tokens</strong>
+              </td>
+              <td class="rubric-score">20% (4.0v)</td>
+              <td>
+                <span class="lang-pt">Bloco <code>:root</code> completo com tokens atómicos bem estruturados. Webfont variável implementada com fallbacks genéricos seguros e tipografia fluida com <code>clamp()</code>.</span>
+                <span class="lang-en">Exhaustive <code>:root</code> block with atomic tokens. Variable webfont implemented with safe fallbacks and fluid <code>clamp()</code> hierarchy.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Variáveis presentes mas incompletas. Fonte externa implementada sem ser variável ou sem fallbacks seguros.</span>
+                <span class="lang-en">Variables present but incomplete. External font lacks variable axes or safe fallbacks.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Ausência de variáveis CSS. Estilos com valores hardcoded dispersos pelo código. Tipografia desalinhada.</span>
+                <span class="lang-en">Absence of CSS variables. Hardcoded values littered across selectors. Broken typographic cascade.</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong class="lang-pt">3. Multimédia &amp; Acessibilidade</strong>
+                <strong class="lang-en">3. Multimedia &amp; Accessibility</strong>
+              </td>
+              <td class="rubric-score">25% (5.0v)</td>
+              <td>
+                <span class="lang-pt">Uso exemplar de <code>&lt;picture&gt;</code>, <code>srcset</code>, SVG escalável, media nativa (áudio/vídeo) com fallbacks, filtros CSS e <code>aspect-ratio: 16 / 9;</code> no iframe. Atributos <code>alt</code> altamente descritivos.</span>
+                <span class="lang-en">Exemplary usage of <code>&lt;picture&gt;</code>, <code>srcset</code>, SVG, native media players with fallbacks, CSS filters, and 16:9 iframe embed. Highly descriptive <code>alt</code> attributes.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Media integrada mas sem otimização responsiva (<code>srcset</code> ausente). Uso básico de <code>alt</code>. Vídeo ou áudio com pequenas falhas.</span>
+                <span class="lang-en">Media integrated without responsive optimization (missing srcset). Generic alt text. Minor media issues.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Imagens sem atributos <code>alt</code>. Uso de elementos não semânticos. Media quebrada ou sem links de fallback.</span>
+                <span class="lang-en">Images lacking <code>alt</code> attributes. Broken media embeds without fallbacks. Unsemantic tags.</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong class="lang-pt">4. Box Model &amp; Positioning</strong>
+                <strong class="lang-en">4. Box Model &amp; Positioning</strong>
+              </td>
+              <td class="rubric-score">20% (4.0v)</td>
+              <td>
+                <span class="lang-pt">Modelo <code>border-box</code> universal. Quebra de caixa (Hero Full-Bleed 100vw) perfeita. Domínio exímio dos 4 modos (relative, absolute, sticky e fixed).</span>
+                <span class="lang-en">Universal <code>border-box</code>. Flawless Hero Full-Bleed 100vw breakout. Masterful coordination of relative, absolute, sticky, and fixed modes.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Box model aplicado. Quebra de caixa com pequenos desvios de scroll horizontal. Posicionamento funcional mas instável.</span>
+                <span class="lang-en">Box model applied. Full-bleed creates minor horizontal scroll glitches. Functional positioning.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Omissão de border-box. Descalabro visual de scroll parasita. Ausência de elementos relative/absolute combinados.</span>
+                <span class="lang-en">Missing border-box. Severe visual collapse from uncontained positioning. Missing relative/absolute combo.</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong class="lang-pt">5. Seletores &amp; Responsividade</strong>
+                <strong class="lang-en">5. Selectors &amp; Responsiveness</strong>
+              </td>
+              <td class="rubric-score">20% (4.0v)</td>
+              <td>
+                <span class="lang-pt">Seletores combinadores (<code>&gt;</code>, <code>+</code>, <code>~</code>) aplicados sem qualquer CSS Nesting (<code>&amp;</code>). Sequência LVHA e <code>:focus-visible</code> impecáveis. Layout Mobile-First perfeito com breakpoint progressivo.</span>
+                <span class="lang-en">Combinators (<code>&gt;</code>, <code>+</code>, <code>~</code>) applied strictly without CSS Nesting (<code>&amp;</code>). Flawless LVHA and <code>:focus-visible</code>. Clean Mobile-First layout with progressive breakpoint.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Ausência de nesting. Combinadores usados com pouca frequência. Estados interativos básicos. Breakpoint com pequenas falhas.</span>
+                <span class="lang-en">Zero nesting. Infrequent combinator usage. Basic interactive states. Breakpoint functional with minor flaws.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Presença de CSS Nesting proibido (<code>&amp;</code>). Falha em estados de foco/acessibilidade. Layout concebido para desktop que colapsa no mobile.</span>
+                <span class="lang-en">Forbidden CSS Nesting (<code>&amp;</code>) present. Broken keyboard focus accessibility. Desktop-first layout breaking on mobile.</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. Checklist de Autoavaliação para Estudantes -->
+    <section id="checklist" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">4. Checklist de Autoavaliação para Estudantes (EX2)</span>
+        <span class="lang-en">4. Student Self-Assessment Checklist (EX2)</span>
+      </h2>
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);">
+        <span class="lang-pt">Antes de submeter o URL do seu trabalho na folha partilhada da turma, valide cada um dos seguintes pontos no seu projeto:</span>
+        <span class="lang-en">Before submitting your live URL to the shared class spreadsheet, verify every single requirement in your project:</span>
+      </p>
+
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:4px;padding:var(--space-6);">
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--space-3);font-size:var(--text-sm);line-height:1.6;color:var(--text-secondary);">
+          <li>
+            <strong>1. <span class="lang-pt">Estrutura de Ficheiros:</span><span class="lang-en">File Structure:</span></strong> 
+            <span class="lang-pt">Existem <code>index.html</code> e <code>about.html</code> na raiz? A pasta <code>assets/</code> contém <code>css/</code>, <code>images/</code>, <code>graphics/</code> e <code>media/</code>?</span>
+            <span class="lang-en">Are <code>index.html</code> and <code>about.html</code> present in root? Does <code>assets/</code> contain <code>css/</code>, <code>images/</code>, <code>graphics/</code>, and <code>media/</code>?</span>
+          </li>
+          <li>
+            <strong>2. <span class="lang-pt">Ordem CSS:</span><span class="lang-en">CSS Order:</span></strong> 
+            <span class="lang-pt">O <code>reset.css</code> está declarado no <code>&lt;head&gt;</code> <em>antes</em> do <code>style.css</code> em ambas as páginas?</span>
+            <span class="lang-en">Is <code>reset.css</code> imported in <code>&lt;head&gt;</code> strictly <em>before</em> <code>style.css</code> on both HTML pages?</span>
+          </li>
+          <li>
+            <strong>3. <span class="lang-pt">Tokens &amp; Tipografia:</span><span class="lang-en">Tokens &amp; Typography:</span></strong> 
+            <span class="lang-pt">O bloco <code>:root</code> centraliza cores, fontes e espaçamentos? Foram integradas Webfonts com fallbacks seguros?</span>
+            <span class="lang-en">Does <code>:root</code> define custom properties for colors, typography, and spacing? Are variable webfonts backed by safe system fallbacks?</span>
+          </li>
+          <li>
+            <strong>4. <span class="lang-pt">Quebra da Caixa (Full-Bleed):</span><span class="lang-en">Breaking the Box (Full-Bleed):</span></strong> 
+            <span class="lang-pt">Existe um elemento Hero que se estende a <code>100vw</code> rompendo o limite do contentor sem scroll horizontal parasita?</span>
+            <span class="lang-en">Is there a Hero container breaking out to <code>100vw</code> with zero unintended horizontal scrollbars?</span>
+          </li>
+          <li>
+            <strong>5. <span class="lang-pt">Os 4 Modos de Posicionamento:</span><span class="lang-en">The 4 Positioning Modes:</span></strong> 
+            <span class="lang-pt">O projeto utiliza conscientemente <code>relative</code> (contexto do card), <code>absolute</code> (badge do card), <code>sticky</code> (header persistente com <code>scroll-margin-top</code>) e <code>fixed</code> (botão de regresso ao topo)?</span>
+            <span class="lang-en">Does the project deliberately employ <code>relative</code> (card context), <code>absolute</code> (card badge), <code>sticky</code> (persistent header), and <code>fixed</code> (back-to-top button)?</span>
+          </li>
+          <li>
+            <strong>6. <span class="lang-pt">Multimédia Completa:</span><span class="lang-en">Comprehensive Media:</span></strong> 
+            <span class="lang-pt">O site contém <code>&lt;picture&gt;</code> com <code>&lt;source&gt;</code> responsivo, <code>&lt;figure&gt;</code> com <code>&lt;figcaption&gt;</code>, reprodutor <code>&lt;audio&gt;</code>, reprodutor <code>&lt;video&gt;</code> e <code>&lt;iframe&gt;</code> embutido com <code>aspect-ratio: 16 / 9;</code>?</span>
+            <span class="lang-en">Does the site incorporate <code>&lt;picture&gt;</code> with responsive <code>&lt;source&gt;</code>, <code>&lt;figure&gt;</code> + <code>&lt;figcaption&gt;</code>, <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, and a 16:9 responsive <code>&lt;iframe&gt;</code>?</span>
+          </li>
+          <li>
+            <strong>7. <span class="lang-pt">Zero Nesting &amp; Mobile First:</span><span class="lang-en">Zero Nesting &amp; Mobile First:</span></strong> 
+            <span class="lang-pt">Verificou que <strong>NÃO existe nenhum bloco de CSS Nesting (<code>&amp;</code>)</strong> na sua folha de estilos? O layout base é mobile e expande via <code>@media screen and (min-width: 960px)</code>?</span>
+            <span class="lang-en">Did you confirm that <strong>ZERO CSS Nesting (<code>&amp;</code>)</strong> exists in your stylesheet? Is the base layout Mobile-First, enhanced at 960px?</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. Visualizador de Código Completo da Solução Oficial -->
+    <section id="codigo-completo" style="margin-bottom:var(--space-12);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">5. Código Completo da Solução Oficial de Referência</span>
+        <span class="lang-en">5. Complete Official Reference Solution Code</span>
+      </h2>
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);">
+        <span class="lang-pt">Consulte ou copie os ficheiros integrais desenvolvidos para o mini-site de demonstração do DJ Warp no Drumtiks '26:</span>
+        <span class="lang-en">Inspect or copy the complete files developed for the DJ Warp Drumtiks '26 official reference mini-site:</span>
+      </p>
+
+      <!-- Navegação por Abas de Código -->
+      <div class="code-tabs-nav">
+        <button class="code-tab-btn active" data-tab="tab-index">📄 index.html</button>
+        <button class="code-tab-btn" data-tab="tab-about">📄 about.html</button>
+        <button class="code-tab-btn" data-tab="tab-style">🎨 assets/css/style.css</button>
+      </div>
+
+      <!-- Tab 1: index.html -->
+      <div class="code-tab-pane active" id="tab-index">
+        <div class="code-toolbar">
+          <span><span class="lang-pt">FICHEIRO:</span><span class="lang-en">FILE:</span> demos/ex2-media-box-model/index.html</span>
+          <button class="btn-control" id="btn-copy-index">
+            <span class="lang-pt">Copiar index.html</span>
+            <span class="lang-en">Copy index.html</span>
+          </button>
+        </div>
+        <div class="code-container">
+          <pre><code id="code-content-index">&lt;!DOCTYPE html&gt;
+&lt;html lang="pt"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;!-- Regra Mobile-First Obrigatória: Escala Inicial de Viewport --&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;DJ Warp — Live Hybrid Act • Drumtiks '26 Porto&lt;/title&gt;
+  &lt;meta name="description" content="Apresentação gráfica e multimédia oficial do DJ Warp no Festival Drumtiks '26. Engenharia de percussão híbrida e sintetizadores modulares analógicos."&gt;
+
+  &lt;!-- Favicon Obrigatório nos Formatos SVG e Fallback --&gt;
+  &lt;link rel="icon" type="image/svg+xml" href="assets/graphics/favicon.svg"&gt;
+  &lt;link rel="alternate icon" href="assets/graphics/favicon.svg"&gt;
+
+  &lt;!-- 1. Google Fonts Variáveis (Nuvem / Fallback para as Fontes Locais @font-face) --&gt;
+  &lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+  &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+  &lt;link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&amp;family=Fraunces:opsz,wght@9..144,300..900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"&gt;
+
+  &lt;!-- 2. Ordem Estrita de Carregamento CSS: Eric Meyer Reset v2.0 primeiro, Folha de Estilos depois --&gt;
+  &lt;link rel="stylesheet" href="assets/css/reset.css"&gt;
+  &lt;link rel="stylesheet" href="assets/css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;!-- Wrapper Global de Controlo (#page) para Contenção e Rutura de Caixa --&gt;
+  &lt;div id="page"&gt;
+
+    &lt;!-- CABEÇALHO COM STICKY HEADER PERSISTENTE (POSITION: STICKY) --&gt;
+    &lt;header class="site-header" id="topo"&gt;
+      &lt;div class="site-header-inner"&gt;
+        &lt;a href="index.html" class="brand-link" aria-label="Drumtiks '26 Início"&gt;
+          &lt;img src="assets/graphics/logo.svg" alt="Logótipo Drumtiks '26" class="brand-logo-img"&gt;
+          &lt;span class="brand-title"&gt;DRUMTIKS&lt;span&gt;'26&lt;/span&gt;&lt;/span&gt;
+        &lt;/a&gt;
+
+        &lt;!-- Navegação Principal com Estados LVHA &amp; Combinadores Planos --&gt;
+        &lt;nav class="main-nav" aria-label="Navegação Principal do Artista"&gt;
+          &lt;ul&gt;
+            &lt;li&gt;&lt;a href="index.html" aria-current="page"&gt;Início&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="about.html"&gt;Sobre / Setup&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#feature"&gt;Cartaz&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#bio"&gt;Biografia&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#palcos"&gt;Palcos&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#live-media"&gt;Multimédia&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#parceiros"&gt;Parceiros&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#contactos"&gt;Contactos&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_box_model" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent-amber);"&gt;MDN Box Model ↗&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/nav&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;!-- CONTEÚDO PRINCIPAL (LANDMARK MAIN) --&gt;
+    &lt;main id="conteudo"&gt;
+
+      &lt;!-- HERO SECTION: BREAKING THE BOX MODEL (FULL-BLEED ESCAPE HATCH 100vw) --&gt;
+      &lt;section class="hero-full-bleed" id="feature" aria-labelledby="titulo-hero"&gt;
+        &lt;div class="hero-inner"&gt;
+          &lt;span class="hero-tag"&gt;Artista Residente • Drumtiks '26 Porto&lt;/span&gt;
+          &lt;h1 class="hero-title" id="titulo-hero"&gt;DJ WARP — LIVE HYBRID ACT&lt;/h1&gt;
+          &lt;p class="hero-subtitle"&gt;
+            Fusão visceral entre bateria acústica piezoelétrica, sistemas modulares Eurorack 9U e síntese analógica contínua. Sem computadores portáteis no palco.
+          &lt;/p&gt;
+
+          &lt;!-- Figura Hero com Picture Responsivo e Otimizado em Formatos WebP + JPG --&gt;
+          &lt;figure class="hero-picture-frame"&gt;
+            &lt;picture&gt;
+              &lt;!-- Ecrãs Desktop / Monitores Grandes (≥ 960px): Panorâmica 1400w WebP + fallback JPG --&gt;
+              &lt;source media="(min-width: 960px)" srcset="assets/images/hero-dj-warp-1400w.webp" type="image/webp"&gt;
+              &lt;source media="(min-width: 960px)" srcset="assets/images/hero-dj-warp-1400w.jpg" type="image/jpeg"&gt;
+              &lt;!-- Ecrãs Tablet / Médios (≥ 600px): Enquadramento 960w WebP + fallback JPG --&gt;
+              &lt;source media="(min-width: 600px)" srcset="assets/images/hero-dj-warp-960w.webp" type="image/webp"&gt;
+              &lt;source media="(min-width: 600px)" srcset="assets/images/hero-dj-warp-960w.jpg" type="image/jpeg"&gt;
+              &lt;!-- Mobile / Fallback por defeito (&lt; 600px): Corte 600w WebP + fallback JPG --&gt;
+              &lt;source srcset="assets/images/hero-dj-warp-600w.webp" type="image/webp"&gt;
+              &lt;img src="assets/images/hero-dj-warp-600w.jpg" alt="DJ Warp em palco analógico no Drumtiks '26" width="1400" height="600" loading="eager"&gt;
+            &lt;/picture&gt;
+            &lt;figcaption&gt;
+              Direção de arte fotográfica e responsiva: o sintetizador Eurorack e o kit de bateria acústica adaptam-se à resolução do dispositivo.
+            &lt;/figcaption&gt;
+          &lt;/figure&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;!-- SECÇÃO DE BIOGRAFIA &amp; CONCEITO ACÚSTICO --&gt;
+      &lt;section id="bio" style="margin-block-end:var(--space-2xl);"&gt;
+        &lt;h2 class="section-title"&gt;Biografia &amp;amp; Conceito: A Bateria como Oscilador&lt;/h2&gt;
+        &lt;p class="section-desc"&gt;
+          Pesquisa pioneira sobre a conversão de energia cinética mecânica em voltagem de controlo analógica contínua (CV):
+        &lt;/p&gt;
+
+        &lt;div class="bio-grid"&gt;
+          &lt;!-- Retrato com Picture Responsivo --&gt;
+          &lt;figure class="bio-portrait"&gt;
+            &lt;picture&gt;
+              &lt;source media="(min-width: 600px)" srcset="assets/images/dj-warp-960w.webp" type="image/webp"&gt;
+              &lt;source media="(min-width: 600px)" srcset="assets/images/dj-warp-960w.jpg" type="image/jpeg"&gt;
+              &lt;source srcset="assets/images/dj-warp-600w.webp" type="image/webp"&gt;
+              &lt;img src="assets/images/dj-warp-600w.jpg" alt="DJ Warp no estúdio de percussão analógica da FBAUP" width="960" height="640" loading="lazy"&gt;
+            &lt;/picture&gt;
+            &lt;figcaption&gt;
+              DJ Warp durante a residência de investigação sonora na FBAUP (Foto oficial: Drumtiks '26).
+            &lt;/figcaption&gt;
+          &lt;/figure&gt;
+
+          &lt;!-- Texto Semântico Rico com Todas as Formatações Exigidas --&gt;
+          &lt;div class="bio-text"&gt;
+            &lt;div class="meta-bar"&gt;
+              &lt;strong&gt;Artista:&lt;/strong&gt; DJ Warp • &lt;strong&gt;Data:&lt;/strong&gt; &lt;time datetime="2026-08-14"&gt;14 a 16 de Agosto de 2026&lt;/time&gt; • &lt;strong&gt;Origem:&lt;/strong&gt; Porto, Portugal
+            &lt;/div&gt;
+
+            &lt;p&gt;
+              No âmbito da unidade curricular de &lt;abbr title="Web Design 101"&gt;WD101&lt;/abbr&gt; e do festival &lt;strong&gt;Drumtiks '26&lt;/strong&gt;, o DJ Warp é o pioneiro da percussão controlada por voltagem analógica pura. Rejeitando os vulgares controladores &lt;del&gt;MIDI via USB&lt;/del&gt; e a dependência de computadores em palco, o artista utiliza &lt;em&gt;transdutores piezoelétricos de alta sensibilidade&lt;/em&gt; acoplados à madeira dos tambores acústicos.
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              Cada impacto de baqueta produz um impulso elétrico direto que aciona circuitos &lt;em&gt;Envelope Follower&lt;/em&gt; e &lt;em&gt;Trigger-to-Gate&lt;/em&gt;, modulando filtros de transístores sem qualquer latência perceptiva. Como o próprio afirma:
+            &lt;/p&gt;
+
+            &lt;blockquote style="background-color:var(--color-surface-card);border-left:3px solid var(--color-brand-primary);padding:var(--space-md);margin-block:var(--space-md);font-style:italic;color:var(--color-text-main);"&gt;
+              &lt;q&gt;O fluxo de voltagem elétrica num circuito analógico espelha o fluxo de uma página Web: cada elemento responde à geometria e à pressão do meio que o envolve.&lt;/q&gt;
+            &lt;/blockquote&gt;
+
+            &lt;!-- Imagem com Ligação (Exigência Explícita do Enunciado EX2) --&gt;
+            &lt;a href="about.html" class="linked-media-badge" aria-label="Ver Especificações Técnicas de Hardware do DJ Warp"&gt;
+              &lt;img src="assets/graphics/vinyl-platter.svg" alt="Ícone de Disco de Vinil e Patch Analógico" width="32" height="32"&gt;
+              &lt;span&gt;Consultar Ficha Técnica de Hardware Eurorack 9U ↗&lt;/span&gt;
+            &lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;!-- SECÇÃO DE PALCOS: CARTÕES MODULARES COM BADGE ABSOLUTO --&gt;
+      &lt;section id="palcos" style="margin-block-end:var(--space-2xl);"&gt;
+        &lt;h2 class="section-title"&gt;Palcos &amp;amp; Atuações Confirmadas&lt;/h2&gt;
+        &lt;p class="section-desc"&gt;
+          Três intervenções acústicas desenhadas especificamente para a arquitetura industrial do Parque da Cidade do Porto:
+        &lt;/p&gt;
+
+        &lt;!-- Grelha de Cartões (Mobile-First: 1 coluna no mobile, 3 colunas em ecrãs ≥ 960px) --&gt;
+        &lt;div class="cards-grid"&gt;
+          
+          &lt;!-- Card 1 --&gt;
+          &lt;article class="stage-card"&gt;
+            &lt;!-- Badge com Posicionamento Absoluto ancorado ao Card Relativo --&gt;
+            &lt;span class="stage-card-badge"&gt;Sexta • 14 Ago&lt;/span&gt;
+            &lt;span class="stage-card-time"&gt;23:00 — 01:30&lt;/span&gt;
+            &lt;h3 class="stage-card-name"&gt;Palco Sonoridades Cinéticas&lt;/h3&gt;
+            &lt;p class="stage-card-desc"&gt;
+              Sessão de abertura com improvisação de ritmos polimétricos a 138 BPM, utilizando sensores piezoelétricos na tarola e pratos.
+            &lt;/p&gt;
+            &lt;div class="stage-card-setup"&gt;
+              &lt;strong&gt;Equipamento:&lt;/strong&gt; Eurorack 9U + Kit Acústico Mapex Birch
+            &lt;/div&gt;
+          &lt;/article&gt;
+
+          &lt;!-- Card 2 --&gt;
+          &lt;article class="stage-card"&gt;
+            &lt;span class="stage-card-badge" style="background-color:var(--color-accent-blue);"&gt;Sábado • 15 Ago&lt;/span&gt;
+            &lt;span class="stage-card-time"&gt;02:00 — 04:00&lt;/span&gt;
+            &lt;h3 class="stage-card-name"&gt;Cúpula Sub-Grave (360°)&lt;/h3&gt;
+            &lt;p class="stage-card-desc"&gt;
+              Experiência imersiva em som surround octofónico. Frequências sub-graves puras moduladas em tempo real por voltagem de controlo (CV).
+            &lt;/p&gt;
+            &lt;div class="stage-card-setup"&gt;
+              &lt;strong&gt;Equipamento:&lt;/strong&gt; Moog Subharmonicon + 4 Subwoofers 21"
+            &lt;/div&gt;
+          &lt;/article&gt;
+
+          &lt;!-- Card 3 --&gt;
+          &lt;article class="stage-card"&gt;
+            &lt;span class="stage-card-badge" style="background-color:var(--color-accent-emerald);"&gt;Domingo • 16 Ago&lt;/span&gt;
+            &lt;span class="stage-card-time"&gt;19:00 — 21:00&lt;/span&gt;
+            &lt;h3 class="stage-card-name"&gt;Oficina: Percussão &amp;amp; Voltagem&lt;/h3&gt;
+            &lt;p class="stage-card-desc"&gt;
+              Masterclass aberta a estudantes e músicos sobre construção de microfones de contacto caseiros e integração com mesas de mistura.
+            &lt;/p&gt;
+            &lt;div class="stage-card-setup"&gt;
+              &lt;strong&gt;Formato:&lt;/strong&gt; Workshop Prático Aberto (Lotação: 50 vagas)
+            &lt;/div&gt;
+          &lt;/article&gt;
+
+        &lt;/div&gt;
+
+        &lt;!-- Fotografia Panorâmica do Recinto Alfândega ao Entardecer --&gt;
+        &lt;figure style="margin-block-start:var(--space-lg);border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--color-border-subtle);"&gt;
+          &lt;picture&gt;
+            &lt;source srcset="assets/images/alfandega-exterior-dusk-960w.webp" type="image/webp"&gt;
+            &lt;img src="assets/images/alfandega-exterior-dusk-960w.jpg" alt="Edifício da Alfândega do Porto ao entardecer à beira do Rio Douro" width="960" height="540" loading="lazy" style="width:100%;height:auto;display:block;"&gt;
+          &lt;/picture&gt;
+          &lt;figcaption style="font-size:var(--text-xs);color:var(--text-dim);padding:var(--space-xs);background-color:var(--color-surface-card);"&gt;
+            Recinto oficial do festival: Edifício histórico da Alfândega do Porto junto à margem ribeirinha.
+          &lt;/figcaption&gt;
+        &lt;/figure&gt;
+      &lt;/section&gt;
+
+      &lt;!-- SECÇÃO DE MULTIMÉDIA CONTÍNUA (ÁUDIO, VÍDEO &amp; IFRAME RESPONSIVO) --&gt;
+      &lt;section id="live-media" style="margin-block-end:var(--space-2xl);"&gt;
+        &lt;h2 class="section-title"&gt;Laboratório Sonoro &amp;amp; Transmissão ao Vivo&lt;/h2&gt;
+        &lt;p class="section-desc"&gt;
+          Explore as gravações analógicas diretas de estúdio e os registos visuais captados durante os ensaios no Porto:
+        &lt;/p&gt;
+
+        &lt;div class="media-showcase-grid"&gt;
+          
+          &lt;!-- Box 1: Áudio Nativo HTML5 com Fallback Semântico --&gt;
+          &lt;div class="media-box"&gt;
+            &lt;h3 class="media-box-title"&gt;🔊 Faixa Exclusiva: "Piezo Kinetic Pulse" (138 BPM)&lt;/h3&gt;
+            &lt;p style="font-size:var(--text-xs);color:var(--text-muted);margin-block-end:var(--space-sm);"&gt;
+              Gravação direta estéreo do master analógico. Mistura sem compressão digital.
+            &lt;/p&gt;
+            &lt;audio controls preload="metadata"&gt;
+              &lt;source src="assets/media/dj-warp-piezo-pulse.mp3" type="audio/mpeg"&gt;
+              &lt;p&gt;O seu navegador não suporta a reprodução nativa de áudio HTML5. &lt;a href="assets/media/dj-warp-piezo-pulse.mp3"&gt;Descarregue o MP3 aqui&lt;/a&gt;.&lt;/p&gt;
+            &lt;/audio&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Box 2: Vídeo Nativo HTML5 com Poster e Fallback --&gt;
+          &lt;div class="media-box"&gt;
+            &lt;h3 class="media-box-title"&gt;📹 Registo Visual: Calibração de Sensores de Contacto&lt;/h3&gt;
+            &lt;p style="font-size:var(--text-xs);color:var(--text-muted);margin-block-end:var(--space-sm);"&gt;
+              Demonstração do atraso acústico zero na conversão de toque mecânico em impulso CV.
+            &lt;/p&gt;
+            &lt;video controls width="640" height="360" poster="assets/images/hero-dj-warp-600w.jpg" preload="none"&gt;
+              &lt;source src="assets/media/dj-warp-rehearsal.mp4" type="video/mp4"&gt;
+              &lt;p&gt;O seu navegador não suporta reprodução de vídeo HTML5. &lt;a href="assets/media/dj-warp-rehearsal.mp4"&gt;Descarregue o vídeo MP4&lt;/a&gt;.&lt;/p&gt;
+            &lt;/video&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Box 3: Embed Externo em Iframe com Aspect-Ratio 16 / 9 --&gt;
+          &lt;div class="media-box" style="grid-column: 1 / -1;"&gt;
+            &lt;h3 class="media-box-title"&gt;🗺️ Localização do Festival &amp;amp; Palco Principal (Embed Responsivo)&lt;/h3&gt;
+            &lt;p style="font-size:var(--text-xs);color:var(--text-muted);margin-block-end:var(--space-sm);"&gt;
+              Contentor responsivo utilizando a propriedade moderna &lt;code&gt;aspect-ratio: 16 / 9;&lt;/code&gt; para prevenir quebras visuais e saltos de layout (CLS).
+            &lt;/p&gt;
+            &lt;div class="embed-responsive-16-9"&gt;
+              &lt;iframe 
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-8.695%2C41.165%2C-8.675%2C41.175&amp;amp;layer=mapnik&amp;amp;marker=41.170%2C-8.685" 
+                title="Mapa do Parque da Cidade do Porto • Festival Drumtiks '26" 
+                loading="lazy" 
+                allowfullscreen&gt;
+              &lt;/iframe&gt;
+            &lt;/div&gt;
+            &lt;figcaption style="font-size:var(--text-xs);color:var(--text-dim);margin-block-start:var(--space-xs);text-align:right;"&gt;
+              Coordenadas: 41.170° N, -8.685° W • Entrada pela Estrada da Circunvalação
+            &lt;/figcaption&gt;
+          &lt;/div&gt;
+
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;!-- DEMONSTRAÇÃO PEDAGÓGICA DO MODELO DE CAIXA: OVERFLOW &amp; SCROLL --&gt;
+      &lt;section class="box-model-demo-panel"&gt;
+        &lt;h3 style="font-family:var(--font-family-mono);font-size:var(--text-sm);color:var(--color-brand-primary);margin-block-start:0;margin-block-end:var(--space-xs);"&gt;
+          📦 Demonstração do Modelo de Caixa: Limites, Padding &amp;amp; Overflow Scroll
+        &lt;/h3&gt;
+        &lt;p style="font-size:var(--text-xs);color:var(--text-muted);margin-block-end:var(--space-sm);"&gt;
+          Exemplo pedagógico (conforme guião EX2 e Hicks, 2004): contentor com altura máxima fixa (&lt;code&gt;max-height: 8rem;&lt;/code&gt;) e barra de rolamento automática (&lt;code&gt;overflow: auto;&lt;/code&gt;):
+        &lt;/p&gt;
+        &lt;div class="box-overflow"&gt;
+          &lt;p&gt;
+            &lt;strong&gt;Teoria do Box Model no CSS:&lt;/strong&gt; Cada elemento no HTML gera uma caixa retangular composta por quatro camadas concêntricas: Conteúdo (&lt;em&gt;Content&lt;/em&gt;), Espaçamento Interno (&lt;em&gt;Padding&lt;/em&gt;), Borda (&lt;em&gt;Border&lt;/em&gt;) e Margem Externa (&lt;em&gt;Margin&lt;/em&gt;).
+          &lt;/p&gt;
+          &lt;p&gt;
+            Ao utilizar &lt;code&gt;box-sizing: border-box;&lt;/code&gt;, as dimensões totais declaradas em &lt;code&gt;width&lt;/code&gt; e &lt;code&gt;height&lt;/code&gt; incluem tanto o preenchimento como as bordas, garantindo previsibilidade no dimensionamento responsivo.
+          &lt;/p&gt;
+          &lt;p&gt;
+            Quando o volume do texto ultrapassa o espaço vertical estipulado pela propriedade &lt;code&gt;max-height&lt;/code&gt;, a diretiva &lt;code&gt;overflow: auto;&lt;/code&gt; cria barras de deslocamento locais sem quebrar o layout exterior da página.
+          &lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;!-- SECÇÃO DE PARCEIROS COM FILTROS GRÁFICOS CSS --&gt;
+      &lt;section class="partners-section" id="parceiros"&gt;
+        &lt;h2 class="section-title"&gt;Parceiros Tecnológicos &amp;amp; Coletivos Sonoros&lt;/h2&gt;
+        &lt;p class="section-desc"&gt;
+          Entidades e laboratórios de investigação sonora que apoiam a produção do DJ Warp. 
+          Passe o cursor sobre os logótipos para testar os &lt;strong&gt;filtros gráficos CSS&lt;/strong&gt; (conversão de escala de cinzentos para cor saturada):
+        &lt;/p&gt;
+
+        &lt;div class="partners-grid"&gt;
+          &lt;div class="partner-logo-item"&gt;
+            &lt;img src="assets/images/partner-1.svg" alt="Modular Lab Porto" class="partner-logo-img"&gt;
+          &lt;/div&gt;
+          &lt;div class="partner-logo-item"&gt;
+            &lt;img src="assets/images/partner-2.svg" alt="Porto Sound System" class="partner-logo-img"&gt;
+          &lt;/div&gt;
+          &lt;div class="partner-logo-item"&gt;
+            &lt;img src="assets/images/partner-3.svg" alt="FBAUP Kinetic Arts" class="partner-logo-img"&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;!-- SECÇÃO DE CONTACTOS &amp; RESERVAS (MAILTO &amp; TEL) --&gt;
+      &lt;section class="contacts-panel" id="contactos"&gt;
+        &lt;h2 style="font-family:var(--font-family-title);font-size:var(--text-lg);color:#ffffff;margin-block-start:0;margin-block-end:var(--space-xs);"&gt;
+          Bilheteira, Imprensa &amp;amp; Informações
+        &lt;/h2&gt;
+        &lt;p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-block-end:var(--space-md);"&gt;
+          Para reservas de workshops de percussão analógica, parcerias académicas ou acreditações de imprensa:
+        &lt;/p&gt;
+        &lt;p style="font-size:var(--text-sm);margin:0;margin-block-end:var(--space-xs);"&gt;
+          📧 Email Oficial: &lt;a href="mailto:bilhetes@drumtiks.org"&gt;bilhetes@drumtiks.org&lt;/a&gt;
+        &lt;/p&gt;
+        &lt;p style="font-size:var(--text-sm);margin:0;margin-block-end:var(--space-xs);"&gt;
+          📞 Linha de Apoio FBAUP: &lt;a href="tel:+351220000000"&gt;+351 220 000 000&lt;/a&gt;
+        &lt;/p&gt;
+        &lt;p style="font-size:var(--text-xs);color:var(--color-text-dim);margin-block-start:var(--space-sm);"&gt;
+          &lt;a href="#topo"&gt;↑ Voltar ao início da página&lt;/a&gt;
+        &lt;/p&gt;
+      &lt;/section&gt;
+
+    &lt;/main&gt;
+
+    &lt;!-- BOTÃO FIXO "VOLTAR AO TOPO" (POSITION: FIXED) --&gt;
+    &lt;a href="#topo" class="btn-fixed-top" aria-label="Voltar ao início da página"&gt;
+      ↑ Topo
+    &lt;/a&gt;
+
+    &lt;!-- RODAPÉ DO DOCUMENTO (LANDMARK FOOTER) --&gt;
+    &lt;footer class="site-footer" role="contentinfo"&gt;
+      &lt;div class="footer-inner"&gt;
+        &lt;div&gt;
+          &lt;strong&gt;DRUMTIKS '26&lt;/strong&gt; • Festival de Percussão &amp;amp; Som Experimental&lt;br&gt;
+          Licenciatura em Design de Comunicação • Unidade Curricular de Web Design 101 • FBAUP
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;a href="about.html" style="color:var(--color-accent-amber);text-decoration:none;font-weight:700;"&gt;Biografia Completa &amp;amp; Especificações do DJ Warp ↗&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/footer&gt;
+
+  &lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+        </div>
+      </div>
+
+      <!-- Tab 2: about.html -->
+      <div class="code-tab-pane" id="tab-about">
+        <div class="code-toolbar">
+          <span><span class="lang-pt">FICHEIRO:</span><span class="lang-en">FILE:</span> demos/ex2-media-box-model/about.html</span>
+          <button class="btn-control" id="btn-copy-about">
+            <span class="lang-pt">Copiar about.html</span>
+            <span class="lang-en">Copy about.html</span>
+          </button>
+        </div>
+        <div class="code-container">
+          <pre><code id="code-content-about">&lt;!DOCTYPE html&gt;
+&lt;html lang="pt"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Sobre o DJ Warp &amp;amp; Setup Analógico • Drumtiks '26&lt;/title&gt;
+  &lt;meta name="description" content="Biografia aprofundada, manifesto estético, especificações completas de sintetizadores modulares e estrutura técnica de ficheiros do DJ Warp."&gt;
+
+  &lt;!-- Favicon Obrigatório --&gt;
+  &lt;link rel="icon" type="image/svg+xml" href="assets/graphics/favicon.svg"&gt;
+  &lt;link rel="alternate icon" href="assets/graphics/favicon.svg"&gt;
+
+  &lt;!-- Fontes Google Alternativas / Nuvem --&gt;
+  &lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+  &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+  &lt;link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&amp;family=Fraunces:opsz,wght@9..144,300..900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"&gt;
+
+  &lt;!-- Ordem Estrita de Estilos: Reset primeiro, Estilos depois --&gt;
+  &lt;link rel="stylesheet" href="assets/css/reset.css"&gt;
+  &lt;link rel="stylesheet" href="assets/css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;div id="page"&gt;
+
+    &lt;!-- CABEÇALHO COM STICKY NAV --&gt;
+    &lt;header class="site-header" id="topo"&gt;
+      &lt;div class="site-header-inner"&gt;
+        &lt;a href="index.html" class="brand-link" aria-label="Drumtiks '26 Início"&gt;
+          &lt;img src="assets/graphics/logo.svg" alt="Logótipo Drumtiks '26" class="brand-logo-img"&gt;
+          &lt;span class="brand-title"&gt;DRUMTIKS&lt;span&gt;'26&lt;/span&gt;&lt;/span&gt;
+        &lt;/a&gt;
+
+        &lt;nav class="main-nav" aria-label="Navegação da Página Sobre"&gt;
+          &lt;ul&gt;
+            &lt;li&gt;&lt;a href="index.html"&gt;← Voltar ao Cartaz&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="about.html" aria-current="page"&gt;Sobre / Setup&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#biografia"&gt;Biografia&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#manifesto"&gt;Manifesto&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#especificacoes"&gt;Especificações&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#arquitetura"&gt;Arquitetura de Pastas&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="index.html#palcos" style="color:var(--color-accent-amber);"&gt;Horários ↗&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/nav&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;!-- CONTEÚDO PRINCIPAL --&gt;
+    &lt;main id="conteudo"&gt;
+      
+      &lt;!-- ARTIGO: BIOGRAFIA COM RETRATO E FIGCAPTION --&gt;
+      &lt;article id="biografia" style="margin-block-end:var(--space-2xl);"&gt;
+        &lt;header style="margin-block-end:var(--space-md);"&gt;
+          &lt;span style="font-family:var(--font-family-mono);font-size:var(--text-xs);color:var(--color-brand-primary);font-weight:700;letter-spacing:0.1em;text-transform:uppercase;"&gt;
+            Investigação Sonora • FBAUP / Porto
+          &lt;/span&gt;
+          &lt;h1 style="font-family:var(--font-family-title);font-size:var(--text-xl);color:#ffffff;margin-block-start:var(--space-xs);margin-block-end:var(--space-sm);"&gt;
+            Quem é o DJ Warp?
+          &lt;/h1&gt;
+          &lt;p style="font-size:var(--text-md);color:var(--color-text-muted);line-height:1.6;"&gt;
+            Pseudónimo do baterista e designer de interação portuense que investiga a relação física entre a percussão acústica e a geração de voltagem analógica de controlo (CV).
+          &lt;/p&gt;
+        &lt;/header&gt;
+
+        &lt;!-- Figura Semântica com Retrato Fotográfico Responsivo --&gt;
+        &lt;figure style="margin-block:var(--space-lg);border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--color-border-subtle);max-width:540px;"&gt;
+          &lt;picture&gt;
+            &lt;source srcset="assets/images/dj-warp-960w.webp" type="image/webp"&gt;
+            &lt;img src="assets/images/dj-warp-960w.jpg" alt="Retrato do DJ Warp com auscultadores e sensores de contacto" width="960" height="640" style="width:100%;height:auto;display:block;"&gt;
+          &lt;/picture&gt;
+          &lt;figcaption style="padding:var(--space-xs);background-color:var(--color-surface-card);font-size:var(--text-xs);color:var(--color-text-dim);"&gt;
+            DJ Warp durante a residência artística no laboratório sonoro da FBAUP (Foto oficial: Drumtiks '26).
+          &lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+        &lt;p&gt;
+          Formado em Design de Comunicação pela Faculdade de Belas Artes da Universidade do Porto, o DJ Warp desenvolveu um sistema proprietário que substitui os computadores portáteis e ecrãs por &lt;strong&gt;cápsulas piezoelétricas militarizadas&lt;/strong&gt; montadas diretamente nos tambores acústicos.
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          Cada batida de baqueta produz um pico elétrico imediato que é enviado para conversores &lt;em&gt;Envelope Follower&lt;/em&gt; e &lt;em&gt;Trigger-to-Gate&lt;/em&gt; no seu sistema modular Eurorack de 9 unidades de altura (9U), garantindo &lt;strong&gt;zero latência perceptiva&lt;/strong&gt; e uma resposta dinâmica impossível de emular através de software digital.
+        &lt;/p&gt;
+      &lt;/article&gt;
+
+      &lt;!-- MANIFESTO SONORO --&gt;
+      &lt;section id="manifesto" style="margin-block-end:var(--space-2xl);background-color:var(--color-surface-card);border-inline-start:4px solid var(--color-brand-primary);padding:var(--space-lg);border-radius:0 var(--radius-md) var(--radius-md) 0;"&gt;
+        &lt;h2 style="font-family:var(--font-family-title);font-size:var(--text-lg);color:#ffffff;margin-block-end:var(--space-sm);"&gt;
+          Manifesto: A Fricção Mecânica do Ritmo
+        &lt;/h2&gt;
+        &lt;blockquote style="font-style:italic;color:var(--color-text-main);font-size:var(--text-base);line-height:1.7;margin:0;margin-block-end:var(--space-sm);"&gt;
+          "No momento em que o baterista olha para uma barra de reprodução num ecrã de computador, o ritmo morre. A música eletrónica autêntica nasce da tensão mecânica dos músculos contra a pele do tambor e da conversão direta dessa energia cinética em circuitos analógicos incandescentes."
+        &lt;/blockquote&gt;
+        &lt;cite style="font-family:var(--font-family-mono);font-size:var(--text-xs);color:var(--color-brand-primary);font-style:normal;"&gt;
+          — DJ Warp, notas da conferência Drumtiks '26 Porto
+        &lt;/cite&gt;
+      &lt;/section&gt;
+
+      &lt;!-- ESPECIFICAÇÕES TÉCNICAS (DESCRIPTION LIST COM COMBINADORES DIRETOS &gt;) --&gt;
+      &lt;section id="especificacoes" style="margin-block-end:var(--space-2xl);"&gt;
+        &lt;h2 class="section-title"&gt;Especificação Técnica do Live Setup (9U Eurorack)&lt;/h2&gt;
+        &lt;p class="section-desc"&gt;
+          Lista completa dos componentes de hardware analógico utilizados durante as atuações ao vivo no festival:
+        &lt;/p&gt;
+
+        &lt;dl class="spec-list" style="background-color:var(--color-surface-card);padding:var(--space-lg);border-radius:var(--radius-md);border:1px solid var(--color-border-subtle);"&gt;
+          &lt;dt&gt;Sensores Piezoelétricos de Contacto&lt;/dt&gt;
+          &lt;dd&gt;Cápsulas seladas em resina epóxi instaladas no interior da tarola e pratos, captando frequências entre 10 Hz e 22 kHz.&lt;/dd&gt;
+
+          &lt;dt&gt;Módulo Pré-Amplificador &amp;amp; Envelope Follower&lt;/dt&gt;
+          &lt;dd&gt;Converte os impulsos de áudio de alta impedância em sinais contínuos de 0 a 10 Volts de voltagem de controlo (CV).&lt;/dd&gt;
+
+          &lt;dt&gt;Sintetizador Analógico de Percussão (DFAM)&lt;/dt&gt;
+          &lt;dd&gt;Osciladores analógicos duplos com gerador de ruído branco analógico e filtro passa-baixo clássico em escada de transístores.&lt;/dd&gt;
+
+          &lt;dt&gt;Sequenciador Polimétrico Analógico&lt;/dt&gt;
+          &lt;dd&gt;Três canais independentes de 8 passos acionados pelo ritmo da baqueta, criando polirritmias a tempos cruzados (3 contra 4 e 5 contra 7).&lt;/dd&gt;
+
+          &lt;dt&gt;Mesa de Mistura Analógica &amp;amp; Saída Direct-Out&lt;/dt&gt;
+          &lt;dd&gt;Processamento estéreo com compressores analógicos VCA e saída balanceada de alta fidelidade para o sistema PA do festival.&lt;/dd&gt;
+        &lt;/dl&gt;
+      &lt;/section&gt;
+
+      &lt;!-- ARQUITETURA DE FICHEIROS &amp; ATIVOS (ESTRUTURA EXIGIDA PELO ENUNCIADO EX2) --&gt;
+      &lt;section id="arquitetura" style="margin-block-end:var(--space-2xl);"&gt;
+        &lt;h2 class="section-title"&gt;Estrutura de Ficheiros &amp;amp; Ativos do Mini-Site&lt;/h2&gt;
+        &lt;p class="section-desc"&gt;
+          Organização canónica de pastas e ficheiros conforme exigido no enunciado EX2 (Módulo 2 de WD101):
+        &lt;/p&gt;
+
+        &lt;pre style="background-color:var(--color-surface-card);border:1px solid var(--color-border-subtle);padding:var(--space-md);border-radius:var(--radius-md);font-family:var(--font-family-mono);font-size:var(--text-xs);color:#58a6ff;overflow-x:auto;line-height:1.6;"&gt;&lt;code&gt;ex2-media-box-model/
+├── index.html                  # Cartaz Gráfico Principal (DJ Warp no Drumtiks '26)
+├── about.html                  # Biografia, Manifesto &amp; Especificações Técnicas (&amp;lt;dl&amp;gt;)
+└── assets/
+    ├── css/
+    │   ├── reset.css           # Eric Meyer CSS Reset v2.0 (carregado em 1.º lugar)
+    │   └── style.css           # Folha de Estilos Atomic Design (Tokens, Box Model, Sticky, Media)
+    ├── fonts/
+    │   ├── Fraunces-VariableFont_SOFT,WONK,opsz,wght.woff2
+    │   ├── Fraunces-Italic-VariableFont_SOFT,WONK,opsz,wght.woff2
+    │   ├── Arimo-VariableFont_wght.woff2
+    │   └── Arimo-Italic-VariableFont_wght.woff2
+    ├── graphics/
+    │   ├── logo.svg            # Logótipo vetorial Drumtiks '26
+    │   ├── favicon.svg         # Favicon institucional
+    │   ├── check-badge.svg     # Indicador de estado SVG
+    │   └── vinyl-platter.svg   # Ícone de disco analógico
+    ├── images/
+    │   ├── hero-dj-warp-1400w.webp / .jpg   # Desktop (≥ 960px)
+    │   ├── hero-dj-warp-960w.webp / .jpg    # Tablet (≥ 600px)
+    │   ├── hero-dj-warp-600w.webp / .jpg    # Mobile (&amp;lt; 600px)
+    │   ├── dj-warp-960w.webp / .jpg         # Retrato de bio
+    │   ├── alfandega-exterior-dusk-960w.webp / .jpg  # Fotografia do recinto
+    │   └── partner-1..3.svg                 # Logótipos de parceiros com filtros CSS
+    └── media/
+        ├── dj-warp-piezo-pulse.mp3  # Áudio analógico de ensaio
+        └── dj-warp-rehearsal.mp4    # Vídeo demonstrativo ao vivo&lt;/code&gt;&lt;/pre&gt;
+      &lt;/section&gt;
+
+    &lt;/main&gt;
+
+    &lt;!-- BOTÃO FIXO "VOLTAR AO TOPO" --&gt;
+    &lt;a href="#topo" class="btn-fixed-top" aria-label="Voltar ao início da página"&gt;
+      ↑ Topo
+    &lt;/a&gt;
+
+    &lt;!-- RODAPÉ --&gt;
+    &lt;footer class="site-footer" role="contentinfo"&gt;
+      &lt;div class="footer-inner"&gt;
+        &lt;div&gt;
+          &lt;strong&gt;DRUMTIKS '26&lt;/strong&gt; • Festival de Percussão &amp;amp; Som Experimental&lt;br&gt;
+          Faculdade de Belas Artes da Universidade do Porto • Licenciatura em Design de Comunicação
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;a href="index.html" style="color:var(--color-accent-amber);text-decoration:none;font-weight:700;"&gt;← Regressar à Página Principal do Cartaz&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/footer&gt;
+
+  &lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+        </div>
+      </div>
+
+      <!-- Tab 3: style.css -->
+      <div class="code-tab-pane" id="tab-style">
+        <div class="code-toolbar">
+          <span><span class="lang-pt">FICHEIRO:</span><span class="lang-en">FILE:</span> demos/ex2-media-box-model/assets/css/style.css</span>
+          <button class="btn-control" id="btn-copy-style">
+            <span class="lang-pt">Copiar style.css</span>
+            <span class="lang-en">Copy style.css</span>
+          </button>
+        </div>
+        <div class="code-container">
+          <pre><code id="code-content-style">/* ==========================================================================
+   WD101 — EX2: MEDIA, BOX MODEL &amp; ATOMIC DESIGN SYSTEM
+   Caso de Estudo: DJ Warp • DRUMTIKS '26 (Porto)
+   Regra Pedagógica: Zero CSS Nesting (&amp;) | Mobile-First | Pure CSS
+   Referenciais: W3C CSS Box Model 3, MDN Web Docs, Eric Meyer Reset v2.0
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0. FONTS (@font-face — Fontes Web Locais Variáveis WOFF2 com Fallback)
+   Referência MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Fraunces';
+  src: url('../fonts/Fraunces-VariableFont_SOFT,WONK,opsz,wght.woff2') format('woff2-variations'),
+       url('../fonts/Fraunces-VariableFont_SOFT,WONK,opsz,wght.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fraunces';
+  src: url('../fonts/Fraunces-Italic-VariableFont_SOFT,WONK,opsz,wght.woff2') format('woff2-variations'),
+       url('../fonts/Fraunces-Italic-VariableFont_SOFT,WONK,opsz,wght.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Arimo';
+  src: url('../fonts/Arimo-VariableFont_wght.woff2') format('woff2-variations'),
+       url('../fonts/Arimo-VariableFont_wght.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Arimo';
+  src: url('../fonts/Arimo-Italic-VariableFont_wght.woff2') format('woff2-variations'),
+       url('../fonts/Arimo-Italic-VariableFont_wght.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* --------------------------------------------------------------------------
+   0.1 DESIGN TOKENS (:root — Camada Subatómica / Átomos do Atomic Design)
+   Referência: https://24ways.org/2012/design-systems/
+   -------------------------------------------------------------------------- */
+:root {
+  /* Paleta Cromática Institucional Drumtiks '26 */
+  --color-brand-primary: #e60000;
+  --color-brand-hover: #ff2222;
+  --color-brand-active: #b80000;
+  --color-brand-purple: #8a2be2;
+
+  --color-surface-base: #0a0a0d;
+  --color-surface-card: #14141a;
+  --color-surface-elevated: #1e1e26;
+  --color-surface-subtle: #272733;
+
+  --color-text-main: #f4f4f6;
+  --color-text-muted: #9e9ea8;
+  --color-text-dim: #6c6c78;
+
+  --color-border-subtle: #262633;
+  --color-border-strong: #3d3d52;
+
+  --color-accent-blue: #0284c7;
+  --color-accent-emerald: #10b981;
+  --color-accent-amber: #f59e0b;
+
+  /* Tipografia: Fontes Locais com Fallback Remoto e do Sistema Operativo */
+  --font-family-title: 'Fraunces', Georgia, Cambria, 'Times New Roman', serif;
+  --font-family-base: 'Arimo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Escala Modular Tipográfica com clamp() e Unidades Relativas (rem/vw) */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.825rem);
+  --text-sm: clamp(0.875rem, 0.825rem + 0.2vw, 0.95rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.075rem);
+  --text-md: clamp(1.15rem, 1.05rem + 0.4vw, 1.25rem);
+  --text-lg: clamp(1.35rem, 1.2rem + 0.6vw, 1.6rem);
+  --text-xl: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
+  --text-hero: clamp(2.25rem, 1.8rem + 2.5vw, 3.75rem);
+
+  /* Espaçamento Atómico Proporcional */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+
+  /* Raios e Sombras */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 9999px;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 12px 28px -4px rgba(0, 0, 0, 0.6);
+
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 250ms ease;
+}
+
+/* --------------------------------------------------------------------------
+   1. BOX MODELING PREVISÍVEL (Reset Universal)
+   Referência MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   2. BASE DO DOCUMENTO (HTML &amp; BODY)
+   -------------------------------------------------------------------------- */
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--color-surface-base);
+  color: var(--color-text-main);
+  font-family: var(--font-family-base);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Compensação de Âncoras para o Sticky Header (Evita sobreposição) */
+section[id],
+article[id],
+header[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   3. CONTENTOR GERAL (#page) &amp; LANDMARKS
+   - O wrapper #page permite que elementos internos como o Hero "rompam" a caixa
+   -------------------------------------------------------------------------- */
+#page {
+  display: block;
+  position: relative;
+  width: 100%;
+  min-width: 18rem;
+}
+
+main {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+/* --------------------------------------------------------------------------
+   4. CABEÇALHO &amp; MENU PERSISTENTE (STICKY HEADER)
+   Referência MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/position#sticky
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background-color: rgba(10, 10, 13, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-block: var(--space-sm);
+  transition: border-color var(--transition-normal);
+}
+
+.site-header-inner {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  text-decoration: none;
+  color: var(--color-text-main);
+}
+
+.brand-logo-img {
+  width: 44px;
+  height: 44px;
+  display: block;
+  transition: transform var(--transition-fast);
+}
+
+.brand-link:hover .brand-logo-img {
+  transform: rotate(15deg) scale(1.05);
+}
+
+.brand-title {
+  font-family: var(--font-family-mono);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  letter-spacing: 0.05em;
+  color: #ffffff;
+}
+
+.brand-title span {
+  color: var(--color-brand-primary);
+}
+
+/* Navegação Principal &amp; Lista de Hiperligações */
+.main-nav {
+  display: block;
+  position: relative;
+}
+
+.main-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav li {
+  display: inline-block;
+  position: relative;
+}
+
+.main-nav a {
+  display: inline-block;
+  padding-block: 0.35rem;
+  padding-inline: 0.65rem;
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+/* --------------------------------------------------------------------------
+   5. REGRAS LVHA &amp; :focus-visible (ESTADOS DE HIPERLIGAÇÃO)
+   Ordem Obrigatória: :link -&gt; :visited -&gt; :hover -&gt; :active
+   Referência MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/:hover
+   -------------------------------------------------------------------------- */
+.main-nav a:link {
+  color: var(--color-text-muted);
+}
+
+.main-nav a:visited {
+  color: var(--color-text-muted);
+}
+
+.main-nav a:hover {
+  color: #ffffff;
+  background-color: var(--color-surface-elevated);
+}
+
+.main-nav a:active {
+  color: var(--color-brand-primary);
+  background-color: var(--color-surface-subtle);
+}
+
+.main-nav a[aria-current="page"] {
+  color: #ffffff;
+  background-color: var(--color-brand-primary);
+}
+
+/* Acessibilidade por Teclado: Destaque Rigoroso com :focus-visible */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   6. BREAKING THE BOX MODEL (HERO FULL-BLEED ESCAPE HATCH)
+   Técnica: 100vw com recuo simétrico (-50vw) escapando ao max-width do main
+   -------------------------------------------------------------------------- */
+.hero-full-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: radial-gradient(circle at 50% 30%, #1e1e28 0%, #0a0a0d 80%);
+  border-bottom: 2px solid var(--color-brand-primary);
+  padding-block-start: var(--space-xl);
+  padding-block-end: var(--space-2xl);
+  margin-block-end: var(--space-2xl);
+}
+
+.hero-inner {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+  text-align: center;
+}
+
+.hero-tag {
+  display: inline-block;
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  color: var(--color-brand-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  margin-block-end: var(--space-xs);
+}
+
+.hero-title {
+  font-family: var(--font-family-title);
+  font-size: var(--text-hero);
+  font-weight: 900;
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0;
+  margin-block-end: var(--space-sm);
+  text-transform: uppercase;
+}
+
+.hero-subtitle {
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+  max-width: 48rem;
+  margin-inline: auto;
+  margin-block-end: var(--space-lg);
+  line-height: 1.5;
+}
+
+.hero-picture-frame {
+  margin: 0;
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border-subtle);
+  background-color: #000000;
+}
+
+.hero-picture-frame img {
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hero-picture-frame figcaption {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-dim);
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--color-surface-card);
+  text-align: right;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   7. SECÇÕES INFORMATIVAS &amp; TIPOGRAFIA
+   -------------------------------------------------------------------------- */
+.section-title {
+  font-family: var(--font-family-title);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  color: #ffffff;
+  margin-block-start: 0;
+  margin-block-end: var(--space-xs);
+  border-inline-start: 4px solid var(--color-brand-primary);
+  padding-inline-start: var(--space-sm);
+}
+
+.section-desc {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  margin-block-end: var(--space-lg);
+  max-width: 52rem;
+}
+
+/* Grelha de Biografia */
+.bio-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.bio-portrait {
+  margin: 0;
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border-subtle);
+  background-color: #000000;
+}
+
+.bio-portrait img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.bio-portrait figcaption {
+  font-size: var(--text-xs);
+  color: var(--color-text-dim);
+  padding: var(--space-xs);
+  background-color: var(--color-surface-card);
+}
+
+.bio-text {
+  font-size: var(--text-base);
+  color: var(--color-text-main);
+  line-height: 1.7;
+}
+
+.meta-bar {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-card);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-brand-primary);
+  margin-block-end: var(--space-md);
+}
+
+/* Imagem com Ligação (Exigência do Enunciado EX2) */
+.linked-media-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  text-decoration: none;
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 0.25rem 0.75rem 0.25rem 0.25rem;
+  margin-block-start: var(--space-sm);
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.linked-media-badge:hover {
+  border-color: var(--color-brand-primary);
+  transform: translateY(-2px);
+}
+
+.linked-media-badge img {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  display: block;
+}
+
+.linked-media-badge span {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+/* --------------------------------------------------------------------------
+   8. CARTÕES MODULARES COM BADGE ABSOLUTO (ORGANISMOS)
+   Padrão: .stage-card (position: relative) -&gt; .stage-card-badge (position: absolute)
+   -------------------------------------------------------------------------- */
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.stage-card {
+  position: relative;
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  padding-block-start: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.stage-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.stage-card-badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background-color: var(--color-brand-primary);
+  color: #ffffff;
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  padding-block: var(--space-xs);
+  padding-inline: var(--space-sm);
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stage-card-time {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  color: var(--color-accent-amber);
+  margin-block-end: var(--space-xs);
+  display: block;
+  font-weight: 700;
+}
+
+.stage-card-name {
+  font-family: var(--font-family-title);
+  font-size: var(--text-md);
+  color: #ffffff;
+  margin: 0;
+  margin-block-end: var(--space-xs);
+}
+
+.stage-card-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-block-end: var(--space-md);
+}
+
+.stage-card-setup {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-dim);
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: var(--space-xs);
+}
+
+/* --------------------------------------------------------------------------
+   9. MULTIMÉDIA CONTÍNUA (ÁUDIO, VÍDEO &amp; IFRAME RESPONSIVO)
+   -------------------------------------------------------------------------- */
+.media-showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.media-box {
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.media-box-title {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: #ffffff;
+  margin-block-start: 0;
+  margin-block-end: var(--space-xs);
+}
+
+audio, video {
+  width: 100%;
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+/* Contentor Responsivo para Iframe com aspect-ratio 16 / 9 */
+.embed-responsive-16-9 {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background-color: #000000;
+  border: 1px solid var(--color-border-subtle);
+}
+
+.embed-responsive-16-9 &gt; iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   10. DEMO PEDAGÓGICA DO MODELO DE CAIXA: OVERFLOW &amp; SCROLL
+   Referência Compêndio: Hicks (2004) &amp; Guia EX2
+   -------------------------------------------------------------------------- */
+.box-model-demo-panel {
+  background-color: var(--color-surface-card);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-block-end: var(--space-2xl);
+}
+
+.box-overflow {
+  max-height: 8rem;
+  overflow: auto;
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border-subtle);
+  background-color: var(--color-surface-base);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   11. DIREÇÃO DE ARTE &amp; FILTROS GRÁFICOS CSS (grayscale, contrast, hover)
+   -------------------------------------------------------------------------- */
+.partners-section {
+  margin-block-end: var(--space-2xl);
+}
+
+.partners-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: center;
+}
+
+.partner-logo-item {
+  width: 160px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.partner-logo-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-brand-primary);
+}
+
+.partner-logo-img {
+  max-width: 100%;
+  max-height: 100%;
+  filter: grayscale(100%) opacity(60%);
+  transition: filter var(--transition-normal), opacity var(--transition-normal), transform var(--transition-fast);
+}
+
+.partner-logo-item:hover .partner-logo-img {
+  filter: grayscale(0%) opacity(100%) contrast(110%);
+  transform: scale(1.05);
+}
+
+/* --------------------------------------------------------------------------
+   12. SELETORES COMBINADORES PLANOS (SEM NESTING)
+   -------------------------------------------------------------------------- */
+p + p {
+  margin-block-start: var(--space-md);
+}
+
+h1 + p,
+h2 + p,
+h3 + p {
+  margin-block-start: var(--space-xs);
+}
+
+.spec-list &gt; dt {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-brand-primary);
+  margin-block-start: var(--space-sm);
+}
+
+.spec-list &gt; dd {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-inline-start: var(--space-md);
+  margin-block-end: var(--space-xs);
+}
+
+/* --------------------------------------------------------------------------
+   13. BOTÃO FIXO "VOLTAR AO TOPO" (POSITION: FIXED)
+   -------------------------------------------------------------------------- */
+.btn-fixed-top {
+  position: fixed;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  z-index: 900;
+  background-color: var(--color-surface-elevated);
+  color: #ffffff;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  padding-block: var(--space-xs);
+  padding-inline: var(--space-md);
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.btn-fixed-top:hover {
+  background-color: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+}
+
+/* --------------------------------------------------------------------------
+   14. SECÇÃO DE CONTACTOS
+   -------------------------------------------------------------------------- */
+.contacts-panel {
+  background-color: var(--color-surface-card);
+  border-left: 4px solid var(--color-brand-primary);
+  padding: var(--space-lg);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin-block-end: var(--space-2xl);
+}
+
+.contacts-panel a {
+  color: var(--color-accent-amber);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.contacts-panel a:hover {
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   15. RODAPÉ DO DOCUMENTO (FOOTER)
+   -------------------------------------------------------------------------- */
+.site-footer {
+  position: relative;
+  display: block;
+  width: 100%;
+  background-color: #060608;
+  border-top: 1px solid var(--color-border-subtle);
+  padding-block: var(--space-xl);
+  margin-block-start: var(--space-2xl);
+  font-size: var(--text-xs);
+  color: var(--color-text-dim);
+}
+
+.footer-inner {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   16. BREAKPOINT DESKTOP (PROGRESSÃO MOBILE-FIRST @media min-width: 960px)
+   -------------------------------------------------------------------------- */
+@media screen and (min-width: 960px) {
+  /* Grelha de Bio passa a 2 colunas */
+  .bio-grid {
+    grid-template-columns: 360px 1fr;
+    gap: var(--space-xl);
+  }
+
+  /* Layout da Grelha de Palcos passa a 3 colunas */
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  /* Multimédia em 2 Colunas */
+  .media-showcase-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  /* Rodapé Alinhado Horizontalmente */
+  .footer-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div>
+        <strong>WD101 — Web Design</strong> • 2026/2027<br>
+        <span class="lang-pt">Faculdade de Belas Artes da Universidade do Porto • Licenciatura em Design de Comunicação</span>
+        <span class="lang-en">Faculty of Fine Arts of the University of Porto • Degree in Communication Design</span>
+      </div>
+      <div>
+        <a href="#inicio" class="matrix-link">
+          <span class="lang-pt">↑ Topo da Página</span>
+          <span class="lang-en">↑ Back to Top</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 1. Theme Toggle Script
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    function updateThemeBtnState() {
+      if (!themeBtn) return;
+      const current = document.documentElement.getAttribute('data-theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const isDark = current === 'dark';
+      const lang = document.documentElement.getAttribute('lang') || 'pt';
+      const label = isDark ? (lang === 'pt' ? 'Escuro' : 'Dark') : (lang === 'pt' ? 'Claro' : 'Light');
+      const icon = isDark ? '🌙' : '☀';
+      themeBtn.innerHTML = `${icon} <span>${label}</span>`;
+      themeBtn.setAttribute('title', lang === 'pt' ? `Tema atual: ${label}. Clique para alternar.` : `Current theme: ${label}. Click to toggle.`);
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('wd101_theme', next);
+        updateThemeBtnState();
+      });
+      const savedTheme = localStorage.getItem('wd101_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      updateThemeBtnState();
+    }
+
+    // 2. Bilingual Toggle Script
+    const langBtn = document.getElementById('lang-toggle-btn');
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('wd101_lang', lang);
+      if (langBtn) {
+        langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
+      }
+      updateThemeBtnState();
+    }
+
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('lang') || 'pt';
+        const next = current === 'pt' ? 'en' : 'pt';
+        setLanguage(next);
+      });
+      setLanguage(localStorage.getItem('wd101_lang') || 'pt');
+    }
+
+    // 3. Abas de Código
+    const tabBtns = document.querySelectorAll('.code-tab-btn');
+    const tabPanes = document.querySelectorAll('.code-tab-pane');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-tab');
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanes.forEach(p => p.classList.remove('active'));
+
+        btn.classList.add('active');
+        const targetPane = document.getElementById(targetId);
+        if (targetPane) targetPane.classList.add('active');
+      });
+    });
+
+    // 4. Botões de Cópia
+    function setupCopyBtn(btnId, contentId) {
+      document.getElementById(btnId)?.addEventListener('click', (e) => {
+        const code = document.getElementById(contentId)?.textContent || '';
+        navigator.clipboard.writeText(code).then(() => {
+          const orig = e.target.textContent;
+          const lang = document.documentElement.getAttribute('lang') || 'pt';
+          e.target.textContent = lang === 'en' ? 'Copied!' : 'Copiado!';
+          setTimeout(() => e.target.textContent = orig, 1500);
+        });
+      });
+    }
+
+    setupCopyBtn('btn-copy-index', 'code-content-index');
+    setupCopyBtn('btn-copy-about', 'code-content-about');
+    setupCopyBtn('btn-copy-style', 'code-content-style');
+  </script>
+</body>
+</html>

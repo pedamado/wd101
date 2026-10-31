@@ -1,0 +1,512 @@
+@import 'fonts.css';
+
+/* ==========================================================================
+   EXERCÍCIO 2 • CSS TRANSITIONS (CARROSSEL SIMPLES & NAVEGAÇÃO SUAVE)
+   DRUMTIKS 2026 • FBAUP Web Design (WD101)
+   
+   MDN OFFICIAL DOCUMENTATION REFERENCES:
+   - CSS Transitions Guide:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Transitions
+   - CSS transition property (Shorthand):
+     https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+   - CSS transition-timing-function:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function
+   - CSS Scroll Snap Module:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap
+   - CSS Transforms Guide:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Transforms
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. ESCOPO GLOBAL (:root) & TOKENS DE TRANSIÇÃO E COR
+   -------------------------------------------------------------------------- */
+:root {
+  --color-black: #0a0a0c;
+  --color-charcoal: #16171a;
+  --color-surface-raised: #1f2026;
+  --color-text-light: #f4f4f6;
+  --color-text-muted: #8b8e99;
+  --color-accent-red: #e60000;
+  --color-accent-red-hover: #ff2626;
+  --color-accent-purple: #8a2be2;
+  --color-border-subtle: rgba(255, 255, 255, 0.12);
+  --color-border-glow: rgba(230, 0, 0, 0.4);
+
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'Martian Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+  --site-max-width: 1160px;
+
+  /* ------------------------------------------------------------------------
+     1.1 TOKENS DE TRANSIÇÃO BASE
+     MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+     Sintaxe: transition: <property> <duration> <timing-function> <delay>;
+     ------------------------------------------------------------------------ */
+  --transition-fast: all 0.2s ease;
+  
+  /* Curva de desaceleração suave (Decelerate / Ease-Out natural) */
+  --transition-normal: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  
+  /* Transição granular com propriedades explícitas (otimização de desempenho) */
+  --transition-smooth: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                       box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                       border-color 0.3s ease;
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET DE DOCUMENTO
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-black);
+  color: var(--color-text-light);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. LANDMARK: <header class="site-header">
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(10, 10, 12, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.nav-container {
+  max-width: var(--site-max-width);
+  margin: 0 auto;
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.35rem;
+}
+
+.brand .logo-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.brand .tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  background-color: rgba(230, 0, 0, 0.15);
+  color: var(--color-accent-red);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-accent-red);
+}
+
+.version-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, rgba(230, 0, 0, 0.2), rgba(138, 43, 226, 0.3));
+  border: 1px solid var(--color-accent-purple);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-pill);
+  color: var(--color-text-light);
+  /* Transição no botão de alternância de versão */
+  transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.version-switch-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(230, 0, 0, 0.35), rgba(138, 43, 226, 0.5));
+  box-shadow: 0 4px 16px rgba(138, 43, 226, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   4. LANDMARK: <main class="main-content">
+   -------------------------------------------------------------------------- */
+.main-content {
+  max-width: var(--site-max-width);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.page-header {
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: 1.5rem;
+}
+
+.badge-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-accent-red);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.page-desc {
+  color: var(--color-text-muted);
+  max-width: 65ch;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   5. LANDMARK: <section class="carousel-section">
+   CARROSSEL COM CSS TRANSITIONS & SCROLL SNAP
+   MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap
+   ========================================================================== */
+.carousel-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.carousel-controls-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.carousel-title-group h2 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.carousel-title-group p {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* LANDMARK: <nav class="carousel-nav"> - Paginação rápida */
+.carousel-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Pílula de navegação numerada com interpolação de escala e cor */
+.nav-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--color-border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  
+  /* Curva de mola elástica para resposta tátil instantânea */
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.25s ease,
+              border-color 0.25s ease,
+              color 0.25s ease;
+}
+
+.nav-dot:hover,
+.nav-dot:focus-visible {
+  color: #ffffff;
+  border-color: var(--color-accent-red);
+  background-color: rgba(230, 0, 0, 0.2);
+  transform: scale(1.1); /* Ampliação de 10% no hover */
+}
+
+/* Janela de Visualização Deslizante (Scroll Snap Viewport) */
+.carousel-viewport {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 1rem 0.5rem 1.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-red) var(--color-charcoal);
+}
+
+.carousel-viewport::-webkit-scrollbar {
+  height: 8px;
+}
+
+.carousel-viewport::-webkit-scrollbar-track {
+  background: var(--color-charcoal);
+  border-radius: var(--radius-pill);
+}
+
+.carousel-viewport::-webkit-scrollbar-thumb {
+  background: var(--color-accent-red);
+  border-radius: var(--radius-pill);
+}
+
+/* ==========================================================================
+   6. LANDMARK: <article class="carousel-slide">
+   Slides do Carrossel com Transform e Box-Shadow
+   ========================================================================== */
+.carousel-slide {
+  flex: 0 0 85%;
+  max-width: 420px;
+  scroll-snap-align: start;
+  scroll-margin-left: 0.5rem;
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+  /* Transição Master do Cartão: Elevação e expansão de sombra */
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .carousel-slide {
+    flex: 0 0 calc(50% - 0.75rem);
+  }
+}
+
+@media (min-width: 1040px) {
+  .carousel-slide {
+    flex: 0 0 calc(33.333% - 1rem);
+  }
+}
+
+/* Microinteração de Elevação no Hover do Slide */
+.carousel-slide:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--color-accent-red);
+  box-shadow: 0 16px 36px rgba(230, 0, 0, 0.25);
+}
+
+/* Destaque Ativo via Pseudo-Classe :target quando selecionado pelo ID */
+.carousel-slide:target {
+  border-color: var(--color-accent-red);
+  box-shadow: 0 0 0 3px var(--color-accent-red), 0 16px 36px rgba(230, 0, 0, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   7. ZOOM SUAVE NA IMAGEM DA CAPA
+   -------------------------------------------------------------------------- */
+.slide-media-wrap {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+}
+
+.slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Transição de ampliação suave (scale) e luminosidade (brightness filter) */
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+}
+
+.carousel-slide:hover .slide-img {
+  transform: scale(1.08);       /* Zoom in de 8% */
+  filter: brightness(1.1);       /* Realce de luminosidade */
+}
+
+.slide-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  background-color: rgba(10, 10, 12, 0.85);
+  color: var(--color-accent-red);
+  border: 1px solid var(--color-accent-red);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(8px);
+}
+
+.slide-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-grow: 1;
+}
+
+.slide-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-light);
+  transition: color 0.2s ease;
+}
+
+.carousel-slide:hover .slide-title {
+  color: var(--color-accent-red);
+}
+
+.slide-desc {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  flex-grow: 1;
+}
+
+.slide-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.slide-link {
+  color: var(--color-accent-red);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: transform 0.2s ease;
+}
+
+.carousel-slide:hover .slide-link {
+  transform: translateX(4px);
+}
+
+/* --------------------------------------------------------------------------
+   8. LANDMARK: <section class="transition-explainer">
+   -------------------------------------------------------------------------- */
+.transition-explainer {
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.transition-explainer h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+
+.transition-explainer p {
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.transition-code-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.code-card {
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.code-card h4 {
+  color: var(--color-accent-red);
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.code-card pre {
+  white-space: pre-wrap;
+  color: #d1d4de;
+}
+
+/* --------------------------------------------------------------------------
+   9. RODAPÉ PEDAGÓGICO DE NAVEGAÇÃO
+   -------------------------------------------------------------------------- */
+.exercises-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.nav-prev-next {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-subtle);
+  transition: all 0.2s ease;
+}
+
+.nav-link-btn:hover {
+  background-color: var(--color-accent-red);
+  color: #ffffff;
+  border-color: var(--color-accent-red);
+}

@@ -1,0 +1,110 @@
+[
+  {
+    "uid": "cat-1",
+    "num_id": 1,
+    "id": "cat-landmarks",
+    "slug": "landmarks",
+    "title": { "pt": "Landmarks & Estrutura Semântica", "en": "Landmarks & Semantic Structure" },
+    "tier": "foundational",
+    "lev": 1
+  },
+  {
+    "uid": "cat-2",
+    "num_id": 2,
+    "id": "cat-text-semantics",
+    "slug": "text-semantics",
+    "title": { "pt": "Tipografia & Semântica Textual", "en": "Typography & Text Semantics" },
+    "tier": "foundational",
+    "lev": 1
+  },
+  {
+    "uid": "cat-3",
+    "num_id": 3,
+    "id": "cat-media",
+    "slug": "media",
+    "title": { "pt": "Media & Direção de Arte", "en": "Media & Art Direction" },
+    "tier": "intermediate",
+    "lev": 2
+  },
+  {
+    "uid": "cat-4",
+    "num_id": 4,
+    "id": "cat-forms",
+    "slug": "forms",
+    "title": { "pt": "Formulários & Controlos", "en": "Forms & Controls" },
+    "tier": "intermediate",
+    "lev": 2
+  },
+  {
+    "uid": "cat-5",
+    "num_id": 5,
+    "id": "cat-selectors",
+    "slug": "selectors",
+    "title": { "pt": "Seletores & Combinadores", "en": "Selectors & Combinators" },
+    "tier": "foundational",
+    "lev": 1
+  },
+  {
+    "uid": "cat-6",
+    "num_id": 6,
+    "id": "cat-pseudo",
+    "slug": "pseudo-classes",
+    "title": { "pt": "Pseudo-Classes & Estados", "en": "Pseudo-Classes & States" },
+    "tier": "intermediate",
+    "lev": 2
+  },
+  {
+    "uid": "cat-7",
+    "num_id": 7,
+    "id": "cat-boxmodel",
+    "slug": "box-model",
+    "title": { "pt": "Modelo de Caixa & Geometria", "en": "Box Model & Geometry" },
+    "tier": "foundational",
+    "lev": 1
+  },
+  {
+    "uid": "cat-8",
+    "num_id": 8,
+    "id": "cat-flex-grid",
+    "slug": "layout-flex-grid",
+    "title": { "pt": "Layout (Flexbox & Grid)", "en": "Layout (Flexbox & Grid)" },
+    "tier": "intermediate",
+    "lev": 2
+  },
+  {
+    "uid": "cat-9",
+    "num_id": 9,
+    "id": "cat-positioning",
+    "slug": "positioning",
+    "title": { "pt": "Posicionamento & Âncoras", "en": "Positioning & Anchors" },
+    "tier": "advanced",
+    "lev": 3
+  },
+  {
+    "uid": "cat-10",
+    "num_id": 10,
+    "id": "cat-effects-animations",
+    "slug": "effects-animations",
+    "title": { "pt": "Efeitos, Transições & Animações", "en": "Effects, Transitions & Animations" },
+    "tier": "advanced",
+    "lev": 3
+  },
+  {
+    "uid": "cat-11",
+    "num_id": 11,
+    "id": "cat-atrules",
+    "slug": "at-rules",
+    "title": { "pt": "Regras Condicionais (@rules)", "en": "Conditional Rules (@rules)" },
+    "tier": "advanced",
+    "lev": 3
+  },
+  {
+    "uid": "cat-12",
+    "num_id": 12,
+    "id": "cat-functions-units",
+    "slug": "functions-units",
+    "title": { "pt": "Funções Matemáticas & Unidades", "en": "Math Functions & Units" },
+    "tier": "intermediate",
+    "lev": 2
+  }
+]

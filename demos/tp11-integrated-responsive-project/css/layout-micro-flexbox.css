@@ -1,0 +1,243 @@
+/* ==========================================================================
+   CSS FLEXBOX MICRO-LAYOUTS & ALTERNATING FLOWS
+   FBAUP • Web Design WD101 • Festival DRUMTIKS '26
+   Master Capstone: TP11 Integrated Responsive Project
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   MDN DOCUMENTATION REFERENCES:
+   - Flexible Box Layout Guide:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout
+   - Basic concepts of Flexbox:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Basic_concepts
+   - Aligning items in a flex container:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Aligning_items
+   - Controlling flex item ratios (flex-grow, flex-shrink, flex-basis):
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Controlling_flex_item_ratios
+   - Wrapping flex items (flex-wrap):
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Wrapping_items
+   - Ordering flex items (order property):
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Ordering_items
+   -------------------------------------------------------------------------- */
+
+@layer layout {
+  /* --------------------------------------------------------------------------
+     1. GLOBAL SITE HEADER (Sticky Flex Navigation & Toolbars)
+     Specificity: (0, 1, 0)
+     -------------------------------------------------------------------------- */
+  .site-header {
+    display: flex;
+    flex-direction: column; /* Mobile: Brand on top, nav underneath */
+    gap: var(--space-md);
+    padding: var(--space-md) 0;
+    margin-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border-subtle);
+    background-color: var(--color-bg-canvas);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+    transition: background-color var(--transition-normal);
+  }
+
+  @media (min-width: 768px) {
+    .site-header {
+      flex-direction: row; /* Desktop: Horizontal bar across the viewport */
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-lg) 0;
+    }
+  }
+
+  /* Header Branding Cluster */
+  .header-brand-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  /* Navigation Landmark: Alternating Mobile Vertical -> Desktop Horizontal Row */
+  .site-nav-menu {
+    display: flex;
+    flex-direction: column; /* Mobile Default: Full-width stacked links */
+    gap: var(--space-xs);
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .site-nav-menu {
+      flex-direction: row; /* Tablet/Desktop: Horizontal inline strip */
+      flex-wrap: wrap; /* Prevents overflow if viewport narrows */
+      align-items: center;
+      gap: var(--space-md);
+      width: auto;
+    }
+  }
+
+  .site-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding: var(--space-xs) var(--space-sm);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-sm);
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  .site-nav-link:hover,
+  .site-nav-link:focus-visible {
+    color: var(--color-text-primary);
+    background-color: var(--color-accent-red-subtle);
+  }
+
+  /* Header Control Cluster (Theme switch, X-Ray toggle, CTA button) */
+  .header-controls-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+  }
+
+  /* --------------------------------------------------------------------------
+     2. FESTIVAL SCHEDULE PROGRAM ITEMS (1D Row/Column Transformation)
+     Specificity: (0, 1, 0)
+     -------------------------------------------------------------------------- */
+  .program-schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .program-item-card {
+    display: flex;
+    flex-direction: column; /* Mobile First: Vertical stack */
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    transition: transform var(--transition-normal), border-color var(--transition-normal);
+  }
+
+  .program-item-card:hover {
+    border-color: var(--color-accent-red);
+    transform: translateY(-2px);
+  }
+
+  @media (min-width: 640px) {
+    .program-item-card {
+      flex-direction: row; /* Tablet/Desktop: Horizontal layout */
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-lg);
+    }
+
+    /* Left flex item: Time badge with fixed basis */
+    .program-time-badge {
+      flex: 0 0 110px; /* Does not grow or shrink; exactly 110px */
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-small);
+      font-weight: 700;
+      color: var(--color-accent-red);
+    }
+
+    /* Center flex item: Artist name and description (grows to occupy space) */
+    .program-meta-group {
+      flex: 1 1 280px; /* flex-grow: 1, flex-shrink: 1, flex-basis: 280px */
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2xs);
+    }
+
+    /* Right flex item: Stage pill and genre tags */
+    .program-tag-cluster {
+      flex: 0 0 auto; /* Natural intrinsic size */
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      flex-wrap: wrap;
+    }
+  }
+
+  /* --------------------------------------------------------------------------
+     3. BADGE & METADATA WRAPPING PILLS
+     Specificity: (0, 1, 0)
+     -------------------------------------------------------------------------- */
+  .badge-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    align-items: center;
+  }
+
+  .pill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-color: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    color: var(--color-text-secondary);
+  }
+
+  .pill-badge--accent {
+    background-color: var(--color-accent-red-subtle);
+    border-color: var(--color-accent-red);
+    color: var(--color-accent-red);
+    font-weight: 700;
+  }
+
+  .pill-badge--cyan {
+    background-color: rgba(0, 210, 255, 0.1);
+    border-color: var(--color-accent-cyan);
+    color: var(--color-accent-cyan);
+  }
+
+  /* --------------------------------------------------------------------------
+     4. PRICING TICKET SELECTION & CHECKOUT FORM
+     Specificity: (0, 1, 0)
+     -------------------------------------------------------------------------- */
+  .ticket-option-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 540px) {
+    .ticket-option-grid {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .ticket-tier-card {
+      flex: 1 1 calc(50% - var(--space-md)); /* 2 columns on phablets */
+    }
+  }
+
+  /* Receipt Breakdown Line Items */
+  .receipt-line-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: var(--space-xs) 0;
+    border-bottom: 1px dashed var(--color-border-subtle);
+    font-size: var(--font-size-small);
+  }
+
+  .receipt-line-item--total {
+    border-bottom: 2px solid var(--color-accent-red);
+    padding-top: var(--space-md);
+    margin-top: var(--space-xs);
+    font-size: var(--font-size-h3);
+    font-weight: 800;
+    font-family: var(--font-family-display);
+    color: var(--color-text-primary);
+  }
+}

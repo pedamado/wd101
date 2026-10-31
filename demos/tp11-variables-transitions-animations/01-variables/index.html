@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercício 1 • CSS Variables &amp; Theming (Light/Dark) | DRUMTIKS '26</title>
+    <meta
+      name="description"
+      content="Demonstrador de variáveis CSS (Custom Properties), color-scheme nativo com light-dark() e alternador de tema no menu de navegação."
+    />
+    <!-- Folha de Estilos Principal do Exercício 1 -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- Ícone Vetorial SVG Adaptável -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  </head>
+  <body>
+    <!-- ========================================================================
+       LANDMARK: <header class="site-header">
+       - ARIA Landmark Role: 'banner'
+       - Função Estrutural: Contém os elementos introdutórios do site, a identidade
+         visual de DRUMTIKS '26 e a barra de navegação global.
+       - Classes:
+         * .site-header: Aplica posição pegajosa (position: sticky; top: 0),
+           fundo translúcido com desfoque de fundo (backdrop-filter: blur(14px))
+           e fronteira inferior calibrada com a variável --border-subtle.
+       - Documentação MDN de Referência:
+         https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header
+       ======================================================================== -->
+    <header class="site-header">
+      <!-- .nav-container: Contentor flexível de alinhamento com max-width intrínseco -->
+      <div class="nav-container">
+        
+        <!-- Identidade do Festival DRUMTIKS: Logótipo + Nome + Tag Curricular -->
+        <a href="index.html" class="brand" aria-label="DRUMTIKS 2026 Início">
+          <img src="assets/icons/favicon.svg" alt="Ícone de Gira-discos e Vinil DRUMTIKS" class="logo-icon" />
+          <span>DRUMTIKS</span>
+          <span class="tag">TP11 • EX1</span>
+        </a>
+
+        <!-- ====================================================================
+           LANDMARK: <nav aria-label="Navegação Principal">
+           - ARIA Landmark Role: 'navigation'
+           - Função Estrutural: Agrupa hiperligações principais do documento.
+           - Classes:
+             * .nav-links: Lista não-ordenada (<ul>) com display flex, gap espaçado
+               e remoção do estilo nativo de lista (list-style: none).
+           - Documentação MDN de Referência:
+             https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav
+           ==================================================================== -->
+        <nav aria-label="Navegação Principal">
+          <ul class="nav-links">
+            <li><a href="#hero">Festival</a></li>
+            <li><a href="#palcos">Palcos</a></li>
+            <li><a href="#variaveis">Inspector CSS</a></li>
+            <li><a href="#mdn-docs">Referências MDN</a></li>
+          </ul>
+        </nav>
+
+        <!-- ====================================================================
+           LANDMARK: <aside class="theme-switcher">
+           - ARIA Landmark Role: 'complementary'
+           - Função Estrutural: Controlo periférico/ferramenta de apoio.
+           - Mecanismo Semântico: Utiliza um <fieldset> com <legend> e botões de rádio.
+           - Como funciona a alternância sem JavaScript:
+             1. Cada <input type="radio"> tem um ID (#theme-auto, #theme-light, #theme-dark).
+             2. As <label class="theme-btn"> envolvem os rádios e ícones SVG.
+             3. O CSS usa a pseudo-classe :root:has(#theme-light:checked) para alterar
+                a propriedade nativa 'color-scheme: light'.
+             4. Todos os tokens com 'light-dark()' adaptam as suas cores instantaneamente!
+           - Documentação MDN de Referência:
+             * https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme
+             * https://developer.mozilla.org/en-US/docs/Web/CSS/light-dark
+             * https://developer.mozilla.org/en-US/docs/Web/CSS/:has
+           ==================================================================== -->
+        <aside class="theme-switcher" aria-label="Alternador de Tema Visual">
+          <fieldset class="theme-switcher-control">
+            <legend>Modo de Cor</legend>
+
+            <!-- Opção Auto (Respeita @media (prefers-color-scheme)) -->
+            <label class="theme-btn" for="theme-auto" title="Respeitar preferência do sistema operativo">
+              <input type="radio" name="theme-mode" id="theme-auto" checked />
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2a10 10 0 0 0-10 10c0 5.52 4.48 10 10 10s10-4.48 10-10A10 10 0 0 0 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8v16z"/>
+              </svg>
+              <span>Auto</span>
+            </label>
+
+            <!-- Opção Modo Claro (Força color-scheme: light) -->
+            <label class="theme-btn" for="theme-light" title="Forçar modo claro">
+              <input type="radio" name="theme-mode" id="theme-light" />
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zm-6.05-14.65a.996.996 0 0 0 0 1.41l1.41 1.41c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L6.36 6.35a.996.996 0 0 0-1.41 0zm12.73 12.73a.996.996 0 0 0 0 1.41l1.41 1.41c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.41-1.41a.996.996 0 0 0-1.41 0zm-12.73 0l-1.41 1.41c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.41-1.41a.996.996 0 0 0 0-1.41c-.39-.38-1.03-.38-1.41 0zm12.73-12.73a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.41 1.41c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.41-1.41z"/>
+              </svg>
+              <span>Claro</span>
+            </label>
+
+            <!-- Opção Modo Escuro (Força color-scheme: dark) -->
+            <label class="theme-btn" for="theme-dark" title="Forçar modo escuro">
+              <input type="radio" name="theme-mode" id="theme-dark" />
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12.3 2a10 10 0 0 0-1.9 19.8 9.99 9.99 0 0 0 11.5-11.5A10.02 10.02 0 0 0 12.3 2zm-.3 18c-4.4 0-8-3.6-8-8 0-3.9 2.8-7.1 6.5-7.8.2.8.5 1.5.9 2.2a8 8 0 0 0 8.4 8.4c-.7.4-1.4.7-2.2.9-.5 2.5-2.7 4.3-5.6 4.3z"/>
+              </svg>
+              <span>Escuro</span>
+            </label>
+          </fieldset>
+        </aside>
+      </div>
+    </header>
+
+    <!-- ========================================================================
+       LANDMARK: <main class="main-content">
+       - ARIA Landmark Role: 'main'
+       - Função Estrutural: Área com o conteúdo exclusivo e central desta página.
+       - Classes:
+         * .main-content: Define a largura máxima com margens automáticas (margin: 0 auto),
+           espaçamento interno (padding: 2.5rem 1.5rem 4rem) e display flex vertical com gap.
+       - Documentação MDN de Referência:
+         https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main
+       ======================================================================== -->
+    <main class="main-content">
+      
+      <!-- ====================================================================
+         LANDMARK: <section id="hero" class="hero-card">
+         - ARIA Landmark Role: 'region'
+         - Função Estrutural: Destaque introdutório do festival em 2 colunas.
+         - Classes:
+           * .hero-card: Grelha CSS (grid-template-columns: 1fr 1fr), fundo --bg-surface,
+             sombra --shadow-card e transição suave --theme-transition.
+           * .hero-meta: Flexbox para agrupamento horizontal dos selos informativos.
+           * .badge / .badge-accent: Pílulas de metadados tipográficos monoespaçados.
+           * .hero-title: Título principal com tipografia fluida clamp().
+           * .hero-desc: Parágrafo com tamanho controlado e largura máxima de 48 caracteres.
+           * .hero-actions: Flexbox para alinhamento dos botões .btn-primary e .btn-outline.
+           * .hero-media: Contentor da imagem com aspect-ratio: 16/10 e cantos arredondados.
+         ==================================================================== -->
+      <section id="hero" class="hero-card" aria-labelledby="hero-title-id">
+        <div class="hero-content">
+          <div class="hero-meta">
+            <!-- Selos informativos com variáveis de acento e fundo dinâmico -->
+            <span class="badge badge-accent">24–26 Outubro 2026</span>
+            <span class="badge">Alfândega do Porto</span>
+          </div>
+          <h1 id="hero-title-id" class="hero-title">A Cultura Beatmaking em Sintonia</h1>
+          <p class="hero-desc">
+            Três dias dedicados à produção analógica, amostragem de vinil e cultura DJ subterrânea.
+            Todas as cores e fundos desta secção respondem a variáveis CSS (<code>--bg-surface</code>, <code>--text-primary</code> e <code>--accent-primary</code>).
+          </p>
+          <div class="hero-actions">
+            <a href="#variaveis" class="btn btn-primary">Inspecionar Tokens CSS</a>
+            <a href="#mdn-docs" class="btn btn-outline">Guias Oficiais MDN</a>
+          </div>
+        </div>
+
+        <div class="hero-media">
+          <img
+            src="assets/images/dj-warp-vault-16x9-600w.webp"
+            alt="DJ Warp nos cofres da Alfândega do Porto com luz cénica vermelha"
+            width="600"
+            height="375"
+            loading="lazy"
+          />
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section id="palcos" aria-labelledby="palcos-heading">
+         - ARIA Landmark Role: 'region'
+         - Função Estrutural: Apresentação modular dos palcos do festival.
+         - Demonstração Pedagógica: Como as variáveis de :root propagam-se por herança
+           em múltiplos artigos irmãos (.card) sem código duplicado.
+         ==================================================================== -->
+      <section id="palcos" aria-labelledby="palcos-heading">
+        <div class="section-title-wrap">
+          <h2 id="palcos-heading" class="section-title">Palcos &amp; Ativações</h2>
+          <span class="section-note">Valores herdam diretamente do seletor :root</span>
+        </div>
+
+        <!-- .cards-grid: Layout de grelha responsiva pura (repeat(auto-fit, minmax(280px, 1fr))) -->
+        <div class="cards-grid">
+          
+          <!-- ================================================================
+             LANDMARK: <article class="card"> (Palco 1)
+             - ARIA Landmark Role: 'article'
+             - Função: Conteúdo autónomo e auto-suficiente sobre o Palco Principal.
+             - Classes:
+               * .card: Caixa com fundo --bg-surface, fronteira --border-subtle,
+                 raio --radius-md e microinteração :hover com translateY(-3px).
+               * .card-icon: Contentor flexível do ícone com fundo em --accent-purple-tint.
+               * .card-title: Título de nível h3 com fonte Syne.
+               * .card-text: Corpo com cor --text-secondary.
+             ================================================================ -->
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Cofre Principal • Subterrâneo</h3>
+            <p class="card-text">
+              Espaço acústico com paredes de cantaria de granito do século XIX, equipado com sistema de som analógico Funktion-One e luz vermelha estroboscópica.
+            </p>
+            <div>
+              <span class="badge">120 BPM • Boom Bap</span>
+            </div>
+          </article>
+
+          <!-- ================================================================
+             LANDMARK: <article class="card"> (Palco 2)
+             ================================================================ -->
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Batalha Beatmaking 808</h3>
+            <p class="card-text">
+              16 produtores com samplers MPC e sintetizadores Roland em eliminatórias diretas de 60 segundos por round perante o público e júri internacional.
+            </p>
+            <div>
+              <span class="badge">Live Performance</span>
+            </div>
+          </article>
+
+          <!-- ================================================================
+             LANDMARK: <article class="card"> (Palco 3)
+             ================================================================ -->
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Feira de Vinil &amp; Crate Digging</h3>
+            <p class="card-text">
+              Mais de 20 bancas de alfarrabistas, editoras independentes e colecionadores privados com raridades de jazz, soul, funk e hip-hop europeu.
+            </p>
+            <div>
+              <span class="badge">Mercado Aberto</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section id="variaveis" class="inspector-panel">
+         - ARIA Landmark Role: 'region'
+         - Função Didática: Exibe a tabela de tokens CSS ativos no exercício.
+         ==================================================================== -->
+      <section id="variaveis" class="inspector-panel" aria-labelledby="inspector-heading">
+        <div class="inspector-header">
+          <h3 id="inspector-heading">Inspector de Variáveis CSS &amp; Dinâmica de Tema</h3>
+          <p>
+            Clica nos botões <strong>Auto</strong>, <strong>Claro</strong> e <strong>Escuro</strong> no menu superior.
+            O CSS usa a função <code>light-dark()</code> combinada com a declaração <code>color-scheme: light dark</code>.
+          </p>
+        </div>
+
+        <table class="variables-table">
+          <thead>
+            <tr>
+              <th scope="col">Variável CSS (Token)</th>
+              <th scope="col">Expressão CSS</th>
+              <th scope="col">Papel Semântico &amp; Permutação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="variable-name">--bg-canvas</code></td>
+              <td><code>light-dark(#f4f4f7, #0a0a0c)</code></td>
+              <td>Fundo global do documento (aplicado no <code>&lt;body&gt;</code>)</td>
+            </tr>
+            <tr>
+              <td><code class="variable-name">--bg-surface</code></td>
+              <td><code>light-dark(#ffffff, #16171a)</code></td>
+              <td>Fundo dos cartões e cabeçalho da página</td>
+            </tr>
+            <tr>
+              <td><code class="variable-name">--text-primary</code></td>
+              <td><code>light-dark(#111216, #f4f4f6)</code></td>
+              <td>Títulos de alta ênfase e logótipo</td>
+            </tr>
+            <tr>
+              <td><code class="variable-name">--text-secondary</code></td>
+              <td><code>light-dark(#4a4d57, #a2a6b2)</code></td>
+              <td>Corpo de texto e descrições dos artigos</td>
+            </tr>
+            <tr>
+              <td><code class="variable-name">--accent-primary</code></td>
+              <td><code>#e60000</code></td>
+              <td>Cor primária do festival DRUMTIKS (estática)</td>
+            </tr>
+            <tr>
+              <td><code class="variable-name">--border-subtle</code></td>
+              <td><code>light-dark(rgba(0,0,0,0.12), rgba(255,255,255,0.12))</code></td>
+              <td>Fronteiras e divisores estruturais</td>
+            </tr>
+            <tr>
+              <td><code class="variable-name">--theme-transition</code></td>
+              <td><code>all 0.35s cubic-bezier(0.4, 0, 0.2, 1)</code></td>
+              <td>Interpolação contínua entre temas sem flicker</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section id="mdn-docs">
+         - Links Diretos para a Documentação Oficial da MDN Web Docs
+         ==================================================================== -->
+      <section id="mdn-docs" class="inspector-panel" style="border-style: solid; margin-top: 1rem;" aria-labelledby="mdn-heading">
+        <div class="inspector-header">
+          <h3 id="mdn-heading">Documentação Oficial MDN Web Docs (Referências de Estudo)</h3>
+          <p>Consulta as páginas canónicas do MDN para aprofundares cada especificação:</p>
+        </div>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-family: var(--font-mono); font-size: 0.85rem;">
+          <li>
+            🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Cascading_variables/Using_custom_properties" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline;">
+              MDN: Using CSS custom properties (variables)
+            </a>
+          </li>
+          <li>
+            🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline;">
+              MDN: CSS color-scheme Property
+            </a>
+          </li>
+          <li>
+            🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/light-dark" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline;">
+              MDN: CSS light-dark() Function
+            </a>
+          </li>
+          <li>
+            🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:has" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline;">
+              MDN: CSS :has() Relational Selector
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <nav class="exercises-nav">
+         - ARIA Landmark Role: 'navigation'
+         - Navegação Pedagógica do TP11 para avançar/recuar entre demonstradores.
+         ==================================================================== -->
+      <nav class="exercises-nav" aria-label="Navegação Pedagógica do TP11">
+        <span>Exercício 1 de 3: <strong>Variáveis &amp; Theming</strong></span>
+        <div class="nav-prev-next">
+          <a href="../index.html" class="nav-link-btn" title="Voltar ao Índice Geral do TP11">← Índice TP11</a>
+          <a href="../02-transitions/index.html" class="nav-link-btn" title="Avançar para o Exercício 2">Exercício 2 (Transições) →</a>
+        </div>
+      </nav>
+    </main>
+  </body>
+</html>

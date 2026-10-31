@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="hero-grad-lg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0e"/>
+      <stop offset="60%" stop-color="#181824"/>
+      <stop offset="100%" stop-color="#2a0808"/>
+    </linearGradient>
+    <radialGradient id="glow-lg" cx="70%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e60000" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid-lg" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#hero-grad-lg)"/>
+  <rect width="100%" height="100%" fill="url(#grid-lg)"/>
+  <rect width="100%" height="100%" fill="url(#glow-lg)"/>
+
+  <!-- Eurorack Modular Synth Wall Graphics -->
+  <g opacity="0.65">
+    <rect x="850" y="80" width="680" height="440" rx="8" fill="#12131a" stroke="#333745" stroke-width="3"/>
+    <!-- Synth panels -->
+    <line x1="1020" y1="80" x2="1020" y2="520" stroke="#222530" stroke-width="2"/>
+    <line x1="1190" y1="80" x2="1190" y2="520" stroke="#222530" stroke-width="2"/>
+    <line x1="1360" y1="80" x2="1360" y2="520" stroke="#222530" stroke-width="2"/>
+    <!-- Rows -->
+    <line x1="850" y1="220" x2="1530" y2="220" stroke="#222530" stroke-width="2"/>
+    <line x1="850" y1="370" x2="1530" y2="370" stroke="#222530" stroke-width="2"/>
+
+    <!-- Patch Cables (Curved Bezier Paths) -->
+    <path d="M 910 160 C 930 320, 1070 300, 1110 440" fill="none" stroke="#e60000" stroke-width="4" stroke-linecap="round"/>
+    <path d="M 960 270 C 1040 380, 1280 180, 1310 140" fill="none" stroke="#0284c7" stroke-width="4" stroke-linecap="round"/>
+    <path d="M 1080 120 C 1140 240, 1420 280, 1470 450" fill="none" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <path d="M 1240 290 C 1300 420, 1400 350, 1420 250" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Oscilloscope Waveform Monitor -->
+  <rect x="180" y="240" width="380" height="220" rx="6" fill="#05080c" stroke="#22c55e" stroke-width="2"/>
+  <path d="M 190 350 Q 230 260, 270 350 T 350 350 T 430 350 T 510 350 T 550 350" fill="none" stroke="#22c55e" stroke-width="3"/>
+  <text x="200" y="270" font-family="monospace" font-size="14" fill="#22c55e" letter-spacing="2">CV WAVEFORM • 138 BPM</text>
+
+  <!-- Artistic Badge Text -->
+  <text x="180" y="160" font-family="'Fraunces', Georgia, serif" font-weight="900" font-size="56" fill="#ffffff">DJ WARP — LIVE HYBRID '26</text>
+  <text x="184" y="200" font-family="'Arimo', sans-serif" font-weight="700" font-size="20" fill="#e60000" letter-spacing="4">PALCO PRINCIPAL • ENGENHARIA DE RITMOS ANALÓGICOS</text>
+</svg>

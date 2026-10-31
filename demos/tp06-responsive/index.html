@@ -1,0 +1,1246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- ========================================================================
+       DOCUMENT METADATA & ENCODING (FBAUP Web Design WD101)
+       Pedagogical Documentation:
+       - <meta charset="UTF-8">: Declares the character encoding standard for the
+         document (UTF-8 handles accented Portuguese characters, typographic
+         quotes, and mathematical symbols without HTML entities).
+       - <meta name="viewport">: Prevents mobile browsers from simulating an
+         unreadable 980px desktop canvas. Sets 1:1 hardware pixel ratio.
+       - viewport-fit=cover: Ensures content flows smoothly into device safe areas
+         (such as notch cutouts and modern gesture home indicators).
+       - <link rel="stylesheet">: Loads the external CSS ruleset, structured via
+         modern @layer cascades for optimal specificity control.
+       - <link rel="icon">: Scalable vector SVG favicon for crisp high-DPI rendering.
+       ======================================================================== -->
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>
+      DRUMTIKS '26 • Hip Hop &amp; Beat Making Festival • Alfândega do Porto
+    </title>
+    <meta
+      name="description"
+      content="DRUMTIKS Hip Hop &amp; Beat Making Festival 2026 at Alfândega do Porto. Two-column responsive layout, pure CSS pricing simulator, scroll-driven animations, and interactive gallery."
+    />
+
+    <!-- Vendorized Self-Hosted Variable Webfonts & Master Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Scalable Vector Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  </head>
+  <body class="page-festival-home">
+    <!-- ========================================================================
+       PURE CSS SCROLL-DRIVEN VIEWPORT PROGRESS BAR
+       Pedagogical Documentation (Modern CSS Scroll-Driven Animations):
+       - Uses `animation-timeline: scroll(root)` to track vertical scroll position.
+       - Automatically expands from scaleX(0) to scaleX(1) as the user traverses
+         the document without a single line of JavaScript.
+       - Progressively enhanced: ignored gracefully in older browsers without layout shifts.
+       ======================================================================== -->
+    <div class="scroll-progress-bar" aria-hidden="true"></div>
+
+    <!-- Responsive Website Wrapper (Fluid Layout scaling to 2-Column Desktop Grid) -->
+    <div class="site-wrapper">
+      <!-- ======================================================================
+         SITE HEADER LANDMARK (<header role="banner">, Node ID 1:134)
+         Contains festival branding, semantic site navigation, date badge,
+         and desktop breakpoint Call-To-Action (CTA).
+         ====================================================================== -->
+      <header class="site-header" data-node-id="1:134">
+        <a
+          href="index.html"
+          class="site-logo"
+          data-node-id="1:135"
+          aria-label="DRUMTIKS 2026 Home"
+        >
+          DRUMTIKS <span class="site-logo-accent">'26</span>
+        </a>
+
+        <!-- Primary Navigation Landmark (Progressive Enhancement) -->
+        <nav class="site-nav" aria-label="Primary Navigation">
+          <ul class="nav-list">
+            <!-- <li class="nav-item">
+              <a href="index.html" class="nav-link active" aria-current="page"
+                >HOME</a
+              >
+            </li> -->
+            <li class="nav-item">
+              <a href="dj-warp.html" class="nav-link">DJ WARP</a>
+            </li>
+            <li class="nav-item">
+              <a href="battle-rules.html" class="nav-link">808 CLASH</a>
+            </li>
+            <li class="nav-item">
+              <a href="#festival-gallery" class="nav-link">GALLERY</a>
+            </li>
+            <li class="nav-item">
+              <a href="#pricing-simulator" class="nav-link">TICKETS</a>
+            </li>
+            <li class="nav-item">
+              <a href="credits.html" class="nav-link">CREDITS</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="date-badge" data-node-id="1:136">
+            <span class="date-badge-text" data-node-id="1:137"
+              >14.NOV.2026 • PORTO</span
+            >
+          </div>
+          <!-- Desktop Buy Tickets CTA (Visible on >=960px breakpoint via CSS) -->
+          <a href="#pricing-simulator" class="btn-primary header-desktop-cta"
+            >BUY TICKETS</a
+          >
+        </div>
+      </header>
+
+      <!-- ======================================================================
+         MAIN CONTENT LANDMARK (<main role="main">, Node ID 1:138)
+         Subdivided into a 2-column responsive layout:
+         - Column 1: Primary Stage (Headliner DJ Warp & Venue Info)
+         - Column 2: Secondary Flow (Schedule, Passes Simulator, FAQs)
+         ====================================================================== -->
+      <main class="site-main-content" data-node-id="1:138">
+        <!-- Two-Column Festival Grid Layout (1-Column on Mobile, 2-Columns on Desktop >=960px) -->
+        <div class="festival-grid-layout">
+          <!-- ====================================================================
+             COLUMN 1 (LEFT / STICKY PRIMARY STAGE): HEADLINER & VENUE
+             Pedagogical Documentation:
+             - On mobile (<960px): renders first in natural document flow.
+             - On desktop (>=960px): sticks gracefully in viewport (position: sticky; top: 32px;)
+               while the secondary column scrolls smoothly alongside it.
+             ==================================================================== -->
+          <div class="grid-column-primary">
+            <!-- Hero DJ WARP Card Landmark (<article>, Node ID 1:139) -->
+            <article class="hero-card" data-node-id="1:139">
+              <span class="hero-eyebrow" data-node-id="1:140"
+                >LIVE HEADLINER &amp; SCRATCH MASTERCLASS</span
+              >
+              <h1 class="hero-title" data-node-id="1:141">
+                GRAND MASTER MC / SCRATCH DJ 'WARP'
+              </h1>
+              <p class="hero-subhead" data-node-id="1:142">
+                Direct from the Golden Era to the Future of Turntablism
+              </p>
+
+              <!-- ================================================================
+                 RESPONSIVE PICTURE (Art-Direction & Multi-Width Resolution Switching)
+                 Pedagogical Documentation (HTML5 <picture> + srcset + sizes):
+                 - Serves modern .webp images first with .jpg fallbacks.
+                 - High-DPI and widescreen devices fetch crisp 1400w/960w assets.
+                 - Mobile devices fetch lightweight 600w assets, saving mobile data.
+                 - fetchpriority="high" ensures the LCP (Largest Contentful Paint) image
+                   is requested by the browser's preload scanner immediately.
+                 ================================================================ -->
+              <div class="hero-visual-frame" data-node-id="1:143">
+                <picture>
+                  <!-- Desktop Widescreen Displays (>= 960px): WebP format -->
+                  <source
+                    media="(min-width: 960px)"
+                    type="image/webp"
+                    srcset="
+                      assets/images/hero-dj-warp-960w.webp   960w,
+                      assets/images/hero-dj-warp-1400w.webp 1400w
+                    "
+                    sizes="(min-width: 1240px) 640px, 50vw"
+                  />
+
+                  <!-- Desktop Widescreen Displays (>= 960px): JPEG fallback -->
+                  <source
+                    media="(min-width: 960px)"
+                    type="image/jpeg"
+                    srcset="
+                      assets/images/hero-dj-warp-960w.jpg   960w,
+                      assets/images/hero-dj-warp-1400w.jpg 1400w
+                    "
+                    sizes="(min-width: 1240px) 640px, 50vw"
+                  />
+
+                  <!-- Mobile & Tablet Displays (< 960px): WebP format -->
+                  <source
+                    type="image/webp"
+                    srcset="
+                      assets/images/hero-dj-warp-600w.webp 600w,
+                      assets/images/hero-dj-warp-960w.webp 960w
+                    "
+                    sizes="(max-width: 600px) 100vw, 560px"
+                  />
+
+                  <!-- Mobile & Tablet Displays (< 960px): JPEG fallback -->
+                  <source
+                    type="image/jpeg"
+                    srcset="
+                      assets/images/hero-dj-warp-600w.jpg 600w,
+                      assets/images/hero-dj-warp-960w.jpg 960w
+                    "
+                    sizes="(max-width: 600px) 100vw, 560px"
+                  />
+
+                  <!-- Base Fallback <img> Tag -->
+                  <img
+                    src="assets/images/hero-dj-warp-960w.jpg"
+                    srcset="
+                      assets/images/hero-dj-warp-600w.jpg   600w,
+                      assets/images/hero-dj-warp-960w.jpg   960w,
+                      assets/images/hero-dj-warp-1400w.jpg 1400w
+                    "
+                    sizes="(min-width: 960px) 640px, 100vw"
+                    alt="Grand Master DJ WARP live routine behind twin turntables in Alfândega do Porto"
+                    class="dj-photo-img"
+                    width="1200"
+                    height="675"
+                    loading="eager"
+                    fetchpriority="high"
+                  />
+                </picture>
+
+                <!-- Turntable Decks Graphic & Micro-Animation (Node ID 1:144) -->
+                <div class="hero-visual-bar">
+                  <div class="turntable-decks-graphic" data-node-id="1:144">
+                    <div class="vinyl-platter" data-node-id="1:145">
+                      <img
+                        src="assets/icons/vinyl-platter.svg"
+                        alt="Vinyl Platter Icon"
+                        width="38"
+                        height="38"
+                      />
+                    </div>
+                    <div
+                      class="waveform-eq"
+                      data-node-id="1:146"
+                      aria-hidden="true"
+                    >
+                      <div class="eq-bar bar-1"></div>
+                      <div class="eq-bar bar-2"></div>
+                      <div class="eq-bar bar-3"></div>
+                      <div class="eq-bar bar-4"></div>
+                      <div class="eq-bar bar-5"></div>
+                      <div class="eq-bar bar-6"></div>
+                      <div class="eq-bar bar-7"></div>
+                      <div class="eq-bar bar-8"></div>
+                      <div class="eq-bar bar-9"></div>
+                    </div>
+                  </div>
+                  <span class="visual-label" data-node-id="1:156"
+                    >Underground Vault 02 // Live Routine</span
+                  >
+                </div>
+              </div>
+
+              <p class="hero-bio" data-node-id="1:157">
+                Four decks. Zero safety nets. Pioneer of the polyrhythmic
+                backspin and vinyl chopping, DJ WARP brings an explosive
+                120-minute live routine of unreleased breakbeats, real-time MPC
+                sampling, and raw turntable warfare.
+              </p>
+
+              <div class="badges-row" data-node-id="1:158">
+                <div class="tag-badge" data-node-id="1:159">
+                  <span class="tag-badge-text" data-node-id="1:160"
+                    >LIVE VINYL SET</span
+                  >
+                </div>
+                <div class="tag-badge" data-node-id="1:161">
+                  <span class="tag-badge-text" data-node-id="1:162"
+                    >MPC SHOWCASE</span
+                  >
+                </div>
+                <div class="tag-badge" data-node-id="1:163">
+                  <span class="tag-badge-text" data-node-id="1:164"
+                    >ANALOG SOUND SYSTEM</span
+                  >
+                </div>
+              </div>
+
+              <!-- Deep Dive Subpage Link (Requirement 6) -->
+              <div style="margin-top: 18px">
+                <a href="dj-warp.html" class="btn-secondary btn-block">
+                  READ FULL BIOGRAPHY &amp; LIVE SET DETAILS &rarr;
+                </a>
+              </div>
+            </article>
+
+            <!-- Venue & Access Summary Card (<aside>, Node ID 1:251) -->
+            <aside class="venue-info-box" data-node-id="1:251">
+              <span class="venue-info-label" data-node-id="1:252"
+                >VENUE &amp; ACCESS INFO</span
+              >
+              <p class="venue-location" data-node-id="1:253">
+                Underground Vault 02, Alfândega do Porto
+              </p>
+              <span class="venue-doors" data-node-id="1:254"
+                >Doors Open: 17:30 WEST • Historic Granite Vaults</span
+              >
+              <p
+                style="
+                  font-size: 12px;
+                  color: var(--color-medium-gray);
+                  margin-top: 6px;
+                "
+              >
+                Direct riverfront transit access via Tram 1, Metro Linha D (São
+                Bento), and Bus 500.
+              </p>
+            </aside>
+          </div>
+
+          <!-- ====================================================================
+             COLUMN 2 (RIGHT / DYNAMIC FLOW): PROGRAM, GALLERY, SIMULATOR & FAQS
+             ==================================================================== -->
+          <div class="grid-column-secondary">
+            <!-- ================================================================
+               FESTIVAL SCHEDULE // PROGRAM SECTION (Node ID 1:165)
+               ================================================================ -->
+            <section
+              class="program-section"
+              data-node-id="1:165"
+              aria-labelledby="program-title"
+            >
+              <h2
+                id="program-title"
+                class="section-header"
+                data-node-id="1:166"
+              >
+                FESTIVAL SCHEDULE // PROGRAM
+              </h2>
+
+              <!-- Program Item 01 (Node ID 1:167) -->
+              <article class="program-item" data-node-id="1:167">
+                <time class="program-time" data-node-id="1:168"
+                  >18:00 - 19:30</time
+                >
+                <h3 class="program-title" data-node-id="1:169">
+                  Warmup Sessions: THE KICKS
+                </h3>
+                <p class="program-desc" data-node-id="1:170">
+                  Porto's premier boom-bap rhythm collective delivering dusty
+                  soul grooves and live MPC finger-drumming.
+                </p>
+              </article>
+
+              <!-- Program Item 02: THE 808 CLASH (Node ID 1:171) -->
+              <article
+                class="program-item program-item-featured"
+                data-node-id="1:171"
+              >
+                <time class="program-time" data-node-id="1:172"
+                  >19:45 - 21:15</time
+                >
+                <h3 class="program-title" data-node-id="1:173">
+                  THE 808 CLASH: Regional Beat Battle
+                </h3>
+                <p class="program-desc" data-node-id="1:174">
+                  16 producers go head-to-head. 60-second beat rounds judged by
+                  DJ WARP on original drum programming, swing pocket, and
+                  low-end control.
+                </p>
+                <div
+                  class="card-action-links"
+                  style="
+                    display: flex;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                    margin-top: 10px;
+                  "
+                >
+                  <a
+                    href="#pricing-simulator"
+                    class="btn-secondary"
+                    data-node-id="1:175"
+                    >REGISTER AS COMPETITOR (€10)</a
+                  >
+                  <a
+                    href="battle-rules.html"
+                    class="btn-secondary"
+                    style="border-color: var(--color-medium-gray)"
+                    >VIEW TOURNAMENT RULES &rarr;</a
+                  >
+                </div>
+              </article>
+
+              <!-- Program Item 03: DJ WARP Headline (Node ID 1:177) -->
+              <article class="program-item" data-node-id="1:177">
+                <time class="program-time" data-node-id="1:178"
+                  >21:30 - 23:30</time
+                >
+                <h3 class="program-title" data-node-id="1:179">
+                  DJ WARP Headline Concert &amp; Scratch Showcase
+                </h3>
+                <p class="program-desc" data-node-id="1:180">
+                  Hardcore boom-bap, unreleased dubplates, and lightning
+                  quad-deck scratch routines.
+                </p>
+                <a
+                  href="dj-warp.html"
+                  class="credits-inline-link"
+                  style="display: inline-block; margin-top: 6px"
+                  >View 120-min live set breakdown &rarr;</a
+                >
+              </article>
+            </section>
+
+            <!-- ================================================================
+               FEATURE SECTION: PURE CSS IMAGE GALLERY (CAROUSEL)
+               Pedagogical Documentation (Pure CSS Snap Gallery & Paginator):
+               - Uses CSS Scroll Snap (`scroll-snap-type: x mandatory`).
+               - Progressive Enhancement: Modern browsers leverage `scroll-marker-group`
+                 and `::scroll-marker` for native carousel pagination dots.
+               - Accessible Anchor Jump Links (#gallery-item-1 to #gallery-item-5) provide
+                 zero-JavaScript navigation across all legacy and modern browsers alike.
+               ================================================================ -->
+            <section
+              class="festival-gallery-section"
+              id="festival-gallery"
+              aria-labelledby="gallery-heading"
+            >
+              <div class="section-heading-wrap">
+                <span class="hero-eyebrow"
+                  >PHOTO ARCHIVES // UNDERGROUND MOMENTS</span
+                >
+                <h2
+                  id="gallery-heading"
+                  class="section-header"
+                  style="font-size: 20px"
+                >
+                  FESTIVAL ATMOSPHERE &amp; ARCHITECTURE
+                </h2>
+                <p class="gallery-subhead">
+                  Explore the subterranean acoustics and historic masonry of
+                  Alfândega do Porto during live battle rounds.
+                </p>
+              </div>
+
+              <!-- Gallery Viewport (CSS Scroll Snap Container) -->
+              <div
+                class="gallery-viewport"
+                tabindex="0"
+                role="region"
+                aria-label="Festival Photo Carousel"
+              >
+                <!-- Slide 1: Alfândega Exterior Dusk -->
+                <figure class="gallery-slide" id="gallery-item-1">
+                  <picture>
+                    <source
+                      type="image/webp"
+                      srcset="
+                        assets/images/alfandega-exterior-dusk-600w.webp  600w,
+                        assets/images/alfandega-exterior-dusk-960w.webp  960w,
+                        assets/images/alfandega-exterior-dusk.webp      2752w
+                      "
+                      sizes="(min-width: 960px) 460px, 85vw"
+                    />
+                    <source
+                      type="image/jpeg"
+                      srcset="
+                        assets/images/alfandega-exterior-dusk-600w.jpg  600w,
+                        assets/images/alfandega-exterior-dusk-960w.jpg  960w,
+                        assets/images/alfandega-exterior-dusk.jpg      2752w
+                      "
+                      sizes="(min-width: 960px) 460px, 85vw"
+                    />
+                    <img
+                      src="assets/images/alfandega-exterior-dusk-960w.jpg"
+                      alt="Alfândega do Porto exterior dusk riverfront with red and purple lights in arches"
+                      class="gallery-img"
+                      width="800"
+                      height="450"
+                      loading="lazy"
+                    />
+                  </picture>
+                  <figcaption class="gallery-caption">
+                    <span class="gallery-tag">VENUE EXTERIOR</span>
+                    <strong class="gallery-title"
+                      >Alfândega do Porto at Dusk</strong
+                    >
+                    <span class="gallery-desc"
+                      >Douro cobblestone riverfront with glowing subterranean
+                      arches.</span
+                    >
+                  </figcaption>
+                </figure>
+
+                <!-- Slide 2: Underground Vault Crowd -->
+                <figure class="gallery-slide" id="gallery-item-2">
+                  <picture>
+                    <source
+                      type="image/webp"
+                      srcset="
+                        assets/images/crowd-vault-600w.webp  600w,
+                        assets/images/crowd-vault-960w.webp  960w,
+                        assets/images/crowd-vault.webp      2752w
+                      "
+                      sizes="(min-width: 960px) 460px, 85vw"
+                    />
+                    <source
+                      type="image/jpeg"
+                      srcset="
+                        assets/images/crowd-vault-600w.jpg  600w,
+                        assets/images/crowd-vault-960w.jpg  960w,
+                        assets/images/crowd-vault.jpg      2752w
+                      "
+                      sizes="(min-width: 960px) 460px, 85vw"
+                    />
+                    <img
+                      src="assets/images/crowd-vault-960w.jpg"
+                      alt="Packed festival audience under historic masonry vault arches"
+                      class="gallery-img"
+                      width="800"
+                      height="450"
+                      loading="lazy"
+                    />
+                  </picture>
+                  <figcaption class="gallery-caption">
+                    <span class="gallery-tag">VAULT 02 ATMOSPHERE</span>
+                    <strong class="gallery-title"
+                      >Subterranean Stone Archways</strong
+                    >
+                    <span class="gallery-desc"
+                      >Over 450 attendees under 1860 granite barrel
+                      arches.</span
+                    >
+                  </figcaption>
+                </figure>
+
+                <!-- Slide 3: Main Stage Lasers -->
+                <figure class="gallery-slide" id="gallery-item-3">
+                  <picture>
+                    <source
+                      type="image/webp"
+                      srcset="
+                        assets/images/crowd-lasers-600w.webp  600w,
+                        assets/images/crowd-lasers-960w.webp  960w,
+                        assets/images/crowd-lasers.webp      2752w
+                      "
+                      sizes="(min-width: 960px) 460px, 85vw"
+                    />
+                    <source
+                      type="image/jpeg"
+                      srcset="
+                        assets/images/crowd-lasers-600w.jpg  600w,
+                        assets/images/crowd-lasers-960w.jpg  960w,
+                        assets/images/crowd-lasers.jpg      2752w
+                      "
+                      sizes="(min-width: 960px) 460px, 85vw"
+                    />
+                    <img
+                      src="assets/images/crowd-lasers-960w.jpg"
+                      alt="Concert crowd viewing stage with red and purple laser beams and stage haze"
+                      class="gallery-img"
+                      width="800"
+                      height="450"
+                      loading="lazy"
+                    />
+                  </picture>
+                  <figcaption class="gallery-caption">
+                    <span class="gallery-tag">LIGHTING DESIGN</span>
+                    <strong class="gallery-title"
+                      >Crimson &amp; Ultraviolet Lasers</strong
+                    >
+                    <span class="gallery-desc"
+                      >Dynamic beams synchronised to vinyl scratching and drum
+                      hits.</span
+                    >
+                  </figcaption>
+                </figure>
+
+                <!-- Slide 4: Head-to-Head 808 Producers Clash -->
+                <figure class="gallery-slide" id="gallery-item-4">
+                  <picture>
+                    <source
+                      type="image/webp"
+                      srcset="
+                        assets/images/battle-producers-600w.webp  600w,
+                        assets/images/battle-producers-960w.webp  960w,
+                        assets/images/battle-producers.webp      2752w
+                      "
+                      sizes="(min-width: 960px) 460px, 85vw"
+                    />
+                    <source
+                      type="image/jpeg"
+                      srcset="
+                        assets/images/battle-producers-600w.jpg  600w,
+                        assets/images/battle-producers-960w.jpg  960w,
+                        assets/images/battle-producers.jpg      2752w
+                      "
+                      sizes="(min-width: 960px) 460px, 85vw"
+                    />
+                    <img
+                      src="assets/images/battle-producers-960w.jpg"
+                      alt="Two producers battling over turntables and drum pads"
+                      class="gallery-img"
+                      width="800"
+                      height="450"
+                      loading="lazy"
+                    />
+                  </picture>
+                  <figcaption class="gallery-caption">
+                    <span class="gallery-tag">THE 808 CLASH</span>
+                    <strong class="gallery-title"
+                      >Head-to-Head Producer Battle</strong
+                    >
+                    <span class="gallery-desc"
+                      >Real-time sample chopping and finger drumming duel.</span
+                    >
+                  </figcaption>
+                </figure>
+
+                <!-- Slide 5: Crew Jam & Gear Table -->
+                <figure class="gallery-slide" id="gallery-item-5">
+                  <picture>
+                    <source
+                      type="image/webp"
+                      srcset="
+                        assets/images/battle-crew-600w.webp  600w,
+                        assets/images/battle-crew-960w.webp  960w,
+                        assets/images/battle-crew.webp      2752w
+                      "
+                      sizes="(min-width: 960px) 460px, 85vw"
+                    />
+                    <source
+                      type="image/jpeg"
+                      srcset="
+                        assets/images/battle-crew-600w.jpg  600w,
+                        assets/images/battle-crew-960w.jpg  960w,
+                        assets/images/battle-crew.jpg      2752w
+                      "
+                      sizes="(min-width: 960px) 460px, 85vw"
+                    />
+                    <img
+                      src="assets/images/battle-crew-960w.jpg"
+                      alt="Crew vs crew team battle with beatmakers and vinyl crates"
+                      class="gallery-img"
+                      width="800"
+                      height="450"
+                      loading="lazy"
+                    />
+                  </picture>
+                  <figcaption class="gallery-caption">
+                    <span class="gallery-tag">COLLECTIVE JAM</span>
+                    <strong class="gallery-title"
+                      >U-Shaped Hardware Cypher</strong
+                    >
+                    <span class="gallery-desc"
+                      >Turntablists and beatmakers testing archival
+                      crates.</span
+                    >
+                  </figcaption>
+                </figure>
+              </div>
+
+              <!-- Pure CSS Gallery Paginator (Anchor Pills / Dots) -->
+              <nav
+                class="gallery-paginator"
+                aria-label="Gallery Slides Navigation"
+              >
+                <span class="paginator-label">SLIDES:</span>
+                <a
+                  href="#gallery-item-1"
+                  class="paginator-dot"
+                  aria-label="Go to Slide 1: Alfândega Exterior"
+                  >1</a
+                >
+                <a
+                  href="#gallery-item-2"
+                  class="paginator-dot"
+                  aria-label="Go to Slide 2: Underground Vault"
+                  >2</a
+                >
+                <a
+                  href="#gallery-item-3"
+                  class="paginator-dot"
+                  aria-label="Go to Slide 3: Main Stage Lasers"
+                  >3</a
+                >
+                <a
+                  href="#gallery-item-4"
+                  class="paginator-dot"
+                  aria-label="Go to Slide 4: Producer Battle"
+                  >4</a
+                >
+                <a
+                  href="#gallery-item-5"
+                  class="paginator-dot"
+                  aria-label="Go to Slide 5: Crew Jam"
+                  >5</a
+                >
+              </nav>
+            </section>
+
+            <!-- ================================================================
+               PASSES & PRICING SIMULATOR (Node ID 1:188)
+               Engineered with the TP06-B Pure CSS Calculation Engine (:has + ::after)
+               ================================================================ -->
+            <section
+              id="pricing-simulator"
+              class="simulator-panel"
+              aria-labelledby="pricing-title"
+            >
+              <h2
+                id="pricing-title"
+                class="section-header"
+                style="font-size: 18px"
+                data-node-id="1:191"
+              >
+                PASSES &amp; REGISTRATION SIMULATOR
+              </h2>
+
+              <!-- Pure CSS Interactive Form (Cascades state up to :root via :has()) -->
+              <form
+                action="#receipt-modal"
+                method="GET"
+                class="simulator-form"
+                data-node-id="1:192"
+              >
+                <!-- Pass Options (Radio Inputs) -->
+                <fieldset class="pass-cards-stack">
+                  <legend class="step-eyebrow" data-node-id="1:193">
+                    STEP 1: SELECT YOUR PASS
+                  </legend>
+
+                  <!-- Pass Option A: Battle Competitor (€10.00) -->
+                  <input
+                    type="radio"
+                    name="pass_type"
+                    id="pass-battle"
+                    value="battle"
+                    class="pass-radio-input sr-only"
+                  />
+                  <label
+                    for="pass-battle"
+                    class="pass-card"
+                    data-node-id="1:194"
+                  >
+                    <div class="pass-card-header" data-node-id="I1:194;1:68">
+                      <h3 class="pass-card-title" data-node-id="I1:194;1:69">
+                        "THE 808 CLASH" Competitor Pass
+                      </h3>
+                      <div
+                        class="checkbox-indicator"
+                        data-node-id="I1:194;1:70"
+                      ></div>
+                    </div>
+                    <div class="pass-card-price-row" data-node-id="I1:194;1:71">
+                      <span class="pass-card-price" data-node-id="I1:194;1:72"
+                        >€10.00</span
+                      >
+                    </div>
+                    <p class="pass-card-desc" data-node-id="I1:194;1:73">
+                      Includes battle registration, producer sample pack, and
+                      backstage warm-up studio access.
+                    </p>
+                  </label>
+
+                  <!-- Pass Option B: DJ WARP Concert (€25.00) -->
+                  <input
+                    type="radio"
+                    name="pass_type"
+                    id="pass-warp"
+                    value="warp"
+                    class="pass-radio-input sr-only"
+                  />
+                  <label for="pass-warp" class="pass-card" data-node-id="1:201">
+                    <div class="pass-card-header" data-node-id="I1:201;1:68">
+                      <h3 class="pass-card-title" data-node-id="I1:201;1:69">
+                        DJ WARP Headline Concert Pass
+                      </h3>
+                      <div
+                        class="checkbox-indicator"
+                        data-node-id="I1:201;1:70"
+                      ></div>
+                    </div>
+                    <div class="pass-card-price-row" data-node-id="I1:201;1:71">
+                      <span class="pass-card-price" data-node-id="I1:201;1:72"
+                        >€25.00</span
+                      >
+                    </div>
+                    <p class="pass-card-desc" data-node-id="I1:201;1:73">
+                      Full access to evening showcase, concert hall floor, and
+                      after-hours vinyl jam.
+                    </p>
+                  </label>
+
+                  <!-- Pass Option C: All-Access Festival Pass (Bundle €30.00, Best Value) -->
+                  <input
+                    type="radio"
+                    name="pass_type"
+                    id="pass-bundle"
+                    value="bundle"
+                    class="pass-radio-input sr-only"
+                    checked
+                  />
+                  <label
+                    for="pass-bundle"
+                    class="pass-card pass-card-bundle-default"
+                    data-node-id="1:208"
+                  >
+                    <div class="pass-card-header" data-node-id="1:209">
+                      <h3 class="pass-card-title" data-node-id="1:210">
+                        ALL-ACCESS FESTIVAL PASS
+                      </h3>
+                      <span class="badge-best-value" data-node-id="1:212"
+                        >BEST VALUE</span
+                      >
+                      <div class="checkbox-indicator"></div>
+                    </div>
+                    <div class="pass-card-price-row" data-node-id="1:213">
+                      <span class="pass-card-price" data-node-id="1:213"
+                        >€30.00
+                        <span class="pass-card-savings"
+                          >(Combo Savings €5.00)</span
+                        ></span
+                      >
+                    </div>
+                    <p class="pass-card-desc" data-node-id="1:214">
+                      Battle competitor entry + DJ WARP headline concert floor
+                      access. Maximum festival experience.
+                    </p>
+                  </label>
+                </fieldset>
+
+                <!-- Live Pure CSS Pricing Simulator Calculation Box (TP06-B Engine) -->
+                <div class="pricing-simulator-box" aria-live="polite">
+                  <div class="simulator-header-row">
+                    <span class="simulator-caption"
+                      >LIVE PRICING CALCULATION</span
+                    >
+                    <span class="simulator-calc-price" id="sim-price"></span>
+                  </div>
+                  <p class="simulator-calc-summary" id="sim-summary"></p>
+                  <p class="simulator-calc-savings" id="sim-savings"></p>
+                </div>
+
+                <!-- Producer Details Form Fields -->
+                <span
+                  class="step-eyebrow"
+                  style="margin-top: 10px"
+                  data-node-id="1:215"
+                  >STEP 2: PRODUCER DETAILS</span
+                >
+
+                <div class="form-fields-stack" data-node-id="1:216">
+                  <input
+                    type="text"
+                    name="producer_handle"
+                    class="form-field-input"
+                    placeholder="Stage / Producer Handle (e.g., MPC_Kid)"
+                    required
+                    data-node-id="1:217"
+                  />
+                  <input
+                    type="text"
+                    name="full_name"
+                    class="form-field-input"
+                    placeholder="Full Legal Name"
+                    required
+                    data-node-id="1:219"
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    class="form-field-input"
+                    placeholder="Email Address"
+                    required
+                    data-node-id="1:221"
+                  />
+                  <input
+                    type="text"
+                    name="primary_setup"
+                    class="form-field-input"
+                    placeholder="Primary Setup: [MPC / SP-404 / Turntables]"
+                    required
+                    data-node-id="1:223"
+                  />
+                </div>
+
+                <!-- Submit Action Button -->
+                <button
+                  type="submit"
+                  class="btn-primary btn-block"
+                  style="margin-top: 14px"
+                  data-node-id="1:225"
+                >
+                  COMPLETE RESERVATION -&gt;
+                </button>
+              </form>
+            </section>
+
+            <!-- ================================================================
+               PURE CSS ANIMATED ACCORDION SECTION (<details> / <summary>)
+               Pedagogical Documentation (Pure CSS Height & Grid Transitions):
+               - Uses semantic HTML5 <details> and <summary> elements.
+               - Smooth height folding animation is achieved without JavaScript using
+                 CSS Grid `grid-template-rows: 0fr -> 1fr`.
+               - Keyboard accessible by default: Space/Enter toggles items; Tab navigates.
+               ================================================================ -->
+            <section
+              class="festival-accordion-section"
+              id="festival-faq"
+              aria-labelledby="accordion-heading"
+            >
+              <span class="hero-eyebrow"
+                >ESSENTIAL INFORMATION &amp; POLICIES</span
+              >
+              <h2
+                id="accordion-heading"
+                class="section-header"
+                style="font-size: 18px"
+              >
+                PASS DETAILS &amp; VENUE FAQ
+              </h2>
+
+              <div class="accordion-stack">
+                <!-- Accordion Item 1: Pass Inclusions & Student Perks -->
+                <details class="accordion-item" open>
+                  <summary class="accordion-summary">
+                    <span>Pass Tiers, Inclusions &amp; Concessions</span>
+                    <span class="accordion-icon" aria-hidden="true">+</span>
+                  </summary>
+                  <div class="accordion-body-grid">
+                    <div class="accordion-body-content">
+                      <p>
+                        <strong>The 808 Clash Pass (€10.00):</strong> Grants
+                        full backstage producer warmup studio access, official
+                        sample pack USB cassette, and stage battle entry for the
+                        afternoon tournament.
+                      </p>
+                      <p style="margin-top: 8px">
+                        <strong>DJ WARP Concert Pass (€25.00):</strong> Grants
+                        floor admission to the headline evening concert in
+                        Underground Vault 02, including access to the
+                        quad-turntable audio masterclass.
+                      </p>
+                      <p style="margin-top: 8px">
+                        <strong>All-Access Bundle (€30.00):</strong> Combines
+                        both passes with an automatic €5.00 bundle discount.
+                        FBAUP students presenting valid UP student ID at the
+                        door receive a complimentary festival wristband.
+                      </p>
+                    </div>
+                  </div>
+                </details>
+
+                <!-- Accordion Item 2: Timetable & Stage Rotation -->
+                <details class="accordion-item">
+                  <summary class="accordion-summary">
+                    <span>Doors Opening &amp; Event Timetable</span>
+                    <span class="accordion-icon" aria-hidden="true">+</span>
+                  </summary>
+                  <div class="accordion-body-grid">
+                    <div class="accordion-body-content">
+                      <p>
+                        <strong>17:30 WEST:</strong> Doors Open &amp; Box Office
+                        Check-in at Alfândega do Porto.
+                      </p>
+                      <p style="margin-top: 6px">
+                        <strong>18:00 - 19:30:</strong> Warmup Sessions: THE
+                        KICKS (Porto Boom-Bap Collective).
+                      </p>
+                      <p style="margin-top: 6px">
+                        <strong>19:45 - 21:15:</strong> "THE 808 CLASH" Regional
+                        Beat Battle (16 Producers Knockout).
+                      </p>
+                      <p style="margin-top: 6px">
+                        <strong>21:30 - 23:30:</strong> Grand Master DJ WARP
+                        Headline Vinyl &amp; MPC Set.
+                      </p>
+                      <p style="margin-top: 6px">
+                        <strong>23:30 - 01:00:</strong> Open Producer Cypher
+                        &amp; Analog Vinyl Jam.
+                      </p>
+                    </div>
+                  </div>
+                </details>
+
+                <!-- Accordion Item 3: Acoustic Design in Vaults -->
+                <details class="accordion-item">
+                  <summary class="accordion-summary">
+                    <span>Acoustic Engineering in Stone Vaults</span>
+                    <span class="accordion-icon" aria-hidden="true">+</span>
+                  </summary>
+                  <div class="accordion-body-grid">
+                    <div class="accordion-body-content">
+                      <p>
+                        Underground Vault 02 features 19th-century granite
+                        masonry. A custom 4-point sound reinforcement system
+                        with cardioid subwoofer arrays has been tuned
+                        specifically to avoid standing bass waves, providing
+                        punchy kick transients and crystal-clear high-frequency
+                        needle scratch definition throughout the stone arches.
+                      </p>
+                    </div>
+                  </div>
+                </details>
+
+                <!-- Accordion Item 4: Transit & Accessibility -->
+                <details class="accordion-item">
+                  <summary class="accordion-summary">
+                    <span>Directions, Transit &amp; Accessibility</span>
+                    <span class="accordion-icon" aria-hidden="true">+</span>
+                  </summary>
+                  <div class="accordion-body-grid">
+                    <div class="accordion-body-content">
+                      <p>
+                        <strong>Address:</strong> Edifício da Alfândega, Rua
+                        Nova da Alfândega, 4050-430 Porto.
+                      </p>
+                      <p style="margin-top: 6px">
+                        <strong>Public Transit:</strong> Historic Tram 1 stops
+                        right outside the main gate. STCP Bus lines 500, 403,
+                        and 1M drop off at "Alfândega". The venue is fully
+                        wheelchair accessible with ramped access into Vault 02.
+                      </p>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            </section>
+          </div>
+        </div>
+      </main>
+
+      <!-- ======================================================================
+         STICKY FOOTER BAR LANDMARK (Mobile Viewport Only, Node ID 1:226)
+         Provides prominent sticky ticket purchase CTA on mobile devices (<960px).
+         Hidden on desktop (>=960px) in favor of the header CTA and in-page simulator.
+         ====================================================================== -->
+      <aside
+        class="sticky-footer-bar"
+        data-node-id="1:226"
+        aria-label="Mobile Ticket Purchase Bar"
+      >
+        <div class="sticky-footer-content">
+          <div class="price-display-group" data-node-id="1:227">
+            <span class="price-from-label" data-node-id="1:228">FROM</span>
+            <span class="price-amount" data-node-id="1:229">€10</span>
+            <span class="price-unit" data-node-id="1:230">/ PASS</span>
+          </div>
+          <a
+            href="#pricing-simulator"
+            class="btn-primary btn-cta-pulse"
+            data-node-id="1:231"
+          >
+            BUY TICKETS
+          </a>
+        </div>
+      </aside>
+
+      <!-- ======================================================================
+         SITE FOOTER LANDMARK (<footer>, Global Academic Navigation)
+         ====================================================================== -->
+      <footer class="site-footer" data-node-id="footer-main">
+        <div class="footer-top">
+          <a href="index.html" class="site-logo">
+            DRUMTIKS <span class="site-logo-accent">'26</span>
+          </a>
+          <p class="footer-tagline">
+            Hip Hop &amp; Beat Making Festival • Alfândega do Porto • Responsive
+            Web Design Architecture
+          </p>
+        </div>
+
+        <div class="footer-nav-row">
+          <ul class="footer-nav-list">
+            <!-- <li><a href="index.html" class="active">Festival Home</a></li> -->
+            <li><a href="dj-warp.html">DJ WARP Profile</a></li>
+            <li><a href="battle-rules.html">808 Clash Battle</a></li>
+            <li><a href="#festival-gallery">Photo Gallery</a></li>
+            <li><a href="#pricing-simulator">Pass Simulator</a></li>
+            <li><a href="credits.html">Academic Credits</a></li>
+          </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="footer-academic-meta">
+          <p>
+            Faculdade de Belas Artes da Universidade do Porto (FBAUP) • Web
+            Design (WD101) 2026-27
+          </p>
+          <p>
+            Pedagogical prototype engineered with pure HTML5 + CSS3 (No
+            JavaScript). Mobile-First Responsive Design.
+          </p>
+          <p>
+            <a href="credits.html" class="credits-inline-link"
+              >View Full Course Credits, Student Authors &amp; Design Tokens
+              Architecture &rarr;</a
+            >
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- ========================================================================
+       PURE CSS MODAL: ORDER CONFIRMATION & RECEIPT (Node ID 1:232)
+       Toggled entirely via CSS URL hash target (:target pseudo-class)
+       ======================================================================== -->
+    <aside
+      id="receipt-modal"
+      class="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="receipt-title"
+    >
+      <div class="modal-content-card">
+        <header class="modal-header">
+          <div class="receipt-success-badge" data-node-id="1:234">
+            <img
+              src="assets/icons/check-badge.svg"
+              alt="Success Checkmark"
+              width="48"
+              height="48"
+            />
+          </div>
+          <h2 id="receipt-title" class="modal-title" data-node-id="1:235">
+            RESERVATION CONFIRMED
+          </h2>
+          <span class="modal-subtitle" data-node-id="1:236"
+            >DRUMTIKS '26 • ORDER #DK-808-2026</span
+          >
+          <a href="#" class="modal-close-btn" aria-label="Close modal"
+            >&times;</a
+          >
+        </header>
+
+        <article class="receipt-card" data-node-id="1:237">
+          <div class="receipt-row">
+            <span class="receipt-row-label">ATTENDEE PASS TYPE</span>
+            <span class="receipt-row-value" id="receipt-dyn-pass-name"></span>
+          </div>
+
+          <div class="divider" data-node-id="1:237"></div>
+
+          <!-- Dynamic Breakdown Rows via CSS Engine -->
+          <div class="receipt-row receipt-row-battle" data-node-id="1:238">
+            <span>1x The 808 Clash Producer Pass</span>
+            <span class="receipt-row-amount">€10.00</span>
+          </div>
+
+          <div class="receipt-row receipt-row-warp" data-node-id="1:241">
+            <span>1x Grand Master DJ WARP Concert Pass</span>
+            <span class="receipt-row-amount">€25.00</span>
+          </div>
+
+          <div class="receipt-row receipt-row-combo" data-node-id="1:244">
+            <span>All-Access Bundle Discount Applied</span>
+            <span class="receipt-row-amount">-€5.00</span>
+          </div>
+
+          <div class="divider" data-node-id="1:247"></div>
+
+          <div class="total-row" data-node-id="1:248">
+            <span class="total-label" data-node-id="1:249">TOTAL BILLED</span>
+            <span
+              class="total-price"
+              id="receipt-dyn-total"
+              data-node-id="1:250"
+            ></span>
+          </div>
+        </article>
+
+        <div class="venue-info-box" data-node-id="1:251">
+          <span class="venue-info-label" data-node-id="1:252"
+            >VENUE &amp; ACCESS INFO</span
+          >
+          <p class="venue-location" data-node-id="1:253">
+            Underground Vault 02, Alfândega do Porto
+          </p>
+          <span class="venue-doors" data-node-id="1:254"
+            >Doors Open: 17:30 WEST</span
+          >
+        </div>
+
+        <a
+          href="assets/icons/check-badge.svg"
+          download="DRUMTIKS-Pass.svg"
+          class="btn-secondary btn-block"
+          data-node-id="1:255"
+          >DOWNLOAD WALLET PASS</a
+        >
+
+        <div style="text-align: center; margin-top: 6px">
+          <a href="#" class="credits-link" data-node-id="1:257"
+            >&lt; Return to Festival Home</a
+          >
+        </div>
+      </div>
+    </aside>
+
+    <!-- ========================================================================
+       PURE CSS MODAL: QUICK IN-PAGE CREDITS PREVIEW (Node ID 1:258)
+       Links directly to the full standalone credits page (credits.html).
+       ======================================================================== -->
+    <aside
+      id="credits-modal"
+      class="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="credits-title"
+    >
+      <div class="modal-content-card">
+        <header class="modal-header">
+          <h2 id="credits-title" class="modal-title" data-node-id="1:261">
+            PROJECT CREDITS
+          </h2>
+          <a href="#" class="modal-close-btn" aria-label="Close credits modal"
+            >&times;</a
+          >
+        </header>
+
+        <article class="academic-card" data-node-id="1:262">
+          <div class="institutional-badge" data-node-id="1:263">
+            <span class="institutional-badge-text" data-node-id="1:264"
+              >FBAUP // 2026</span
+            >
+          </div>
+
+          <h3 class="academic-faculty" data-node-id="1:265">
+            Faculty of Fine Arts of the University of Porto (FBAUP)
+          </h3>
+          <p class="academic-course" data-node-id="1:266">
+            Degree in Communication Design / Master's Programs
+          </p>
+          <p class="academic-edition" data-node-id="1:267">
+            Web Design Course (2026-27 Edition) • Prof. Pedro Amado
+          </p>
+
+          <div class="divider" data-node-id="1:268"></div>
+
+          <h4 class="academic-leads" data-node-id="1:269">
+            Lead UI/UX Designers: Joana &amp; Student Colleague Team
+          </h4>
+          <p class="academic-scope" data-node-id="1:270">
+            Interactive Mobile Prototype, Variable Logic Systems &amp; Design
+            Tokens Architecture
+          </p>
+
+          <div class="divider" data-node-id="1:271"></div>
+
+          <p class="academic-body" data-node-id="1:272">
+            This interactive prototype was designed and engineered as a
+            pedagogical demonstration of 2026 Figma design systems, component
+            state micro-animations, and pure CSS reactive state architecture for
+            the Web Design curriculum at FBAUP.
+          </p>
+
+          <div style="margin-top: 10px">
+            <a href="credits.html" class="btn-primary btn-block"
+              >VIEW FULL CREDITS &amp; TOKEN SPEC PAGE &rarr;</a
+            >
+          </div>
+        </article>
+
+        <a href="#" class="btn-secondary btn-block" data-node-id="1:273"
+          >RETURN TO PROTOTYPE</a
+        >
+      </div>
+    </aside>
+  </body>
+</html>

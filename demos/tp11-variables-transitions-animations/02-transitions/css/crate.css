@@ -1,0 +1,751 @@
+@import 'fonts.css';
+
+/* ==========================================================================
+   EXERCÍCIO 2 (VERSÃO B) • VINYL CRATE & FAN-OUT CARD DECK COM TRANSITIONS
+   DRUMTIKS 2026 • FBAUP Web Design (WD101)
+   
+   MDN OFFICIAL DOCUMENTATION REFERENCES:
+   - CSS Transitions Guide:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Transitions
+   - CSS transition-timing-function (Cubic-Bézier & Easing Curves):
+     https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function
+   - CSS Transforms Guide:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Transforms
+   - CSS transform-origin Property:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin
+   - CSS perspective Property:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/perspective
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. ESCOPO GLOBAL (:root) & DEFINIÇÃO DE TOKENS E CURVAS DE EASING (IPO CURVES)
+   
+   PEDAGOGIA DAS TRANSIÇÕES E CURVAS IPO (Input -> Process -> Output):
+   - O que é uma transição CSS? É a interpolação suave e contínua de valores
+     entre dois estados distintos de um elemento (ex: repouso vs :hover).
+   - O modelo IPO de uma Transição:
+     1. Input (Entrada): O tempo decorrido t normalizado de 0.0 (início) a 1.0 (fim).
+     2. Process (Processamento): A curva de Bézier cúbica cúbica-bezier(x1, y1, x2, y2)
+        que mapeia o tempo de entrada para o progresso da animação p = f(t).
+     3. Output (Saída): O valor intermediário da propriedade interpolada:
+        Valor(t) = ValorInicial + p * (ValorFinal - ValorInicial).
+   - Efeito de Retorno Elástico (Spring Overshoot):
+     Quando o ponto de controlo y2 excede 1.0 (ex: cubic-bezier(0.34, 1.56, 0.64, 1)),
+     o valor de progresso ultrapassa temporariamente os 100% (1.56) antes de estabilizar,
+     simulando a inércia física e a elasticidade de materiais reais.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Cores de Identidade e Superfície */
+  --color-black: #08080a;
+  --color-charcoal: #141518;
+  --color-wood-dark: #1a1614;
+  --color-wood-grain: #27211d;
+  --color-wood-border: #3d342f;
+  --color-accent-red: #e60000;
+  --color-accent-gold: #f5a623;
+  --color-accent-purple: #8a2be2;
+  --color-text-light: #f4f4f6;
+  --color-text-muted: #8e929f;
+  --color-border-subtle: rgba(255, 255, 255, 0.12);
+
+  /* Famílias Tipográficas */
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'Martian Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+
+  --site-max-width: 1160px;
+  --album-size: 260px;
+
+  /* ------------------------------------------------------------------------
+     1.1 TOKEN DA CURVA DE EASING ATIVA (TIMING FUNCTION)
+     Por omissão, utiliza uma curva de mola elástica com overshoot:
+     cubic-bezier(0.34, 1.56, 0.64, 1)
+     ------------------------------------------------------------------------ */
+  --active-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --active-duration: 0.55s;
+}
+
+/* --------------------------------------------------------------------------
+   2. PERMUTAÇÃO DINÂMICA DAS CURVAS DE EASING VIA :root:has()
+   Permite aos estudantes testarem em tempo real o impacto de cada fórmula matemática:
+   - ease: cubic-bezier(0.25, 0.1, 0.25, 1.0)
+   - ease-out: cubic-bezier(0.0, 0.0, 0.58, 1.0)
+   - ease-in-out: cubic-bezier(0.42, 0.0, 0.58, 1.0)
+   - linear: cubic-bezier(0.0, 0.0, 1.0, 1.0)
+   - spring: cubic-bezier(0.34, 1.56, 0.64, 1.0) [Overshoot]
+   -------------------------------------------------------------------------- */
+:root:has(#timing-ease:checked) {
+  --active-ease: ease;
+}
+
+:root:has(#timing-ease-out:checked) {
+  --active-ease: ease-out;
+}
+
+:root:has(#timing-ease-in-out:checked) {
+  --active-ease: ease-in-out;
+}
+
+:root:has(#timing-spring:checked) {
+  --active-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+:root:has(#timing-linear:checked) {
+  --active-ease: linear;
+}
+
+/* --------------------------------------------------------------------------
+   3. RESET & ESTILOS BASE
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-black);
+  color: var(--color-text-light);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. LANDMARK: <header class="site-header">
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(8, 8, 10, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.nav-container {
+  max-width: var(--site-max-width);
+  margin: 0 auto;
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.35rem;
+}
+
+.brand .logo-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.brand .tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  background-color: rgba(138, 43, 226, 0.2);
+  color: var(--color-accent-purple);
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-accent-purple);
+}
+
+.version-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border-subtle);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.version-switch-btn:hover {
+  background-color: var(--color-accent-red);
+  border-color: var(--color-accent-red);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   5. LANDMARK: <main class="main-content">
+   -------------------------------------------------------------------------- */
+.main-content {
+  max-width: var(--site-max-width);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.page-header {
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: 1.5rem;
+}
+
+.badge-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-accent-purple);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.4vw, 2.9rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.page-desc {
+  color: var(--color-text-muted);
+  max-width: 68ch;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   6. COMPONENTE: PAINEL DE CONTROLO DE EASING (<section class="timing-control-panel">)
+   Permite trocar interativamente a função matemática de transição.
+   -------------------------------------------------------------------------- */
+.timing-control-panel {
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.timing-label-text {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.timing-radio-group {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.timing-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-subtle);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.timing-chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.timing-chip:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.timing-chip:has(input:checked) {
+  background-color: var(--color-accent-purple);
+  border-color: var(--color-accent-purple);
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(138, 43, 226, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   7. LANDMARK: <section class="crate-stage-section">
+   Palco Tridimensional com perspectiva e iluminação radial.
+   -------------------------------------------------------------------------- */
+.crate-stage-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 520px;
+  padding: 4rem 1rem 3rem;
+  background: radial-gradient(ellipse at bottom, #1d1b24 0%, #08080a 70%);
+  border-radius: 20px;
+  border: 1px solid var(--color-border-subtle);
+  position: relative;
+  overflow: visible;
+}
+
+.crate-hint {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--color-accent-gold);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(245, 166, 35, 0.1);
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(245, 166, 35, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   8. COMPONENTE: CONTENTOR DA CAIXA (PERSPECTIVE 3D)
+   MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/perspective
+   'perspective: 1000px' define o ponto de fuga virtual do utilizador.
+   Sem esta propriedade, transformações 3D como translate3d() ou rotateX()
+   pareceriam projeções ortogonais planas sem profundidade óptica realista!
+   -------------------------------------------------------------------------- */
+.crate-container {
+  position: relative;
+  width: 320px;
+  height: 240px;
+  perspective: 1000px;  /* Estabelece a profundidade de perspetiva da cena */
+  cursor: pointer;
+  margin-top: 100px;
+}
+
+/* --------------------------------------------------------------------------
+   9. DISCOS & MANGAS DE VINIL (<div class="crate-records">)
+   -------------------------------------------------------------------------- */
+.crate-records {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--album-size);
+  height: var(--album-size);
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   10. LANDMARK: <article class="album-card">
+   Cada manga de álbum de vinil.
+   
+   PROPRIEDADES-CHAVE DEMONSTRADAS:
+   - transform-origin: bottom center (0% 100% ou 50% 100%)
+     MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin
+     Crucial: Fixa o eixo de rotação na base inferior da manga. Deste modo,
+     quando o elemento roda (-16deg ou +16deg), a base permanece ancorada
+     no interior da caixa, criando o leque físico perfeito em vez de girar
+     em torno do centro geométrico!
+   - transition: transform, box-shadow, filter
+     Combina o tempo (--active-duration) e a curva de Bézier (--active-ease).
+   ========================================================================== */
+.album-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background-color: #111;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+  
+  /* PIVOT DE ROTAÇÃO: Fixado na base para abrir em leque como um baralho ou caixa */
+  transform-origin: bottom center;
+  cursor: pointer;
+
+  /* TRANSIÇÃO MASTER: Interpolação suave de transform, sombras e filtros */
+  transition:
+    transform var(--active-duration) var(--active-ease),
+    box-shadow var(--active-duration) var(--active-ease),
+    filter 0.3s ease;
+}
+
+/* Imagem da Capa do Álbum (Jacket de Cartão) */
+.album-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  position: relative;
+  z-index: 2;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   11. O DISCO DE VINIL OCULTO (<div class="vinyl-disc">)
+   Um LP preto de acetato com ranhuras sonoras simuladas via sombras concêntricas.
+   Permanece dentro da capa em repouso e desliza com transform no hover individual!
+   ========================================================================== */
+.vinyl-disc {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  border-radius: 50%;
+  background: radial-gradient(circle, #2b2b30 0%, #151518 40%, #0d0d10 80%, #050506 100%);
+  border: 2px solid #222;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transform: translateX(0) rotate(0deg);
+  pointer-events: none;
+
+  /* Ranhuras Fonográficas Micro-sulcadas com Múltiplas Sombras Internas */
+  box-shadow:
+    inset 0 0 0 8px rgba(255, 255, 255, 0.03),
+    inset 0 0 0 18px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 28px rgba(255, 255, 255, 0.04),
+    inset 0 0 0 42px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 58px rgba(255, 255, 255, 0.03);
+
+  /* Transição de extração: Deslocamento no eixo X e rotação angular */
+  transition: transform 0.5s var(--active-ease);
+}
+
+/* Selo Central (Rótulo) de Papel do Vinil */
+.vinyl-label {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background-color: var(--color-accent-red);
+  border: 2px solid #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+}
+
+/* Furo Central do Vinil (Spindle Hole) */
+.vinyl-label::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #050506;
+  border-radius: 50%;
+}
+
+/* ==========================================================================
+   12. ESTADO DE REPOUSO (PILHA ENCAIXADA NA CAIXA)
+   Pequena variação angular (-3deg, +1deg, +3deg) para realismo orgânico.
+   ========================================================================== */
+.album-card[data-index="1"] {
+  z-index: 10;
+  transform: translateY(0px) rotate(-3deg) scale(0.96);
+  transition-delay: 0.0s;
+}
+
+.album-card[data-index="2"] {
+  z-index: 20;
+  transform: translateY(-8px) rotate(1deg) scale(0.98);
+  transition-delay: 0.04s;
+}
+
+.album-card[data-index="3"] {
+  z-index: 30;
+  transform: translateY(-16px) rotate(3deg) scale(1.0);
+  transition-delay: 0.08s;
+}
+
+/* ==========================================================================
+   13. ABERTURA EM LEQUE NO HOVER DO CONTENTOR (:hover DA CAIXA)
+   
+   PEDAGOGIA DO DESFASAMENTO (transition-delay):
+   - Álbum 1: transition-delay: 0.0s (sai primeiro)
+   - Álbum 2: transition-delay: 0.08s (sai logo a seguir)
+   - Álbum 3: transition-delay: 0.16s (sai em terceiro)
+   O desfasamento (staggering) cria uma cadência rítmica fluida e natural!
+   ========================================================================== */
+.crate-container:hover .album-card[data-index="1"],
+.crate-container:focus-within .album-card[data-index="1"] {
+  /* Disco 1: Desloca 150px para a esquerda, sobe 110px e roda -16 graus */
+  transform: translate3d(-150px, -110px, 30px) rotate(-16deg) scale(1.02);
+  box-shadow: -15px 25px 40px rgba(0, 0, 0, 0.65);
+  transition-delay: 0.0s;
+}
+
+.crate-container:hover .album-card[data-index="2"],
+.crate-container:focus-within .album-card[data-index="2"] {
+  /* Disco 2: Eleva-se verticalmente 150px pelo centro sem rotação */
+  transform: translate3d(0, -150px, 70px) rotate(0deg) scale(1.08);
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.75);
+  transition-delay: 0.08s;
+}
+
+.crate-container:hover .album-card[data-index="3"],
+.crate-container:focus-within .album-card[data-index="3"] {
+  /* Disco 3: Desloca 150px para a direita, sobe 110px e roda +16 graus */
+  transform: translate3d(150px, -110px, 30px) rotate(16deg) scale(1.02);
+  box-shadow: 15px 25px 40px rgba(0, 0, 0, 0.65);
+  transition-delay: 0.16s;
+}
+
+/* ==========================================================================
+   14. HOVER ESPECÍFICO EM CADA DISCO (EXTRAÇÃO DO VINIL & DESTAQUE 3D)
+   Quando o rato foca uma capa individualmente, ela sobrepõe-se a todas as outras.
+   ========================================================================== */
+.album-card:hover {
+  z-index: 60 !important;
+  transition-delay: 0s !important;
+  filter: brightness(1.08); /* Efeito de filtro CSS de iluminação */
+}
+
+.album-card[data-index="1"]:hover {
+  transform: translate3d(-165px, -150px, 100px) rotate(-10deg) scale(1.15) !important;
+  box-shadow: 0 30px 60px rgba(230, 0, 0, 0.4) !important;
+}
+
+.album-card[data-index="2"]:hover {
+  transform: translate3d(0, -190px, 120px) rotate(0deg) scale(1.18) !important;
+  box-shadow: 0 30px 60px rgba(138, 43, 226, 0.45) !important;
+}
+
+.album-card[data-index="3"]:hover {
+  transform: translate3d(165px, -150px, 100px) rotate(10deg) scale(1.15) !important;
+  box-shadow: 0 30px 60px rgba(245, 166, 35, 0.4) !important;
+}
+
+/* EXTRAÇÃO DO DISCO: O vinil desliza 52% para a direita e roda 135 graus */
+.album-card:hover .vinyl-disc {
+  transform: translateX(52%) rotate(135deg);
+}
+
+/* --------------------------------------------------------------------------
+   15. A CAIXA FÍSICA (<div class="crate-box">)
+   Estilizada como caixa de transporte de vinis em madeira com acabamento stencil.
+   -------------------------------------------------------------------------- */
+.crate-box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 140px;
+  background: linear-gradient(180deg, #27211d 0%, #171311 100%);
+  border: 3px solid var(--color-wood-border);
+  border-radius: 8px;
+  z-index: 40;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.8),
+    inset 0 2px 4px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  pointer-events: none;
+}
+
+/* Ripas de ventilação da caixa de madeira */
+.crate-slat {
+  width: 100%;
+  height: 6px;
+  background-color: #120f0d;
+  border-radius: 2px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.crate-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #b5a89f;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.crate-stencil {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #dfd5cb;
+  letter-spacing: 0.04em;
+}
+
+/* --------------------------------------------------------------------------
+   16. METADADOS DOS ÁLBUNS & PAINEL DE EXPLICAÇÃO
+   -------------------------------------------------------------------------- */
+.albums-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.album-info-card {
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.album-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+
+.tag-red {
+  background-color: rgba(230, 0, 0, 0.15);
+  color: var(--color-accent-red);
+  border: 1px solid var(--color-accent-red);
+}
+
+.tag-purple {
+  background-color: rgba(138, 43, 226, 0.2);
+  color: var(--color-accent-purple);
+  border: 1px solid var(--color-accent-purple);
+}
+
+.tag-gold {
+  background-color: rgba(245, 166, 35, 0.15);
+  color: var(--color-accent-gold);
+  border: 1px solid var(--color-accent-gold);
+}
+
+.album-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.album-artist {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.album-notes {
+  font-size: 0.85rem;
+  color: #a4a8b7;
+  line-height: 1.5;
+}
+
+.transition-explainer {
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 14px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.transition-explainer h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+
+.transition-explainer p {
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.code-explainer-box {
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  white-space: pre-wrap;
+  color: #d8dae2;
+  overflow-x: auto;
+}
+
+/* --------------------------------------------------------------------------
+   17. RODAPÉ DE NAVEGAÇÃO PEDAGÓGICA
+   -------------------------------------------------------------------------- */
+.exercises-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.nav-prev-next {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-subtle);
+  transition: all 0.2s ease;
+}
+
+.nav-link-btn:hover {
+  background-color: var(--color-accent-purple);
+  color: #ffffff;
+  border-color: var(--color-accent-purple);
+}
+
+@media (max-width: 650px) {
+  .crate-container:hover .album-card[data-index="1"] {
+    transform: translate3d(-80px, -80px, 20px) rotate(-14deg) scale(0.95);
+  }
+  .crate-container:hover .album-card[data-index="2"] {
+    transform: translate3d(0, -110px, 40px) rotate(0deg) scale(1.0);
+  }
+  .crate-container:hover .album-card[data-index="3"] {
+    transform: translate3d(80px, -80px, 20px) rotate(14deg) scale(0.95);
+  }
+}

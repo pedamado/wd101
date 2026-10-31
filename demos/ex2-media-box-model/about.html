@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre o DJ Warp &amp; Setup Analógico • Drumtiks '26</title>
+  <meta name="description" content="Biografia aprofundada, manifesto estético, especificações completas de sintetizadores modulares e estrutura técnica de ficheiros do DJ Warp.">
+
+  <!-- Favicon Obrigatório -->
+  <link rel="icon" type="image/svg+xml" href="assets/graphics/favicon.svg">
+  <link rel="alternate icon" href="assets/graphics/favicon.svg">
+
+  <!-- Fontes Google Alternativas / Nuvem -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Fraunces:opsz,wght@9..144,300..900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Ordem Estrita de Estilos: Reset primeiro, Estilos depois -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <div id="page">
+
+    <!-- CABEÇALHO COM STICKY NAV -->
+    <header class="site-header" id="topo">
+      <div class="site-header-inner">
+        <a href="index.html" class="brand-link" aria-label="Drumtiks '26 Início">
+          <img src="assets/graphics/logo.svg" alt="Logótipo Drumtiks '26" class="brand-logo-img">
+          <span class="brand-title">DRUMTIKS<span>'26</span></span>
+        </a>
+
+        <nav class="main-nav" aria-label="Navegação da Página Sobre">
+          <ul>
+            <li><a href="index.html">← Voltar ao Cartaz</a></li>
+            <li><a href="about.html" aria-current="page">Sobre / Setup</a></li>
+            <li><a href="#biografia">Biografia</a></li>
+            <li><a href="#manifesto">Manifesto</a></li>
+            <li><a href="#especificacoes">Especificações</a></li>
+            <li><a href="#arquitetura">Arquitetura de Pastas</a></li>
+            <li><a href="index.html#palcos" style="color:var(--color-accent-amber);">Horários ↗</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main id="conteudo">
+      
+      <!-- ARTIGO: BIOGRAFIA COM RETRATO E FIGCAPTION -->
+      <article id="biografia" style="margin-block-end:var(--space-2xl);">
+        <header style="margin-block-end:var(--space-md);">
+          <span style="font-family:var(--font-family-mono);font-size:var(--text-xs);color:var(--color-brand-primary);font-weight:700;letter-spacing:0.1em;text-transform:uppercase;">
+            Investigação Sonora • FBAUP / Porto
+          </span>
+          <h1 style="font-family:var(--font-family-title);font-size:var(--text-xl);color:#ffffff;margin-block-start:var(--space-xs);margin-block-end:var(--space-sm);">
+            Quem é o DJ Warp?
+          </h1>
+          <p style="font-size:var(--text-md);color:var(--color-text-muted);line-height:1.6;">
+            Pseudónimo do baterista e designer de interação portuense que investiga a relação física entre a percussão acústica e a geração de voltagem analógica de controlo (CV).
+          </p>
+        </header>
+
+        <!-- Figura Semântica com Retrato Fotográfico Responsivo -->
+        <figure style="margin-block:var(--space-lg);border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--color-border-subtle);max-width:540px;">
+          <picture>
+            <source srcset="assets/images/dj-warp-960w.webp" type="image/webp">
+            <img src="assets/images/dj-warp-960w.jpg" alt="Retrato do DJ Warp com auscultadores e sensores de contacto" width="960" height="640" style="width:100%;height:auto;display:block;">
+          </picture>
+          <figcaption style="padding:var(--space-xs);background-color:var(--color-surface-card);font-size:var(--text-xs);color:var(--color-text-dim);">
+            DJ Warp durante a residência artística no laboratório sonoro da FBAUP (Foto oficial: Drumtiks '26).
+          </figcaption>
+        </figure>
+
+        <p>
+          Formado em Design de Comunicação pela Faculdade de Belas Artes da Universidade do Porto, o DJ Warp desenvolveu um sistema proprietário que substitui os computadores portáteis e ecrãs por <strong>cápsulas piezoelétricas militarizadas</strong> montadas diretamente nos tambores acústicos.
+        </p>
+
+        <p>
+          Cada batida de baqueta produz um pico elétrico imediato que é enviado para conversores <em>Envelope Follower</em> e <em>Trigger-to-Gate</em> no seu sistema modular Eurorack de 9 unidades de altura (9U), garantindo <strong>zero latência perceptiva</strong> e uma resposta dinâmica impossível de emular através de software digital.
+        </p>
+      </article>
+
+      <!-- MANIFESTO SONORO -->
+      <section id="manifesto" style="margin-block-end:var(--space-2xl);background-color:var(--color-surface-card);border-inline-start:4px solid var(--color-brand-primary);padding:var(--space-lg);border-radius:0 var(--radius-md) var(--radius-md) 0;">
+        <h2 style="font-family:var(--font-family-title);font-size:var(--text-lg);color:#ffffff;margin-block-end:var(--space-sm);">
+          Manifesto: A Fricção Mecânica do Ritmo
+        </h2>
+        <blockquote style="font-style:italic;color:var(--color-text-main);font-size:var(--text-base);line-height:1.7;margin:0;margin-block-end:var(--space-sm);">
+          "No momento em que o baterista olha para uma barra de reprodução num ecrã de computador, o ritmo morre. A música eletrónica autêntica nasce da tensão mecânica dos músculos contra a pele do tambor e da conversão direta dessa energia cinética em circuitos analógicos incandescentes."
+        </blockquote>
+        <cite style="font-family:var(--font-family-mono);font-size:var(--text-xs);color:var(--color-brand-primary);font-style:normal;">
+          — DJ Warp, notas da conferência Drumtiks '26 Porto
+        </cite>
+      </section>
+
+      <!-- ESPECIFICAÇÕES TÉCNICAS (DESCRIPTION LIST COM COMBINADORES DIRETOS >) -->
+      <section id="especificacoes" style="margin-block-end:var(--space-2xl);">
+        <h2 class="section-title">Especificação Técnica do Live Setup (9U Eurorack)</h2>
+        <p class="section-desc">
+          Lista completa dos componentes de hardware analógico utilizados durante as atuações ao vivo no festival:
+        </p>
+
+        <dl class="spec-list" style="background-color:var(--color-surface-card);padding:var(--space-lg);border-radius:var(--radius-md);border:1px solid var(--color-border-subtle);">
+          <dt>Sensores Piezoelétricos de Contacto</dt>
+          <dd>Cápsulas seladas em resina epóxi instaladas no interior da tarola e pratos, captando frequências entre 10 Hz e 22 kHz.</dd>
+
+          <dt>Módulo Pré-Amplificador &amp; Envelope Follower</dt>
+          <dd>Converte os impulsos de áudio de alta impedância em sinais contínuos de 0 a 10 Volts de voltagem de controlo (CV).</dd>
+
+          <dt>Sintetizador Analógico de Percussão (DFAM)</dt>
+          <dd>Osciladores analógicos duplos com gerador de ruído branco analógico e filtro passa-baixo clássico em escada de transístores.</dd>
+
+          <dt>Sequenciador Polimétrico Analógico</dt>
+          <dd>Três canais independentes de 8 passos acionados pelo ritmo da baqueta, criando polirritmias a tempos cruzados (3 contra 4 e 5 contra 7).</dd>
+
+          <dt>Mesa de Mistura Analógica &amp; Saída Direct-Out</dt>
+          <dd>Processamento estéreo com compressores analógicos VCA e saída balanceada de alta fidelidade para o sistema PA do festival.</dd>
+        </dl>
+      </section>
+
+      <!-- ARQUITETURA DE FICHEIROS & ATIVOS (ESTRUTURA EXIGIDA PELO ENUNCIADO EX2) -->
+      <section id="arquitetura" style="margin-block-end:var(--space-2xl);">
+        <h2 class="section-title">Estrutura de Ficheiros &amp; Ativos do Mini-Site</h2>
+        <p class="section-desc">
+          Organização canónica de pastas e ficheiros conforme exigido no enunciado EX2 (Módulo 2 de WD101):
+        </p>
+
+        <pre style="background-color:var(--color-surface-card);border:1px solid var(--color-border-subtle);padding:var(--space-md);border-radius:var(--radius-md);font-family:var(--font-family-mono);font-size:var(--text-xs);color:#58a6ff;overflow-x:auto;line-height:1.6;"><code>ex2-media-box-model/
+├── index.html                  # Cartaz Gráfico Principal (DJ Warp no Drumtiks '26)
+├── about.html                  # Biografia, Manifesto & Especificações Técnicas (&lt;dl&gt;)
+└── assets/
+    ├── css/
+    │   ├── reset.css           # Eric Meyer CSS Reset v2.0 (carregado em 1.º lugar)
+    │   └── style.css           # Folha de Estilos Atomic Design (Tokens, Box Model, Sticky, Media)
+    ├── fonts/
+    │   ├── Fraunces-VariableFont_SOFT,WONK,opsz,wght.woff2
+    │   ├── Fraunces-Italic-VariableFont_SOFT,WONK,opsz,wght.woff2
+    │   ├── Arimo-VariableFont_wght.woff2
+    │   └── Arimo-Italic-VariableFont_wght.woff2
+    ├── graphics/
+    │   ├── logo.svg            # Logótipo vetorial Drumtiks '26
+    │   ├── favicon.svg         # Favicon institucional
+    │   ├── check-badge.svg     # Indicador de estado SVG
+    │   └── vinyl-platter.svg   # Ícone de disco analógico
+    ├── images/
+    │   ├── hero-dj-warp-1400w.webp / .jpg   # Desktop (≥ 960px)
+    │   ├── hero-dj-warp-960w.webp / .jpg    # Tablet (≥ 600px)
+    │   ├── hero-dj-warp-600w.webp / .jpg    # Mobile (&lt; 600px)
+    │   ├── dj-warp-960w.webp / .jpg         # Retrato de bio
+    │   ├── alfandega-exterior-dusk-960w.webp / .jpg  # Fotografia do recinto
+    │   └── partner-1..3.svg                 # Logótipos de parceiros com filtros CSS
+    └── media/
+        ├── dj-warp-piezo-pulse.mp3  # Áudio analógico de ensaio
+        └── dj-warp-rehearsal.mp4    # Vídeo demonstrativo ao vivo</code></pre>
+      </section>
+
+    </main>
+
+    <!-- BOTÃO FIXO "VOLTAR AO TOPO" -->
+    <a href="#topo" class="btn-fixed-top" aria-label="Voltar ao início da página">
+      ↑ Topo
+    </a>
+
+    <!-- RODAPÉ -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-inner">
+        <div>
+          <strong>DRUMTIKS '26</strong> • Festival de Percussão &amp; Som Experimental<br>
+          Faculdade de Belas Artes da Universidade do Porto • Licenciatura em Design de Comunicação
+        </div>
+        <div>
+          <a href="index.html" style="color:var(--color-accent-amber);text-decoration:none;font-weight:700;">← Regressar à Página Principal do Cartaz</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercício 3 • Scroll Total Progress Bar | DRUMTIKS '26</title>
+    <meta
+      name="description"
+      content="Demonstrador de Scroll-Driven Animations Pure CSS em modo scroll total com barra de progresso fixa no topo sincronizada via animation-timeline: scroll(root)."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  </head>
+  <body>
+    <!-- ========================================================================
+       COMPONENTE: BARRA DE PROGRESSO DE LEITURA FIXA NO TOPO
+       Pedagogia (Pure CSS Scroll-Driven Animations):
+       - animation-timeline: scroll(root) liga o progresso ao scroll total da página
+       - Sincroniza de scaleX(0) a scaleX(1) sem JavaScript!
+       - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll
+       ======================================================================== -->
+    <div class="scroll-progress-bar" aria-hidden="true"></div>
+
+    <!-- ========================================================================
+       LANDMARK: <aside class="scroll-hud-badge">
+       - ARIA Landmark Role: 'complementary'
+       - HUD Informativo Flutuante no canto inferior direito.
+       ======================================================================== -->
+    <aside class="scroll-hud-badge" aria-live="polite">
+      <span class="hud-pulse-dot" aria-hidden="true"></span>
+      <span>Timeline: <code>scroll(root)</code> ativa</span>
+    </aside>
+
+    <!-- ========================================================================
+       LANDMARK: <header class="site-header">
+       - ARIA Landmark Role: 'banner'
+       ======================================================================== -->
+    <header class="site-header">
+      <div class="nav-container">
+        <!-- Logótipo e Marca -->
+        <a href="index.html" class="brand" aria-label="DRUMTIKS 2026 Início">
+          <img src="assets/icons/favicon.svg" alt="Ícone Vinil" class="logo-icon" />
+          <span>DRUMTIKS</span>
+          <span class="tag">TP11 • EX3 (A)</span>
+        </a>
+
+        <!-- Botão para mudar para a Versão B (Element Viewport Trigger com %) -->
+        <a href="versao-b.html" class="version-switch-btn" title="Ir para Versão B: Viewport Trigger">
+          <span>Abrir Versão B: Viewport Trigger (%)</span>
+          <span aria-hidden="true">✨ →</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ========================================================================
+       LANDMARK: <main class="main-content">
+       - ARIA Landmark Role: 'main'
+       - Função: Apresentação da programação em formato longo para teste de scroll.
+       ======================================================================== -->
+    <main class="main-content">
+      <header class="page-header">
+        <span class="badge-eyebrow">Development: HTML &amp; CSS • Scroll-Driven Animations</span>
+        <h1 class="page-title">Barra de Progresso com Scroll Total</h1>
+        <p class="page-desc">
+          Observa a barra de leitura colorida fixa no topo da janela. À medida que percorres o documento, ela expande-se de <strong>0% a 100%</strong> através da propriedade CSS <code>animation-timeline: scroll(root)</code>, eliminando por completo a necessidade de <em>event listeners</em> de scroll em JavaScript.
+        </p>
+      </header>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="feature-box">
+         - Painel de Códigos e Explicação da Timeline scroll(root)
+         ==================================================================== -->
+      <section class="feature-box" aria-labelledby="tech-notes-title">
+        <h3 id="tech-notes-title">Como funciona a Timeline <code>scroll(root)</code></h3>
+        <p>
+          O seletor <code>@supports (animation-timeline: scroll())</code> verifica o suporte moderno do motor do browser.
+          A animação <code>advanceTotalScroll</code> interpola <code>scaleX(0)</code> até <code>scaleX(1)</code> ancorada no scrollbar raiz da janela (<code>root</code>).
+        </p>
+        <div class="code-card">
+          <h4>Código CSS da Barra de Progresso</h4>
+          <pre><code>.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, #e60000, #ff5e3a, #8a2be2);
+  transform-origin: 0% 50%;
+  transform: scaleX(0);
+  z-index: 1000;
+
+  /* Sincronização direta com a raiz do documento */
+  animation: advanceTotalScroll linear both;
+  animation-timeline: scroll(root);
+}
+
+@keyframes advanceTotalScroll {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}</code></pre>
+        </div>
+
+        <!-- Links Oficiais MDN Web Docs -->
+        <div style="margin-top: 1rem; border-top: 1px solid var(--color-border-subtle); padding-top: 1rem;">
+          <h4 style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-accent-red); margin-bottom: 0.5rem;">Documentação Oficial MDN Web Docs:</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.8rem;">
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Animations/Using" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-red); text-decoration: underline;">MDN: Using CSS Animations Guide</a></li>
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-red); text-decoration: underline;">MDN: CSS animation-timeline Property</a></li>
+            <li>🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-red); text-decoration: underline;">MDN: CSS scroll() Timeline Function</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="schedule-section">
+         - Programação Completa de 3 Dias para Permitir Rolagem Extensa
+         ==================================================================== -->
+      <section class="schedule-section" aria-labelledby="schedule-heading">
+        <h2 id="schedule-heading" style="font-family: var(--font-display); font-size: 1.8rem; font-weight: 800;">
+          Programação Completa • 3 Dias de Festival
+        </h2>
+
+        <!-- Sexta-feira -->
+        <article class="day-block">
+          <div class="day-header">
+            <h3 class="day-title">Dia 1 • Sexta-Feira: O Legado Analógico</h3>
+            <span class="day-date">24 Outubro 2026</span>
+          </div>
+          <div class="events-list">
+            <div class="event-item">
+              <time class="event-time" datetime="2026-10-24T16:00">16:00 — 18:00</time>
+              <div class="event-info">
+                <h4>Abertura das Portas &amp; Feira de Vinil nos Claustros</h4>
+                <p>Receção dos festivaleiros, abertura dos cofres de vinil e sessão inaugural de escuta comentada com historiadores do hip-hop.</p>
+              </div>
+            </div>
+            <div class="event-item">
+              <time class="event-time" datetime="2026-10-24T18:30">18:30 — 20:30</time>
+              <div class="event-info">
+                <h4>Workshop: Prensagem e Manutenção de Acetatos e Vinis</h4>
+                <p>Oficina técnica no auditório da Alfândega com os engenheiros de masterização da Valentim de Carvalho.</p>
+              </div>
+            </div>
+            <div class="event-item">
+              <time class="event-time" datetime="2026-10-24T21:00">21:00 — 23:30</time>
+              <div class="event-info">
+                <h4>The 808 Clash • Rondas Eliminatórias (Série A)</h4>
+                <p>8 beatmakers sobem ao ringue acústico com baterias eletrónicas TR-808 e samplers Roland SP-404.</p>
+              </div>
+            </div>
+            <div class="event-item">
+              <time class="event-time" datetime="2026-10-24T23:45">23:45 — 02:00</time>
+              <div class="event-info">
+                <h4>DJ Warp • Live Set Analógico Subterrâneo</h4>
+                <p>Quatro gira-discos, sintetizadores monofónicos e caixas de ritmos num concerto sensorial a 360 graus.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Sábado -->
+        <article class="day-block">
+          <div class="day-header">
+            <h3 class="day-title">Dia 2 • Sábado: A Arte do Sampling</h3>
+            <span class="day-date">25 Outubro 2026</span>
+          </div>
+          <div class="events-list">
+            <div class="event-item">
+              <time class="event-time" datetime="2026-10-25T14:00">14:00 — 16:30</time>
+              <div class="event-info">
+                <h4>Crate Digging Marathon: À Procura do Sample Perdido</h4>
+                <p>Desafio para encontrar samples em vinis portugueses esquecidos dos anos 60 e 70 na feira de alfarrabistas.</p>
+              </div>
+            </div>
+            <div class="event-item">
+              <time class="event-time" datetime="2026-10-25T17:00">17:00 — 19:30</time>
+              <div class="event-info">
+                <h4>Masterclass Internacional: Do Fado ao Boom-Bap</h4>
+                <p>Análise harmónica de guitarras de Coimbra e técnicas de timestretching e pitch-shifting sem degradação de fase.</p>
+              </div>
+            </div>
+            <div class="event-item">
+              <time class="event-time" datetime="2026-10-25T20:30">20:30 — 23:00</time>
+              <div class="event-info">
+                <h4>The 808 Clash • Meias Finais e Finalíssima Ibérica</h4>
+                <p>Combates cronometrados ao segundo com transmissão em ecrã gigante e votação em tempo real pelo público.</p>
+              </div>
+            </div>
+            <div class="event-item">
+              <time class="event-time" datetime="2026-10-25T23:30">23:30 — 03:00</time>
+              <div class="event-info">
+                <h4>Vault Collective &amp; Convidados Especiais</h4>
+                <p>Noite de improvisação coletiva com produtores de Berlim, Londres, Madrid e Lisboa.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Domingo -->
+        <article class="day-block">
+          <div class="day-header">
+            <h3 class="day-title">Dia 3 • Domingo: Futuro &amp; Encerramento</h3>
+            <span class="day-date">26 Outubro 2026</span>
+          </div>
+          <div class="events-list">
+            <div class="event-item">
+              <time class="event-time" datetime="2026-10-26T15:00">15:00 — 17:30</time>
+              <div class="event-info">
+                <h4>Mesa Redonda: Preservação Sonora e Direitos Autorais</h4>
+                <p>Debate sobre o futuro dos direitos de autor na era dos modelos generativos e da amostragem digital.</p>
+              </div>
+            </div>
+            <div class="event-item">
+              <time class="event-time" datetime="2026-10-26T18:00">18:00 — 21:00</time>
+              <div class="event-info">
+                <h4>Sessão de Encerramento: Sunset Jam no Rio Douro</h4>
+                <p>Música ambiente e batidas lentas ao ar livre com vista para o rio Douro e a Ponte da Arrábida.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- LANDMARK: <nav class="exercises-nav"> -->
+      <nav class="exercises-nav" aria-label="Navegação do TP11">
+        <span>Exercício 3 de 3: <strong>Scroll-Driven Animations (Scroll Total)</strong></span>
+        <div class="nav-prev-next">
+          <a href="../02-transitions/index.html" class="nav-link-btn">← Exercício 2 (Transições)</a>
+          <a href="versao-b.html" class="nav-link-btn">Versão B (Viewport Trigger %) ✨</a>
+          <a href="../index.html" class="nav-link-btn">Índice Geral TP11 →</a>
+        </div>
+      </nav>
+    </main>
+  </body>
+</html>

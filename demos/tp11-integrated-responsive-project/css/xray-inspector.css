@@ -1,0 +1,123 @@
+/* ==========================================================================
+   PURE CSS X-RAY MATRIX INSPECTOR OVERLAY
+   FBAUP • Web Design WD101 • Festival DRUMTIKS '26
+   Master Capstone: TP11 Integrated Responsive Project
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   MDN DOCUMENTATION REFERENCES:
+   - :has() relational selector:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/:has
+   - :checked pseudo-class:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/:checked
+   - CSS Outline:
+     https://developer.mozilla.org/en-US/docs/Web/CSS/outline
+   -------------------------------------------------------------------------- */
+
+@layer xray {
+  /* --------------------------------------------------------------------------
+     X-RAY INSPECTOR TRIGGER PILL
+     Specificity: (0, 1, 0)
+     -------------------------------------------------------------------------- */
+  .xray-toggle-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    cursor: pointer;
+    background-color: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    color: var(--color-text-muted);
+    transition: all var(--transition-fast);
+  }
+
+  .xray-toggle-pill input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .xray-toggle-pill:has(input:checked) {
+    background-color: var(--color-accent-cyan);
+    border-color: var(--color-accent-cyan);
+    color: #060608;
+    font-weight: 700;
+  }
+
+  /* --------------------------------------------------------------------------
+     ACTIVATED X-RAY DIAGNOSTICS
+     Specificity: (0, 2, 0) via :root:has(#xray-toggle:checked)
+     -------------------------------------------------------------------------- */
+  :root:has(#xray-toggle:checked) {
+    /* 1. CSS Grid Containers (Cyan Dashed Matrix) */
+    .festival-master-grid,
+    .gallery-masonry-stage,
+    .simulator-split-layout,
+    .footer-grid {
+      outline: 2px dashed var(--color-accent-cyan) !important;
+      outline-offset: 4px;
+      background-image: radial-gradient(rgba(0, 210, 255, 0.12) 1px, transparent 1px) !important;
+      background-size: 16px 16px !important;
+      position: relative;
+    }
+
+    .festival-master-grid::before {
+      content: 'CSS GRID MACRO-LAYOUT (2D)';
+      position: absolute;
+      top: -20px;
+      left: 0;
+      background: var(--color-accent-cyan);
+      color: #000;
+      font-family: var(--font-family-mono);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 2px;
+      z-index: var(--z-inspector);
+    }
+
+    .gallery-masonry-stage::before {
+      content: 'CSS GRID MASONRY + VOIDS (DENSE)';
+      position: absolute;
+      top: -20px;
+      left: 0;
+      background: var(--color-accent-cyan);
+      color: #000;
+      font-family: var(--font-family-mono);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 2px;
+      z-index: var(--z-inspector);
+    }
+
+    /* 2. CSS Flexbox Containers (Magenta Solid Frame) */
+    .site-header,
+    .site-nav-menu,
+    .program-item-card,
+    .program-schedule-list,
+    .badge-cluster,
+    .ticket-option-grid,
+    .header-controls-group {
+      outline: 1.5px solid #ff007f !important;
+      outline-offset: 2px;
+    }
+
+    /* 3. Negative Space & Voids Highlight */
+    .gallery-tile--void {
+      background: rgba(245, 166, 35, 0.15) !important;
+      outline: 2px dotted var(--color-accent-gold) !important;
+    }
+
+    .gallery-tile--void::after {
+      content: '[EDITORIAL VOID]';
+      font-family: var(--font-family-mono);
+      font-size: 9px;
+      color: var(--color-accent-gold);
+      font-weight: 700;
+    }
+  }
+}

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ========================================================================
+       DOCUMENT METADATA & ENCODING
+       Pedagogical Note (FBAUP WD101):
+       - Standalone Academic Credits and Design System Documentation Page.
+       - Demonstrates separation of concerns and pure semantic markup.
+       ======================================================================== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Academic &amp; Project Credits • DRUMTIKS '26 • FBAUP Web Design</title>
+  <meta name="description" content="Academic credits, pedagogical learning outcomes, design token architecture, and engineering documentation for the DRUMTIKS 2026 responsive festival prototype.">
+  
+  <!-- Self-hosted Variable Fonts & Core Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Scalable Vector Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+</head>
+<body class="page-credits">
+
+  <!-- Pure CSS Scroll-Driven Viewport Progress Bar -->
+  <div class="scroll-progress-bar" aria-hidden="true"></div>
+
+  <!-- Primary Site Wrapper -->
+  <div class="site-wrapper">
+
+    <!-- ======================================================================
+         SITE HEADER LANDMARK (<header>)
+         ====================================================================== -->
+    <header class="site-header" data-node-id="header-credits">
+      <a href="index.html" class="site-logo" aria-label="DRUMTIKS 2026 Home">
+        DRUMTIKS <span class="site-logo-accent">'26</span>
+      </a>
+
+      <!-- Primary Navigation Bar -->
+      <nav class="site-nav" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="index.html" class="nav-link">HOME</a></li>
+          <li class="nav-item"><a href="dj-warp.html" class="nav-link">DJ WARP</a></li>
+          <li class="nav-item"><a href="battle-rules.html" class="nav-link">808 CLASH</a></li>
+          <li class="nav-item"><a href="index.html#festival-gallery" class="nav-link">ATMOSPHERE</a></li>
+          <li class="nav-item"><a href="credits.html" class="nav-link active" aria-current="page">CREDITS</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="date-badge">
+          <span class="date-badge-text">FBAUP // 2026</span>
+        </div>
+        <a href="index.html#pricing-simulator" class="btn-primary header-desktop-cta">FESTIVAL PASSES</a>
+      </div>
+    </header>
+
+
+    <!-- ======================================================================
+         MAIN CONTENT LANDMARK (<main>)
+         Pedagogical context, institutional attribution, and engineering specs.
+         ====================================================================== -->
+    <main class="site-main-content">
+
+      <!-- Breadcrumbs Navigation Landmark -->
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li class="breadcrumb-item"><a href="index.html">Festival Home</a></li>
+          <li class="breadcrumb-item" aria-hidden="true">/</li>
+          <li class="breadcrumb-item active" aria-current="page">Academic Credits &amp; Engineering Specs</li>
+        </ol>
+      </nav>
+
+      <!-- CREDITS HERO -->
+      <section class="credits-hero-section">
+        <span class="hero-eyebrow">FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO (FBAUP)</span>
+        <h1 class="artist-page-title">PROJECT CREDITS &amp; PEDAGOGICAL ARCHITECTURE</h1>
+        <p class="artist-hero-lead">
+          This interactive festival web portal was conceptualized, designed, and engineered as an advanced pedagogical demonstration of modern Responsive Web Design (RWD), progressive enhancement, and zero-JavaScript CSS state architecture for the Web Design curriculum (WD101) at FBAUP.
+        </p>
+      </section>
+
+      <!-- INSTITUTIONAL & AUTHORSHIP MATRIX -->
+      <div class="artist-editorial-grid">
+
+        <!-- COLUMN 1: ACADEMIC CREDITS & DESIGN ATTRIBUTION -->
+        <article class="artist-bio-column">
+
+          <div class="info-card-box">
+            <span class="info-card-eyebrow">INSTITUTIONAL PROFILE</span>
+            <h2 class="info-card-title">FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO</h2>
+            <p class="editorial-paragraph">
+              <strong>Department:</strong> Design de Comunicação (Undergraduate &amp; Master’s Programs)<br>
+              <strong>Curricular Unit:</strong> Web Design (WD101), Academic Year 2026-27<br>
+              <strong>Faculty Lead &amp; Coordination:</strong> Prof. Pedro Amado (<a href="mailto:pamado@fba.up.pt" class="credits-inline-link">pamado@fba.up.pt</a>)
+            </p>
+
+            <div class="divider"></div>
+
+            <h3 class="editorial-heading" style="margin-top: 14px; font-size: 16px;">STUDENT DESIGN &amp; PROTOTYPE TEAM</h3>
+            <p class="editorial-paragraph">
+              <strong>Lead UI/UX Concept &amp; Figma Architecture:</strong> Joana &amp; Student Colleague Team<br>
+              <strong>Original Artifact:</strong> DRUMTIKS 2026 Mobile Prototype (<a href="https://www.figma.com/design/khltT9eeMTCJn5ItjYtw7C/DRUMTIKS-2026-Mobile-Prototype" target="_blank" rel="noopener" class="credits-inline-link">Figma Node 0:1</a>)<br>
+              <strong>Educational Scope:</strong> Exploration of variable-driven checkout flows, component variants, smart animation micro-interactions, and design token hierarchies.
+            </p>
+          </div>
+
+          <!-- PEDAGOGICAL LEARNING OUTCOMES -->
+          <div class="info-card-box" style="margin-top: 24px;">
+            <span class="info-card-eyebrow">COURSE LEARNING OUTCOMES</span>
+            <h2 class="info-card-title">CORE CURRICULAR COMPETENCIES DEMONSTRATED</h2>
+
+            <ul class="gear-list">
+              <li class="gear-item">
+                <strong>1. Strict Semantic HTML5 Landmark Architecture:</strong> Full utilization of <code class="code-inline">&lt;header&gt;</code>, <code class="code-inline">&lt;nav&gt;</code>, <code class="code-inline">&lt;main&gt;</code>, <code class="code-inline">&lt;article&gt;</code>, <code class="code-inline">&lt;section&gt;</code>, <code class="code-inline">&lt;aside&gt;</code>, <code class="code-inline">&lt;figure&gt;</code>, <code class="code-inline">&lt;figcaption&gt;</code>, and <code class="code-inline">&lt;footer&gt;</code> ensuring screen reader accessibility and structural clarity.
+              </li>
+              <li class="gear-item">
+                <strong>2. Mobile-First Progressive Enhancement:</strong> Default styling optimized for mobile viewports (&lt;600px) with non-destructive expansion via <code class="code-inline">@media (min-width: 600px)</code> and <code class="code-inline">@media (min-width: 960px)</code> into a sticky two-column desktop canvas.
+              </li>
+              <li class="gear-item">
+                <strong>3. Fluid Typographic Math (<code class="code-inline">clamp()</code>):</strong> Eliminating static pixel typography in favor of viewport-responsive formulas such as <code class="code-inline">clamp(1.75rem, 4vw, 3.25rem)</code> for impactful, zero-overflow headline scaling.
+              </li>
+              <li class="gear-item">
+                <strong>4. Pure CSS Reactive Engine (No JavaScript):</strong> State simulation powered by the modern <code class="code-inline">:root:has(#pass-radio:checked)</code> parent selector, CSS generated content <code class="code-inline">::after</code> counters, and accessible modal popups via <code class="code-inline">:target</code>.
+              </li>
+              <li class="gear-item">
+                <strong>5. Multi-Breakpoint Art-Direction &amp; Image Optimization:</strong> Utilizing <code class="code-inline">&lt;picture&gt;</code> and <code class="code-inline">srcset</code> to deliver 16:9 widescreen, 1:1 square, and 9:16 vertical image crops in both ultra-efficient modern WebP and universal JPEG formats.
+              </li>
+              <li class="gear-item">
+                <strong>6. Self-Hosted Variable Webfonts (Vendorization):</strong> Complete local hosting of WOFF2 variable fonts (<code class="code-inline">Inter</code>, <code class="code-inline">Martian Mono</code>, <code class="code-inline">Syne</code>) eliminating third-party tracking and external CDN dependencies.
+              </li>
+              <li class="gear-item">
+                <strong>7. Pure CSS Scroll-Driven Animations:</strong> Real-time reading progress indicators and visual reveal effects powered by modern <code class="code-inline">animation-timeline: scroll(root)</code>.
+              </li>
+              <li class="gear-item">
+                <strong>8. Native CSS Carousel Snap &amp; Details Transitions:</strong> Horizontal gallery snap pagination and smoothly folding accordion components without a single line of script.
+              </li>
+            </ul>
+          </div>
+
+        </article>
+
+
+        <!-- COLUMN 2: DESIGN TOKENS ARCHITECTURE TABLE -->
+        <aside class="artist-sidebar-column">
+
+          <!-- DESIGN TOKENS SPECIFICATION -->
+          <div class="info-card-box">
+            <span class="info-card-eyebrow">DESIGN SYSTEM SPECIFICATION</span>
+            <h2 class="info-card-title">DRUMTIKS DESIGN TOKENS</h2>
+            <p class="editorial-paragraph" style="font-size: 12px;">
+              Extracted directly from the master Figma local variables and styles palette:
+            </p>
+
+            <div class="divider"></div>
+
+            <h3 class="track-breakdown-title">COLOR PALETTE (CSS VARIABLES)</h3>
+            <div class="token-swatch-list">
+              <div class="token-swatch-item">
+                <span class="swatch-box" style="background-color: #0a0a0c;"></span>
+                <div class="swatch-meta">
+                  <code>--color-black</code>
+                  <span>#0A0A0C • Page Foundation Canvas</span>
+                </div>
+              </div>
+
+              <div class="token-swatch-item">
+                <span class="swatch-box" style="background-color: #16171a;"></span>
+                <div class="swatch-meta">
+                  <code>--color-charcoal-black</code>
+                  <span>#16171A • Structural Cards &amp; Panels</span>
+                </div>
+              </div>
+
+              <div class="token-swatch-item">
+                <span class="swatch-box" style="background-color: #e60000;"></span>
+                <div class="swatch-meta">
+                  <code>--color-accent-red</code>
+                  <span>#E60000 • Primary Actions &amp; High-Voltage CTAs</span>
+                </div>
+              </div>
+
+              <div class="token-swatch-item">
+                <span class="swatch-box" style="background-color: #8a2be2;"></span>
+                <div class="swatch-meta">
+                  <code>--color-accent-purple</code>
+                  <span>#8A2BE2 • Laser Accent &amp; Selected State Glow</span>
+                </div>
+              </div>
+
+              <div class="token-swatch-item">
+                <span class="swatch-box" style="background-color: #71747e;"></span>
+                <div class="swatch-meta">
+                  <code>--color-medium-gray</code>
+                  <span>#71747E • Secondary Text &amp; Dividers</span>
+                </div>
+              </div>
+
+              <div class="token-swatch-item">
+                <span class="swatch-box" style="background-color: #f4f4f6;"></span>
+                <div class="swatch-meta">
+                  <code>--color-off-white</code>
+                  <span>#F4F4F6 • High-Contrast Display Typography</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3 class="track-breakdown-title">TYPOGRAPHY FAMILIES</h3>
+            <ul class="gear-list" style="font-size: 12px;">
+              <li class="gear-item">
+                <strong>Display Headings:</strong> <code class="code-inline">Syne</code> (Variable 400..800, Bold Display Display)
+              </li>
+              <li class="gear-item">
+                <strong>Data &amp; Badges:</strong> <code class="code-inline">Martian Mono</code> (Variable 100..800, Monospace Precision)
+              </li>
+              <li class="gear-item">
+                <strong>Body &amp; UI Controls:</strong> <code class="code-inline">Inter</code> (Variable 100..900, High Legibility Sans)
+              </li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <h3 class="track-breakdown-title">RESPONSIVE BREAKPOINTS</h3>
+            <ul class="gear-list" style="font-size: 12px;">
+              <li class="gear-item">
+                <strong>Mobile (Default):</strong> <code class="code-inline">&lt; 600px</code> (1-column fluid stack)
+              </li>
+              <li class="gear-item">
+                <strong>Tablet:</strong> <code class="code-inline">@media (min-width: 600px)</code> (Expanded padding, 2-col gallery)
+              </li>
+              <li class="gear-item">
+                <strong>Desktop:</strong> <code class="code-inline">@media (min-width: 960px)</code> (2-column sticky layout)
+              </li>
+              <li class="gear-item">
+                <strong>Widescreen:</strong> <code class="code-inline">@media (min-width: 1280px)</code> (1240px centered container)
+              </li>
+            </ul>
+          </div>
+
+          <!-- RETURN TO HOME ACTION -->
+          <div class="info-card-box cta-pass-box" style="margin-top: 24px;">
+            <h3 class="info-card-title">EXPERIENCE THE LIVE PROTOTYPE</h3>
+            <p class="info-card-text">
+              Test the dynamic pure CSS pricing simulator, scroll-driven animations, and art-directed responsive imagery.
+            </p>
+            <a href="index.html" class="btn-primary btn-block">&lt;- RETURN TO FESTIVAL HOME</a>
+          </div>
+
+        </aside>
+
+      </div>
+
+    </main>
+
+
+    <!-- ======================================================================
+         SITE FOOTER LANDMARK (<footer>)
+         ====================================================================== -->
+    <footer class="site-footer" data-node-id="footer-credits-page">
+      <div class="footer-top">
+        <a href="index.html" class="site-logo">
+          DRUMTIKS <span class="site-logo-accent">'26</span>
+        </a>
+        <p class="footer-tagline">
+          Faculdade de Belas Artes da Universidade do Porto • Web Design (WD101) 2026-27
+        </p>
+      </div>
+
+      <div class="footer-nav-row">
+        <ul class="footer-nav-list">
+          <li><a href="index.html">Festival Home</a></li>
+          <li><a href="dj-warp.html">DJ WARP Profile</a></li>
+          <li><a href="battle-rules.html">808 Clash Battle</a></li>
+          <li><a href="index.html#festival-gallery">Photo Gallery</a></li>
+          <li><a href="index.html#pricing-simulator">Pass Simulator</a></li>
+          <li><a href="credits.html" class="active">Academic Credits</a></li>
+        </ul>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="footer-academic-meta">
+        <p>© 2026-2027 Pedro Amado, FBAUP. Built strictly with vanilla HTML5 and CSS3 for educational instruction.</p>
+        <p>Non-commercial academic demonstrator. All media assets used under pedagogical fair use provisions.</p>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

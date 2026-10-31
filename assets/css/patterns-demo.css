@@ -1,0 +1,418 @@
+/**
+ * Drumtiks '26 Pattern Showcase Demo Styles
+ * Isolated sandbox styles for all 13 Pure CSS pedagogical patterns.
+ */
+
+/* ==========================================================================
+   P1: Dual Navigation (Desktop Flyout & Mobile Off-Canvas Drawer)
+   ========================================================================== */
+.demo-p1-nav {
+  background: #111;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 4px;
+  position: relative;
+}
+.demo-p1-nav .nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.demo-p1-nav .brand {
+  font-weight: 900;
+  color: #e60000;
+}
+.demo-p1-nav .menu-toggle {
+  display: none;
+}
+.demo-p1-nav .burger-label {
+  display: none;
+  cursor: pointer;
+  background: #222;
+  padding: 0.4rem 0.8rem;
+  border-radius: 3px;
+  font-size: 0.85rem;
+}
+.demo-p1-nav .nav-list {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.demo-p1-nav .has-sub {
+  position: relative;
+}
+.demo-p1-nav .sub-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  padding: 0.5rem;
+  min-width: 140px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  list-style: none;
+}
+.demo-p1-nav .has-sub:hover .sub-menu,
+.demo-p1-nav .has-sub:focus-within .sub-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+@media (max-width: 768px) {
+  .demo-p1-nav .burger-label { display: block; }
+  .demo-p1-nav .nav-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #18181b;
+    flex-direction: column;
+    padding: 1rem;
+    display: none;
+  }
+  .demo-p1-nav .menu-toggle:checked ~ .nav-list {
+    display: flex;
+  }
+}
+
+/* ==========================================================================
+   P2: Art Direction (<picture>)
+   ========================================================================== */
+.demo-p2-art {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.demo-p2-art figure {
+  margin: 0;
+  background: #18181b;
+  border: 1px solid #333;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.demo-p2-art picture img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+.demo-p2-art figcaption {
+  padding: 0.6rem 0.8rem;
+  font-size: 0.75rem;
+  color: #a1a1aa;
+}
+
+/* ==========================================================================
+   P3: Magnetic Scroll Snap Carousel
+   ========================================================================== */
+.demo-p3-carousel {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 1rem 0;
+}
+.demo-p3-card {
+  flex: 0 0 75%;
+  max-width: 320px;
+  scroll-snap-align: start;
+  background: #1c1c20;
+  border: 1px solid #2e2e34;
+  border-radius: 6px;
+  padding: 1.5rem;
+  color: #fff;
+}
+.demo-p3-card h4 {
+  color: #e60000;
+  margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   P4: Smooth Grid Animated Accordion
+   ========================================================================== */
+.demo-p4-accordion {
+  max-width: 500px;
+  margin: 0 auto;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: #121215;
+  color: #fff;
+}
+.demo-p4-accordion details {
+  border-bottom: 1px solid #222;
+}
+.demo-p4-accordion details:last-child {
+  border-bottom: none;
+}
+.demo-p4-accordion summary {
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.demo-p4-accordion summary::after {
+  content: "+";
+  font-size: 1.1rem;
+  transition: transform 0.2s;
+}
+.demo-p4-accordion details[open] summary::after {
+  content: "−";
+  color: #e60000;
+}
+.demo-p4-accordion .accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease-out;
+}
+.demo-p4-accordion details[open] .accordion-content {
+  grid-template-rows: 1fr;
+}
+.demo-p4-accordion .content-inner {
+  overflow: hidden;
+  padding: 0 1rem 1rem;
+  font-size: 0.85rem;
+  color: #a1a1aa;
+}
+
+/* ==========================================================================
+   P5: Pure CSS Modal (Target & Popover API)
+   ========================================================================== */
+.demo-p5-modal-btn {
+  display: inline-block;
+  background: #e60000;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: 3px;
+  cursor: pointer;
+  border: none;
+}
+.demo-p5-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.demo-p5-modal:target {
+  display: flex;
+}
+.demo-p5-modal-box {
+  background: #18181b;
+  border: 1px solid #3f3f46;
+  border-radius: 6px;
+  max-width: 440px;
+  width: 100%;
+  padding: 1.5rem;
+  color: #fff;
+  position: relative;
+}
+.demo-p5-modal-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  color: #a1a1aa;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   P6: Scroll-Driven Progress Bar Demo
+   ========================================================================== */
+.demo-p6-box {
+  border: 1px solid #333;
+  padding: 1rem;
+  background: #111;
+  color: #eee;
+  max-height: 200px;
+  overflow-y: auto;
+  position: relative;
+}
+.demo-p6-progress {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: #e60000;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(0.45); /* Fallback simulation */
+}
+
+/* ==========================================================================
+   P7: Asymmetric Grid with Sticky Stage
+   ========================================================================== */
+.demo-p7-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1.5rem;
+}
+@media (max-width: 640px) {
+  .demo-p7-layout { grid-template-columns: 1fr; }
+}
+.demo-p7-sticky {
+  position: sticky;
+  top: 1rem;
+  background: #18181b;
+  border: 1px solid #27272a;
+  padding: 1.2rem;
+  border-radius: 6px;
+  align-self: start;
+}
+.demo-p7-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+.demo-p7-card {
+  background: #202025;
+  border: 1px solid #333;
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   P8: Pure CSS Reactive Cart/Pricing Engine (:has & :checked)
+   ========================================================================== */
+.demo-p8-shop {
+  background: #141417;
+  border: 1px solid #2e2e34;
+  padding: 1.2rem;
+  border-radius: 6px;
+  color: #fff;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.demo-p8-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 1rem 0;
+}
+.demo-p8-option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  background: #1e1e24;
+  border: 1px solid #333;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.demo-p8-option:has(input:checked) {
+  border-color: #e60000;
+  background: #281919;
+}
+.demo-p8-total {
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-top: 1px solid #333;
+  padding-top: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+}
+.demo-p8-shop:has(#opt-standard:checked):not(:has(#opt-vip:checked)) .total-price::after {
+  content: "35 €";
+}
+.demo-p8-shop:has(#opt-vip:checked):not(:has(#opt-standard:checked)) .total-price::after {
+  content: "75 €";
+}
+.demo-p8-shop:has(#opt-standard:checked):has(#opt-vip:checked) .total-price::after {
+  content: "110 €";
+}
+.demo-p8-shop:not(:has(input:checked)) .total-price::after {
+  content: "0 €";
+}
+
+/* ==========================================================================
+   P11: CSS Container Queries Demo
+   ========================================================================== */
+.demo-p11-wrapper {
+  container-type: inline-size;
+  container-name: card-container;
+  resize: horizontal;
+  overflow: auto;
+  min-width: 240px;
+  max-width: 100%;
+  border: 1px dashed #71717a;
+  padding: 1rem;
+  background: #18181b;
+  border-radius: 4px;
+}
+.demo-p11-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #27272a;
+  padding: 1rem;
+  border-radius: 4px;
+  color: #fff;
+}
+.demo-p11-thumb {
+  background: #e60000;
+  height: 80px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+@container card-container (min-width: 380px) {
+  .demo-p11-card {
+    flex-direction: row;
+    align-items: center;
+  }
+  .demo-p11-thumb {
+    width: 120px;
+    height: 90px;
+    flex-shrink: 0;
+  }
+}
+
+/* ==========================================================================
+   P12: Sticky Stacking Cards Deck (Sibling Overwrite)
+   ========================================================================== */
+.demo-p12-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+.demo-p12-card {
+  position: sticky;
+  top: 1rem;
+  background: #202025;
+  border: 1px solid #3f3f46;
+  border-radius: 8px;
+  padding: 1.5rem;
+  color: #fff;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
+}
+.demo-p12-card:nth-child(2) {
+  top: 2rem;
+  background: #27272e;
+}
+.demo-p12-card:nth-child(3) {
+  top: 3rem;
+  background: #31313a;
+}

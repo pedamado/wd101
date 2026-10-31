@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Step-by-Step Pedagogical Guide • TP06 to TP11 Capstone | FBAUP WD101</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .guide-container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+    .guide-card {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    .step-box {
+      border-left: 4px solid var(--color-accent-red);
+      background: var(--color-bg-surface-elevated);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .step-box--cyan {
+      border-left-color: var(--color-accent-cyan);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: var(--font-size-small);
+    }
+    th, td {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--color-border-subtle);
+      text-align: left;
+    }
+    th {
+      background: var(--color-bg-surface-elevated);
+      font-family: var(--font-family-mono);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="viewport-progress-bar" aria-hidden="true"></div>
+
+  <div class="guide-container">
+    <header style="margin-bottom: 2rem; display:flex; justify-content:space-between; align-items:center;">
+      <a href="index.html" class="pill-badge pill-badge--accent">&larr; Return to Live Capstone</a>
+      <span class="pill-badge">FBAUP • WD101 2026/27</span>
+    </header>
+
+    <article class="guide-card">
+      <span class="section-tag">PEDAGOGICAL EVOLUTION MANUAL</span>
+      <h1 style="font-size: var(--font-size-h1); margin: 0.5rem 0 1rem;">
+        From Early Prototype (<a href="../tp06-responsive/index.html" style="color:var(--color-accent-red); text-decoration:underline;">TP06</a>) to Advanced Capstone (<a href="index.html" style="color:var(--color-accent-cyan); text-decoration:underline;">TP11</a>)
+      </h1>
+      <p style="color: var(--color-text-secondary); line-height: 1.6;">
+        This document provides the exhaustive architectural breakdown and pedagogical rationale for transforming the basic two-column festival website into an industry-grade, zero-JavaScript responsive masterclass combining 2D CSS Grid, 1D alternating Flexbox, 3D CSS Transitions, and native Scroll-Driven Animations.
+      </p>
+
+      <h2 style="font-size: var(--font-size-h2); margin: 2rem 0 1rem;">1. Comparison Matrix: Early Prototype vs. Advanced Capstone</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Feature / Dimension</th>
+            <th>Early Prototype (TP06)</th>
+            <th>Advanced Full Prototype (TP11)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Live Demo Link</strong></td>
+            <td><a href="../tp06-responsive/index.html" style="color:var(--color-accent-red);">Launch TP06</a></td>
+            <td><a href="index.html" style="color:var(--color-accent-cyan);">Launch TP11 Capstone</a></td>
+          </tr>
+          <tr>
+            <td><strong>Layout Architecture</strong></td>
+            <td>Binary breakpoint at 960px</td>
+            <td>4 Mobile-First Breakpoints (Mobile, Landscape, Tablet, Widescreen)</td>
+          </tr>
+          <tr>
+            <td><strong>CSS Grid 2D</strong></td>
+            <td>Simple 2-column container</td>
+            <td>Semantic <code>grid-template-areas</code> with sticky command column</td>
+          </tr>
+          <tr>
+            <td><strong>Gallery Layout</strong></td>
+            <td>Static vertical image flow</td>
+            <td>Asymmetric Dense Masonry with Intentional Editorial Voids</td>
+          </tr>
+          <tr>
+            <td><strong>Flexbox 1D</strong></td>
+            <td>Fixed direction rows</td>
+            <td>Alternating flows (Vertical stack &harr; Wrapping horizontal rows)</td>
+          </tr>
+          <tr>
+            <td><strong>Color Scheme / Theming</strong></td>
+            <td>Hardcoded dark mode</td>
+            <td>Dynamic <code>light-dark()</code> with Auto, Light, and Dark modes</td>
+          </tr>
+          <tr>
+            <td><strong>Turntable Interaction</strong></td>
+            <td>Static photo only</td>
+            <td>Interactive 3D Vinyl Crate fan-out with spring physics</td>
+          </tr>
+          <tr>
+            <td><strong>Scroll Animations</strong></td>
+            <td>None</td>
+            <td><code>scroll(root)</code> progress bar and <code>view()</code> reveal</td>
+          </tr>
+          <tr>
+            <td><strong>Diagnostics Mode</strong></td>
+            <td>Browser DevTools only</td>
+            <td>Pure CSS X-Ray Matrix Overlay Inspector</td>
+          </tr>
+          <tr>
+            <td><strong>Cascade Strategy</strong></td>
+            <td>Flat rules</td>
+            <td>Structured <code>@layer</code> hierarchy</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 style="font-size: var(--font-size-h2); margin: 2rem 0 1rem;">2. The 8 Transformation Steps</h2>
+      
+      <div class="step-box">
+        <h3>Step 1: Mobile-First Progressive Escalation</h3>
+        <p style="color: var(--color-text-secondary); margin-top: 0.5rem;">
+          Instead of designing for desktop and trying to shrink down with <code>max-width</code>, write the default stylesheet for small portrait mobile screens first. Add <code>min-width: 540px</code>, <code>min-width: 768px</code>, and <code>min-width: 1120px</code> media queries to progressively enhance the experience as screen real estate expands.
+        </p>
+      </div>
+
+      <div class="step-box step-box--cyan">
+        <h3>Step 2: 2D Grid with Named Template Areas</h3>
+        <p style="color: var(--color-text-secondary); margin-top: 0.5rem;">
+          Assign semantic names to page regions via <code>grid-template-areas</code>. On desktop screens (&ge; 1120px), pin the DJ Warp hero showcase to the left column with <code>position: sticky; top: var(--space-xl);</code> so it stays in view while the user scrolls through the festival program.
+        </p>
+      </div>
+
+      <div class="step-box">
+        <h3>Step 3: Dense Masonry Gallery with Editorial Voids</h3>
+        <p style="color: var(--color-text-secondary); margin-top: 0.5rem;">
+          Combine <code>grid-template-columns: repeat(4, 1fr)</code> and <code>grid-auto-flow: dense</code>. Inject <code>.gallery-tile--void</code> elements containing typographic monograms ("1869", "808") to give breathing room to the photographs, inspired by Swiss modernist posters.
+        </p>
+      </div>
+
+      <div class="step-box step-box--cyan">
+        <h3>Step 4: Alternating 1D Flexbox Alignment</h3>
+        <p style="color: var(--color-text-secondary); margin-top: 0.5rem;">
+          For schedule items, ticket cards, and navigation links: use <code>flex-direction: column</code> on mobile devices to provide generous touch targets (&ge; 44px), and switch to <code>flex-direction: row; flex-wrap: wrap; justify-content: space-between;</code> on larger viewports.
+        </p>
+      </div>
+
+      <div class="step-box">
+        <h3>Step 5: Zero-JS Theming with light-dark() and :has()</h3>
+        <p style="color: var(--color-text-secondary); margin-top: 0.5rem;">
+          Configure all color tokens with <code>light-dark(lightColor, darkColor)</code> in <code>:root</code>. Bind hidden radio buttons to <code>:root:has(#theme-light:checked) { color-scheme: light; }</code> to enable users to toggle themes without JavaScript.
+        </p>
+      </div>
+
+      <div class="step-box step-box--cyan">
+        <h3>Step 6: 3D Vinyl Crate Fan-out</h3>
+        <p style="color: var(--color-text-secondary); margin-top: 0.5rem;">
+          Establish a 3D perspective context with <code>perspective: 1000px</code>. Rotate sleeves along their base using <code>transform-origin: bottom center</code>, and apply <code>cubic-bezier(0.34, 1.56, 0.64, 1)</code> for a physical spring bounce when hovered or focused.
+        </p>
+      </div>
+
+      <div class="step-box">
+        <h3>Step 7: Pure CSS Scroll-Driven Animations</h3>
+        <p style="color: var(--color-text-secondary); margin-top: 0.5rem;">
+          Use <code>animation-timeline: scroll(root)</code> to link the top progress bar to the vertical scroll of the document. Use <code>animation-timeline: view()</code> with <code>animation-range: entry 10% cover 30%</code> to reveal content cards as they enter the screen.
+        </p>
+      </div>
+
+      <div class="step-box step-box--cyan">
+        <h3>Step 8: Pure CSS X-Ray Matrix Overlay</h3>
+        <p style="color: var(--color-text-secondary); margin-top: 0.5rem;">
+          Leverage <code>:root:has(#xray-toggle:checked)</code> to render cyan dashed outlines on CSS Grid containers and magenta solid borders on Flexbox containers, providing an interactive debugging tool for students.
+        </p>
+      </div>
+
+      <div style="margin-top: 3rem; text-align: center;">
+        <a href="index.html" class="btn-primary-cta" style="padding: 1rem 2rem; font-size: var(--font-size-body);">
+          🚀 Launch the Advanced Capstone Live Prototype
+        </a>
+      </div>
+    </article>
+  </div>
+
+</body>
+</html>

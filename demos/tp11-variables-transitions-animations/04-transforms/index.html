@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Módulo 4 • CSS Transforms (Posição, Tamanho &amp; Origem) | DRUMTIKS '26</title>
+    <meta
+      name="description"
+      content="Laboratório interativo demonstrador de transformações CSS 2D e 3D: translate, scale, rotate, skew, perspective e o impacto geométrico do transform-origin."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  </head>
+  <body>
+    <!-- ========================================================================
+       LANDMARK: <header class="site-header">
+       - ARIA Landmark Role: 'banner'
+       ======================================================================== -->
+    <header class="site-header">
+      <div class="nav-container">
+        <!-- Logótipo e Marca DRUMTIKS -->
+        <a href="index.html" class="brand" aria-label="DRUMTIKS 2026 Início">
+          <img src="assets/icons/favicon.svg" alt="Ícone de Gira-discos e Vinil DRUMTIKS" class="logo-icon" />
+          <span>DRUMTIKS</span>
+          <span class="tag">TP11 • TRANSFORMS</span>
+        </a>
+
+        <!-- Navegação Rápida -->
+        <a href="../index.html" class="nav-link-btn" title="Voltar ao Índice Geral do TP11">
+          <span>← Voltar ao Índice Geral</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ========================================================================
+       LANDMARK: <main class="main-content">
+       - ARIA Landmark Role: 'main'
+       ======================================================================== -->
+    <main class="main-content">
+      <header class="page-header">
+        <span class="badge-eyebrow">Development: HTML &amp; CSS • Geometric Transforms</span>
+        <h1 class="page-title">Transformações CSS: Posição, Tamanho, Rotação &amp; Origem</h1>
+        <p class="page-desc">
+          As <strong>Transformações CSS (<code>transform</code>)</strong> alteram a geometria visual de um elemento no espaço 2D ou 3D sem afetar a posição dos elementos vizinhos no fluxo normal do documento. Este laboratório permite-te experimentar as funções cardinais e compreender a importância do ponto de apoio (<code>transform-origin</code>).
+        </p>
+      </header>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="transform-controls">
+         - Painel de Presets Interativos (comuta variáveis CSS via :has())
+         ==================================================================== -->
+      <section class="transform-controls" aria-label="Seletor de Predefinições de Transformação">
+        <div class="controls-label">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="5 9 2 12 5 15"/>
+            <polyline points="9 5 12 2 15 5"/>
+            <polyline points="15 19 12 22 9 19"/>
+            <polyline points="19 9 22 12 19 15"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <line x1="12" y1="2" x2="12" y2="22"/>
+          </svg>
+          <strong>Laboratório Interativo • Escolhe uma Operação Geométrica:</strong>
+        </div>
+
+        <div class="preset-chips-grid">
+          <!-- Reset / Posição Neutra -->
+          <label class="preset-chip" title="Sem transformação (posição neutra)">
+            <input type="radio" name="transform-demo" id="demo-none" checked />
+            <span>Repouso (Neutro)</span>
+          </label>
+
+          <!-- 1. Posição (Translate) -->
+          <label class="preset-chip" title="Desloca o elemento no eixo X e Y">
+            <input type="radio" name="transform-demo" id="demo-translate" />
+            <span>1. Posição (translate: +40px, -30px)</span>
+          </label>
+
+          <!-- 2. Tamanho (Scale) -->
+          <label class="preset-chip" title="Amplia a escala para 125%">
+            <input type="radio" name="transform-demo" id="demo-scale" />
+            <span>2. Tamanho (scale: 1.25)</span>
+          </label>
+
+          <!-- 3. Rotação com Centro (Origin 50% 50%) -->
+          <label class="preset-chip" title="Roda 45 graus a partir do centro">
+            <input type="radio" name="transform-demo" id="demo-rotate-center" />
+            <span>3. Rotação (rotate: 45deg • centro)</span>
+          </label>
+
+          <!-- 4. Rotação com Origem no Canto (Origin 0% 0%) -->
+          <label class="preset-chip" title="Roda 45 graus ancorado no canto superior esquerdo">
+            <input type="radio" name="transform-demo" id="demo-rotate-corner" />
+            <span>4. Origem Canto (origin: 0% 0%)</span>
+          </label>
+
+          <!-- 5. Rotação com Origem na Base (Origin Bottom Center) -->
+          <label class="preset-chip" title="Roda ancorado na base inferior (como uma manga de vinil)">
+            <input type="radio" name="transform-demo" id="demo-rotate-base" />
+            <span>5. Origem Base (origin: bottom)</span>
+          </label>
+
+          <!-- 6. Distorção (Skew) -->
+          <label class="preset-chip" title="Inclina o plano no eixo horizontal">
+            <input type="radio" name="transform-demo" id="demo-skew" />
+            <span>6. Inclinação (skewX: -18deg)</span>
+          </label>
+
+          <!-- 7. Composição Multieixo -->
+          <label class="preset-chip" title="Combina posição, rotação e escala num único transform">
+            <input type="radio" name="transform-demo" id="demo-3d-composite" />
+            <span>7. Composição Múltipla</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="lab-stage-container">
+         - Palco Visual Interativo com Grelha Milimétrica e Inspetor de Código
+         ==================================================================== -->
+      <section class="lab-stage-container" aria-label="Visualizador Espacial de Transformação">
+        <!-- Lado Esquerdo: O Palco Visual com Fantasma e Elemento Alvo -->
+        <div class="lab-stage-viewport">
+          <!-- Fantasma da Posição Neutra (Ghost Box) -->
+          <div class="stage-ghost" aria-hidden="true">
+            <span>Posição Original (Fluxo)</span>
+          </div>
+
+          <!-- O Elemento que Sofre a Transformação -->
+          <div class="stage-target" role="img" aria-label="Elemento de teste animado com transforms">
+            <!-- Ponto vermelho ilustrativo da localização exata do transform-origin -->
+            <div class="pivot-indicator" title="Ponto de Pivot (transform-origin)" aria-hidden="true"></div>
+
+            <span class="target-badge">MPC Pad • DRUMTIKS</span>
+            <svg class="target-icon" viewBox="0 0 24 24" fill="var(--color-accent-amber)" aria-hidden="true">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/>
+            </svg>
+            <span class="target-label">45 RPM • Audio Chop</span>
+          </div>
+        </div>
+
+        <!-- Lado Direito: Caixa Didática de Código CSS -->
+        <div class="lab-code-inspector">
+          <div>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-accent-amber);">
+              Como o Browser Calcula esta Transformação
+            </h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.55; margin-bottom: 1rem;">
+              Observa a caixa tracejada (posição física estática) em contraste com o elemento sólido (posição transformada). Repara como o ponto vermelho (o <code>transform-origin</code>) funciona como o eixo ou agulha da rotação!
+            </p>
+            <div class="code-snippet-box"><code>/* Regra CSS Aplicada ao Elemento */
+.stage-target {
+  /* 1. Define o ponto de pivot / ancoragem */
+  transform-origin: var(--lab-origin-x) var(--lab-origin-y);
+
+  /* 2. Executa a lista ordenada de transformações */
+  transform: 
+    translate(var(--lab-translate-x), var(--lab-translate-y))
+    scale(var(--lab-scale))
+    rotate(var(--lab-rotate))
+    skewX(var(--lab-skew-x));
+
+  /* 3. Aceleração gráfica por hardware na GPU */
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}</code></div>
+          </div>
+
+          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-muted);">
+            💡 <strong>Regra de Ouro:</strong> A ordem das funções na propriedade <code>transform</code> altera o resultado final, porque cada operação afeta o sistema de coordenadas local da operação seguinte!
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section class="transform-cards-grid">
+         - Compêndio das 4 Operações Primárias de Transformação
+         ==================================================================== -->
+      <section aria-labelledby="compendium-heading">
+        <h2 id="compendium-heading" style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; margin-bottom: 1.25rem;">
+          Compêndio Técnico: As 4 Operações de Transform
+        </h2>
+
+        <div class="transform-cards-grid">
+          <!-- Operação 1: Posição -->
+          <article class="transform-card">
+            <h3>1. Posição (Translation)</h3>
+            <p>
+              Move o elemento horizontalmente e verticalmente. Ao contrário de <code>top/left</code>, o <code>translate()</code> não força o browser a recalcular o layout da página, sendo executado com 60/120 FPS pela placa gráfica.
+            </p>
+            <div>
+              <code>translate(x, y)</code><br>
+              <code>translate3d(x, y, z)</code>
+            </div>
+          </article>
+
+          <!-- Operação 2: Tamanho -->
+          <article class="transform-card">
+            <h3>2. Tamanho (Scaling)</h3>
+            <p>
+              Modifica as dimensões aparentes do elemento multiplicando a sua largura e altura por um fator escalar. Valores entre <code>0</code> e <code>1</code> reduzem o elemento; valores superiores a <code>1</code> ampliam-no.
+            </p>
+            <div>
+              <code>scale(fator)</code><br>
+              <code>scaleX()</code> / <code>scaleY()</code>
+            </div>
+          </article>
+
+          <!-- Operação 3: Rotação -->
+          <article class="transform-card">
+            <h3>3. Rotação (Rotation)</h3>
+            <p>
+              Gira o elemento em torno do ponto de ancoragem definido por <code>transform-origin</code>. Suporta unidades angulares como graus (<code>deg</code>), radianos (<code>rad</code>) ou voltas (<code>turn</code>).
+            </p>
+            <div>
+              <code>rotate(45deg)</code><br>
+              <code>rotateZ(0.5turn)</code>
+            </div>
+          </article>
+
+          <!-- Operação 4: Inclinação -->
+          <article class="transform-card">
+            <h3>4. Inclinação (Skewing)</h3>
+            <p>
+              Distorce os eixos retangulares do elemento num paralelogramo, simulando superfícies com ângulo obliquo, tipografia em itálico agressivo ou cartões tridimensionais inclinados.
+            </p>
+            <div>
+              <code>skew(x-angle, y-angle)</code><br>
+              <code>skewX(-15deg)</code>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+         LANDMARK: <section id="mdn-references">
+         - Documentação Oficial da MDN Web Docs
+         ==================================================================== -->
+      <section class="transform-controls" style="margin-top: 1rem;" aria-labelledby="mdn-transforms-heading">
+        <h3 id="mdn-transforms-heading" style="font-family: var(--font-display); font-size: 1.25rem; color: var(--color-accent-amber);">
+          Documentação Oficial MDN Web Docs:
+        </h3>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.85rem;">
+          <li>
+            🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Transforms" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-amber); text-decoration: underline;">
+              MDN: CSS Transforms Guide (Using CSS transforms)
+            </a>
+          </li>
+          <li>
+            🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-amber); text-decoration: underline;">
+              MDN: CSS transform Property Reference
+            </a>
+          </li>
+          <li>
+            🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-amber); text-decoration: underline;">
+              MDN: CSS transform-origin Property Reference
+            </a>
+          </li>
+          <li>
+            🔗 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/perspective" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-amber); text-decoration: underline;">
+              MDN: CSS perspective Property (3D Context)
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- LANDMARK: <nav class="exercises-nav"> -->
+      <nav class="exercises-nav" aria-label="Navegação do TP11">
+        <span>Módulo Complementar: <strong>Transforms (Posição &amp; Tamanho)</strong></span>
+        <div class="nav-prev-next">
+          <a href="../index.html" class="nav-link-btn">← Índice Geral</a>
+          <a href="../05-filters/index.html" class="nav-link-btn">Módulo Filtros CSS (Filters) →</a>
+        </div>
+      </nav>
+    </main>
+  </body>
+</html>

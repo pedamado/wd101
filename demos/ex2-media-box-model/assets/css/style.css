@@ -1,0 +1,805 @@
+/* ==========================================================================
+   WD101 — EX2: MEDIA, BOX MODEL & ATOMIC DESIGN SYSTEM
+   Caso de Estudo: DJ Warp • DRUMTIKS '26 (Porto)
+   Regra Pedagógica: Zero CSS Nesting (&) | Mobile-First | Pure CSS
+   Referenciais: W3C CSS Box Model 3, MDN Web Docs, Eric Meyer Reset v2.0
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0. FONTS (@font-face — Fontes Web Locais Variáveis WOFF2 com Fallback)
+   Referência MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Fraunces';
+  src: url('../fonts/Fraunces-VariableFont_SOFT,WONK,opsz,wght.woff2') format('woff2-variations'),
+       url('../fonts/Fraunces-VariableFont_SOFT,WONK,opsz,wght.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fraunces';
+  src: url('../fonts/Fraunces-Italic-VariableFont_SOFT,WONK,opsz,wght.woff2') format('woff2-variations'),
+       url('../fonts/Fraunces-Italic-VariableFont_SOFT,WONK,opsz,wght.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Arimo';
+  src: url('../fonts/Arimo-VariableFont_wght.woff2') format('woff2-variations'),
+       url('../fonts/Arimo-VariableFont_wght.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Arimo';
+  src: url('../fonts/Arimo-Italic-VariableFont_wght.woff2') format('woff2-variations'),
+       url('../fonts/Arimo-Italic-VariableFont_wght.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* --------------------------------------------------------------------------
+   0.1 DESIGN TOKENS (:root — Camada Subatómica / Átomos do Atomic Design)
+   Referência: https://24ways.org/2012/design-systems/
+   -------------------------------------------------------------------------- */
+:root {
+  /* Paleta Cromática Institucional Drumtiks '26 */
+  --color-brand-primary: #e60000;
+  --color-brand-hover: #ff2222;
+  --color-brand-active: #b80000;
+  --color-brand-purple: #8a2be2;
+
+  --color-surface-base: #0a0a0d;
+  --color-surface-card: #14141a;
+  --color-surface-elevated: #1e1e26;
+  --color-surface-subtle: #272733;
+
+  --color-text-main: #f4f4f6;
+  --color-text-muted: #9e9ea8;
+  --color-text-dim: #6c6c78;
+
+  --color-border-subtle: #262633;
+  --color-border-strong: #3d3d52;
+
+  --color-accent-blue: #0284c7;
+  --color-accent-emerald: #10b981;
+  --color-accent-amber: #f59e0b;
+
+  /* Tipografia: Fontes Locais com Fallback Remoto e do Sistema Operativo */
+  --font-family-title: 'Fraunces', Georgia, Cambria, 'Times New Roman', serif;
+  --font-family-base: 'Arimo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Escala Modular Tipográfica com clamp() e Unidades Relativas (rem/vw) */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.825rem);
+  --text-sm: clamp(0.875rem, 0.825rem + 0.2vw, 0.95rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.075rem);
+  --text-md: clamp(1.15rem, 1.05rem + 0.4vw, 1.25rem);
+  --text-lg: clamp(1.35rem, 1.2rem + 0.6vw, 1.6rem);
+  --text-xl: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
+  --text-hero: clamp(2.25rem, 1.8rem + 2.5vw, 3.75rem);
+
+  /* Espaçamento Atómico Proporcional */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+
+  /* Raios e Sombras */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 9999px;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 12px 28px -4px rgba(0, 0, 0, 0.6);
+
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 250ms ease;
+}
+
+/* --------------------------------------------------------------------------
+   1. BOX MODELING PREVISÍVEL (Reset Universal)
+   Referência MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   2. BASE DO DOCUMENTO (HTML & BODY)
+   -------------------------------------------------------------------------- */
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--color-surface-base);
+  color: var(--color-text-main);
+  font-family: var(--font-family-base);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Compensação de Âncoras para o Sticky Header (Evita sobreposição) */
+section[id],
+article[id],
+header[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   3. CONTENTOR GERAL (#page) & LANDMARKS
+   - O wrapper #page permite que elementos internos como o Hero "rompam" a caixa
+   -------------------------------------------------------------------------- */
+#page {
+  display: block;
+  position: relative;
+  width: 100%;
+  min-width: 18rem;
+}
+
+main {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+/* --------------------------------------------------------------------------
+   4. CABEÇALHO & MENU PERSISTENTE (STICKY HEADER)
+   Referência MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/position#sticky
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background-color: rgba(10, 10, 13, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-block: var(--space-sm);
+  transition: border-color var(--transition-normal);
+}
+
+.site-header-inner {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  text-decoration: none;
+  color: var(--color-text-main);
+}
+
+.brand-logo-img {
+  width: 44px;
+  height: 44px;
+  display: block;
+  transition: transform var(--transition-fast);
+}
+
+.brand-link:hover .brand-logo-img {
+  transform: rotate(15deg) scale(1.05);
+}
+
+.brand-title {
+  font-family: var(--font-family-mono);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  letter-spacing: 0.05em;
+  color: #ffffff;
+}
+
+.brand-title span {
+  color: var(--color-brand-primary);
+}
+
+/* Navegação Principal & Lista de Hiperligações */
+.main-nav {
+  display: block;
+  position: relative;
+}
+
+.main-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav li {
+  display: inline-block;
+  position: relative;
+}
+
+.main-nav a {
+  display: inline-block;
+  padding-block: 0.35rem;
+  padding-inline: 0.65rem;
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+/* --------------------------------------------------------------------------
+   5. REGRAS LVHA & :focus-visible (ESTADOS DE HIPERLIGAÇÃO)
+   Ordem Obrigatória: :link -> :visited -> :hover -> :active
+   Referência MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/:hover
+   -------------------------------------------------------------------------- */
+.main-nav a:link {
+  color: var(--color-text-muted);
+}
+
+.main-nav a:visited {
+  color: var(--color-text-muted);
+}
+
+.main-nav a:hover {
+  color: #ffffff;
+  background-color: var(--color-surface-elevated);
+}
+
+.main-nav a:active {
+  color: var(--color-brand-primary);
+  background-color: var(--color-surface-subtle);
+}
+
+.main-nav a[aria-current="page"] {
+  color: #ffffff;
+  background-color: var(--color-brand-primary);
+}
+
+/* Acessibilidade por Teclado: Destaque Rigoroso com :focus-visible */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   6. BREAKING THE BOX MODEL (HERO FULL-BLEED ESCAPE HATCH)
+   Técnica: 100vw com recuo simétrico (-50vw) escapando ao max-width do main
+   -------------------------------------------------------------------------- */
+.hero-full-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: radial-gradient(circle at 50% 30%, #1e1e28 0%, #0a0a0d 80%);
+  border-bottom: 2px solid var(--color-brand-primary);
+  padding-block-start: var(--space-xl);
+  padding-block-end: var(--space-2xl);
+  margin-block-end: var(--space-2xl);
+}
+
+.hero-inner {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+  text-align: center;
+}
+
+.hero-tag {
+  display: inline-block;
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  color: var(--color-brand-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  margin-block-end: var(--space-xs);
+}
+
+.hero-title {
+  font-family: var(--font-family-title);
+  font-size: var(--text-hero);
+  font-weight: 900;
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0;
+  margin-block-end: var(--space-sm);
+  text-transform: uppercase;
+}
+
+.hero-subtitle {
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+  max-width: 48rem;
+  margin-inline: auto;
+  margin-block-end: var(--space-lg);
+  line-height: 1.5;
+}
+
+.hero-picture-frame {
+  margin: 0;
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border-subtle);
+  background-color: #000000;
+}
+
+.hero-picture-frame img {
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hero-picture-frame figcaption {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-dim);
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--color-surface-card);
+  text-align: right;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   7. SECÇÕES INFORMATIVAS & TIPOGRAFIA
+   -------------------------------------------------------------------------- */
+.section-title {
+  font-family: var(--font-family-title);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  color: #ffffff;
+  margin-block-start: 0;
+  margin-block-end: var(--space-xs);
+  border-inline-start: 4px solid var(--color-brand-primary);
+  padding-inline-start: var(--space-sm);
+}
+
+.section-desc {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  margin-block-end: var(--space-lg);
+  max-width: 52rem;
+}
+
+/* Grelha de Biografia */
+.bio-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.bio-portrait {
+  margin: 0;
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border-subtle);
+  background-color: #000000;
+}
+
+.bio-portrait img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.bio-portrait figcaption {
+  font-size: var(--text-xs);
+  color: var(--color-text-dim);
+  padding: var(--space-xs);
+  background-color: var(--color-surface-card);
+}
+
+.bio-text {
+  font-size: var(--text-base);
+  color: var(--color-text-main);
+  line-height: 1.7;
+}
+
+.meta-bar {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-card);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-brand-primary);
+  margin-block-end: var(--space-md);
+}
+
+/* Imagem com Ligação (Exigência do Enunciado EX2) */
+.linked-media-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  text-decoration: none;
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 0.25rem 0.75rem 0.25rem 0.25rem;
+  margin-block-start: var(--space-sm);
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.linked-media-badge:hover {
+  border-color: var(--color-brand-primary);
+  transform: translateY(-2px);
+}
+
+.linked-media-badge img {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  display: block;
+}
+
+.linked-media-badge span {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+/* --------------------------------------------------------------------------
+   8. CARTÕES MODULARES COM BADGE ABSOLUTO (ORGANISMOS)
+   Padrão: .stage-card (position: relative) -> .stage-card-badge (position: absolute)
+   -------------------------------------------------------------------------- */
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.stage-card {
+  position: relative;
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  padding-block-start: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.stage-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.stage-card-badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background-color: var(--color-brand-primary);
+  color: #ffffff;
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  padding-block: var(--space-xs);
+  padding-inline: var(--space-sm);
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stage-card-time {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  color: var(--color-accent-amber);
+  margin-block-end: var(--space-xs);
+  display: block;
+  font-weight: 700;
+}
+
+.stage-card-name {
+  font-family: var(--font-family-title);
+  font-size: var(--text-md);
+  color: #ffffff;
+  margin: 0;
+  margin-block-end: var(--space-xs);
+}
+
+.stage-card-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-block-end: var(--space-md);
+}
+
+.stage-card-setup {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-dim);
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: var(--space-xs);
+}
+
+/* --------------------------------------------------------------------------
+   9. MULTIMÉDIA CONTÍNUA (ÁUDIO, VÍDEO & IFRAME RESPONSIVO)
+   -------------------------------------------------------------------------- */
+.media-showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.media-box {
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.media-box-title {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: #ffffff;
+  margin-block-start: 0;
+  margin-block-end: var(--space-xs);
+}
+
+audio, video {
+  width: 100%;
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+/* Contentor Responsivo para Iframe com aspect-ratio 16 / 9 */
+.embed-responsive-16-9 {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background-color: #000000;
+  border: 1px solid var(--color-border-subtle);
+}
+
+.embed-responsive-16-9 > iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   10. DEMO PEDAGÓGICA DO MODELO DE CAIXA: OVERFLOW & SCROLL
+   Referência Compêndio: Hicks (2004) & Guia EX2
+   -------------------------------------------------------------------------- */
+.box-model-demo-panel {
+  background-color: var(--color-surface-card);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-block-end: var(--space-2xl);
+}
+
+.box-overflow {
+  max-height: 8rem;
+  overflow: auto;
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border-subtle);
+  background-color: var(--color-surface-base);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   11. DIREÇÃO DE ARTE & FILTROS GRÁFICOS CSS (grayscale, contrast, hover)
+   -------------------------------------------------------------------------- */
+.partners-section {
+  margin-block-end: var(--space-2xl);
+}
+
+.partners-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: center;
+}
+
+.partner-logo-item {
+  width: 160px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.partner-logo-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-brand-primary);
+}
+
+.partner-logo-img {
+  max-width: 100%;
+  max-height: 100%;
+  filter: grayscale(100%) opacity(60%);
+  transition: filter var(--transition-normal), opacity var(--transition-normal), transform var(--transition-fast);
+}
+
+.partner-logo-item:hover .partner-logo-img {
+  filter: grayscale(0%) opacity(100%) contrast(110%);
+  transform: scale(1.05);
+}
+
+/* --------------------------------------------------------------------------
+   12. SELETORES COMBINADORES PLANOS (SEM NESTING)
+   -------------------------------------------------------------------------- */
+p + p {
+  margin-block-start: var(--space-md);
+}
+
+h1 + p,
+h2 + p,
+h3 + p {
+  margin-block-start: var(--space-xs);
+}
+
+.spec-list > dt {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-brand-primary);
+  margin-block-start: var(--space-sm);
+}
+
+.spec-list > dd {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-inline-start: var(--space-md);
+  margin-block-end: var(--space-xs);
+}
+
+/* --------------------------------------------------------------------------
+   13. BOTÃO FIXO "VOLTAR AO TOPO" (POSITION: FIXED)
+   -------------------------------------------------------------------------- */
+.btn-fixed-top {
+  position: fixed;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  z-index: 900;
+  background-color: var(--color-surface-elevated);
+  color: #ffffff;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  padding-block: var(--space-xs);
+  padding-inline: var(--space-md);
+  font-family: var(--font-family-mono);
+  font-size: var(--text-xs);
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.btn-fixed-top:hover {
+  background-color: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+}
+
+/* --------------------------------------------------------------------------
+   14. SECÇÃO DE CONTACTOS
+   -------------------------------------------------------------------------- */
+.contacts-panel {
+  background-color: var(--color-surface-card);
+  border-left: 4px solid var(--color-brand-primary);
+  padding: var(--space-lg);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin-block-end: var(--space-2xl);
+}
+
+.contacts-panel a {
+  color: var(--color-accent-amber);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.contacts-panel a:hover {
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   15. RODAPÉ DO DOCUMENTO (FOOTER)
+   -------------------------------------------------------------------------- */
+.site-footer {
+  position: relative;
+  display: block;
+  width: 100%;
+  background-color: #060608;
+  border-top: 1px solid var(--color-border-subtle);
+  padding-block: var(--space-xl);
+  margin-block-start: var(--space-2xl);
+  font-size: var(--text-xs);
+  color: var(--color-text-dim);
+}
+
+.footer-inner {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   16. BREAKPOINT DESKTOP (PROGRESSÃO MOBILE-FIRST @media min-width: 960px)
+   -------------------------------------------------------------------------- */
+@media screen and (min-width: 960px) {
+  /* Grelha de Bio passa a 2 colunas */
+  .bio-grid {
+    grid-template-columns: 360px 1fr;
+    gap: var(--space-xl);
+  }
+
+  /* Layout da Grelha de Palcos passa a 3 colunas */
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  /* Multimédia em 2 Colunas */
+  .media-showcase-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  /* Rodapé Alinhado Horizontalmente */
+  .footer-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enunciado de Trabalho • DRUMTIKS '26 • FBAUP Web Design (WD101)</title>
+  <style>
+    /* Google Docs Academic Theme Emulation */
+    :root {
+      --font-serif: "Merriweather", Georgia, "Times New Roman", serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: "Martian Mono", "Courier New", monospace;
+      --color-page-bg: #eceef1;
+      --color-doc-bg: #ffffff;
+      --color-text-main: #202124;
+      --color-text-muted: #5f6368;
+      --color-border: #dadce0;
+      --color-primary: #1a73e8;
+      --color-primary-dark: #1557b0;
+      --color-accent-red: #d93025;
+      --color-accent-purple: #8430ce;
+      --color-highlight: #f8f9fa;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--color-page-bg);
+      font-family: var(--font-sans);
+      color: var(--color-text-main);
+      line-height: 1.6;
+      padding: 30px 15px;
+    }
+
+    .doc-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--color-doc-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    /* Google Docs Multi-Tab Navigation */
+    .tabs-header {
+      display: flex;
+      background-color: #f1f3f4;
+      border-bottom: 2px solid var(--color-border);
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 6px 12px 0;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      padding: 10px 16px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      border: 1px solid transparent;
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      background: transparent;
+      display: inline-block;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--color-text-main);
+      background-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .tab-btn.active {
+      color: var(--color-primary-dark);
+      background-color: var(--color-doc-bg);
+      border-color: var(--color-border);
+      border-bottom-color: var(--color-doc-bg);
+      margin-bottom: -2px;
+      padding-top: 10px;
+    }
+
+    .doc-page {
+      padding: 48px 60px;
+    }
+
+    @media (max-width: 768px) {
+      .doc-page { padding: 24px; }
+    }
+
+    .doc-institution-header {
+      border-bottom: 2px solid var(--color-primary);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+
+    .inst-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-muted);
+    }
+
+    .course-meta {
+      font-size: 14px;
+      color: var(--color-primary-dark);
+      font-weight: 600;
+    }
+
+    h1.doc-title {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      line-height: 1.3;
+      color: var(--color-text-main);
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-family: var(--font-sans);
+      font-size: 18px;
+      color: var(--color-text-main);
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 6px;
+      margin: 32px 0 16px;
+    }
+
+    h3 {
+      font-size: 15px;
+      color: var(--color-primary-dark);
+      margin: 20px 0 8px;
+    }
+
+    p, li {
+      font-size: 14px;
+      color: #3c4043;
+      margin-bottom: 12px;
+    }
+
+    ul, ol {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background-color: #f1f3f4;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #c5221f;
+    }
+
+    pre {
+      background-color: #202124;
+      color: #e8eaed;
+      padding: 16px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.5;
+      margin: 16px 0;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+    }
+
+    .callout-box {
+      background-color: #e8f0fe;
+      border-left: 4px solid var(--color-primary);
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      margin: 16px 0;
+    }
+
+    .callout-alert {
+      background-color: #fce8e6;
+      border-left-color: var(--color-accent-red);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+
+    .data-table th, .data-table td {
+      border: 1px solid var(--color-border);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    .data-table th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+    }
+
+    .quick-links-banner {
+      background-color: #f8f9fa;
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+
+    .tab-section {
+      display: none;
+    }
+
+    .tab-section:target {
+      display: block;
+    }
+
+    /* Fallback default display */
+    #tab-1 {
+      display: block;
+    }
+
+    :target ~ #tab-1 {
+      display: none;
+    }
+
+    #tab-1:target {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="doc-container">
+
+    <!-- Tab Bar -->
+    <nav class="tabs-header">
+      <a href="#tab-1" class="tab-btn active">Tab 1: Enunciado &amp; Briefing</a>
+      <a href="#tab-2" class="tab-btn">Tab 2: Estrutura HTML5</a>
+      <a href="#tab-3" class="tab-btn">Tab 3: CSS3 &amp; clamp()</a>
+      <a href="#tab-4" class="tab-btn">Tab 4: RWD &amp; &lt;picture&gt;</a>
+      <a href="#tab-5" class="tab-btn">Tab 5: Interações Pure CSS</a>
+      <a href="#tab-6" class="tab-btn">Tab 6: Anexos &amp; MDN Links</a>
+    </nav>
+
+    <!-- TAB 1: BRIEFING & GERAL -->
+    <article id="tab-1" class="tab-section doc-page">
+      <header class="doc-institution-header">
+        <div class="inst-title">Faculdade de Belas Artes da Universidade do Porto • Licenciatura em Design de Comunicação</div>
+        <div class="course-meta">Web Design (WD101), Ano Letivo 2026-27 • Prof. Pedro Amado (pamado@fba.up.pt)</div>
+      </header>
+
+      <h1 class="doc-title">Exercício 6 / TP06-Responsive: "DRUMTIKS '26" Festival Web Portal</h1>
+
+      <div class="quick-links-banner">
+        <strong>Links de Acesso Rápido ao Projeto:</strong><br>
+        • Protótipo Mobile Figma Original: <a href="https://www.figma.com/design/khltT9eeMTCJn5ItjYtw7C/DRUMTIKS-2026-Mobile-Prototype" target="_blank">Figma Node 0:1</a><br>
+        • Implementação Web Real: <a href="index.html">TP06-responsive/index.html</a> • <a href="dj-warp.html">dj-warp.html</a> • <a href="battle-rules.html">battle-rules.html</a> • <a href="credits.html">credits.html</a>
+      </div>
+
+      <h2>1.1 Introdução &amp; Enquadramento</h2>
+      <p>
+        O <strong>DRUMTIKS '26</strong> é um festival fictício dedicado à cultura do beatmaking analógico, turntablism e hip-hop em vinil sediado nas abóbadas subterrâneas da <strong>Alfândega do Porto</strong>.
+      </p>
+      <p>
+        Partindo do protótipo mobile desenhado no Figma pela estudante Joana e a sua equipa, este trabalho tem como meta a sua <strong>transposição para a Web real e responsiva em código estritamente estandardizado</strong> (HTML5 + CSS3 puro, rigorosamente sem JavaScript).
+      </p>
+
+      <h2>1.2 Objetivos Pedagógicos de Aprendizagem</h2>
+      <ul>
+        <li><strong>Arquitetura Multi-Páginas Semântica:</strong> Criação de 4 páginas complementares (`index.html`, `dj-warp.html`, `battle-rules.html`, `credits.html`).</li>
+        <li><strong>Abordagem Mobile-First:</strong> CSS padrão para pequenos ecrãs com melhoria progressiva (`min-width: 600px` e `min-width: 960px`).</li>
+        <li><strong>Grelha Desktop de 2 Colunas:</strong> Palco esquerdo fixo (`position: sticky`) com fluxo de programa e bilhetes à direita.</li>
+        <li><strong>Tipografia Fluida com `clamp()`:</strong> Dimensionamento de texto orgânico adaptado à largura do ecrã sem saltos bruscos.</li>
+        <li><strong>Direção de Arte Fotográfica:</strong> Múltiplos rácios de aspeto (16:9, 1:1, 9:16) via `<picture>` com WebP e JPEG.</li>
+        <li><strong>Vendorização de Webfonts:</strong> Autohospedagem local de ficheiros WOFF2 de fontes variáveis em `assets/fonts/`.</li>
+        <li><strong>Padrões Pure CSS Avançados:</strong> Simulador de preços reativo com `:root:has()`, barra de leitura com `animation-timeline: scroll()`, carrossel de fotos com scroll-snap e acordeão articulado com `<details>`.</li>
+      </ul>
+    </article>
+
+    <!-- TAB 2: HTML5 -->
+    <article id="tab-2" class="tab-section doc-page">
+      <header class="doc-institution-header">
+        <div class="inst-title">FBAUP • Web Design (WD101) 2026-27 • Aba 2</div>
+        <div class="course-meta">Arquitetura Semântica HTML5 &amp; Landmarks de Acessibilidade</div>
+      </header>
+
+      <h2>2.1 Landmarks Semânticos (WAI-ARIA &amp; HTML5)</h2>
+      <p>A semântica de documento substitui a proliferação desordenada de divs genéricas por marcos estruturais universais reconhecidos por motores de busca e leitores de ecrã:</p>
+      
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Elemento HTML5</th>
+            <th>Papel de Acessibilidade</th>
+            <th>Aplicação no Projeto DRUMTIKS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>&lt;header&gt;</code></td>
+            <td><code>role="banner"</code></td>
+            <td>Barra global com logótipo, badge de data e menu primário</td>
+          </tr>
+          <tr>
+            <td><code>&lt;nav&gt;</code></td>
+            <td><code>role="navigation"</code></td>
+            <td>Menu com links entre as 4 páginas e âncoras internas</td>
+          </tr>
+          <tr>
+            <td><code>&lt;main&gt;</code></td>
+            <td><code>role="main"</code></td>
+            <td>Área principal contendo a grelha de duas colunas</td>
+          </tr>
+          <tr>
+            <td><code>&lt;article&gt;</code></td>
+            <td><code>role="article"</code></td>
+            <td>Cartão hero do DJ Warp e itens individuais do programa</td>
+          </tr>
+          <tr>
+            <td><code>&lt;section&gt;</code></td>
+            <td><code>role="region"</code></td>
+            <td>Galeria de fotos, simulador de passes e acordeão de FAQ</td>
+          </tr>
+          <tr>
+            <td><code>&lt;aside&gt;</code></td>
+            <td><code>role="complementary"</code></td>
+            <td>Caixa de acessos da Alfândega e barra sticky de compra mobile</td>
+          </tr>
+          <tr>
+            <td><code>&lt;footer&gt;</code></td>
+            <td><code>role="contentinfo"</code></td>
+            <td>Metadados institucionais da FBAUP, direitos e créditos</td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+
+    <!-- TAB 3: CSS3 & CLAMP -->
+    <article id="tab-3" class="tab-section doc-page">
+      <header class="doc-institution-header">
+        <div class="inst-title">FBAUP • Web Design (WD101) 2026-27 • Aba 3</div>
+        <div class="course-meta">Arquitetura CSS3, Design Tokens &amp; Tipografia Fluida clamp()</div>
+      </header>
+
+      <h2>3.1 Orquestração Modular com @layer</h2>
+      <p>Para controlar a especificidade sem recorrer a <code>!important</code>, declaramos formalmente a cascata de camadas:</p>
+      <pre><code>@layer reset, fonts, theme, base, layout, components, gallery, accordion, subpages, simulator, modals, animations, utilities;</code></pre>
+
+      <h2>3.2 Tipografia Fluida com a Função clamp()</h2>
+      <p>A fórmula <code>clamp(min, preferred, max)</code> garante que os títulos crescem proporcionalmente à largura do ecrã, mantendo legibilidade sem provocar quebras indesejadas:</p>
+      <pre><code>--text-size-hero-title: clamp(1.6rem, 1rem + 2.5vw, 2.5rem);
+--text-size-artist-page-title: clamp(1.75rem, 4vw, 3.25rem);
+--text-size-sim-price: clamp(1.6rem, 1.2rem + 1.8vw, 2.4rem);</code></pre>
+    </article>
+
+    <!-- TAB 4: RWD & PICTURE -->
+    <article id="tab-4" class="tab-section doc-page">
+      <header class="doc-institution-header">
+        <div class="inst-title">FBAUP • Web Design (WD101) 2026-27 • Aba 4</div>
+        <div class="course-meta">Design Responsivo Mobile-First &amp; Direção de Arte Fotográfica</div>
+      </header>
+
+      <h2>4.1 Breakpoints de Largura Mínima (min-width)</h2>
+      <div class="callout-box">
+        <strong>Regra de Ouro da UC:</strong> O CSS padrão aplica-se a ecrãs de smartphone (&lt;600px). Nunca utilize <code>max-width</code> para desenhar a estrutura principal. Escale progressivamente usando <code>min-width</code>.
+      </div>
+      <ul>
+        <li><strong>Default (&lt; 600px):</strong> Coluna única, barra de compra sticky na base.</li>
+        <li><strong>Tablet (min-width: 600px):</strong> Alargamento de margens, galeria a 2 colunas.</li>
+        <li><strong>Desktop (min-width: 960px):</strong> Grelha de 2 colunas (palco sticky à esquerda, fluxo dinâmico à direita).</li>
+      </ul>
+
+      <h2>4.2 Direção de Arte com &lt;picture&gt;</h2>
+      <p>O elemento <code>&lt;picture&gt;</code> permite trocar o enquadramento fotográfico consoante a proporção do ecrã:</p>
+      <pre><code>&lt;picture&gt;
+  &lt;!-- 16:9 Panorâmica para Widescreen Desktop --&gt;
+  &lt;source media="(min-width: 1024px)" type="image/webp" 
+          srcset="assets/images/dj-warp-vault-16x9-960w.webp 960w, assets/images/dj-warp-vault-16x9-1400w.webp 1400w" 
+          sizes="(min-width: 1240px) 1160px, 92vw"&gt;
+
+  &lt;!-- 1:1 Quadrado para Tablet --&gt;
+  &lt;source media="(min-width: 600px)" type="image/webp" 
+          srcset="assets/images/dj-warp-vault-1x1-600w.webp 600w, assets/images/dj-warp-vault-1x1-960w.webp 960w" 
+          sizes="85vw"&gt;
+
+  &lt;!-- 9:16 Vertical para Smartphone --&gt;
+  &lt;source type="image/webp" 
+          srcset="assets/images/dj-warp-vault-9x16-400w.webp 400w, assets/images/dj-warp-vault-9x16-600w.webp 600w" 
+          sizes="100vw"&gt;
+
+  &lt;img src="assets/images/dj-warp-vault-16x9-960w.jpg" alt="DJ Warp no cofre da Alfândega" width="1200" height="675" loading="lazy"&gt;
+&lt;/picture&gt;</code></pre>
+    </article>
+
+    <!-- TAB 5: PURE CSS INTERACTION -->
+    <article id="tab-5" class="tab-section doc-page">
+      <header class="doc-institution-header">
+        <div class="inst-title">FBAUP • Web Design (WD101) 2026-27 • Aba 5</div>
+        <div class="course-meta">Padrões Interativos Pure CSS (Sem JavaScript)</div>
+      </header>
+
+      <h2>5.1 Barra de Leitura com Scroll-Driven Animation</h2>
+      <pre><code>.scroll-progress-bar {
+  position: fixed; top: 0; left: 0; width: 100%; height: 4px;
+  background: linear-gradient(90deg, #e60000 0%, #8a2be2 100%);
+  transform-origin: 0% 50%;
+  transform: scaleX(0);
+  z-index: 9999;
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress-bar {
+    animation: growProgressBar auto linear;
+    animation-timeline: scroll(root);
+  }
+  @keyframes growProgressBar {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+}</code></pre>
+
+      <h2>5.2 Acordeão Articulado com &lt;details&gt; e CSS Grid</h2>
+      <pre><code>.accordion-body-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  opacity: 0;
+}
+.accordion-item[open] .accordion-body-grid {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}</code></pre>
+
+      <h2>5.3 Motor Reativo de Preços (:root:has)</h2>
+      <pre><code>:root:has(#pass-battle:checked) {
+  #sim-price::after { content: "€10.00"; }
+  #sim-summary::after { content: "Selecionado: THE 808 CLASH Pass"; }
+  #sim-savings { display: none; }
+  .receipt-row-battle { display: flex; }
+  .receipt-row-warp { display: none; }
+  .receipt-row-combo { display: none; }
+  #receipt-dyn-total::after { content: "€10.00"; }
+}</code></pre>
+    </article>
+
+    <!-- TAB 6: MDN LINKS & ANNEXES -->
+    <article id="tab-6" class="tab-section doc-page">
+      <header class="doc-institution-header">
+        <div class="inst-title">FBAUP • Web Design (WD101) 2026-27 • Aba 6</div>
+        <div class="course-meta">Anexos de Código &amp; Ligações Oficiais da MDN Web Docs</div>
+      </header>
+
+      <h2>6.1 Guia de Documentação Oficial da MDN</h2>
+      <ul>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Glossary/Semantics" target="_blank">MDN: HTML Semantics &amp; Document Structure</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role" target="_blank">MDN: ARIA Landmark Roles</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture" target="_blank">MDN: HTML &lt;picture&gt; Element</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Textual_content/Responsive_images" target="_blank">MDN: Responsive Images with srcset and sizes</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details" target="_blank">MDN: HTML &lt;details&gt; and &lt;summary&gt;</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@layer" target="_blank">MDN: CSS Cascade Layers (@layer)</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clamp" target="_blank">MDN: CSS Math Function clamp()</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline" target="_blank">MDN: CSS Scroll-Driven Animations</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap" target="_blank">MDN: CSS Scroll Snap Module</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:has" target="_blank">MDN: CSS Relational Pseudo-Class :has()</a></li>
+      </ul>
+    </article>
+
+  </div>
+
+</body>
+</html>

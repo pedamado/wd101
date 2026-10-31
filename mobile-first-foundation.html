@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semana 1–2: Mentalidade Mobile-First &amp; Fundações da Web • WD101</title>
+  
+  <!-- Previne FOUC de tema e idioma -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || 
+                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
+
+  <!-- CSS Layer Hierarchy -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+
+  <style>
+    .guide-hero {
+      border-bottom: 2px solid var(--color-swiss-red);
+      padding: var(--space-8) 0;
+      margin-bottom: var(--space-8);
+    }
+    .guide-back-link {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-swiss-red);
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: var(--space-3);
+    }
+    .callout-box {
+      background-color: var(--bg-surface-elevated);
+      border-left: 4px solid var(--color-swiss-red);
+      padding: var(--space-4);
+      margin: var(--space-6) 0;
+      border-radius: 0 4px 4px 0;
+      font-size: var(--text-sm);
+      line-height: 1.6;
+    }
+    .callout-box strong {
+      color: var(--color-swiss-red);
+      display: block;
+      margin-bottom: var(--space-1);
+      font-size: var(--text-base);
+    }
+
+    /* Diagrama da Web Interativo */
+    .web-diagram-container {
+      background: #0d1117;
+      color: #e6edf3;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: var(--space-6);
+      margin: var(--space-6) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .diagram-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-4);
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+    .diagram-stage {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--space-3);
+      position: relative;
+      padding: var(--space-4) 0;
+    }
+    .diagram-node {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: var(--space-3);
+      font-size: var(--text-xs);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 130px;
+      position: relative;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .diagram-node.active-node {
+      border-color: var(--color-swiss-red);
+      transform: translateY(-2px);
+      box-shadow: 0 0 12px rgba(230, 0, 0, 0.4);
+    }
+    .node-header {
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: #58a6ff;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .node-body {
+      color: #8b949e;
+      line-height: 1.4;
+    }
+    .node-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      padding: 0.1rem 0.3rem;
+      border-radius: 2px;
+      background: #21262d;
+      color: #c9d1d9;
+      margin-top: 0.4rem;
+      font-family: var(--font-mono);
+    }
+
+    /* Consola de Simulação de Tráfego HTTP */
+    .traffic-console {
+      background: #090d13;
+      border: 1px solid #21262d;
+      border-radius: 4px;
+      padding: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #7ee787;
+      min-height: 80px;
+      max-height: 140px;
+      overflow-y: auto;
+      margin-top: var(--space-4);
+      line-height: 1.5;
+    }
+
+    /* Linha de Código de Exemplo */
+    .code-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #161b22;
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid var(--border-color);
+      border-bottom: none;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+    }
+    .code-container {
+      background: #0d1117;
+      color: #e6edf3;
+      border: 1px solid var(--border-color);
+      padding: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      line-height: 1.6;
+      overflow-x: auto;
+      max-height: 520px;
+      margin-bottom: var(--space-6);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header Landmark -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-logo">WD<span>101</span></a>
+        <span class="brand-meta">FBAUP Design 2026/27</span>
+      </div>
+
+      <nav class="site-nav" aria-label="Navegação Superior">
+        <ul>
+          <li><a href="index.html#study-goals"><span class="lang-pt">← Plataforma</span><span class="lang-en">← Main Portal</span></a></li>
+          <li><a href="#diagrama-web"><span class="lang-pt">Diagrama da Web</span><span class="lang-en">Web Architecture</span></a></li>
+          <li><a href="#regra-semanas-1-2"><span class="lang-pt">Regra Obrigatória</span><span class="lang-en">Mandatory Rule</span></a></li>
+          <li><a href="#html5-landmarks"><span class="lang-pt">Landmarks HTML5</span><span class="lang-en">HTML5 Landmarks</span></a></li>
+          <li><a href="#devtools">DevTools</a></li>
+          <li><a href="#publicacao-sftp"><span class="lang-pt">Publicação sFTP</span><span class="lang-en">sFTP Publishing</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="header-controls">
+        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
+        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    
+    <!-- Hero / Enquadramento -->
+    <header class="guide-hero">
+      <a href="index.html#study-goals" class="guide-back-link">
+        <span class="lang-pt">← Voltar à Plataforma WD101</span>
+        <span class="lang-en">← Back to WD101 Main Portal</span>
+      </a>
+      <span class="hero-eyebrow">
+        <span class="lang-pt">Semana 1–2 • Andaime Pedagógico WD101</span>
+        <span class="lang-en">Weeks 1–2 • WD101 Pedagogical Scaffold</span>
+      </span>
+      <h1 class="hero-title" style="font-size:var(--text-3xl);margin:var(--space-2) 0 var(--space-4);">
+        <span class="lang-pt">Mentalidade Mobile-First, Arquitetura da Web &amp; Boas Práticas</span>
+        <span class="lang-en">Mobile-First Mindset, Web Architecture &amp; Best Practices</span>
+      </h1>
+      <p style="font-size:var(--text-lg);color:var(--text-secondary);max-width:70ch;line-height:1.5;">
+        <span class="lang-pt">Aprenda a pensar o desenvolvimento web de dentro para fora: o percurso físico de um pacote IP na rede, a anatomia de um documento semântico rigoroso, a regra de ouro das declarações estruturais e a publicação no servidor universitário.</span>
+        <span class="lang-en">Learn to construct the web from the inside out: the physical path of an IP packet through the network, strict semantic document anatomy, the golden rule of structural declarations, and university server deployment.</span>
+      </p>
+    </header>
+
+    <!-- 1. Filosofia Pedagógica -->
+    <section id="filosofia" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">1. A Filosofia Pedagógica Holística da WD101</span>
+        <span class="lang-en">1. The Holistic Pedagogical Philosophy of WD101</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-4);">
+        <span class="lang-pt">A abordagem nestas primeiras semanas é <strong>holística, iterativa e faseada em níveis</strong>. Não aprendemos propriedades CSS isoladas em abstrato; cada elemento HTML e linha de CSS responde diretamente à forma como o navegador desenha píxeis no ecrã e como os dados circulam fisicamente na rede mundial de computadores.</span>
+        <span class="lang-en">Our pedagogical approach in these initial weeks is <strong>holistic, iterative, and staged by tiers</strong>. We do not memorize CSS properties in a vacuum; each HTML element and line of CSS directly responds to how the browser paints pixels on screen and how data physically travels across the global computer network.</span>
+      </p>
+      
+      <div class="callout-box">
+        <strong class="lang-pt">O Princípio da Simplicidade Estrutural (Semanas 1 e 2)</strong>
+        <strong class="lang-en">The Principle of Structural Simplicity (Weeks 1 and 2)</strong>
+        <p class="lang-pt">
+          <strong>Apenas 1 página HTML (<code>index.html</code>) + 1 ficheiro CSS (<code>css/style.css</code>)</strong>. Sem imagens externas, sem ficheiros multimédia adicionais e com <strong>zero JavaScript</strong>. O foco absoluto é dominar a árvore semântica do HTML5, o fluxo normal do documento, as 3 tipologias de hiperligações e o modelo de caixa básico.
+        </p>
+        <p class="lang-en">
+          <strong>Exactly 1 HTML file (<code>index.html</code>) + 1 CSS file (<code>css/style.css</code>)</strong>. Zero external images, zero extra media, and <strong>zero JavaScript</strong>. The absolute pedagogical priority is mastering HTML5 semantic DOM trees, document normal flow, the 3 hyperlink typologies, and box model foundations.
+        </p>
+      </div>
+    </section>
+
+    <!-- 2. Diagrama da Arquitetura Web -->
+    <section id="diagrama-web" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">2. Como Funciona a Web: Da Intenção do Utilizador ao Servidor</span>
+        <span class="lang-en">2. How the Web Works: From User Intent to the Remote Server</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-4);">
+        <span class="lang-pt">Quando um utilizador digita um endereço ou toca numa ligação num telemóvel, inicia-se uma viagem bidirecional em camadas:</span>
+        <span class="lang-en">When a user types an address or taps a link on a mobile device, a layered bidirectional journey is initiated:</span>
+      </p>
+
+      <!-- Web Diagram Widget -->
+      <div class="web-diagram-container">
+        <div class="diagram-controls">
+          <div>
+            <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:#58a6ff;text-transform:uppercase;letter-spacing:0.05em;">
+              <span class="lang-pt">Topologia da Rede &amp; Ciclo de Requisição HTTP</span>
+              <span class="lang-en">Network Topology &amp; HTTP Request Lifecycle</span>
+            </span>
+          </div>
+          <button id="btn-simulate-packet" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);">
+            <span class="lang-pt">Simular Requisição HTTP (Pacotes GET / Resposta) 🚀</span>
+            <span class="lang-en">Simulate HTTP Request (GET / Response Packets) 🚀</span>
+          </button>
+        </div>
+
+        <div class="diagram-stage">
+          <!-- Node 1: Utilizador -->
+          <div class="diagram-node" id="node-user">
+            <div>
+              <div class="node-header">👤 <span class="lang-pt">Utilizador</span><span class="lang-en">User</span></div>
+              <div class="node-body">
+                <span class="lang-pt">Interação táctil ou clique num URL. Intenção humana de aceder ao conteúdo.</span>
+                <span class="lang-en">Touch tap or click on a URL. Human intent to consume web content.</span>
+              </div>
+            </div>
+            <span class="node-badge"><span class="lang-pt">Ecrã Táctil / Input</span><span class="lang-en">Touch Screen / Input</span></span>
+          </div>
+
+          <!-- Node 2: Navegador -->
+          <div class="diagram-node" id="node-browser">
+            <div>
+              <div class="node-header">🌐 Browser (Client)</div>
+              <div class="node-body">
+                <span class="lang-pt">Safari, Chrome, Firefox. Constrói o pedido HTTP, renderiza o DOM/CSSOM e executa o motor gráfico.</span>
+                <span class="lang-en">Safari, Chrome, Firefox. Crafts the HTTP request, constructs DOM/CSSOM, paints pixels.</span>
+              </div>
+            </div>
+            <span class="node-badge"><span class="lang-pt">Software Cliente</span><span class="lang-en">Client Software</span></span>
+          </div>
+
+          <!-- Node 3: Dispositivo & Rede -->
+          <div class="diagram-node" id="node-network">
+            <div>
+              <div class="node-header">📡 <span class="lang-pt">Rede &amp; ISP</span><span class="lang-en">Network &amp; ISP</span></div>
+              <div class="node-body">
+                <span class="lang-pt">Ponto de Acesso Wi-Fi / 4G/5G, Hub, Router local e Operador de Telecomunicações (ISP).</span>
+                <span class="lang-en">Wi-Fi AP, 4G/5G cell tower, local router, and Internet Service Provider (ISP).</span>
+              </div>
+            </div>
+            <span class="node-badge"><span class="lang-pt">Física / IP Packets</span><span class="lang-en">Physical / IP Packets</span></span>
+          </div>
+
+          <!-- Node 4: DNS / ICANN -->
+          <div class="diagram-node" id="node-dns">
+            <div>
+              <div class="node-header">🧭 DNS &amp; ICANN</div>
+              <div class="node-body">
+                <span class="lang-pt">Conversão de nome em IP. Os Name Servers autoritativos traduzem <code>pages.up.pt</code> no IP do servidor da Universidade.</span>
+                <span class="lang-en">Name-to-IP resolution. Authoritative Name Servers translate <code>pages.up.pt</code> into the University IP.</span>
+              </div>
+            </div>
+            <span class="node-badge">Porta 53 (UDP)</span>
+          </div>
+
+          <!-- Node 5: Servidor Remoto -->
+          <div class="diagram-node" id="node-server">
+            <div>
+              <div class="node-header">🖥️ <span class="lang-pt">Servidor Remoto</span><span class="lang-en">Remote Server</span></div>
+              <div class="node-body">
+                <span class="lang-pt">Apache/Nginx à escuta nas portas 80/443. Servidor sFTP (porta 22) para publicação de ficheiros no sistema de pastas.</span>
+                <span class="lang-en">Apache/Nginx daemon listening on ports 80/443. sFTP server (port 22) for file system uploads.</span>
+              </div>
+            </div>
+            <span class="node-badge">Portas 80, 443, 22</span>
+          </div>
+        </div>
+
+        <!-- Consola de Tráfego Interativa -->
+        <div class="traffic-console" id="traffic-console">
+          <span class="lang-pt">&gt; Clique no botão acima para simular a viagem dos pacotes de requisição HTTP entre o cliente e o servidor da Universidade do Porto...</span>
+          <span class="lang-en">&gt; Click the button above to simulate HTTP packet roundtrip between the client and the University of Porto server...</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. A Regra Obrigatória -->
+    <section id="regra-semanas-1-2" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">3. A Regra de Ouro Obrigatória (Semanas 1 e 2)</span>
+        <span class="lang-en">3. The Mandatory Golden Rule (Weeks 1 and 2)</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-4);">
+        <span class="lang-pt">Para incutir uma compreensão visceral da hierarquia e herança em cascata (relação entre elementos pais, irmãos e filhos), <strong>nesta UC é rigorosamente obrigatório durante as primeiras duas semanas declarar explicitamente em todos os contentores estruturais:</strong></span>
+        <span class="lang-en">To instill an instinctive grasp of document hierarchy and cascading inheritance (parent, sibling, and child relationships), <strong>in this course it is strictly mandatory during weeks 1 and 2 to explicitly declare on all structural landmark containers:</strong></span>
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:var(--space-4);margin-bottom:var(--space-6);">
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;">
+          <h4 style="font-size:var(--text-base);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
+            1. <code>position: relative;</code>
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;">
+            <span class="lang-pt">Garante que o elemento permanece dentro do fluxo normal do documento, mas estabelece o contexto de posicionamento para o seu espaço geométrico.</span>
+            <span class="lang-en">Keeps the element in normal document flow while defining a local coordinate context for its geometrical space.</span>
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;">
+          <h4 style="font-size:var(--text-base);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
+            2. <code>display: block;</code>
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;">
+            <span class="lang-pt">Ocupa a largura total da linha e empilha os irmãos verticalmente. Força a disciplina do modelo de caixa antes de usar Flexbox ou Grid.</span>
+            <span class="lang-en">Occupies full line width and stacks siblings vertically. Enforces box model discipline before introducing Flexbox or Grid.</span>
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;">
+          <h4 style="font-size:var(--text-base);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
+            3. <span class="lang-pt">Dimensões Relativas</span><span class="lang-en">Relative Dimensions</span>
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;">
+            <span class="lang-pt">O <code>body</code> referencia o viewport (<code>100vw</code> / <code>100vh</code>), e todos os elementos descendentes usam medidas relativas (percentagens e <code>rem</code>), herdando o espaço dos pais.</span>
+            <span class="lang-en">The <code>body</code> references the viewport (<code>100vw</code> / <code>100vh</code>), and all descendant elements use relative measures (% and <code>rem</code>).</span>
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;">
+          <h4 style="font-size:var(--text-base);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
+            4. <span class="lang-pt">Limites Elásticos</span><span class="lang-en">Elastic Boundaries</span> (<code>min</code> / <code>max</code>)
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;">
+            <span class="lang-pt"><strong>Mobile-First desde o 1.º dia:</strong> <code>min-width: 320px;</code> (garantia para ecrãs pequenos) e <code>max-width: 75ch;</code> (limite tipográfico ergonómico de leitura).</span>
+            <span class="lang-en"><strong>Mobile-First from day one:</strong> <code>min-width: 320px;</code> (small screen guarantee) and <code>max-width: 75ch;</code> (ergonomic reading line length limit).</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Anatomia HTML5 & Landmarks -->
+    <section id="html5-landmarks" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">4. Anatomia do Documento HTML5 &amp; Landmarks</span>
+        <span class="lang-en">4. HTML5 Document Anatomy &amp; Landmarks</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-4);">
+        <span class="lang-pt">Estrutura semântica rigorosa com identificadores para criação de <em>Named Anchors</em> (ligações internas):</span>
+        <span class="lang-en">Strict semantic structure with IDs configured for internal <em>Named Anchors</em>:</span>
+      </p>
+
+      <ul style="font-size:var(--text-sm);line-height:1.8;color:var(--text-secondary);list-style:disc;padding-left:1.5rem;margin-bottom:var(--space-4);">
+        <li><code>&lt;!DOCTYPE html&gt;</code> &amp; <code>&lt;html lang="pt"&gt;</code>: <span class="lang-pt">Declaração padrão e raiz com metadados de idioma.</span><span class="lang-en">Standard declaration and root element with language metadata.</span></li>
+        <li><code>&lt;head&gt;</code>: <span class="lang-pt">Contém o <code>&lt;title&gt;</code> e a ligação à folha de estilos <code>&lt;link rel="stylesheet" href="css/style.css"&gt;</code>.</span><span class="lang-en">Houses <code>&lt;title&gt;</code> and stylesheet reference <code>&lt;link rel="stylesheet" href="css/style.css"&gt;</code>.</span></li>
+        <li><code>&lt;body&gt;</code>: <span class="lang-pt">Corpo principal do documento (tamanho relativo ao viewport).</span><span class="lang-en">Main document body (sized relative to viewport).</span></li>
+        <li><code>&lt;header&gt;</code>: <span class="lang-pt">Cabeçalho com <code>&lt;h1&gt;</code> principal e navegação <code>&lt;nav&gt;</code> com lista de links <code>&lt;ul&gt; &lt;li&gt; &lt;a&gt;</code>.</span><span class="lang-en">Header with primary <code>&lt;h1&gt;</code> and navigation <code>&lt;nav&gt;</code> containing link list <code>&lt;ul&gt; &lt;li&gt; &lt;a&gt;</code>.</span></li>
+        <li><code>&lt;main&gt;</code>: <span class="lang-pt">Conteúdo principal estruturado em <code>&lt;section&gt;</code> (cada uma com <code>&lt;h2&gt;</code>) e <code>&lt;article&gt;</code> (com <code>&lt;h3&gt;</code> e <code>&lt;p&gt;</code>).</span><span class="lang-en">Main content structured into <code>&lt;section&gt;</code> (each with <code>&lt;h2&gt;</code>) and <code>&lt;article&gt;</code> (with <code>&lt;h3&gt;</code> and <code>&lt;p&gt;</code>).</span></li>
+        <li><code>&lt;aside&gt;</code>: <span class="lang-pt">Conteúdo complementar lateral, exemplificado com Lista de Definições (<code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code>).</span><span class="lang-en">Complementary content, exemplified via a Description List (<code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code>).</span></li>
+        <li><code>&lt;footer&gt;</code>: <span class="lang-pt">Rodapé do documento com créditos, direitos de autor e link de retorno ao topo.</span><span class="lang-en">Document footer containing copyright notice and return-to-top anchor.</span></li>
+      </ul>
+    </section>
+
+    <!-- 5. O Inspetor do Browser -->
+    <section id="devtools" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">5. O Inspetor do Browser: O Teu Melhor Amigo</span>
+        <span class="lang-en">5. The Browser Inspector: Your Best Ally</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-4);">
+        <span class="lang-pt">Sempre que algo não se comporta como esperado no ecrã, <strong>não adivinhe: inspecione visualmente</strong>.</span>
+        <span class="lang-en">Whenever something misbehaves on screen, <strong>do not guess: inspect visually</strong>.</span>
+      </p>
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;">
+        <ul style="font-size:var(--text-sm);line-height:1.7;color:var(--text-secondary);list-style:disc;padding-left:1.5rem;">
+          <li><span class="lang-pt"><strong>Como abrir:</strong> Botão direito do rato sobre qualquer elemento &rarr; <em>Inspecionar</em> (ou <code>Cmd + Option + I</code> no Mac / <code>F12</code> no Windows).</span><span class="lang-en"><strong>How to open:</strong> Right click any element &rarr; <em>Inspect</em> (or <code>Cmd + Option + I</code> on Mac / <code>F12</code> on Windows).</span></li>
+          <li><span class="lang-pt"><strong>Modo de Dispositivos Móveis:</strong> Clique no ícone de telemóvel/tablet para testar larguras reais de 320px, 375px e 414px.</span><span class="lang-en"><strong>Responsive Device Mode:</strong> Tap the phone/tablet icon to test actual widths at 320px, 375px, and 414px.</span></li>
+          <li><span class="lang-pt"><strong>Edição em Tempo Real:</strong> Pode ativar/desativar regras CSS e testar valores no painel <em>Styles</em> sem ter de guardar o ficheiro.</span><span class="lang-en"><strong>Live Editing:</strong> Toggle CSS declarations and tweak property values in the <em>Styles</em> panel in real-time.</span></li>
+          <li><span class="lang-pt"><strong>Visualizador do Modelo de Caixa:</strong> Observe as cores que o browser desenha para <em>Content</em> (azul), <em>Padding</em> (verde), <em>Border</em> (amarelo) e <em>Margin</em> (laranja).</span><span class="lang-en"><strong>Box Model Visualizer:</strong> Inspect browser color highlights for <em>Content</em> (blue), <em>Padding</em> (green), <em>Border</em> (yellow), and <em>Margin</em> (orange).</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6. Publicação por sFTP e Nomenclatura -->
+    <section id="publicacao-sftp" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">6. Publicação por sFTP no pages.up.pt &amp; Nomenclatura</span>
+        <span class="lang-en">6. Publishing via sFTP to pages.up.pt &amp; Naming Rules</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-4);">
+        <span class="lang-pt">Testar no disco rígido local (<code>file:///</code>) não é suficiente. O trabalho de web design só está concluído quando é servido através de um protocolo HTTP/HTTPS num servidor real.</span>
+        <span class="lang-en">Testing locally from a hard drive (<code>file:///</code>) is not sufficient. Web design work is only verified once served through HTTP/HTTPS from a live production server.</span>
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:var(--space-4);margin-bottom:var(--space-6);">
+        <!-- Regras de Nomenclatura -->
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;">
+          <h4 style="font-size:var(--text-sm);font-weight:700;margin-bottom:var(--space-2);color:var(--color-swiss-red);">
+            <span class="lang-pt">Regras Rígidas de Nomenclatura de Ficheiros (URLs Universais)</span>
+            <span class="lang-en">Strict File Naming Rules (Universal URLs)</span>
+          </h4>
+          <ul style="font-size:var(--text-xs);line-height:1.7;color:var(--text-secondary);list-style:disc;padding-left:1.2rem;">
+            <li><span class="lang-pt"><strong>Apenas minúsculas:</strong> Os servidores Linux diferenciam maiúsculas de minúsculas (<code>Index.html</code> vs <code>index.html</code>). Use sempre minúsculas.</span><span class="lang-en"><strong>Strictly lowercase:</strong> Linux servers are case-sensitive (<code>Index.html</code> vs <code>index.html</code>). Always use lowercase.</span></li>
+            <li><span class="lang-pt"><strong>Sem espaços:</strong> Substitua espaços por hífen (<code>meu-exercicio-1</code> e nunca <code>meu exercicio 1</code>).</span><span class="lang-en"><strong>No spaces:</strong> Replace spaces with hyphens (<code>my-assignment-1</code>, never <code>my assignment 1</code>).</span></li>
+            <li><span class="lang-pt"><strong>Sem acentos ou cedilhas:</strong> Evite caracteres como <code>ã, é, ç</code> nos nomes de pastas e ficheiros para evitar erros de codificação de URL (ex: <code>%20</code> ou <code>%C3%A7</code>).</span><span class="lang-en"><strong>No accents or special characters:</strong> Avoid accented characters in file names to prevent percent-encoding errors.</span></li>
+            <li><span class="lang-pt"><strong>O ficheiro de entrada:</strong> Tem de chamar-se obrigatoriamente <code>index.html</code> para que o servidor o sirva automaticamente como raiz da pasta.</span><span class="lang-en"><strong>Entry point file:</strong> Must be named <code>index.html</code> so web servers serve it automatically as directory index.</span></li>
+          </ul>
+        </div>
+
+        <!-- Dados sFTP -->
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;">
+          <h4 style="font-size:var(--text-sm);font-weight:700;margin-bottom:var(--space-2);color:var(--color-accent-blue);">
+            <span class="lang-pt">Dados de Ligação sFTP (pages.up.pt)</span>
+            <span class="lang-en">sFTP Connection Details (pages.up.pt)</span>
+          </h4>
+          <ul style="font-size:var(--text-xs);line-height:1.7;color:var(--text-secondary);list-style:disc;padding-left:1.2rem;">
+            <li><strong>Protocolo:</strong> SFTP (SSH File Transfer Protocol)</li>
+            <li><strong>Servidor / Host:</strong> <code>sigarra.up.pt</code> ou <code>pages.up.pt</code></li>
+            <li><strong>Porta:</strong> <code>22</code></li>
+            <li><strong>Utilizador:</strong> O teu número de estudante (ex: <code>up202612345</code>)</li>
+            <li><strong>Palavra-passe:</strong> A senha institucional da Universidade do Porto</li>
+            <li><span class="lang-pt"><strong>Pasta Remota:</strong> Publicar dentro de <code>public_html/</code></span><span class="lang-en"><strong>Remote Directory:</strong> Upload inside <code>public_html/</code></span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Código Modelo Oficial -->
+    <section id="starter-kit" style="margin-bottom:var(--space-12);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">7. Código Modelo Oficial das Semanas 1 e 2</span>
+        <span class="lang-en">7. Official Reference Starter Code for Weeks 1 &amp; 2</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-4);">
+        <span class="lang-pt">A estrutura abaixo cumpre 100% dos requisitos docentes. Pode copiar este código como ponto de partida para o Exercício 1:</span>
+        <span class="lang-en">The code below strictly satisfies 100% of the pedagogical requirements. Use it as reference for Exercise 1:</span>
+      </p>
+
+      <!-- HTML Starter Block -->
+      <div class="code-toolbar">
+        <span>📄 index.html</span>
+        <button id="copy-html-btn" class="btn-control" style="font-size:0.7rem;">
+          <span class="lang-pt">Copiar HTML</span>
+          <span class="lang-en">Copy HTML</span>
+        </button>
+      </div>
+      <pre class="code-container" id="code-html-block"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Drumtiks '26 • Semana 1–2 Mobile-First Starter&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/style.css"&gt;
+&lt;/head&gt;
+&lt;body id="topo"&gt;
+
+  &lt;!-- Cabeçalho Principal --&gt;
+  &lt;header id="cabecalho-principal"&gt;
+    &lt;h1&gt;Drumtiks '26&lt;/h1&gt;
+    &lt;nav aria-label="Navegação Principal"&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#sobre"&gt;Sobre&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#palcos"&gt;Palcos&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#bilhetes"&gt;Bilhetes&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="https://fbaup.up.pt" target="_blank" rel="noopener noreferrer"&gt;FBAUP ↗&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="mailto:info@drumtiks.up.pt"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;!-- Conteúdo Principal --&gt;
+  &lt;main id="conteudo-principal"&gt;
+    &lt;section id="sobre"&gt;
+      &lt;h2&gt;Sobre o Festival&lt;/h2&gt;
+      &lt;p&gt;O Drumtiks '26 celebra a percussão modular e as frequências cinéticas.&lt;/p&gt;
+      &lt;article id="artigo-missao"&gt;
+        &lt;h3&gt;Nossa Missão Acústica&lt;/h3&gt;
+        &lt;p&gt;Explorar ritmos responsivos através de &lt;strong&gt;design modular puro&lt;/strong&gt;.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/section&gt;
+
+    &lt;section id="palcos"&gt;
+      &lt;h2&gt;Palcos &amp; Programação&lt;/h2&gt;
+      &lt;p&gt;Três palcos dedicados à experimentação sonora ininterrupta.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;aside id="informacoes-laterais"&gt;
+      &lt;h2&gt;Glossário Técnico&lt;/h2&gt;
+      &lt;dl&gt;
+        &lt;dt&gt;BPM&lt;/dt&gt;
+        &lt;dd&gt;Batidas Por Minuto, a métrica temporal dos sintetizadores.&lt;/dd&gt;
+      &lt;/dl&gt;
+    &lt;/aside&gt;
+  &lt;/main&gt;
+
+  &lt;!-- Rodapé do Documento --&gt;
+  &lt;footer id="rodape-principal"&gt;
+    &lt;p&gt;&amp;copy; 2026 Drumtiks Festival • FBAUP WD101 • &lt;a href="#topo"&gt;↑ Voltar ao Topo&lt;/a&gt;&lt;/p&gt;
+  &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+      <!-- CSS Starter Block -->
+      <div class="code-toolbar">
+        <span>🎨 css/style.css</span>
+        <button id="copy-css-btn" class="btn-control" style="font-size:0.7rem;">
+          <span class="lang-pt">Copiar CSS</span>
+          <span class="lang-en">Copy CSS</span>
+        </button>
+      </div>
+      <pre class="code-container" id="code-css-block"><code>/* Reset Universal Básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 1. Viewport e Raiz */
+html {
+  font-size: 16px;
+  background-color: #09090b;
+  color: #f4f4f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* 2. O Body referencia o Viewport Total */
+body {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  min-width: 320px;
+  max-width: 75ch;
+  padding: 1.5rem 1rem;
+}
+
+/* 3. Declarações Obrigatórias para TODOS os Contentores */
+header, nav, main, section, article, aside, footer {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 320px;
+  max-width: 75ch;
+  margin-bottom: 2rem;
+}
+
+/* 4. Estilos de Navegação (Seletores Descendentes) */
+header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+header nav ul li {
+  display: inline-block;
+  margin-right: 1.25rem;
+}
+
+header nav ul li a {
+  color: #e60000;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+header nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* 5. Tipografia Relativa e Limites Elásticos */
+h1 { font-size: 2.25rem; line-height: 1.2; margin-bottom: 0.75rem; color: #fff; }
+h2 { font-size: 1.5rem; line-height: 1.3; margin-bottom: 0.5rem; color: #e60000; border-bottom: 1px solid #27272a; padding-bottom: 0.3rem; }
+h3 { font-size: 1.15rem; line-height: 1.4; margin-bottom: 0.5rem; }
+p { font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; color: #a1a1aa; }
+
+/* 6. Aside e Lista de Definições */
+aside dl { margin: 1rem 0; }
+aside dt { font-weight: bold; color: #fff; }
+aside dd { margin-left: 1rem; margin-bottom: 0.5rem; }
+
+/* 7. Rodapé */
+footer {
+  border-top: 1px solid #27272a;
+  padding-top: 1.5rem;
+  font-size: 0.85rem;
+  color: #71717a;
+}
+footer a { color: #e60000; text-decoration: none; }
+footer a:hover { text-decoration: underline; }</code></pre>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div>
+        <strong>WD101 — Web Design</strong> • 2026/2027<br>
+        Faculdade de Belas Artes da Universidade do Porto • Licenciatura em Design de Comunicação
+      </div>
+      <div>
+        <a href="#topo" class="matrix-link">
+          <span class="lang-pt">↑ Topo da Página</span>
+          <span class="lang-en">↑ Back to Top</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 1. Theme Toggle Script
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    function updateThemeBtnState() {
+      if (!themeBtn) return;
+      const current = document.documentElement.getAttribute('data-theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const isDark = current === 'dark';
+      const lang = document.documentElement.getAttribute('lang') || 'pt';
+      const label = isDark ? (lang === 'pt' ? 'Escuro' : 'Dark') : (lang === 'pt' ? 'Claro' : 'Light');
+      const icon = isDark ? '🌙' : '☀';
+      themeBtn.innerHTML = `${icon} <span>${label}</span>`;
+      themeBtn.setAttribute('title', lang === 'pt' ? `Tema atual: ${label}. Clique para alternar.` : `Current theme: ${label}. Click to toggle.`);
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('wd101_theme', next);
+        updateThemeBtnState();
+      });
+      const savedTheme = localStorage.getItem('wd101_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      updateThemeBtnState();
+    }
+
+    // 2. Language Toggle Script
+    const langBtn = document.getElementById('lang-toggle-btn');
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('wd101_lang', lang);
+      if (langBtn) {
+        langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
+      }
+      updateThemeBtnState();
+    }
+
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('lang') || 'pt';
+        const next = current === 'pt' ? 'en' : 'pt';
+        setLanguage(next);
+      });
+      setLanguage(localStorage.getItem('wd101_lang') || 'pt');
+    }
+
+    // 3. Simulação Interativa da Arquitetura Web
+    const btnSimulate = document.getElementById('btn-simulate-packet');
+    const consoleEl = document.getElementById('traffic-console');
+
+    if (btnSimulate && consoleEl) {
+      btnSimulate.addEventListener('click', () => {
+        btnSimulate.disabled = true;
+        consoleEl.innerHTML = '';
+        const lang = document.documentElement.getAttribute('lang') || 'pt';
+
+        const stepsPt = [
+          { node: 'node-user', msg: '&gt; [1/6] UTILIZADOR: Toca no ecrã táctil para abrir "https://pages.up.pt/drumtiks/index.html".' },
+          { node: 'node-browser', msg: '&gt; [2/6] BROWSER: Constrói o pedido. Necessita de saber o endereço IP de "pages.up.pt".' },
+          { node: 'node-network', msg: '&gt; [3/6] REDE / ISP: Pacote UDP viaja pelo Wi-Fi/Fibra até ao servidor DNS do ISP.' },
+          { node: 'node-dns', msg: '&gt; [4/6] DNS &amp; ICANN: Resolução autoritativa de nome. "pages.up.pt" -&gt; IP 193.136.2.14.' },
+          { node: 'node-server', msg: '&gt; [5/6] SERVIDOR (Porta 443): Conexão TCP/TLS estabelecida. Pedido HTTP GET /index.html recebido.' },
+          { node: 'node-browser', msg: '&gt; [6/6] RESPOSTA (HTTP 200 OK): O servidor entrega o ficheiro HTML! O browser faz o parse, encontra &lt;link rel="stylesheet" href="css/style.css"&gt;, pede o CSS e renderiza a página no ecrã!' }
+        ];
+
+        const stepsEn = [
+          { node: 'node-user', msg: '&gt; [1/6] USER: Taps touch screen to load "https://pages.up.pt/drumtiks/index.html".' },
+          { node: 'node-browser', msg: '&gt; [2/6] BROWSER: Crafts HTTP request. Needs to resolve "pages.up.pt" to an IP address.' },
+          { node: 'node-network', msg: '&gt; [3/6] NETWORK / ISP: UDP datagram travels through Wi-Fi/Fiber to the ISP DNS resolver.' },
+          { node: 'node-dns', msg: '&gt; [4/6] DNS &amp; ICANN: Authoritative domain resolution. "pages.up.pt" -&gt; IP 193.136.2.14.' },
+          { node: 'node-server', msg: '&gt; [5/6] SERVER (Port 443): TCP/TLS handshake established. Incoming HTTP GET /index.html received.' },
+          { node: 'node-browser', msg: '&gt; [6/6] RESPONSE (HTTP 200 OK): Server streams HTML! Browser parses DOM, discovers &lt;link rel="stylesheet" href="css/style.css"&gt;, fetches CSS, and paints page!' }
+        ];
+
+        const steps = lang === 'en' ? stepsEn : stepsPt;
+        let index = 0;
+
+        function runNextStep() {
+          if (index < steps.length) {
+            const step = steps[index];
+            document.querySelectorAll('.diagram-node').forEach(n => n.classList.remove('active-node'));
+            const activeNode = document.getElementById(step.node);
+            if (activeNode) activeNode.classList.add('active-node');
+
+            consoleEl.innerHTML += step.msg + '<br>';
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+
+            index++;
+            setTimeout(runNextStep, 900);
+          } else {
+            setTimeout(() => {
+              document.querySelectorAll('.diagram-node').forEach(n => n.classList.remove('active-node'));
+              consoleEl.innerHTML += lang === 'en' 
+                ? '&gt; [ROUNDTRIP COMPLETE] Page rendered and interactive on user device! 🎉'
+                : '&gt; [CICLO CONCLUÍDO] Página pronta e funcional no dispositivo do utilizador! 🎉';
+              consoleEl.scrollTop = consoleEl.scrollHeight;
+              btnSimulate.disabled = false;
+            }, 500);
+          }
+        }
+
+        runNextStep();
+      });
+    }
+
+    // 4. Botões de Cópia de Código
+    document.getElementById('copy-html-btn')?.addEventListener('click', (e) => {
+      const text = document.getElementById('code-html-block')?.textContent || '';
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = e.target.textContent;
+        const lang = document.documentElement.getAttribute('lang') || 'pt';
+        e.target.textContent = lang === 'en' ? 'Copied!' : 'Copiado!';
+        setTimeout(() => e.target.textContent = orig, 1500);
+      });
+    });
+
+    document.getElementById('copy-css-btn')?.addEventListener('click', (e) => {
+      const text = document.getElementById('code-css-block')?.textContent || '';
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = e.target.textContent;
+        const lang = document.documentElement.getAttribute('lang') || 'pt';
+        e.target.textContent = lang === 'en' ? 'Copied!' : 'Copiado!';
+        setTimeout(() => e.target.textContent = orig, 1500);
+      });
+    });
+  </script>
+</body>
+</html>

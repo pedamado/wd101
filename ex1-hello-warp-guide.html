@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EX1: Hello Warp! — Guião Passo a Passo &amp; Resolução • WD101</title>
+  
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+
+  <script>
+    /* Previne FOUC de tema e idioma */
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme');
+      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
+
+  <style>
+    .guide-hero {
+      border-bottom: 2px solid var(--color-swiss-red);
+      padding: var(--space-8) 0;
+      margin-bottom: var(--space-8);
+    }
+    .guide-back-link {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-swiss-red);
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: var(--space-3);
+    }
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--color-swiss-red);
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+      border-radius: 0 4px 4px 0;
+    }
+    .step-card h3 {
+      font-size: var(--text-xl);
+      color: var(--text-primary);
+      margin-bottom: var(--space-2);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+    .step-badge {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      background: var(--color-swiss-red);
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+    }
+
+    /* Accordion de Explicação Técnica */
+    details.tech-deep-dive {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      margin-top: var(--space-4);
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-xs);
+      line-height: 1.6;
+    }
+    details.tech-deep-dive summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--color-swiss-red);
+      user-select: none;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    details.tech-deep-dive summary::-webkit-details-marker {
+      display: none;
+    }
+    details.tech-deep-dive summary::after {
+      content: "▾";
+      font-size: 1.1rem;
+      transition: transform 0.2s ease;
+    }
+    details.tech-deep-dive[open] summary::after {
+      transform: rotate(180deg);
+    }
+    details.tech-deep-dive .deep-dive-content {
+      margin-top: var(--space-3);
+      padding-top: var(--space-3);
+      border-top: 1px dashed var(--border-color);
+    }
+
+    .tag-item-list {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-2) 0;
+    }
+    .tag-item-list li {
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .tag-item-list li:last-child {
+      border-bottom: none;
+    }
+    .tag-item-list code {
+      color: var(--color-swiss-red);
+      font-weight: 700;
+      background: var(--bg-surface);
+      padding: 0.1rem 0.4rem;
+      border: 1px solid var(--border-color);
+      border-radius: 2px;
+      margin-right: 0.4rem;
+    }
+
+    .rubric-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-xs);
+      margin: var(--space-4) 0;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+    }
+    .rubric-table th, .rubric-table td {
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--border-color);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .rubric-table th {
+      background: var(--bg-surface-elevated);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .rubric-score {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--color-swiss-red);
+      white-space: nowrap;
+    }
+    .code-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #161b22;
+      color: #e6edf3;
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid var(--border-color);
+      border-bottom: none;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+    }
+    .code-container {
+      background: #0d1117;
+      color: #e6edf3;
+      border: 1px solid var(--border-color);
+      padding: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      line-height: 1.6;
+      border-radius: 4px;
+      overflow-x: auto;
+      overflow-y: visible;
+      height: auto;
+      max-height: none;
+      margin-bottom: var(--space-6);
+    }
+    .demo-callout-banner {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      padding: var(--space-6);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-logo">WD<span>101</span></a>
+        <span class="brand-meta" data-i18n="brand_meta">FBAUP Design 2026/27</span>
+      </div>
+
+      <nav class="site-nav" aria-label="Navegação Superior">
+        <ul>
+          <li><a href="index.html#assignments" data-i18n="nav_assignments">← Enunciados</a></li>
+          <li><a href="#enquadramento" data-i18n="nav_overview">Enquadramento</a></li>
+          <li><a href="#passos" data-i18n="nav_steps">Passo a Passo</a></li>
+          <li><a href="#rubrica" data-i18n="nav_rubric">Rubrica Docente</a></li>
+          <li><a href="#codigo-completo" data-i18n="nav_code">Código Oficial</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-controls">
+        <a href="demos/hello-warp/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);" data-i18n="btn_view_demo">
+          🚀 Ver Mini-Site Demo ↗
+        </a>
+        <button id="lang-toggle-btn" class="btn-control">English</button>
+        <button id="theme-toggle-btn" class="btn-control">◐ Tema</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+
+    <a href="index.html#assignments" class="guide-back-link" data-i18n="back_to_portal">← Voltar aos Enunciados da Plataforma WD101</a>
+
+    <!-- Hero Header -->
+    <header class="guide-hero">
+      <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-2);">
+        <span class="badge badge-foundational">Exercício 1 (EX1)</span>
+        <span class="badge badge-status-yes">Adaptação Oficial: "Hello Warp!"</span>
+        <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">Baseado no enunciado "Hello Wendy!"</span>
+      </div>
+      <h1 style="font-size:var(--text-3xl);margin-bottom:var(--space-2);" data-i18n="hero_title">EX1: Hello Warp! — Landmarks Semânticos &amp; Fluxo Normal</h1>
+      <p style="font-size:var(--text-lg);color:var(--text-secondary);max-width:850px;" data-i18n="hero_desc">
+        O primeiro desafio prático de Web Design 101 adaptado ao universo Drumtiks '26: desenhe e estruture a página de apresentação do <strong>DJ Warp</strong> utilizando exclusivamente landmarks HTML5 nativos, seletores descendentes em CSS e medidas relativas.
+      </p>
+    </header>
+
+    <!-- Banner com Link para a Solução Real -->
+    <div class="demo-callout-banner">
+      <div>
+        <h3 style="font-size:var(--text-lg);font-weight:700;margin-bottom:0.25rem;" data-i18n="banner_title">Mini-Site de Demonstração Disponível</h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);" data-i18n="banner_desc">
+          A resolução integral de 20/20 valores está compilada na pasta <code>learning-scaffold/demos/hello-warp/</code>.
+        </p>
+      </div>
+      <a href="demos/hello-warp/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="padding:var(--space-2) var(--space-4);background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);font-size:var(--text-sm);" data-i18n="btn_open_demo">
+        Abrir Mini-Site do DJ Warp no Browser ↗
+      </a>
+    </div>
+
+    <!-- 1. Enquadramento e Regras do Enunciado Simplificado -->
+    <section id="enquadramento" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);" data-i18n="sec1_title">1. Enquadramento &amp; Desafio Pedagógico</h2>
+      <p style="margin-bottom:var(--space-4);" data-i18n="sec1_p1">
+        O <strong>Exercício 1</strong> marca a transição da teoria para o desenvolvimento web real. O objetivo é dominar o <strong>fluxo normal do documento</strong> e o modelo de caixa sem muletas visuais:
+      </p>
+      
+      <div class="grid-3" style="margin-bottom:var(--space-6);">
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);">
+          <strong style="color:var(--color-swiss-red);display:block;margin-bottom:0.3rem;" data-i18n="card_classes_title">Zero Classes Cosméticas</strong>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;" data-i18n="card_classes_desc">
+            Proibido criar classes do tipo <code>class="titulo"</code> ou <code>class="texto-principal"</code>. O estilo é transmitido pela árvore hierárquica (seletores descendentes).
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);">
+          <strong style="color:var(--color-swiss-red);display:block;margin-bottom:0.3rem;" data-i18n="card_divs_title">Tolerância Zero a &lt;div&gt;</strong>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;" data-i18n="card_divs_desc">
+            Não utilize contentores genéricos onde existe um marco semântico nativo (<code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, <code>aside</code>, <code>footer</code>).
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);">
+          <strong style="color:var(--color-swiss-red);display:block;margin-bottom:0.3rem;" data-i18n="card_images_title">Zero Imagens Externas</strong>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;" data-i18n="card_images_desc">
+            O foco é exclusivamente tipográfico: escala modular em <code>rem</code>, entrelinha unitless e caixas elásticas limitadas a <code>75ch</code>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Passos de Resolução Passo a Passo -->
+        <!-- 2. Passos de Resolução Passo a Passo -->
+    <section id="passos" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-4);" data-i18n="sec2_title">2. Guião de Execução Passo a Passo</h2>
+
+      <!-- PASSO 1 -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 1</span> Higiene de Pastas, Ficheiros e URLs (Marco 1)</span>
+          <span class="lang-en"><span class="step-badge">Step 1</span> Directory, File &amp; URL Hygiene (Milestone 1)</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">A organização física é o primeiro ponto de avaliação docente. O servidor web exige regras rigorosas para permitir URLs limpos.</span>
+          <span class="lang-en">Physical file hygiene is the first academic grading milestone. The web server enforces strict conventions to guarantee clean URLs.</span>
+        </p>
+        <ul style="font-size:var(--text-xs);line-height:1.7;color:var(--text-secondary);list-style:disc;padding-left:1.5rem;margin-bottom:var(--space-4);">
+          <li>
+            <span class="lang-pt">Crie a pasta do exercício: <code>ex1/</code> ou <code>hello-warp/</code> (sempre em minúsculas e sem espaços).</span>
+            <span class="lang-en">Create the assignment folder: <code>ex1/</code> or <code>hello-warp/</code> (strictly lowercase and no spaces).</span>
+          </li>
+          <li>
+            <span class="lang-pt">O ficheiro principal tem de chamar-se obrigatoriamente <code>index.html</code> (em minúsculas).</span>
+            <span class="lang-en">The main entry point file must strictly be named <code>index.html</code> (lowercase).</span>
+          </li>
+          <li>
+            <span class="lang-pt">Crie a subpasta <code>css/</code> e coloque lá a folha de estilos <code>css/style.css</code>.</span>
+            <span class="lang-en">Create the <code>css/</code> subfolder and place the stylesheet <code>css/style.css</code> inside.</span>
+          </li>
+          <li>
+            <span class="lang-pt">Aceda no servidor universitário: <code>https://pages.up.pt/~up123456/ex1/</code>.</span>
+            <span class="lang-en">Access via the university server: <code>https://pages.up.pt/~up123456/ex1/</code>.</span>
+          </li>
+        </ul>
+        <div style="background:#090d13;color:#7ee787;padding:var(--space-3);font-family:var(--font-mono);font-size:var(--text-xs);border-radius:4px;">
+          hello-warp/<br>
+          ├── index.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# <span class="lang-pt">Ficheiro de entrada da página (raiz)</span><span class="lang-en">Entry point file (directory root)</span><br>
+          └── css/<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;└── style.css&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# <span class="lang-pt">Folha de estilos isolada</span><span class="lang-en">Isolated stylesheet</span>
+        </div>
+
+        <!-- ACORDEÃO TÉCNICO PASSO 1 -->
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação detalhada de conceitos, marcas e URLs utilizados neste passo</span>
+            <span class="lang-en">🔍 View detailed explanation of concepts, tags and URLs used in this step</span>
+          </summary>
+          <div class="deep-dive-content">
+            <p>
+              <strong class="lang-pt">Conceitos Fundamentais da Web:</strong>
+              <strong class="lang-en">Core Web Fundamentals:</strong>
+            </p>
+            <ul class="tag-item-list">
+              <li>
+                <code>index.html</code>: <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_web_server" target="_blank" rel="noopener noreferrer">Ficheiro de Índice Padrão (DirectoryIndex) ↗</a> — 
+                <span class="lang-pt">Nome reservado que a generalidade dos servidores HTTP (Apache, Nginx) procura e serve automaticamente quando um cliente acede a uma pasta (ex: <code>.../ex1/</code>). Evita expor a listagem de ficheiros e garante URLs limpos e profissionais.</span>
+                <span class="lang-en">Reserved filename that HTTP servers (Apache, Nginx) automatically search for and serve when a client requests a folder (e.g., <code>.../ex1/</code>). Prevents exposing file directories and guarantees clean, professional URLs.</span>
+              </li>
+              <li>
+                <code>Caminhos Relativos</code>: <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Creating_hyperlinks#a_quick_primer_on_urls_and_paths" target="_blank" rel="noopener noreferrer">URLs e Caminhos Relativos ↗</a> — 
+                <span class="lang-pt">Um caminho como <code>css/style.css</code> indica ao navegador para procurar a pasta <code>css</code> <em>a partir da localização do ficheiro HTML que o invocou</em>. Nunca use caminhos absolutos locais do seu disco rígido (como <code>C:\Users\...</code> ou <code>/Volumes/Macintosh HD/...</code>) porque deixarão de funcionar no momento em que forem enviados para o servidor web.</span>
+                <span class="lang-en">A relative path like <code>css/style.css</code> instructs the browser to look inside the <code>css</code> folder <em>relative to the location of the referencing HTML file</em>. Never use local hard-drive absolute paths (such as <code>C:\Users\...</code> or <code>/Volumes/...</code>), as they break immediately upon upload to a remote server.</span>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 2 -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 2</span> Configuração do &lt;head&gt;, Metadados &amp; Atributos</span>
+          <span class="lang-en"><span class="step-badge">Step 2</span> &lt;head&gt; Configuration, Metadata &amp; Attributes</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Configure o cabeçalho técnico garantindo suporte a caracteres internacionais e responsividade móvel com a meta viewport:</span>
+          <span class="lang-en">Configure technical metadata ensuring international character support and mobile responsiveness via meta viewport:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-PT"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;!-- Obrigatório para Mobile-First: impede zoom reduzido em telemóveis --&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Hello Warp! — Apresentação Oficial DJ Warp • Drumtiks '26&lt;/title&gt;
+  &lt;meta name="description" content="Apresentação do artista DJ Warp para o Festival Drumtiks '26..."&gt;
+  &lt;link rel="stylesheet" href="css/style.css"&gt;
+&lt;/head&gt;</code></pre>
+        </div>
+
+        <!-- ACORDEÃO TÉCNICO PASSO 2 -->
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação detalhada de marcas, atributos e seletores utilizados neste passo</span>
+            <span class="lang-en">🔍 View detailed explanation of tags, attributes and selectors used in this step</span>
+          </summary>
+          <div class="deep-dive-content">
+            <p>
+              <strong class="lang-pt">O que são Atributos HTML?</strong>
+              <strong class="lang-en">What are HTML Attributes?</strong><br>
+              <span class="lang-pt">Os atributos são modificadores colocados no interior da tag de abertura de um elemento na sintaxe <code>nome="valor"</code>. Servem para fornecer metadados, configurar comportamentos adicionais ou criar relações externas que a tag por si só não expressa.</span>
+              <span class="lang-en">Attributes are modifiers placed inside an element's opening tag using the <code>name="value"</code> syntax. They supply metadata, configure supplementary behaviors, or create external relationships that the bare tag cannot convey alone.</span>
+            </p>
+            <ul class="tag-item-list">
+              <li>
+                <code>&lt;!DOCTYPE html&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Glossary/Doctype" target="_blank" rel="noopener noreferrer">Declaração de Tipo de Documento (Doctype) ↗</a> — 
+                <span class="lang-pt">Informa o motor de renderização do navegador de que o documento segue o padrão moderno do W3C / WHATWG HTML5 Living Standard, evitando a ativação do arcaico modo de compatibilidade (*Quirks Mode*).</span>
+                <span class="lang-en">Informs the browser rendering engine that the document complies with the modern W3C / WHATWG HTML5 Living Standard, preventing fallback into archaic Quirks Mode.</span>
+              </li>
+              <li>
+                <code>&lt;html&gt;</code> com atributo <code>lang="pt-PT"</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/html" target="_blank" rel="noopener noreferrer">Elemento Raiz HTML ↗</a> e <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang" target="_blank" rel="noopener noreferrer">Atributo Global lang ↗</a> — 
+                <span class="lang-pt">Define a língua principal do documento. Vital para que sintetizadores de voz para pessoas cegas pronunciem as palavras corretamente e para motores de busca indexarem a página por região geográfica.</span>
+                <span class="lang-en">Specifies the primary language of the document. Essential for screen readers to pronounce words correctly and for search engines to index content geographically.</span>
+              </li>
+              <li>
+                <code>&lt;head&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/head" target="_blank" rel="noopener noreferrer">Contentor de Metadados Head ↗</a> — 
+                <span class="lang-pt">Contém todas as instruções técnicas, títulos, ligações a estilos e scripts que não são exibidos diretamente na janela de conteúdo.</span>
+                <span class="lang-en">Contains technical instructions, document titles, linked stylesheets, and scripts that are not directly painted onto the document viewport.</span>
+              </li>
+              <li>
+                <code>&lt;meta&gt;</code> com atributo <code>charset="UTF-8"</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta" target="_blank" rel="noopener noreferrer">Elemento Meta ↗</a> e <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta#charset" target="_blank" rel="noopener noreferrer">Atributo charset ↗</a> — 
+                <span class="lang-pt">Codificação universal de caracteres Unicode. Garante que acentos portugueses (<code>ç</code>, <code>ã</code>, <code>é</code>, <code>ó</code>), pontuação especial e alfabetos internacionais não aparecem corrompidos como pontos de interrogação ou caracteres ilegíveis.</span>
+                <span class="lang-en">Universal Unicode character encoding. Guarantees accented characters (<code>ç</code>, <code>ã</code>, <code>é</code>, <code>ó</code>), special punctuation, and international scripts do not corrupt into question marks or garbled text.</span>
+              </li>
+              <li>
+                <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag" target="_blank" rel="noopener noreferrer">Instrução Meta Viewport ↗</a> — 
+                <span class="lang-pt">A regra mais importante do Responsive Web Design:
+                <br>&bull; <code>name="viewport"</code>: Indica ao browser móvel que esta instrução se destina à janela de visualização do ecrã físico.
+                <br>&bull; <code>content</code>: Agrupa os parâmetros de controlo separados por vírgula.
+                <br>&bull; <code>width=device-width</code>: Força a largura do viewport a coincidir com os píxeis CSS do ecrã real, impedindo o telemóvel de simular um desktop de 980px em zoom reduzido microscópico.
+                <br>&bull; <code>initial-scale=1.0</code>: Define a escala inicial em 100% (proporção 1:1 entre píxeis do dispositivo e píxeis CSS).</span>
+                <span class="lang-en">The single most critical instruction for Responsive Web Design:
+                <br>&bull; <code>name="viewport"</code>: Signals mobile browsers that this directive governs physical screen viewport scaling.
+                <br>&bull; <code>content</code>: Bundles comma-separated layout parameters.
+                <br>&bull; <code>width=device-width</code>: Forces the viewport width to match actual CSS screen pixels, preventing mobile devices from simulating a 980px desktop window in microscopic zoom.
+                <br>&bull; <code>initial-scale=1.0</code>: Sets initial zoom to 100% (1:1 ratio between CSS pixels and device pixels).</span>
+              </li>
+              <li>
+                <code>&lt;title&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/title" target="_blank" rel="noopener noreferrer">Título do Documento ↗</a> — 
+                <span class="lang-pt">O texto único e descritivo que surge no separador do navegador, no histórico e nos resultados da Google.</span>
+                <span class="lang-en">Unique and descriptive title appearing in browser tabs, bookmarks, and search engine SERPs.</span>
+              </li>
+              <li>
+                <code>&lt;meta name="description" content="..."&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/HTML_head_metadata#adding_an_author_and_description" target="_blank" rel="noopener noreferrer">Metadados de Descrição ↗</a> — 
+                <span class="lang-pt">Resumo textual do conteúdo utilizado por motores de busca e cartões de pré-visualização.</span>
+                <span class="lang-en">Textual summary of document contents utilized by search indexers and social link preview snippets.</span>
+              </li>
+              <li>
+                <code>&lt;link rel="stylesheet" href="css/style.css"&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link" target="_blank" rel="noopener noreferrer">Elemento Link ↗</a>:
+                <br>&bull; <code>rel="stylesheet"</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel" target="_blank" rel="noopener noreferrer">Atributo rel (Relationship) ↗</a> — 
+                <span class="lang-pt">Estabelece a relação semântica do recurso externo. Informa o motor de renderização de que o ficheiro apontado é uma folha de estilos CSS a aplicar.</span>
+                <span class="lang-en">Defines the semantic relationship to the external asset. Informs the rendering engine that the resource is an active CSS stylesheet.</span>
+                <br>&bull; <code>href="css/style.css"</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link#href" target="_blank" rel="noopener noreferrer">Atributo href (Hypertext Reference) ↗</a> — 
+                <span class="lang-pt">O endereço relativo onde se encontra fisicamente o ficheiro CSS a descarregar.</span>
+                <span class="lang-en">The relative URL where the external CSS file is physically located.</span>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 3 -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 3</span> Landmarks Semânticos HTML5, IDs, Links &amp; Acessibilidade</span>
+          <span class="lang-en"><span class="step-badge">Step 3</span> HTML5 Semantic Landmarks, IDs, Links &amp; Accessibility</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Construa o esqueleto do documento utilizando a hierarquia de títulos estrita (apenas um <code>h1</code>, <code>h2</code> para secções, <code>h3</code> para artigos) e explore as 3 tipologias de hiperligações:</span>
+          <span class="lang-en">Build the document skeleton using strict heading hierarchy (single <code>h1</code>, <code>h2</code> for sections, <code>h3</code> for articles) and explore all 3 hyperlink typologies:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>&lt;body&gt;
+  &lt;!-- 1. HEADER com o H1 principal e menu NAV --&gt;
+  &lt;header id="inicio"&gt;
+    &lt;h1&gt;Hello, I'm DJ Warp!&lt;/h1&gt;
+    &lt;p&gt;Produtor musical e baterista experimental no Festival Drumtiks '26.&lt;/p&gt;
+    &lt;nav aria-label="Navegação da Apresentação"&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#biografia"&gt;Biografia&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#live-setup"&gt;Live Setup&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="https://sigarra.up.pt/fbaup/" target="_blank" rel="noopener noreferrer"&gt;FBAUP ↗&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="mailto:djwarp@drumtiks.up.pt"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;!-- 2. MAIN com Secções Temáticas e Artigos --&gt;
+  &lt;main&gt;
+    &lt;section id="biografia"&gt;
+      &lt;h2&gt;1. Quem é o DJ Warp?&lt;/h2&gt;
+      &lt;p&gt;O projeto explora a fricção acústica...&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section id="live-setup"&gt;
+      &lt;h2&gt;2. Arquitetura do Live Setup&lt;/h2&gt;
+      &lt;article id="equipamento-percussao"&gt;
+        &lt;h3&gt;A. Bateria Acústica Híbrida &amp; Triggers Piezo&lt;/h3&gt;
+        &lt;p&gt;Kit militar modificado com cápsulas piezoelétricas...&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/section&gt;
+
+    &lt;aside id="dicionario"&gt;
+      &lt;h2&gt;3. Dicionário Técnico&lt;/h2&gt;
+      &lt;dl&gt;
+        &lt;dt&gt;Control Voltage (CV)&lt;/dt&gt;
+        &lt;dd&gt;Sinal elétrico analógico contínuo que modula osciladores modulares.&lt;/dd&gt;
+      &lt;/dl&gt;
+    &lt;/aside&gt;
+  &lt;/main&gt;
+
+  &lt;!-- 3. FOOTER com Créditos e Link de Regresso ao Topo --&gt;
+  &lt;footer&gt;
+    &lt;p&gt;&amp;copy; 2026 DJ Warp • WD101 FBAUP • &lt;a href="#inicio"&gt;↑ Voltar ao Topo&lt;/a&gt;&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+        </div>
+
+        <!-- ACORDEÃO TÉCNICO PASSO 3 -->
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação detalhada de marcas, atributos e seletores utilizados neste passo</span>
+            <span class="lang-en">🔍 View detailed explanation of tags, attributes and selectors used in this step</span>
+          </summary>
+          <div class="deep-dive-content">
+            <p>
+              <strong class="lang-pt">O Atributo Global <code>id</code> &amp; Named Anchors:</strong>
+              <strong class="lang-en">Global <code>id</code> Attribute &amp; Named Anchors:</strong><br>
+              <span class="lang-pt">O atributo <code>id</code> (<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id" target="_blank" rel="noopener noreferrer">MDN id ↗</a>) atribui um identificador único a um elemento no documento. 
+              <em>Regra de ouro:</em> Nunca podem existir dois elementos com o mesmo valor de ID na mesma página! 
+              Serve para dois propósitos capitais:
+              <br>1. <strong>Named Anchors (Âncoras Internas):</strong> Uma ligação como <code>&lt;a href="#biografia"&gt;</code> instrui o navegador a procurar o elemento com <code>id="biografia"</code> e a deslocar a janela imediatamente para essa posição.
+              <br>2. <strong>Alvo de Seleção CSS e JavaScript:</strong> Permite estilização e seleção específica através do seletor <code>#id</code>.</span>
+              <span class="lang-en">The <code>id</code> attribute (<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id" target="_blank" rel="noopener noreferrer">MDN id ↗</a>) assigns an identifier unique across the entire document. 
+              <em>Golden Rule:</em> No two elements can ever share the same ID value! 
+              It serves two crucial functions:
+              <br>1. <strong>Named Anchors (In-Page Navigation):</strong> A link like <code>&lt;a href="#biografia"&gt;</code> instructs the browser to locate the element with <code>id="biografia"</code> and scroll directly to it.
+              <br>2. <strong>Target for CSS &amp; JavaScript:</strong> Enables hyper-specific styling and element manipulation via <code>#id</code>.</span>
+            </p>
+
+            <p style="margin-top:var(--space-3);">
+              <strong class="lang-pt">O Atributo <code>aria-label</code> &amp; Acessibilidade (a11y):</strong>
+              <strong class="lang-en">The <code>aria-label</code> Attribute &amp; Accessibility (a11y):</strong><br>
+              <span class="lang-pt">O atributo <code>aria-label</code> (<a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label" target="_blank" rel="noopener noreferrer">MDN aria-label ↗</a>) fornece uma legenda descritiva acessível a tecnologias de apoio (como leitores de ecrã para cegos). Quando uma página possui mais do que um elemento <code>&lt;nav&gt;</code> (ex: navegação principal vs. navegação de rodapé), o <code>aria-label</code> é obrigatório para diferenciar o contexto semântico de cada menu.</span>
+              <span class="lang-en">The <code>aria-label</code> attribute (<a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label" target="_blank" rel="noopener noreferrer">MDN aria-label ↗</a>) gives assistive technologies (such as screen readers) a clear, descriptive label. Whenever a page includes multiple <code>&lt;nav&gt;</code> landmarks, <code>aria-label</code> is required to differentiate their purpose.</span>
+            </p>
+
+            <p style="margin-top:var(--space-3);">
+              <strong class="lang-pt">As 3 Tipologias Obrigatórias de Hiperligações (<code>&lt;a&gt;</code>):</strong>
+              <strong class="lang-en">The 3 Mandatory Hyperlink Typologies (<code>&lt;a&gt;</code>):</strong><br>
+              <span class="lang-pt">1. <strong>Âncora Interna (Named Anchor):</strong> <code>&lt;a href="#biografia"&gt;</code> &mdash; Navegação instantânea dentro do mesmo ficheiro sem novo pedido HTTP.
+              <br>2. <strong>Ligação Externa Segura:</strong> <code>&lt;a href="https://..." target="_blank" rel="noopener noreferrer"&gt;</code> &mdash; Abre num novo separador. O atributo <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/noopener" target="_blank" rel="noopener noreferrer">rel="noopener noreferrer" ↗</a> é crucial para evitar ataques de *tabnabbing* (impede que o site de destino controle o objeto <code>window.opener</code> da sua página).
+              <br>3. <strong>Ligação de Correio Eletrónico:</strong> <code>&lt;a href="mailto:djwarp@drumtiks.up.pt"&gt;</code> &mdash; Dispara o cliente de correio nativo do sistema operativo configurado pelo utilizador.</span>
+              <span class="lang-en">1. <strong>Internal Named Anchor:</strong> <code>&lt;a href="#biografia"&gt;</code> &mdash; Instant in-page jump without triggering a new HTTP network request.
+              <br>2. <strong>Hardened External Link:</strong> <code>&lt;a href="https://..." target="_blank" rel="noopener noreferrer"&gt;</code> &mdash; Opens in a new tab. The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/noopener" target="_blank" rel="noopener noreferrer">rel="noopener noreferrer" ↗</a> attribute prevents *tabnabbing* exploits by severing access to <code>window.opener</code>.
+              <br>3. <strong>Direct Email Link:</strong> <code>&lt;a href="mailto:djwarp@drumtiks.up.pt"&gt;</code> &mdash; Triggers the user operating system default email application.</span>
+            </p>
+
+            <p style="margin-top:var(--space-3);"><strong class="lang-pt">Marcas de Estrutura Utilizadas:</strong><strong class="lang-en">Structural Landmark Tags Used:</strong></p>
+            <ul class="tag-item-list">
+              <li><code>&lt;body&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/body" target="_blank" rel="noopener noreferrer">Corpo do Documento ↗</a> — <span class="lang-pt">Contentor de todos os elementos visíveis na janela do ecrã.</span><span class="lang-en">Container for all visible elements rendered in the viewport.</span></li>
+              <li><code>&lt;header&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/header" target="_blank" rel="noopener noreferrer">Landmark Header ↗</a> — <span class="lang-pt">Cabeçalho introdutório ou grupo de navegação do documento.</span><span class="lang-en">Introductory container or navigational masthead for the document.</span></li>
+              <li><code>&lt;h1&gt;, &lt;h2&gt;, &lt;h3&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/Heading_Elements" target="_blank" rel="noopener noreferrer">Hierarquia de Títulos ↗</a> — <span class="lang-pt">Estrutura a árvore lógica do documento (apenas 1 <code>h1</code> por página).</span><span class="lang-en">Establishes the logical heading outline (strictly one <code>h1</code> per page).</span></li>
+              <li><code>&lt;nav&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/nav" target="_blank" rel="noopener noreferrer">Landmark Nav ↗</a> — <span class="lang-pt">Secção da página cujo propósito é fornecer ligações de navegação primárias.</span><span class="lang-en">Document section intended exclusively for primary navigation links.</span></li>
+              <li><code>&lt;ul&gt;, &lt;li&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ul" target="_blank" rel="noopener noreferrer">Lista Não Ordenada e Itens ↗</a> — <span class="lang-pt">Estrutura padrão para listas de links de menu.</span><span class="lang-en">Semantic standard for grouping navigation link items.</span></li>
+              <li><code>&lt;main&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/main" target="_blank" rel="noopener noreferrer">Landmark Main ↗</a> — <span class="lang-pt">O conteúdo dominante e único do documento (não pode existir mais do que um por página).</span><span class="lang-en">Unique dominant content of the document (only one per document permitted).</span></li>
+              <li><code>&lt;section&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/section" target="_blank" rel="noopener noreferrer">Secção Genérica ↗</a> — <span class="lang-pt">Região temática autónoma de conteúdo, sempre acompanhada de um título (<code>&lt;h2&gt;</code>).</span><span class="lang-en">Standalone thematic section of content, always accompanied by a heading (<code>&lt;h2&gt;</code>).</span></li>
+              <li><code>&lt;article&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/article" target="_blank" rel="noopener noreferrer">Artigo Autónomo ↗</a> — <span class="lang-pt">Composição que faz sentido por si só e é potencialmente re-distribuível (ex: post, produto, biografia).</span><span class="lang-en">Self-contained composition that makes sense independently (e.g., article, post, bio).</span></li>
+              <li><code>&lt;blockquote&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/blockquote" target="_blank" rel="noopener noreferrer">Citação em Bloco ↗</a> — <span class="lang-pt">Secção citada de outra fonte externa ou declaração de manifesto.</span><span class="lang-en">Section quoted from an external source or manifest statement.</span></li>
+              <li><code>&lt;aside&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/aside" target="_blank" rel="noopener noreferrer">Landmark Aside ↗</a> — <span class="lang-pt">Conteúdo tangencialmente relacionado com o conteúdo circundante (ex: glossários, notas de rodapé).</span><span class="lang-en">Portion of the page tangentially related to surrounding copy (e.g., sidebars, glossaries).</span></li>
+              <li><code>&lt;dl&gt;, &lt;dt&gt;, &lt;dd&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dl" target="_blank" rel="noopener noreferrer">Lista de Descrição ↗</a> — <span class="lang-pt">Lista de pares termo-definição (ideal para dicionários, especificações e metadados).</span><span class="lang-en">Name-value group pairs (ideal for glossaries, specifications, and key-value lists).</span></li>
+              <li><code>&lt;footer&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/footer" target="_blank" rel="noopener noreferrer">Landmark Footer ↗</a> — <span class="lang-pt">Rodapé para o landmark mais próximo ou para o documento global (informações de copyright, autor, links de topo).</span><span class="lang-en">Footer for nearest section or global document (copyright, authorship, back-to-top links).</span></li>
+              <li><code>&lt;strong&gt;, &lt;em&gt;, &lt;abbr&gt;, &lt;time&gt;, &lt;del&gt;, &lt;ins&gt;, &lt;mark&gt;, &lt;code&gt;</code>: <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/HTML_text_fundamentals#emphasis_and_importance" target="_blank" rel="noopener noreferrer">Semântica Textual Inline ↗</a> — <span class="lang-pt">Enfatiza termos-chave sem recurso a classes visuais.</span><span class="lang-en">Enriches typography inline without arbitrary presentation classes.</span></li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 4 -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 4</span> O CSS Obrigatório: Reset, Viewport e Coordenadas Shorthand</span>
+          <span class="lang-en"><span class="step-badge">Step 4</span> Mandatory CSS: Reset, Viewport &amp; Shorthand Coordinates</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Aplique a regra pedagógica obrigatória de WD101: declarar explicitamente <code>position: relative</code>, <code>display: block</code> e limites elásticos em todos os marcos estruturais:</span>
+          <span class="lang-en">Enforce WD101's mandatory pedagogical rule: explicitly declare <code>position: relative</code>, <code>display: block</code>, and elastic bounds on all structural landmarks:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>/* 1. Reset Universal e Modelo de Caixa Border-Box */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 2. O Viewport Completo */
+html, body {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* 3. Regra Pedagógica Obrigatória: Contentores Estruturais */
+body, header, nav, main, section, article, aside, footer {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 320px;
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 4. Notação Shorthand Relógio (Top Right Bottom Left) */
+header {
+  padding: 2.5rem 1.25rem 2rem 1.25rem; /* 4 Valores: T R B L */
+  margin-bottom: 2rem;                 /* 1 Valor: Direto */
+}
+
+main section {
+  margin: 0 auto 3rem auto;            /* 4 Valores */
+}</code></pre>
+        </div>
+
+        <!-- ACORDEÃO TÉCNICO PASSO 4 -->
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação detalhada de marcas, seletores e notações shorthand utilizadas neste passo</span>
+            <span class="lang-en">🔍 View detailed explanation of tags, selectors and shorthand notation used in this step</span>
+          </summary>
+          <div class="deep-dive-content">
+            <p>
+              <strong class="lang-pt">O Seletor Universal (<code>*</code>):</strong>
+              <strong class="lang-en">The Universal Selector (<code>*</code>):</strong><br>
+              <span class="lang-pt">O seletor <code>*</code> (<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Universal_selectors" target="_blank" rel="noopener noreferrer">MDN Universal Selector ↗</a>) seleciona todos os elementos do DOM. Tem uma especificidade nula (0,0,0), o que o torna a fundação ideal para resets globais. A combinação com <code>box-sizing: border-box</code> altera o cálculo geométrico: o <code>padding</code> e o <code>border</code> passam a ser subtraídos do tamanho total da caixa, eliminando scrolls horizontais inesperados.</span>
+              <span class="lang-en">The <code>*</code> selector (<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Universal_selectors" target="_blank" rel="noopener noreferrer">MDN Universal Selector ↗</a>) matches every single DOM element. It has zero specificity (0,0,0), making it the perfect foundation for global resets. Combined with <code>box-sizing: border-box</code>, <code>padding</code> and <code>border</code> are absorbed inside the element's specified width, eliminating unintended horizontal scrollbars.</span>
+            </p>
+
+            <p style="margin-top:var(--space-3);">
+              <strong class="lang-pt">A Notação Shorthand do Modelo de Caixa (Sistema Horário TRBL):</strong>
+              <strong class="lang-en">Box Model Shorthand Notation (TRBL Clock System):</strong><br>
+              <span class="lang-pt">Propriedades como <code>margin</code> e <code>padding</code> podem receber entre 1 a 4 valores seguindo o sentido dos ponteiros do relógio:</span>
+              <span class="lang-en">Properties like <code>margin</code> and <code>padding</code> accept 1 to 4 values following clockwise rotation:</span>
+            </p>
+            <ul class="tag-item-list">
+              <li>
+                <strong>4 Valores:</strong> <code>margin: TOP RIGHT BOTTOM LEFT;</code><br>
+                <span class="lang-pt">Exemplo: <code>margin: 0 auto 3rem auto;</code> &rarr; Topo: 0, Direita: auto, Fundo: 3rem, Esquerda: auto.</span>
+                <span class="lang-en">Example: <code>margin: 0 auto 3rem auto;</code> &rarr; Top: 0, Right: auto, Bottom: 3rem, Left: auto.</span>
+              </li>
+              <li>
+                <strong>3 Valores:</strong> <code>margin: TOP (RIGHT &amp; LEFT) BOTTOM;</code><br>
+                <span class="lang-pt">Exemplo: <code>padding: 1rem 2rem 3rem;</code> &rarr; Topo: 1rem, Laterais: 2rem, Fundo: 3rem.</span>
+                <span class="lang-en">Example: <code>padding: 1rem 2rem 3rem;</code> &rarr; Top: 1rem, Sides: 2rem, Bottom: 3rem.</span>
+              </li>
+              <li>
+                <strong>2 Valores:</strong> <code>margin: (TOP &amp; BOTTOM) (RIGHT &amp; LEFT);</code><br>
+                <span class="lang-pt">Exemplo: <code>padding: 2rem 1.25rem;</code> &rarr; Vertical: 2rem, Horizontal: 1.25rem.</span>
+                <span class="lang-en">Example: <code>padding: 2rem 1.25rem;</code> &rarr; Vertical: 2rem, Horizontal: 1.25rem.</span>
+              </li>
+              <li>
+                <strong>1 Valor:</strong> <code>margin: ALL-4-SIDES;</code><br>
+                <span class="lang-pt">Exemplo: <code>margin: 0;</code> &rarr; Aplica 0 nos quatro lados da caixa.</span>
+                <span class="lang-en">Example: <code>margin: 0;</code> &rarr; Applies 0 to all 4 sides of the box.</span>
+              </li>
+            </ul>
+
+            <p style="margin-top:var(--space-3);"><strong class="lang-pt">Propriedades Estruturais Declaradas:</strong><strong class="lang-en">Structural Declarations Used:</strong></p>
+            <ul class="tag-item-list">
+              <li><code>position: relative;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position" target="_blank" rel="noopener noreferrer">MDN position ↗</a> — <span class="lang-pt">Mantém o elemento no fluxo natural do documento e define o seu espaço como referencial para descendentes.</span><span class="lang-en">Maintains element in normal flow while creating a coordinate context for descendants.</span></li>
+              <li><code>display: block;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display" target="_blank" rel="noopener noreferrer">MDN display ↗</a> — <span class="lang-pt">Gera uma caixa de bloco que quebra linha e ocupa a largura horizontal disponível.</span><span class="lang-en">Generates a block-level box occupying all available horizontal line space.</span></li>
+              <li><code>width: 100%;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/width" target="_blank" rel="noopener noreferrer">MDN width ↗</a> — <span class="lang-pt">Dimensão relativa que acompanha a largura do elemento pai.</span><span class="lang-en">Relative dimension that conforms to parent container width.</span></li>
+              <li><code>min-width: 320px;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/min-width" target="_blank" rel="noopener noreferrer">MDN min-width ↗</a> — <span class="lang-pt">Garante que a caixa nunca colapsa abaixo da largura padrão de um smartphone pequeno.</span><span class="lang-en">Guarantees the box never collapses below small smartphone viewports.</span></li>
+              <li><code>max-width: 48rem;</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/max-width" target="_blank" rel="noopener noreferrer">MDN max-width ↗</a> — <span class="lang-pt">Impede que a linha de texto se estenda para além de ~75 caracteres, assegurando conforto de leitura.</span><span class="lang-en">Prevents line length from stretching past ~75 characters for reading comfort.</span></li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- PASSO 5 -->
+      <article class="step-card">
+        <h3>
+          <span class="lang-pt"><span class="step-badge">Passo 5</span> Tipografia Relativa, Cores HEX &amp; Seletores Descendentes</span>
+          <span class="lang-en"><span class="step-badge">Step 5</span> Relative Typography, HEX Colors &amp; Descendant Selectors</span>
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <span class="lang-pt">Estilize a navegação e o texto corrido confiando exclusivamente na herança da árvore DOM, unidades relativas (<code>rem</code>) e paleta de cores hexadecimal:</span>
+          <span class="lang-en">Style navigation and body copy relying exclusively on DOM tree inheritance, relative units (<code>rem</code>), and hexadecimal color palettes:</span>
+        </p>
+        <div class="code-container">
+          <pre><code>/* 1. Seletores Descendentes Estritos para Navegação (Sem Classes) */
+header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0;
+}
+
+header nav ul li {
+  display: inline-block;
+  margin-right: 1.25rem;
+}
+
+/* 2. Cores Hexadecimais e Pseudo-classe :hover */
+header nav ul li a {
+  color: #e60000;                     /* Vermelho Suíço Drumtiks */
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+header nav ul li a:hover {
+  text-decoration: underline;
+  color: #ff3333;                     /* Variação mais clara no hover */
+}
+
+/* 3. Tipografia Relativa com rem e Entrelinha Unitless */
+h1 {
+  font-size: 2.25rem;
+  line-height: 1.2;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: 1rem;                    /* 1rem = 16px */
+  line-height: 1.6;                   /* Unitless: 1.6x o tamanho da fonte */
+  color: #a1a1aa;
+  margin-bottom: 1.25rem;
+}</code></pre>
+        </div>
+
+        <!-- ACORDEÃO TÉCNICO PASSO 5 -->
+        <details class="tech-deep-dive">
+          <summary>
+            <span class="lang-pt">🔍 Ver explicação detalhada de cores HEX, seletores descendentes e tipografia relativa</span>
+            <span class="lang-en">🔍 View detailed explanation of HEX colors, descendant selectors and relative typography</span>
+          </summary>
+          <div class="deep-dive-content">
+            <p>
+              <strong class="lang-pt">Como Funcionam as Cores no CSS:</strong>
+              <strong class="lang-en">How Colors Work in CSS:</strong>
+            </p>
+            <ul class="tag-item-list">
+              <li>
+                <strong>Cores Hexadecimais (<code>#RRGGBB</code>):</strong> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/hex-color" target="_blank" rel="noopener noreferrer">MDN Hex Colors ↗</a> — 
+                <span class="lang-pt">Base numérica de 16 símbolos (algarismos de <code>0</code> a <code>9</code> e letras de <code>a</code> a <code>f</code>). Cada canal de cor recebe 2 dígitos (de <code>00</code> = 0 até <code>ff</code> = 255):
+                <br>&bull; <code>#000000</code>: Ausência total de luz vermelha, verde e azul &rarr; Preto absoluto.
+                <br>&bull; <code>#ffffff</code>: Intensidade máxima nos 3 canais (255, 255, 255) &rarr; Branco puro.
+                <br>&bull; <code>#e60000</code>: Canal vermelho quase máximo (230), verde 0, azul 0 &rarr; Vermelho vibrante.</span>
+                <span class="lang-en">16-symbol number system (digits <code>0</code>–<code>9</code> and letters <code>a</code>–<code>f</code>). Each primary color channel receives 2 hex digits (<code>00</code> = 0 up to <code>ff</code> = 255):
+                <br>&bull; <code>#000000</code>: Complete absence of red, green, blue &rarr; Pure black.
+                <br>&bull; <code>#ffffff</code>: Maximum intensity on all 3 channels &rarr; Pure white.
+                <br>&bull; <code>#e60000</code>: Near-maximum red (230), green 0, blue 0 &rarr; Vibrant Swiss red.</span>
+              </li>
+              <li>
+                <strong>Hexadecimal com Canal Alfa (<code>#RRGGBBAA</code>):</strong>
+                <span class="lang-pt">Os dois últimos dígitos representam a opacidade/transparência. Exemplo: <code>#00000088</code> equivale a preto com aproximadamente 50% de transparência.</span>
+                <span class="lang-en">The last two digits specify alpha/opacity. Example: <code>#00000088</code> represents black at approximately 50% transparency.</span>
+              </li>
+              <li>
+                <strong>Notação Decimal <code>rgb(R, G, B)</code> e <code>rgba(R, G, B, A)</code>:</strong> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/rgb" target="_blank" rel="noopener noreferrer">MDN rgb() ↗</a> — 
+                <span class="lang-pt">Utiliza inteiros de 0 a 255. A sintaxe moderna CSS Color 4 permite usar espaços e barra para o canal alfa: <code>rgb(230 0 0 / 0.8)</code>.</span>
+                <span class="lang-en">Uses decimal integers from 0 to 255. Modern CSS Color 4 allows space and slash syntax: <code>rgb(230 0 0 / 0.8)</code>.</span>
+              </li>
+              <li>
+                <strong>Cores com Nome (*Named Colors*):</strong> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/named-color" target="_blank" rel="noopener noreferrer">MDN Named Colors ↗</a> — 
+                <span class="lang-pt">Paleta de 140+ cores pré-definidas no standard da W3C como <code>black</code>, <code>white</code>, <code>red</code>, <code>currentColor</code>.</span>
+                <span class="lang-en">W3C standard keyword palette of 140+ color names like <code>black</code>, <code>white</code>, <code>red</code>, <code>currentColor</code>.</span>
+              </li>
+            </ul>
+
+            <p style="margin-top:var(--space-3);">
+              <strong class="lang-pt">Seletores Descendentes vs. Classes Cosméticas:</strong>
+              <strong class="lang-en">Descendant Selectors vs. Cosmetic Classes:</strong><br>
+              <span class="lang-pt">O seletor <code>header nav ul li a</code> utiliza o combinador descendente (espaço). Indica ao navegador para aplicar as regras a qualquer elemento <code>&lt;a&gt;</code> que se encontre dentro de um <code>&lt;li&gt;</code>, dentro de um <code>&lt;ul&gt;</code>, dentro de um <code>&lt;nav&gt;</code>, dentro do <code>&lt;header&gt;</code>. Isto elimina a necessidade de poluir o HTML com <code>class="link-navegacao"</code>, mantendo o markup limpo, semântico e focado exclusivamente no conteúdo.</span>
+              <span class="lang-en">The selector <code>header nav ul li a</code> uses the descendant combinator (space). It styles any <code>&lt;a&gt;</code> nested inside <code>&lt;li&gt;</code>, inside <code>&lt;ul&gt;</code>, inside <code>&lt;nav&gt;</code>, inside <code>&lt;header&gt;</code>. This completely eliminates cluttering the HTML with arbitrary classes like <code>class="nav-link"</code>, preserving a lean, semantic DOM tree.</span>
+            </p>
+
+            <p style="margin-top:var(--space-3);"><strong class="lang-pt">Outros Seletores e Regras Utilizadas:</strong><strong class="lang-en">Other Selectors and Properties:</strong></p>
+            <ul class="tag-item-list">
+              <li><code>:hover</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:hover" target="_blank" rel="noopener noreferrer">MDN :hover ↗</a> — <span class="lang-pt">Ativa estilos visuais quando o cursor do rato passa sobre o elemento.</span><span class="lang-en">Applies visual styling when pointer devices hover over the element.</span></li>
+              <li><code>rem</code>: <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Values_and_units#relative_length_units" target="_blank" rel="noopener noreferrer">Unidade rem (Root EM) ↗</a> — <span class="lang-pt">Relativo ao <code>font-size</code> do elemento raiz <code>&lt;html&gt;</code> (geralmente 16px). Se o utilizador alterar o tamanho de texto preferido no browser, a tipografia em <code>rem</code> escala proporcionalmente garantindo acessibilidade.</span><span class="lang-en">Relative to the root <code>&lt;html&gt;</code> element's font size (usually 16px). Respects user browser zoom preferences for accessibility.</span></li>
+              <li><code>line-height: 1.6;</code> (Unitless): <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/line-height" target="_blank" rel="noopener noreferrer">MDN line-height ↗</a> — <span class="lang-pt">Multiplica diretamente pelo <code>font-size</code> do elemento atual, prevenindo sobreposições indesejadas de texto ao alterar tamanhos de cabeçalho.</span><span class="lang-en">Multiplies the current element font size directly, preventing line clashes across different heading scales.</span></li>
+            </ul>
+          </div>
+        </details>
+      </article>
+    </section>
+
+    <!-- 3. Rubrica de Avaliação Quantitativa dos 5 Marcos -->
+        <!-- 3. Rubrica Docente de Avaliação -->
+    <section id="rubrica" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);" data-i18n="sec3_title">3. Rubrica Docente de Avaliação (20 Pontos)</h2>
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);" data-i18n="sec3_desc">
+        A avaliação do Exercício 1 é orientada por 5 marcos qualitativos objetivos:
+      </p>
+
+      <div class="table-responsive">
+        <table class="rubric-table">
+          <thead>
+            <tr>
+              <th data-i18n="th_rubric_marco">Marco de Avaliação</th>
+              <th data-i18n="th_rubric_weight">Peso</th>
+              <th data-i18n="th_rubric_pass">Padrão de Excelência (15–20)</th>
+              <th data-i18n="th_rubric_fail">Anti-Padrão / Penalização (0–9)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong class="lang-pt">1. Publicação, URL &amp; Higiene de Ficheiros</strong>
+                <strong class="lang-en">1. Deployment, URL &amp; File Hygiene</strong>
+              </td>
+              <td class="rubric-score">15% (3.0v)</td>
+              <td>
+                <span class="lang-pt">URL público sem erros no <code>pages.up.pt</code>; ficheiro de entrada estritamente <code>index.html</code>; folha CSS em <code>css/style.css</code>; sem maiúsculas ou acentos.</span>
+                <span class="lang-en">Flawless public URL on <code>pages.up.pt</code>; entry file strictly named <code>index.html</code>; stylesheet in <code>css/style.css</code>; zero uppercase letters or accented characters.</span>
+              </td>
+              <td>
+                <span class="lang-pt">URL quebrado (404/403); nomes de ficheiro alternativos (<code>Wendy.html</code>); ficheiros com espaços ou cedilhas.</span>
+                <span class="lang-en">Broken URL (404/403); arbitrary filenames (<code>Wendy.html</code>); spaces or special characters in paths.</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="lang-pt">2. Impressão Visual Mobile First</strong>
+                <strong class="lang-en">2. Mobile-First Visual Performance</strong>
+              </td>
+              <td class="rubric-score">20% (4.0v)</td>
+              <td>
+                <span class="lang-pt">Layout perfeitamente fluido entre 320px e 400px; sem qualquer scroll horizontal parasita; margens laterais seguras; contraste WCAG AA $\ge 4.5:1$.</span>
+                <span class="lang-en">Fluid layout between 320px and 400px; zero horizontal scroll; secure lateral margins; WCAG AA contrast ratio $\ge 4.5:1$.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Página desenhada em largura fixa desktop (ex: <code>width: 960px</code>); texto colado às bordas do ecrã.</span>
+                <span class="lang-en">Fixed desktop width (e.g., <code>width: 960px</code>); text glued to viewport screen boundaries.</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="lang-pt">3. Estrutura &amp; Landmarks HTML5</strong>
+                <strong class="lang-en">3. Structure &amp; HTML5 Landmarks</strong>
+              </td>
+              <td class="rubric-score">25% (5.0v)</td>
+              <td>
+                <span class="lang-pt">Uso rigoroso de <code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code> (mínimo 3), <code>article</code>, <code>aside</code>, <code>footer</code>; ausência total de <code>div</code>; um único <code>h1</code>; 3 tipologias de links.</span>
+                <span class="lang-en">Strict usage of <code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code> (min 3), <code>article</code>, <code>aside</code>, <code>footer</code>; zero <code>div</code> tags; single <code>h1</code>; all 3 link typologies present.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Proliferação de <code>&lt;div class="seccao"&gt;</code>; saltos na hierarquia dos títulos (ex: <code>h1</code> para <code>h4</code>); omissão da meta viewport.</span>
+                <span class="lang-en">Proliferation of <code>&lt;div class="section"&gt;</code>; heading level jumps (e.g., <code>h1</code> to <code>h4</code>); missing meta viewport.</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="lang-pt">4. CSS, Reset &amp; Declarações Estruturais</strong>
+                <strong class="lang-en">4. CSS, Reset &amp; Structural Declarations</strong>
+              </td>
+              <td class="rubric-score">20% (4.0v)</td>
+              <td>
+                <span class="lang-pt">Reset universal <code>box-sizing: border-box</code>; contentores com <code>position: relative</code>, <code>display: block</code> e limites elásticos (<code>min-width: 320px</code>, <code>max-width: 48rem</code>).</span>
+                <span class="lang-en">Universal reset with <code>box-sizing: border-box</code>; structural containers declared with <code>position: relative</code>, <code>display: block</code>, and elastic bounds (<code>min-width: 320px</code>, <code>max-width: 48rem</code>).</span>
+              </td>
+              <td>
+                <span class="lang-pt">Larguras ou alturas rígidas em pixels (<code>width: 800px; height: 400px;</code>); estilos inline (<code>style="..."</code>).</span>
+                <span class="lang-en">Rigid pixel widths or heights (<code>width: 800px; height: 400px;</code>); inline styling (<code>style="..."</code>).</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="lang-pt">5. Tipografia Relativa &amp; Seletores Descendentes</strong>
+                <strong class="lang-en">5. Relative Typography &amp; Descendant Selectors</strong>
+              </td>
+              <td class="rubric-score">20% (4.0v)</td>
+              <td>
+                <span class="lang-pt">Abandono completo do pixel em texto (tudo em <code>rem</code>/<code>em</code>); parágrafos contidos em <code>75ch</code>; domínio de seletores descendentes (<code>nav ul li a</code>) sem classes cosméticas.</span>
+                <span class="lang-en">Full abandonment of pixel units in type (all in <code>rem</code>/<code>em</code>); line length capped at <code>75ch</code>; mastery of descendant selectors without cosmetic classes.</span>
+              </td>
+              <td>
+                <span class="lang-pt">Font-size fixado em píxeis (<code>font-size: 16px</code>); tags semânticas atulhadas de classes redundantes (<code>&lt;h1 class="titulo-h1"&gt;</code>).</span>
+                <span class="lang-en">Font sizes fixed in pixels (<code>font-size: 16px</code>); semantic tags polluted with redundant classes (<code>&lt;h1 class="heading-1"&gt;</code>).</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. Código Completo da Solução Oficial -->
+    <section id="codigo-completo" style="margin-bottom:var(--space-12);">
+      <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-3);" data-i18n="sec4_title">4. Código Completo da Solução Oficial</h2>
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);" data-i18n="sec4_desc">
+        Consulte ou copie o código integral implementado no mini-site <code>learning-scaffold/demos/hello-warp/</code>:
+      </p>
+
+      <!-- Toolbar HTML -->
+      <div class="code-toolbar">
+        <span><span class="lang-pt">FICHEIRO:</span><span class="lang-en">FILE:</span> demos/hello-warp/index.html</span>
+        <button class="btn-control" id="btn-copy-html">
+          <span class="lang-pt">Copiar HTML</span>
+          <span class="lang-en">Copy HTML</span>
+        </button>
+      </div>
+      <div class="code-container">
+        <pre><code id="code-full-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-PT"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Hello Warp! — Apresentação Oficial DJ Warp • Drumtiks '26 FBAUP&lt;/title&gt;
+  &lt;meta name="description" content="Apresentação do artista DJ Warp para o Festival Drumtiks '26."&gt;
+  &lt;link rel="stylesheet" href="css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;header id="inicio"&gt;
+    &lt;h1&gt;Hello, I'm DJ Warp!&lt;/h1&gt;
+    &lt;p&gt;Produtor musical, baterista experimental e artista no Festival DRUMTIKS '26.&lt;/p&gt;
+    &lt;nav aria-label="Navegação da Apresentação"&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#biografia"&gt;Biografia&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#live-setup"&gt;Live Setup &amp;amp; Tecnologia&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#alinhamento"&gt;Palcos &amp;amp; Horários&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#manifesto"&gt;Manifesto Sonoro&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#dicionario"&gt;Termos Técnicos&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="https://sigarra.up.pt/fbaup/" target="_blank" rel="noopener noreferrer"&gt;FBAUP ↗&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="mailto:djwarp@drumtiks.up.pt"&gt;Contacto Direto&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section id="biografia"&gt;
+      &lt;h2&gt;1. Quem é o DJ Warp?&lt;/h2&gt;
+      &lt;p&gt;Nascido entre Berlim e o Porto, o projeto DJ Warp explora a fricção acústica...&lt;/p&gt;
+      &lt;blockquote&gt;
+        &lt;p&gt;&ldquo;O ritmo não é uma grelha rígida desenhada num ecrã...&rdquo;&lt;/p&gt;
+      &lt;/blockquote&gt;
+    &lt;/section&gt;
+
+    &lt;section id="live-setup"&gt;
+      &lt;h2&gt;2. Arquitetura do Live Setup&lt;/h2&gt;
+      &lt;article id="equipamento-percussao"&gt;
+        &lt;h3&gt;A. Bateria Acústica Híbrida &amp;amp; Triggers Piezo&lt;/h3&gt;
+        &lt;p&gt;Kit militar dos anos 60 com cápsulas piezoelétricas artesanais...&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article id="equipamento-eurorack"&gt;
+        &lt;h3&gt;B. Sistema Modular Eurorack (9U)&lt;/h3&gt;
+        &lt;p&gt;Painel de osciladores analógicos e filtros passa-baixo de 24dB...&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/section&gt;
+
+    &lt;section id="alinhamento"&gt;
+      &lt;h2&gt;3. Apresentações no Festival DRUMTIKS '26&lt;/h2&gt;
+      &lt;ol&gt;
+        &lt;li&gt;&lt;strong&gt;Sexta-feira, 24 de Outubro • 22h30:&lt;/strong&gt; Abertura do Palco Beat Foundry.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Sábado, 25 de Outubro • 16h00:&lt;/strong&gt; Masterclass Técnica de Bateria Híbrida.&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/section&gt;
+
+    &lt;aside id="dicionario"&gt;
+      &lt;h2&gt;5. Vocabulário &amp;amp; Dicionário Técnico&lt;/h2&gt;
+      &lt;dl&gt;
+        &lt;dt&gt;Control Voltage (CV)&lt;/dt&gt;
+        &lt;dd&gt;Sinal elétrico analógico contínuo utilizado na síntese modular.&lt;/dd&gt;
+      &lt;/dl&gt;
+    &lt;/aside&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;&amp;copy; 2026 Hello Warp! &bull; Web Design 101 FBAUP &bull; &lt;a href="#inicio"&gt;↑ Início&lt;/a&gt;&lt;/p&gt;
+  &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+
+      <!-- Toolbar CSS -->
+      <div class="code-toolbar">
+        <span><span class="lang-pt">FICHEIRO:</span><span class="lang-en">FILE:</span> demos/hello-warp/css/style.css</span>
+        <button class="btn-control" id="btn-copy-css">
+          <span class="lang-pt">Copiar CSS</span>
+          <span class="lang-en">Copy CSS</span>
+        </button>
+      </div>
+      <div class="code-container">
+        <pre><code id="code-full-css">* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #1a1a1a;
+  background-color: #f7f7f8;
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+  padding: 2rem 1.25rem;
+}
+
+header, main, footer {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 320px;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  line-height: 1.15;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.75rem;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+nav ul li a {
+  display: inline-block;
+  padding: 0.45rem 0.85rem;
+  background-color: #ffffff;
+  color: #111111;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border: 1px solid #d4d4d8;
+  border-radius: 3px;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+  background-color: #e60000;
+  color: #ffffff;
+  border-color: #e60000;
+}
+
+p {
+  max-width: 75ch;
+  margin-bottom: 1rem;
+}
+
+:target {
+  outline: 3px solid #e60000;
+  outline-offset: 6px;
+}</code></pre>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div>
+        <strong>WD101 — Web Design</strong> • 2026/2027<br>
+        <span class="lang-pt">Faculdade de Belas Artes da Universidade do Porto • Licenciatura em Design de Comunicação</span>
+        <span class="lang-en">Faculty of Fine Arts of the University of Porto • Degree in Communication Design</span>
+      </div>
+      <div>
+        <a href="#inicio" class="matrix-link">
+          <span class="lang-pt">↑ Topo da Página</span>
+          <span class="lang-en">↑ Back to Top</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 1. Theme Toggle Script (Solid Support with html[data-theme])
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    function updateThemeBtnState() {
+      if (!themeBtn) return;
+      const current = document.documentElement.getAttribute('data-theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const isDark = current === 'dark';
+      const lang = document.documentElement.getAttribute('lang') || 'pt';
+      const label = isDark ? (lang === 'pt' ? 'Escuro' : 'Dark') : (lang === 'pt' ? 'Claro' : 'Light');
+      const icon = isDark ? '🌙' : '☀';
+      themeBtn.innerHTML = `${icon} <span>${label}</span>`;
+      themeBtn.setAttribute('title', lang === 'pt' ? `Tema atual: ${label}. Clique para alternar.` : `Current theme: ${label}. Click to toggle.`);
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('wd101_theme', next);
+        updateThemeBtnState();
+      });
+      const savedTheme = localStorage.getItem('wd101_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      updateThemeBtnState();
+    }
+
+    // 2. Bilingual Engine (PT / EN)
+    const langBtn = document.getElementById('lang-toggle-btn');
+    const guideDict = {
+      pt: {
+        brand_meta: "FBAUP Design 2026/27",
+        nav_assignments: "← Enunciados",
+        nav_overview: "Enquadramento",
+        nav_steps: "Passo a Passo",
+        nav_rubric: "Rubrica Docente",
+        nav_code: "Código Oficial",
+        btn_view_demo: "🚀 Ver Mini-Site Demo ↗",
+        back_to_portal: "← Voltar aos Enunciados da Plataforma WD101",
+        hero_title: "EX1: Hello Warp! — Landmarks Semânticos & Fluxo Normal",
+        hero_desc: "O primeiro desafio prático de Web Design 101 adaptado ao universo Drumtiks '26: desenhe e estruture a página de apresentação do DJ Warp utilizando exclusivamente landmarks HTML5 nativos, seletores descendentes em CSS e medidas relativas.",
+        banner_title: "Mini-Site de Demonstração Disponível",
+        banner_desc: "A resolução integral de 20/20 valores está compilada na pasta learning-scaffold/demos/hello-warp/.",
+        btn_open_demo: "Abrir Mini-Site do DJ Warp no Browser ↗",
+        sec1_title: "1. Enquadramento & Desafio Pedagógico",
+        sec1_p1: "O Exercício 1 marca a transição da teoria para o desenvolvimento web real. O objetivo é dominar o fluxo normal do documento e o modelo de caixa sem muletas visuais:",
+        card_classes_title: "Zero Classes Cosméticas",
+        card_classes_desc: "Proibido criar classes do tipo class=\"titulo\". O estilo é transmitido pela árvore hierárquica (seletores descendentes).",
+        card_divs_title: "Tolerância Zero a <div>",
+        card_divs_desc: "Não utilize contentores genéricos onde existe um marco semântico nativo (header, nav, main, section, article, aside, footer).",
+        card_images_title: "Zero Imagens Externas",
+        card_images_desc: "O foco é exclusivamente tipográfico: escala modular em rem, entrelinha unitless e caixas elásticas limitadas a 75ch.",
+        sec2_title: "2. Guião de Execução Passo a Passo",
+        sec3_title: "3. Rubrica Docente de Avaliação (20 Pontos)",
+        sec3_desc: "A avaliação do Exercício 1 é orientada por 5 marcos qualitativos objetivos:",
+        th_rubric_marco: "Marco de Avaliação",
+        th_rubric_weight: "Peso",
+        th_rubric_pass: "Padrão de Excelência (15–20)",
+        th_rubric_fail: "Anti-Padrão / Penalização (0–9)",
+        sec4_title: "4. Código Completo da Solução Oficial",
+        sec4_desc: "Consulte ou copie o código integral implementado no mini-site learning-scaffold/demos/hello-warp/:"
+      },
+      en: {
+        brand_meta: "FBAUP Design 2026/27",
+        nav_assignments: "← Assignments",
+        nav_overview: "Overview",
+        nav_steps: "Step-by-Step",
+        nav_rubric: "Grading Rubric",
+        nav_code: "Official Code",
+        btn_view_demo: "🚀 View Live Demo ↗",
+        back_to_portal: "← Back to Course Assignments",
+        hero_title: "EX1: Hello Warp! — Semantic Landmarks & Normal Flow",
+        hero_desc: "The first hands-on assignment of Web Design 101 adapted to the Drumtiks '26 universe: design and code the presentation page for DJ Warp strictly using native HTML5 landmarks, descendant CSS selectors, and relative units.",
+        banner_title: "Live Demonstration Mini-Site Ready",
+        banner_desc: "The full 20/20 reference solution is compiled inside learning-scaffold/demos/hello-warp/.",
+        btn_open_demo: "Open DJ Warp Mini-Site in Browser ↗",
+        sec1_title: "1. Pedagogical Overview & Challenge",
+        sec1_p1: "Exercise 1 marks the shift from theory to real web development. The core goal is mastering normal document flow and the box model with zero crutches:",
+        card_classes_title: "Zero Cosmetic Classes",
+        card_classes_desc: "No utility classes like class=\"title\". Styles are passed down through the DOM hierarchy via descendant selectors.",
+        card_divs_title: "Zero <div> Tolerance",
+        card_divs_desc: "Do not use generic div tags where a native landmark exists (header, nav, main, section, article, aside, footer).",
+        card_images_title: "Zero External Images",
+        card_images_desc: "Focus exclusively on typography: modular rem scale, unitless line-heights, and elastic boxes capped at 75ch.",
+        sec2_title: "2. Step-by-Step Execution Guide",
+        sec3_title: "3. Grading Rubric (20 Points)",
+        sec3_desc: "Assessment for Exercise 1 is structured around 5 objective qualitative milestones:",
+        th_rubric_marco: "Evaluation Milestone",
+        th_rubric_weight: "Weight",
+        th_rubric_pass: "Excellence Benchmark (15–20)",
+        th_rubric_fail: "Anti-Pattern / Penalty (0–9)",
+        sec4_title: "4. Complete Official Solution Code",
+        sec4_desc: "Inspect or copy the complete code implemented in learning-scaffold/demos/hello-warp/:"
+      }
+    };
+
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('wd101_lang', lang);
+      langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (guideDict[lang] && guideDict[lang][key]) {
+          el.innerHTML = guideDict[lang][key];
+        }
+      });
+      updateThemeBtnState();
+    }
+
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('lang') || 'pt';
+        const next = current === 'pt' ? 'en' : 'pt';
+        setLanguage(next);
+      });
+      // Inicializar idioma gravado
+      setLanguage(localStorage.getItem('wd101_lang') || 'pt');
+    }
+
+    // 3. Copy Code Buttons
+    document.getElementById('btn-copy-html')?.addEventListener('click', (e) => {
+      const code = document.getElementById('code-full-html')?.textContent || '';
+      navigator.clipboard.writeText(code).then(() => {
+        const orig = e.target.textContent;
+        e.target.textContent = 'Copiado!';
+        setTimeout(() => e.target.textContent = orig, 1500);
+      });
+    });
+
+    document.getElementById('btn-copy-css')?.addEventListener('click', (e) => {
+      const code = document.getElementById('code-full-css')?.textContent || '';
+      navigator.clipboard.writeText(code).then(() => {
+        const orig = e.target.textContent;
+        e.target.textContent = 'Copiado!';
+        setTimeout(() => e.target.textContent = orig, 1500);
+      });
+    });
+  </script>
+</body>
+</html>

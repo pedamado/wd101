@@ -1,0 +1,190 @@
+[
+  {
+    "uid": "ass-1",
+    "num_id": 1,
+    "ass": 1,
+    "canonical_id": "2026-09-18-001",
+    "code": "EX1",
+    "slug": "ex1-hello-wendy",
+    "title": {
+      "pt": "EX1: Hello Warp! (Wendy) — Landmarks & Fluxo Normal",
+      "en": "EX1: Hello Warp! (Wendy) — Semantic Landmarks & Normal Flow"
+    },
+    "guide_url": "ex1-hello-warp-guide.html",
+    "demo_url": "demos/hello-warp/index.html",
+    "tag": {
+      "pt": "Estrutura Semântica Fundamental",
+      "en": "Foundational Semantic Structure"
+    },
+    "tier": "foundational",
+    "lev": 1,
+    "objective": {
+      "pt": "Compreender o fluxo normal do documento HTML5 e a hierarquia tipográfica através de landmarks semânticos puros, estritamente sem classes ou IDs.",
+      "en": "Master HTML5 normal document flow and typographic hierarchy using pure semantic landmarks, strictly with zero classes or IDs."
+    },
+    "drumtiks_adaptation": {
+      "pt": "Decomposição do Drumtiks '26 em versão 'Naked': o cartaz e alinhamento do festival estruturados apenas com header, nav, main, section, article e footer. O layout flui naturalmente em mobile e desktop recorrendo a unidades rem e seletores descendentes (nav ul li a).",
+      "en": "Deconstruction of Drumtiks '26 in 'Naked' form: festival poster and lineup structured strictly with header, nav, main, section, article, and footer. Layout flows naturally on mobile and desktop using rem units and descendant selectors (nav ul li a)."
+    },
+    "constraints": [
+      "Zero classes e Zero IDs no código HTML",
+      "Seletores CSS exclusivamente por tipo e descendência (ex: nav ul li a)",
+      "Unidades relativas rem e em; proibido width/height fixos em px",
+      "Sem qualquer recurso a JavaScript"
+    ],
+    "patterns_used": ["Landmarks HTML5", "Descendant Selectors", "Relative Units"]
+  },
+  {
+    "uid": "ass-2",
+    "num_id": 2,
+    "ass": 2,
+    "canonical_id": "2026-10-02-002",
+    "code": "EX2",
+    "slug": "ex2-media-box-model",
+    "title": {
+      "pt": "EX2: Media & Box Model — Geometria e Imagem Responsiva",
+      "en": "EX2: Media & Box Model — Responsive Images & Geometry"
+    },
+    "guide_url": "ex2-guide.html",
+    "demo_url": "demos/ex2-media-box-model/index.html",
+    "tag": {
+      "pt": "Direção de Arte & Modelo de Caixa",
+      "en": "Art Direction & Box Model"
+    },
+    "tier": "intermediate",
+    "lev": 2,
+    "objective": {
+      "pt": "Introdução ao CSS Reset de Eric Meyer v2.0, classes utilitárias, incorporação de fontes remotas (Google Fonts), multimédia responsiva (<picture>, <video>, <iframe>) e posicionamento relativo/absoluto/sticky.",
+      "en": "Introduction to Eric Meyer CSS Reset v2.0, classes, remote webfonts (Google Fonts), responsive multimedia (<picture>, <video>, <iframe>), and relative/absolute/sticky positioning."
+    },
+    "drumtiks_adaptation": {
+      "pt": "O Drumtiks ganha identidade visual e multimédia: o cartaz transforma-se numa página com direção de arte fotográfica para o DJ Warp (webp/jpg em rácios 16:9 e 1:1), vídeo promocional, grelha básica de artistas e barra de navegação com position: sticky.",
+      "en": "Drumtiks gains visual identity and media: the poster evolves into a page featuring photographic art direction for DJ Warp (webp/jpg in 16:9 and 1:1 ratios), promo video, artist cards grid, and sticky navigation."
+    },
+    "constraints": [
+      "Integração obrigatória do Eric Meyer CSS Reset v2.0",
+      "Direção de arte com <picture> e múltiplos <source> otimizados",
+      "Classes semânticas BEM simplificadas",
+      "Uso de position: sticky e stacking context z-index"
+    ],
+    "patterns_used": ["P2 (Art Direction)", "P7 (Sticky Stage inicial)", "P12 (Sticky Nav inicial)"]
+  },
+  {
+    "uid": "ass-3",
+    "num_id": 3,
+    "ass": 3,
+    "proj": 1,
+    "canonical_id": "2026-10-23-003",
+    "code": "PROJECT",
+    "slug": "project-drumtiks-26",
+    "title": {
+      "pt": "Projeto Final: Festival DRUMTIKS '26 — Portal Pure CSS",
+      "en": "Final Project: DRUMTIKS '26 — Pure CSS Festival Portal"
+    },
+    "tag": {
+      "pt": "Portal Responsivo Completo (Zero-JS)",
+      "en": "Full Responsive Portal (Zero-JS)"
+    },
+    "tier": "advanced",
+    "lev": 3,
+    "objective": {
+      "pt": "Construir um portal web responsivo de nível profissional, estritamente sem JavaScript, aplicando arquitetura @layer, variáveis e tokens a 3 níveis, fontes variáveis locais WOFF2, carrosséis magnéticos, gaveta móvel, modais e motor de preços reativo em CSS.",
+      "en": "Build a professional-grade, strictly zero-JavaScript responsive web portal using @layer architecture, 3-tier design tokens, self-hosted WOFF2 variable fonts, scroll-snap carousels, off-canvas drawers, modals, and pure CSS reactive pricing."
+    },
+    "drumtiks_adaptation": {
+      "pt": "A experiência integral do festival: navegação dual (desktop flyout / gaveta mobile), galeria com scroll snap, horários em acordeão expansível, simulador de bilheteira com cálculo em tempo real via :has() e :checked, tema escuro/claro nativo, e cartões intrínsecos com @container.",
+      "en": "The complete festival experience: dual navigation (desktop flyout / mobile drawer), scroll-snap photo gallery, expandable schedule accordion, live cart simulator via :has() and :checked, native light/dark theming, and container queries."
+    },
+    "constraints": [
+      "Zero JavaScript: qualquer <script> invalida os componentes interativos",
+      "Organização em @layer (reset, theme, base, layout, components, interactive, xray)",
+      "Webfonts variáveis locais com continuous axes wght/wdth",
+      "Compatibilidade estrita com W3C e navegadores modernos"
+    ],
+    "stages": [
+      {
+        "name": { "pt": "Fase 1: Protótipo Preliminar (TP06)", "en": "Stage 1: Early Prototype (TP06)" },
+        "desc": { "pt": "Website responsivo a 2 colunas com breakpoint a 960px, sticky stage inicial e galeria de fotos.", "en": "Two-column responsive website with 960px desktop breakpoint, sticky hero stage, and photo gallery." },
+        "color": "var(--color-swiss-red)",
+        "guide_url": "demos/tp06-responsive/ASSIGNMENT-TP06-RESPONSIVE.html",
+        "demo_url": "demos/tp06-responsive/index.html"
+      },
+      {
+        "name": { "pt": "Fase 2: Capstone Avançado Integrado (TP11)", "en": "Stage 2: Full Integrated Capstone (TP11)" },
+        "desc": { "pt": "Masterclass integrada: 4 breakpoints mobile-first, Macro Grid 2D com template-areas, Masonry denso com voids artísticos, Crate 3D fan-out, theming dinâmico e inspetor de Raios-X.", "en": "Integrated masterclass: 4 mobile-first breakpoints, 2D Grid with template-areas, Dense Masonry with artistic voids, 3D Vinyl Crate fan-out, dynamic theming, and X-Ray inspector." },
+        "color": "var(--color-accent-cyan)",
+        "guide_url": "demos/tp11-integrated-responsive-project/GUIDE.html",
+        "demo_url": "demos/tp11-integrated-responsive-project/index.html"
+      }
+    ],
+    "patterns_used": ["P1 a P13 (Todos os 13 Padrões)", "3D Vinyl Crate", "Dense Masonry Voids"]
+  },
+  {
+    "uid": "ass-4",
+    "num_id": 4,
+    "ass": 4,
+    "canonical_id": "2026-10-31-004",
+    "code": "TP11-B",
+    "slug": "tp11-b-layout-suite",
+    "title": {
+      "pt": "TP11-B: Advanced CSS Layout Suite — Flexbox & CSS Grid",
+      "en": "TP11-B: Advanced CSS Layout Suite — Flexbox & CSS Grid"
+    },
+    "guide_url": "demos/tp11-css-flexbox-grid/README.md",
+    "demo_url": "demos/tp11-css-flexbox-grid/index.html",
+    "tag": {
+      "pt": "Composição 1D vs. 2D & Container Queries",
+      "en": "1D vs. 2D Composition & Container Queries"
+    },
+    "tier": "advanced",
+    "lev": 3,
+    "objective": {
+      "pt": "Aprofundar os modelos de layout contemporâneos: Flexbox 1D no console de faixas, CSS Grid 2D na discografia com auto-flow denso, arquitetura híbrida e componentização contextual via @container.",
+      "en": "Master modern layout models: 1D Flexbox in track consoles, 2D CSS Grid in discography with dense auto-flow, hybrid macro/micro architecture, and context-aware styling via @container."
+    },
+    "drumtiks_adaptation": {
+      "pt": "Exploração dos lançamentos e instrumentais de DJ Warp em 4 demonstradores autónomos e interativos com inspetor de raios-x e alternadores puros de estado em CSS.",
+      "en": "Exploration of DJ Warp releases and tracks across 4 self-contained interactive laboratories with X-ray inspector and pure CSS state switchers."
+    },
+    "constraints": [
+      "Zero JavaScript para layout, filtros ou reordenação",
+      "Adoção estrita da Regra de Ouro: Grid para macro e Flexbox para micro",
+      "Acessibilidade de teclado e contraste em conformidade com WCAG 2.2"
+    ],
+    "patterns_used": ["CSS Grid 2D", "Flexbox 1D", "Container Queries", "X-Ray Diagnostics"]
+  },
+  {
+    "uid": "ass-5",
+    "num_id": 5,
+    "ass": 5,
+    "canonical_id": "2026-10-30-005",
+    "code": "TP11",
+    "slug": "tp11-motion-theming",
+    "title": {
+      "pt": "TP11: Variables, Transitions & Animations Suite",
+      "en": "TP11: Variables, Transitions & Animations Suite"
+    },
+    "guide_url": "demos/tp11-variables-transitions-animations/README.md",
+    "demo_url": "demos/tp11-variables-transitions-animations/index.html",
+    "tag": {
+      "pt": "Theming Dinâmico, Física 3D & Scroll Motion",
+      "en": "Dynamic Theming, 3D Physics & Scroll Motion"
+    },
+    "tier": "advanced",
+    "lev": 3,
+    "objective": {
+      "pt": "Dominar tokens de design com escopo local e global, theming nativo com light-dark(), física elástica com cubic-bezier(), animações associadas ao scroll e pós-processamento com filtros CSS.",
+      "en": "Master design tokens with local/global scope, native theming via light-dark(), elastic spring physics with cubic-bezier(), scroll-driven animations, and post-processing CSS filters."
+    },
+    "drumtiks_adaptation": {
+      "pt": "Cinco módulos práticos explorando a caixa de vinis 3D com ejeção de disco, barra de progresso no scroll global, revelação no viewport e comutador claro/escuro.",
+      "en": "Five practical modules featuring 3D vinyl crate fan-out, global scroll progress bar, viewport reveals, and pure CSS light/dark switching."
+    },
+    "constraints": [
+      "Zero JavaScript para animações e alternador de tema",
+      "Aceleração por hardware GPU através de transform e opacity",
+      "Suporte estrito a @media (prefers-reduced-motion: reduce)"
+    ],
+    "patterns_used": ["light-dark()", "cubic-bezier()", "scroll(root)", "view()", "perspective"]
+  }
+]

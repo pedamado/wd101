@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WD101 — Plataforma Pedagógica & Andaime de Aprendizagem</title>
+  
+  <!-- Previne FOUC de tema e idioma -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || 
+                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
+
+  <!-- CSS Layer Hierarchy -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+  <link rel="stylesheet" href="assets/css/patterns-demo.css">
+</head>
+<body>
+
+  <!-- Site Header Landmark -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="#" class="brand-logo">WD<span>101</span></a>
+        <span class="brand-meta" data-i18n="brand_sub">FBAUP Design 2026/27</span>
+      </div>
+
+      <nav class="site-nav" aria-label="Navegação do Portal">
+        <ul>
+          <li><a href="#study-goals" data-i18n="nav_goals">Objetivos &amp; Como Estudar</a></li>
+          <li><a href="#assignments" data-i18n="nav_assignments">Enunciados</a></li>
+          <li><a href="#matrix" data-i18n="nav_matrix">Matriz MDN</a></li>
+          <li><a href="#patterns" data-i18n="nav_patterns">Padrões Drumtiks</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-controls">
+        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
+        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span data-i18n="theme_toggle">Tema</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Landmark -->
+  <main class="main-container" id="main-content">
+    
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <span class="hero-eyebrow" data-i18n="hero_eyebrow">Unidade Curricular Web Design 101 • FBAUP</span>
+      <h1 class="hero-title" data-i18n="hero_title">Documentação &amp; Andaime Pedagógico Interativo</h1>
+      <p class="hero-desc" data-i18n="hero_desc">
+        Referência completa de HTML5 Living Standard e CSS3/4/5, articulada com o universo concetual do Festival DRUMTIKS '26. Aprenda os princípios de design responsivo móvel-primeiro, sem recurso a frameworks ou JavaScript na camada de apresentação.
+      </p>
+      <div class="hero-badges">
+        <a href="#matrix" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);padding:var(--space-2) var(--space-4);" data-i18n="hero_btn_matrix">Explorar Matriz de Referência</a>
+        <a href="#patterns" class="btn-control" style="padding:var(--space-2) var(--space-4);" data-i18n="hero_btn_patterns">Ver Padrões Drumtiks</a>
+      </div>
+    </section>
+
+    <!-- Study Goals & Mental Models -->
+    <section id="study-goals" style="margin-bottom:var(--space-12);">
+      <div style="margin-bottom:var(--space-6);">
+        <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-2);" data-i18n="goals_heading">Objetivos de Aprendizagem &amp; Como Estudar RWD</h2>
+        <p style="color:var(--text-secondary);font-size:var(--text-base);" data-i18n="goals_sub">Metodologias e modelos mentais para o sucesso no design e desenvolvimento web moderno.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card-item" style="border-left: 3px solid var(--color-swiss-red);">
+          <div>
+            <h3 class="card-item-title" data-i18n="goal_1_title">1. Mentalidade Mobile-First</h3>
+            <p class="card-item-body" data-i18n="goal_1_desc">Desenhe e estruture primeiro para ecrãs pequenos com o fluxo normal do documento. Adicione complexidade com breakpoints min-width progressivos.</p>
+            <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);">
+              <a href="mobile-first-foundation.html" style="color:var(--color-swiss-red);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;" data-i18n="goal_1_link">
+                📘 Guião Detalhado: Semanas 1-2 &amp; Arquitetura Web ↗
+              </a>
+            </div>
+          </div>
+          <span class="badge badge-foundational">Foundational</span>
+        </article>
+
+        <article class="card-item" style="border-left: 3px solid var(--color-accent-blue);">
+          <div>
+            <h3 class="card-item-title" data-i18n="goal_2_title">2. Dimensionamento Intrínseco</h3>
+            <p class="card-item-body" data-i18n="goal_2_desc">Deixe o conteúdo ditar a sua forma. Utilize min(), max(), clamp(), flex-basis e minmax() em vez de larguras fixas em pixels.</p>
+            <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);">
+              <a href="intrinsic-sizing-box-model.html" style="color:var(--color-accent-blue);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;" data-i18n="goal_2_link">
+                📘 Guião Detalhado: Dimensionamento Intrínseco &amp; Box Model ↗
+              </a>
+            </div>
+          </div>
+          <span class="badge badge-intermediate">Intermediate</span>
+        </article>
+
+        <article class="card-item">
+          <div>
+            <h3 class="card-item-title" data-i18n="goal_3_title">3. Tipografia Fluida &amp; Variável</h3>
+            <p class="card-item-body" data-i18n="goal_3_desc">Elimine dezenas de media queries tipográficas. Utilize clamp() e eixos contínuos de fontes variáveis WOFF2 auto-hospedadas.</p>
+          </div>
+          <span class="badge badge-advanced">Advanced</span>
+        </article>
+
+        <article class="card-item">
+          <div>
+            <h3 class="card-item-title" data-i18n="goal_4_title">4. Máquinas de Estado Zero-JS</h3>
+            <p class="card-item-body" data-i18n="goal_4_desc">Aproveite seletores modernos como :has(), :checked, :focus-within, :target e a Popover API para reatividade pura em CSS.</p>
+          </div>
+          <span class="badge badge-advanced">Advanced</span>
+        </article>
+
+        <article class="card-item" style="border-left: 3px solid var(--color-accent-gold);">
+          <div>
+            <h3 class="card-item-title">5. Variáveis, Transições &amp; Animações</h3>
+            <p class="card-item-body">
+              Controle o pipeline de apresentação com Tokens globais e locais, transição suave via light-dark(), física elástica cubic-bezier() e animações orientadas ao scroll com animation-timeline: scroll(root) e view().
+            </p>
+            <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);">
+              <a href="demos/tp11-variables-transitions-animations/index.html" style="color:var(--color-accent-gold);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
+                🚀 Suite TP11: Vars, Transitions &amp; Animations ↗
+              </a>
+            </div>
+          </div>
+          <span class="badge badge-advanced">Advanced</span>
+        </article>
+
+        <article class="card-item" style="border-left: 3px solid var(--color-accent-cyan);">
+          <div>
+            <h3 class="card-item-title">6. Layouts Avançados: CSS Grid &amp; Flexbox</h3>
+            <p class="card-item-body">
+              Aplique a Regra de Ouro do Layout Moderno: CSS Grid 2D para a grelha macro estrutural com template-areas e masonry com voids; Flexbox 1D alternante para micro-alinhamentos de barras, menus e cartões flexíveis.
+            </p>
+            <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);">
+              <a href="demos/tp11-css-flexbox-grid/index.html" style="color:var(--color-accent-cyan);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
+                🚀 Suite TP11-B: Flexbox &amp; Grid Masterclass ↗
+              </a>
+            </div>
+          </div>
+          <span class="badge badge-advanced">Advanced</span>
+        </article>
+
+        <article class="card-item" style="border-left: 3px solid var(--color-accent-purple);">
+          <div>
+            <h3 class="card-item-title">7. Seletores Modernos &amp; Pseudo-Classes</h3>
+            <p class="card-item-body">
+              Domine as relações de parentesco sem JavaScript com o seletor :has(), reduza especificidade com :where() (0,0,0), agrupe regras com :is(), negue condições com :not() e controle repetições com :nth-of-type().
+            </p>
+          </div>
+          <span class="badge badge-advanced">Advanced</span>
+        </article>
+
+        <article class="card-item" style="border-left: 3px solid #10b981;">
+          <div>
+            <h3 class="card-item-title">8. Princípios de Design de Interação</h3>
+            <p class="card-item-body">
+              Alie a engenharia CSS aos modelos mentais da interação: Affordance perceptível, Signifiers explícitos, Feedback imediato, Mapeamento natural, Divulgação Progressiva e prevenção de Anti-Padrões da web.
+            </p>
+            <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);">
+              <a href="#interaction-design" style="color:#10b981;font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
+                🔍 Matriz de Interação &amp; Anti-Padrões ↓
+              </a>
+            </div>
+          </div>
+          <span class="badge badge-advanced">IxD &amp; UX</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- Assignments Section -->
+    <section id="assignments" style="margin-bottom:var(--space-12);">
+      <div style="margin-bottom:var(--space-6);">
+        <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-2);" data-i18n="assign_heading">Enunciados &amp; Decomposição Pedagógica</h2>
+        <p style="color:var(--text-secondary);font-size:var(--text-base);" data-i18n="assign_sub">Os três momentos letivos articulados através do estudo de caso Drumtiks '26.</p>
+      </div>
+
+      <div class="grid-3" id="assignments-container">
+        <article class="card-item" id="assign-ex1" data-uid="ass-1" data-num="1">
+          <div>
+            <div class="card-item-header">
+              <span class="badge badge-foundational">foundational</span>
+              <span class="badge badge-status-yes">EX1</span>
+            </div>
+            <h3 class="card-item-title"><span class="lang-pt">EX1: Hello Warp! (Wendy) — Landmarks & Fluxo Normal</span><span class="lang-en">EX1: Hello Warp! (Wendy) — Semantic Landmarks & Normal Flow</span></h3>
+            <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
+              <span class="lang-pt">Estrutura Semântica Fundamental</span><span class="lang-en">Foundational Semantic Structure</span>
+            </p>
+            <p class="card-item-body">
+              <strong><span class="lang-pt">Objetivo:</span><span class="lang-en">Objective:</span></strong> <span class="lang-pt">Compreender o fluxo normal do documento HTML5 e a hierarquia tipográfica através de landmarks semânticos puros, estritamente sem classes ou IDs.</span><span class="lang-en">Master HTML5 normal document flow and typographic hierarchy using pure semantic landmarks, strictly with zero classes or IDs.</span>
+            </p>
+            <div style="background:var(--bg-surface-elevated);border-left:3px solid var(--color-swiss-red);padding:var(--space-3);margin-bottom:var(--space-3);font-size:var(--text-xs);">
+              <strong><span class="lang-pt">Decomposição Drumtiks:</span><span class="lang-en">Drumtiks Adaptation:</span></strong>
+              <p style="margin-top:0.3rem;color:var(--text-secondary);"><span class="lang-pt">Decomposição do Drumtiks '26 em versão 'Naked': o cartaz e alinhamento do festival estruturados apenas com header, nav, main, section, article e footer. O layout flui naturalmente em mobile e desktop recorrendo a unidades rem e seletores descendentes (nav ul li a).</span><span class="lang-en">Deconstruction of Drumtiks '26 in 'Naked' form: festival poster and lineup structured strictly with header, nav, main, section, article, and footer. Layout flows naturally on mobile and desktop using rem units and descendant selectors (nav ul li a).</span></p>
+            </div>
+            <ul style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;list-style:disc;padding-left:1.2rem;margin-bottom:var(--space-4);">
+              <li>Zero classes e Zero IDs no código HTML</li><li>Seletores CSS exclusivamente por tipo e descendência (ex: nav ul li a)</li><li>Unidades relativas rem e em; proibido width/height fixos em px</li><li>Sem qualquer recurso a JavaScript</li>
+            </ul>
+            <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-3);flex-wrap:wrap;"><a href="ex1-hello-warp-guide.html" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);font-size:var(--text-xs);font-weight:700;">📘 <span class="lang-pt">Guião Passo a Passo</span><span class="lang-en">Step-by-Step Guide</span> ↗</a><a href="demos/hello-warp/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="font-size:var(--text-xs);">🚀 <span class="lang-pt">Ver Mini-Site</span><span class="lang-en">Live Demo</span> ↗</a></div>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);border-top:1px solid var(--border-color);padding-top:var(--space-2);">
+            <span class="lang-pt">Padrões:</span><span class="lang-en">Patterns:</span> Landmarks HTML5, Descendant Selectors, Relative Units
+          </div>
+        </article>
+        <article class="card-item" id="assign-ex2" data-uid="ass-2" data-num="2">
+          <div>
+            <div class="card-item-header">
+              <span class="badge badge-intermediate">intermediate</span>
+              <span class="badge badge-status-yes">EX2</span>
+            </div>
+            <h3 class="card-item-title"><span class="lang-pt">EX2: Media & Box Model — Geometria e Imagem Responsiva</span><span class="lang-en">EX2: Media & Box Model — Responsive Images & Geometry</span></h3>
+            <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
+              <span class="lang-pt">Direção de Arte & Modelo de Caixa</span><span class="lang-en">Art Direction & Box Model</span>
+            </p>
+            <p class="card-item-body">
+              <strong><span class="lang-pt">Objetivo:</span><span class="lang-en">Objective:</span></strong> <span class="lang-pt">Introdução ao CSS Reset de Eric Meyer v2.0, classes utilitárias, incorporação de fontes remotas (Google Fonts), multimédia responsiva (&lt;picture&gt;, &lt;video&gt;, &lt;iframe&gt;) e posicionamento relativo/absoluto/sticky.</span><span class="lang-en">Introduction to Eric Meyer CSS Reset v2.0, classes, remote webfonts (Google Fonts), responsive multimedia (&lt;picture&gt;, &lt;video&gt;, &lt;iframe&gt;), and relative/absolute/sticky positioning.</span>
+            </p>
+            <div style="background:var(--bg-surface-elevated);border-left:3px solid var(--color-swiss-red);padding:var(--space-3);margin-bottom:var(--space-3);font-size:var(--text-xs);">
+              <strong><span class="lang-pt">Decomposição Drumtiks:</span><span class="lang-en">Drumtiks Adaptation:</span></strong>
+              <p style="margin-top:0.3rem;color:var(--text-secondary);"><span class="lang-pt">O Drumtiks ganha identidade visual e multimédia: o cartaz transforma-se numa página com direção de arte fotográfica para o DJ Warp (webp/jpg em rácios 16:9 e 1:1), vídeo promocional, grelha básica de artistas e barra de navegação com position: sticky.</span><span class="lang-en">Drumtiks gains visual identity and media: the poster evolves into a page featuring photographic art direction for DJ Warp (webp/jpg in 16:9 and 1:1 ratios), promo video, artist cards grid, and sticky navigation.</span></p>
+            </div>
+            <ul style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;list-style:disc;padding-left:1.2rem;margin-bottom:var(--space-4);">
+              <li>Integração obrigatória do Eric Meyer CSS Reset v2.0</li><li>Direção de arte com &lt;picture&gt; e múltiplos &lt;source&gt; otimizados</li><li>Classes semânticas BEM simplificadas</li><li>Uso de position: sticky e stacking context z-index</li>
+            </ul>
+            <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-3);flex-wrap:wrap;"><a href="ex2-guide.html" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);font-size:var(--text-xs);font-weight:700;">📘 <span class="lang-pt">Guião Passo a Passo</span><span class="lang-en">Step-by-Step Guide</span> ↗</a><a href="demos/ex2-media-box-model/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="font-size:var(--text-xs);">🚀 <span class="lang-pt">Ver Mini-Site</span><span class="lang-en">Live Demo</span> ↗</a></div>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);border-top:1px solid var(--border-color);padding-top:var(--space-2);">
+            <span class="lang-pt">Padrões:</span><span class="lang-en">Patterns:</span> P2 (Art Direction), P7 (Sticky Stage inicial), P12 (Sticky Nav inicial)
+          </div>
+        </article>
+        <article class="card-item" id="assign-project" data-uid="ass-3" data-num="3">
+          <div>
+            <div class="card-item-header">
+              <span class="badge badge-advanced">advanced</span>
+              <span class="badge badge-status-yes">PROJECT</span>
+            </div>
+            <h3 class="card-item-title"><span class="lang-pt">Projeto Final: Festival DRUMTIKS '26 — Portal Pure CSS</span><span class="lang-en">Final Project: DRUMTIKS '26 — Pure CSS Festival Portal</span></h3>
+            <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
+              <span class="lang-pt">Portal Responsivo Completo (Zero-JS)</span><span class="lang-en">Full Responsive Portal (Zero-JS)</span>
+            </p>
+            <p class="card-item-body">
+              <strong><span class="lang-pt">Objetivo:</span><span class="lang-en">Objective:</span></strong> <span class="lang-pt">Construir um portal web responsivo de nível profissional, estritamente sem JavaScript, aplicando arquitetura @layer, variáveis e tokens a 3 níveis, fontes variáveis locais WOFF2, carrosséis magnéticos, gaveta móvel, modais e motor de preços reativo em CSS.</span><span class="lang-en">Build a professional-grade, strictly zero-JavaScript responsive web portal using @layer architecture, 3-tier design tokens, self-hosted WOFF2 variable fonts, scroll-snap carousels, off-canvas drawers, modals, and pure CSS reactive pricing.</span>
+            </p>
+            <div style="background:var(--bg-surface-elevated);border-left:3px solid var(--color-swiss-red);padding:var(--space-3);margin-bottom:var(--space-3);font-size:var(--text-xs);">
+              <strong><span class="lang-pt">Decomposição Drumtiks:</span><span class="lang-en">Drumtiks Adaptation:</span></strong>
+              <p style="margin-top:0.3rem;color:var(--text-secondary);"><span class="lang-pt">A experiência integral do festival: navegação dual (desktop flyout / gaveta mobile), galeria com scroll snap, horários em acordeão expansível, simulador de bilheteira com cálculo em tempo real via :has() e :checked, tema escuro/claro nativo, e cartões intrínsecos com @container.</span><span class="lang-en">The complete festival experience: dual navigation (desktop flyout / mobile drawer), scroll-snap photo gallery, expandable schedule accordion, live cart simulator via :has() and :checked, native light/dark theming, and container queries.</span></p>
+            </div>
+            <ul style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;list-style:disc;padding-left:1.2rem;margin-bottom:var(--space-4);">
+              <li>Zero JavaScript: qualquer &lt;script&gt; invalida os componentes interativos</li><li>Organização em @layer (reset, theme, base, layout, components, interactive, xray)</li><li>Webfonts variáveis locais com continuous axes wght/wdth</li><li>Compatibilidade estrita com W3C e navegadores modernos</li>
+            </ul>
+
+            <!-- Sub-modules: Early Prototype vs Advanced Prototype -->
+            <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:var(--space-3); margin-bottom:var(--space-3);">
+              <div style="font-weight:700; font-size:var(--text-xs); color:var(--color-swiss-red); margin-bottom:var(--space-2);">
+                STAGE 1: FINAL PROJECT — EARLY PROTOTYPE (TP06)
+              </div>
+              <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-bottom:var(--space-2);">
+                Website responsivo a 2 colunas com base desktop (960px), sticky stage inicial e galeria de fotos.
+              </p>
+              <div style="display:flex; gap:var(--space-2); flex-wrap:wrap;">
+                <a href="demos/tp06-responsive/ASSIGNMENT-TP06-RESPONSIVE.html" class="btn-control" style="font-size:var(--text-xs); font-weight:700;">
+                  📘 Guião TP06 ↗
+                </a>
+                <a href="demos/tp06-responsive/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="font-size:var(--text-xs);">
+                  🚀 Demo TP06 ↗
+                </a>
+              </div>
+            </div>
+
+            <div style="background:var(--bg-surface); border:1px solid var(--color-accent-cyan); border-radius:var(--radius-sm); padding:var(--space-3); margin-bottom:var(--space-3);">
+              <div style="font-weight:700; font-size:var(--text-xs); color:var(--color-accent-cyan); margin-bottom:var(--space-2);">
+                STAGE 2: FINAL PROJECT — ADVANCED / FULL PROTOTYPE (TP11 CAPSTONE)
+              </div>
+              <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-bottom:var(--space-2);">
+                Masterclass integrada: 4 breakpoints mobile-first, Macro Grid 2D com template-areas, Masonry denso com voids artísticos, Crate 3D fan-out, theming dinâmico e inspetor de Raios-X.
+              </p>
+              <div style="display:flex; gap:var(--space-2); flex-wrap:wrap;">
+                <a href="demos/tp11-integrated-responsive-project/GUIDE.html" class="btn-control" style="background:var(--color-accent-cyan); color:#000; border-color:var(--color-accent-cyan); font-size:var(--text-xs); font-weight:700;">
+                  📘 Guião de Evolução TP11 ↗
+                </a>
+                <a href="demos/tp11-integrated-responsive-project/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="font-size:var(--text-xs); font-weight:700;">
+                  🚀 Demo Capstone TP11 ↗
+                </a>
+              </div>
+            </div>
+
+          </div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);border-top:1px solid var(--border-color);padding-top:var(--space-2);">
+            <span class="lang-pt">Padrões:</span><span class="lang-en">Patterns:</span> P1 a P13 (Todos os 13 Padrões) + 3D Vinyl Crate + Dense Voids
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Interaction Design Research & Web Patterns vs Anti-Patterns -->
+    <section id="interaction-design" style="margin-bottom:var(--space-12);">
+      <div style="margin-bottom:var(--space-6);">
+        <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-2);">
+          Princípios de Design de Interação &amp; Padrões vs. Anti-Padrões Web
+        </h2>
+        <p style="color:var(--text-secondary);font-size:var(--text-base);">
+          Enquadramento teórico da ergonomia cognitiva, affordances perceptíveis e boas práticas de UX no ecossistema Drumtiks.
+        </p>
+      </div>
+
+      <!-- 9 Core Interaction Principles Cards -->
+      <div class="grid-3" style="margin-bottom:var(--space-8);">
+        <article class="card-item">
+          <div>
+            <h3 class="card-item-title" style="color:var(--color-swiss-red);">1. Affordance &amp; Signifiers</h3>
+            <p class="card-item-body">
+              Affordance é o potencial de ação real de um elemento (ex: clicável). Signifiers são as pistas visuais explícitas (sublinhados, cursores pointer, elevações no hover) que comunicam esse potencial ao utilizador.
+            </p>
+          </div>
+        </article>
+
+        <article class="card-item">
+          <div>
+            <h3 class="card-item-title" style="color:var(--color-accent-blue);">2. Feedback Imediato</h3>
+            <p class="card-item-body">
+              Cada interação exige confirmação visual ou tátil instantânea (&le; 100ms): estados :active, transições de cor e anéis :focus-visible comunicam que o sistema recebeu o comando.
+            </p>
+          </div>
+        </article>
+
+        <article class="card-item">
+          <div>
+            <h3 class="card-item-title" style="color:var(--color-accent-purple);">3. Mapeamento &amp; Metáfora</h3>
+            <p class="card-item-body">
+              Relação espacial coerente entre o controlo e o efeito no mundo real: a metáfora do Vinyl Crate 3D permite aos utilizadores "folhear" discos como numa caixa física de vinis na loja.
+            </p>
+          </div>
+        </article>
+
+        <article class="card-item">
+          <div>
+            <h3 class="card-item-title" style="color:var(--color-accent-gold);">4. Divulgação Progressiva</h3>
+            <p class="card-item-body">
+              Redução da sobrecarga cognitiva através da apresentação gradual de complexidade: uso de acordeões &lt;details&gt;/&lt;summary&gt; e cartões com detalhes sob pedido.
+            </p>
+          </div>
+        </article>
+
+        <article class="card-item">
+          <div>
+            <h3 class="card-item-title" style="color:var(--color-accent-cyan);">5. Preservação de Estado</h3>
+            <p class="card-item-body">
+              Garantir que a seleção de bilhetes ou o modo de visualização (ex: Raios-X) persistem na árvore do DOM sem necessidade de reloads destrutivos ou perda de contexto.
+            </p>
+          </div>
+        </article>
+
+        <article class="card-item">
+          <div>
+            <h3 class="card-item-title" style="color:#10b981);">6. Modelos Mentais Espaciais</h3>
+            <p class="card-item-body">
+              Estratificação no eixo Z (Stacking Contexts): a barra de progresso no topo, a barra de navegação sticky, o conteúdo rolável e os modais sobrepostos em planos de profundidade lógicos.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Patterns vs Anti-Patterns Comparative Table -->
+      <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:var(--space-4); overflow-x:auto;">
+        <h3 style="font-size:var(--text-lg); margin-bottom:var(--space-3); color:var(--text-primary);">
+          Matriz Crítica: Padrões de Sucesso vs. Anti-Padrões a Evitar na Web
+        </h3>
+        <table style="width:100%; border-collapse:collapse; font-size:var(--text-xs); line-height:1.5;">
+          <thead>
+            <tr style="background:var(--bg-surface); text-align:left;">
+              <th style="padding:var(--space-2) var(--space-3); border-bottom:2px solid var(--border-color); color:var(--text-primary);">Área de Interação</th>
+              <th style="padding:var(--space-2) var(--space-3); border-bottom:2px solid #10b981; color:#10b981;">✅ Padrão Recomendado (Best Practice)</th>
+              <th style="padding:var(--space-2) var(--space-3); border-bottom:2px solid var(--color-swiss-red); color:var(--color-swiss-red);">❌ Anti-Padrão (Anti-Pattern / Dark UX)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">Navegação Principal</td>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">Barra de navegação visível e horizontal no desktop, adaptada a gaveta no mobile.</td>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">"Hamburger Menu" oculto no desktop widescreen (Mystery Meat Navigation).</td>
+            </tr>
+            <tr>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">Estabilidade Visual</td>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">Imagens com aspect-ratio e dimensões explícitas; CLS = 0.</td>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">Carregamento tardio de imagens/banners sem reserva de espaço (salto de layout brusco).</td>
+            </tr>
+            <tr>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">Estados de Foco &amp; A11y</td>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">Contorno :focus-visible de alto contraste com outline-offset para navegação por teclado.</td>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">Remoção de contornos com <code>outline: none !important</code> sem substituto visível.</td>
+            </tr>
+            <tr>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">Formulários &amp; Botões</td>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">Campos ativos com mensagens inline de validação e feedback explicativo.</td>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">Botões desativados (disabled) que impedem o clique sem explicar a razão do erro.</td>
+            </tr>
+            <tr>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">Acessibilidade no Rodapé</td>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">Paginação semântica ou botão "Carregar Mais" explícito.</td>
+              <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">Scroll infinito que foge continuamente e impede o utilizador de alcançar o rodapé.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Matrix Section -->
+    <section id="matrix" style="margin-bottom:var(--space-12);">
+      <div style="margin-bottom:var(--space-6);">
+        <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-2);">
+          <span data-i18n="matrix_heading">Matriz Curricular de Referência MDN</span>
+          <span id="matrix-count" style="font-size:var(--text-sm);font-weight:400;color:var(--text-muted);"></span>
+        </h2>
+        <p style="color:var(--text-secondary);font-size:var(--text-base);" data-i18n="matrix_sub">
+          Catálogo exaustivo com 323+ entradas. Pesquise, filtre por escalão ou categoria, e abra a documentação oficial ou padrão correspondente.
+        </p>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <div class="search-input-wrap">
+          <input type="search" id="matrix-search" class="search-input" placeholder="Pesquisar por tag, seletor, propriedade..." data-i18n-placeholder="matrix_search_placeholder">
+        </div>
+
+        <select id="filter-type" class="filter-select" aria-label="Filtrar por Tipo">
+          <option value="all" data-i18n="filter_all_types">Todos os Tipos</option>
+          <option value="HTML" data-i18n="filter_html">Apenas HTML</option>
+          <option value="CSS" data-i18n="filter_css">Apenas CSS</option>
+        </select>
+
+        <select id="filter-tier" class="filter-select" aria-label="Filtrar por Escalão">
+          <option value="all" data-i18n="filter_all_tiers">Todos os Escalões</option>
+          <option value="foundational" data-i18n="filter_foundational">Básico / Foundational</option>
+          <option value="intermediate" data-i18n="filter_intermediate">Intermédio / Intermediate</option>
+          <option value="advanced" data-i18n="filter_advanced">Avançado / Advanced</option>
+        </select>
+
+        <select id="filter-status" class="filter-select" aria-label="Filtrar por Estado no Curso">
+          <option value="all" data-i18n="filter_all_status">Todo o Estado</option>
+          <option value="YES" data-i18n="filter_status_yes">Sim (No Curso)</option>
+          <option value="TBD" data-i18n="filter_status_tbd">TBD (A Considerar)</option>
+          <option value="NO" data-i18n="filter_status_no">Não (Fora do Âmbito)</option>
+        </select>
+
+        <select id="filter-category" class="filter-select" aria-label="Filtrar por Categoria">
+          <option value="all">Todas as Categorias</option>
+        </select>
+      </div>
+
+      <!-- Matrix Table -->
+      <div class="table-responsive">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th data-sort="id" data-i18n="th_id">#</th>
+              <th data-sort="symbol" data-i18n="th_symbol">Tag / Seletor / Propriedade</th>
+              <th data-sort="type" data-i18n="th_type">Tipo</th>
+              <th data-sort="tier" data-i18n="th_tier">Escalão</th>
+              <th data-sort="status" data-i18n="th_status">No Curso?</th>
+              <th data-i18n="th_desc">Definição Sintética</th>
+              <th data-i18n="th_links">Ligações</th>
+            </tr>
+          </thead>
+          <tbody id="matrix-tbody">
+            <!-- Injected via JavaScript from data-store.js -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Interactive Patterns Showcase -->
+    <section id="patterns" style="margin-bottom:var(--space-12);">
+      <div style="margin-bottom:var(--space-6);">
+        <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-2);" data-i18n="patterns_heading">Catálogo de Padrões Interativos Drumtiks</h2>
+        <p style="color:var(--text-secondary);font-size:var(--text-base);" data-i18n="patterns_sub">
+          Soluções práticas, comentadas e prontas a inspecionar para o projeto final.
+        </p>
+      </div>
+
+      <div id="patterns-container">
+        <!-- Injected via JavaScript from data-store.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Site Footer Landmark -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div>
+        <strong>WD101 — Web Design</strong> • 2026/2027<br>
+        <span data-i18n="footer_text">Faculdade de Belas Artes da Universidade do Porto • Licenciatura em Design de Comunicação</span>
+      </div>
+      <div>
+        <a href="#hero" class="matrix-link">↑ Voltar ao Topo</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Core Scripts -->
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/data-store.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

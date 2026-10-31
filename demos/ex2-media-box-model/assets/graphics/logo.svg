@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80" role="img" aria-label="DRUMTIKS '26 Logo">
+  <rect width="100%" height="100%" fill="#0a0a0c"/>
+  <!-- Kinetic waveform / drum strokes -->
+  <g fill="#e60000">
+    <rect x="20" y="24" width="6" height="32" rx="3"/>
+    <rect x="32" y="14" width="6" height="52" rx="3"/>
+    <rect x="44" y="30" width="6" height="20" rx="3"/>
+    <rect x="56" y="10" width="6" height="60" rx="3"/>
+    <rect x="68" y="20" width="6" height="40" rx="3"/>
+    <rect x="80" y="28" width="6" height="24" rx="3"/>
+  </g>
+  <!-- Typographic Mark -->
+  <text x="100" y="44" font-family="'Fraunces', Georgia, serif" font-weight="900" font-size="26" fill="#ffffff" letter-spacing="1">DRUMTIKS</text>
+  <text x="100" y="62" font-family="'Arimo', -apple-system, sans-serif" font-weight="700" font-size="11" fill="#e60000" letter-spacing="3">'26 • PORTO FESTIVAL</text>
+  <circle cx="288" cy="40" r="6" fill="#e60000"/>
+</svg>

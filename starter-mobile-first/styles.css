@@ -1,0 +1,330 @@
+/**
+ * ==========================================================================
+ * WD101 — Web Design 101 | FBAUP (2026/2027)
+ * Ficheiro: styles.css (Estilos Fundamentais das Semanas 1 & 2)
+ * Autor: Prof. Pedro Amado (pamado@fba.up.pt) & Estudante WD101
+ * 
+ * REGRA PEDAGÓGICA OBRIGATÓRIA (Semanas 1 e 2):
+ * Para treinar a cascata, o modelo de caixa e a herança hierárquica entre
+ * elementos pais (parents), irmãos (siblings) e filhos (children), todos
+ * os blocos e landmarks estruturais têm obrigatoriamente de declarar:
+ *   1. position: relative;
+ *   2. display: block; (ou inline / list-item)
+ *   3. Largura/dimensões relativas (primeiro face ao viewport, depois ao pai).
+ *   4. min-width: 320px; (ecrã móvel mínimo).
+ *   5. max-width: 75ch; (limite tipográfico ótimo de leitura de parágrafos).
+ * ==========================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   1. RESET BÁSICO E UNIVERSAL
+   Garante consistência de modelo de caixa e elimina margens padrão dos browsers.
+   -------------------------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Inclui border e padding no cálculo da largura */
+}
+
+/* --------------------------------------------------------------------------
+   2. HTML & BODY (Apropriação Integral da Viewport)
+   -------------------------------------------------------------------------- */
+html {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 100vh; /* Ocupa no mínimo 100% da altura da janela visível */
+  
+  /* Tipografia Base em escala relativa */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 100%; /* 16px por omissão no navegador */
+  line-height: 1.5; /* Espaçamento entre linhas confortável para leitura */
+  color: #111111;
+  background-color: #fafafa;
+  scroll-behavior: smooth; /* Permite deslocamento suave nas named anchors (#id) */
+}
+
+body {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  min-width: 320px; /* Garante que o layout não colapsa abaixo de 320px (Mobile Mínimo) */
+  margin: 0 auto;   /* Centra o corpo da página quando este atinge um limite */
+  padding: 1.5rem 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   3. LANDMARK: HEADER (Cabeçalho Superior)
+   -------------------------------------------------------------------------- */
+header {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 320px;
+  max-width: 800px;
+  margin: 0 auto 2.5rem auto;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #e60000; /* Linha de destaque vermelho suíço */
+}
+
+header h1 {
+  position: relative;
+  display: block;
+  width: 100%;
+  font-size: 2.25rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 75ch; /* Limite tipográfico para não esticar excessivamente */
+  font-size: 1.1rem;
+  color: #555555;
+  margin-bottom: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. LANDMARK: NAV (Lista de Navegação com Âncoras)
+   -------------------------------------------------------------------------- */
+nav {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+nav ul {
+  position: relative;
+  display: block;
+  width: 100%;
+  list-style: none; /* Remove os marcadores de lista tradicionais */
+  padding: 0;
+}
+
+nav ul li {
+  position: relative;
+  display: inline-block; /* Alinha os itens horizontalmente sem Flexbox ainda */
+  margin-right: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+nav ul li a {
+  position: relative;
+  display: inline-block;
+  padding: 0.35rem 0.65rem;
+  background-color: #eeeeee;
+  color: #111111;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 3px;
+  border: 1px solid #dddddd;
+}
+
+/* Estados de Interação do Link */
+nav ul li a:hover,
+nav ul li a:focus {
+  background-color: #e60000;
+  color: #ffffff;
+  border-color: #e60000;
+  outline: 2px solid #000000; /* Acessibilidade visual de teclado */
+}
+
+/* --------------------------------------------------------------------------
+   5. LANDMARK: MAIN (Fluxo Central de Conteúdos)
+   -------------------------------------------------------------------------- */
+main {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 320px;
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+}
+
+/* --------------------------------------------------------------------------
+   6. SECTIONS & ARTICLES (Secções e Artigos do Festival)
+   -------------------------------------------------------------------------- */
+section {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+section h2 {
+  position: relative;
+  display: block;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #111111;
+  margin-bottom: 1rem;
+}
+
+article {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-bottom: 1.75rem;
+  padding: 1.25rem;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+article h3 {
+  position: relative;
+  display: block;
+  width: 100%;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #e60000;
+  margin-bottom: 0.5rem;
+}
+
+/* Parágrafos: Regra Estrita de 75ch para Ergonomia de Leitura */
+p {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 75ch; /* 75 caracteres é a medida áurea de conforto de leitura */
+  font-size: 1rem;
+  color: #333333;
+  margin-bottom: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. FORMATAÇÃO SEMÂNTICA INLINE (Text Semantics)
+   -------------------------------------------------------------------------- */
+strong {
+  font-weight: 700;
+  color: #000000;
+}
+
+em {
+  font-style: italic;
+}
+
+mark {
+  background-color: #fff3bf;
+  color: #5f370e;
+  padding: 0.1em 0.3em;
+  border-radius: 2px;
+}
+
+del {
+  color: #888888;
+  text-decoration: line-through;
+}
+
+ins {
+  color: #065f46;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+abbr[title] {
+  text-decoration: underline dotted #888888;
+  cursor: help;
+}
+
+code {
+  font-family: "SF Mono", Monaco, Consolas, "Courier New", monospace;
+  font-size: 0.9em;
+  background-color: #f0f0f0;
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+  border: 1px solid #dddddd;
+}
+
+/* --------------------------------------------------------------------------
+   8. ASIDE & LISTA DE DEFINIÇÃO (DL, DT, DD)
+   -------------------------------------------------------------------------- */
+aside {
+  position: relative;
+  display: block;
+  width: 100%;
+  background-color: #f4f4f4;
+  border-left: 4px solid #e60000;
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+  border-radius: 0 4px 4px 0;
+}
+
+aside h2 {
+  position: relative;
+  display: block;
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+dl {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+dt {
+  position: relative;
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #111111;
+  margin-top: 0.75rem;
+}
+
+dd {
+  position: relative;
+  display: block;
+  font-size: 0.9rem;
+  color: #555555;
+  margin-left: 1rem;
+  margin-top: 0.25rem;
+  max-width: 70ch;
+}
+
+/* --------------------------------------------------------------------------
+   9. LANDMARK: FOOTER (Rodapé da Página)
+   -------------------------------------------------------------------------- */
+footer {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 320px;
+  max-width: 800px;
+  margin: 3rem auto 1rem auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid #cccccc;
+  font-size: 0.85rem;
+  color: #666666;
+  text-align: center;
+}
+
+footer a {
+  color: #111111;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+footer a:hover {
+  color: #e60000;
+}
+
+/* --------------------------------------------------------------------------
+   10. SUPORTE A NAMED ANCHORS (Destaque Visual ao Clicar no Link Interno)
+   MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/:target
+   -------------------------------------------------------------------------- */
+:target {
+  outline: 2px dashed #e60000;
+  outline-offset: 4px;
+}

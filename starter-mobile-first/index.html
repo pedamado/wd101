@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--
+  ==========================================================================
+  WD101 — Web Design 101 | Faculdade de Belas Artes da Universidade do Porto
+  Exercício Prático / Guião Base: Semanas 1 & 2
+  Documento: index.html (Estrutura Semântica & Landmarks HTML5)
+  Autor: Prof. Pedro Amado (pamado@fba.up.pt) & Estudante WD101
+  Data: Ano Letivo 2026/2027
+  Objetivo: Treinar o fluxo normal do documento, landmarks semânticos puros,
+            named anchors, links relativos/absolutos e semântica inline.
+  Restrições: Estritamente 1 ficheiro HTML + 1 ficheiro CSS. Sem imagens.
+  ==========================================================================
+-->
+<html lang="pt">
+<head>
+  <!-- Metadados Fundamentais do Documento -->
+  <meta charset="UTF-8">
+  <!-- Viewport obrigatória para Responsive Web Design (Mobile-First) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Drumtiks '26 — Festival de Percussão &amp; Arte Sonora (Porto)</title>
+  
+  <!-- Ligação ao ficheiro CSS externo (Caminho relativo estrito) -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       LANDMARK: HEADER (Cabeçalho Introdutório do Documento)
+       MDN: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/header
+       ====================================================================== -->
+  <header id="topo">
+    <h1>DRUMTIKS '26</h1>
+    <p>Festival Internacional de Percussão, Live-Coding e Ritmo Contemporâneo</p>
+
+    <!-- LANDMARK: NAV (Navegação Principal com Named Anchors e Links)
+         MDN: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/nav -->
+    <nav aria-label="Navegação Principal do Festival">
+      <ul>
+        <!-- Links de Âncora Interna (Named Anchors com #id) -->
+        <li><a href="#apresentacao">Apresentação</a></li>
+        <li><a href="#alinhamento">Alinhamento</a></li>
+        <li><a href="#artistas">Artistas</a></li>
+        <li><a href="#informacoes">Informações Úteis</a></li>
+        <!-- Link de Email (Protocolo mailto:) -->
+        <li><a href="mailto:info@drumtiks.up.pt?subject=Informacoes%20Drumtiks%202026">Contacto Direto</a></li>
+        <!-- Link Externo / Absoluto -->
+        <li><a href="https://sigarra.up.pt/fbaup/" target="_blank" rel="noopener noreferrer">FBAUP ↗</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ======================================================================
+       LANDMARK: MAIN (Conteúdo Central e Único da Página)
+       MDN: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/main
+       ====================================================================== -->
+  <main>
+
+    <!-- SECÇÃO 1: APRESENTAÇÃO DO FESTIVAL -->
+    <section id="apresentacao">
+      <h2>1. Manifesto do Festival</h2>
+      <p>
+        O <strong>DRUMTIKS '26</strong> é um encontro interdisciplinar de exploração sonora sediado no Porto. 
+        Durante três noites, a percussão acústica tradicional funde-se com sintetizadores analógicos modulares, 
+        técnicas de <em>live-coding</em> em SuperCollider e estruturas de <abbr title="Acoustic Pulse Resonance">APR</abbr>.
+      </p>
+      <p>
+        A edição deste ano tem como tema a <mark>Polirritmia e Cidade Industrial</mark>. O festival decorrerá entre 
+        <del>17 de Outubro</del> e <ins>24 a 26 de Outubro de 2026</ins> nos Jardins e Pavilhões da 
+        <abbr title="Faculdade de Belas Artes da Universidade do Porto">FBAUP</abbr>.
+      </p>
+    </section>
+
+    <!-- SECÇÃO 2: ALINHAMENTO COM ARTIGOS DE ARTISTAS -->
+    <section id="alinhamento">
+      <h2>2. Destaques de Cartaz &amp; Palcos</h2>
+      
+      <!-- ARTIGO 1: DJ WARP -->
+      <article id="artista-dj-warp">
+        <h3>DJ Warp (Alemanha / Portugal) — Live Drums &amp; Modular</h3>
+        <p>
+          Pioneiro do <em>industrial breakbeat</em> acústico. A sua performance utiliza baterias acústicas modificadas 
+          com sensores piezoelétricos ligados a um sintetizador modular Eurorack em tempo real.
+        </p>
+        <p>
+          Data: <strong>Sexta-feira, 24 de Outubro • 22h30</strong> • 
+          <a href="#topo">↑ Voltar ao Menu</a>
+        </p>
+      </article>
+
+      <!-- ARTIGO 2: BEAT FOUNDRY -->
+      <article id="artista-beat-foundry">
+        <h3>Beat Foundry (Porto) — Coletivo Polirrítmico</h3>
+        <p>
+          Formado por estudantes e investigadores do Porto, o coletivo trabalha peças percussivas baseadas em máquinas 
+          fabris desactivadas e chapas de aço afinadas microtonalmente.
+        </p>
+        <p>
+          Data: <strong>Sábado, 25 de Outubro • 21h00</strong> • 
+          <a href="#topo">↑ Voltar ao Menu</a>
+        </p>
+      </article>
+
+      <!-- ARTIGO 3: AMBIENT GARDEN -->
+      <article id="artista-ambient">
+        <h3>Sara Lin (Taiwan) — Gamelan &amp; Algoritmos Generativos</h3>
+        <p>
+          Exploração imersiva de timbres de gongo com reverberações espaciais geradas por código CSS/WebAudio puro.
+        </p>
+        <p>
+          Data: <strong>Domingo, 26 de Outubro • 19h30</strong> • 
+          <a href="#topo">↑ Voltar ao Menu</a>
+        </p>
+      </article>
+    </section>
+
+    <!-- SECÇÃO 3: ASIDE LATERAL COM LISTA DE DEFINIÇÃO (DL, DT, DD) -->
+    <aside id="informacoes">
+      <h2>3. Dicionário Técnico &amp; Acessos</h2>
+      <p>Termos fundamentais para a assistência e participantes:</p>
+      
+      <dl>
+        <dt>Live-Coding</dt>
+        <dd>Prática performativa de composição algorítmica onde o código-fonte é projetado e manipulado ao vivo.</dd>
+
+        <dt>Polirritmia</dt>
+        <dd>Sobreposição simultânea de duas ou mais métricas rítmicas independentes que não partilham o mesmo compasso base.</dd>
+
+        <dt>Entrada Livre</dt>
+        <dd>O acesso aos palcos do jardim é gratuito para a comunidade académica e público geral até à lotação.</dd>
+      </dl>
+    </aside>
+
+  </main>
+
+  <!-- ======================================================================
+       LANDMARK: FOOTER (Rodapé Informativo e Metadados Legais)
+       MDN: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/footer
+       ====================================================================== -->
+  <footer id="rodape">
+    <p>
+      &copy; 2026 <strong>DRUMTIKS Festival</strong> • Faculdade de Belas Artes da Universidade do Porto.<br>
+      Desenvolvido no âmbito da Unidade Curricular <code>WD101 — Web Design</code>.<br>
+      Docente Responsável: <a href="mailto:pamado@fba.up.pt">Prof. Pedro Amado</a> • 
+      <a href="#topo">↑ Topo da Página</a>
+    </p>
+  </footer>
+
+</body>
+</html>

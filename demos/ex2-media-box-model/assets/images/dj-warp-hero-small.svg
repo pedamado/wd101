@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="hero-grad-sm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#09090b"/>
+      <stop offset="100%" stop-color="#1f0404"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#hero-grad-sm)"/>
+  
+  <!-- Mobile Waveform -->
+  <rect x="24" y="180" width="432" height="180" rx="6" fill="#090d13" stroke="#e60000" stroke-width="2"/>
+  <path d="M 34 270 Q 74 190, 114 270 T 194 270 T 274 270 T 354 270 T 434 270" fill="none" stroke="#22c55e" stroke-width="3"/>
+  <text x="36" y="215" font-family="monospace" font-size="12" fill="#22c55e" letter-spacing="2">LIVE SIGNAL: 138 BPM [PIEZO]</text>
+
+  <!-- Typography -->
+  <text x="24" y="70" font-family="'Fraunces', Georgia, serif" font-weight="900" font-size="34" fill="#ffffff">DJ WARP</text>
+  <text x="26" y="105" font-family="'Arimo', sans-serif" font-weight="700" font-size="16" fill="#e60000" letter-spacing="3">DRUMTIKS '26 • MOBILE CROP</text>
+  <text x="26" y="135" font-family="'Arimo', sans-serif" font-size="13" fill="#a1a1aa">Compact view for &lt;600px screens</text>
+</svg>
