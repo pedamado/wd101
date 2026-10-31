@@ -35,8 +35,14 @@ window.I18N = {
       goal_2_link: "📘 Guião Detalhado: Dimensionamento Intrínseco & Box Model ↗",
       goal_3_title: "3. Tipografia Fluida & Variável",
       goal_3_desc: "Elimine dezenas de media queries tipográficas. Utilize clamp() e eixos contínuos de fontes variáveis WOFF2 auto-hospedadas.",
-      goal_4_title: "4. Máquinas de Estado Zero-JS",
-      goal_4_desc: "Aproveite seletores modernos como :has(), :checked, :focus-within, :target e a Popover API para reatividade pura em CSS.",
+      goal_4_title: "4. Variáveis, Transições & Animações",
+      goal_4_desc: "Controle o pipeline de apresentação com Tokens globais e locais, transição suave via light-dark(), física elástica cubic-bezier() e animações orientadas ao scroll.",
+      goal_5_title: "5. Layouts Avançados: CSS Grid & Flexbox",
+      goal_5_desc: "Aplique a Regra de Ouro do Layout Moderno: CSS Grid 2D para a grelha macro estrutural e Flexbox 1D alternante para micro-alinhamentos.",
+      goal_6_title: "6. Seletores Modernos, Pseudo-Classes & Máquinas de Estado Zero-JS",
+      goal_6_desc: "Domine o seletor relacional :has(), construa reatividade sem JavaScript com :checked, :focus-within, :target e Popover API, reduza especificidade com :where() e agrupe com :is().",
+      goal_7_title: "7. Princípios de Design de Interação",
+      goal_7_desc: "Alie a engenharia CSS aos modelos mentais da interação: Affordance perceptível, Signifiers explícitos, Feedback imediato, Mapeamento natural, Divulgação Progressiva e prevenção de Anti-Padrões.",
 
       // Assignments Section
       assign_heading: "Enunciados & Decomposição Pedagógica",
@@ -117,8 +123,14 @@ window.I18N = {
       goal_2_link: "📘 Detailed Guide: Intrinsic Sizing & Box Model ↗",
       goal_3_title: "3. Fluid & Variable Typography",
       goal_3_desc: "Eliminate dozens of breakpoint queries. Use fluid clamp() equations and continuous font-variation axes with self-hosted WOFF2.",
-      goal_4_title: "4. Zero-JS State Machines",
-      goal_4_desc: "Harness modern selectors like :has(), :checked, :focus-within, :target, and the HTML Popover API for pure CSS interaction.",
+      goal_4_title: "4. Variables, Transitions & Animations",
+      goal_4_desc: "Master presentation pipelines with design tokens, smooth color-scheme switches via light-dark(), spring physics easing, and scroll-driven animations.",
+      goal_5_title: "5. Advanced Layouts: CSS Grid & Flexbox",
+      goal_5_desc: "Apply the Golden Rule of Modern Layout: 2D CSS Grid for macro-structural skeleton and alternating 1D Flexbox for micro-alignments.",
+      goal_6_title: "6. Modern Selectors, Pseudo-Classes & Zero-JS State Machines",
+      goal_6_desc: "Master relational parent queries with :has(), architect pure CSS reactive state machines using :checked, :focus-within, :target, and Popover API, flatten specificity with :where() and group with :is().",
+      goal_7_title: "7. Interaction Design Principles",
+      goal_7_desc: "Connect CSS engineering to cognitive interaction mental models: Perceptible Affordance, Explicit Signifiers, Immediate Feedback, Natural Mapping, Progressive Disclosure, and preventing Web Anti-Patterns.",
 
       // Assignments Section
       assign_heading: "Assignments & Pedagogical Progression",
