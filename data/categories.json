@@ -106,5 +106,14 @@
     "title": { "pt": "Funções Matemáticas & Unidades", "en": "Math Functions & Units" },
     "tier": "intermediate",
     "lev": 2
+  },
+  {
+    "uid": "cat-13",
+    "num_id": 13,
+    "id": "cat-interaction-design",
+    "slug": "interaction-design",
+    "title": { "pt": "Princípios de Interação & Teoria UX", "en": "Interaction Principles & UX Theory" },
+    "tier": "transversal",
+    "lev": 0
   }
 ]
