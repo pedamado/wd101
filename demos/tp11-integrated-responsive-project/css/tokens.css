@@ -128,15 +128,25 @@
   }
 
   /* --------------------------------------------------------------------------
-     PURE CSS THEME SWITCHING (Zero JavaScript)
-     Specificities: (0, 2, 0) via :root:has(#theme-*:checked)
+     PURE CSS & DATA-ATTRIBUTE THEME SWITCHING
+     Specificities: (0, 2, 0) via :root:has(#theme-*:checked) or [data-theme]
      Overrides the native color-scheme preference dynamically
      -------------------------------------------------------------------------- */
-  :root:has(#theme-light:checked) {
+  :root:has(#theme-light:checked),
+  :root[data-theme="light"],
+  html[data-theme="light"] {
     color-scheme: light;
   }
 
-  :root:has(#theme-dark:checked) {
+  :root:has(#theme-dark:checked),
+  :root[data-theme="dark"],
+  html[data-theme="dark"] {
     color-scheme: dark;
   }
+
+  /* --------------------------------------------------------------------------
+     BILINGUAL PRESENTATION LAYER (Pure CSS Instant Switch)
+     -------------------------------------------------------------------------- */
+  html[lang="pt"] .lang-en { display: none !important; }
+  html[lang="en"] .lang-pt { display: none !important; }
 }

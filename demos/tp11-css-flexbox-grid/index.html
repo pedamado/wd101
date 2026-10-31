@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
   <!--
     ==========================================================================
@@ -15,6 +15,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Advanced CSS Layout Lab • Grid &amp; Flexbox | FBAUP WD101</title>
   <meta name="description" content="FBAUP Web Design 2026/27 Laboratory Hub: Advanced layout techniques using CSS Grid (2D macro) and CSS Flexbox (1D micro) applied to the DRUMTIKS '26 DJ Warp festival discography.">
+
+  <!-- Previne FOUC de tema e idioma -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || 
+                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
 
   <!-- Local variable fonts (Inter, Martian Mono, Syne) -->
   <link rel="stylesheet" href="css/fonts.css">
@@ -209,13 +220,13 @@
 
       <nav class="main-nav" aria-label="Curriculum Navigation">
         <a href="../../index.html" class="nav-link" style="color:var(--color-accent-gold);">
-          <span>🏠 Global Hub</span>
+          <span>🏠 <span class="lang-pt">Hub Global</span><span class="lang-en">Global Hub</span></span>
         </a>
         <a href="../tp11-integrated-responsive-project/index.html" class="nav-link" style="color:var(--color-accent-red);">
-          <span>🚀 Capstone</span>
+          <span>🚀 <span class="lang-pt">Projeto Final</span><span class="lang-en">Capstone</span></span>
         </a>
         <a href="index.html" class="nav-link active" aria-current="page">
-          <span>Labs Hub</span>
+          <span><span class="lang-pt">Hub Labs</span><span class="lang-en">Labs Hub</span></span>
         </a>
         <a href="01-flexbox-tracks.html" class="nav-link">
           <span class="nav-pill-num">01</span>
@@ -234,6 +245,11 @@
           <span>Container Queries</span>
         </a>
       </nav>
+
+      <div class="header-controls">
+        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
+        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
+      </div>
     </div>
   </header>
 
@@ -243,12 +259,16 @@
     <section class="hub-hero">
       <div class="hero-meta-strip">
         <span class="hero-chip chip-red">FBAUP Web Design 2026/27</span>
-        <span class="hero-chip chip-cyan">Advanced Layout Architecture</span>
-        <span class="hero-chip chip-amber">DJ Warp Turntablist Imprint</span>
+        <span class="hero-chip chip-cyan"><span class="lang-pt">Arquitetura de Layout Avançada</span><span class="lang-en">Advanced Layout Architecture</span></span>
+        <span class="hero-chip chip-amber"><span class="lang-pt">Selo DJ Warp Turntablist</span><span class="lang-en">DJ Warp Turntablist Imprint</span></span>
       </div>
-      <h1 class="hero-title">CSS Grid &amp; Flexbox Pedagogical Suite</h1>
+      <h1 class="hero-title">
+        <span class="lang-pt">Suite Pedagógica de CSS Grid &amp; Flexbox</span>
+        <span class="lang-en">CSS Grid &amp; Flexbox Pedagogical Suite</span>
+      </h1>
       <p class="hero-description">
-        A comprehensive educational laboratory explaining modern CSS layout paradigms. Explore how 1-dimensional Flexbox flow and 2-dimensional CSS Grid matrices combine seamlessly into production-grade, responsive architectures without a single line of JavaScript.
+        <span class="lang-pt">Laboratório pedagógico abrangente que explora os paradigmas modernos de layout em CSS. Descubra como o fluxo unidimensional do Flexbox e as matrizes bidimensionais do CSS Grid se combinam de forma sinérgica em arquiteturas responsivas de nível profissional sem recorrer a uma única linha de JavaScript.</span>
+        <span class="lang-en">A comprehensive educational laboratory explaining modern CSS layout paradigms. Explore how 1-dimensional Flexbox flow and 2-dimensional CSS Grid matrices combine seamlessly into production-grade, responsive architectures without a single line of JavaScript.</span>
       </p>
     </section>
 
@@ -259,26 +279,35 @@
       <article class="module-card">
         <div>
           <div class="module-card-header">
-            <span class="module-num-badge">Demonstrator 01 • 1-Dimensional Flow</span>
-            <h2 class="module-card-title">CSS Flexbox Masterclass</h2>
+            <span class="module-num-badge">
+              <span class="lang-pt">Demonstrador 01 • Fluxo Unidimensional</span>
+              <span class="lang-en">Demonstrator 01 • 1-Dimensional Flow</span>
+            </span>
+            <h2 class="module-card-title">
+              <span class="lang-pt">Masterclass CSS Flexbox</span>
+              <span class="lang-en">CSS Flexbox Masterclass</span>
+            </h2>
           </div>
           <div class="module-card-body">
             <p class="module-card-desc">
-              Focuses on DJ Warp's track listings and acoustic details. Demonstrates how mobile single-column layouts break into multi-row desktop card layouts, with live controls for orientation, alignment, wrapping, and visual reordering.
+              <span class="lang-pt">Focado nas faixas do DJ Warp e detalhes acústicos. Demonstra como o alinhamento vertical móvel em coluna única se expande em cartões em grelha envolvente no desktop, com controlos em tempo real para orientação, alinhamento, quebra e reordenação visual.</span>
+              <span class="lang-en">Focuses on DJ Warp's track listings and acoustic details. Demonstrates how mobile single-column layouts break into multi-row desktop card layouts, with live controls for orientation, alignment, wrapping, and visual reordering.</span>
             </p>
             <ul class="module-feature-list">
-              <li><span class="bullet">✔</span> Mobile vertical stack to desktop card wrapping</li>
-              <li><span class="bullet">✔</span> Pure CSS orientation switcher (row, row-reverse, column)</li>
-              <li><span class="bullet">✔</span> Flexible sizing ratios (flex-grow, shrink, basis)</li>
-              <li><span class="bullet">✔</span> Visual reordering via <code>order</code> (BPM, Headline, Reverse)</li>
-              <li><span class="bullet">✔</span> 5 Releases Crate Digging selector (Pure CSS :has())</li>
+              <li><span class="bullet">✔</span> <span class="lang-pt">Empilhamento vertical mobile para linhas flexíveis em desktop</span><span class="lang-en">Mobile vertical stack to desktop card wrapping</span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt">Comutador de orientação pure CSS (row, row-reverse, column)</span><span class="lang-en">Pure CSS orientation switcher (row, row-reverse, column)</span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt">Rácios de dimensionamento flexível (flex-grow, shrink, basis)</span><span class="lang-en">Flexible sizing ratios (flex-grow, shrink, basis)</span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt">Reordenação visual via <code>order</code> (BPM, Destaque, Inverso)</span><span class="lang-en">Visual reordering via <code>order</code> (BPM, Headline, Reverse)</span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt">Seletor de Crate Digging para 5 Lançamentos (Pure CSS :has())</span><span class="lang-en">5 Releases Crate Digging selector (Pure CSS :has())</span></li>
             </ul>
           </div>
         </div>
         <div class="module-card-footer">
-          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">8 MDN Guides</span>
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">
+            <span class="lang-pt">8 Guias MDN</span><span class="lang-en">8 MDN Guides</span>
+          </span>
           <a href="01-flexbox-tracks.html" class="module-cta-btn">
-            Open Demonstrator 01 ➔
+            <span class="lang-pt">Abrir Demonstrador 01 ➔</span><span class="lang-en">Open Demonstrator 01 ➔</span>
           </a>
         </div>
       </article>
@@ -287,26 +316,35 @@
       <article class="module-card">
         <div>
           <div class="module-card-header">
-            <span class="module-num-badge">Demonstrator 02 • 2-Dimensional Matrix</span>
-            <h2 class="module-card-title">CSS Grid Masterclass</h2>
+            <span class="module-num-badge">
+              <span class="lang-pt">Demonstrador 02 • Matriz Bidimensional</span>
+              <span class="lang-en">Demonstrator 02 • 2-Dimensional Matrix</span>
+            </span>
+            <h2 class="module-card-title">
+              <span class="lang-pt">Masterclass CSS Grid</span>
+              <span class="lang-en">CSS Grid Masterclass</span>
+            </h2>
           </div>
           <div class="module-card-body">
             <p class="module-card-desc">
-              Focuses on DJ Warp's 5 vinyl releases (3 Full LPs with larger areas, 2 EPs with compact areas). Demonstrates mobile single-column responsive scaling and 3 distinct desktop masonry variations.
+              <span class="lang-pt">Focado nos 5 lançamentos em vinil do DJ Warp (3 LPs completos e 2 EPs compactos). Demonstra o escalamento responsivo em coluna única mobile e 3 variações distintas de grelha editorial no desktop.</span>
+              <span class="lang-en">Focuses on DJ Warp's 5 vinyl releases (3 Full LPs with larger areas, 2 EPs with compact areas). Demonstrates mobile single-column responsive scaling and 3 distinct desktop masonry variations.</span>
             </p>
             <ul class="module-feature-list">
-              <li><span class="bullet">✔</span> <strong>Variation 1:</strong> Modular equal units <code>repeat(4, 1fr)</code></li>
-              <li><span class="bullet">✔</span> <strong>Variation 2:</strong> Modular with intentional negative space</li>
-              <li><span class="bullet">✔</span> <strong>Variation 3:</strong> Asymmetric irregular spaces &amp; dense flow</li>
-              <li><span class="bullet">✔</span> Line-based placement (start / end / span)</li>
-              <li><span class="bullet">✔</span> X-Ray grid matrix guide visualizer</li>
+              <li><span class="bullet">✔</span> <span class="lang-pt"><strong>Variação 1:</strong> Unidades modulares regulares <code>repeat(4, 1fr)</code></span><span class="lang-en"><strong>Variation 1:</strong> Modular equal units <code>repeat(4, 1fr)</code></span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt"><strong>Variação 2:</strong> Modular com espaço negativo intencional (voids)</span><span class="lang-en"><strong>Variation 2:</strong> Modular with intentional negative space</span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt"><strong>Variação 3:</strong> Espaços irregulares assimétricos &amp; fluxo denso</span><span class="lang-en"><strong>Variation 3:</strong> Asymmetric irregular spaces &amp; dense flow</span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt">Posicionamento baseado em linhas (start / end / span)</span><span class="lang-en">Line-based placement (start / end / span)</span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt">Visualizador de grelha com matriz Raios-X</span><span class="lang-en">X-Ray grid matrix guide visualizer</span></li>
             </ul>
           </div>
         </div>
         <div class="module-card-footer">
-          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">4 MDN Guides</span>
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">
+            <span class="lang-pt">4 Guias MDN</span><span class="lang-en">4 MDN Guides</span>
+          </span>
           <a href="02-grid-albums.html" class="module-cta-btn">
-            Open Demonstrator 02 ➔
+            <span class="lang-pt">Abrir Demonstrador 02 ➔</span><span class="lang-en">Open Demonstrator 02 ➔</span>
           </a>
         </div>
       </article>
@@ -315,26 +353,35 @@
       <article class="module-card">
         <div>
           <div class="module-card-header">
-            <span class="module-num-badge">Demonstrator 03 • Macro + Micro Synthesis</span>
-            <h2 class="module-card-title">Hybrid Architecture Masterclass</h2>
+            <span class="module-num-badge">
+              <span class="lang-pt">Demonstrador 03 • Síntese Macro + Micro</span>
+              <span class="lang-en">Demonstrator 03 • Macro + Micro Synthesis</span>
+            </span>
+            <h2 class="module-card-title">
+              <span class="lang-pt">Masterclass Arquitetura Híbrida</span>
+              <span class="lang-en">Hybrid Architecture Masterclass</span>
+            </h2>
           </div>
           <div class="module-card-body">
             <p class="module-card-desc">
-              The ultimate web layout synergy: CSS Grid orchestrates the 2D macro page skeleton, while Flexbox governs internal 1D components (player deck, scrubber, sidebar, track console rows, liner notes).
+              <span class="lang-pt">A sinergia máxima no layout web moderno: CSS Grid orquestra o esqueleto macro 2D da página, enquanto o Flexbox governa os componentes internos 1D (leitor áudio, barra de progresso, barra lateral, faixas da consola e notas de capa).</span>
+              <span class="lang-en">The ultimate web layout synergy: CSS Grid orchestrates the 2D macro page skeleton, while Flexbox governs internal 1D components (player deck, scrubber, sidebar, track console rows, liner notes).</span>
             </p>
             <ul class="module-feature-list">
-              <li><span class="bullet">✔</span> <strong>Macro Approach A:</strong> Named Template Areas (ASCII map)</li>
-              <li><span class="bullet">✔</span> <strong>Macro Approach B:</strong> Named Grid Lines (bracketed lines)</li>
-              <li><span class="bullet">✔</span> <strong>Macro Approach C:</strong> Line Coordinates (1 / -1, span 2)</li>
-              <li><span class="bullet">✔</span> <strong>Micro Flexbox:</strong> Audio scrubber, festival setlist, pill tags</li>
-              <li><span class="bullet">✔</span> Zero JavaScript • Interactive Pure CSS State Engine</li>
+              <li><span class="bullet">✔</span> <span class="lang-pt"><strong>Abordagem Macro A:</strong> Template Areas Nomeadas (mapa ASCII)</span><span class="lang-en"><strong>Macro Approach A:</strong> Named Template Areas (ASCII map)</span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt"><strong>Abordagem Macro B:</strong> Linhas de Grelha Nomeadas [linhas entre parênteses]</span><span class="lang-en"><strong>Macro Approach B:</strong> Named Grid Lines (bracketed lines)</span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt"><strong>Abordagem Macro C:</strong> Coordenadas de Linha (1 / -1, span 2)</span><span class="lang-en"><strong>Macro Approach C:</strong> Line Coordinates (1 / -1, span 2)</span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt"><strong>Micro Flexbox:</strong> Controlo de áudio, alinhamento do festival, etiquetas pill</span><span class="lang-en"><strong>Micro Flexbox:</strong> Audio scrubber, festival setlist, pill tags</span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt">Zero JavaScript • Motor de Estados Interativo Pure CSS</span><span class="lang-en">Zero JavaScript • Interactive Pure CSS State Engine</span></li>
             </ul>
           </div>
         </div>
         <div class="module-card-footer">
-          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">6 MDN Guides</span>
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">
+            <span class="lang-pt">6 Guias MDN</span><span class="lang-en">6 MDN Guides</span>
+          </span>
           <a href="03-hybrid-discography.html" class="module-cta-btn">
-            Open Demonstrator 03 ➔
+            <span class="lang-pt">Abrir Demonstrador 03 ➔</span><span class="lang-en">Open Demonstrator 03 ➔</span>
           </a>
         </div>
       </article>
@@ -343,26 +390,35 @@
       <article class="module-card">
         <div>
           <div class="module-card-header">
-            <span class="module-num-badge" style="color:var(--color-accent-green);">Demonstrator 04 • Component-Driven</span>
-            <h2 class="module-card-title">CSS Container Queries (@container)</h2>
+            <span class="module-num-badge" style="color:var(--color-accent-green);">
+              <span class="lang-pt">Demonstrador 04 • Guiado por Componentes</span>
+              <span class="lang-en">Demonstrator 04 • Component-Driven</span>
+            </span>
+            <h2 class="module-card-title">
+              <span class="lang-pt">CSS Container Queries (@container)</span>
+              <span class="lang-en">CSS Container Queries (@container)</span>
+            </h2>
           </div>
           <div class="module-card-body">
             <p class="module-card-desc">
-              Fast, easy-to-implement responsive components without global viewport <code>@media</code> queries. Shows how components query their immediate parent container width (<code>container-type: inline-size</code>) and morph between Flexbox and Grid.
+              <span class="lang-pt">Componentes responsivos rápidos e modulares sem queries globais <code>@media</code> da viewport. Mostra como os componentes consultam a largura do seu contentor pai imediato (<code>container-type: inline-size</code>) e alternam entre Flexbox e Grid.</span>
+              <span class="lang-en">Fast, easy-to-implement responsive components without global viewport <code>@media</code> queries. Shows how components query their immediate parent container width (<code>container-type: inline-size</code>) and morph between Flexbox and Grid.</span>
             </p>
             <ul class="module-feature-list">
-              <li><span class="bullet">✔</span> <strong>Parent Query Declaration:</strong> <code>container-type: inline-size</code></li>
-              <li><span class="bullet">✔</span> <strong>Intrinsic Morphing:</strong> Flex Col (&lt;440px) ➔ Flex Row ➔ 2D Grid (740px+)</li>
-              <li><span class="bullet">✔</span> <strong>Container Units:</strong> Fluid font scaling with <code>cqi</code></li>
-              <li><span class="bullet">✔</span> <strong>The Drop-in Test:</strong> Same card in 30% sidebar vs 70% main grid</li>
-              <li><span class="bullet">✔</span> Interactive resizable container with preset buttons</li>
+              <li><span class="bullet">✔</span> <span class="lang-pt"><strong>Declaração no Pai:</strong> <code>container-type: inline-size</code></span><span class="lang-en"><strong>Parent Query Declaration:</strong> <code>container-type: inline-size</code></span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt"><strong>Metamorfose Intrínseca:</strong> Flex Col (&lt;440px) ➔ Flex Row ➔ 2D Grid (740px+)</span><span class="lang-en"><strong>Intrinsic Morphing:</strong> Flex Col (&lt;440px) ➔ Flex Row ➔ 2D Grid (740px+)</span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt"><strong>Unidades de Contentor:</strong> Escala tipográfica fluida com <code>cqi</code></span><span class="lang-en"><strong>Container Units:</strong> Fluid font scaling with <code>cqi</code></span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt"><strong>O Teste de Inserção:</strong> O mesmo cartão na barra de 30% vs grelha de 70%</span><span class="lang-en"><strong>The Drop-in Test:</strong> Same card in 30% sidebar vs 70% main grid</span></li>
+              <li><span class="bullet">✔</span> <span class="lang-pt">Contentor redimensionável interativo com botões predefinidos</span><span class="lang-en">Interactive resizable container with preset buttons</span></li>
             </ul>
           </div>
         </div>
         <div class="module-card-footer">
-          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">5 MDN Guides</span>
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--color-text-dim);">
+            <span class="lang-pt">5 Guias MDN</span><span class="lang-en">5 MDN Guides</span>
+          </span>
           <a href="04-container-queries.html" class="module-cta-btn">
-            Open Demonstrator 04 ➔
+            <span class="lang-pt">Abrir Demonstrador 04 ➔</span><span class="lang-en">Open Demonstrator 04 ➔</span>
           </a>
         </div>
       </article>
@@ -372,17 +428,22 @@
     <!-- Comparison Matrix Section -->
     <section class="comparison-section" aria-labelledby="comp-heading">
       <div class="comparison-table-wrap">
-        <h2 id="comp-heading" style="font-family:var(--font-display);font-size:1.6rem;margin-bottom:0.75rem;color:#fff;">
-          CSS Grid vs. CSS Flexbox: Mental Model &amp; Decision Matrix
+        <h2 id="comp-heading" style="font-family:var(--font-display);font-size:1.6rem;margin-bottom:0.75rem;color:var(--color-text-main);">
+          <span class="lang-pt">CSS Grid vs. CSS Flexbox: Modelo Mental &amp; Matriz de Decisão</span>
+          <span class="lang-en">CSS Grid vs. CSS Flexbox: Mental Model &amp; Decision Matrix</span>
         </h2>
         <p style="color:var(--color-text-muted);font-size:0.92rem;margin-bottom:1.5rem;line-height:1.6;">
-          Pedagogical reference for WD101 students: Choosing the optimal layout tool based on dimensional constraints, content requirements, and architectural scope.
+          <span class="lang-pt">Referência pedagógica para estudantes WD101: Como selecionar a ferramenta ideal segundo dimensões, restrições e âmbito arquitetural.</span>
+          <span class="lang-en">Pedagogical reference for WD101 students: Choosing the optimal layout tool based on dimensional constraints, content requirements, and architectural scope.</span>
         </p>
 
         <table class="comparison-table">
           <thead>
             <tr>
-              <th>Criteria / Dimension</th>
+              <th>
+                <span class="lang-pt">Critério / Dimensão</span>
+                <span class="lang-en">Criteria / Dimension</span>
+              </th>
               <th>CSS Flexbox</th>
               <th>CSS Grid</th>
               <th style="color:var(--color-accent-green);">Container Queries (@container)</th>
@@ -390,40 +451,40 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>Dimensional Scope</strong></td>
-              <td><strong>One-Dimensional (1D)</strong><br>Calculates along a single axis at a time (row OR column).</td>
-              <td><strong>Two-Dimensional (2D)</strong><br>Controls horizontal columns AND vertical rows simultaneously.</td>
-              <td><strong>Component-Scoped (1D or 2D)</strong><br>Queries the immediate parent container width (<code>inline-size</code>), not viewport.</td>
+              <td><strong><span class="lang-pt">Âmbito Dimensional</span><span class="lang-en">Dimensional Scope</span></strong></td>
+              <td><strong><span class="lang-pt">Unidimensional (1D)</span><span class="lang-en">One-Dimensional (1D)</span></strong><br><span class="lang-pt">Calcula ao longo de um único eixo por vez (linha OU coluna).</span><span class="lang-en">Calculates along a single axis at a time (row OR column).</span></td>
+              <td><strong><span class="lang-pt">Bidimensional (2D)</span><span class="lang-en">Two-Dimensional (2D)</span></strong><br><span class="lang-pt">Controla colunas horizontais E linhas verticais em simultâneo.</span><span class="lang-en">Controls horizontal columns AND vertical rows simultaneously.</span></td>
+              <td><strong><span class="lang-pt">Âmbito de Componente (1D/2D)</span><span class="lang-en">Component-Scoped (1D or 2D)</span></strong><br><span class="lang-pt">Consulta a largura do contentor pai imediato (<code>inline-size</code>), não a viewport.</span><span class="lang-en">Queries the immediate parent container width (<code>inline-size</code>), not viewport.</span></td>
             </tr>
             <tr>
-              <td><strong>Primary Architectural Role</strong></td>
-              <td><strong>Micro-Layout</strong><br>Component internals, navigation menus, audio controls, tag pill badges, button groups.</td>
-              <td><strong>Macro-Layout</strong><br>Overall page skeleton, hero/sidebar/main grids, complex editorial magazine spreads.</td>
-              <td><strong>Modular Component Responsiveness</strong><br>Self-contained cards/widgets adapting seamlessly wherever dropped (sidebar vs main).</td>
+              <td><strong><span class="lang-pt">Papel Arquitetural</span><span class="lang-en">Primary Architectural Role</span></strong></td>
+              <td><strong>Micro-Layout</strong><br><span class="lang-pt">Partes internas de componentes, menus de navegação, controlos áudio, etiquetas pill, botões.</span><span class="lang-en">Component internals, navigation menus, audio controls, tag pill badges, button groups.</span></td>
+              <td><strong>Macro-Layout</strong><br><span class="lang-pt">Esqueleto geral da página, grelha de palco/sidebar/conteúdo, layouts editoriais complexos.</span><span class="lang-en">Overall page skeleton, hero/sidebar/main grids, complex editorial magazine spreads.</span></td>
+              <td><strong><span class="lang-pt">Responsividade Modular</span><span class="lang-en">Modular Component Responsiveness</span></strong><br><span class="lang-pt">Cartões e módulos autónomos que se adaptam onde quer que sejam inseridos (sidebar vs grelha).</span><span class="lang-en">Self-contained cards/widgets adapting seamlessly wherever dropped (sidebar vs main).</span></td>
             </tr>
             <tr>
-              <td><strong>Sizing Paradigm</strong></td>
-              <td><strong>Content-First (Intrinsic)</strong><br>Item sizes naturally dictate space allocation via <code>flex-basis</code> and text width.</td>
-              <td><strong>Container-First (Extrinsic)</strong><br>The parent grid tracks dictate cell dimensions via <code>fr</code>, <code>minmax()</code>, and <code>repeat()</code>.</td>
-              <td><strong>Context-First (Intrinsic Container)</strong><br>Children query <code>cqi</code> units and container width breakpoints without global media queries.</td>
+              <td><strong><span class="lang-pt">Paradigma de Medida</span><span class="lang-en">Sizing Paradigm</span></strong></td>
+              <td><strong><span class="lang-pt">Conteúdo Primeiro (Intrínseco)</span><span class="lang-en">Content-First (Intrinsic)</span></strong><br><span class="lang-pt">O tamanho dos itens dita a alocação de espaço via <code>flex-basis</code> e texto.</span><span class="lang-en">Item sizes naturally dictate space allocation via <code>flex-basis</code> and text width.</span></td>
+              <td><strong><span class="lang-pt">Contentor Primeiro (Extrínseco)</span><span class="lang-en">Container-First (Extrinsic)</span></strong><br><span class="lang-pt">As pistas da grelha pai ditam as dimensões das células via <code>fr</code> e <code>minmax()</code>.</span><span class="lang-en">The parent grid tracks dictate cell dimensions via <code>fr</code>, <code>minmax()</code>, and <code>repeat()</code>.</span></td>
+              <td><strong><span class="lang-pt">Contexto Primeiro (Intrínseco ao Contentor)</span><span class="lang-en">Context-First (Intrinsic Container)</span></strong><br><span class="lang-pt">Os filhos consultam unidades <code>cqi</code> e breakpoints sem media queries globais.</span><span class="lang-en">Children query <code>cqi</code> units and container width breakpoints without global media queries.</span></td>
             </tr>
             <tr>
-              <td><strong>Responsive Query Method</strong></td>
-              <td>Viewport <code>@media</code> queries required for global reorganization.</td>
-              <td>Viewport <code>@media</code> queries required for global reorganization.</td>
-              <td><strong><code>@container (min-width: ...)</code></strong><br>No global viewport queries! Zero cross-page selector coupling.</td>
+              <td><strong><span class="lang-pt">Método de Query</span><span class="lang-en">Responsive Query Method</span></strong></td>
+              <td><span class="lang-pt">Requer media queries <code>@media</code> da viewport para reorganização global.</span><span class="lang-en">Viewport <code>@media</code> queries required for global reorganization.</span></td>
+              <td><span class="lang-pt">Requer media queries <code>@media</code> da viewport para reorganização global.</span><span class="lang-en">Viewport <code>@media</code> queries required for global reorganization.</span></td>
+              <td><strong><code>@container (min-width: ...)</code></strong><br><span class="lang-pt">Sem queries globais de viewport! Zero acoplamento entre páginas.</span><span class="lang-en">No global viewport queries! Zero cross-page selector coupling.</span></td>
             </tr>
             <tr>
-              <td><strong>Wrapping Behavior</strong></td>
-              <td>Items wrap onto new lines, but each line distributes free space independently of other lines.</td>
-              <td>Items stay strictly aligned to the established column and row matrix tracks.</td>
-              <td>Component morphs layout type: Flex column (&lt;440px) ➔ Flex row ➔ 2D Grid (740px+).</td>
+              <td><strong><span class="lang-pt">Comportamento de Quebra</span><span class="lang-en">Wrapping Behavior</span></strong></td>
+              <td><span class="lang-pt">Os itens quebram para novas linhas, mas cada linha distribui o espaço de forma independente.</span><span class="lang-en">Items wrap onto new lines, but each line distributes free space independently of other lines.</span></td>
+              <td><span class="lang-pt">Os itens mantêm-se rigorosamente alinhados às pistas colunares e de linha definidas.</span><span class="lang-en">Items stay strictly aligned to the established column and row matrix tracks.</span></td>
+              <td><span class="lang-pt">O componente altera o tipo de layout: Flex Coluna (&lt;440px) ➔ Flex Linha ➔ Grelha 2D (740px+).</span><span class="lang-en">Component morphs layout type: Flex column (&lt;440px) ➔ Flex row ➔ 2D Grid (740px+).</span></td>
             </tr>
             <tr>
-              <td><strong>Visual Reordering</strong></td>
-              <td><code>order: &lt;number&gt;</code> (visual only; preserves DOM accessibility order).</td>
-              <td>Explicit coordinates (<code>grid-column</code>, <code>grid-row</code>, <code>grid-area</code>) or <code>grid-auto-flow: dense</code>.</td>
-              <td>Reordering handled contextually per container size slot.</td>
+              <td><strong><span class="lang-pt">Reordenação Visual</span><span class="lang-en">Visual Reordering</span></strong></td>
+              <td><code>order: &lt;number&gt;</code> <span class="lang-pt">(apenas visual; preserva ordem semântica do DOM).</span><span class="lang-en">(visual only; preserves DOM accessibility order).</span></td>
+              <td><span class="lang-pt">Coordenadas explícitas (<code>grid-column</code>, <code>grid-area</code>) ou <code>grid-auto-flow: dense</code>.</span><span class="lang-en">Explicit coordinates (<code>grid-column</code>, <code>grid-row</code>, <code>grid-area</code>) or <code>grid-auto-flow: dense</code>.</span></td>
+              <td><span class="lang-pt">Reordenação contextual por patamar de contentor.</span><span class="lang-en">Reordering handled contextually per container size slot.</span></td>
             </tr>
           </tbody>
         </table>
@@ -435,7 +496,8 @@
       <div class="pedagogy-card">
         <h2 id="all-mdn-heading" class="pedagogy-title">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-          Complete MDN Web Docs Reference Compendium
+          <span class="lang-pt">Compêndio Completo de Referências MDN Web Docs</span>
+          <span class="lang-en">Complete MDN Web Docs Reference Compendium</span>
         </h2>
 
         <div class="pedagogy-grid">
@@ -596,11 +658,60 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>Theme: DJ Warp Turntablist Master Discography • Pure HTML5 &amp; CSS3</span>
-        <span>Laboratory Hub Portal</span>
+        <span><span class="lang-pt">Tema: Discografia Master Turntablist DJ Warp • Pure HTML5 &amp; CSS3</span><span class="lang-en">Theme: DJ Warp Turntablist Master Discography • Pure HTML5 &amp; CSS3</span></span>
+        <span><span class="lang-pt">Portal Hub de Laboratórios</span><span class="lang-en">Laboratory Hub Portal</span></span>
       </div>
     </div>
   </footer>
 
+  <script>
+    // Theme & Language Handlers
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    function updateThemeBtnState() {
+      if (!themeBtn) return;
+      const current = document.documentElement.getAttribute('data-theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const isDark = current === 'dark';
+      const lang = document.documentElement.getAttribute('lang') || 'pt';
+      const label = isDark ? (lang === 'pt' ? 'Escuro' : 'Dark') : (lang === 'pt' ? 'Claro' : 'Light');
+      const icon = isDark ? '🌙' : '☀';
+      themeBtn.innerHTML = `${icon} <span>${label}</span>`;
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('wd101_theme', next);
+        updateThemeBtnState();
+      });
+      const savedTheme = localStorage.getItem('wd101_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      updateThemeBtnState();
+    }
+
+    const langBtn = document.getElementById('lang-toggle-btn');
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('wd101_lang', lang);
+      if (langBtn) {
+        langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
+      }
+      updateThemeBtnState();
+    }
+
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('lang') || 'pt';
+        const next = current === 'pt' ? 'en' : 'pt';
+        setLanguage(next);
+      });
+      setLanguage(localStorage.getItem('wd101_lang') || 'pt');
+    }
+  </script>
 </body>
 </html>

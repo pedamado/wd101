@@ -8,6 +8,18 @@
       name="description"
       content="Laboratório de Desenvolvimento Web HTML5 &amp; CSS3: Variáveis, Transições, Animações, Transformações e Filtros aplicados ao universo do festival DRUMTIKS 2026."
     />
+
+    <!-- Previne FOUC de tema e idioma -->
+    <script>
+      (function() {
+        const savedTheme = localStorage.getItem('wd101_theme') || 
+                           (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+        document.documentElement.setAttribute('lang', savedLang);
+      })();
+    </script>
+
     <link rel="stylesheet" href="01-variables/css/fonts.css" />
     <link rel="icon" type="image/svg+xml" href="01-variables/assets/icons/favicon.svg" />
     <style>
@@ -30,6 +42,48 @@
         --font-body: 'Inter', sans-serif;
 
         --site-max-width: 1160px;
+      }
+
+      /* Light Mode Overrides */
+      :root[data-theme="light"],
+      html[data-theme="light"] {
+        color-scheme: light;
+        --color-black: #f8f9fa;
+        --color-charcoal: #edf0f4;
+        --color-surface-card: #ffffff;
+        --color-surface-hover: #f1f3f8;
+        --color-text-light: #14161d;
+        --color-text-muted: #5a6072;
+        --color-border-subtle: rgba(0, 0, 0, 0.12);
+      }
+
+      html[data-theme="light"] .site-header {
+        background-color: rgba(248, 249, 250, 0.9);
+      }
+
+      /* Bilingual Presentation Rules */
+      html[lang="pt"] .lang-en { display: none !important; }
+      html[lang="en"] .lang-pt { display: none !important; }
+
+      .btn-control {
+        background-color: rgba(255, 255, 255, 0.08);
+        color: var(--color-text-light);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: 9999px;
+        padding: 0.3rem 0.75rem;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+
+      .btn-control:hover {
+        border-color: var(--color-accent-cyan);
+        color: var(--color-accent-cyan);
       }
 
       *, *::before, *::after {
@@ -348,12 +402,18 @@
           <img src="01-variables/assets/icons/favicon.svg" alt="DRUMTIKS Ícone" />
           <span>DRUMTIKS '26</span>
         </a>
-        <div style="display: flex; gap: 0.5rem; align-items: center;">
-          <a href="../../index.html" class="academic-badge" style="color: #00d2ff; text-decoration: none;">🏠 Hub WD101</a>
-          <a href="../tp11-integrated-responsive-project/index.html" class="academic-badge" style="color: #ff3344; text-decoration: none;">🚀 Capstone Master</a>
+        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+          <a href="../../index.html" class="academic-badge" style="color: #00d2ff; text-decoration: none;">
+            <span>🏠 <span class="lang-pt">Hub Global</span><span class="lang-en">Global Hub</span></span>
+          </a>
+          <a href="../tp11-integrated-responsive-project/index.html" class="academic-badge" style="color: #ff3344; text-decoration: none;">
+            <span>🚀 <span class="lang-pt">Projeto Final</span><span class="lang-en">Capstone Master</span></span>
+          </a>
           <div class="academic-badge">
             FBAUP • Web Design (WD101) • TP11
           </div>
+          <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
+          <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
         </div>
       </div>
     </header>
@@ -362,10 +422,17 @@
        LANDMARK: <section class="hero">
        ======================================================================== -->
     <section class="hero">
-      <span class="hero-tag">Development: HTML &amp; CSS Demonstrators</span>
-      <h1 class="hero-title">Variables, Transitions &amp; <span>Animations</span></h1>
+      <span class="hero-tag">
+        <span class="lang-pt">Desenvolvimento: Demonstradores HTML &amp; CSS</span>
+        <span class="lang-en">Development: HTML &amp; CSS Demonstrators</span>
+      </span>
+      <h1 class="hero-title">
+        <span class="lang-pt">Variáveis, Transições &amp; <span>Animações</span></span>
+        <span class="lang-en">Variables, Transitions &amp; <span>Animations</span></span>
+      </h1>
       <p class="hero-desc">
-        Suite completa de cinco módulos demonstradores interactivos e direcionados, concebidos sobre os ativos e a identidade do protótipo <strong>DRUMTIKS '26</strong> (Hip Hop &amp; Beat Making Festival • Alfândega do Porto).
+        <span class="lang-pt">Suite completa de cinco módulos demonstradores interactivos e direcionados, concebidos sobre os ativos e a identidade do protótipo <strong>DRUMTIKS '26</strong> (Hip Hop &amp; Beat Making Festival • Alfândega do Porto).</span>
+        <span class="lang-en">Comprehensive suite of five interactive, focused pedagogical demonstrators built on the visual assets and identity of the <strong>DRUMTIKS '26</strong> festival prototype (Hip Hop &amp; Beat Making Festival • Alfândega do Porto).</span>
       </p>
     </section>
 
@@ -383,13 +450,14 @@
         <article class="module-card" style="--card-accent: #e60000;">
           <div>
             <div class="module-badge-row">
-              <span class="module-num">Módulo 01</span>
-              <span class="module-topic">Variáveis CSS</span>
+              <span class="module-num"><span class="lang-pt">Módulo 01</span><span class="lang-en">Module 01</span></span>
+              <span class="module-topic"><span class="lang-pt">Variáveis CSS</span><span class="lang-en">CSS Variables</span></span>
             </div>
             <div class="module-body" style="margin-top: 1rem;">
               <h2>Theming &amp; Dynamic Variables</h2>
               <p>
-                Menu com seletor de tema (Auto / Claro / Escuro) que utiliza <code>prefers-color-scheme</code> e a função moderna <code>light-dark()</code>, alternando dinamicamente tokens de cores e contrastes via <code>:root:has()</code>.
+                <span class="lang-pt">Menu com seletor de tema (Auto / Claro / Escuro) que utiliza <code>prefers-color-scheme</code> e a função moderna <code>light-dark()</code>, alternando dinamicamente tokens de cores e contrastes via <code>:root:has()</code>.</span>
+                <span class="lang-en">Theme switcher menu (Auto / Light / Dark) leveraging <code>prefers-color-scheme</code> and the modern <code>light-dark()</code> function, dynamically remapping tokens and contrast via <code>:root:has()</code>.</span>
               </p>
               <div class="module-tags">
                 <span class="tag-pill">:root Tokens</span>
@@ -402,7 +470,7 @@
 
           <div class="module-actions">
             <a href="01-variables/index.html" class="btn-launch">
-              <span>Abrir Exercício 1</span>
+              <span><span class="lang-pt">Abrir Exercício 1</span><span class="lang-en">Open Exercise 1</span></span>
               <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -414,13 +482,14 @@
         <article class="module-card" style="--card-accent: #8a2be2;">
           <div>
             <div class="module-badge-row">
-              <span class="module-num">Módulo 02</span>
-              <span class="module-topic">Transições &amp; Easing</span>
+              <span class="module-num"><span class="lang-pt">Módulo 02</span><span class="lang-en">Module 02</span></span>
+              <span class="module-topic"><span class="lang-pt">Transições &amp; Easing</span><span class="lang-en">Transitions &amp; Easing</span></span>
             </div>
             <div class="module-body" style="margin-top: 1rem;">
               <h2>Carousel &amp; Vinyl Crate Deck</h2>
               <p>
-                Carrossel suave com <em>scroll-snap</em> (Versão A) e uma metáfora física de <strong>caixa de discos (Record Crate)</strong> na Versão B com 3 capas fictícias geradas pelo Gemini que abrem em leque tridimensional sob curvas de <code>cubic-bezier</code>.
+                <span class="lang-pt">Carrossel suave com <em>scroll-snap</em> (Versão A) e uma metáfora física de <strong>caixa de discos (Record Crate)</strong> na Versão B com 3 capas fictícias que abrem em leque tridimensional sob curvas de <code>cubic-bezier</code>.</span>
+                <span class="lang-en">Smooth <em>scroll-snap</em> carousel (Version A) and a physical <strong>Vinyl Record Crate</strong> metaphor in Version B with 3 record sleeves fanning out in 3D perspective under bouncy <code>cubic-bezier</code> curves.</span>
               </p>
               <div class="module-tags">
                 <span class="tag-pill">CSS Transitions</span>
@@ -433,11 +502,11 @@
 
           <div class="module-actions">
             <a href="02-transitions/index.html" class="btn-launch" style="background-color: var(--color-accent-purple);">
-              <span>Versão A: Carrossel</span>
+              <span><span class="lang-pt">Versão A: Carrossel</span><span class="lang-en">Version A: Carousel</span></span>
               <span aria-hidden="true">→</span>
             </a>
             <a href="02-transitions/versao-b.html" class="btn-sub">
-              <span>Versão B: Vinyl Crate Fan-out 💽</span>
+              <span><span class="lang-pt">Versão B: Vinyl Crate 💽</span><span class="lang-en">Version B: Vinyl Crate 💽</span></span>
               <span aria-hidden="true">✨</span>
             </a>
           </div>
@@ -449,13 +518,14 @@
         <article class="module-card" style="--card-accent: #00d2ff;">
           <div>
             <div class="module-badge-row">
-              <span class="module-num">Módulo 03</span>
+              <span class="module-num"><span class="lang-pt">Módulo 03</span><span class="lang-en">Module 03</span></span>
               <span class="module-topic">Scroll-Driven Animations</span>
             </div>
             <div class="module-body" style="margin-top: 1rem;">
               <h2>Progress Bar &amp; Viewport Trigger</h2>
               <p>
-                Barra de leitura de scroll total ancorada em <code>scroll(root)</code> (Versão A) e revelação dinâmica de cartões quando entram no campo de visão (Versão B) com calibração precisa de percentagens através de <code>animation-range</code>.
+                <span class="lang-pt">Barra de leitura de scroll total ancorada em <code>scroll(root)</code> (Versão A) e revelação dinâmica de cartões quando entram no campo de visão (Versão B) com calibração precisa através de <code>animation-range</code>.</span>
+                <span class="lang-en">Full page scroll reading progress bar anchored via <code>scroll(root)</code> (Version A) and dynamic viewport card entrance reveals (Version B) calibrated via <code>animation-range</code>.</span>
               </p>
               <div class="module-tags">
                 <span class="tag-pill">animation-timeline</span>
@@ -468,11 +538,11 @@
 
           <div class="module-actions">
             <a href="03-animations/index.html" class="btn-launch" style="background-color: #0099cc; color: #ffffff;">
-              <span>Versão A: Scroll Total</span>
+              <span><span class="lang-pt">Versão A: Scroll Total</span><span class="lang-en">Version A: Full Scroll</span></span>
               <span aria-hidden="true">→</span>
             </a>
             <a href="03-animations/versao-b.html" class="btn-sub">
-              <span>Versão B: Viewport Trigger (%)</span>
+              <span><span class="lang-pt">Versão B: Viewport Trigger (%)</span><span class="lang-en">Version B: Viewport Trigger (%)</span></span>
               <span aria-hidden="true">🎯</span>
             </a>
           </div>
@@ -484,13 +554,14 @@
         <article class="module-card" style="--card-accent: #f5a623;">
           <div>
             <div class="module-badge-row">
-              <span class="module-num">Módulo 04</span>
-              <span class="module-topic">Espaço 2D / 3D</span>
+              <span class="module-num"><span class="lang-pt">Módulo 04</span><span class="lang-en">Module 04</span></span>
+              <span class="module-topic"><span class="lang-pt">Espaço 2D / 3D</span><span class="lang-en">2D / 3D Space</span></span>
             </div>
             <div class="module-body" style="margin-top: 1rem;">
               <h2>CSS Transforms &amp; Pivot Origin</h2>
               <p>
-                Laboratório interativo dedicado à geometria espacial no CSS: translação (posição), escala (tamanho), rotação, distorção (skew) e a importância do ponto de ancoragem <code>transform-origin</code>.
+                <span class="lang-pt">Laboratório interativo dedicado à geometria espacial no CSS: translação (posição), escala (tamanho), rotação, distorção (skew) e a importância do ponto de ancoragem <code>transform-origin</code>.</span>
+                <span class="lang-en">Interactive laboratory on CSS spatial geometry: translation, scaling, rotation, skewing, and the critical role of the <code>transform-origin</code> pivot point.</span>
               </p>
               <div class="module-tags">
                 <span class="tag-pill">translate(x,y)</span>
@@ -503,7 +574,7 @@
 
           <div class="module-actions">
             <a href="04-transforms/index.html" class="btn-launch" style="background-color: #f5a623; color: #08080a; font-weight: 700;">
-              <span>Abrir Módulo Transforms</span>
+              <span><span class="lang-pt">Abrir Módulo Transforms</span><span class="lang-en">Open Transforms Lab</span></span>
               <span aria-hidden="true">📐 →</span>
             </a>
           </div>
@@ -515,13 +586,14 @@
         <article class="module-card" style="--card-accent: #00e676;">
           <div>
             <div class="module-badge-row">
-              <span class="module-num">Módulo 05</span>
-              <span class="module-topic">Processamento Gráfico</span>
+              <span class="module-num"><span class="lang-pt">Módulo 05</span><span class="lang-en">Module 05</span></span>
+              <span class="module-topic"><span class="lang-pt">Processamento Gráfico</span><span class="lang-en">Graphic Filters</span></span>
             </div>
             <div class="module-body" style="margin-top: 1rem;">
               <h2>CSS Filter Effects &amp; Alpha Shadows</h2>
               <p>
-                Laboratório visual com operações de pós-processamento: desfoque óptico (blur), brilho, contraste, grayscale, sepia, hue-rotate e a distinção crítica entre <code>box-shadow</code> e <code>filter: drop-shadow()</code>.
+                <span class="lang-pt">Laboratório visual com operações de pós-processamento: desfoque óptico (blur), brilho, contraste, grayscale, sepia, hue-rotate e a distinção crítica entre <code>box-shadow</code> e <code>filter: drop-shadow()</code>.</span>
+                <span class="lang-en">Visual laboratory on post-processing effects: blur, brightness, contrast, grayscale, sepia, hue-rotate, and the vital distinction between <code>box-shadow</code> and <code>filter: drop-shadow()</code>.</span>
               </p>
               <div class="module-tags">
                 <span class="tag-pill">blur(px)</span>
@@ -534,7 +606,7 @@
 
           <div class="module-actions">
             <a href="05-filters/index.html" class="btn-launch" style="background-color: #00c853; color: #08080a; font-weight: 700;">
-              <span>Abrir Módulo Filters</span>
+              <span><span class="lang-pt">Abrir Módulo Filters</span><span class="lang-en">Open Filters Lab</span></span>
               <span aria-hidden="true">🎨 →</span>
             </a>
           </div>
@@ -547,43 +619,115 @@
          - Compêndio das Referências Oficiais da MDN Web Docs
          ==================================================================== -->
       <section class="mdn-master-card" aria-labelledby="mdn-master-heading">
-        <h3 id="mdn-master-heading">Documentação e Guias Oficiais da MDN Web Docs</h3>
+        <h3 id="mdn-master-heading">
+          <span class="lang-pt">Documentação e Guias Oficiais da MDN Web Docs</span>
+          <span class="lang-en">Official MDN Web Docs Documentation &amp; Guides</span>
+        </h3>
         <p style="color: var(--color-text-muted); font-size: 0.95rem;">
-          Páginas de consulta recomendadas para fundamentação teórica de cada tecnologia abordada no TP11:
+          <span class="lang-pt">Páginas de consulta recomendadas para fundamentação teórica de cada tecnologia abordada no TP11:</span>
+          <span class="lang-en">Recommended official documentation for deep theoretical grounding of TP11 technologies:</span>
         </p>
 
         <div class="mdn-links-grid">
           <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Cascading_variables/Using_custom_properties" target="_blank" rel="noopener noreferrer" class="mdn-link-box">
             <span class="mdn-link-title">🔗 Using CSS Custom Properties</span>
-            <span class="mdn-link-desc">Declaração de variáveis globais e locais, herança em cascata e valores de contingência (fallbacks).</span>
+            <span class="mdn-link-desc">
+              <span class="lang-pt">Declaração de variáveis globais e locais, herança em cascata e valores de contingência (fallbacks).</span>
+              <span class="lang-en">Global and local variable declarations, cascade inheritance, and fallbacks.</span>
+            </span>
           </a>
 
           <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Transitions" target="_blank" rel="noopener noreferrer" class="mdn-link-box">
             <span class="mdn-link-title">🔗 CSS Transitions Guide</span>
-            <span class="mdn-link-desc">Interpolação contínua entre estados, curvas cúbicas de Bézier e controlo de tempos de atraso (delay).</span>
+            <span class="mdn-link-desc">
+              <span class="lang-pt">Interpolação contínua entre estados, curvas cúbicas de Bézier e controlo de tempos de atraso (delay).</span>
+              <span class="lang-en">Smooth state interpolation, cubic-bezier timing functions, and transition delay.</span>
+            </span>
           </a>
 
           <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Animations/Using" target="_blank" rel="noopener noreferrer" class="mdn-link-box">
             <span class="mdn-link-title">🔗 Using CSS Animations</span>
-            <span class="mdn-link-desc">Definição de @keyframes com estágios percentuais, animações infinitas e controlo de direção.</span>
+            <span class="mdn-link-desc">
+              <span class="lang-pt">Definição de @keyframes com estágios percentuais, animações infinitas e controlo de direção.</span>
+              <span class="lang-en">Keyframe animation percentages, infinite looping, and playback direction.</span>
+            </span>
           </a>
 
           <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Transforms" target="_blank" rel="noopener noreferrer" class="mdn-link-box">
             <span class="mdn-link-title">🔗 CSS Transforms Guide</span>
-            <span class="mdn-link-desc">Operações espaciais 2D e 3D, matrizes de rotação/escala e ponto de pivot transform-origin.</span>
+            <span class="mdn-link-desc">
+              <span class="lang-pt">Operações espaciais 2D e 3D, matrizes de rotação/escala e ponto de pivot transform-origin.</span>
+              <span class="lang-en">2D and 3D spatial transforms, rotation/scale matrices, and transform-origin pivot.</span>
+            </span>
           </a>
 
           <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Filter_effects" target="_blank" rel="noopener noreferrer" class="mdn-link-box">
             <span class="mdn-link-title">🔗 CSS Filter Effects Guide</span>
-            <span class="mdn-link-desc">Processamento gráfico rasterizado, sombreamento com recorte alfa e backdrop-filter.</span>
+            <span class="mdn-link-desc">
+              <span class="lang-pt">Processamento gráfico rasterizado, sombreamento com recorte alfa e backdrop-filter.</span>
+              <span class="lang-en">Raster graphic post-processing, alpha-clipped drop-shadow, and backdrop-filter.</span>
+            </span>
           </a>
 
           <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline" target="_blank" rel="noopener noreferrer" class="mdn-link-box">
             <span class="mdn-link-title">🔗 CSS animation-timeline</span>
-            <span class="mdn-link-desc">A nova especificação de Scroll-Driven Animations: funções scroll() e view() nativas.</span>
+            <span class="mdn-link-desc">
+              <span class="lang-pt">A nova especificação de Scroll-Driven Animations: funções scroll() e view() nativas.</span>
+              <span class="lang-en">Modern scroll-driven animations specification: native scroll() and view() functions.</span>
+            </span>
           </a>
         </div>
       </section>
     </main>
+
+    <script>
+      // Theme & Language Handlers
+      const themeBtn = document.getElementById('theme-toggle-btn');
+      function updateThemeBtnState() {
+        if (!themeBtn) return;
+        const current = document.documentElement.getAttribute('data-theme') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const isDark = current === 'dark';
+        const lang = document.documentElement.getAttribute('lang') || 'pt';
+        const label = isDark ? (lang === 'pt' ? 'Escuro' : 'Dark') : (lang === 'pt' ? 'Claro' : 'Light');
+        const icon = isDark ? '🌙' : '☀';
+        themeBtn.innerHTML = `${icon} <span>${label}</span>`;
+      }
+
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('data-theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          const next = current === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('wd101_theme', next);
+          updateThemeBtnState();
+        });
+        const savedTheme = localStorage.getItem('wd101_theme');
+        if (savedTheme) {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+        updateThemeBtnState();
+      }
+
+      const langBtn = document.getElementById('lang-toggle-btn');
+      function setLanguage(lang) {
+        document.documentElement.setAttribute('lang', lang);
+        localStorage.setItem('wd101_lang', lang);
+        if (langBtn) {
+          langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
+        }
+        updateThemeBtnState();
+      }
+
+      if (langBtn) {
+        langBtn.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('lang') || 'pt';
+          const next = current === 'pt' ? 'en' : 'pt';
+          setLanguage(next);
+        });
+        setLanguage(localStorage.getItem('wd101_lang') || 'pt');
+      }
+    </script>
   </body>
 </html>

@@ -191,17 +191,18 @@
 
       <nav class="site-nav" aria-label="Navegação do Guia">
         <ul>
-          <li><a href="index.html">← Voltar ao Andaime</a></li>
-          <li><a href="#hosted-vs-self">Distribuição</a></li>
-          <li><a href="#triad">A Tríade</a></li>
-          <li><a href="#scales">Escala Modular</a></li>
-          <li><a href="#clamp">clamp() Fluido</a></li>
-          <li><a href="#semantics">Semântica</a></li>
+          <li><a href="index.html"><span class="lang-pt">← Voltar ao Andaime</span><span class="lang-en">← Back to Scaffold</span></a></li>
+          <li><a href="#hosted-vs-self"><span class="lang-pt">Distribuição</span><span class="lang-en">Distribution</span></a></li>
+          <li><a href="#triad"><span class="lang-pt">A Tríade</span><span class="lang-en">The Triad</span></a></li>
+          <li><a href="#scales"><span class="lang-pt">Escala Modular</span><span class="lang-en">Modular Scale</span></a></li>
+          <li><a href="#clamp"><span class="lang-pt">clamp() Fluido</span><span class="lang-en">Fluid clamp()</span></a></li>
+          <li><a href="#semantics"><span class="lang-pt">Semântica</span><span class="lang-en">Semantics</span></a></li>
         </ul>
       </nav>
 
       <div class="header-controls">
-        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ Tema</button>
+        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
+        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
       </div>
     </div>
   </header>
@@ -211,12 +212,17 @@
 
     <!-- Hero Section -->
     <header class="guide-hero">
-      <a href="index.html#study-goals" class="guide-back-link">← OBJETIVOS DE APRENDIZAGEM &amp; MODELOS MENTAIS</a>
+      <a href="index.html#study-goals" class="guide-back-link">
+        <span class="lang-pt">← OBJETIVOS DE APRENDIZAGEM &amp; MODELOS MENTAIS</span>
+        <span class="lang-en">← LEARNING OBJECTIVES &amp; MENTAL MODELS</span>
+      </a>
       <h1 style="font-size:var(--text-3xl); margin-bottom:var(--space-2); color:var(--text-primary);">
-        Módulo 3: Tipografia Fluida &amp; Fontes Variáveis
+        <span class="lang-pt">Módulo 3: Tipografia Fluida &amp; Fontes Variáveis</span>
+        <span class="lang-en">Module 3: Fluid Typography &amp; Variable Fonts</span>
       </h1>
       <p style="color:var(--text-secondary); font-size:var(--text-lg); line-height:1.5;">
-        Do pixel estático à modulação contínua: estratégias de auto-hospedagem WOFF2, a Tríade do Drumtiks, escalas modulares com Major Third (1.250), dimensionamento com <code>clamp()</code> sem media queries e semântica expressiva.
+        <span class="lang-pt">Do pixel estático à modulação contínua: estratégias de auto-hospedagem WOFF2, a Tríade do Drumtiks, escalas modulares com Major Third (1.250), dimensionamento com <code>clamp()</code> sem media queries e semântica expressiva.</span>
+        <span class="lang-en">From static pixels to continuous modulation: self-hosted WOFF2 strategies, the Drumtiks Triad, modular scales with Major Third (1.250), fluid sizing via <code>clamp()</code> without media queries, and expressive semantics.</span>
       </p>
     </header>
 
@@ -702,6 +708,54 @@
       const font = activeBtn ? activeBtn.textContent.split(' ')[1] : 'Syne';
       const weight = document.getElementById('weight-val').textContent;
       document.getElementById('active-rule-text').textContent = `Regra ativa: font-family: '${font}'; font-weight: ${weight};`;
+    }
+
+    // Theme & Language Handlers
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    function updateThemeBtnState() {
+      if (!themeBtn) return;
+      const current = document.documentElement.getAttribute('data-theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const isDark = current === 'dark';
+      const lang = document.documentElement.getAttribute('lang') || 'pt';
+      const label = isDark ? (lang === 'pt' ? 'Escuro' : 'Dark') : (lang === 'pt' ? 'Claro' : 'Light');
+      const icon = isDark ? '🌙' : '☀';
+      themeBtn.innerHTML = `${icon} <span>${label}</span>`;
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('wd101_theme', next);
+        updateThemeBtnState();
+      });
+      const savedTheme = localStorage.getItem('wd101_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      updateThemeBtnState();
+    }
+
+    const langBtn = document.getElementById('lang-toggle-btn');
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('wd101_lang', lang);
+      if (langBtn) {
+        langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
+      }
+      updateThemeBtnState();
+    }
+
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('lang') || 'pt';
+        const next = current === 'pt' ? 'en' : 'pt';
+        setLanguage(next);
+      });
+      setLanguage(localStorage.getItem('wd101_lang') || 'pt');
     }
   </script>
 

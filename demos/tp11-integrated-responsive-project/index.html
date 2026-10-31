@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
   <!--
     ==========================================================================
@@ -29,6 +29,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>DRUMTIKS '26 • Advanced Integrated Responsive Festival Portal | WD101 FBAUP</title>
   <meta name="description" content="Capstone master project combining 2D CSS Grid macro-layouts, 1D alternating Flexbox, 3D Vinyl Crate fan-out, pure CSS theming, and scroll-driven animations for DRUMTIKS '26.">
+
+  <!-- Previne FOUC de tema e idioma -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
 
   <!-- Self-Hosted Variable Webfonts & Master Cascade Layers Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
@@ -73,48 +85,76 @@
             DRUMTIKS<span style="color:var(--color-accent-red);">'26</span>
           </span>
         </a>
-        <span class="pill-badge pill-badge--accent">CAPSTONE MASTER</span>
+        <span class="pill-badge pill-badge--accent">
+          <span class="lang-pt">PROJETO CAPSTONE</span>
+          <span class="lang-en">CAPSTONE MASTER</span>
+        </span>
       </div>
 
       <!-- Semantic Primary Navigation (<nav role="navigation">) -->
       <nav class="site-nav-menu" aria-label="Festival Primary Navigation">
-        <a href="#lineup" class="site-nav-link">Stage</a>
-        <a href="#schedule" class="site-nav-link">Schedule</a>
-        <a href="#gallery" class="site-nav-link">Masonry</a>
-        <a href="#tickets" class="site-nav-link">Tickets</a>
-        <a href="#faq" class="site-nav-link">FAQ</a>
+        <a href="#lineup" class="site-nav-link">
+          <span class="lang-pt">Palco</span>
+          <span class="lang-en">Stage</span>
+        </a>
+        <a href="#schedule" class="site-nav-link">
+          <span class="lang-pt">Programa</span>
+          <span class="lang-en">Schedule</span>
+        </a>
+        <a href="#gallery" class="site-nav-link">
+          <span class="lang-pt">Galeria</span>
+          <span class="lang-en">Masonry</span>
+        </a>
+        <a href="#tickets" class="site-nav-link">
+          <span class="lang-pt">Bilhetes</span>
+          <span class="lang-en">Tickets</span>
+        </a>
+        <a href="#faq" class="site-nav-link">
+          <span class="lang-pt">Perguntas</span>
+          <span class="lang-en">FAQ</span>
+        </a>
         <a href="../tp06-responsive/index.html" class="site-nav-link" style="color:var(--color-accent-gold);" title="Compare with Early Prototype">
-          ↩ Early Prototype (TP06)
+          <span class="lang-pt">↩ Protótipo (TP06)</span>
+          <span class="lang-en">↩ Early Prototype (TP06)</span>
         </a>
       </nav>
 
       <!-- Interactive Utility Toolbars (Theme & X-Ray) -->
       <div class="header-controls-group">
+        <!-- Language Switcher (PT / EN) -->
+        <button id="lang-toggle-btn" class="lang-toggle-pill" aria-label="Alternar Idioma / Switch Language" title="Alternar entre Português e Inglês">
+          <span class="lang-pt">English</span>
+          <span class="lang-en">Português</span>
+        </button>
+
         <!-- Pure CSS Theme Switcher -->
         <div class="theme-toggle-cluster" role="radiogroup" aria-label="Color Scheme Mode">
           <label for="theme-auto" class="theme-radio-pill" title="Follow Operating System Preference">
-            <span>Auto</span>
+            <span><span class="lang-pt">Auto</span><span class="lang-en">Auto</span></span>
           </label>
           <label for="theme-light" class="theme-radio-pill" title="Light High-Contrast Mode">
-            <span>Light</span>
+            <span><span class="lang-pt">Claro</span><span class="lang-en">Light</span></span>
           </label>
           <label for="theme-dark" class="theme-radio-pill" title="Dark Club Mode">
-            <span>Dark</span>
+            <span><span class="lang-pt">Escuro</span><span class="lang-en">Dark</span></span>
           </label>
         </div>
 
         <!-- Pure CSS X-Ray Matrix Toggle -->
         <label for="xray-toggle" class="xray-toggle-pill" title="Toggle Pure CSS Layout Grid & Flex Lines">
-          <span>📐 X-Ray</span>
+          <span>📐 <span class="lang-pt">Raios-X</span><span class="lang-en">X-Ray</span></span>
         </label>
 
         <!-- Step-by-Step Guide Link -->
         <a href="GUIDE.md" class="pill-badge pill-badge--cyan" title="Read Step-by-Step Pedagogical Guide">
-          📖 Guide
+          📖 <span class="lang-pt">Guião</span><span class="lang-en">Guide</span>
         </a>
 
         <!-- Primary Call To Action -->
-        <a href="#tickets" class="btn-primary-cta">Get Passes</a>
+        <a href="#tickets" class="btn-primary-cta">
+          <span class="lang-pt">Passes</span>
+          <span class="lang-en">Get Passes</span>
+        </a>
       </div>
     </header>
 
@@ -124,12 +164,12 @@
     -->
     <aside class="pedagogical-code-callout" style="border-left-color: var(--color-accent-gold); margin-bottom: var(--space-xl);" aria-label="Curricular Notice">
       <div class="code-callout-header">
-        <span>🎓 CURRICULAR ADVANCEMENT: EARLY PROTOTYPE VS. ADVANCED INTEGRATED PROTOTYPE</span>
+        <span>🎓 <span class="lang-pt">PROGRESSÃO CURRICULAR: PROTÓTIPO PRELIMINAR VS. PROTÓTIPO AVANÇADO INTEGRADO</span><span class="lang-en">CURRICULAR ADVANCEMENT: EARLY PROTOTYPE VS. ADVANCED INTEGRATED PROTOTYPE</span></span>
         <span style="color:var(--color-accent-gold);">WD101 • FBAUP</span>
       </div>
       <p style="margin: 0.5rem 0; line-height: 1.5; color: var(--color-text-secondary);">
-        This capstone merges the <strong>TP06-responsive</strong> festival theme with the <strong>TP11 CSS Layout Suite</strong> (Flexbox &amp; CSS Grid 2D) and <strong>TP11 Dynamic Sensory Suite</strong> (Variables, 3D Transitions, Scroll-Driven Animations). 
-        You can inspect the earlier baseline at <a href="../tp06-responsive/index.html" style="color:var(--color-accent-red); text-decoration:underline;">Final Project - Early Prototype (TP06-responsive)</a> or consult the <a href="GUIDE.md" style="color:var(--color-accent-cyan); text-decoration:underline;">Step-by-Step Evolution Guide</a>.
+        <span class="lang-pt">Este projeto capstone unifica o tema do festival <strong>TP06-responsive</strong> com a <strong>Suite de Layout TP11</strong> (Flexbox 1D &amp; CSS Grid 2D) e a <strong>Suite Dinâmica Sensorial TP11</strong> (Variáveis, Transições 3D, Animações ao Scroll). Pode inspecionar a versão base preliminar em <a href="../tp06-responsive/index.html" style="color:var(--color-accent-red); text-decoration:underline;">Projeto Final - Protótipo Preliminar (TP06)</a> ou consultar o <a href="GUIDE.md" style="color:var(--color-accent-cyan); text-decoration:underline;">Guião de Evolução Passo a Passo</a>.</span>
+        <span class="lang-en">This capstone merges the <strong>TP06-responsive</strong> festival theme with the <strong>TP11 CSS Layout Suite</strong> (Flexbox &amp; CSS Grid 2D) and <strong>TP11 Dynamic Sensory Suite</strong> (Variables, 3D Transitions, Scroll-Driven Animations). You can inspect the earlier baseline at <a href="../tp06-responsive/index.html" style="color:var(--color-accent-red); text-decoration:underline;">Final Project - Early Prototype (TP06-responsive)</a> or consult the <a href="GUIDE.md" style="color:var(--color-accent-cyan); text-decoration:underline;">Step-by-Step Evolution Guide</a>.</span>
       </p>
     </aside>
 
@@ -154,10 +194,14 @@
         
         <!-- Landmark: <article> for DJ Warp Headliner -->
         <article class="hero-stage-card scroll-reveal-item" id="lineup">
-          <span class="hero-eyebrow">LIVE HEADLINER &amp; MASTERCLASS</span>
+          <span class="hero-eyebrow">
+            <span class="lang-pt">CABEÇA DE CARTAZ AO VIVO &amp; MASTERCLASS</span>
+            <span class="lang-en">LIVE HEADLINER &amp; MASTERCLASS</span>
+          </span>
           <h1 class="hero-title">GRAND MASTER DJ 'WARP'</h1>
           <p class="hero-subtitle">
-            Pioneer of 808 Turntablism • Underground Vault 02 Live Showcase
+            <span class="lang-pt">Pioneiro do Turntablism 808 • Showcase ao Vivo no Vault 02 Subterrâneo</span>
+            <span class="lang-en">Pioneer of 808 Turntablism • Underground Vault 02 Live Showcase</span>
           </p>
 
           <!-- Responsive Art-Directed Hero Picture (<picture>) -->
@@ -179,9 +223,13 @@
           -->
           <div style="margin-top: var(--space-md); border-top: 1px dashed var(--color-border-subtle); padding-top: var(--space-md);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: var(--space-xs);">
-              <span class="pill-badge pill-badge--cyan">3D VINYL CRATE</span>
+              <span class="pill-badge pill-badge--cyan">
+                <span class="lang-pt">CAIXA DE VINIS 3D</span>
+                <span class="lang-en">3D VINYL CRATE</span>
+              </span>
               <span style="font-family:var(--font-family-mono); font-size:var(--font-size-micro); color:var(--color-text-muted);">
-                Hover Crate to Fan-out ↗
+                <span class="lang-pt">Passe o cursor para abrir em leque ↗</span>
+                <span class="lang-en">Hover Crate to Fan-out ↗</span>
               </span>
             </div>
 
@@ -210,7 +258,8 @@
           <!-- Actions & Biography link -->
           <div style="margin-top: var(--space-lg); display: flex; justify-content: space-between; align-items: center;">
             <a href="dj-warp.html" class="site-nav-link" style="color: var(--color-accent-red); font-weight: 700;">
-              Full Biography &amp; Set Details &rarr;
+              <span class="lang-pt">Biografia Completa &amp; Detalhes do Set &rarr;</span>
+              <span class="lang-en">Full Biography &amp; Set Details &rarr;</span>
             </a>
             <span class="pill-badge">808 &amp; 909 BEATS</span>
           </div>
@@ -218,15 +267,19 @@
 
         <!-- Landmark: <aside> for Venue & Access Information -->
         <aside class="venue-info-box scroll-reveal-item" role="complementary" aria-labelledby="venue-heading">
-          <span class="section-tag">HISTORIC VENUE</span>
+          <span class="section-tag">
+            <span class="lang-pt">RECINTO HISTÓRICO</span>
+            <span class="lang-en">HISTORIC VENUE</span>
+          </span>
           <h3 id="venue-heading">Alfândega do Porto • Underground Vault 02</h3>
           <p style="color:var(--color-text-secondary); margin:var(--space-2xs) 0 var(--space-sm);">
-            Historic 19th-century granite vaults beside the Douro River. Acoustic resonance optimized for sub-bass and live MPC beat battles.
+            <span class="lang-pt">Armazéns subterrâneos oitocentistas em granito junto ao Rio Douro. Ressonância acústica otimizada para sub-graves e batalhas de beats MPC ao vivo.</span>
+            <span class="lang-en">Historic 19th-century granite vaults beside the Douro River. Acoustic resonance optimized for sub-bass and live MPC beat battles.</span>
           </p>
           <div class="badge-cluster">
-            <span class="pill-badge">Doors: 17:30 WEST</span>
-            <span class="pill-badge">Tram 1 &amp; Bus 500</span>
-            <span class="pill-badge">Accessible Ramp</span>
+            <span class="pill-badge"><span class="lang-pt">Portas: 17:30 WEST</span><span class="lang-en">Doors: 17:30 WEST</span></span>
+            <span class="pill-badge"><span class="lang-pt">Elétrico 1 &amp; Autocarro 500</span><span class="lang-en">Tram 1 &amp; Bus 500</span></span>
+            <span class="pill-badge"><span class="lang-pt">Rampa de Acessibilidade</span><span class="lang-en">Accessible Ramp</span></span>
           </div>
         </aside>
 
@@ -244,8 +297,14 @@
       -->
       <section class="grid-area-schedule scroll-reveal-item" id="schedule" aria-labelledby="schedule-heading">
         <div class="section-header-group">
-          <span class="section-tag">PROGRAM TIMELINE</span>
-          <h2 class="section-title" id="schedule-heading">Stage Schedule &amp; Scratch Battles</h2>
+          <span class="section-tag">
+            <span class="lang-pt">CRONOGRAMA DO PROGRAMA</span>
+            <span class="lang-en">PROGRAM TIMELINE</span>
+          </span>
+          <h2 class="section-title" id="schedule-heading">
+            <span class="lang-pt">Horários do Palco &amp; Batalhas de Scratch</span>
+            <span class="lang-en">Stage Schedule &amp; Scratch Battles</span>
+          </h2>
         </div>
 
         <!-- 1D Flexbox Schedule List -->
@@ -255,14 +314,18 @@
           <article class="program-item-card">
             <div class="program-time-badge">18:00 – 19:30</div>
             <div class="program-meta-group">
-              <h3 style="font-size:var(--font-size-body); font-weight:700;">MPC Finger Drumming Invitational</h3>
+              <h3 style="font-size:var(--font-size-body); font-weight:700;">
+                <span class="lang-pt">Torneio Convidativo de Finger Drumming MPC</span>
+                <span class="lang-en">MPC Finger Drumming Invitational</span>
+              </h3>
               <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
-                16 national beatmakers compete on hardware samplers. 60-second knockout rounds.
+                <span class="lang-pt">16 beatmakers nacionais competem em samplers de hardware. Rondas eliminatórias de 60 segundos.</span>
+                <span class="lang-en">16 national beatmakers compete on hardware samplers. 60-second knockout rounds.</span>
               </p>
             </div>
             <div class="program-tag-cluster">
               <span class="pill-badge pill-badge--accent">Stage A</span>
-              <span class="pill-badge">Live Hardware</span>
+              <span class="pill-badge"><span class="lang-pt">Hardware ao Vivo</span><span class="lang-en">Live Hardware</span></span>
             </div>
           </article>
 
@@ -270,9 +333,13 @@
           <article class="program-item-card">
             <div class="program-time-badge">19:45 – 21:15</div>
             <div class="program-meta-group">
-              <h3 style="font-size:var(--font-size-body); font-weight:700;">Subterranean Beat Cipher: Vault Collective</h3>
+              <h3 style="font-size:var(--font-size-body); font-weight:700;">
+                <span class="lang-pt">Subterranean Beat Cipher: Coletivo Vault</span>
+                <span class="lang-en">Subterranean Beat Cipher: Vault Collective</span>
+              </h3>
               <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
-                Deep Boom-Bap and polyrhythmic Afro-Portuguese grooves live in the Granite Vault.
+                <span class="lang-pt">Boom-Bap profundo e ritmos polirrítmicos afro-portugueses ao vivo no Vault de Granito.</span>
+                <span class="lang-en">Deep Boom-Bap and polyrhythmic Afro-Portuguese grooves live in the Granite Vault.</span>
               </p>
             </div>
             <div class="program-tag-cluster">
@@ -286,14 +353,16 @@
             <div class="program-time-badge" style="color:var(--color-accent-red);">21:30 – 23:45</div>
             <div class="program-meta-group">
               <h3 style="font-size:var(--font-size-body); font-weight:700; color:var(--color-accent-red);">
-                GRAND MASTER DJ 'WARP' • Turntablism Masterclass &amp; Live Set
+                <span class="lang-pt">GRAND MASTER DJ 'WARP' • Masterclass de Turntablism &amp; Live Set</span>
+                <span class="lang-en">GRAND MASTER DJ 'WARP' • Turntablism Masterclass &amp; Live Set</span>
               </h3>
               <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
-                Four-turntable symphonic scratch set featuring original dubplates and 808 analog synthesis.
+                <span class="lang-pt">Espetáculo sinfónico com 4 gira-discos com dubplates originais e síntese analógica 808.</span>
+                <span class="lang-en">Four-turntable symphonic scratch set featuring original dubplates and 808 analog synthesis.</span>
               </p>
             </div>
             <div class="program-tag-cluster">
-              <span class="pill-badge pill-badge--accent">Headliner</span>
+              <span class="pill-badge pill-badge--accent"><span class="lang-pt">Cabeça de Cartaz</span><span class="lang-en">Headliner</span></span>
               <span class="pill-badge">Main Arena</span>
             </div>
           </article>
@@ -309,10 +378,17 @@
       -->
       <section class="grid-area-gallery scroll-reveal-item" id="gallery" aria-labelledby="gallery-heading">
         <div class="section-header-group">
-          <span class="section-tag">VISUAL ARCHITECTURE</span>
-          <h2 class="section-title" id="gallery-heading">Asymmetric Masonry &amp; Negative Whitespace</h2>
+          <span class="section-tag">
+            <span class="lang-pt">ARQUITETURA VISUAL</span>
+            <span class="lang-en">VISUAL ARCHITECTURE</span>
+          </span>
+          <h2 class="section-title" id="gallery-heading">
+            <span class="lang-pt">Galeria Assimétrica Masonry &amp; Espaços Negativos</span>
+            <span class="lang-en">Asymmetric Masonry &amp; Negative Whitespace</span>
+          </h2>
           <p style="color:var(--color-text-secondary); font-size:var(--font-size-small);">
-            Pedagogical 4-column layout utilizing <code>grid-auto-flow: dense</code>, multi-cell spans, and intentional typographic voids.
+            <span class="lang-pt">Layout pedagógico a 4 colunas com <code>grid-auto-flow: dense</code>, spans multi-célula e vazios tipográficos intencionais.</span>
+            <span class="lang-en">Pedagogical 4-column layout utilizing <code>grid-auto-flow: dense</code>, multi-cell spans, and intentional typographic voids.</span>
           </p>
         </div>
 
@@ -338,7 +414,10 @@
           <!-- Tile 3: EDITORIAL VOID (Intentional Whitespace Tension) -->
           <div class="gallery-tile--void">
             <span class="void-monogram">1869</span>
-            <span class="void-caption">GRANITE VAULT ACOUSTICS</span>
+            <span class="void-caption">
+              <span class="lang-pt">ACÚSTICA DO VAULT EM GRANITO</span>
+              <span class="lang-en">GRANITE VAULT ACOUSTICS</span>
+            </span>
           </div>
 
           <!-- Tile 4: Standard 1x1 Album Visual -->
@@ -350,14 +429,18 @@
           <figure class="gallery-tile--tall" style="position:relative; overflow:hidden; border-radius:var(--radius-md); border:1px solid var(--color-border-subtle);">
             <img src="assets/dj-warp-600w.webp" alt="DJ Warp tight portrait" style="width:100%; height:100%; object-fit:cover;">
             <figcaption style="position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(0,0,0,0.85)); color:#fff; padding:var(--space-sm); font-size:var(--font-size-micro); font-family:var(--font-family-mono);">
-              TURNTABLIST FOCUS
+              <span class="lang-pt">FOCO TURNTABLIST</span>
+              <span class="lang-en">TURNTABLIST FOCUS</span>
             </figcaption>
           </figure>
 
           <!-- Tile 6: EDITORIAL VOID 2 -->
           <div class="gallery-tile--void">
             <span class="void-monogram" style="color:var(--color-accent-cyan);">808</span>
-            <span class="void-caption">PURE ANALOG PULSE</span>
+            <span class="void-caption">
+              <span class="lang-pt">PULSO ANALÓGICO PURO</span>
+              <span class="lang-en">PURE ANALOG PULSE</span>
+            </span>
           </div>
 
           <!-- Tile 7: Standard 1x1 Album Visual -->
@@ -376,10 +459,17 @@
       -->
       <section class="grid-area-simulator scroll-reveal-item" id="tickets" aria-labelledby="tickets-heading">
         <div class="section-header-group">
-          <span class="section-tag">TICKETING ENGINE</span>
-          <h2 class="section-title" id="tickets-heading">Passes &amp; Workshop Simulator</h2>
+          <span class="section-tag">
+            <span class="lang-pt">MOTOR DE BILHETEIRA</span>
+            <span class="lang-en">TICKETING ENGINE</span>
+          </span>
+          <h2 class="section-title" id="tickets-heading">
+            <span class="lang-pt">Simulador de Passes &amp; Workshops</span>
+            <span class="lang-en">Passes &amp; Workshop Simulator</span>
+          </h2>
           <p style="color:var(--color-text-secondary); font-size:var(--font-size-small);">
-            Interactive calculator operating purely via CSS <code>:has()</code> and <code>:checked</code> states.
+            <span class="lang-pt">Calculadora interativa operando exclusivamente através de estados :has() e :checked em CSS.</span>
+            <span class="lang-en">Interactive calculator operating purely via CSS <code>:has()</code> and <code>:checked</code> states.</span>
           </p>
         </div>
 
@@ -388,18 +478,25 @@
             
             <!-- Left Sub-column: Ticket Selection & Options -->
             <div>
-              <h3 style="font-size:var(--font-size-body); margin-bottom:var(--space-sm);">1. Select Access Pass</h3>
+              <h3 style="font-size:var(--font-size-body); margin-bottom:var(--space-sm);">
+                <span class="lang-pt">1. Selecione o Passe de Acesso</span>
+                <span class="lang-en">1. Select Access Pass</span>
+              </h3>
               
               <div class="ticket-option-grid">
                 <!-- Option A: Standard Pass -->
                 <label class="ticket-tier-card">
                   <input type="radio" name="pass-type" value="standard" checked>
                   <div class="tier-header">
-                    <span class="tier-title">General Admission</span>
+                    <span class="tier-title">
+                      <span class="lang-pt">Acesso Geral</span>
+                      <span class="lang-en">General Admission</span>
+                    </span>
                     <span class="tier-price">35.00 €</span>
                   </div>
                   <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
-                    Full access to all live stages, outdoor terrace, and beat ciphers.
+                    <span class="lang-pt">Acesso total a todos os palcos ao vivo, esplanada exterior e ciphers de beats.</span>
+                    <span class="lang-en">Full access to all live stages, outdoor terrace, and beat ciphers.</span>
                   </p>
                 </label>
 
@@ -411,7 +508,8 @@
                     <span class="tier-price">65.00 €</span>
                   </div>
                   <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
-                    Stage-side front row access, artist lounge pass, and festival vinyl tote.
+                    <span class="lang-pt">Acesso frontal junto ao palco, passe para o lounge dos artistas e tote bag do festival.</span>
+                    <span class="lang-en">Stage-side front row access, artist lounge pass, and festival vinyl tote.</span>
                   </p>
                 </label>
 
@@ -419,21 +517,28 @@
                 <label class="ticket-tier-card">
                   <input type="radio" name="pass-type" value="combo">
                   <div class="tier-header">
-                    <span class="tier-title">Masterclass Pass</span>
+                    <span class="tier-title">
+                      <span class="lang-pt">Passe Masterclass</span>
+                      <span class="lang-en">Masterclass Pass</span>
+                    </span>
                     <span class="tier-price">95.00 €</span>
                   </div>
                   <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
-                    Includes DJ Warp exclusive hands-on scratch session in Vault 02.
+                    <span class="lang-pt">Inclui sessão prática exclusiva de scratch com DJ Warp no Vault 02.</span>
+                    <span class="lang-en">Includes DJ Warp exclusive hands-on scratch session in Vault 02.</span>
                   </p>
                 </label>
               </div>
 
-              <h3 style="font-size:var(--font-size-body); margin:var(--space-lg) 0 var(--space-xs);">2. Add-on Experiences</h3>
+              <h3 style="font-size:var(--font-size-body); margin:var(--space-lg) 0 var(--space-xs);">
+                <span class="lang-pt">2. Experiências Adicionais</span>
+                <span class="lang-en">2. Add-on Experiences</span>
+              </h3>
               <div class="addon-option-list">
                 <label class="addon-checkbox-label">
                   <span>
                     <input type="checkbox" name="addon-vinyl" id="addon-vinyl">
-                    <strong>Festival Vinyl 2xLP</strong> (Limited 180g Pressing)
+                    <strong><span class="lang-pt">Vinil Duplo do Festival 2xLP</span><span class="lang-en">Festival Vinyl 2xLP</span></strong> (<span class="lang-pt">Edição Limitada 180g</span><span class="lang-en">Limited 180g Pressing</span>)
                   </span>
                   <span style="font-family:var(--font-family-mono); color:var(--color-accent-red);">+ 25.00 €</span>
                 </label>
@@ -441,7 +546,7 @@
                 <label class="addon-checkbox-label">
                   <span>
                     <input type="checkbox" name="addon-workshop" id="addon-workshop">
-                    <strong>Analog Synth &amp; 808 Clinic</strong> (Morning session)
+                    <strong><span class="lang-pt">Clínica de Sintetizadores Analógicos &amp; 808</span><span class="lang-en">Analog Synth &amp; 808 Clinic</span></strong> (<span class="lang-pt">Sessão da manhã</span><span class="lang-en">Morning session</span>)
                   </span>
                   <span style="font-family:var(--font-family-mono); color:var(--color-accent-red);">+ 30.00 €</span>
                 </label>
@@ -450,34 +555,39 @@
 
             <!-- Right Sub-column: Pure CSS Receipt Breakdown -->
             <aside class="receipt-terminal-card" aria-label="Order Summary Receipt">
-              <div class="receipt-header">Order Calculation Terminal</div>
+              <div class="receipt-header">
+                <span class="lang-pt">Terminal de Cálculo da Encomenda</span>
+                <span class="lang-en">Order Calculation Terminal</span>
+              </div>
               
               <div class="receipt-line-item">
-                <span>Access Pass Base</span>
-                <span style="font-weight:700;">Active Selection</span>
+                <span><span class="lang-pt">Base do Passe de Acesso</span><span class="lang-en">Access Pass Base</span></span>
+                <span style="font-weight:700;"><span class="lang-pt">Seleção Ativa</span><span class="lang-en">Active Selection</span></span>
               </div>
 
               <div class="receipt-line-item">
-                <span>VAT (23% IVA Included)</span>
-                <span>Included</span>
+                <span><span class="lang-pt">IVA (23% IVA Incluído)</span><span class="lang-en">VAT (23% IVA Included)</span></span>
+                <span><span class="lang-pt">Incluído</span><span class="lang-en">Included</span></span>
               </div>
 
               <div class="receipt-line-item">
-                <span>Digital Delivery</span>
-                <span style="color:var(--color-accent-cyan);">FREE (Wallet/PDF)</span>
+                <span><span class="lang-pt">Entrega Digital</span><span class="lang-en">Digital Delivery</span></span>
+                <span style="color:var(--color-accent-cyan);"><span class="lang-pt">GRÁTIS (Wallet/PDF)</span><span class="lang-en">FREE (Wallet/PDF)</span></span>
               </div>
 
               <div class="receipt-line-item receipt-line-item--total">
-                <span>ESTIMATED TOTAL</span>
+                <span><span class="lang-pt">TOTAL ESTIMADO</span><span class="lang-en">ESTIMATED TOTAL</span></span>
                 <span style="color:var(--color-accent-red);">35.00 € - 150.00 €</span>
               </div>
 
               <button type="button" class="btn-primary-cta" style="width:100%; margin-top:var(--space-md);">
-                Proceed to Checkout
+                <span class="lang-pt">Concluir Reserva</span>
+                <span class="lang-en">Proceed to Checkout</span>
               </button>
 
               <p style="font-size:var(--font-size-micro); color:var(--color-text-muted); margin-top:var(--space-sm); text-align:center;">
-                Official FBAUP WD101 Academic Simulation • No Real Transactions Processed
+                <span class="lang-pt">Simulação Académica Oficial WD101 FBAUP • Sem Processamento de Transações Reais</span>
+                <span class="lang-en">Official FBAUP WD101 Academic Simulation • No Real Transactions Processed</span>
               </p>
             </aside>
 
@@ -493,29 +603,47 @@
       -->
       <section class="grid-area-faq scroll-reveal-item" id="faq" aria-labelledby="faq-heading">
         <div class="section-header-group">
-          <span class="section-tag">INFORMATION &amp; ACCESS</span>
-          <h2 class="section-title" id="faq-heading">Frequently Asked Questions</h2>
+          <span class="section-tag">
+            <span class="lang-pt">INFORMAÇÃO &amp; ACESSO</span>
+            <span class="lang-en">INFORMATION &amp; ACCESS</span>
+          </span>
+          <h2 class="section-title" id="faq-heading">
+            <span class="lang-pt">Perguntas Frequentes</span>
+            <span class="lang-en">Frequently Asked Questions</span>
+          </h2>
         </div>
 
         <div class="faq-accordion-group">
           <details class="faq-accordion-item">
-            <summary class="faq-summary">How do I access Alfândega do Porto via Public Transit?</summary>
+            <summary class="faq-summary">
+              <span class="lang-pt">Como posso aceder à Alfândega do Porto em Transportes Públicos?</span>
+              <span class="lang-en">How do I access Alfândega do Porto via Public Transit?</span>
+            </summary>
             <div class="faq-content-body">
-              Historic Tram Line 1 stops directly in front of the Alfândega riverfront terminal. STCP Bus 500 connects directly from São Bento Railway Station and Campanhã Intermodal Hub every 15 minutes.
+              <span class="lang-pt">A Linha 1 do Elétrico Histórico para diretamente em frente ao terminal fluvial da Alfândega. O autocarro STCP 500 faz a ligação direta a partir da Estação de São Bento e do Terminal Intermodal de Campanhã a cada 15 minutos.</span>
+              <span class="lang-en">Historic Tram Line 1 stops directly in front of the Alfândega riverfront terminal. STCP Bus 500 connects directly from São Bento Railway Station and Campanhã Intermodal Hub every 15 minutes.</span>
             </div>
           </details>
 
           <details class="faq-accordion-item">
-            <summary class="faq-summary">What are the acoustic conditions of Vault 02?</summary>
+            <summary class="faq-summary">
+              <span class="lang-pt">Quais são as condições acústicas do Vault 02?</span>
+              <span class="lang-en">What are the acoustic conditions of Vault 02?</span>
+            </summary>
             <div class="faq-content-body">
-              Vault 02 is a 19th-century subterranean granite warehouse. The room features high-performance bass trapping and directional line-array acoustic dispersion tuned specifically for vinyl turntablism and sub-bass impact.
+              <span class="lang-pt">O Vault 02 é um armazém subterrâneo de granito do século XIX. A sala dispõe de armadilhas de graves de elevado rendimento e dispersão acústica diretiva calibrada para turntablism e impacto de sub-graves.</span>
+              <span class="lang-en">Vault 02 is a 19th-century subterranean granite warehouse. The room features high-performance bass trapping and directional line-array acoustic dispersion tuned specifically for vinyl turntablism and sub-bass impact.</span>
             </div>
           </details>
 
           <details class="faq-accordion-item">
-            <summary class="faq-summary">Is this website built strictly without JavaScript?</summary>
+            <summary class="faq-summary">
+              <span class="lang-pt">Este website foi construído estritamente sem JavaScript?</span>
+              <span class="lang-en">Is this website built strictly without JavaScript?</span>
+            </summary>
             <div class="faq-content-body">
-              Yes! All interactions—including the color scheme theme switch, the X-Ray diagnostic matrix, the 3D vinyl fan-out, the accordion disclosures, and the reactive pricing calculations—are rendered via pure CSS3/4/5 and HTML5 semantic living standards.
+              <span class="lang-pt">Sim! Todas as interações estruturais — incluindo a alternância de temas de cor, a matriz de diagnóstico por Raios-X, a abertura em leque da caixa de vinis 3D, os acordeões e o cálculo dinâmico da bilheteira — são renderizadas através de puro CSS3/4/5 e normas semânticas vivas do HTML5.</span>
+              <span class="lang-en">Yes! All interactions—including the color scheme theme switch, the X-Ray diagnostic matrix, the 3D vinyl fan-out, the accordion disclosures, and the reactive pricing calculations—are rendered via pure CSS3/4/5 and HTML5 semantic living standards.</span>
             </div>
           </details>
         </div>
@@ -537,53 +665,154 @@
             DRUMTIKS<span style="color:var(--color-accent-red);">'26</span>
           </h4>
           <p style="margin-top:var(--space-xs); line-height:1.5;">
-            Web Design (WD101) Capstone Responsive Suite. Developed at Faculdade de Belas Artes da Universidade do Porto (FBAUP) in partnership with i2ADS research institute.
+            <span class="lang-pt">Suite Responsiva Capstone de Web Design (WD101). Desenvolvido na Faculdade de Belas Artes da Universidade do Porto (FBAUP) em parceria com o instituto de investigação i2ADS.</span>
+            <span class="lang-en">Web Design (WD101) Capstone Responsive Suite. Developed at Faculdade de Belas Artes da Universidade do Porto (FBAUP) in partnership with i2ADS research institute.</span>
           </p>
           <div style="margin-top:var(--space-sm);">
-            <a href="../../index.html" class="pill-badge pill-badge--accent">🏠 Return to Global Hub</a>
+            <a href="../../index.html" class="pill-badge pill-badge--accent">
+              <span class="lang-pt">🏠 Regressar ao Hub Global</span>
+              <span class="lang-en">🏠 Return to Global Hub</span>
+            </a>
           </div>
         </div>
 
         <div class="footer-col">
-          <h4>Pedagogical Suites</h4>
+          <h4>
+            <span class="lang-pt">Suites Pedagógicas</span>
+            <span class="lang-en">Pedagogical Suites</span>
+          </h4>
           <ul class="footer-link-list">
-            <li><a href="../tp06-responsive/index.html">Early Prototype (TP06)</a></li>
-            <li><a href="index.html">Full Integrated Capstone (TP11)</a></li>
-            <li><a href="../tp11-css-flexbox-grid/index.html">Flexbox &amp; Grid Labs</a></li>
-            <li><a href="../tp11-variables-transitions-animations/index.html">Motion &amp; Theming Labs</a></li>
-            <li><a href="../../index.html">Learning Scaffold &amp; Matrix</a></li>
+            <li>
+              <a href="../tp06-responsive/index.html">
+                <span class="lang-pt">Protótipo Inicial (TP06)</span>
+                <span class="lang-en">Early Prototype (TP06)</span>
+              </a>
+            </li>
+            <li>
+              <a href="index.html">
+                <span class="lang-pt">Capstone Integrado Final (TP11)</span>
+                <span class="lang-en">Full Integrated Capstone (TP11)</span>
+              </a>
+            </li>
+            <li>
+              <a href="../tp11-css-flexbox-grid/index.html">
+                <span class="lang-pt">Laboratórios de Flexbox &amp; Grid</span>
+                <span class="lang-en">Flexbox &amp; Grid Labs</span>
+              </a>
+            </li>
+            <li>
+              <a href="../tp11-variables-transitions-animations/index.html">
+                <span class="lang-pt">Laboratórios de Movimento &amp; Temas</span>
+                <span class="lang-en">Motion &amp; Theming Labs</span>
+              </a>
+            </li>
+            <li>
+              <a href="../../index.html">
+                <span class="lang-pt">Matriz de Aprendizagem &amp; Andaime</span>
+                <span class="lang-en">Learning Scaffold &amp; Matrix</span>
+              </a>
+            </li>
           </ul>
         </div>
 
         <div class="footer-col">
-          <h4>Core Techniques</h4>
+          <h4>
+            <span class="lang-pt">Técnicas Centrais</span>
+            <span class="lang-en">Core Techniques</span>
+          </h4>
           <ul class="footer-link-list">
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout" target="_blank" rel="noopener noreferrer">CSS Grid 2D Macro</a></li>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout" target="_blank" rel="noopener noreferrer">Flexbox 1D Micro</a></li>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark" target="_blank" rel="noopener noreferrer">light-dark() Theming</a></li>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations" target="_blank" rel="noopener noreferrer">Scroll-Driven Animations</a></li>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:has" target="_blank" rel="noopener noreferrer">:has() Relational States</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout" target="_blank" rel="noopener noreferrer"><span class="lang-pt">Macro-Grelha 2D em CSS Grid</span><span class="lang-en">CSS Grid 2D Macro</span></a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout" target="_blank" rel="noopener noreferrer"><span class="lang-pt">Micro-Alinhamento 1D com Flexbox</span><span class="lang-en">Flexbox 1D Micro</span></a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark" target="_blank" rel="noopener noreferrer"><span class="lang-pt">Temas com light-dark()</span><span class="lang-en">light-dark() Theming</span></a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations" target="_blank" rel="noopener noreferrer"><span class="lang-pt">Animações Conduzidas por Scroll</span><span class="lang-en">Scroll-Driven Animations</span></a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:has" target="_blank" rel="noopener noreferrer"><span class="lang-pt">Estados Relacionais com :has()</span><span class="lang-en">:has() Relational States</span></a></li>
           </ul>
         </div>
 
         <div class="footer-col">
-          <h4>Credits &amp; Research</h4>
+          <h4>
+            <span class="lang-pt">Créditos &amp; Investigação</span>
+            <span class="lang-en">Credits &amp; Research</span>
+          </h4>
           <p style="font-size:var(--font-size-small); line-height:1.5;">
-            <strong>Pedagogical Design &amp; Architecture:</strong><br>
+            <strong>
+              <span class="lang-pt">Design Pedagógico &amp; Arquitetura:</span>
+              <span class="lang-en">Pedagogical Design &amp; Architecture:</span>
+            </strong><br>
             Pedro Amado (FBAUP / i2ADS)<br>
-            <strong>Agentic AI Pair:</strong><br>
+            <strong>
+              <span class="lang-pt">Dupla de IA Agêntica:</span>
+              <span class="lang-en">Agentic AI Pair:</span>
+            </strong><br>
             Google Gemini Pro 3 Flash &amp; Pro4 Argon (DeepMind Antigravity)
           </p>
         </div>
       </div>
 
       <div class="footer-bottom-bar">
-        <span>&copy; 2026/27 FBAUP • Faculdade de Belas Artes da Universidade do Porto. Academic Open Courseware.</span>
-        <span>Valid HTML5 • Zero-JS Architecture • WCAG 2.2 AAA Compliant</span>
+        <span>
+          <span class="lang-pt">&copy; 2026/27 FBAUP • Faculdade de Belas Artes da Universidade do Porto. Conteúdo Académico em Acesso Aberto.</span>
+          <span class="lang-en">&copy; 2026/27 FBAUP • Faculdade de Belas Artes da Universidade do Porto. Academic Open Courseware.</span>
+        </span>
+        <span>
+          <span class="lang-pt">HTML5 Válido • Arquitetura Zero-JS • Em Conformidade com WCAG 2.2 AAA</span>
+          <span class="lang-en">Valid HTML5 • Zero-JS Architecture • WCAG 2.2 AAA Compliant</span>
+        </span>
       </div>
     </footer>
 
   </div>
+
+  <!-- Sincronização Progressiva de Estado (Tema & Idioma) com localStorage -->
+  <script>
+    (function() {
+      // Idioma
+      const langBtn = document.getElementById('lang-toggle-btn');
+      function setLanguage(lang) {
+        document.documentElement.setAttribute('lang', lang);
+        localStorage.setItem('wd101_lang', lang);
+      }
+      if (langBtn) {
+        langBtn.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('lang') || 'pt';
+          setLanguage(current === 'pt' ? 'en' : 'pt');
+        });
+      }
+
+      // Tema
+      const themeAuto = document.getElementById('theme-auto');
+      const themeLight = document.getElementById('theme-light');
+      const themeDark = document.getElementById('theme-dark');
+      const savedTheme = localStorage.getItem('wd101_theme');
+
+      if (savedTheme === 'light' && themeLight) {
+        themeLight.checked = true;
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else if (savedTheme === 'dark' && themeDark) {
+        themeDark.checked = true;
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else if (themeAuto) {
+        themeAuto.checked = true;
+        document.documentElement.removeAttribute('data-theme');
+      }
+
+      [themeAuto, themeLight, themeDark].forEach(radio => {
+        if (!radio) return;
+        radio.addEventListener('change', () => {
+          if (themeLight && themeLight.checked) {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('wd101_theme', 'light');
+          } else if (themeDark && themeDark.checked) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('wd101_theme', 'dark');
+          } else {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('wd101_theme', 'auto');
+          }
+        });
+      });
+    })();
+  </script>
 
 </body>
 </html>
