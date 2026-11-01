@@ -319,40 +319,45 @@
       border-radius: 2px;
     }
     
-    .actions-button-row {
+    .drumtiks-kebab-demo {
+      width: 100%;
+    }
+    .kebab-card {
       display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
+      justify-content: space-between;
       align-items: center;
-    }
-    .action-primary {
-      background: var(--color-swiss-red);
-      color: #ffffff;
-      border: 1px solid var(--color-swiss-red);
-      font-weight: 700;
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
-    }
-    .action-primary:hover {
-      background: #b80000;
-    }
-    .action-secondary {
       background: var(--bg-surface-elevated);
-      color: var(--text-primary);
       border: 1px solid var(--border-color);
-      font-weight: 600;
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
+      border-radius: 6px;
+      padding: var(--space-3) var(--space-4);
     }
-    .action-outline {
+    .kebab-info {
+      display: flex;
+      flex-direction: column;
+      font-size: var(--text-xs);
+    }
+    .kebab-info small {
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .btn-kebab {
+      width: 44px;
+      height: 44px;
       background: transparent;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      font-size: 20px;
       color: var(--text-secondary);
-      border: 1px dashed var(--border-color);
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .btn-kebab:hover, .btn-kebab:focus-visible {
+      background: var(--bg-surface);
+      border-color: var(--border-color);
+      color: var(--text-primary);
     }
     
   </style>
@@ -446,112 +451,81 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-actions-demo">
-  <div class="demo-title">
-    <span>⚡</span> <span>Drumtiks '26 • Kebab / Meatball Menu (Menu de Três Pontos)</span>
-    <span class="xray-badge">[ACT-17 &bull; BUTTON / CONTROL &bull; TARGET 48PX]</span>
+<div class="drumtiks-kebab-demo">
+  <div class="kebab-card">
+    <div class="kebab-info">
+      <strong>Workshop Síntese FM: Yamaha DX7</strong>
+      <small>Sábado &bull; 14h00 &bull; Alfândega</small>
+    </div>
+    <div class="kebab-wrapper">
+      <button type="button" class="btn-kebab" aria-label="Mais opções para este workshop" aria-haspopup="true" onclick="alert('Opções: Descarregar Patch, Partilhar, Notificar')">
+        &#8942;
+      </button>
+    </div>
   </div>
-  <div class="actions-button-row">
-    <button type="button" class="btn-control action-primary" onclick="alert('Bilhete VIP Adicionado ao Carrinho!')">
-      <span>🎟️ Comprar Passe VIP (120€)</span>
-      <span class="xray-badge">[:ACTIVE &bull; FOCUS-VISIBLE]</span>
-    </button>
-    <button type="button" class="btn-control action-secondary" onclick="alert('Programação guardada nos favoritos!')">
-      <span>⭐ Guardar nos Favoritos</span>
-    </button>
-    <button type="button" class="btn-control action-outline" onclick="alert('Áudio sample a reproduzir...')">
-      <span>🔊 Ouvir Sample (30s)</span>
-    </button>
-  </div>
+  <span class="xray-badge">[KEBAB MENU: ARIA-HASPOPUP="TRUE" &bull; MIN 44X44PX TAP BOUNDS]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-actions-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;⚡&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Kebab / Meatball Menu (Menu de Três Pontos)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[ACT-17 &amp;bull; BUTTON / CONTROL &amp;bull; TARGET 48PX]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-kebab-demo&quot;&gt;
+  &lt;div class=&quot;kebab-card&quot;&gt;
+    &lt;div class=&quot;kebab-info&quot;&gt;
+      &lt;strong&gt;Workshop Síntese FM: Yamaha DX7&lt;/strong&gt;
+      &lt;small&gt;Sábado &amp;bull; 14h00 &amp;bull; Alfândega&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;kebab-wrapper&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn-kebab&quot; aria-label=&quot;Mais opções para este workshop&quot; aria-haspopup=&quot;true&quot; onclick=&quot;alert(&#x27;Opções: Descarregar Patch, Partilhar, Notificar&#x27;)&quot;&gt;
+        &amp;#8942;
+      &lt;/button&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;actions-button-row&quot;&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control action-primary&quot; onclick=&quot;alert(&#x27;Bilhete VIP Adicionado ao Carrinho!&#x27;)&quot;&gt;
-      &lt;span&gt;🎟️ Comprar Passe VIP (120€)&lt;/span&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[:ACTIVE &amp;bull; FOCUS-VISIBLE]&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control action-secondary&quot; onclick=&quot;alert(&#x27;Programação guardada nos favoritos!&#x27;)&quot;&gt;
-      &lt;span&gt;⭐ Guardar nos Favoritos&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control action-outline&quot; onclick=&quot;alert(&#x27;Áudio sample a reproduzir...&#x27;)&quot;&gt;
-      &lt;span&gt;🔊 Ouvir Sample (30s)&lt;/span&gt;
-    &lt;/button&gt;
-  &lt;/div&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[KEBAB MENU: ARIA-HASPOPUP=&quot;TRUE&quot; &amp;bull; MIN 44X44PX TAP BOUNDS]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
+        <pre><code>.drumtiks-kebab-demo {
+      width: 100%;
     }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
+    .kebab-card {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .actions-button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      align-items: center;
-    }
-    .action-primary {
-      background: var(--color-swiss-red);
-      color: #ffffff;
-      border: 1px solid var(--color-swiss-red);
-      font-weight: 700;
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
-    }
-    .action-primary:hover {
-      background: #b80000;
-    }
-    .action-secondary {
       background: var(--bg-surface-elevated);
-      color: var(--text-primary);
       border: 1px solid var(--border-color);
-      font-weight: 600;
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
+      border-radius: 6px;
+      padding: var(--space-3) var(--space-4);
     }
-    .action-outline {
+    .kebab-info {
+      display: flex;
+      flex-direction: column;
+      font-size: var(--text-xs);
+    }
+    .kebab-info small {
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .btn-kebab {
+      width: 44px;
+      height: 44px;
       background: transparent;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      font-size: 20px;
       color: var(--text-secondary);
-      border: 1px dashed var(--border-color);
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .btn-kebab:hover, .btn-kebab:focus-visible {
+      background: var(--bg-surface);
+      border-color: var(--border-color);
+      color: var(--text-primary);
     }</code></pre>
       </div>
     </section>
@@ -571,8 +545,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Botão de menu contextual de três pontos com aria-label explícito e aria-haspopup='true'.</span>
+            <span class="lang-en">Three-dot contextual kebab trigger with explicit aria-label and aria-haspopup='true'.</span>
           </p>
         </div>
 
@@ -582,8 +556,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Área de clique estrita de 44x44px garantindo ativação sem frustração em telemóveis.</span>
+            <span class="lang-en">Strict 44x44px target bounds ensuring zero-frustration activation on mobile screens.</span>
           </p>
         </div>
 
@@ -593,8 +567,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Jenifer Tidwell (Ch. 4: Actions &amp; Commands), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Jenifer Tidwell (Ch. 4: Actions &amp; Commands), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Oculta comandos secundários (descarregar rider, partilhar) mantendo a linha do cartaz desobstruída.</span>
+            <span class="lang-en">Conceals peripheral commands keeping the festival timetable clean and unobstructed.</span>
           </p>
         </div>
       </div>
@@ -617,8 +591,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Inserir opções perigosas de subscrição automática dentro de menus de opções genéricas sem aviso.</span>
+            <span class="lang-en">Sneaking paid subscription opt-ins inside innocuous overflow kebab menus.</span>
           </p>
         </div>
 
@@ -628,9 +602,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Manter as opções agrupadas no menu kebab limitadas a ações contextuais legítimas do item.</span><span class="lang-en">Confine kebab options strictly to legitimate, non-predatory item-specific actions.</span></li>
           </ul>
         </div>
       </div>

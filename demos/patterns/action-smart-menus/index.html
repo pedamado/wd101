@@ -319,40 +319,69 @@
       border-radius: 2px;
     }
     
-    .actions-button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      align-items: center;
+    .drumtiks-smart-menu-demo {
+      width: 100%;
     }
-    .action-primary {
-      background: var(--color-swiss-red);
-      color: #ffffff;
-      border: 1px solid var(--color-swiss-red);
-      font-weight: 700;
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
-    }
-    .action-primary:hover {
-      background: #b80000;
-    }
-    .action-secondary {
+    .menu-card {
       background: var(--bg-surface-elevated);
-      color: var(--text-primary);
       border: 1px solid var(--border-color);
-      font-weight: 600;
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
+      border-radius: 6px;
+      overflow: hidden;
     }
-    .action-outline {
-      background: transparent;
-      color: var(--text-secondary);
-      border: 1px dashed var(--border-color);
+    .menu-head {
+      background: var(--bg-surface);
       padding: var(--space-2) var(--space-4);
-      min-height: 44px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .menu-head h5 {
+      margin: 0;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .smart-menu-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border-color);
       cursor: pointer;
+      font-size: var(--text-xs);
+    }
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+    .menu-item:hover {
+      background: rgba(255,255,255,0.02);
+    }
+    .menu-item.recommended {
+      border-left: 3px solid var(--color-swiss-red);
+    }
+    .m-icon {
+      font-size: 16px;
+      color: var(--color-swiss-red);
+    }
+    .m-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .m-text small {
+      color: var(--text-muted);
+      font-size: 10px;
+    }
+    .badge-smart {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      background: rgba(0, 210, 255, 0.1);
+      color: #00d2ff;
+      padding: 2px 6px;
+      border-radius: 3px;
     }
     
   </style>
@@ -446,112 +475,127 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-actions-demo">
-  <div class="demo-title">
-    <span>⚡</span> <span>Drumtiks '26 • Smart Menu Items (Itens de Menu Inteligentes)</span>
-    <span class="xray-badge">[ACT-12 &bull; BUTTON / CONTROL &bull; TARGET 48PX]</span>
+<div class="drumtiks-smart-menu-demo">
+  <div class="menu-card">
+    <div class="menu-head">
+      <h5>Ações Rápidas do Festival (Personalizadas)</h5>
+    </div>
+    <ul class="smart-menu-list">
+      <li class="menu-item recommended">
+        <span class="m-icon">&#9733;</span>
+        <div class="m-text">
+          <strong>Continuar Compra de Bilhete</strong>
+          <small>Tem 1 Passe Geral reservado no cesto</small>
+        </div>
+        <span class="badge-smart">Recente</span>
+      </li>
+      <li class="menu-item">
+        <span class="m-icon">&#128266;</span>
+        <div class="m-text">
+          <strong>Ver Mapa de Ruído</strong>
+          <small>Decibéis ao vivo por palco</small>
+        </div>
+      </li>
+    </ul>
   </div>
-  <div class="actions-button-row">
-    <button type="button" class="btn-control action-primary" onclick="alert('Bilhete VIP Adicionado ao Carrinho!')">
-      <span>🎟️ Comprar Passe VIP (120€)</span>
-      <span class="xray-badge">[:ACTIVE &bull; FOCUS-VISIBLE]</span>
-    </button>
-    <button type="button" class="btn-control action-secondary" onclick="alert('Programação guardada nos favoritos!')">
-      <span>⭐ Guardar nos Favoritos</span>
-    </button>
-    <button type="button" class="btn-control action-outline" onclick="alert('Áudio sample a reproduzir...')">
-      <span>🔊 Ouvir Sample (30s)</span>
-    </button>
-  </div>
+  <span class="xray-badge">[SMART MENU: CONTEXT-AWARE &bull; DYNAMIC HIGHLIGHT &bull; ZERO DECEPTION]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-actions-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;⚡&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Smart Menu Items (Itens de Menu Inteligentes)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[ACT-12 &amp;bull; BUTTON / CONTROL &amp;bull; TARGET 48PX]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-smart-menu-demo&quot;&gt;
+  &lt;div class=&quot;menu-card&quot;&gt;
+    &lt;div class=&quot;menu-head&quot;&gt;
+      &lt;h5&gt;Ações Rápidas do Festival (Personalizadas)&lt;/h5&gt;
+    &lt;/div&gt;
+    &lt;ul class=&quot;smart-menu-list&quot;&gt;
+      &lt;li class=&quot;menu-item recommended&quot;&gt;
+        &lt;span class=&quot;m-icon&quot;&gt;&amp;#9733;&lt;/span&gt;
+        &lt;div class=&quot;m-text&quot;&gt;
+          &lt;strong&gt;Continuar Compra de Bilhete&lt;/strong&gt;
+          &lt;small&gt;Tem 1 Passe Geral reservado no cesto&lt;/small&gt;
+        &lt;/div&gt;
+        &lt;span class=&quot;badge-smart&quot;&gt;Recente&lt;/span&gt;
+      &lt;/li&gt;
+      &lt;li class=&quot;menu-item&quot;&gt;
+        &lt;span class=&quot;m-icon&quot;&gt;&amp;#128266;&lt;/span&gt;
+        &lt;div class=&quot;m-text&quot;&gt;
+          &lt;strong&gt;Ver Mapa de Ruído&lt;/strong&gt;
+          &lt;small&gt;Decibéis ao vivo por palco&lt;/small&gt;
+        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;actions-button-row&quot;&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control action-primary&quot; onclick=&quot;alert(&#x27;Bilhete VIP Adicionado ao Carrinho!&#x27;)&quot;&gt;
-      &lt;span&gt;🎟️ Comprar Passe VIP (120€)&lt;/span&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[:ACTIVE &amp;bull; FOCUS-VISIBLE]&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control action-secondary&quot; onclick=&quot;alert(&#x27;Programação guardada nos favoritos!&#x27;)&quot;&gt;
-      &lt;span&gt;⭐ Guardar nos Favoritos&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control action-outline&quot; onclick=&quot;alert(&#x27;Áudio sample a reproduzir...&#x27;)&quot;&gt;
-      &lt;span&gt;🔊 Ouvir Sample (30s)&lt;/span&gt;
-    &lt;/button&gt;
-  &lt;/div&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[SMART MENU: CONTEXT-AWARE &amp;bull; DYNAMIC HIGHLIGHT &amp;bull; ZERO DECEPTION]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
+        <pre><code>.drumtiks-smart-menu-demo {
+      width: 100%;
     }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
+    .menu-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .menu-head {
+      background: var(--bg-surface);
+      padding: var(--space-2) var(--space-4);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .menu-head h5 {
+      margin: 0;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .smart-menu-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .menu-item {
       display: flex;
       align-items: center;
-      gap: var(--space-2);
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border-color);
+      cursor: pointer;
+      font-size: var(--text-xs);
     }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+    .menu-item:hover {
+      background: rgba(255,255,255,0.02);
+    }
+    .menu-item.recommended {
+      border-left: 3px solid var(--color-swiss-red);
+    }
+    .m-icon {
+      font-size: 16px;
+      color: var(--color-swiss-red);
+    }
+    .m-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .m-text small {
+      color: var(--text-muted);
+      font-size: 10px;
+    }
+    .badge-smart {
       font-family: var(--font-mono);
       font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .actions-button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      align-items: center;
-    }
-    .action-primary {
-      background: var(--color-swiss-red);
-      color: #ffffff;
-      border: 1px solid var(--color-swiss-red);
-      font-weight: 700;
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
-    }
-    .action-primary:hover {
-      background: #b80000;
-    }
-    .action-secondary {
-      background: var(--bg-surface-elevated);
-      color: var(--text-primary);
-      border: 1px solid var(--border-color);
-      font-weight: 600;
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
-    }
-    .action-outline {
-      background: transparent;
-      color: var(--text-secondary);
-      border: 1px dashed var(--border-color);
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
+      background: rgba(0, 210, 255, 0.1);
+      color: #00d2ff;
+      padding: 2px 6px;
+      border-radius: 3px;
     }</code></pre>
       </div>
     </section>
@@ -571,8 +615,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Itens de menu sensíveis ao contexto que refletem o estado atual da sessão do festivaleiro.</span>
+            <span class="lang-en">Context-aware menu entries tailored to the attendee's active basket and session status.</span>
           </p>
         </div>
 
@@ -582,8 +626,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Realce sutil com borda lateral vermelha no item prioritário sem obscurecer as restantes opções.</span>
+            <span class="lang-en">Subtle lateral accent line highlighting primary suggestion without suppressing sibling actions.</span>
           </p>
         </div>
 
@@ -593,8 +637,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Jenifer Tidwell (Ch. 4: Actions &amp; Commands), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Jenifer Tidwell (Ch. 4: Actions &amp; Commands), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Poupa cliques permitindo retomar tarefas incompletas diretamente a partir do menu.</span>
+            <span class="lang-en">Saves clicks by surfacing incomplete festival checkout tasks right inside the menu.</span>
           </p>
         </div>
       </div>
@@ -617,8 +661,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Substituir silenciosamente itens de menu habituais por ofertas comerciais patrocinadas não relacionadas.</span>
+            <span class="lang-en">Silently swapping familiar navigation menu items for unrelated third-party commercial promotions.</span>
           </p>
         </div>
 
@@ -628,9 +672,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Sinalizar com transparência por que razão um item específico está a ser destacado.</span><span class="lang-en">Clearly indicate the logical context why a specific shortcut is surfaced.</span></li>
           </ul>
         </div>
       </div>

@@ -319,18 +319,34 @@
       border-radius: 2px;
     }
     
-    .btn-a11y-focus {
-      padding: var(--space-2) var(--space-4);
-      font-size: var(--text-sm);
-      font-weight: 700;
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
-      cursor: pointer;
+    .drumtiks-landmarks-demo {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      width: 100%;
+      font-size: var(--text-xs);
     }
-    .btn-a11y-focus:focus-visible {
-      outline: 3px solid var(--color-swiss-red);
-      outline-offset: 3px;
+    .landmark-box {
+      background: var(--bg-surface-elevated);
+      border: 1px dashed var(--border-color);
+      border-radius: 4px;
+      padding: var(--space-3) var(--space-4);
+    }
+    .lm-tag {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--color-swiss-red);
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .landmark-box h4 {
+      margin: var(--space-1) 0;
+      font-size: var(--text-sm);
+    }
+    .landmark-box p {
+      margin: 0;
+      color: var(--text-secondary);
     }
     
   </style>
@@ -424,84 +440,82 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-a11y-demo">
-  <div class="demo-title">
-    <span>♿</span> <span>Drumtiks '26 • Landmark Regions (Regiões de Marco ARIA)</span>
-    <span class="xray-badge">[A11Y-01 &bull; ACCESSIBLE WCAG 2.2 AA]</span>
-  </div>
-  <div class="a11y-demo-content">
-    <button type="button" class="btn-control btn-a11y-focus" aria-label="Ativar Modo Alto Contraste">
-      <span>👁️ Alternar Contraste Acessível</span>
-      <span class="xray-badge">[:FOCUS-VISIBLE 3PX OUTLINE]</span>
-    </button>
-    <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-top:var(--space-2);">
-      Navegue usando apenas o teclado (Tab) para visualizar o anel de foco de alto contraste conforme WCAG 2.2 Critério 2.4.13.
-    </p>
-  </div>
+<div class="drumtiks-landmarks-demo">
+  <header role="banner" class="landmark-box">
+    <span class="lm-tag">&lt;header role="banner"&gt;</span>
+    <strong>Drumtiks '26 &bull; Cabeçalho Global do Festival</strong>
+  </header>
+  <nav role="navigation" aria-label="Navegação Principal" class="landmark-box">
+    <span class="lm-tag">&lt;nav role="navigation" aria-label="..."&gt;</span>
+    <span>Cartaz &bull; Palcos &bull; Workshops &bull; Bilhetes</span>
+  </nav>
+  <main role="main" class="landmark-box">
+    <span class="lm-tag">&lt;main role="main"&gt;</span>
+    <h4>Programação do Palco Principal Alfândega</h4>
+    <p>Área de conteúdo primário exclusiva da página.</p>
+  </main>
+  <footer role="contentinfo" class="landmark-box">
+    <span class="lm-tag">&lt;footer role="contentinfo"&gt;</span>
+    <span>&copy; 2026 Associação Cultural Drumtiks &bull; Porto</span>
+  </footer>
+  <span class="xray-badge">[LANDMARK REGIONS: BANNER, NAVIGATION, MAIN, CONTENTINFO]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-a11y-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;♿&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Landmark Regions (Regiões de Marco ARIA)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[A11Y-01 &amp;bull; ACCESSIBLE WCAG 2.2 AA]&lt;/span&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;a11y-demo-content&quot;&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control btn-a11y-focus&quot; aria-label=&quot;Ativar Modo Alto Contraste&quot;&gt;
-      &lt;span&gt;👁️ Alternar Contraste Acessível&lt;/span&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[:FOCUS-VISIBLE 3PX OUTLINE]&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;p style=&quot;font-size:var(--text-xs); color:var(--text-secondary); margin-top:var(--space-2);&quot;&gt;
-      Navegue usando apenas o teclado (Tab) para visualizar o anel de foco de alto contraste conforme WCAG 2.2 Critério 2.4.13.
-    &lt;/p&gt;
-  &lt;/div&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-landmarks-demo&quot;&gt;
+  &lt;header role=&quot;banner&quot; class=&quot;landmark-box&quot;&gt;
+    &lt;span class=&quot;lm-tag&quot;&gt;&amp;lt;header role=&quot;banner&quot;&amp;gt;&lt;/span&gt;
+    &lt;strong&gt;Drumtiks &#x27;26 &amp;bull; Cabeçalho Global do Festival&lt;/strong&gt;
+  &lt;/header&gt;
+  &lt;nav role=&quot;navigation&quot; aria-label=&quot;Navegação Principal&quot; class=&quot;landmark-box&quot;&gt;
+    &lt;span class=&quot;lm-tag&quot;&gt;&amp;lt;nav role=&quot;navigation&quot; aria-label=&quot;...&quot;&amp;gt;&lt;/span&gt;
+    &lt;span&gt;Cartaz &amp;bull; Palcos &amp;bull; Workshops &amp;bull; Bilhetes&lt;/span&gt;
+  &lt;/nav&gt;
+  &lt;main role=&quot;main&quot; class=&quot;landmark-box&quot;&gt;
+    &lt;span class=&quot;lm-tag&quot;&gt;&amp;lt;main role=&quot;main&quot;&amp;gt;&lt;/span&gt;
+    &lt;h4&gt;Programação do Palco Principal Alfândega&lt;/h4&gt;
+    &lt;p&gt;Área de conteúdo primário exclusiva da página.&lt;/p&gt;
+  &lt;/main&gt;
+  &lt;footer role=&quot;contentinfo&quot; class=&quot;landmark-box&quot;&gt;
+    &lt;span class=&quot;lm-tag&quot;&gt;&amp;lt;footer role=&quot;contentinfo&quot;&amp;gt;&lt;/span&gt;
+    &lt;span&gt;&amp;copy; 2026 Associação Cultural Drumtiks &amp;bull; Porto&lt;/span&gt;
+  &lt;/footer&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[LANDMARK REGIONS: BANNER, NAVIGATION, MAIN, CONTENTINFO]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-    }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
+        <pre><code>.drumtiks-landmarks-demo {
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: var(--space-2);
+      width: 100%;
+      font-size: var(--text-xs);
     }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
+    .landmark-box {
+      background: var(--bg-surface-elevated);
+      border: 1px dashed var(--border-color);
+      border-radius: 4px;
+      padding: var(--space-3) var(--space-4);
+    }
+    .lm-tag {
+      display: block;
       font-family: var(--font-mono);
       font-size: 10px;
+      color: var(--color-swiss-red);
       font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
+      margin-bottom: 2px;
     }
-    
-    .btn-a11y-focus {
-      padding: var(--space-2) var(--space-4);
+    .landmark-box h4 {
+      margin: var(--space-1) 0;
       font-size: var(--text-sm);
-      font-weight: 700;
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
-      cursor: pointer;
     }
-    .btn-a11y-focus:focus-visible {
-      outline: 3px solid var(--color-swiss-red);
-      outline-offset: 3px;
+    .landmark-box p {
+      margin: 0;
+      color: var(--text-secondary);
     }</code></pre>
       </div>
     </section>
@@ -521,8 +535,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Estrutura semântica completa com marcos HTML5 e ARIA (banner, navigation, main, contentinfo) permitindo saltos de ecrã.</span>
+            <span class="lang-en">Complete semantic landmark architecture (banner, navigation, main, contentinfo) enabling screen reader region jumps.</span>
           </p>
         </div>
 
@@ -532,8 +546,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Bordas tracejadas didáticas ilustrando a hierarquia dos contentores de topo.</span>
+            <span class="lang-en">Instructive dashed borders delineating structural parent landmark boundaries.</span>
           </p>
         </div>
 
@@ -543,8 +557,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de W3C Web Content Accessibility Guidelines (WCAG 2.2 AA), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from W3C Web Content Accessibility Guidelines (WCAG 2.2 AA), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Permite aos utilizadores cegos saltar diretamente para o conteúdo principal sem navegar por dezenas de links.</span>
+            <span class="lang-en">Enables blind attendees using screen readers to bypass header links directly to the main lineup.</span>
           </p>
         </div>
       </div>
@@ -567,8 +581,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Usar múltiplos elementos &lt;main&gt; ou omitir marcos para dificultar a navegação autónoma por voz.</span>
+            <span class="lang-en">Omitting landmark regions to trap blind users in repetitive header navigation cycles.</span>
           </p>
         </div>
 
@@ -578,9 +592,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Utilizar apenas um único &lt;main&gt; por página e rotular todas as regiões &lt;nav&gt; com aria-label.</span><span class="lang-en">Enforce strictly one &lt;main&gt; landmark per page and disambiguate every &lt;nav&gt; with unique aria-labels.</span></li>
           </ul>
         </div>
       </div>

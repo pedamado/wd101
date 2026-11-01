@@ -319,24 +319,30 @@
       border-radius: 2px;
     }
     
-    .layout-demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-2);
+    .drumtiks-titled-sections {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      width: 100%;
     }
-    .layout-card {
+    .titled-section {
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      border-top: 3px solid var(--color-swiss-red);
+      border-radius: 4px;
       padding: var(--space-4);
-      border-radius: 2px;
     }
-    .layout-card h4 {
+    .sec-title {
       font-size: var(--text-sm);
-      margin: var(--space-2) 0 var(--space-1);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 var(--space-2) 0;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: var(--space-2);
     }
-    .layout-card p {
+    .sec-body {
       font-size: var(--text-xs);
       color: var(--text-secondary);
       margin: 0;
@@ -434,112 +440,72 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-layout-demo">
-  <div class="demo-title">
-    <span>📐</span> <span>Drumtiks '26 • Titled Sections (Secções Tituladas)</span>
-    <span class="xray-badge">[LAY-14 &bull; CSS GRID / FLEXBOX]</span>
-  </div>
-  <div class="layout-demo-grid">
-    <article class="layout-card">
-      <span class="badge badge-foundational">PALCO ALFÂNDEGA</span>
-      <h4>DJ Warp (Live)</h4>
-      <p>Modular techno &amp; live drum kinetics a 140 BPM.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-    <article class="layout-card">
-      <span class="badge badge-intermediate">PALCO DOURO</span>
-      <h4>Helena Hauff</h4>
-      <p>Raw analog electro e batidas industriais acid.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-    <article class="layout-card">
-      <span class="badge badge-advanced">CLUBBING VAULT</span>
-      <h4>Surgeon</h4>
-      <p>Hypnotic Birmingham techno nas abóbadas subterrâneas.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-  </div>
+<div class="drumtiks-titled-sections">
+  <section class="titled-section" aria-labelledby="sec-head-stages">
+    <h3 id="sec-head-stages" class="sec-title">&#127908; Palcos &amp; Instalações</h3>
+    <p class="sec-body">4 palcos dedicados a frequências baixas, percussão analógica e síntese modular ao vivo.</p>
+  </section>
+
+  <section class="titled-section" aria-labelledby="sec-head-workshops">
+    <h3 id="sec-head-workshops" class="sec-title">&#128266; Synth Lab Workshops</h3>
+    <p class="sec-body">Aprenda a construir módulos Eurorack e a programar sequenciadores com engenheiros da indústria.</p>
+  </section>
+
+  <section class="titled-section" aria-labelledby="sec-head-eco">
+    <h3 id="sec-head-eco" class="sec-title">&#9851; Sustentabilidade &amp; Água</h3>
+    <p class="sec-body">Pontos de recarga de água gratuitos, copos reutilizáveis e recolha de pilhas e baterias de áudio.</p>
+  </section>
+  <span class="xray-badge">[SECTION ARIA-LABELLEDBY="ID" &bull; SEMANTIC H3 TITLES]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-layout-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;📐&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Titled Sections (Secções Tituladas)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[LAY-14 &amp;bull; CSS GRID / FLEXBOX]&lt;/span&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;layout-demo-grid&quot;&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-foundational&quot;&gt;PALCO ALFÂNDEGA&lt;/span&gt;
-      &lt;h4&gt;DJ Warp (Live)&lt;/h4&gt;
-      &lt;p&gt;Modular techno &amp;amp; live drum kinetics a 140 BPM.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-intermediate&quot;&gt;PALCO DOURO&lt;/span&gt;
-      &lt;h4&gt;Helena Hauff&lt;/h4&gt;
-      &lt;p&gt;Raw analog electro e batidas industriais acid.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-advanced&quot;&gt;CLUBBING VAULT&lt;/span&gt;
-      &lt;h4&gt;Surgeon&lt;/h4&gt;
-      &lt;p&gt;Hypnotic Birmingham techno nas abóbadas subterrâneas.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-  &lt;/div&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-titled-sections&quot;&gt;
+  &lt;section class=&quot;titled-section&quot; aria-labelledby=&quot;sec-head-stages&quot;&gt;
+    &lt;h3 id=&quot;sec-head-stages&quot; class=&quot;sec-title&quot;&gt;&amp;#127908; Palcos &amp;amp; Instalações&lt;/h3&gt;
+    &lt;p class=&quot;sec-body&quot;&gt;4 palcos dedicados a frequências baixas, percussão analógica e síntese modular ao vivo.&lt;/p&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;titled-section&quot; aria-labelledby=&quot;sec-head-workshops&quot;&gt;
+    &lt;h3 id=&quot;sec-head-workshops&quot; class=&quot;sec-title&quot;&gt;&amp;#128266; Synth Lab Workshops&lt;/h3&gt;
+    &lt;p class=&quot;sec-body&quot;&gt;Aprenda a construir módulos Eurorack e a programar sequenciadores com engenheiros da indústria.&lt;/p&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;titled-section&quot; aria-labelledby=&quot;sec-head-eco&quot;&gt;
+    &lt;h3 id=&quot;sec-head-eco&quot; class=&quot;sec-title&quot;&gt;&amp;#9851; Sustentabilidade &amp;amp; Água&lt;/h3&gt;
+    &lt;p class=&quot;sec-body&quot;&gt;Pontos de recarga de água gratuitos, copos reutilizáveis e recolha de pilhas e baterias de áudio.&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[SECTION ARIA-LABELLEDBY=&quot;ID&quot; &amp;bull; SEMANTIC H3 TITLES]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
+        <pre><code>.drumtiks-titled-sections {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      width: 100%;
+    }
+    .titled-section {
+      background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
       border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
+      padding: var(--space-4);
     }
-    .demo-title {
-      font-size: var(--text-base);
+    .sec-title {
+      font-size: var(--text-sm);
       font-weight: 700;
-      margin-bottom: var(--space-3);
       color: var(--text-primary);
+      margin: 0 0 var(--space-2) 0;
       display: flex;
       align-items: center;
       gap: var(--space-2);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: var(--space-2);
     }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .layout-demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-2);
-    }
-    .layout-card {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      border-top: 3px solid var(--color-swiss-red);
-      padding: var(--space-4);
-      border-radius: 2px;
-    }
-    .layout-card h4 {
-      font-size: var(--text-sm);
-      margin: var(--space-2) 0 var(--space-1);
-    }
-    .layout-card p {
+    .sec-body {
       font-size: var(--text-xs);
       color: var(--text-secondary);
       margin: 0;
@@ -563,8 +529,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Uso de &lt;section&gt; semânticos com aria-labelledby associado aos títulos &lt;h3&gt; identificadores.</span>
+            <span class="lang-en">Semantic &lt;section&gt; blocks paired with aria-labelledby referencing matching &lt;h3&gt; header IDs.</span>
           </p>
         </div>
 
@@ -574,8 +540,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Hierarquia visual límpida com bordas de divisão que estabelecem quebras de leitura confortáveis.</span>
+            <span class="lang-en">Crisp visual hierarchy with subtle dividers establishing distinct, comfortable cognitive chunks.</span>
           </p>
         </div>
 
@@ -585,8 +551,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Ethan Marcotte (Responsive Web Design), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Ethan Marcotte (Responsive Web Design), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Facilita a digitalização visual e a navegação estruturada em páginas longas do festival.</span>
+            <span class="lang-en">Enables rapid visual scanning and structural orientation throughout long festival pages.</span>
           </p>
         </div>
       </div>
@@ -609,8 +575,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Inserção de títulos falsos ou enganadores para disfarçar taxas ocultas sob o rótulo de 'Benefícios'.</span>
+            <span class="lang-en">Burying mandatory fees under deceptive positive section titles such as 'Complimentary Festival Perks'.</span>
           </p>
         </div>
 
@@ -620,9 +586,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Garantir correspondência honesta entre o título da secção e o seu conteúdo real.</span><span class="lang-en">Ensure honest, descriptive alignment between section headings and their actual contents.</span></li>
           </ul>
         </div>
       </div>

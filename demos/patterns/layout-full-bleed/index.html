@@ -319,28 +319,48 @@
       border-radius: 2px;
     }
     
-    .layout-demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-2);
+    .drumtiks-fullbleed-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: var(--space-3);
     }
-    .layout-card {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      border-top: 3px solid var(--color-swiss-red);
-      padding: var(--space-4);
-      border-radius: 2px;
-    }
-    .layout-card h4 {
-      font-size: var(--text-sm);
-      margin: var(--space-2) 0 var(--space-1);
-    }
-    .layout-card p {
+    .bleed-note {
       font-size: var(--text-xs);
-      color: var(--text-secondary);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      margin: var(--space-2) 0;
+    }
+    .drumtiks-fullbleed-banner {
+      width: 100%;
+      background: linear-gradient(90deg, #111116, #241416, #111116);
+      border-top: 2px solid var(--color-swiss-red);
+      border-bottom: 2px solid var(--color-swiss-red);
+      padding: var(--space-6) var(--space-4);
+      color: #fff;
+      box-sizing: border-box;
+      border-radius: 4px;
+    }
+    .fullbleed-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .bleed-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-swiss-red);
+      letter-spacing: 0.1em;
+      font-weight: 700;
+    }
+    .bleed-title {
+      font-size: var(--text-base);
+      font-weight: 700;
+      margin: var(--space-2) 0;
+    }
+    .bleed-desc {
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.8);
       margin: 0;
-      line-height: 1.5;
     }
     
   </style>
@@ -434,116 +454,80 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-layout-demo">
-  <div class="demo-title">
-    <span>📐</span> <span>Drumtiks '26 • Full-Bleed Section (Secção de Sangria Total)</span>
-    <span class="xray-badge">[LAY-08 &bull; CSS GRID / FLEXBOX]</span>
+<div class="drumtiks-fullbleed-wrapper">
+  <p class="bleed-note">Conteúdo contido na grelha do festival (limite 800px):</p>
+  <div class="drumtiks-fullbleed-banner">
+    <div class="fullbleed-inner">
+      <span class="bleed-tag">&#9889; PALCO PRINCIPAL ALFÂNDEGA</span>
+      <h3 class="bleed-title">Sistema de Som Acústico L-Acoustics K2 &bull; 120kW Som Imersivo</h3>
+      <p class="bleed-desc">Calibração sónica de alta fidelidade para 142 horas contínuas de atuações modulares ao vivo.</p>
+    </div>
   </div>
-  <div class="layout-demo-grid">
-    <article class="layout-card">
-      <span class="badge badge-foundational">PALCO ALFÂNDEGA</span>
-      <h4>DJ Warp (Live)</h4>
-      <p>Modular techno &amp; live drum kinetics a 140 BPM.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-    <article class="layout-card">
-      <span class="badge badge-intermediate">PALCO DOURO</span>
-      <h4>Helena Hauff</h4>
-      <p>Raw analog electro e batidas industriais acid.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-    <article class="layout-card">
-      <span class="badge badge-advanced">CLUBBING VAULT</span>
-      <h4>Surgeon</h4>
-      <p>Hypnotic Birmingham techno nas abóbadas subterrâneas.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-  </div>
+  <p class="bleed-note">Regresso ao limite padrão do artigo.</p>
+  <span class="xray-badge">[WIDTH: 100VW &bull; MARGIN-INLINE: CALC(50% - 50VW)]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-layout-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;📐&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Full-Bleed Section (Secção de Sangria Total)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[LAY-08 &amp;bull; CSS GRID / FLEXBOX]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-fullbleed-wrapper&quot;&gt;
+  &lt;p class=&quot;bleed-note&quot;&gt;Conteúdo contido na grelha do festival (limite 800px):&lt;/p&gt;
+  &lt;div class=&quot;drumtiks-fullbleed-banner&quot;&gt;
+    &lt;div class=&quot;fullbleed-inner&quot;&gt;
+      &lt;span class=&quot;bleed-tag&quot;&gt;&amp;#9889; PALCO PRINCIPAL ALFÂNDEGA&lt;/span&gt;
+      &lt;h3 class=&quot;bleed-title&quot;&gt;Sistema de Som Acústico L-Acoustics K2 &amp;bull; 120kW Som Imersivo&lt;/h3&gt;
+      &lt;p class=&quot;bleed-desc&quot;&gt;Calibração sónica de alta fidelidade para 142 horas contínuas de atuações modulares ao vivo.&lt;/p&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;layout-demo-grid&quot;&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-foundational&quot;&gt;PALCO ALFÂNDEGA&lt;/span&gt;
-      &lt;h4&gt;DJ Warp (Live)&lt;/h4&gt;
-      &lt;p&gt;Modular techno &amp;amp; live drum kinetics a 140 BPM.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-intermediate&quot;&gt;PALCO DOURO&lt;/span&gt;
-      &lt;h4&gt;Helena Hauff&lt;/h4&gt;
-      &lt;p&gt;Raw analog electro e batidas industriais acid.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-advanced&quot;&gt;CLUBBING VAULT&lt;/span&gt;
-      &lt;h4&gt;Surgeon&lt;/h4&gt;
-      &lt;p&gt;Hypnotic Birmingham techno nas abóbadas subterrâneas.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-  &lt;/div&gt;
+  &lt;p class=&quot;bleed-note&quot;&gt;Regresso ao limite padrão do artigo.&lt;/p&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[WIDTH: 100VW &amp;bull; MARGIN-INLINE: CALC(50% - 50VW)]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
+        <pre><code>.drumtiks-fullbleed-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: var(--space-3);
     }
-    .demo-title {
+    .bleed-note {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      margin: var(--space-2) 0;
+    }
+    .drumtiks-fullbleed-banner {
+      width: 100%;
+      background: linear-gradient(90deg, #111116, #241416, #111116);
+      border-top: 2px solid var(--color-swiss-red);
+      border-bottom: 2px solid var(--color-swiss-red);
+      padding: var(--space-6) var(--space-4);
+      color: #fff;
+      box-sizing: border-box;
+      border-radius: 4px;
+    }
+    .fullbleed-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .bleed-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-swiss-red);
+      letter-spacing: 0.1em;
+      font-weight: 700;
+    }
+    .bleed-title {
       font-size: var(--text-base);
       font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
+      margin: var(--space-2) 0;
     }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .layout-demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-2);
-    }
-    .layout-card {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      border-top: 3px solid var(--color-swiss-red);
-      padding: var(--space-4);
-      border-radius: 2px;
-    }
-    .layout-card h4 {
-      font-size: var(--text-sm);
-      margin: var(--space-2) 0 var(--space-1);
-    }
-    .layout-card p {
+    .bleed-desc {
       font-size: var(--text-xs);
-      color: var(--text-secondary);
+      color: rgba(255,255,255,0.8);
       margin: 0;
-      line-height: 1.5;
     }</code></pre>
       </div>
     </section>
@@ -563,8 +547,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Elemento de destaque que rompe deliberadamente os limites da grelha de leitura para causar impacto visual.</span>
+            <span class="lang-en">Breakout highlight element creating visual rhythm by escaping standard grid constraints.</span>
           </p>
         </div>
 
@@ -574,8 +558,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Técnica moderna de sangria total usando width: 100% ou margin-inline: calc(50% - 50vw) sem provocar barra de scroll horizontal indesejada.</span>
+            <span class="lang-en">Full-bleed CSS breakout technique using margin-inline calculations avoiding accidental horizontal scrollbar triggers.</span>
           </p>
         </div>
 
@@ -585,8 +569,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Ethan Marcotte (Responsive Web Design), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Ethan Marcotte (Responsive Web Design), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Cria ritmo visual e destaque dramático para especificações de som cruciais do festival.</span>
+            <span class="lang-en">Provides dramatic visual contrast and cinematic presentation for flagship festival features.</span>
           </p>
         </div>
       </div>
@@ -609,8 +593,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Banners de sangria total com captura forçada de gestos de scroll (scroll hijacking).</span>
+            <span class="lang-en">Scroll-hijacking full bleed banners trapping swipe gestures on touch screens.</span>
           </p>
         </div>
 
@@ -620,9 +604,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Nunca intercetar o gesto de rolagem natural da página dentro de faixas de sangria total.</span><span class="lang-en">Never hijack natural page scrolling within full-bleed breakout sections.</span></li>
           </ul>
         </div>
       </div>

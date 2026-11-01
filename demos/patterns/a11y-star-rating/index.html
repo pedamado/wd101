@@ -319,18 +319,48 @@
       border-radius: 2px;
     }
     
-    .btn-a11y-focus {
-      padding: var(--space-2) var(--space-4);
-      font-size: var(--text-sm);
-      font-weight: 700;
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
-      cursor: pointer;
+    .drumtiks-starrating-demo {
+      width: 100%;
+      max-width: 360px;
     }
-    .btn-a11y-focus:focus-visible {
-      outline: 3px solid var(--color-swiss-red);
-      outline-offset: 3px;
+    .star-rating-fieldset {
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: var(--space-4);
+      background: var(--bg-surface-elevated);
+    }
+    .star-rating-legend {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--text-primary);
+      padding: 0 var(--space-2);
+    }
+    .star-inputs-group {
+      display: inline-flex;
+      flex-direction: row-reverse;
+      gap: 4px;
+      margin-top: var(--space-2);
+    }
+    .star-inputs-group input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+    }
+    .star-inputs-group label {
+      font-size: 28px;
+      color: var(--border-color);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .star-inputs-group label:hover,
+    .star-inputs-group label:hover ~ label,
+    .star-inputs-group input:checked ~ label {
+      color: #ffcc00;
+    }
+    .star-inputs-group input:focus-visible + label {
+      outline: 2px solid var(--color-swiss-red);
+      outline-offset: 2px;
+      border-radius: 2px;
     }
     
   </style>
@@ -424,84 +454,100 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-a11y-demo">
-  <div class="demo-title">
-    <span>♿</span> <span>Drumtiks '26 • Accessible Rating / Star Rating (Classificação por Estrelas)</span>
-    <span class="xray-badge">[A11Y-10 &bull; ACCESSIBLE WCAG 2.2 AA]</span>
-  </div>
-  <div class="a11y-demo-content">
-    <button type="button" class="btn-control btn-a11y-focus" aria-label="Ativar Modo Alto Contraste">
-      <span>👁️ Alternar Contraste Acessível</span>
-      <span class="xray-badge">[:FOCUS-VISIBLE 3PX OUTLINE]</span>
-    </button>
-    <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-top:var(--space-2);">
-      Navegue usando apenas o teclado (Tab) para visualizar o anel de foco de alto contraste conforme WCAG 2.2 Critério 2.4.13.
-    </p>
-  </div>
+<div class="drumtiks-starrating-demo">
+  <fieldset class="star-rating-fieldset">
+    <legend class="star-rating-legend">Avaliação do Concerto de Helena Hauff no Palco Rio:</legend>
+    <div class="star-inputs-group">
+      <input type="radio" id="star5" name="concert_rating" value="5">
+      <label for="star5" title="5 estrelas - Excelente">&#9733;</label>
+
+      <input type="radio" id="star4" name="concert_rating" value="4">
+      <label for="star4" title="4 estrelas - Muito Bom">&#9733;</label>
+
+      <input type="radio" id="star3" name="concert_rating" value="3" checked>
+      <label for="star3" title="3 estrelas - Bom">&#9733;</label>
+
+      <input type="radio" id="star2" name="concert_rating" value="2">
+      <label for="star2" title="2 estrelas - Suficiente">&#9733;</label>
+
+      <input type="radio" id="star1" name="concert_rating" value="1">
+      <label for="star1" title="1 estrela - Insatisfatório">&#9733;</label>
+    </div>
+  </fieldset>
+  <span class="xray-badge">[ACCESSIBLE STAR RATING &bull; RADIO GROUP &bull; KEYBOARD ARROWS OPERABLE]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-a11y-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;♿&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Accessible Rating / Star Rating (Classificação por Estrelas)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[A11Y-10 &amp;bull; ACCESSIBLE WCAG 2.2 AA]&lt;/span&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;a11y-demo-content&quot;&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control btn-a11y-focus&quot; aria-label=&quot;Ativar Modo Alto Contraste&quot;&gt;
-      &lt;span&gt;👁️ Alternar Contraste Acessível&lt;/span&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[:FOCUS-VISIBLE 3PX OUTLINE]&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;p style=&quot;font-size:var(--text-xs); color:var(--text-secondary); margin-top:var(--space-2);&quot;&gt;
-      Navegue usando apenas o teclado (Tab) para visualizar o anel de foco de alto contraste conforme WCAG 2.2 Critério 2.4.13.
-    &lt;/p&gt;
-  &lt;/div&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-starrating-demo&quot;&gt;
+  &lt;fieldset class=&quot;star-rating-fieldset&quot;&gt;
+    &lt;legend class=&quot;star-rating-legend&quot;&gt;Avaliação do Concerto de Helena Hauff no Palco Rio:&lt;/legend&gt;
+    &lt;div class=&quot;star-inputs-group&quot;&gt;
+      &lt;input type=&quot;radio&quot; id=&quot;star5&quot; name=&quot;concert_rating&quot; value=&quot;5&quot;&gt;
+      &lt;label for=&quot;star5&quot; title=&quot;5 estrelas - Excelente&quot;&gt;&amp;#9733;&lt;/label&gt;
+
+      &lt;input type=&quot;radio&quot; id=&quot;star4&quot; name=&quot;concert_rating&quot; value=&quot;4&quot;&gt;
+      &lt;label for=&quot;star4&quot; title=&quot;4 estrelas - Muito Bom&quot;&gt;&amp;#9733;&lt;/label&gt;
+
+      &lt;input type=&quot;radio&quot; id=&quot;star3&quot; name=&quot;concert_rating&quot; value=&quot;3&quot; checked&gt;
+      &lt;label for=&quot;star3&quot; title=&quot;3 estrelas - Bom&quot;&gt;&amp;#9733;&lt;/label&gt;
+
+      &lt;input type=&quot;radio&quot; id=&quot;star2&quot; name=&quot;concert_rating&quot; value=&quot;2&quot;&gt;
+      &lt;label for=&quot;star2&quot; title=&quot;2 estrelas - Suficiente&quot;&gt;&amp;#9733;&lt;/label&gt;
+
+      &lt;input type=&quot;radio&quot; id=&quot;star1&quot; name=&quot;concert_rating&quot; value=&quot;1&quot;&gt;
+      &lt;label for=&quot;star1&quot; title=&quot;1 estrela - Insatisfatório&quot;&gt;&amp;#9733;&lt;/label&gt;
+    &lt;/div&gt;
+  &lt;/fieldset&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[ACCESSIBLE STAR RATING &amp;bull; RADIO GROUP &amp;bull; KEYBOARD ARROWS OPERABLE]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
+        <pre><code>.drumtiks-starrating-demo {
+      width: 100%;
+      max-width: 360px;
+    }
+    .star-rating-fieldset {
       border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-    }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .btn-a11y-focus {
-      padding: var(--space-2) var(--space-4);
-      font-size: var(--text-sm);
-      font-weight: 700;
+      border-radius: 6px;
+      padding: var(--space-4);
       background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
-      cursor: pointer;
     }
-    .btn-a11y-focus:focus-visible {
-      outline: 3px solid var(--color-swiss-red);
-      outline-offset: 3px;
+    .star-rating-legend {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--text-primary);
+      padding: 0 var(--space-2);
+    }
+    .star-inputs-group {
+      display: inline-flex;
+      flex-direction: row-reverse;
+      gap: 4px;
+      margin-top: var(--space-2);
+    }
+    .star-inputs-group input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+    }
+    .star-inputs-group label {
+      font-size: 28px;
+      color: var(--border-color);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .star-inputs-group label:hover,
+    .star-inputs-group label:hover ~ label,
+    .star-inputs-group input:checked ~ label {
+      color: #ffcc00;
+    }
+    .star-inputs-group input:focus-visible + label {
+      outline: 2px solid var(--color-swiss-red);
+      outline-offset: 2px;
+      border-radius: 2px;
     }</code></pre>
       </div>
     </section>
@@ -521,8 +567,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Classificação por estrelas acessível construída sobre um grupo de rádio semântico &lt;input type='radio'&gt; operável por setas de teclado.</span>
+            <span class="lang-en">Accessible star rating built upon native semantic &lt;input type='radio'&gt; operable via arrow keys.</span>
           </p>
         </div>
 
@@ -532,8 +578,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Técnica pura CSS com flex-direction: row-reverse e seletor irmão ~ permitindo iluminar as estrelas anteriores.</span>
+            <span class="lang-en">Pure CSS flex-direction: row-reverse with sibling selector ~ illuminating preceding stars effortlessly.</span>
           </p>
         </div>
 
@@ -543,8 +589,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de W3C Web Content Accessibility Guidelines (WCAG 2.2 AA), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from W3C Web Content Accessibility Guidelines (WCAG 2.2 AA), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Permite avaliar a qualidade sónica e artística dos concertos com retorno visual dourado instantâneo.</span>
+            <span class="lang-en">Enables attendees to rate acoustic and musical performance with immediate visual satisfaction.</span>
           </p>
         </div>
       </div>
@@ -567,8 +613,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Pré-selecionar 5 estrelas obrigatoriamente ou impedir a seleção de 1 estrela em críticas ao festival.</span>
+            <span class="lang-en">Pre-populating 5 stars by default or disabling low ratings to artificially inflate festival reviews.</span>
           </p>
         </div>
 
@@ -578,9 +624,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Deixar a classificação sem valor inicial forçando o festivaleiro a uma escolha voluntária.</span><span class="lang-en">Leave rating unselected initially to demand authentic, unmanipulated attendee assessment.</span></li>
           </ul>
         </div>
       </div>

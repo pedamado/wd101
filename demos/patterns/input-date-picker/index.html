@@ -319,37 +319,36 @@
       border-radius: 2px;
     }
     
-    .demo-form {
-      max-width: 480px;
-    }
-    .form-label {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: var(--space-1);
-    }
-    .form-control {
+    .drumtiks-datepicker-demo {
       width: 100%;
-      padding: var(--space-2) var(--space-3);
-      font-size: var(--text-sm);
-      border: 1px solid var(--border-color);
+      max-width: 320px;
+    }
+    .date-label {
+      display: block;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+    .drumtiks-date-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 14px;
       background: var(--bg-surface-elevated);
       color: var(--text-primary);
-      border-radius: 2px;
-    }
-    .form-control:focus {
-      outline: 2px solid var(--color-swiss-red);
-      outline-offset: -1px;
-    }
-    .checkbox-container {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
       font-size: var(--text-xs);
-      color: var(--text-secondary);
-      cursor: pointer;
+      font-family: var(--font-mono);
+      box-sizing: border-box;
+    }
+    .drumtiks-date-input:focus-visible {
+      outline: 2px solid var(--color-swiss-red);
+      border-color: var(--color-swiss-red);
+    }
+    .date-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin: var(--space-2) 0 0 0;
     }
     
   </style>
@@ -443,119 +442,56 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-input-demo">
-  <div class="demo-title">
-    <span>📝</span> <span>Drumtiks '26 • Calendar / Date Picker (Seletor de Datas)</span>
-    <span class="xray-badge">[INP-09 &bull; FORM INPUT &bull; FOR/ID BINDING]</span>
-  </div>
-  <form class="demo-form" onsubmit="event.preventDefault(); alert('Registo submetido com sucesso!');">
-    <div class="form-group">
-      <label for="demo-input-attendee" class="form-label">Nome do Participante / DJ Handle:</label>
-      <input type="text" id="demo-input-attendee" class="form-control" placeholder="ex: Alex Warp" required>
-      <span class="xray-badge">[INPUT &bull; :FOCUS-VISIBLE &bull; REQUIRED]</span>
-    </div>
-    <div class="form-group" style="margin-top:var(--space-3);">
-      <label class="checkbox-container">
-        <input type="checkbox" id="demo-check-updates" checked>
-        <span>Receber alertas de horários e alterações de palco em tempo real</span>
-      </label>
-      <span class="xray-badge">[CHECKBOX &bull; MIN-TOUCH 44px]</span>
-    </div>
-    <button type="submit" class="btn-control action-primary" style="margin-top:var(--space-4);">
-      Submeter Inscrição no Festival ↗
-    </button>
-  </form>
+<div class="drumtiks-datepicker-demo">
+  <label for="festival-date-input" class="date-label">Escolher Dia do Passe Diário:</label>
+  <input type="date" id="festival-date-input" min="2026-10-14" max="2026-10-16" value="2026-10-14" class="drumtiks-date-input">
+  <p class="date-hint">Dias do festival: 14 (Sexta), 15 (Sábado) ou 16 (Domingo) de Outubro 2026.</p>
+  <span class="xray-badge">[INPUT TYPE="DATE" &bull; NATIVE CALENDAR &bull; MIN/MAX BOUNDS]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-input-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;📝&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Calendar / Date Picker (Seletor de Datas)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[INP-09 &amp;bull; FORM INPUT &amp;bull; FOR/ID BINDING]&lt;/span&gt;
-  &lt;/div&gt;
-  &lt;form class=&quot;demo-form&quot; onsubmit=&quot;event.preventDefault(); alert(&#x27;Registo submetido com sucesso!&#x27;);&quot;&gt;
-    &lt;div class=&quot;form-group&quot;&gt;
-      &lt;label for=&quot;demo-input-attendee&quot; class=&quot;form-label&quot;&gt;Nome do Participante / DJ Handle:&lt;/label&gt;
-      &lt;input type=&quot;text&quot; id=&quot;demo-input-attendee&quot; class=&quot;form-control&quot; placeholder=&quot;ex: Alex Warp&quot; required&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[INPUT &amp;bull; :FOCUS-VISIBLE &amp;bull; REQUIRED]&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;form-group&quot; style=&quot;margin-top:var(--space-3);&quot;&gt;
-      &lt;label class=&quot;checkbox-container&quot;&gt;
-        &lt;input type=&quot;checkbox&quot; id=&quot;demo-check-updates&quot; checked&gt;
-        &lt;span&gt;Receber alertas de horários e alterações de palco em tempo real&lt;/span&gt;
-      &lt;/label&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[CHECKBOX &amp;bull; MIN-TOUCH 44px]&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;button type=&quot;submit&quot; class=&quot;btn-control action-primary&quot; style=&quot;margin-top:var(--space-4);&quot;&gt;
-      Submeter Inscrição no Festival ↗
-    &lt;/button&gt;
-  &lt;/form&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-datepicker-demo&quot;&gt;
+  &lt;label for=&quot;festival-date-input&quot; class=&quot;date-label&quot;&gt;Escolher Dia do Passe Diário:&lt;/label&gt;
+  &lt;input type=&quot;date&quot; id=&quot;festival-date-input&quot; min=&quot;2026-10-14&quot; max=&quot;2026-10-16&quot; value=&quot;2026-10-14&quot; class=&quot;drumtiks-date-input&quot;&gt;
+  &lt;p class=&quot;date-hint&quot;&gt;Dias do festival: 14 (Sexta), 15 (Sábado) ou 16 (Domingo) de Outubro 2026.&lt;/p&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[INPUT TYPE=&quot;DATE&quot; &amp;bull; NATIVE CALENDAR &amp;bull; MIN/MAX BOUNDS]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-    }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .demo-form {
-      max-width: 480px;
-    }
-    .form-label {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: var(--space-1);
-    }
-    .form-control {
+        <pre><code>.drumtiks-datepicker-demo {
       width: 100%;
-      padding: var(--space-2) var(--space-3);
-      font-size: var(--text-sm);
-      border: 1px solid var(--border-color);
+      max-width: 320px;
+    }
+    .date-label {
+      display: block;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+    .drumtiks-date-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 14px;
       background: var(--bg-surface-elevated);
       color: var(--text-primary);
-      border-radius: 2px;
-    }
-    .form-control:focus {
-      outline: 2px solid var(--color-swiss-red);
-      outline-offset: -1px;
-    }
-    .checkbox-container {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
       font-size: var(--text-xs);
-      color: var(--text-secondary);
-      cursor: pointer;
+      font-family: var(--font-mono);
+      box-sizing: border-box;
+    }
+    .drumtiks-date-input:focus-visible {
+      outline: 2px solid var(--color-swiss-red);
+      border-color: var(--color-swiss-red);
+    }
+    .date-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin: var(--space-2) 0 0 0;
     }</code></pre>
       </div>
     </section>
@@ -575,8 +511,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Uso de &lt;input type='date'&gt; nativo com limites min e max restringindo a seleção estritamente aos dias do festival.</span>
+            <span class="lang-en">Native &lt;input type='date'&gt; with min/max attributes constraining entry strictly to festival dates.</span>
           </p>
         </div>
 
@@ -586,8 +522,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Aspeto limpo em linha com a tipografia mono para leitura unívoca do dia e mês.</span>
+            <span class="lang-en">Clean input styling with monospace date rendering ensuring zero date ambiguity.</span>
           </p>
         </div>
 
@@ -597,8 +533,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Jenifer Tidwell (Ch. 5: Getting Input), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Jenifer Tidwell (Ch. 5: Getting Input), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Despoleta o seletor nativo do sistema operativo, oferecendo calendários táteis conhecidos pelo utilizador.</span>
+            <span class="lang-en">Invokes the user's familiar OS calendar picker for optimal mobile touch interaction.</span>
           </p>
         </div>
       </div>
@@ -621,8 +557,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Permitir a seleção de datas esgotadas sem aviso imediato, cobrando o valor antes de acusar o erro.</span>
+            <span class="lang-en">Permitting selection of sold-out dates without inline notice, failing only after payment entry.</span>
           </p>
         </div>
 
@@ -632,9 +568,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Desativar ou sinalizar com clareza dias esgotados diretamente no seletor de datas.</span><span class="lang-en">Disable or clearly flag sold-out dates directly inside the date selection control.</span></li>
           </ul>
         </div>
       </div>

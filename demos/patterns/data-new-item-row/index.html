@@ -319,31 +319,43 @@
       border-radius: 2px;
     }
     
-    .table-responsive-wrapper {
-      overflow-x: auto;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
+    .drumtiks-newitem-demo {
+      width: 100%;
     }
-    .drumtiks-table {
+    .newitem-table {
       width: 100%;
       border-collapse: collapse;
       font-size: var(--text-xs);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+    }
+    .newitem-table th, .newitem-table td {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border-color);
       text-align: left;
     }
-    .drumtiks-table th {
-      background: var(--bg-surface-elevated);
-      padding: var(--space-3);
-      font-family: var(--font-mono);
-      color: var(--text-secondary);
-      border-bottom: 2px solid var(--border-color);
+    .new-row-active {
+      background: rgba(0, 210, 255, 0.05);
     }
-    .drumtiks-table td {
-      padding: var(--space-3);
-      border-bottom: 1px solid var(--border-color);
+    .input-inline-cell {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+      padding: 6px 10px;
       color: var(--text-primary);
+      font-size: var(--text-xs);
+      width: 90%;
     }
-    .drumtiks-table tr:hover td {
-      background: var(--bg-surface-elevated);
+    .btn-cell-add {
+      background: var(--color-swiss-red);
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
     }
     
   </style>
@@ -437,153 +449,99 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-data-demo">
-  <div class="demo-title">
-    <span>📊</span> <span>Drumtiks '26 • New-Item Row (Linha de Novo Item)</span>
-    <span class="xray-badge">[DAT-14 &bull; DATA VISUALIZATION / TABLE]</span>
-  </div>
-  <div class="table-responsive-wrapper">
-    <table class="drumtiks-table">
-      <thead>
-        <tr>
-          <th>Horário</th>
-          <th>Palco</th>
-          <th>Artista</th>
-          <th>Estilo &amp; BPM</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>22:00 - 00:00</td>
-          <td>Alfândega Principal</td>
-          <td><strong>DJ Warp</strong></td>
-          <td>Live Modular • 140 BPM</td>
-          <td><span class="badge badge-foundational">Confirmado</span></td>
-        </tr>
-        <tr>
-          <td>00:00 - 02:00</td>
-          <td>Palco Douro</td>
-          <td><strong>Helena Hauff</strong></td>
-          <td>Electro / Acid • 135 BPM</td>
-          <td><span class="badge badge-foundational">Confirmado</span></td>
-        </tr>
-        <tr>
-          <td>02:00 - 04:30</td>
-          <td>Clubbing Vault</td>
-          <td><strong>Surgeon</strong></td>
-          <td>Industrial Techno • 142 BPM</td>
-          <td><span class="badge badge-intermediate">Lotação Quase Esgotada</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <span class="xray-badge">[TABLE &bull; THEAD &gt; TH &bull; TBODY &gt; TD]</span>
-  </div>
+<div class="drumtiks-newitem-demo">
+  <table class="newitem-table">
+    <thead>
+      <tr>
+        <th>Módulo Sintetizador</th>
+        <th>Canal MIDI</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Moog Mother-32</td>
+        <td>Canal 1</td>
+        <td>&bull; Ativo</td>
+      </tr>
+      <tr class="new-row-active">
+        <td><input type="text" placeholder="Nome do novo módulo..." class="input-inline-cell"></td>
+        <td><input type="number" value="2" min="1" max="16" class="input-inline-cell"></td>
+        <td><button type="button" class="btn-cell-add">&#43; Inserir</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="xray-badge">[NEW-ITEM ROW &bull; INLINE CREATION IN DATA TABLES]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-data-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;📊&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • New-Item Row (Linha de Novo Item)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[DAT-14 &amp;bull; DATA VISUALIZATION / TABLE]&lt;/span&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;table-responsive-wrapper&quot;&gt;
-    &lt;table class=&quot;drumtiks-table&quot;&gt;
-      &lt;thead&gt;
-        &lt;tr&gt;
-          &lt;th&gt;Horário&lt;/th&gt;
-          &lt;th&gt;Palco&lt;/th&gt;
-          &lt;th&gt;Artista&lt;/th&gt;
-          &lt;th&gt;Estilo &amp;amp; BPM&lt;/th&gt;
-          &lt;th&gt;Estado&lt;/th&gt;
-        &lt;/tr&gt;
-      &lt;/thead&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;22:00 - 00:00&lt;/td&gt;
-          &lt;td&gt;Alfândega Principal&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;DJ Warp&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;Live Modular • 140 BPM&lt;/td&gt;
-          &lt;td&gt;&lt;span class=&quot;badge badge-foundational&quot;&gt;Confirmado&lt;/span&gt;&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;00:00 - 02:00&lt;/td&gt;
-          &lt;td&gt;Palco Douro&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;Helena Hauff&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;Electro / Acid • 135 BPM&lt;/td&gt;
-          &lt;td&gt;&lt;span class=&quot;badge badge-foundational&quot;&gt;Confirmado&lt;/span&gt;&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;02:00 - 04:30&lt;/td&gt;
-          &lt;td&gt;Clubbing Vault&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;Surgeon&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;Industrial Techno • 142 BPM&lt;/td&gt;
-          &lt;td&gt;&lt;span class=&quot;badge badge-intermediate&quot;&gt;Lotação Quase Esgotada&lt;/span&gt;&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[TABLE &amp;bull; THEAD &amp;gt; TH &amp;bull; TBODY &amp;gt; TD]&lt;/span&gt;
-  &lt;/div&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-newitem-demo&quot;&gt;
+  &lt;table class=&quot;newitem-table&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Módulo Sintetizador&lt;/th&gt;
+        &lt;th&gt;Canal MIDI&lt;/th&gt;
+        &lt;th&gt;Ação&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Moog Mother-32&lt;/td&gt;
+        &lt;td&gt;Canal 1&lt;/td&gt;
+        &lt;td&gt;&amp;bull; Ativo&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr class=&quot;new-row-active&quot;&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; placeholder=&quot;Nome do novo módulo...&quot; class=&quot;input-inline-cell&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;number&quot; value=&quot;2&quot; min=&quot;1&quot; max=&quot;16&quot; class=&quot;input-inline-cell&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;button type=&quot;button&quot; class=&quot;btn-cell-add&quot;&gt;&amp;#43; Inserir&lt;/button&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[NEW-ITEM ROW &amp;bull; INLINE CREATION IN DATA TABLES]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
+        <pre><code>.drumtiks-newitem-demo {
+      width: 100%;
     }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .table-responsive-wrapper {
-      overflow-x: auto;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-    }
-    .drumtiks-table {
+    .newitem-table {
       width: 100%;
       border-collapse: collapse;
       font-size: var(--text-xs);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+    }
+    .newitem-table th, .newitem-table td {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border-color);
       text-align: left;
     }
-    .drumtiks-table th {
-      background: var(--bg-surface-elevated);
-      padding: var(--space-3);
-      font-family: var(--font-mono);
-      color: var(--text-secondary);
-      border-bottom: 2px solid var(--border-color);
+    .new-row-active {
+      background: rgba(0, 210, 255, 0.05);
     }
-    .drumtiks-table td {
-      padding: var(--space-3);
-      border-bottom: 1px solid var(--border-color);
+    .input-inline-cell {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+      padding: 6px 10px;
       color: var(--text-primary);
+      font-size: var(--text-xs);
+      width: 90%;
     }
-    .drumtiks-table tr:hover td {
-      background: var(--bg-surface-elevated);
+    .btn-cell-add {
+      background: var(--color-swiss-red);
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
     }</code></pre>
       </div>
     </section>
@@ -603,8 +561,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Linha de inserção imediata incorporada na própria tabela de dados sem diálogos modais dispersores.</span>
+            <span class="lang-en">Inline item addition row integrated directly into the tabular data structure without modal friction.</span>
           </p>
         </div>
 
@@ -614,8 +572,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Destaque cromático sutil na linha ativa com inputs ajustados à grelha de células.</span>
+            <span class="lang-en">Subtle chromatic highlighting on the active drafting row with tailored cell inputs.</span>
           </p>
         </div>
 
@@ -625,8 +583,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Jenifer Tidwell (Ch. 6: Showing Complex Data), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Jenifer Tidwell (Ch. 6: Showing Complex Data), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Permite aos técnicos de som registar rapidamente novo equipamento conectado na mesa de mistura.</span>
+            <span class="lang-en">Allows stage technicians to log freshly connected MIDI gear directly into the stage console table.</span>
           </p>
         </div>
       </div>
@@ -649,8 +607,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Adicionar automaticamente itens tarifados sem que o utilizador tenha clicado expressamente em 'Inserir'.</span>
+            <span class="lang-en">Auto-committing billable rows before the attendee deliberately triggers the add button.</span>
           </p>
         </div>
 
@@ -660,9 +618,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">A criação de novos itens deve depender exclusivamente de ação deliberada e confirmada.</span><span class="lang-en">New item creation must strictly depend on affirmative, confirmed user commands.</span></li>
           </ul>
         </div>
       </div>

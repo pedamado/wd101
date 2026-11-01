@@ -319,28 +319,69 @@
       border-radius: 2px;
     }
     
-    .layout-demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-2);
-    }
-    .layout-card {
-      background: var(--bg-surface-elevated);
+    .drumtiks-visual-framework {
       border: 1px solid var(--border-color);
-      border-top: 3px solid var(--color-swiss-red);
-      padding: var(--space-4);
-      border-radius: 2px;
-    }
-    .layout-card h4 {
-      font-size: var(--text-sm);
-      margin: var(--space-2) 0 var(--space-1);
-    }
-    .layout-card p {
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--bg-surface);
       font-size: var(--text-xs);
+    }
+    .framework-header {
+      background: var(--bg-surface-elevated);
+      padding: var(--space-3) var(--space-4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .f-logo {
+      font-weight: 900;
+      color: var(--color-swiss-red);
+      font-family: var(--font-mono);
+    }
+    .f-nav {
+      display: flex;
+      gap: var(--space-3);
+    }
+    .f-nav a {
       color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .framework-content {
+      display: flex;
+      min-height: 120px;
+    }
+    .f-sidebar {
+      width: 140px;
+      background: var(--bg-surface-elevated);
+      border-right: 1px solid var(--border-color);
+      padding: var(--space-3);
+    }
+    .f-sidebar h5, .f-canvas h5 {
+      margin: 0 0 var(--space-2) 0;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .f-sidebar ul {
+      list-style: none;
+      padding: 0;
       margin: 0;
-      line-height: 1.5;
+      line-height: 1.6;
+    }
+    .f-canvas {
+      flex: 1;
+      padding: var(--space-3) var(--space-4);
+    }
+    .framework-footer {
+      background: var(--bg-surface-elevated);
+      border-top: 1px solid var(--border-color);
+      padding: var(--space-2) var(--space-4);
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 10px;
     }
     
   </style>
@@ -434,116 +475,135 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-layout-demo">
-  <div class="demo-title">
-    <span>📐</span> <span>Drumtiks '26 • Visual Framework (Quadro Visual Global)</span>
-    <span class="xray-badge">[LAY-12 &bull; CSS GRID / FLEXBOX]</span>
+<div class="drumtiks-visual-framework">
+  <header class="framework-header">
+    <div class="f-logo">DRUMTIKS '26</div>
+    <nav class="f-nav">
+      <a href="#lineup">Cartaz</a>
+      <a href="#workshops">Workshops</a>
+      <a href="#info">Info</a>
+    </nav>
+  </header>
+  <div class="framework-content">
+    <aside class="f-sidebar">
+      <h5>Navegação Rápida</h5>
+      <ul>
+        <li>Palco Rio</li>
+        <li>Palco Alfândega</li>
+        <li>Synth Lab</li>
+      </ul>
+    </aside>
+    <main class="f-canvas">
+      <h5>Área de Conteúdo Principal</h5>
+      <p>O quadro visual garante que elementos estruturais mantêm posicionamento e estilo consistentes em todas as páginas.</p>
+    </main>
   </div>
-  <div class="layout-demo-grid">
-    <article class="layout-card">
-      <span class="badge badge-foundational">PALCO ALFÂNDEGA</span>
-      <h4>DJ Warp (Live)</h4>
-      <p>Modular techno &amp; live drum kinetics a 140 BPM.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-    <article class="layout-card">
-      <span class="badge badge-intermediate">PALCO DOURO</span>
-      <h4>Helena Hauff</h4>
-      <p>Raw analog electro e batidas industriais acid.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-    <article class="layout-card">
-      <span class="badge badge-advanced">CLUBBING VAULT</span>
-      <h4>Surgeon</h4>
-      <p>Hypnotic Birmingham techno nas abóbadas subterrâneas.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-  </div>
+  <footer class="framework-footer">
+    <span>&copy; 2026 Drumtiks Festival &bull; Porto</span>
+    <span>Acessibilidade WCAG 2.2 AA</span>
+  </footer>
+  <span class="xray-badge">[VISUAL FRAMEWORK: HEADER + SHELL + CONTENT + FOOTER]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-layout-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;📐&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Visual Framework (Quadro Visual Global)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[LAY-12 &amp;bull; CSS GRID / FLEXBOX]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-visual-framework&quot;&gt;
+  &lt;header class=&quot;framework-header&quot;&gt;
+    &lt;div class=&quot;f-logo&quot;&gt;DRUMTIKS &#x27;26&lt;/div&gt;
+    &lt;nav class=&quot;f-nav&quot;&gt;
+      &lt;a href=&quot;#lineup&quot;&gt;Cartaz&lt;/a&gt;
+      &lt;a href=&quot;#workshops&quot;&gt;Workshops&lt;/a&gt;
+      &lt;a href=&quot;#info&quot;&gt;Info&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+  &lt;div class=&quot;framework-content&quot;&gt;
+    &lt;aside class=&quot;f-sidebar&quot;&gt;
+      &lt;h5&gt;Navegação Rápida&lt;/h5&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Palco Rio&lt;/li&gt;
+        &lt;li&gt;Palco Alfândega&lt;/li&gt;
+        &lt;li&gt;Synth Lab&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/aside&gt;
+    &lt;main class=&quot;f-canvas&quot;&gt;
+      &lt;h5&gt;Área de Conteúdo Principal&lt;/h5&gt;
+      &lt;p&gt;O quadro visual garante que elementos estruturais mantêm posicionamento e estilo consistentes em todas as páginas.&lt;/p&gt;
+    &lt;/main&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;layout-demo-grid&quot;&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-foundational&quot;&gt;PALCO ALFÂNDEGA&lt;/span&gt;
-      &lt;h4&gt;DJ Warp (Live)&lt;/h4&gt;
-      &lt;p&gt;Modular techno &amp;amp; live drum kinetics a 140 BPM.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-intermediate&quot;&gt;PALCO DOURO&lt;/span&gt;
-      &lt;h4&gt;Helena Hauff&lt;/h4&gt;
-      &lt;p&gt;Raw analog electro e batidas industriais acid.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-advanced&quot;&gt;CLUBBING VAULT&lt;/span&gt;
-      &lt;h4&gt;Surgeon&lt;/h4&gt;
-      &lt;p&gt;Hypnotic Birmingham techno nas abóbadas subterrâneas.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-  &lt;/div&gt;
+  &lt;footer class=&quot;framework-footer&quot;&gt;
+    &lt;span&gt;&amp;copy; 2026 Drumtiks Festival &amp;bull; Porto&lt;/span&gt;
+    &lt;span&gt;Acessibilidade WCAG 2.2 AA&lt;/span&gt;
+  &lt;/footer&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[VISUAL FRAMEWORK: HEADER + SHELL + CONTENT + FOOTER]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
+        <pre><code>.drumtiks-visual-framework {
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      overflow: hidden;
       background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-    }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .layout-demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-2);
-    }
-    .layout-card {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      border-top: 3px solid var(--color-swiss-red);
-      padding: var(--space-4);
-      border-radius: 2px;
-    }
-    .layout-card h4 {
-      font-size: var(--text-sm);
-      margin: var(--space-2) 0 var(--space-1);
-    }
-    .layout-card p {
       font-size: var(--text-xs);
+    }
+    .framework-header {
+      background: var(--bg-surface-elevated);
+      padding: var(--space-3) var(--space-4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .f-logo {
+      font-weight: 900;
+      color: var(--color-swiss-red);
+      font-family: var(--font-mono);
+    }
+    .f-nav {
+      display: flex;
+      gap: var(--space-3);
+    }
+    .f-nav a {
       color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .framework-content {
+      display: flex;
+      min-height: 120px;
+    }
+    .f-sidebar {
+      width: 140px;
+      background: var(--bg-surface-elevated);
+      border-right: 1px solid var(--border-color);
+      padding: var(--space-3);
+    }
+    .f-sidebar h5, .f-canvas h5 {
+      margin: 0 0 var(--space-2) 0;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .f-sidebar ul {
+      list-style: none;
+      padding: 0;
       margin: 0;
-      line-height: 1.5;
+      line-height: 1.6;
+    }
+    .f-canvas {
+      flex: 1;
+      padding: var(--space-3) var(--space-4);
+    }
+    .framework-footer {
+      background: var(--bg-surface-elevated);
+      border-top: 1px solid var(--border-color);
+      padding: var(--space-2) var(--space-4);
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 10px;
     }</code></pre>
       </div>
     </section>
@@ -563,8 +623,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Estrutura coerente com &lt;header&gt;, &lt;aside&gt;, &lt;main&gt; e &lt;footer&gt; padronizados.</span>
+            <span class="lang-en">Standardized semantic container tree featuring &lt;header&gt;, &lt;aside&gt;, &lt;main&gt;, and &lt;footer&gt;.</span>
           </p>
         </div>
 
@@ -574,8 +634,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Grelha e caixas flexíveis previsíveis que sustentam a identidade visual do festival em todas as vistas.</span>
+            <span class="lang-en">Predictable flex and grid structures establishing a cohesive visual identity across views.</span>
           </p>
         </div>
 
@@ -585,8 +645,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Ethan Marcotte (Responsive Web Design), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Ethan Marcotte (Responsive Web Design), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Reduz o esforço cognitivo ao manter o logotipo, navegação e rodapé em locais conhecidos e imutáveis.</span>
+            <span class="lang-en">Reduces cognitive friction by anchoring logos, navigations, and actions in known predictable spots.</span>
           </p>
         </div>
       </div>
@@ -609,8 +669,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Quebra intencional da moldura visual na secção de checkout para omitir navegação de regresso.</span>
+            <span class="lang-en">Deliberately stripping the visual framework during checkout to prevent easy back navigation.</span>
           </p>
         </div>
 
@@ -620,9 +680,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Manter canais visíveis de saída e navegação mesmo nas páginas finais de compra de bilhetes.</span><span class="lang-en">Preserve clear return navigation paths even within checkout or subscription flows.</span></li>
           </ul>
         </div>
       </div>

@@ -319,28 +319,53 @@
       border-radius: 2px;
     }
     
-    .layout-demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-2);
-    }
-    .layout-card {
-      background: var(--bg-surface-elevated);
+    .drumtiks-canvas-demo {
       border: 1px solid var(--border-color);
-      border-top: 3px solid var(--color-swiss-red);
-      padding: var(--space-4);
-      border-radius: 2px;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #0d0e14;
     }
-    .layout-card h4 {
-      font-size: var(--text-sm);
-      margin: var(--space-2) 0 var(--space-1);
+    .canvas-viewport {
+      width: 100%;
+      height: 180px;
+      overflow: auto;
+      touch-action: pan-x pan-y;
+      position: relative;
+      background-image: radial-gradient(circle, #222636 1px, transparent 1px);
+      background-size: 20px 20px;
     }
-    .layout-card p {
-      font-size: var(--text-xs);
+    .canvas-world {
+      width: 480px;
+      height: 240px;
+      position: relative;
+    }
+    .node {
+      position: absolute;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+    .stage-node { background: var(--color-swiss-red); }
+    .workshop-node { background: #0088cc; }
+    .service-node { background: #28a745; }
+    .canvas-footer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-surface-elevated);
+      padding: var(--space-2) var(--space-3);
+      font-size: 11px;
       color: var(--text-secondary);
-      margin: 0;
-      line-height: 1.5;
+      border-top: 1px solid var(--border-color);
+    }
+    .zoom-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: #00d2ff;
     }
     
   </style>
@@ -434,116 +459,101 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-layout-demo">
-  <div class="demo-title">
-    <span>📐</span> <span>Drumtiks '26 • Infinite Area / Pannable Canvas (Área Infinita)</span>
-    <span class="xray-badge">[LAY-20 &bull; CSS GRID / FLEXBOX]</span>
+<div class="drumtiks-canvas-demo">
+  <div class="canvas-viewport" tabindex="0" aria-label="Mapa Interativo do Festival Alfândega">
+    <div class="canvas-world">
+      <div class="node stage-node" style="top: 20px; left: 30px;">
+        <span>Palco Rio (Live)</span>
+      </div>
+      <div class="node workshop-node" style="top: 80px; left: 180px;">
+        <span>Synth Lab Modular</span>
+      </div>
+      <div class="node service-node" style="top: 140px; left: 60px;">
+        <span>Posto Médico &amp; Água</span>
+      </div>
+    </div>
   </div>
-  <div class="layout-demo-grid">
-    <article class="layout-card">
-      <span class="badge badge-foundational">PALCO ALFÂNDEGA</span>
-      <h4>DJ Warp (Live)</h4>
-      <p>Modular techno &amp; live drum kinetics a 140 BPM.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-    <article class="layout-card">
-      <span class="badge badge-intermediate">PALCO DOURO</span>
-      <h4>Helena Hauff</h4>
-      <p>Raw analog electro e batidas industriais acid.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-    <article class="layout-card">
-      <span class="badge badge-advanced">CLUBBING VAULT</span>
-      <h4>Surgeon</h4>
-      <p>Hypnotic Birmingham techno nas abóbadas subterrâneas.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
+  <div class="canvas-footer-bar">
+    <span>&#128070; Arraste para navegar no recinto &bull; Alfândega do Porto</span>
+    <span class="zoom-badge">Zoom: 100%</span>
   </div>
+  <span class="xray-badge">[PANNABLE CANVAS: OVERFLOW: AUTO / TOUCH-ACTION: PAN-X PAN-Y]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-layout-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;📐&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Infinite Area / Pannable Canvas (Área Infinita)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[LAY-20 &amp;bull; CSS GRID / FLEXBOX]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-canvas-demo&quot;&gt;
+  &lt;div class=&quot;canvas-viewport&quot; tabindex=&quot;0&quot; aria-label=&quot;Mapa Interativo do Festival Alfândega&quot;&gt;
+    &lt;div class=&quot;canvas-world&quot;&gt;
+      &lt;div class=&quot;node stage-node&quot; style=&quot;top: 20px; left: 30px;&quot;&gt;
+        &lt;span&gt;Palco Rio (Live)&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;node workshop-node&quot; style=&quot;top: 80px; left: 180px;&quot;&gt;
+        &lt;span&gt;Synth Lab Modular&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;node service-node&quot; style=&quot;top: 140px; left: 60px;&quot;&gt;
+        &lt;span&gt;Posto Médico &amp;amp; Água&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;layout-demo-grid&quot;&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-foundational&quot;&gt;PALCO ALFÂNDEGA&lt;/span&gt;
-      &lt;h4&gt;DJ Warp (Live)&lt;/h4&gt;
-      &lt;p&gt;Modular techno &amp;amp; live drum kinetics a 140 BPM.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-intermediate&quot;&gt;PALCO DOURO&lt;/span&gt;
-      &lt;h4&gt;Helena Hauff&lt;/h4&gt;
-      &lt;p&gt;Raw analog electro e batidas industriais acid.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-advanced&quot;&gt;CLUBBING VAULT&lt;/span&gt;
-      &lt;h4&gt;Surgeon&lt;/h4&gt;
-      &lt;p&gt;Hypnotic Birmingham techno nas abóbadas subterrâneas.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
+  &lt;div class=&quot;canvas-footer-bar&quot;&gt;
+    &lt;span&gt;&amp;#128070; Arraste para navegar no recinto &amp;bull; Alfândega do Porto&lt;/span&gt;
+    &lt;span class=&quot;zoom-badge&quot;&gt;Zoom: 100%&lt;/span&gt;
   &lt;/div&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[PANNABLE CANVAS: OVERFLOW: AUTO / TOUCH-ACTION: PAN-X PAN-Y]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
+        <pre><code>.drumtiks-canvas-demo {
       border: 1px solid var(--border-color);
+      border-radius: 6px;
+      overflow: hidden;
+      background: #0d0e14;
+    }
+    .canvas-viewport {
+      width: 100%;
+      height: 180px;
+      overflow: auto;
+      touch-action: pan-x pan-y;
+      position: relative;
+      background-image: radial-gradient(circle, #222636 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .canvas-world {
+      width: 480px;
+      height: 240px;
+      position: relative;
+    }
+    .node {
+      position: absolute;
+      padding: 6px 12px;
       border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-    }
-    .demo-title {
-      font-size: var(--text-base);
+      font-size: 11px;
       font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
     }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
+    .stage-node { background: var(--color-swiss-red); }
+    .workshop-node { background: #0088cc; }
+    .service-node { background: #28a745; }
+    .canvas-footer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-surface-elevated);
+      padding: var(--space-2) var(--space-3);
+      font-size: 11px;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border-color);
+    }
+    .zoom-badge {
       font-family: var(--font-mono);
       font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .layout-demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-2);
-    }
-    .layout-card {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      border-top: 3px solid var(--color-swiss-red);
-      padding: var(--space-4);
-      border-radius: 2px;
-    }
-    .layout-card h4 {
-      font-size: var(--text-sm);
-      margin: var(--space-2) 0 var(--space-1);
-    }
-    .layout-card p {
-      font-size: var(--text-xs);
-      color: var(--text-secondary);
-      margin: 0;
-      line-height: 1.5;
+      color: #00d2ff;
     }</code></pre>
       </div>
     </section>
@@ -563,8 +573,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Viewport panorâmico com tabindex='0' e rótulo aria-label descritivo para navegação no recinto do festival.</span>
+            <span class="lang-en">Interactive pan viewport with tabindex='0' and descriptive aria-label for festival venue exploration.</span>
           </p>
         </div>
 
@@ -574,8 +584,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Uso de touch-action: pan-x pan-y e grelha de fundo radial para dar sensação de espaço físico navegável.</span>
+            <span class="lang-en">touch-action: pan-x pan-y with radial dot grid creating tactile spatial awareness.</span>
           </p>
         </div>
 
@@ -585,8 +595,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Ethan Marcotte (Responsive Web Design), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Ethan Marcotte (Responsive Web Design), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Permite explorar visualmente o mapa complexo do festival com gestos fluidos de deslocamento.</span>
+            <span class="lang-en">Allows attendees to explore the sprawling festival grounds naturally through touch panning.</span>
           </p>
         </div>
       </div>
@@ -609,8 +619,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Captura total de eventos tácteis impedindo o utilizador móvel de rolar a página para lá do mapa.</span>
+            <span class="lang-en">Touch-trapping infinite canvases preventing attendees from scrolling past the map on mobile.</span>
           </p>
         </div>
 
@@ -620,9 +630,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Fornecer sempre margens seguras ou botão de desativação de captura tátil em ecrãs móveis.</span><span class="lang-en">Always provide clear margins or a gesture release button on mobile touchscreens.</span></li>
           </ul>
         </div>
       </div>

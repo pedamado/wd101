@@ -319,40 +319,74 @@
       border-radius: 2px;
     }
     
-    .actions-button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      align-items: center;
-    }
-    .action-primary {
-      background: var(--color-swiss-red);
-      color: #ffffff;
-      border: 1px solid var(--color-swiss-red);
-      font-weight: 700;
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
-    }
-    .action-primary:hover {
-      background: #b80000;
-    }
-    .action-secondary {
+    .drumtiks-bottomsheet-demo {
+      position: relative;
+      height: 160px;
+      overflow: hidden;
       background: var(--bg-surface-elevated);
-      color: var(--text-primary);
       border: 1px solid var(--border-color);
-      font-weight: 600;
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
+      border-radius: 6px;
+      padding: var(--space-4);
     }
-    .action-outline {
-      background: transparent;
-      color: var(--text-secondary);
-      border: 1px dashed var(--border-color);
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
+    .btn-sheet-trigger {
+      background: var(--color-swiss-red);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      border-radius: 4px;
       cursor: pointer;
+      min-height: 44px;
+    }
+    .bottom-sheet-panel {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-surface);
+      border-top: 2px solid var(--color-swiss-red);
+      box-shadow: 0 -8px 24px rgba(0,0,0,0.3);
+      padding: var(--space-3) var(--space-4);
+      transform: translateY(105%);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 10;
+    }
+    .bottom-sheet-panel.is-open {
+      transform: translateY(0);
+    }
+    .sheet-drag-handle {
+      width: 36px;
+      height: 4px;
+      background: var(--border-color);
+      border-radius: 2px;
+      margin: 0 auto var(--space-2) auto;
+    }
+    .sheet-header h4 {
+      margin: 0 0 var(--space-3) 0;
+      font-size: var(--text-xs);
+      text-align: center;
+    }
+    .sheet-actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .sheet-btn {
+      padding: 10px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: var(--text-xs);
+      cursor: pointer;
+      color: var(--text-primary);
+      text-align: left;
+      min-height: 44px;
+    }
+    .btn-cancel-sheet {
+      text-align: center;
+      color: var(--color-swiss-red);
+      font-weight: 700;
     }
     
   </style>
@@ -446,112 +480,118 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-actions-demo">
-  <div class="demo-title">
-    <span>⚡</span> <span>Drumtiks '26 • Action Sheet / Bottom Sheet (Folha de Ações Inferior)</span>
-    <span class="xray-badge">[ACT-13 &bull; BUTTON / CONTROL &bull; TARGET 48PX]</span>
+<div class="drumtiks-bottomsheet-demo">
+  <button type="button" class="btn-sheet-trigger" onclick="document.getElementById('demo-sheet').classList.toggle('is-open')">
+    &#128241; Abrir Ações Rápidas de Partilha
+  </button>
+
+  <div id="demo-sheet" class="bottom-sheet-panel">
+    <div class="sheet-drag-handle" aria-hidden="true"></div>
+    <div class="sheet-header">
+      <h4>Partilhar Concerto de Helena Hauff</h4>
+    </div>
+    <div class="sheet-actions">
+      <button type="button" class="sheet-btn">&#128279; Copiar Ligação Direta</button>
+      <button type="button" class="sheet-btn">&#128197; Adicionar ao Google Agenda</button>
+      <button type="button" class="sheet-btn btn-cancel-sheet" onclick="document.getElementById('demo-sheet').classList.remove('is-open')">Cancelar</button>
+    </div>
   </div>
-  <div class="actions-button-row">
-    <button type="button" class="btn-control action-primary" onclick="alert('Bilhete VIP Adicionado ao Carrinho!')">
-      <span>🎟️ Comprar Passe VIP (120€)</span>
-      <span class="xray-badge">[:ACTIVE &bull; FOCUS-VISIBLE]</span>
-    </button>
-    <button type="button" class="btn-control action-secondary" onclick="alert('Programação guardada nos favoritos!')">
-      <span>⭐ Guardar nos Favoritos</span>
-    </button>
-    <button type="button" class="btn-control action-outline" onclick="alert('Áudio sample a reproduzir...')">
-      <span>🔊 Ouvir Sample (30s)</span>
-    </button>
-  </div>
+  <span class="xray-badge">[BOTTOM SHEET: FIXED BOTTOM &bull; THUMB ZONE OPTIMIZED]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-actions-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;⚡&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Action Sheet / Bottom Sheet (Folha de Ações Inferior)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[ACT-13 &amp;bull; BUTTON / CONTROL &amp;bull; TARGET 48PX]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-bottomsheet-demo&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn-sheet-trigger&quot; onclick=&quot;document.getElementById(&#x27;demo-sheet&#x27;).classList.toggle(&#x27;is-open&#x27;)&quot;&gt;
+    &amp;#128241; Abrir Ações Rápidas de Partilha
+  &lt;/button&gt;
+
+  &lt;div id=&quot;demo-sheet&quot; class=&quot;bottom-sheet-panel&quot;&gt;
+    &lt;div class=&quot;sheet-drag-handle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;sheet-header&quot;&gt;
+      &lt;h4&gt;Partilhar Concerto de Helena Hauff&lt;/h4&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;sheet-actions&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;sheet-btn&quot;&gt;&amp;#128279; Copiar Ligação Direta&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;sheet-btn&quot;&gt;&amp;#128197; Adicionar ao Google Agenda&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;sheet-btn btn-cancel-sheet&quot; onclick=&quot;document.getElementById(&#x27;demo-sheet&#x27;).classList.remove(&#x27;is-open&#x27;)&quot;&gt;Cancelar&lt;/button&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;actions-button-row&quot;&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control action-primary&quot; onclick=&quot;alert(&#x27;Bilhete VIP Adicionado ao Carrinho!&#x27;)&quot;&gt;
-      &lt;span&gt;🎟️ Comprar Passe VIP (120€)&lt;/span&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[:ACTIVE &amp;bull; FOCUS-VISIBLE]&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control action-secondary&quot; onclick=&quot;alert(&#x27;Programação guardada nos favoritos!&#x27;)&quot;&gt;
-      &lt;span&gt;⭐ Guardar nos Favoritos&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control action-outline&quot; onclick=&quot;alert(&#x27;Áudio sample a reproduzir...&#x27;)&quot;&gt;
-      &lt;span&gt;🔊 Ouvir Sample (30s)&lt;/span&gt;
-    &lt;/button&gt;
-  &lt;/div&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[BOTTOM SHEET: FIXED BOTTOM &amp;bull; THUMB ZONE OPTIMIZED]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
+        <pre><code>.drumtiks-bottomsheet-demo {
+      position: relative;
+      height: 160px;
+      overflow: hidden;
+      background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
+      border-radius: 6px;
+      padding: var(--space-4);
     }
-    .demo-title {
-      font-size: var(--text-base);
+    .btn-sheet-trigger {
+      background: var(--color-swiss-red);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      font-size: var(--text-xs);
       font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
+      border-radius: 4px;
+      cursor: pointer;
+      min-height: 44px;
+    }
+    .bottom-sheet-panel {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-surface);
+      border-top: 2px solid var(--color-swiss-red);
+      box-shadow: 0 -8px 24px rgba(0,0,0,0.3);
+      padding: var(--space-3) var(--space-4);
+      transform: translateY(105%);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 10;
+    }
+    .bottom-sheet-panel.is-open {
+      transform: translateY(0);
+    }
+    .sheet-drag-handle {
+      width: 36px;
+      height: 4px;
+      background: var(--border-color);
+      border-radius: 2px;
+      margin: 0 auto var(--space-2) auto;
+    }
+    .sheet-header h4 {
+      margin: 0 0 var(--space-3) 0;
+      font-size: var(--text-xs);
+      text-align: center;
+    }
+    .sheet-actions {
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: var(--space-2);
     }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .actions-button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      align-items: center;
-    }
-    .action-primary {
-      background: var(--color-swiss-red);
-      color: #ffffff;
-      border: 1px solid var(--color-swiss-red);
-      font-weight: 700;
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
-    }
-    .action-primary:hover {
-      background: #b80000;
-    }
-    .action-secondary {
+    .sheet-btn {
+      padding: 10px;
       background: var(--bg-surface-elevated);
-      color: var(--text-primary);
       border: 1px solid var(--border-color);
-      font-weight: 600;
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
+      border-radius: 4px;
+      font-size: var(--text-xs);
       cursor: pointer;
+      color: var(--text-primary);
+      text-align: left;
+      min-height: 44px;
     }
-    .action-outline {
-      background: transparent;
-      color: var(--text-secondary);
-      border: 1px dashed var(--border-color);
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
+    .btn-cancel-sheet {
+      text-align: center;
+      color: var(--color-swiss-red);
+      font-weight: 700;
     }</code></pre>
       </div>
     </section>
@@ -571,8 +611,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Painel inferior deslizante concebido especificamente para a zona ergonómica do polegar em dispositivos móveis.</span>
+            <span class="lang-en">Sliding bottom sheet designed specifically for mobile thumb-zone ergonomic interaction.</span>
           </p>
         </div>
 
@@ -582,8 +622,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Animação acelerada por GPU ancorada no fundo do ecrã com pega visual indicativa de arrasto.</span>
+            <span class="lang-en">GPU-accelerated slide-up transition anchored to viewport bottom with tactile drag handle.</span>
           </p>
         </div>
 
@@ -593,8 +633,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Jenifer Tidwell (Ch. 4: Actions &amp; Commands), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Jenifer Tidwell (Ch. 4: Actions &amp; Commands), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Facilita ações pontuais de partilha ou reserva de bilhetes quando o utilizador segura o telemóvel com uma mão.</span>
+            <span class="lang-en">Facilitates rapid one-handed mobile sharing and scheduling actions without finger strain.</span>
           </p>
         </div>
       </div>
@@ -617,8 +657,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Folhas inferiores que cobrem o ecrã e não possuem botão explícito de cancelamento, forçando a seleção de uma opção.</span>
+            <span class="lang-en">Bottom sheets trapping user interaction by omitting explicit cancellation buttons.</span>
           </p>
         </div>
 
@@ -628,9 +668,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Incluir sempre um botão de cancelamento destacado e permitir fecho ao tocar fora da folha.</span><span class="lang-en">Always feature an explicit cancel button and dismiss on backdrop touch.</span></li>
           </ul>
         </div>
       </div>

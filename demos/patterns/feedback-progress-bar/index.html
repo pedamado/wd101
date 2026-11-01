@@ -319,13 +319,26 @@
       border-radius: 2px;
     }
     
-    .feedback-banner-box {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      border-left: 4px solid var(--color-accent-blue);
-      padding: var(--space-4);
-      border-radius: 2px;
-      max-width: 600px;
+    .drumtiks-progressbar-demo {
+      width: 100%;
+    }
+    .scroll-progress-container {
+      width: 100%;
+      height: 6px;
+      background: var(--border-color);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: var(--space-2);
+    }
+    .scroll-progress-fill {
+      height: 100%;
+      background: var(--color-swiss-red);
+      transition: width 0.15s ease-out;
+    }
+    .progress-meta {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
     }
     
   </style>
@@ -419,85 +432,52 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-feedback-demo">
-  <div class="demo-title">
-    <span>🔔</span> <span>Drumtiks '26 • Progress Bar (Barra de Progresso de Leitura)</span>
-    <span class="xray-badge">[FEE-05 &bull; FEEDBACK &bull; ARIA-LIVE="POLITE"]</span>
+<div class="drumtiks-progressbar-demo">
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-fill" style="width: 65%;"></div>
   </div>
-  <div class="feedback-banner-box" role="alert">
-    <div style="display:flex; align-items:flex-start; gap:var(--space-3);">
-      <span style="font-size:var(--text-xl);">ℹ️</span>
-      <div>
-        <strong style="color:var(--text-primary);">Abertura de Portas Antecipada</strong>
-        <p style="margin:var(--space-1) 0 0; font-size:var(--text-xs); color:var(--text-secondary);">
-          Devido à elevada afluência para a masterclass de sintetizadores, as portas da Alfândega abrem às 16h30.
-        </p>
-      </div>
-    </div>
-    <span class="xray-badge">[ROLE="ALERT" &bull; HIGH-CONTRAST]</span>
+  <div class="progress-meta">
+    <span>Leitura do Guia de Sintetizadores: <strong>65% concluído</strong></span>
   </div>
+  <span class="xray-badge">[SCROLL PROGRESS BAR &bull; READING TIMELINE &bull; PURE CSS / JS]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-feedback-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;🔔&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Progress Bar (Barra de Progresso de Leitura)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[FEE-05 &amp;bull; FEEDBACK &amp;bull; ARIA-LIVE=&quot;POLITE&quot;]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-progressbar-demo&quot;&gt;
+  &lt;div class=&quot;scroll-progress-container&quot;&gt;
+    &lt;div class=&quot;scroll-progress-fill&quot; style=&quot;width: 65%;&quot;&gt;&lt;/div&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;feedback-banner-box&quot; role=&quot;alert&quot;&gt;
-    &lt;div style=&quot;display:flex; align-items:flex-start; gap:var(--space-3);&quot;&gt;
-      &lt;span style=&quot;font-size:var(--text-xl);&quot;&gt;ℹ️&lt;/span&gt;
-      &lt;div&gt;
-        &lt;strong style=&quot;color:var(--text-primary);&quot;&gt;Abertura de Portas Antecipada&lt;/strong&gt;
-        &lt;p style=&quot;margin:var(--space-1) 0 0; font-size:var(--text-xs); color:var(--text-secondary);&quot;&gt;
-          Devido à elevada afluência para a masterclass de sintetizadores, as portas da Alfândega abrem às 16h30.
-        &lt;/p&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[ROLE=&quot;ALERT&quot; &amp;bull; HIGH-CONTRAST]&lt;/span&gt;
+  &lt;div class=&quot;progress-meta&quot;&gt;
+    &lt;span&gt;Leitura do Guia de Sintetizadores: &lt;strong&gt;65% concluído&lt;/strong&gt;&lt;/span&gt;
   &lt;/div&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[SCROLL PROGRESS BAR &amp;bull; READING TIMELINE &amp;bull; PURE CSS / JS]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
+        <pre><code>.drumtiks-progressbar-demo {
+      width: 100%;
     }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
+    .scroll-progress-container {
+      width: 100%;
+      height: 6px;
+      background: var(--border-color);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: var(--space-2);
     }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
+    .scroll-progress-fill {
+      height: 100%;
+      background: var(--color-swiss-red);
+      transition: width 0.15s ease-out;
+    }
+    .progress-meta {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
       font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .feedback-banner-box {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      border-left: 4px solid var(--color-accent-blue);
-      padding: var(--space-4);
-      border-radius: 2px;
-      max-width: 600px;
     }</code></pre>
       </div>
     </section>
@@ -517,8 +497,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Indicador de progresso de leitura acompanhado de texto percentual explicativo para tecnologias de apoio.</span>
+            <span class="lang-en">Reading progress indicator accompanied by clear textual completion percentage.</span>
           </p>
         </div>
 
@@ -528,8 +508,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Barra horizontal fina no topo do contentor com preenchimento em vermelho suíço e transição suave.</span>
+            <span class="lang-en">Subtle horizontal rail in brand red with smooth width transition indicating scroll depth.</span>
           </p>
         </div>
 
@@ -539,8 +519,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Jenifer Tidwell (Ch. 8: Feedback &amp; Affordance), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Jenifer Tidwell (Ch. 8: Feedback &amp; Affordance), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Permite aos leitores do compêndio de sintetizadores saber exatamente quanto resta do artigo.</span>
+            <span class="lang-en">Provides clear mental orientation regarding remaining reading length in long tech guides.</span>
           </p>
         </div>
       </div>
@@ -563,8 +543,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Barras de progresso falsas em processos de compra que estagnam propositadamente no final para pressionar.</span>
+            <span class="lang-en">Manipulated progress bars that stall artificially at 99% to induce anxiety ticket checkouts.</span>
           </p>
         </div>
 
@@ -574,9 +554,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Garantir rigor e paridade proporcional entre o avanço real do utilizador e a barra visual.</span><span class="lang-en">Maintain strict mathematical parity between actual scroll/task progress and the visual bar.</span></li>
           </ul>
         </div>
       </div>

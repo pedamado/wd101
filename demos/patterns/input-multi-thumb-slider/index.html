@@ -319,37 +319,64 @@
       border-radius: 2px;
     }
     
-    .demo-form {
-      max-width: 480px;
+    .drumtiks-multithumb-demo {
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: var(--space-4);
     }
-    .form-label {
-      display: block;
+    .multi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-4);
+    }
+    .multi-label {
+      font-size: var(--text-xs);
+      font-weight: 700;
+    }
+    .multi-range-val {
       font-family: var(--font-mono);
       font-size: var(--text-xs);
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: var(--space-1);
+      color: #00d2ff;
     }
-    .form-control {
-      width: 100%;
-      padding: var(--space-2) var(--space-3);
-      font-size: var(--text-sm);
-      border: 1px solid var(--border-color);
-      background: var(--bg-surface-elevated);
-      color: var(--text-primary);
-      border-radius: 2px;
+    .dual-range-track {
+      position: relative;
+      height: 8px;
+      background: var(--border-color);
+      border-radius: 4px;
+      margin-bottom: var(--space-3);
     }
-    .form-control:focus {
-      outline: 2px solid var(--color-swiss-red);
-      outline-offset: -1px;
+    .range-fill {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background: var(--color-swiss-red);
+      border-radius: 4px;
     }
-    .checkbox-container {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      font-size: var(--text-xs);
-      color: var(--text-secondary);
+    .thumb {
+      position: absolute;
+      top: -8px;
+      width: 24px;
+      height: 24px;
+      background: #fff;
+      border: 2px solid var(--color-swiss-red);
+      border-radius: 50%;
       cursor: pointer;
+      transform: translateX(-50%);
+    }
+    .thumb:focus-visible {
+      outline: 2px solid #00d2ff;
+      outline-offset: 2px;
+    }
+    .multi-scale {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
     }
     
   </style>
@@ -443,119 +470,108 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-input-demo">
-  <div class="demo-title">
-    <span>📝</span> <span>Drumtiks '26 • Multi-Thumb Slider (Deslizador de Intervalos)</span>
-    <span class="xray-badge">[INP-07 &bull; FORM INPUT &bull; FOR/ID BINDING]</span>
+<div class="drumtiks-multithumb-demo">
+  <div class="multi-header">
+    <label class="multi-label">Filtrar por Faixa Horária dos Concertos:</label>
+    <span class="multi-range-val">18:00 &mdash; 02:00</span>
   </div>
-  <form class="demo-form" onsubmit="event.preventDefault(); alert('Registo submetido com sucesso!');">
-    <div class="form-group">
-      <label for="demo-input-attendee" class="form-label">Nome do Participante / DJ Handle:</label>
-      <input type="text" id="demo-input-attendee" class="form-control" placeholder="ex: Alex Warp" required>
-      <span class="xray-badge">[INPUT &bull; :FOCUS-VISIBLE &bull; REQUIRED]</span>
-    </div>
-    <div class="form-group" style="margin-top:var(--space-3);">
-      <label class="checkbox-container">
-        <input type="checkbox" id="demo-check-updates" checked>
-        <span>Receber alertas de horários e alterações de palco em tempo real</span>
-      </label>
-      <span class="xray-badge">[CHECKBOX &bull; MIN-TOUCH 44px]</span>
-    </div>
-    <button type="submit" class="btn-control action-primary" style="margin-top:var(--space-4);">
-      Submeter Inscrição no Festival ↗
-    </button>
-  </form>
+  <div class="dual-range-track">
+    <div class="range-fill" style="left: 30%; width: 50%;"></div>
+    <div class="thumb thumb-left" style="left: 30%;" tabindex="0" aria-label="Hora de início: 18h00"></div>
+    <div class="thumb thumb-right" style="left: 80%;" tabindex="0" aria-label="Hora de fim: 02h00"></div>
+  </div>
+  <div class="multi-scale">
+    <span>12:00</span>
+    <span>18:00</span>
+    <span>00:00</span>
+    <span>06:00</span>
+  </div>
+  <span class="xray-badge">[MULTI-THUMB SLIDER &bull; DUAL RANGE BOUNDS &bull; KEYBOARD ACCESSIBLE]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-input-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;📝&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Multi-Thumb Slider (Deslizador de Intervalos)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[INP-07 &amp;bull; FORM INPUT &amp;bull; FOR/ID BINDING]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-multithumb-demo&quot;&gt;
+  &lt;div class=&quot;multi-header&quot;&gt;
+    &lt;label class=&quot;multi-label&quot;&gt;Filtrar por Faixa Horária dos Concertos:&lt;/label&gt;
+    &lt;span class=&quot;multi-range-val&quot;&gt;18:00 &amp;mdash; 02:00&lt;/span&gt;
   &lt;/div&gt;
-  &lt;form class=&quot;demo-form&quot; onsubmit=&quot;event.preventDefault(); alert(&#x27;Registo submetido com sucesso!&#x27;);&quot;&gt;
-    &lt;div class=&quot;form-group&quot;&gt;
-      &lt;label for=&quot;demo-input-attendee&quot; class=&quot;form-label&quot;&gt;Nome do Participante / DJ Handle:&lt;/label&gt;
-      &lt;input type=&quot;text&quot; id=&quot;demo-input-attendee&quot; class=&quot;form-control&quot; placeholder=&quot;ex: Alex Warp&quot; required&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[INPUT &amp;bull; :FOCUS-VISIBLE &amp;bull; REQUIRED]&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;form-group&quot; style=&quot;margin-top:var(--space-3);&quot;&gt;
-      &lt;label class=&quot;checkbox-container&quot;&gt;
-        &lt;input type=&quot;checkbox&quot; id=&quot;demo-check-updates&quot; checked&gt;
-        &lt;span&gt;Receber alertas de horários e alterações de palco em tempo real&lt;/span&gt;
-      &lt;/label&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[CHECKBOX &amp;bull; MIN-TOUCH 44px]&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;button type=&quot;submit&quot; class=&quot;btn-control action-primary&quot; style=&quot;margin-top:var(--space-4);&quot;&gt;
-      Submeter Inscrição no Festival ↗
-    &lt;/button&gt;
-  &lt;/form&gt;
+  &lt;div class=&quot;dual-range-track&quot;&gt;
+    &lt;div class=&quot;range-fill&quot; style=&quot;left: 30%; width: 50%;&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;thumb thumb-left&quot; style=&quot;left: 30%;&quot; tabindex=&quot;0&quot; aria-label=&quot;Hora de início: 18h00&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;thumb thumb-right&quot; style=&quot;left: 80%;&quot; tabindex=&quot;0&quot; aria-label=&quot;Hora de fim: 02h00&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;multi-scale&quot;&gt;
+    &lt;span&gt;12:00&lt;/span&gt;
+    &lt;span&gt;18:00&lt;/span&gt;
+    &lt;span&gt;00:00&lt;/span&gt;
+    &lt;span&gt;06:00&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[MULTI-THUMB SLIDER &amp;bull; DUAL RANGE BOUNDS &amp;bull; KEYBOARD ACCESSIBLE]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-    }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .demo-form {
-      max-width: 480px;
-    }
-    .form-label {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: var(--space-1);
-    }
-    .form-control {
+        <pre><code>.drumtiks-multithumb-demo {
       width: 100%;
-      padding: var(--space-2) var(--space-3);
-      font-size: var(--text-sm);
-      border: 1px solid var(--border-color);
+      max-width: 440px;
       background: var(--bg-surface-elevated);
-      color: var(--text-primary);
-      border-radius: 2px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: var(--space-4);
     }
-    .form-control:focus {
-      outline: 2px solid var(--color-swiss-red);
-      outline-offset: -1px;
-    }
-    .checkbox-container {
-      display: inline-flex;
+    .multi-header {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: var(--space-2);
+      margin-bottom: var(--space-4);
+    }
+    .multi-label {
       font-size: var(--text-xs);
-      color: var(--text-secondary);
+      font-weight: 700;
+    }
+    .multi-range-val {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: #00d2ff;
+    }
+    .dual-range-track {
+      position: relative;
+      height: 8px;
+      background: var(--border-color);
+      border-radius: 4px;
+      margin-bottom: var(--space-3);
+    }
+    .range-fill {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background: var(--color-swiss-red);
+      border-radius: 4px;
+    }
+    .thumb {
+      position: absolute;
+      top: -8px;
+      width: 24px;
+      height: 24px;
+      background: #fff;
+      border: 2px solid var(--color-swiss-red);
+      border-radius: 50%;
       cursor: pointer;
+      transform: translateX(-50%);
+    }
+    .thumb:focus-visible {
+      outline: 2px solid #00d2ff;
+      outline-offset: 2px;
+    }
+    .multi-scale {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
     }</code></pre>
       </div>
     </section>
@@ -575,8 +591,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Deslizador de dois manípulos para seleção de intervalos fechados (início e fim) com tabindex='0' e aria-label.</span>
+            <span class="lang-en">Dual-thumb interval selector providing start and end boundaries with tabindex='0' and ARIA labels.</span>
           </p>
         </div>
 
@@ -586,8 +602,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Pistas coloridas proporcionais e manípulos ampliados (24px) para fácil toque com o polegar.</span>
+            <span class="lang-en">Proportional colored range track with 24px diameter touch-friendly thumbs.</span>
           </p>
         </div>
 
@@ -597,8 +613,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Jenifer Tidwell (Ch. 5: Getting Input), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Jenifer Tidwell (Ch. 5: Getting Input), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Permite aos festivaleiros filtrar atuações que coincidam com o seu período de permanência na Alfândega.</span>
+            <span class="lang-en">Empowers attendees to isolate stage performances matching their available evening timetable.</span>
           </p>
         </div>
       </div>
@@ -621,8 +637,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Manípulos móveis que se cruzam ou bloqueiam a seleção de valores mínimos sem indicação visual.</span>
+            <span class="lang-en">Range sliders where thumbs cross confusingly or silently enforce artificially narrow bands.</span>
           </p>
         </div>
 
@@ -632,9 +648,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Garantir que os dois manípulos nunca ficam sobrepostos de forma a bloquear a seleção inversa.</span><span class="lang-en">Ensure thumbs cannot overlap in ways that prevent reverse adjustment.</span></li>
           </ul>
         </div>
       </div>

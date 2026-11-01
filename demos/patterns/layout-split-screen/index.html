@@ -319,28 +319,71 @@
       border-radius: 2px;
     }
     
-    .layout-demo-grid {
+    .drumtiks-split-screen {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-2);
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-4);
+      width: 100%;
     }
-    .layout-card {
+    .split-pane {
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      border-top: 3px solid var(--color-swiss-red);
-      padding: var(--space-4);
-      border-radius: 2px;
+      border-radius: 6px;
+      padding: var(--space-5);
+      display: flex;
+      flex-direction: column;
     }
-    .layout-card h4 {
-      font-size: var(--text-sm);
-      margin: var(--space-2) 0 var(--space-1);
-    }
-    .layout-card p {
-      font-size: var(--text-xs);
+    .pane-badge {
+      font-size: 11px;
+      font-weight: 700;
       color: var(--text-secondary);
-      margin: 0;
-      line-height: 1.5;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-2);
+    }
+    .pro-badge {
+      color: var(--color-swiss-red);
+    }
+    .pane-title {
+      font-size: var(--text-base);
+      font-weight: 700;
+      margin: 0 0 var(--space-3) 0;
+      color: var(--text-primary);
+    }
+    .pane-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--space-4) 0;
+      font-size: var(--text-xs);
+      line-height: 1.7;
+      color: var(--text-secondary);
+      flex-grow: 1;
+    }
+    .btn-split {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: var(--text-xs);
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .btn-split:hover {
+      border-color: var(--text-primary);
+    }
+    .btn-split-pro {
+      background: var(--color-swiss-red);
+      color: #fff;
+      border-color: var(--color-swiss-red);
+    }
+    .btn-split-pro:hover {
+      background: #c20000;
+      border-color: #c20000;
     }
     
   </style>
@@ -434,116 +477,127 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-layout-demo">
-  <div class="demo-title">
-    <span>📐</span> <span>Drumtiks '26 • Split Screen / Dual View (Ecrã Dividido)</span>
-    <span class="xray-badge">[LAY-10 &bull; CSS GRID / FLEXBOX]</span>
+<div class="drumtiks-split-screen">
+  <div class="split-pane pane-general">
+    <span class="pane-badge">Passe Geral</span>
+    <h3 class="pane-title">Acesso Festival &bull; 95&euro;</h3>
+    <ul class="pane-features">
+      <li>&#10003; Acesso a todos os 4 palcos</li>
+      <li>&#10003; Entrada nos 3 dias do evento</li>
+      <li>&#10003; Copo oficial reutilizável</li>
+    </ul>
+    <a href="#buy-general" class="btn-split">Comprar Geral</a>
   </div>
-  <div class="layout-demo-grid">
-    <article class="layout-card">
-      <span class="badge badge-foundational">PALCO ALFÂNDEGA</span>
-      <h4>DJ Warp (Live)</h4>
-      <p>Modular techno &amp; live drum kinetics a 140 BPM.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-    <article class="layout-card">
-      <span class="badge badge-intermediate">PALCO DOURO</span>
-      <h4>Helena Hauff</h4>
-      <p>Raw analog electro e batidas industriais acid.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-    <article class="layout-card">
-      <span class="badge badge-advanced">CLUBBING VAULT</span>
-      <h4>Surgeon</h4>
-      <p>Hypnotic Birmingham techno nas abóbadas subterrâneas.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
+
+  <div class="split-pane pane-pro">
+    <span class="pane-badge pro-badge">Passe Pro Modular</span>
+    <h3 class="pane-title">Acesso Total &bull; 175&euro;</h3>
+    <ul class="pane-features">
+      <li>&#10003; Todos os 4 palcos + Backstage</li>
+      <li>&#10003; Acesso aos 4 Workshops de Síntese</li>
+      <li>&#10003; Sessão com artistas e engenheiros</li>
+    </ul>
+    <a href="#buy-pro" class="btn-split btn-split-pro">Comprar Passe Pro</a>
   </div>
+  <span class="xray-badge">[SPLIT SCREEN: 50/50 DESKTOP &bull; STACKED MOBILE]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-layout-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;📐&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Split Screen / Dual View (Ecrã Dividido)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[LAY-10 &amp;bull; CSS GRID / FLEXBOX]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-split-screen&quot;&gt;
+  &lt;div class=&quot;split-pane pane-general&quot;&gt;
+    &lt;span class=&quot;pane-badge&quot;&gt;Passe Geral&lt;/span&gt;
+    &lt;h3 class=&quot;pane-title&quot;&gt;Acesso Festival &amp;bull; 95&amp;euro;&lt;/h3&gt;
+    &lt;ul class=&quot;pane-features&quot;&gt;
+      &lt;li&gt;&amp;#10003; Acesso a todos os 4 palcos&lt;/li&gt;
+      &lt;li&gt;&amp;#10003; Entrada nos 3 dias do evento&lt;/li&gt;
+      &lt;li&gt;&amp;#10003; Copo oficial reutilizável&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;a href=&quot;#buy-general&quot; class=&quot;btn-split&quot;&gt;Comprar Geral&lt;/a&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;layout-demo-grid&quot;&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-foundational&quot;&gt;PALCO ALFÂNDEGA&lt;/span&gt;
-      &lt;h4&gt;DJ Warp (Live)&lt;/h4&gt;
-      &lt;p&gt;Modular techno &amp;amp; live drum kinetics a 140 BPM.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-intermediate&quot;&gt;PALCO DOURO&lt;/span&gt;
-      &lt;h4&gt;Helena Hauff&lt;/h4&gt;
-      &lt;p&gt;Raw analog electro e batidas industriais acid.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-advanced&quot;&gt;CLUBBING VAULT&lt;/span&gt;
-      &lt;h4&gt;Surgeon&lt;/h4&gt;
-      &lt;p&gt;Hypnotic Birmingham techno nas abóbadas subterrâneas.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
+
+  &lt;div class=&quot;split-pane pane-pro&quot;&gt;
+    &lt;span class=&quot;pane-badge pro-badge&quot;&gt;Passe Pro Modular&lt;/span&gt;
+    &lt;h3 class=&quot;pane-title&quot;&gt;Acesso Total &amp;bull; 175&amp;euro;&lt;/h3&gt;
+    &lt;ul class=&quot;pane-features&quot;&gt;
+      &lt;li&gt;&amp;#10003; Todos os 4 palcos + Backstage&lt;/li&gt;
+      &lt;li&gt;&amp;#10003; Acesso aos 4 Workshops de Síntese&lt;/li&gt;
+      &lt;li&gt;&amp;#10003; Sessão com artistas e engenheiros&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;a href=&quot;#buy-pro&quot; class=&quot;btn-split btn-split-pro&quot;&gt;Comprar Passe Pro&lt;/a&gt;
   &lt;/div&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[SPLIT SCREEN: 50/50 DESKTOP &amp;bull; STACKED MOBILE]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-    }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .layout-demo-grid {
+        <pre><code>.drumtiks-split-screen {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-2);
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-4);
+      width: 100%;
     }
-    .layout-card {
+    .split-pane {
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      border-top: 3px solid var(--color-swiss-red);
-      padding: var(--space-4);
-      border-radius: 2px;
+      border-radius: 6px;
+      padding: var(--space-5);
+      display: flex;
+      flex-direction: column;
     }
-    .layout-card h4 {
-      font-size: var(--text-sm);
-      margin: var(--space-2) 0 var(--space-1);
-    }
-    .layout-card p {
-      font-size: var(--text-xs);
+    .pane-badge {
+      font-size: 11px;
+      font-weight: 700;
       color: var(--text-secondary);
-      margin: 0;
-      line-height: 1.5;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-2);
+    }
+    .pro-badge {
+      color: var(--color-swiss-red);
+    }
+    .pane-title {
+      font-size: var(--text-base);
+      font-weight: 700;
+      margin: 0 0 var(--space-3) 0;
+      color: var(--text-primary);
+    }
+    .pane-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--space-4) 0;
+      font-size: var(--text-xs);
+      line-height: 1.7;
+      color: var(--text-secondary);
+      flex-grow: 1;
+    }
+    .btn-split {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: var(--text-xs);
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .btn-split:hover {
+      border-color: var(--text-primary);
+    }
+    .btn-split-pro {
+      background: var(--color-swiss-red);
+      color: #fff;
+      border-color: var(--color-swiss-red);
+    }
+    .btn-split-pro:hover {
+      background: #c20000;
+      border-color: #c20000;
     }</code></pre>
       </div>
     </section>
@@ -563,8 +617,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Estrutura paralela que facilita a comparação direta entre duas modalidades de bilhetes do festival.</span>
+            <span class="lang-en">Parallel layout facilitating direct side-by-side comparison between festival pass tiers.</span>
           </p>
         </div>
 
@@ -574,8 +628,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Grelha responsiva auto-fit minmax(260px, 1fr) que divide o ecrã em duas metades simétricas ou empilha em ecrãs verticais.</span>
+            <span class="lang-en">auto-fit minmax(260px, 1fr) grid creating balanced 50/50 dual view that stacks cleanly on mobile.</span>
           </p>
         </div>
 
@@ -585,8 +639,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Ethan Marcotte (Responsive Web Design), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Ethan Marcotte (Responsive Web Design), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Permite ponderar prós e contras de cada opção sem navegação fragmentada entre páginas.</span>
+            <span class="lang-en">Enables informed comparison of features without bouncing between separate pricing pages.</span>
           </p>
         </div>
       </div>
@@ -609,8 +663,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Contraste enganador (Deceptive Contrast): tornar o botão do bilhete normal quase invisível para forçar a compra do bilhete Pro.</span>
+            <span class="lang-en">Deceptive Contrast: reducing the standard ticket CTA to near invisible contrast to push users into premium tiers.</span>
           </p>
         </div>
 
@@ -620,9 +674,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Garantir contraste mínimo WCAG AA em ambos os botões e clareza no preço final com taxas incluídas.</span><span class="lang-en">Maintain WCAG AA contrast on all options and display all inclusive taxes upfront.</span></li>
           </ul>
         </div>
       </div>

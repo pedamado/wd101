@@ -319,31 +319,42 @@
       border-radius: 2px;
     }
     
-    .table-responsive-wrapper {
-      overflow-x: auto;
+    .drumtiks-pullrefresh-demo {
+      background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      border-radius: 4px;
-    }
-    .drumtiks-table {
+      border-radius: 6px;
+      padding: var(--space-4);
       width: 100%;
-      border-collapse: collapse;
+      max-width: 420px;
+    }
+    .pull-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      padding-bottom: var(--space-3);
+      color: var(--color-swiss-red);
       font-size: var(--text-xs);
-      text-align: left;
+      font-weight: 700;
     }
-    .drumtiks-table th {
-      background: var(--bg-surface-elevated);
+    .pull-spinner {
+      font-size: 16px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .refresh-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
       padding: var(--space-3);
-      font-family: var(--font-mono);
+      border-radius: 4px;
+      font-size: var(--text-xs);
+    }
+    .refresh-card p {
+      margin: 4px 0 0 0;
       color: var(--text-secondary);
-      border-bottom: 2px solid var(--border-color);
-    }
-    .drumtiks-table td {
-      padding: var(--space-3);
-      border-bottom: 1px solid var(--border-color);
-      color: var(--text-primary);
-    }
-    .drumtiks-table tr:hover td {
-      background: var(--bg-surface-elevated);
     }
     
   </style>
@@ -437,153 +448,72 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-data-demo">
-  <div class="demo-title">
-    <span>📊</span> <span>Drumtiks '26 • Pull-to-Refresh (Puxar para Atualizar)</span>
-    <span class="xray-badge">[DAT-10 &bull; DATA VISUALIZATION / TABLE]</span>
+<div class="drumtiks-pullrefresh-demo">
+  <div class="pull-indicator">
+    <span class="pull-spinner">&#8635;</span>
+    <span class="pull-label">Puxe para sincronizar horários em direto da Alfândega...</span>
   </div>
-  <div class="table-responsive-wrapper">
-    <table class="drumtiks-table">
-      <thead>
-        <tr>
-          <th>Horário</th>
-          <th>Palco</th>
-          <th>Artista</th>
-          <th>Estilo &amp; BPM</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>22:00 - 00:00</td>
-          <td>Alfândega Principal</td>
-          <td><strong>DJ Warp</strong></td>
-          <td>Live Modular • 140 BPM</td>
-          <td><span class="badge badge-foundational">Confirmado</span></td>
-        </tr>
-        <tr>
-          <td>00:00 - 02:00</td>
-          <td>Palco Douro</td>
-          <td><strong>Helena Hauff</strong></td>
-          <td>Electro / Acid • 135 BPM</td>
-          <td><span class="badge badge-foundational">Confirmado</span></td>
-        </tr>
-        <tr>
-          <td>02:00 - 04:30</td>
-          <td>Clubbing Vault</td>
-          <td><strong>Surgeon</strong></td>
-          <td>Industrial Techno • 142 BPM</td>
-          <td><span class="badge badge-intermediate">Lotação Quase Esgotada</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <span class="xray-badge">[TABLE &bull; THEAD &gt; TH &bull; TBODY &gt; TD]</span>
+  <div class="refresh-card">
+    <strong>Última atualização: 14:02:18</strong>
+    <p>Todos os 4 palcos operacionais sem atrasos comunicados.</p>
   </div>
+  <span class="xray-badge">[PULL-TO-REFRESH &bull; TOUCH ACTION: PAN-Y &bull; TIMELY LIVE FEED]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-data-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;📊&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Pull-to-Refresh (Puxar para Atualizar)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[DAT-10 &amp;bull; DATA VISUALIZATION / TABLE]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-pullrefresh-demo&quot;&gt;
+  &lt;div class=&quot;pull-indicator&quot;&gt;
+    &lt;span class=&quot;pull-spinner&quot;&gt;&amp;#8635;&lt;/span&gt;
+    &lt;span class=&quot;pull-label&quot;&gt;Puxe para sincronizar horários em direto da Alfândega...&lt;/span&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;table-responsive-wrapper&quot;&gt;
-    &lt;table class=&quot;drumtiks-table&quot;&gt;
-      &lt;thead&gt;
-        &lt;tr&gt;
-          &lt;th&gt;Horário&lt;/th&gt;
-          &lt;th&gt;Palco&lt;/th&gt;
-          &lt;th&gt;Artista&lt;/th&gt;
-          &lt;th&gt;Estilo &amp;amp; BPM&lt;/th&gt;
-          &lt;th&gt;Estado&lt;/th&gt;
-        &lt;/tr&gt;
-      &lt;/thead&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;22:00 - 00:00&lt;/td&gt;
-          &lt;td&gt;Alfândega Principal&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;DJ Warp&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;Live Modular • 140 BPM&lt;/td&gt;
-          &lt;td&gt;&lt;span class=&quot;badge badge-foundational&quot;&gt;Confirmado&lt;/span&gt;&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;00:00 - 02:00&lt;/td&gt;
-          &lt;td&gt;Palco Douro&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;Helena Hauff&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;Electro / Acid • 135 BPM&lt;/td&gt;
-          &lt;td&gt;&lt;span class=&quot;badge badge-foundational&quot;&gt;Confirmado&lt;/span&gt;&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;02:00 - 04:30&lt;/td&gt;
-          &lt;td&gt;Clubbing Vault&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;Surgeon&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;Industrial Techno • 142 BPM&lt;/td&gt;
-          &lt;td&gt;&lt;span class=&quot;badge badge-intermediate&quot;&gt;Lotação Quase Esgotada&lt;/span&gt;&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[TABLE &amp;bull; THEAD &amp;gt; TH &amp;bull; TBODY &amp;gt; TD]&lt;/span&gt;
+  &lt;div class=&quot;refresh-card&quot;&gt;
+    &lt;strong&gt;Última atualização: 14:02:18&lt;/strong&gt;
+    &lt;p&gt;Todos os 4 palcos operacionais sem atrasos comunicados.&lt;/p&gt;
   &lt;/div&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[PULL-TO-REFRESH &amp;bull; TOUCH ACTION: PAN-Y &amp;bull; TIMELY LIVE FEED]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
+        <pre><code>.drumtiks-pullrefresh-demo {
+      background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
+      border-radius: 6px;
+      padding: var(--space-4);
+      width: 100%;
+      max-width: 420px;
     }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
+    .pull-indicator {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .table-responsive-wrapper {
-      overflow-x: auto;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-    }
-    .drumtiks-table {
-      width: 100%;
-      border-collapse: collapse;
+      padding-bottom: var(--space-3);
+      color: var(--color-swiss-red);
       font-size: var(--text-xs);
-      text-align: left;
+      font-weight: 700;
     }
-    .drumtiks-table th {
-      background: var(--bg-surface-elevated);
+    .pull-spinner {
+      font-size: 16px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .refresh-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
       padding: var(--space-3);
-      font-family: var(--font-mono);
+      border-radius: 4px;
+      font-size: var(--text-xs);
+    }
+    .refresh-card p {
+      margin: 4px 0 0 0;
       color: var(--text-secondary);
-      border-bottom: 2px solid var(--border-color);
-    }
-    .drumtiks-table td {
-      padding: var(--space-3);
-      border-bottom: 1px solid var(--border-color);
-      color: var(--text-primary);
-    }
-    .drumtiks-table tr:hover td {
-      background: var(--bg-surface-elevated);
     }</code></pre>
       </div>
     </section>
@@ -603,8 +533,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Mecanismo de recarga táctil móvel acompanhado por indicador de status e carimbo temporal exato.</span>
+            <span class="lang-en">Mobile gesture refresh mechanism paired with explicit status indicator and exact timestamp.</span>
           </p>
         </div>
 
@@ -614,8 +544,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Animação sutil de rotação no indicador de sincronização e contentor elevado.</span>
+            <span class="lang-en">Subtle rotation animation on sync glyph combined with tactile surface container.</span>
           </p>
         </div>
 
@@ -625,8 +555,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Jenifer Tidwell (Ch. 6: Showing Complex Data), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Jenifer Tidwell (Ch. 6: Showing Complex Data), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Permite aos festivaleiros atualizar os horários ao vivo no meio da multidão com um simples gesto de puxar.</span>
+            <span class="lang-en">Enables festivalgoers to refresh live stage updates quickly amidst crowded concert halls.</span>
           </p>
         </div>
       </div>
@@ -649,8 +579,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Recarregar a página com inserção de anúncios intersticiais intrusivos no momento do refresh.</span>
+            <span class="lang-en">Hijacking the pull-to-refresh action to inject intrusive fullscreen promotional interstitials.</span>
           </p>
         </div>
 
@@ -660,9 +590,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Atualizar estritamente os dados solicitados sem interromper a visualização com anúncios surpresa.</span><span class="lang-en">Refresh strictly the requested operational data without injecting surprise commercials.</span></li>
           </ul>
         </div>
       </div>

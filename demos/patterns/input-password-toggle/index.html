@@ -319,37 +319,45 @@
       border-radius: 2px;
     }
     
-    .demo-form {
-      max-width: 480px;
-    }
-    .form-label {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: var(--space-1);
-    }
-    .form-control {
+    .drumtiks-password-toggle-demo {
       width: 100%;
-      padding: var(--space-2) var(--space-3);
-      font-size: var(--text-sm);
-      border: 1px solid var(--border-color);
-      background: var(--bg-surface-elevated);
-      color: var(--text-primary);
-      border-radius: 2px;
+      max-width: 360px;
     }
-    .form-control:focus {
-      outline: 2px solid var(--color-swiss-red);
-      outline-offset: -1px;
-    }
-    .checkbox-container {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
+    .pass-label {
+      display: block;
       font-size: var(--text-xs);
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+    .pass-wrapper {
+      display: flex;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      overflow: hidden;
+      min-height: 44px;
+    }
+    .pass-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 10px 12px;
+      font-size: var(--text-xs);
+      color: var(--text-primary);
+      outline: none;
+    }
+    .btn-toggle-mask {
+      background: var(--bg-surface);
+      border: none;
+      border-left: 1px solid var(--border-color);
+      padding: 0 12px;
+      font-size: 11px;
+      font-weight: 700;
       color: var(--text-secondary);
       cursor: pointer;
+    }
+    .btn-toggle-mask:hover {
+      color: var(--color-swiss-red);
     }
     
   </style>
@@ -443,119 +451,73 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-input-demo">
-  <div class="demo-title">
-    <span>📝</span> <span>Drumtiks '26 • Password Masking with Toggle (Alternador de Senha)</span>
-    <span class="xray-badge">[INP-19 &bull; FORM INPUT &bull; FOR/ID BINDING]</span>
-  </div>
-  <form class="demo-form" onsubmit="event.preventDefault(); alert('Registo submetido com sucesso!');">
-    <div class="form-group">
-      <label for="demo-input-attendee" class="form-label">Nome do Participante / DJ Handle:</label>
-      <input type="text" id="demo-input-attendee" class="form-control" placeholder="ex: Alex Warp" required>
-      <span class="xray-badge">[INPUT &bull; :FOCUS-VISIBLE &bull; REQUIRED]</span>
-    </div>
-    <div class="form-group" style="margin-top:var(--space-3);">
-      <label class="checkbox-container">
-        <input type="checkbox" id="demo-check-updates" checked>
-        <span>Receber alertas de horários e alterações de palco em tempo real</span>
-      </label>
-      <span class="xray-badge">[CHECKBOX &bull; MIN-TOUCH 44px]</span>
-    </div>
-    <button type="submit" class="btn-control action-primary" style="margin-top:var(--space-4);">
-      Submeter Inscrição no Festival ↗
+<div class="drumtiks-password-toggle-demo">
+  <label for="attendee-pass-input" class="pass-label">Palavra-passe de Acesso à Conta Drumtiks:</label>
+  <div class="pass-wrapper">
+    <input type="password" id="attendee-pass-input" value="Sintetizador#2026" class="pass-input">
+    <button type="button" class="btn-toggle-mask" aria-label="Mostrar ou ocultar palavra-passe" onclick="const i = document.getElementById('attendee-pass-input'); const isP = i.type === 'password'; i.type = isP ? 'text' : 'password'; this.textContent = isP ? 'Ocultar' : 'Mostrar'">
+      Mostrar
     </button>
-  </form>
+  </div>
+  <span class="xray-badge">[PASSWORD MASKING WITH TOGGLE &bull; DYNAMIC INPUT TYPE &bull; ACCESSIBLE BTN]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-input-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;📝&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Password Masking with Toggle (Alternador de Senha)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[INP-19 &amp;bull; FORM INPUT &amp;bull; FOR/ID BINDING]&lt;/span&gt;
-  &lt;/div&gt;
-  &lt;form class=&quot;demo-form&quot; onsubmit=&quot;event.preventDefault(); alert(&#x27;Registo submetido com sucesso!&#x27;);&quot;&gt;
-    &lt;div class=&quot;form-group&quot;&gt;
-      &lt;label for=&quot;demo-input-attendee&quot; class=&quot;form-label&quot;&gt;Nome do Participante / DJ Handle:&lt;/label&gt;
-      &lt;input type=&quot;text&quot; id=&quot;demo-input-attendee&quot; class=&quot;form-control&quot; placeholder=&quot;ex: Alex Warp&quot; required&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[INPUT &amp;bull; :FOCUS-VISIBLE &amp;bull; REQUIRED]&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;form-group&quot; style=&quot;margin-top:var(--space-3);&quot;&gt;
-      &lt;label class=&quot;checkbox-container&quot;&gt;
-        &lt;input type=&quot;checkbox&quot; id=&quot;demo-check-updates&quot; checked&gt;
-        &lt;span&gt;Receber alertas de horários e alterações de palco em tempo real&lt;/span&gt;
-      &lt;/label&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[CHECKBOX &amp;bull; MIN-TOUCH 44px]&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;button type=&quot;submit&quot; class=&quot;btn-control action-primary&quot; style=&quot;margin-top:var(--space-4);&quot;&gt;
-      Submeter Inscrição no Festival ↗
+        <pre><code>&lt;div class=&quot;drumtiks-password-toggle-demo&quot;&gt;
+  &lt;label for=&quot;attendee-pass-input&quot; class=&quot;pass-label&quot;&gt;Palavra-passe de Acesso à Conta Drumtiks:&lt;/label&gt;
+  &lt;div class=&quot;pass-wrapper&quot;&gt;
+    &lt;input type=&quot;password&quot; id=&quot;attendee-pass-input&quot; value=&quot;Sintetizador#2026&quot; class=&quot;pass-input&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn-toggle-mask&quot; aria-label=&quot;Mostrar ou ocultar palavra-passe&quot; onclick=&quot;const i = document.getElementById(&#x27;attendee-pass-input&#x27;); const isP = i.type === &#x27;password&#x27;; i.type = isP ? &#x27;text&#x27; : &#x27;password&#x27;; this.textContent = isP ? &#x27;Ocultar&#x27; : &#x27;Mostrar&#x27;&quot;&gt;
+      Mostrar
     &lt;/button&gt;
-  &lt;/form&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[PASSWORD MASKING WITH TOGGLE &amp;bull; DYNAMIC INPUT TYPE &amp;bull; ACCESSIBLE BTN]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
+        <pre><code>.drumtiks-password-toggle-demo {
+      width: 100%;
+      max-width: 360px;
+    }
+    .pass-label {
+      display: block;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+    .pass-wrapper {
+      display: flex;
+      background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
       border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
+      overflow: hidden;
+      min-height: 44px;
     }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .demo-form {
-      max-width: 480px;
-    }
-    .form-label {
-      display: block;
-      font-family: var(--font-mono);
+    .pass-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 10px 12px;
       font-size: var(--text-xs);
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: var(--space-1);
-    }
-    .form-control {
-      width: 100%;
-      padding: var(--space-2) var(--space-3);
-      font-size: var(--text-sm);
-      border: 1px solid var(--border-color);
-      background: var(--bg-surface-elevated);
       color: var(--text-primary);
-      border-radius: 2px;
+      outline: none;
     }
-    .form-control:focus {
-      outline: 2px solid var(--color-swiss-red);
-      outline-offset: -1px;
-    }
-    .checkbox-container {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      font-size: var(--text-xs);
+    .btn-toggle-mask {
+      background: var(--bg-surface);
+      border: none;
+      border-left: 1px solid var(--border-color);
+      padding: 0 12px;
+      font-size: 11px;
+      font-weight: 700;
       color: var(--text-secondary);
       cursor: pointer;
+    }
+    .btn-toggle-mask:hover {
+      color: var(--color-swiss-red);
     }</code></pre>
       </div>
     </section>
@@ -575,8 +537,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Alternador de máscara de senha que altera dinamicamente o atributo type entre 'password' e 'text' com botão acessível.</span>
+            <span class="lang-en">Dynamic password masking toggle alternating input type between 'password' and 'text' via accessible button.</span>
           </p>
         </div>
 
@@ -586,8 +548,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Botão perfeitamente integrado na extremidade direita do campo sem comprometer os 44px de altura tátil.</span>
+            <span class="lang-en">Seamless right-aligned button maintaining the required 44px tap boundaries.</span>
           </p>
         </div>
 
@@ -597,8 +559,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Jenifer Tidwell (Ch. 5: Getting Input), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Jenifer Tidwell (Ch. 5: Getting Input), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Evita erros de digitação em palavras-passe complexas em dispositivos móveis no meio do recinto ruidoso do festival.</span>
+            <span class="lang-en">Drastically reduces frustrating password typos on mobile devices amid hectic festival environments.</span>
           </p>
         </div>
       </div>
@@ -621,8 +583,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Ocultar a palavra-passe sem fornecer botão de revelação, provocando bloqueios repetidos de conta.</span>
+            <span class="lang-en">Forbidding password unmasking leading to repeated account lockouts and friction.</span>
           </p>
         </div>
 
@@ -632,9 +594,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Fornecer sempre o botão de alternância de visibilidade em todos os campos de palavra-passe.</span><span class="lang-en">Always provide an unmasking visibility toggle on password entry fields.</span></li>
           </ul>
         </div>
       </div>

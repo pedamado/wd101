@@ -319,29 +319,44 @@
       border-radius: 2px;
     }
     
-    .layout-demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-2);
+    .drumtiks-masonry-grid {
+      column-count: 2;
+      column-gap: var(--space-3);
+      width: 100%;
     }
-    .layout-card {
+    @media (max-width: 480px) {
+      .drumtiks-masonry-grid {
+        column-count: 1;
+      }
+    }
+    .masonry-item {
+      break-inside: avoid;
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      border-top: 3px solid var(--color-swiss-red);
-      padding: var(--space-4);
-      border-radius: 2px;
+      border-radius: 4px;
+      padding: var(--space-3);
+      margin-bottom: var(--space-3);
     }
-    .layout-card h4 {
+    .m-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--color-swiss-red);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .masonry-item h4 {
+      margin: var(--space-1) 0;
       font-size: var(--text-sm);
-      margin: var(--space-2) 0 var(--space-1);
     }
-    .layout-card p {
+    .masonry-item p {
+      margin: 0;
       font-size: var(--text-xs);
       color: var(--text-secondary);
-      margin: 0;
-      line-height: 1.5;
+      line-height: 1.4;
     }
+    .item-h1 { min-height: 90px; }
+    .item-h2 { min-height: 130px; }
+    .item-h3 { min-height: 160px; }
     
   </style>
 </head>
@@ -434,117 +449,98 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-layout-demo">
-  <div class="demo-title">
-    <span>📐</span> <span>Drumtiks '26 • Masonry Grid (Grelha Estilo Alvenaria / Pinterest)</span>
-    <span class="xray-badge">[LAY-11 &bull; CSS GRID / FLEXBOX]</span>
+<div class="drumtiks-masonry-grid">
+  <div class="masonry-item item-h1">
+    <span class="m-tag">Palco Rio</span>
+    <h4>Montagem de PA</h4>
+    <p>Calibração de subwoofers cardióides junto ao Douro.</p>
   </div>
-  <div class="layout-demo-grid">
-    <article class="layout-card">
-      <span class="badge badge-foundational">PALCO ALFÂNDEGA</span>
-      <h4>DJ Warp (Live)</h4>
-      <p>Modular techno &amp; live drum kinetics a 140 BPM.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-    <article class="layout-card">
-      <span class="badge badge-intermediate">PALCO DOURO</span>
-      <h4>Helena Hauff</h4>
-      <p>Raw analog electro e batidas industriais acid.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-    <article class="layout-card">
-      <span class="badge badge-advanced">CLUBBING VAULT</span>
-      <h4>Surgeon</h4>
-      <p>Hypnotic Birmingham techno nas abóbadas subterrâneas.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
+  <div class="masonry-item item-h3">
+    <span class="m-tag">Live Synth</span>
+    <h4>Rack Eurorack 12U</h4>
+    <p>Módulos de filtro analógico e geradores de ruído rosa prontos para a abertura.</p>
   </div>
+  <div class="masonry-item item-h2">
+    <span class="m-tag">Bastidores</span>
+    <h4>Sincronização Master</h4>
+    <p>Distribuição de sinal DIN Sync a 24 PPQN para as caixas de ritmos.</p>
+  </div>
+  <div class="masonry-item item-h1">
+    <span class="m-tag">Acessos</span>
+    <h4>Alfândega do Porto</h4>
+    <p>Entrada nascente aberta para credenciação e pulseiras RFID.</p>
+  </div>
+  <span class="xray-badge">[COLUMNS: 2 (CSS MASONRY OR MULTI-COLUMN) &bull; BREAK-INSIDE: AVOID]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-layout-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;📐&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Masonry Grid (Grelha Estilo Alvenaria / Pinterest)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[LAY-11 &amp;bull; CSS GRID / FLEXBOX]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-masonry-grid&quot;&gt;
+  &lt;div class=&quot;masonry-item item-h1&quot;&gt;
+    &lt;span class=&quot;m-tag&quot;&gt;Palco Rio&lt;/span&gt;
+    &lt;h4&gt;Montagem de PA&lt;/h4&gt;
+    &lt;p&gt;Calibração de subwoofers cardióides junto ao Douro.&lt;/p&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;layout-demo-grid&quot;&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-foundational&quot;&gt;PALCO ALFÂNDEGA&lt;/span&gt;
-      &lt;h4&gt;DJ Warp (Live)&lt;/h4&gt;
-      &lt;p&gt;Modular techno &amp;amp; live drum kinetics a 140 BPM.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-intermediate&quot;&gt;PALCO DOURO&lt;/span&gt;
-      &lt;h4&gt;Helena Hauff&lt;/h4&gt;
-      &lt;p&gt;Raw analog electro e batidas industriais acid.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-advanced&quot;&gt;CLUBBING VAULT&lt;/span&gt;
-      &lt;h4&gt;Surgeon&lt;/h4&gt;
-      &lt;p&gt;Hypnotic Birmingham techno nas abóbadas subterrâneas.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
+  &lt;div class=&quot;masonry-item item-h3&quot;&gt;
+    &lt;span class=&quot;m-tag&quot;&gt;Live Synth&lt;/span&gt;
+    &lt;h4&gt;Rack Eurorack 12U&lt;/h4&gt;
+    &lt;p&gt;Módulos de filtro analógico e geradores de ruído rosa prontos para a abertura.&lt;/p&gt;
   &lt;/div&gt;
+  &lt;div class=&quot;masonry-item item-h2&quot;&gt;
+    &lt;span class=&quot;m-tag&quot;&gt;Bastidores&lt;/span&gt;
+    &lt;h4&gt;Sincronização Master&lt;/h4&gt;
+    &lt;p&gt;Distribuição de sinal DIN Sync a 24 PPQN para as caixas de ritmos.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;masonry-item item-h1&quot;&gt;
+    &lt;span class=&quot;m-tag&quot;&gt;Acessos&lt;/span&gt;
+    &lt;h4&gt;Alfândega do Porto&lt;/h4&gt;
+    &lt;p&gt;Entrada nascente aberta para credenciação e pulseiras RFID.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[COLUMNS: 2 (CSS MASONRY OR MULTI-COLUMN) &amp;bull; BREAK-INSIDE: AVOID]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
+        <pre><code>.drumtiks-masonry-grid {
+      column-count: 2;
+      column-gap: var(--space-3);
+      width: 100%;
     }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
+    @media (max-width: 480px) {
+      .drumtiks-masonry-grid {
+        column-count: 1;
+      }
     }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .layout-demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-2);
-    }
-    .layout-card {
+    .masonry-item {
+      break-inside: avoid;
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      border-top: 3px solid var(--color-swiss-red);
-      padding: var(--space-4);
-      border-radius: 2px;
+      border-radius: 4px;
+      padding: var(--space-3);
+      margin-bottom: var(--space-3);
     }
-    .layout-card h4 {
+    .m-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--color-swiss-red);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .masonry-item h4 {
+      margin: var(--space-1) 0;
       font-size: var(--text-sm);
-      margin: var(--space-2) 0 var(--space-1);
     }
-    .layout-card p {
+    .masonry-item p {
+      margin: 0;
       font-size: var(--text-xs);
       color: var(--text-secondary);
-      margin: 0;
-      line-height: 1.5;
-    }</code></pre>
+      line-height: 1.4;
+    }
+    .item-h1 { min-height: 90px; }
+    .item-h2 { min-height: 130px; }
+    .item-h3 { min-height: 160px; }</code></pre>
       </div>
     </section>
 
@@ -563,8 +559,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Itens semânticos empilhados em alvenaria com break-inside: avoid para evitar cortes deselegantes.</span>
+            <span class="lang-en">Semantically distinct cards utilizing break-inside: avoid to prevent awkward layout fragmentations.</span>
           </p>
         </div>
 
@@ -574,8 +570,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">CSS Multi-column layout nativo com column-gap e column-count que cria o efeito alvenaria sem bibliotecas JavaScript.</span>
+            <span class="lang-en">Native CSS multi-column layout using column-gap and column-count for Masonry effect without heavy JS.</span>
           </p>
         </div>
 
@@ -585,8 +581,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Ethan Marcotte (Responsive Web Design), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Ethan Marcotte (Responsive Web Design), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Excelente para galerias fotográficas do festival ou reportagens multimédia com alturas de conteúdo orgânicas.</span>
+            <span class="lang-en">Perfect for festival photo streams and hardware photo essays featuring organic content heights.</span>
           </p>
         </div>
       </div>
@@ -609,8 +605,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Deslocamento constante de cartões enquanto imagens tardias carregam sem altura reservada.</span>
+            <span class="lang-en">Unpredictable card jumping while late images load without pre-reserved aspect ratios.</span>
           </p>
         </div>
 
@@ -620,9 +616,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Definir dimensões e proporções fixas para prevenir saltos de leitura durante o carregamento de imagens.</span><span class="lang-en">Enforce explicit aspect ratios on media items to avoid disruptive layout reflows.</span></li>
           </ul>
         </div>
       </div>

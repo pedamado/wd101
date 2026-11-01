@@ -319,32 +319,12 @@
       border-radius: 2px;
     }
     
-    .drumtiks-nav-demo {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-3);
-    }
-    .nav-interactive-bar {
-      display: flex;
-      gap: var(--space-2);
-      flex-wrap: wrap;
-    }
-    .nav-chip {
-      padding: var(--space-2) var(--space-3);
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      border-radius: 2px;
-      font-size: var(--text-xs);
-      font-weight: 600;
-      color: var(--text-primary);
-      text-decoration: none;
-      transition: all 0.15s ease;
-    }
-    .nav-chip:hover, .nav-chip.active {
-      background: var(--color-swiss-red);
-      color: #ffffff;
-      border-color: var(--color-swiss-red);
-    }
+    .pyramid-nav-mock { background: var(--bg-surface-elevated); border: 1px solid var(--border-color); border-radius: 4px; padding: var(--space-4); max-width: 440px; }
+    .pyramid-card { background: var(--bg-surface); border: 1px solid var(--border-color); padding: var(--space-3); border-radius: 2px; margin: var(--space-2) 0; }
+    .pyramid-card h4 { margin: 0 0 var(--space-1); font-size: var(--text-sm); }
+    .pyramid-card p { margin: 0; font-size: var(--text-xs); color: var(--text-secondary); }
+    .pyramid-sibling-nav { display: flex; justify-content: space-between; gap: var(--space-2); }
+    .pyramid-sibling-nav .btn-control { font-size: 11px; padding: var(--space-1) var(--space-2); }
     
   </style>
 </head>
@@ -437,94 +417,50 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-nav-demo">
-  <div class="demo-title">
-    <span>🧭</span> <span>Drumtiks '26 • Pyramid Navigation (Navegação em Pirâmide)</span>
-    <span class="xray-badge">[NAV-14 &bull; WAYFINDING &bull; MIN-TOUCH 44px]</span>
+<div class="pyramid-nav-mock">
+  <div class="pyramid-header">
+    <span class="badge badge-foundational">PALCO ALFÂNDEGA &bull; 2 DE 5 ARTISTAS</span>
   </div>
-  <nav class="nav-interactive-bar" aria-label="Pyramid Navigation">
-    <a href="#palco-alfandega" class="nav-chip active">Palco Alfândega</a>
-    <a href="#palco-douro" class="nav-chip">Palco Douro</a>
-    <a href="#clubbing-vault" class="nav-chip">Clubbing Vault</a>
-    <a href="#masterclasses" class="nav-chip">Masterclasses</a>
-    <span class="xray-badge">[FLEX-ITEM &bull; FOCUS-VISIBLE]</span>
-  </nav>
+  <div class="pyramid-card">
+    <h4>Helena Hauff (Set 00h00 - 02h00)</h4>
+    <p>Acid electro industrial gravado em fita magnética.</p>
+  </div>
+  <div class="pyramid-sibling-nav">
+    <button type="button" class="btn-control">&larr; DJ Warp (Anterior)</button>
+    <a href="#alfandega-topo" class="btn-control">Subir ao Palco &uarr;</a>
+    <button type="button" class="btn-control">Surgeon (Próximo) &rarr;</button>
+  </div>
+  <span class="xray-badge">[SIBLING TRAVERSAL]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-nav-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;🧭&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Pyramid Navigation (Navegação em Pirâmide)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[NAV-14 &amp;bull; WAYFINDING &amp;bull; MIN-TOUCH 44px]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;pyramid-nav-mock&quot;&gt;
+  &lt;div class=&quot;pyramid-header&quot;&gt;
+    &lt;span class=&quot;badge badge-foundational&quot;&gt;PALCO ALFÂNDEGA &amp;bull; 2 DE 5 ARTISTAS&lt;/span&gt;
   &lt;/div&gt;
-  &lt;nav class=&quot;nav-interactive-bar&quot; aria-label=&quot;Pyramid Navigation&quot;&gt;
-    &lt;a href=&quot;#palco-alfandega&quot; class=&quot;nav-chip active&quot;&gt;Palco Alfândega&lt;/a&gt;
-    &lt;a href=&quot;#palco-douro&quot; class=&quot;nav-chip&quot;&gt;Palco Douro&lt;/a&gt;
-    &lt;a href=&quot;#clubbing-vault&quot; class=&quot;nav-chip&quot;&gt;Clubbing Vault&lt;/a&gt;
-    &lt;a href=&quot;#masterclasses&quot; class=&quot;nav-chip&quot;&gt;Masterclasses&lt;/a&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[FLEX-ITEM &amp;bull; FOCUS-VISIBLE]&lt;/span&gt;
-  &lt;/nav&gt;
+  &lt;div class=&quot;pyramid-card&quot;&gt;
+    &lt;h4&gt;Helena Hauff (Set 00h00 - 02h00)&lt;/h4&gt;
+    &lt;p&gt;Acid electro industrial gravado em fita magnética.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;pyramid-sibling-nav&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn-control&quot;&gt;&amp;larr; DJ Warp (Anterior)&lt;/button&gt;
+    &lt;a href=&quot;#alfandega-topo&quot; class=&quot;btn-control&quot;&gt;Subir ao Palco &amp;uarr;&lt;/a&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn-control&quot;&gt;Surgeon (Próximo) &amp;rarr;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[SIBLING TRAVERSAL]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-    }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .drumtiks-nav-demo {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-3);
-    }
-    .nav-interactive-bar {
-      display: flex;
-      gap: var(--space-2);
-      flex-wrap: wrap;
-    }
-    .nav-chip {
-      padding: var(--space-2) var(--space-3);
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      border-radius: 2px;
-      font-size: var(--text-xs);
-      font-weight: 600;
-      color: var(--text-primary);
-      text-decoration: none;
-      transition: all 0.15s ease;
-    }
-    .nav-chip:hover, .nav-chip.active {
-      background: var(--color-swiss-red);
-      color: #ffffff;
-      border-color: var(--color-swiss-red);
-    }</code></pre>
+        <pre><code>.pyramid-nav-mock { background: var(--bg-surface-elevated); border: 1px solid var(--border-color); border-radius: 4px; padding: var(--space-4); max-width: 440px; }
+    .pyramid-card { background: var(--bg-surface); border: 1px solid var(--border-color); padding: var(--space-3); border-radius: 2px; margin: var(--space-2) 0; }
+    .pyramid-card h4 { margin: 0 0 var(--space-1); font-size: var(--text-sm); }
+    .pyramid-card p { margin: 0; font-size: var(--text-xs); color: var(--text-secondary); }
+    .pyramid-sibling-nav { display: flex; justify-content: space-between; gap: var(--space-2); }
+    .pyramid-sibling-nav .btn-control { font-size: 11px; padding: var(--space-1) var(--space-2); }</code></pre>
       </div>
     </section>
 
@@ -543,8 +479,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (nav, ol, li). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (nav, ol, li). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Navegação em pirâmide permitindo folhear irmãos diretamente sem voltar ao topo.</span>
+            <span class="lang-en">Pyramid navigation allowing horizontal sibling traversal without top-level backout.</span>
           </p>
         </div>
 
@@ -554,8 +490,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Distribuição flexível horizontal com alinhamento justify-content: space-between.</span>
+            <span class="lang-en">Horizontal flex distribution with justify-content: space-between.</span>
           </p>
         </div>
 
@@ -565,8 +501,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Jenifer Tidwell (Designing Interfaces 3rd Ed., Ch. 2: Navigation &amp; Wayfinding), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Jenifer Tidwell (Designing Interfaces 3rd Ed., Ch. 2: Navigation &amp; Wayfinding), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Acelera a exploração sequencial de artistas do mesmo palco.</span>
+            <span class="lang-en">Speeds up sequential exploration of artists playing the same stage.</span>
           </p>
         </div>
       </div>
@@ -589,8 +525,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Ocultar o botão de subir à categoria-pai prendendo o utilizador num carrossel infinito.</span>
+            <span class="lang-en">Hiding the return-to-parent button trapping the user in an infinite loop.</span>
           </p>
         </div>
 
@@ -600,9 +536,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Fornecer sempre atalho visível para ascender ao nível de topo da hierarquia.</span><span class="lang-en">Always provide clear link to ascend to the top hierarchical level.</span></li>
           </ul>
         </div>
       </div>

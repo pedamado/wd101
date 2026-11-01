@@ -319,76 +319,16 @@
       border-radius: 2px;
     }
     
-    .drawer-demo-wrapper {
-      position: relative;
-      min-height: 220px;
-    }
-    .btn-drawer-trigger {
-      font-size: var(--text-sm);
-      font-weight: 700;
-      padding: var(--space-2) var(--space-4);
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
-      cursor: pointer;
-    }
-    .offcanvas-drawer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 280px;
-      height: 100%;
-      background: var(--bg-surface);
-      border-right: 2px solid var(--color-swiss-red);
-      box-shadow: 4px 0 24px rgba(0,0,0,0.3);
-      padding: var(--space-4);
-      display: flex;
-      flex-direction: column;
-      transform: translateX(-105%);
-      transition: transform 0.25s ease;
-      z-index: 50;
-    }
-    .offcanvas-drawer.open {
-      transform: translateX(0);
-    }
-    .drawer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: var(--space-3);
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: var(--space-3);
-    }
-    .drawer-nav-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2);
-    }
-    .drawer-nav-list a {
-      display: block;
-      padding: var(--space-2);
-      border-radius: 2px;
-      color: var(--text-primary);
-      font-weight: 600;
-      font-size: var(--text-xs);
-    }
-    .drawer-nav-list a:hover {
-      background: var(--bg-surface-elevated);
-      color: var(--color-swiss-red);
-    }
-    .drawer-backdrop {
-      display: none;
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.4);
-      z-index: 40;
-    }
-    .drawer-backdrop.open {
-      display: block;
-    }
+    .drawer-demo-wrapper { position: relative; min-height: 220px; }
+    .btn-drawer-trigger { font-size: var(--text-sm); font-weight: 700; padding: var(--space-2) var(--space-4); background: var(--bg-surface-elevated); border: 1px solid var(--border-color); color: var(--text-primary); cursor: pointer; }
+    .offcanvas-drawer { position: absolute; top: 0; left: 0; width: 280px; height: 100%; background: var(--bg-surface); border-right: 2px solid var(--color-swiss-red); box-shadow: 4px 0 24px rgba(0,0,0,0.3); padding: var(--space-4); display: flex; flex-direction: column; transform: translateX(-105%); transition: transform 0.25s ease; z-index: 50; }
+    .offcanvas-drawer.open { transform: translateX(0); }
+    .drawer-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: var(--space-3); border-bottom: 1px solid var(--border-color); margin-bottom: var(--space-3); }
+    .drawer-nav-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+    .drawer-nav-list a { display: block; padding: var(--space-2); border-radius: 2px; color: var(--text-primary); font-weight: 600; font-size: var(--text-xs); }
+    .drawer-nav-list a:hover { background: var(--bg-surface-elevated); color: var(--color-swiss-red); }
+    .drawer-backdrop { display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 40; }
+    .drawer-backdrop.open { display: block; }
     
   </style>
 </head>
@@ -565,104 +505,16 @@
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-    }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .drawer-demo-wrapper {
-      position: relative;
-      min-height: 220px;
-    }
-    .btn-drawer-trigger {
-      font-size: var(--text-sm);
-      font-weight: 700;
-      padding: var(--space-2) var(--space-4);
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
-      cursor: pointer;
-    }
-    .offcanvas-drawer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 280px;
-      height: 100%;
-      background: var(--bg-surface);
-      border-right: 2px solid var(--color-swiss-red);
-      box-shadow: 4px 0 24px rgba(0,0,0,0.3);
-      padding: var(--space-4);
-      display: flex;
-      flex-direction: column;
-      transform: translateX(-105%);
-      transition: transform 0.25s ease;
-      z-index: 50;
-    }
-    .offcanvas-drawer.open {
-      transform: translateX(0);
-    }
-    .drawer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: var(--space-3);
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: var(--space-3);
-    }
-    .drawer-nav-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2);
-    }
-    .drawer-nav-list a {
-      display: block;
-      padding: var(--space-2);
-      border-radius: 2px;
-      color: var(--text-primary);
-      font-weight: 600;
-      font-size: var(--text-xs);
-    }
-    .drawer-nav-list a:hover {
-      background: var(--bg-surface-elevated);
-      color: var(--color-swiss-red);
-    }
-    .drawer-backdrop {
-      display: none;
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.4);
-      z-index: 40;
-    }
-    .drawer-backdrop.open {
-      display: block;
-    }</code></pre>
+        <pre><code>.drawer-demo-wrapper { position: relative; min-height: 220px; }
+    .btn-drawer-trigger { font-size: var(--text-sm); font-weight: 700; padding: var(--space-2) var(--space-4); background: var(--bg-surface-elevated); border: 1px solid var(--border-color); color: var(--text-primary); cursor: pointer; }
+    .offcanvas-drawer { position: absolute; top: 0; left: 0; width: 280px; height: 100%; background: var(--bg-surface); border-right: 2px solid var(--color-swiss-red); box-shadow: 4px 0 24px rgba(0,0,0,0.3); padding: var(--space-4); display: flex; flex-direction: column; transform: translateX(-105%); transition: transform 0.25s ease; z-index: 50; }
+    .offcanvas-drawer.open { transform: translateX(0); }
+    .drawer-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: var(--space-3); border-bottom: 1px solid var(--border-color); margin-bottom: var(--space-3); }
+    .drawer-nav-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+    .drawer-nav-list a { display: block; padding: var(--space-2); border-radius: 2px; color: var(--text-primary); font-weight: 600; font-size: var(--text-xs); }
+    .drawer-nav-list a:hover { background: var(--bg-surface-elevated); color: var(--color-swiss-red); }
+    .drawer-backdrop { display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 40; }
+    .drawer-backdrop.open { display: block; }</code></pre>
       </div>
     </section>
 
@@ -681,8 +533,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">O botão de disparo gere aria-expanded. O contentor do menu possui role='dialog' e aria-modal='true', garantindo que leitores de ecrã reconhecem a transição para um contexto de navegação sobreposto.</span>
-            <span class="lang-en">The trigger button manages aria-expanded. The drawer container bears role='dialog' and aria-modal='true', ensuring screen readers recognize transition into an overlaid navigation modal context.</span>
+            <span class="lang-pt">O botão de disparo gere aria-expanded. O menu possui role='dialog' e aria-modal='true'.</span>
+            <span class="lang-en">Trigger button manages aria-expanded. Drawer bears role='dialog' and aria-modal='true'.</span>
           </p>
         </div>
 
@@ -692,8 +544,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de transform: translateX(-105%) com transição acelerada por GPU para garantir 60fps sem repinturas de layout (reflow). O backdrop semitransparente escurece o conteúdo principal.</span>
-            <span class="lang-en">Leverages transform: translateX(-105%) with GPU hardware acceleration to ensure 60fps animation without layout reflows. Semitransparent backdrop dims main viewport.</span>
+            <span class="lang-pt">Uso de transform: translateX(-105%) acelerado por GPU com backdrop de escurecimento.</span>
+            <span class="lang-en">Leverages transform: translateX(-105%) with GPU hardware acceleration and dimming backdrop.</span>
           </p>
         </div>
 
@@ -703,8 +555,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Poupança de espaço crítico em ecrãs móveis, concentrando as decisões de navegação num painel dedicado com alvos táteis de no mínimo 44x44px.</span>
-            <span class="lang-en">Conserves critical mobile viewport real estate by grouping primary destinations into a dedicated sliding pane with 44x44px minimum touch targets.</span>
+            <span class="lang-pt">Poupa espaço no mobile com alvos táteis mínimos de 44x44px.</span>
+            <span class="lang-en">Conserves mobile viewport real estate with 44x44px minimum tap targets.</span>
           </p>
         </div>
       </div>
@@ -727,8 +579,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Roach Motel e Armadilha de Foco: remover ou reduzir o botão de fechar para forçar o utilizador a ver anúncios, ou impedir o encerramento do menu ao clicar fora no ecrã.</span>
-            <span class="lang-en">Roach Motel & Focus Trapping: removing or shrinking the close button to force interaction with promotional banners, or disabling backdrop dismissal.</span>
+            <span class="lang-pt">Roach Motel: remover o botão de fechar ou impedir que o clique fora encerre o menu.</span>
+            <span class="lang-en">Roach Motel: removing close button or disabling backdrop dismissal.</span>
           </p>
         </div>
 
@@ -738,9 +590,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Fornecer sempre um botão de fechar de alto contraste claramente identificável com alvo mínimo de 44x44px.</span><span class="lang-en">Always provide an obvious, high-contrast close button with at least 44x44px tap boundaries.</span></li>
-            <li><span class="lang-pt">Fechar imediatamente a gaveta ao pressionar a tecla Escape ou ao tocar no fundo semitransparente.</span><span class="lang-en">Dismiss immediately upon pressing Escape or tapping the surrounding backdrop.</span></li>
-            <li><span class="lang-pt">Restaurar o foco do teclado para o botão de menu quando a gaveta for fechada.</span><span class="lang-en">Restore keyboard focus back to the menu trigger button when closed.</span></li>
+            <li><span class="lang-pt">Fornecer sempre botão de fechar visível de pelo menos 44x44px e suporte à tecla Escape.</span><span class="lang-en">Always provide visible close button of at least 44x44px and Escape key dismissal.</span></li>
           </ul>
         </div>
       </div>

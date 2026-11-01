@@ -319,18 +319,47 @@
       border-radius: 2px;
     }
     
-    .btn-a11y-focus {
-      padding: var(--space-2) var(--space-4);
-      font-size: var(--text-sm);
-      font-weight: 700;
+    .drumtiks-trapping-demo {
+      width: 100%;
+      max-width: 400px;
+    }
+    .trap-card-mockup {
       background: var(--bg-surface-elevated);
+      border: 2px solid var(--color-swiss-red);
+      border-radius: 8px;
+      padding: var(--space-4);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .trap-card-mockup h4 {
+      margin: 0 0 var(--space-2) 0;
+      font-size: var(--text-sm);
+    }
+    .trap-card-mockup p {
+      margin: 0 0 var(--space-3) 0;
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+    .trap-actions {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+    .btn-trap-item {
+      background: var(--bg-surface);
       border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      font-size: var(--text-xs);
+      border-radius: 4px;
       color: var(--text-primary);
       cursor: pointer;
+      min-height: 40px;
     }
-    .btn-a11y-focus:focus-visible {
-      outline: 3px solid var(--color-swiss-red);
-      outline-offset: 3px;
+    .btn-close-trap {
+      background: var(--color-swiss-red);
+      color: #fff;
+      border: none;
+      font-weight: 700;
     }
     
   </style>
@@ -424,84 +453,79 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-a11y-demo">
-  <div class="demo-title">
-    <span>♿</span> <span>Drumtiks '26 • Keyboard Trapping &amp;amp; Restoration (Confinamento de Foco)</span>
-    <span class="xray-badge">[A11Y-04 &bull; ACCESSIBLE WCAG 2.2 AA]</span>
+<div class="drumtiks-trapping-demo">
+  <div class="trap-card-mockup" role="dialog" aria-modal="true" aria-labelledby="trap-dialog-title">
+    <h4 id="trap-dialog-title">Janela Confinada de Seleção de Bilhete</h4>
+    <p>O foco do teclado fica confinado ciclicamente dentro desta janela até ser expressamente fechada.</p>
+    <div class="trap-actions">
+      <button type="button" class="btn-trap-item">Opção A</button>
+      <button type="button" class="btn-trap-item">Opção B</button>
+      <button type="button" class="btn-trap-item btn-close-trap">Fechar &amp; Restaurar Foco</button>
+    </div>
   </div>
-  <div class="a11y-demo-content">
-    <button type="button" class="btn-control btn-a11y-focus" aria-label="Ativar Modo Alto Contraste">
-      <span>👁️ Alternar Contraste Acessível</span>
-      <span class="xray-badge">[:FOCUS-VISIBLE 3PX OUTLINE]</span>
-    </button>
-    <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-top:var(--space-2);">
-      Navegue usando apenas o teclado (Tab) para visualizar o anel de foco de alto contraste conforme WCAG 2.2 Critério 2.4.13.
-    </p>
-  </div>
+  <span class="xray-badge">[KEYBOARD TRAPPING &amp; RESTORATION &bull; ARIA-MODAL="TRUE" &bull; FOCUS RESTORE]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-a11y-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;♿&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Keyboard Trapping &amp;amp;amp; Restoration (Confinamento de Foco)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[A11Y-04 &amp;bull; ACCESSIBLE WCAG 2.2 AA]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-trapping-demo&quot;&gt;
+  &lt;div class=&quot;trap-card-mockup&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;trap-dialog-title&quot;&gt;
+    &lt;h4 id=&quot;trap-dialog-title&quot;&gt;Janela Confinada de Seleção de Bilhete&lt;/h4&gt;
+    &lt;p&gt;O foco do teclado fica confinado ciclicamente dentro desta janela até ser expressamente fechada.&lt;/p&gt;
+    &lt;div class=&quot;trap-actions&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn-trap-item&quot;&gt;Opção A&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn-trap-item&quot;&gt;Opção B&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn-trap-item btn-close-trap&quot;&gt;Fechar &amp;amp; Restaurar Foco&lt;/button&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;a11y-demo-content&quot;&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control btn-a11y-focus&quot; aria-label=&quot;Ativar Modo Alto Contraste&quot;&gt;
-      &lt;span&gt;👁️ Alternar Contraste Acessível&lt;/span&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[:FOCUS-VISIBLE 3PX OUTLINE]&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;p style=&quot;font-size:var(--text-xs); color:var(--text-secondary); margin-top:var(--space-2);&quot;&gt;
-      Navegue usando apenas o teclado (Tab) para visualizar o anel de foco de alto contraste conforme WCAG 2.2 Critério 2.4.13.
-    &lt;/p&gt;
-  &lt;/div&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[KEYBOARD TRAPPING &amp;amp; RESTORATION &amp;bull; ARIA-MODAL=&quot;TRUE&quot; &amp;bull; FOCUS RESTORE]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
+        <pre><code>.drumtiks-trapping-demo {
+      width: 100%;
+      max-width: 400px;
+    }
+    .trap-card-mockup {
+      background: var(--bg-surface-elevated);
+      border: 2px solid var(--color-swiss-red);
+      border-radius: 8px;
+      padding: var(--space-4);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .trap-card-mockup h4 {
+      margin: 0 0 var(--space-2) 0;
+      font-size: var(--text-sm);
+    }
+    .trap-card-mockup p {
+      margin: 0 0 var(--space-3) 0;
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+    .trap-actions {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+    .btn-trap-item {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      font-size: var(--text-xs);
       border-radius: 4px;
       color: var(--text-primary);
-      font-family: var(--font-sans);
-    }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .btn-a11y-focus {
-      padding: var(--space-2) var(--space-4);
-      font-size: var(--text-sm);
-      font-weight: 700;
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
       cursor: pointer;
+      min-height: 40px;
     }
-    .btn-a11y-focus:focus-visible {
-      outline: 3px solid var(--color-swiss-red);
-      outline-offset: 3px;
+    .btn-close-trap {
+      background: var(--color-swiss-red);
+      color: #fff;
+      border: none;
+      font-weight: 700;
     }</code></pre>
       </div>
     </section>
@@ -521,8 +545,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Padrão de confinamento de foco WAI-ARIA com role='dialog', aria-modal='true' e restauro de foco no fecho.</span>
+            <span class="lang-en">WAI-ARIA focus trapping pattern with role='dialog', aria-modal='true', and focus return on dismiss.</span>
           </p>
         </div>
 
@@ -532,8 +556,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Contorno em vermelho destacando que a janela está em modo modal exclusivo.</span>
+            <span class="lang-en">Bold red border accent indicating exclusive modal interaction state.</span>
           </p>
         </div>
 
@@ -543,8 +567,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de W3C Web Content Accessibility Guidelines (WCAG 2.2 AA), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from W3C Web Content Accessibility Guidelines (WCAG 2.2 AA), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Impede utilizadores de teclado de saltarem acidentalmente para links invisíveis por baixo do modal.</span>
+            <span class="lang-en">Prevents keyboard users from tabbing into invisible underlying links behind active modal dialogs.</span>
           </p>
         </div>
       </div>
@@ -567,8 +591,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Armadilha de teclado maliciosa sem botão de fecho que impede o utilizador de sair da página comercial.</span>
+            <span class="lang-en">Malicious keyboard traps with no exit path, capturing keyboard focus inside promotional walls.</span>
           </p>
         </div>
 
@@ -578,9 +602,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Permitir sempre sair do confinamento com Escape e restaurar o foco para o elemento chamador original.</span><span class="lang-en">Always permit Escape dismissal and restore keyboard focus to the initial invoking trigger.</span></li>
           </ul>
         </div>
       </div>

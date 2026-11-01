@@ -476,35 +476,7 @@
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-    }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .drumtiks-breadcrumb {
+        <pre><code>.drumtiks-breadcrumb {
       padding: var(--space-3) var(--space-4);
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
@@ -555,8 +527,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de &lt;nav aria-label='...'&gt; semântico com lista ordenada &lt;ol&gt; e itens &lt;li&gt;. O último nó contém aria-current='page' para informar utilizadores de tecnologias de apoio que se trata da página atual sem link redundante.</span>
-            <span class="lang-en">Semantic &lt;nav aria-label='...'&gt; wrapping an ordered list &lt;ol&gt; with &lt;li&gt; items. The terminal node features aria-current='page' to announce current page context to screen readers without generating a redundant self-link.</span>
+            <span class="lang-pt">Uso de &lt;nav aria-label='...'&gt; semântico com lista ordenada &lt;ol&gt; e itens &lt;li&gt;. O último nó contém aria-current='page' para informar tecnologias de apoio.</span>
+            <span class="lang-en">Semantic &lt;nav aria-label='...'&gt; wrapping an ordered list &lt;ol&gt; with &lt;li&gt; items. Terminal node features aria-current='page' to announce current page context.</span>
           </p>
         </div>
 
@@ -566,8 +538,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Layout Flexbox inline com flex-wrap: wrap para garantir que o rasto de navegação não transborda em ecrãs estreitos, preservando alvos táteis confortáveis e separadores decorativos com user-select: none.</span>
-            <span class="lang-en">Flexbox inline layout with flex-wrap: wrap to prevent horizontal viewport overflow on narrow mobile viewports, keeping touch target tap bounds intact and separators excluded from copy selection.</span>
+            <span class="lang-pt">Layout Flexbox inline com flex-wrap: wrap para garantir que o rasto de navegação não transborda em ecrãs estreitos, com user-select: none nos separadores decorativos.</span>
+            <span class="lang-en">Flexbox inline layout with flex-wrap: wrap to prevent horizontal viewport overflow, keeping tap bounds intact and separators excluded from copy selection.</span>
           </p>
         </div>
 
@@ -601,7 +573,7 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Truncamento malicioso de passos intermédios para ocultar que o utilizador está num subdomínio de pagamentos terceirizado ou inserção de ligações patrocinadas não declaradas na hierarquia.</span>
+            <span class="lang-pt">Truncamento malicioso de passos intermédios para ocultar que o utilizador está num subdomínio de pagamentos terceirizado ou inserção de ligações patrocinadas não declaradas.</span>
             <span class="lang-en">Deceptive truncation of intermediate breadcrumbs to conceal third-party payment redirection or injecting disguised sponsored links into the natural structural hierarchy.</span>
           </p>
         </div>
@@ -614,7 +586,6 @@
           <ul>
             <li><span class="lang-pt">Manter fidelidade estrita 1:1 entre a hierarquia real das URLs e o percurso indicado.</span><span class="lang-en">Maintain strict 1:1 parity between actual URL path hierarchy and breadcrumb sequence.</span></li>
             <li><span class="lang-pt">Nunca remover o botão de regresso ao nível superior imediato em ecrãs móveis.</span><span class="lang-en">Never hide or omit the parent-level jump link on mobile viewports.</span></li>
-            <li><span class="lang-pt">Garantir que separadores visuais (barras ou setas) são ignorados por leitores de ecrã (aria-hidden='true').</span><span class="lang-en">Ensure decorative separators are ignored by screen readers via aria-hidden='true'.</span></li>
           </ul>
         </div>
       </div>

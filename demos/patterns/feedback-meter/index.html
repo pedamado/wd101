@@ -319,13 +319,39 @@
       border-radius: 2px;
     }
     
-    .feedback-banner-box {
+    .drumtiks-meter-demo {
+      width: 100%;
+      max-width: 400px;
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      border-left: 4px solid var(--color-accent-blue);
+      border-radius: 6px;
       padding: var(--space-4);
-      border-radius: 2px;
-      max-width: 600px;
+    }
+    .meter-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-2);
+      font-size: var(--text-xs);
+    }
+    .meter-head label {
+      font-weight: 700;
+    }
+    .meter-live-val {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: #00d2ff;
+    }
+    .drumtiks-native-meter {
+      width: 100%;
+      height: 12px;
+      border-radius: 6px;
+      margin-bottom: var(--space-2);
+    }
+    .meter-note {
+      display: block;
+      font-size: 11px;
+      color: #28a745;
     }
     
   </style>
@@ -419,85 +445,69 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-feedback-demo">
-  <div class="demo-title">
-    <span>🔔</span> <span>Drumtiks '26 • Meter (Medidor de Valor)</span>
-    <span class="xray-badge">[FEE-11 &bull; FEEDBACK &bull; ARIA-LIVE="POLITE"]</span>
+<div class="drumtiks-meter-demo">
+  <div class="meter-head">
+    <label for="sound-meter">Nível Acústico Palco Rio (LEQ 15m):</label>
+    <span class="meter-live-val">98.5 / 102 dBA</span>
   </div>
-  <div class="feedback-banner-box" role="alert">
-    <div style="display:flex; align-items:flex-start; gap:var(--space-3);">
-      <span style="font-size:var(--text-xl);">ℹ️</span>
-      <div>
-        <strong style="color:var(--text-primary);">Abertura de Portas Antecipada</strong>
-        <p style="margin:var(--space-1) 0 0; font-size:var(--text-xs); color:var(--text-secondary);">
-          Devido à elevada afluência para a masterclass de sintetizadores, as portas da Alfândega abrem às 16h30.
-        </p>
-      </div>
-    </div>
-    <span class="xray-badge">[ROLE="ALERT" &bull; HIGH-CONTRAST]</span>
-  </div>
+  <meter id="sound-meter" min="70" max="110" low="85" high="100" optimum="95" value="98.5" class="drumtiks-native-meter">
+    98.5 dBA
+  </meter>
+  <span class="meter-note">&#10003; Nível em conformidade com as normas acústicas da Alfândega.</span>
+  <span class="xray-badge">[HTML5 &lt;METER&gt; &bull; SEMANTIC GAUGING &bull; LOW/HIGH/OPTIMUM BOUNDS]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-feedback-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;🔔&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Meter (Medidor de Valor)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[FEE-11 &amp;bull; FEEDBACK &amp;bull; ARIA-LIVE=&quot;POLITE&quot;]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-meter-demo&quot;&gt;
+  &lt;div class=&quot;meter-head&quot;&gt;
+    &lt;label for=&quot;sound-meter&quot;&gt;Nível Acústico Palco Rio (LEQ 15m):&lt;/label&gt;
+    &lt;span class=&quot;meter-live-val&quot;&gt;98.5 / 102 dBA&lt;/span&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;feedback-banner-box&quot; role=&quot;alert&quot;&gt;
-    &lt;div style=&quot;display:flex; align-items:flex-start; gap:var(--space-3);&quot;&gt;
-      &lt;span style=&quot;font-size:var(--text-xl);&quot;&gt;ℹ️&lt;/span&gt;
-      &lt;div&gt;
-        &lt;strong style=&quot;color:var(--text-primary);&quot;&gt;Abertura de Portas Antecipada&lt;/strong&gt;
-        &lt;p style=&quot;margin:var(--space-1) 0 0; font-size:var(--text-xs); color:var(--text-secondary);&quot;&gt;
-          Devido à elevada afluência para a masterclass de sintetizadores, as portas da Alfândega abrem às 16h30.
-        &lt;/p&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[ROLE=&quot;ALERT&quot; &amp;bull; HIGH-CONTRAST]&lt;/span&gt;
-  &lt;/div&gt;
+  &lt;meter id=&quot;sound-meter&quot; min=&quot;70&quot; max=&quot;110&quot; low=&quot;85&quot; high=&quot;100&quot; optimum=&quot;95&quot; value=&quot;98.5&quot; class=&quot;drumtiks-native-meter&quot;&gt;
+    98.5 dBA
+  &lt;/meter&gt;
+  &lt;span class=&quot;meter-note&quot;&gt;&amp;#10003; Nível em conformidade com as normas acústicas da Alfândega.&lt;/span&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[HTML5 &amp;lt;METER&amp;gt; &amp;bull; SEMANTIC GAUGING &amp;bull; LOW/HIGH/OPTIMUM BOUNDS]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-    }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .feedback-banner-box {
+        <pre><code>.drumtiks-meter-demo {
+      width: 100%;
+      max-width: 400px;
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      border-left: 4px solid var(--color-accent-blue);
+      border-radius: 6px;
       padding: var(--space-4);
-      border-radius: 2px;
-      max-width: 600px;
+    }
+    .meter-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-2);
+      font-size: var(--text-xs);
+    }
+    .meter-head label {
+      font-weight: 700;
+    }
+    .meter-live-val {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: #00d2ff;
+    }
+    .drumtiks-native-meter {
+      width: 100%;
+      height: 12px;
+      border-radius: 6px;
+      margin-bottom: var(--space-2);
+    }
+    .meter-note {
+      display: block;
+      font-size: 11px;
+      color: #28a745;
     }</code></pre>
       </div>
     </section>
@@ -517,8 +527,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Puro HTML5 semântico com &lt;meter&gt; nativo incorporando limites low, high, optimum e valor numérico.</span>
+            <span class="lang-en">Pure semantic HTML5 using native &lt;meter&gt; tag with low, high, and optimum calibration boundaries.</span>
           </p>
         </div>
 
@@ -528,8 +538,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Barra de medição proporcional com cantos arredondados e indicação de conformidade verde.</span>
+            <span class="lang-en">Proportional gauge bar with rounded corners and reassuring green compliance feedback.</span>
           </p>
         </div>
 
@@ -539,8 +549,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Jenifer Tidwell (Ch. 8: Feedback &amp; Affordance), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Jenifer Tidwell (Ch. 8: Feedback &amp; Affordance), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Garante aos festivaleiros que o volume sonoro está sob controlo rigoroso para evitar lesões auditivas.</span>
+            <span class="lang-en">Reassures festivalgoers that stage sound pressure is actively regulated for hearing safety.</span>
           </p>
         </div>
       </div>
@@ -563,8 +573,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Medidores calibrados com limiares falsos para fingir conformidade enquanto níveis perigosos são tolerados.</span>
+            <span class="lang-en">Manipulating meter thresholds to fabricate safety compliance while exposing ears to damaging decibels.</span>
           </p>
         </div>
 
@@ -574,9 +584,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Assegurar correspondência rigorosa entre sensores de som reais e o medidor visual apresentado.</span><span class="lang-en">Ensure strict mathematical calibration between acoustic sensors and the presented visual meter.</span></li>
           </ul>
         </div>
       </div>

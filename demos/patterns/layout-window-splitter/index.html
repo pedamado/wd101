@@ -319,28 +319,45 @@
       border-radius: 2px;
     }
     
-    .layout-demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-2);
-    }
-    .layout-card {
-      background: var(--bg-surface-elevated);
+    .drumtiks-splitter-demo {
+      display: flex;
       border: 1px solid var(--border-color);
-      border-top: 3px solid var(--color-swiss-red);
-      padding: var(--space-4);
-      border-radius: 2px;
+      border-radius: 6px;
+      overflow: hidden;
+      height: 140px;
+      background: var(--bg-surface-elevated);
     }
-    .layout-card h4 {
-      font-size: var(--text-sm);
-      margin: var(--space-2) 0 var(--space-1);
-    }
-    .layout-card p {
+    .split-pane-left, .split-pane-right {
+      flex: 1;
+      padding: var(--space-3);
       font-size: var(--text-xs);
+    }
+    .split-pane-left h5, .split-pane-right h5 {
+      margin: 0 0 var(--space-2) 0;
+      color: var(--color-swiss-red);
+      font-size: var(--text-xs);
+    }
+    .split-pane-left p, .split-pane-right p {
+      margin: 0 0 4px 0;
       color: var(--text-secondary);
-      margin: 0;
-      line-height: 1.5;
+    }
+    .split-divider {
+      width: 12px;
+      background: var(--bg-surface);
+      border-left: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      cursor: col-resize;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+    .split-divider:focus-visible {
+      outline: 2px solid var(--color-swiss-red);
+    }
+    .splitter-grip {
+      font-size: 10px;
+      color: var(--text-muted);
     }
     
   </style>
@@ -434,116 +451,85 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-layout-demo">
-  <div class="demo-title">
-    <span>📐</span> <span>Drumtiks '26 • Window Splitter / Resizable Panels (Divisor Redimensionável)</span>
-    <span class="xray-badge">[LAY-19 &bull; CSS GRID / FLEXBOX]</span>
+<div class="drumtiks-splitter-demo">
+  <div class="split-pane-left">
+    <h5>Grelha de Horários</h5>
+    <p>18:00 &bull; Abertura</p>
+    <p>20:00 &bull; Synth Lab</p>
   </div>
-  <div class="layout-demo-grid">
-    <article class="layout-card">
-      <span class="badge badge-foundational">PALCO ALFÂNDEGA</span>
-      <h4>DJ Warp (Live)</h4>
-      <p>Modular techno &amp; live drum kinetics a 140 BPM.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-    <article class="layout-card">
-      <span class="badge badge-intermediate">PALCO DOURO</span>
-      <h4>Helena Hauff</h4>
-      <p>Raw analog electro e batidas industriais acid.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
-    <article class="layout-card">
-      <span class="badge badge-advanced">CLUBBING VAULT</span>
-      <h4>Surgeon</h4>
-      <p>Hypnotic Birmingham techno nas abóbadas subterrâneas.</p>
-      <span class="xray-badge">[GRID-CELL &bull; AUTO-FIT]</span>
-    </article>
+  <div class="split-divider" role="separator" tabindex="0" aria-label="Ajustar largura das colunas" aria-valuenow="50" aria-valuemin="20" aria-valuemax="80">
+    <span class="splitter-grip">||</span>
   </div>
+  <div class="split-pane-right">
+    <h5>Mapa do Palco</h5>
+    <p>Alfândega Nascente</p>
+    <p>Área Exterior Rio</p>
+  </div>
+  <span class="xray-badge">[ROLE="SEPARATOR" TABINDEX="0" &bull; RESIZABLE SPLIT]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-layout-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;📐&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Window Splitter / Resizable Panels (Divisor Redimensionável)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[LAY-19 &amp;bull; CSS GRID / FLEXBOX]&lt;/span&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-splitter-demo&quot;&gt;
+  &lt;div class=&quot;split-pane-left&quot;&gt;
+    &lt;h5&gt;Grelha de Horários&lt;/h5&gt;
+    &lt;p&gt;18:00 &amp;bull; Abertura&lt;/p&gt;
+    &lt;p&gt;20:00 &amp;bull; Synth Lab&lt;/p&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;layout-demo-grid&quot;&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-foundational&quot;&gt;PALCO ALFÂNDEGA&lt;/span&gt;
-      &lt;h4&gt;DJ Warp (Live)&lt;/h4&gt;
-      &lt;p&gt;Modular techno &amp;amp; live drum kinetics a 140 BPM.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-intermediate&quot;&gt;PALCO DOURO&lt;/span&gt;
-      &lt;h4&gt;Helena Hauff&lt;/h4&gt;
-      &lt;p&gt;Raw analog electro e batidas industriais acid.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
-    &lt;article class=&quot;layout-card&quot;&gt;
-      &lt;span class=&quot;badge badge-advanced&quot;&gt;CLUBBING VAULT&lt;/span&gt;
-      &lt;h4&gt;Surgeon&lt;/h4&gt;
-      &lt;p&gt;Hypnotic Birmingham techno nas abóbadas subterrâneas.&lt;/p&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[GRID-CELL &amp;bull; AUTO-FIT]&lt;/span&gt;
-    &lt;/article&gt;
+  &lt;div class=&quot;split-divider&quot; role=&quot;separator&quot; tabindex=&quot;0&quot; aria-label=&quot;Ajustar largura das colunas&quot; aria-valuenow=&quot;50&quot; aria-valuemin=&quot;20&quot; aria-valuemax=&quot;80&quot;&gt;
+    &lt;span class=&quot;splitter-grip&quot;&gt;||&lt;/span&gt;
   &lt;/div&gt;
+  &lt;div class=&quot;split-pane-right&quot;&gt;
+    &lt;h5&gt;Mapa do Palco&lt;/h5&gt;
+    &lt;p&gt;Alfândega Nascente&lt;/p&gt;
+    &lt;p&gt;Área Exterior Rio&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[ROLE=&quot;SEPARATOR&quot; TABINDEX=&quot;0&quot; &amp;bull; RESIZABLE SPLIT]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
+        <pre><code>.drumtiks-splitter-demo {
+      display: flex;
       border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
+      border-radius: 6px;
+      overflow: hidden;
+      height: 140px;
+      background: var(--bg-surface-elevated);
     }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
+    .split-pane-left, .split-pane-right {
+      flex: 1;
+      padding: var(--space-3);
+      font-size: var(--text-xs);
+    }
+    .split-pane-left h5, .split-pane-right h5 {
+      margin: 0 0 var(--space-2) 0;
+      color: var(--color-swiss-red);
+      font-size: var(--text-xs);
+    }
+    .split-pane-left p, .split-pane-right p {
+      margin: 0 0 4px 0;
+      color: var(--text-secondary);
+    }
+    .split-divider {
+      width: 12px;
+      background: var(--bg-surface);
+      border-left: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      cursor: col-resize;
       display: flex;
       align-items: center;
-      gap: var(--space-2);
+      justify-content: center;
+      user-select: none;
     }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
+    .split-divider:focus-visible {
+      outline: 2px solid var(--color-swiss-red);
+    }
+    .splitter-grip {
       font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .layout-demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-2);
-    }
-    .layout-card {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      border-top: 3px solid var(--color-swiss-red);
-      padding: var(--space-4);
-      border-radius: 2px;
-    }
-    .layout-card h4 {
-      font-size: var(--text-sm);
-      margin: var(--space-2) 0 var(--space-1);
-    }
-    .layout-card p {
-      font-size: var(--text-xs);
-      color: var(--text-secondary);
-      margin: 0;
-      line-height: 1.5;
+      color: var(--text-muted);
     }</code></pre>
       </div>
     </section>
@@ -563,8 +549,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Uso de role='separator' e atributos ARIA aria-valuenow com suporte para foco por teclado tabindex='0'.</span>
+            <span class="lang-en">WAI-ARIA role='separator' with aria-valuenow and tabindex='0' for accessible keyboard operation.</span>
           </p>
         </div>
 
@@ -574,8 +560,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Cursor col-resize indicativo da funcionalidade de arrasto e foco visível em conformidade com WCAG.</span>
+            <span class="lang-en">Indicative col-resize cursor alongside WCAG-compliant :focus-visible outlines.</span>
           </p>
         </div>
 
@@ -585,8 +571,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Ethan Marcotte (Responsive Web Design), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Ethan Marcotte (Responsive Web Design), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Permite ajustar a proporção entre a grelha de horários e o mapa espacial segundo a preferência pessoal.</span>
+            <span class="lang-en">Enables attendees to customize spatial balance between schedule lists and venue maps.</span>
           </p>
         </div>
       </div>
@@ -609,8 +595,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Divisores que bloqueiam gestos de toque no mobile sem permitir scroll vertical.</span>
+            <span class="lang-en">Touch-hijacking splitters freezing the vertical scroll flow on mobile touchscreens.</span>
           </p>
         </div>
 
@@ -620,9 +606,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Fornecer alternativas por teclado (setas direcionais) para utilizadores que não usam rato.</span><span class="lang-en">Support keyboard arrow keys to adjust splitter without requiring a mouse drag gesture.</span></li>
           </ul>
         </div>
       </div>

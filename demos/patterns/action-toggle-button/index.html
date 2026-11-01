@@ -319,40 +319,41 @@
       border-radius: 2px;
     }
     
-    .actions-button-row {
+    .drumtiks-toggle-demo {
       display: flex;
-      flex-wrap: wrap;
       gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+    .btn-toggle {
+      display: inline-flex;
       align-items: center;
-    }
-    .action-primary {
-      background: var(--color-swiss-red);
-      color: #ffffff;
-      border: 1px solid var(--color-swiss-red);
-      font-weight: 700;
-      padding: var(--space-2) var(--space-4);
+      gap: var(--space-2);
+      padding: 10px 16px;
       min-height: 44px;
-      cursor: pointer;
-    }
-    .action-primary:hover {
-      background: #b80000;
-    }
-    .action-secondary {
       background: var(--bg-surface-elevated);
-      color: var(--text-primary);
       border: 1px solid var(--border-color);
-      font-weight: 600;
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
-    }
-    .action-outline {
-      background: transparent;
+      border-radius: 4px;
       color: var(--text-secondary);
-      border: 1px dashed var(--border-color);
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
+      font-size: var(--text-xs);
+      font-weight: 600;
       cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-toggle:hover {
+      border-color: var(--text-primary);
+    }
+    .btn-toggle.active {
+      background: rgba(0, 210, 255, 0.12);
+      border-color: #00d2ff;
+      color: var(--text-primary);
+    }
+    .btn-toggle.active .toggle-indicator {
+      color: #00d2ff;
+      text-shadow: 0 0 6px rgba(0, 210, 255, 0.8);
+    }
+    .toggle-indicator {
+      font-size: 14px;
+      color: var(--text-muted);
     }
     
   </style>
@@ -446,112 +447,73 @@
 
       <!-- Tab Content 1: Live Rendered Sandbox -->
       <div class="pattern-live-preview" id="pane-preview">
-<div class="drumtiks-actions-demo">
-  <div class="demo-title">
-    <span>⚡</span> <span>Drumtiks '26 • Toggle Button (Botão de Alternância)</span>
-    <span class="xray-badge">[ACT-02 &bull; BUTTON / CONTROL &bull; TARGET 48PX]</span>
-  </div>
-  <div class="actions-button-row">
-    <button type="button" class="btn-control action-primary" onclick="alert('Bilhete VIP Adicionado ao Carrinho!')">
-      <span>🎟️ Comprar Passe VIP (120€)</span>
-      <span class="xray-badge">[:ACTIVE &bull; FOCUS-VISIBLE]</span>
-    </button>
-    <button type="button" class="btn-control action-secondary" onclick="alert('Programação guardada nos favoritos!')">
-      <span>⭐ Guardar nos Favoritos</span>
-    </button>
-    <button type="button" class="btn-control action-outline" onclick="alert('Áudio sample a reproduzir...')">
-      <span>🔊 Ouvir Sample (30s)</span>
-    </button>
-  </div>
+<div class="drumtiks-toggle-demo">
+  <button type="button" class="btn-toggle active" aria-pressed="true" onclick="this.classList.toggle('active'); this.setAttribute('aria-pressed', this.classList.contains('active'))">
+    <span class="toggle-indicator">&#9679;</span>
+    <span class="toggle-label">Filtro Low-Pass 24dB</span>
+  </button>
+
+  <button type="button" class="btn-toggle" aria-pressed="false" onclick="this.classList.toggle('active'); this.setAttribute('aria-pressed', this.classList.contains('active'))">
+    <span class="toggle-indicator">&#9675;</span>
+    <span class="toggle-label">Distorção Analógica Tube</span>
+  </button>
+  <span class="xray-badge">[BUTTON ARIA-PRESSED="TRUE|FALSE" &bull; TOGGLE STATE]</span>
 </div>
       </div>
 
       <!-- Tab Content 2: HTML Source Code -->
       <div class="pattern-code-pane" id="pane-html">
-        <pre><code>&lt;div class=&quot;drumtiks-actions-demo&quot;&gt;
-  &lt;div class=&quot;demo-title&quot;&gt;
-    &lt;span&gt;⚡&lt;/span&gt; &lt;span&gt;Drumtiks &#x27;26 • Toggle Button (Botão de Alternância)&lt;/span&gt;
-    &lt;span class=&quot;xray-badge&quot;&gt;[ACT-02 &amp;bull; BUTTON / CONTROL &amp;bull; TARGET 48PX]&lt;/span&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;actions-button-row&quot;&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control action-primary&quot; onclick=&quot;alert(&#x27;Bilhete VIP Adicionado ao Carrinho!&#x27;)&quot;&gt;
-      &lt;span&gt;🎟️ Comprar Passe VIP (120€)&lt;/span&gt;
-      &lt;span class=&quot;xray-badge&quot;&gt;[:ACTIVE &amp;bull; FOCUS-VISIBLE]&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control action-secondary&quot; onclick=&quot;alert(&#x27;Programação guardada nos favoritos!&#x27;)&quot;&gt;
-      &lt;span&gt;⭐ Guardar nos Favoritos&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn-control action-outline&quot; onclick=&quot;alert(&#x27;Áudio sample a reproduzir...&#x27;)&quot;&gt;
-      &lt;span&gt;🔊 Ouvir Sample (30s)&lt;/span&gt;
-    &lt;/button&gt;
-  &lt;/div&gt;
+        <pre><code>&lt;div class=&quot;drumtiks-toggle-demo&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn-toggle active&quot; aria-pressed=&quot;true&quot; onclick=&quot;this.classList.toggle(&#x27;active&#x27;); this.setAttribute(&#x27;aria-pressed&#x27;, this.classList.contains(&#x27;active&#x27;))&quot;&gt;
+    &lt;span class=&quot;toggle-indicator&quot;&gt;&amp;#9679;&lt;/span&gt;
+    &lt;span class=&quot;toggle-label&quot;&gt;Filtro Low-Pass 24dB&lt;/span&gt;
+  &lt;/button&gt;
+
+  &lt;button type=&quot;button&quot; class=&quot;btn-toggle&quot; aria-pressed=&quot;false&quot; onclick=&quot;this.classList.toggle(&#x27;active&#x27;); this.setAttribute(&#x27;aria-pressed&#x27;, this.classList.contains(&#x27;active&#x27;))&quot;&gt;
+    &lt;span class=&quot;toggle-indicator&quot;&gt;&amp;#9675;&lt;/span&gt;
+    &lt;span class=&quot;toggle-label&quot;&gt;Distorção Analógica Tube&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class=&quot;xray-badge&quot;&gt;[BUTTON ARIA-PRESSED=&quot;TRUE|FALSE&quot; &amp;bull; TOGGLE STATE]&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </div>
 
       <!-- Tab Content 3: CSS Source Code -->
       <div class="pattern-code-pane" id="pane-css">
-        <pre><code>.demo-canvas {
-      padding: var(--space-6);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-    }
-    .demo-title {
-      font-size: var(--text-base);
-      font-weight: 700;
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
+        <pre><code>.drumtiks-toggle-demo {
       display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+    .btn-toggle {
+      display: inline-flex;
       align-items: center;
       gap: var(--space-2);
-    }
-    .demo-badge-cyan {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-    
-    .actions-button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      align-items: center;
-    }
-    .action-primary {
-      background: var(--color-swiss-red);
-      color: #ffffff;
-      border: 1px solid var(--color-swiss-red);
-      font-weight: 700;
-      padding: var(--space-2) var(--space-4);
+      padding: 10px 16px;
       min-height: 44px;
-      cursor: pointer;
-    }
-    .action-primary:hover {
-      background: #b80000;
-    }
-    .action-secondary {
       background: var(--bg-surface-elevated);
-      color: var(--text-primary);
       border: 1px solid var(--border-color);
-      font-weight: 600;
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
-      cursor: pointer;
-    }
-    .action-outline {
-      background: transparent;
+      border-radius: 4px;
       color: var(--text-secondary);
-      border: 1px dashed var(--border-color);
-      padding: var(--space-2) var(--space-4);
-      min-height: 44px;
+      font-size: var(--text-xs);
+      font-weight: 600;
       cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-toggle:hover {
+      border-color: var(--text-primary);
+    }
+    .btn-toggle.active {
+      background: rgba(0, 210, 255, 0.12);
+      border-color: #00d2ff;
+      color: var(--text-primary);
+    }
+    .btn-toggle.active .toggle-indicator {
+      color: #00d2ff;
+      text-shadow: 0 0 6px rgba(0, 210, 255, 0.8);
+    }
+    .toggle-indicator {
+      font-size: 14px;
+      color: var(--text-muted);
     }</code></pre>
       </div>
     </section>
@@ -571,8 +533,8 @@
             <h4><span class="lang-pt">Semântica &amp; Acessibilidade</span><span class="lang-en">Semantics &amp; A11y</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Estruturação estrita com elementos HTML5 nativos (article, button, input, table). Atributos ARIA adequados e associação explícita entre etiquetas e controlos interativos.</span>
-            <span class="lang-en">Strict structural scaffolding with native semantic HTML5 elements (article, button, input, table). Robust ARIA associations ensuring complete screen reader parity.</span>
+            <span class="lang-pt">Uso de aria-pressed='true|false' para anunciar o estado binário ligado/desligado a tecnologias de apoio.</span>
+            <span class="lang-en">WAI-ARIA aria-pressed='true|false' communicates binary toggle state directly to screen readers.</span>
           </p>
         </div>
 
@@ -582,8 +544,8 @@
             <h4><span class="lang-pt">Layout, Variáveis &amp; Estados</span><span class="lang-en">Layout &amp; CSS States</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Uso de variáveis CSS para tokens de cor, tipografia fluida com clamp(), layout adaptativo com CSS Grid e Flexbox, e estados interativos :hover e :focus-visible sem dependência de JavaScript.</span>
-            <span class="lang-en">Engineered with CSS custom properties for tokens, fluid clamp() typography, adaptive CSS Grid & Flexbox mechanics, and pure CSS :hover and :focus-visible states.</span>
+            <span class="lang-pt">Realce visual em ciano com brilho sutil quando ativo, mantendo contraste evidente com o estado inativo.</span>
+            <span class="lang-en">Cyan high-contrast visual cues with subtle glow communicating active synth filter engagement.</span>
           </p>
         </div>
 
@@ -593,8 +555,8 @@
             <h4><span class="lang-pt">Ergonomia &amp; Alvos Táteis</span><span class="lang-en">Ergonomics &amp; Touch</span></h4>
           </div>
           <p>
-            <span class="lang-pt">Concebido segundo os princípios de usabilidade de Jenifer Tidwell (Ch. 4: Actions &amp; Commands), garantindo alvos de toque generosos (mínimo 44x44px) e resposta visual imediata.</span>
-            <span class="lang-en">Engineered following human-interface principles from Jenifer Tidwell (Ch. 4: Actions &amp; Commands), enforcing generous 44x44px minimum tap targets and immediate tactile feedback.</span>
+            <span class="lang-pt">Permite aos festivaleiros ligar e desligar módulos de efeitos sonoros com um toque sem recarregar a interface.</span>
+            <span class="lang-en">Empowers attendees to toggle audio effects on and off instantly without page reloads.</span>
           </p>
         </div>
       </div>
@@ -617,8 +579,8 @@
             <span class="lang-en">🚨 The Abuse / Anti-Pattern Hazard:</span>
           </h4>
           <p>
-            <span class="lang-pt">Degradação do padrão em anti-padrão de manipulação ou ofuscação: ocultar custos reais, remover saídas de emergência (Escape Hatches) ou forçar opções indesejadas sob falsos pretextos.</span>
-            <span class="lang-en">Weaponizing this pattern into deceptive manipulation: concealing true ticket costs, trapping user navigation without escape hatches, or pre-selecting unwanted add-ons.</span>
+            <span class="lang-pt">Incerteza de estado: ícones ambíguos onde o utilizador não sabe se o estado indicado representa o estado atual ou a ação futura.</span>
+            <span class="lang-en">State ambiguity: confusing icons where users cannot decipher if the label represents current state or next action.</span>
           </p>
         </div>
 
@@ -628,9 +590,7 @@
             <span class="lang-en">🛡️ Ethical Design &amp; Transparency Guidelines:</span>
           </h4>
           <ul>
-            <li><span class="lang-pt">Garantir transparência total de custos, opções e ações sem mensagens com dupla negação ou letras miúdas.</span><span class="lang-en">Ensure absolute transparency of pricing, actions, and terms without confusing double negatives or obscured copy.</span></li>
-            <li><span class="lang-pt">Respeitar a autonomia do festivaleiro: nunca pré-selecionar opções pagas adicionais (opt-in explícito).</span><span class="lang-en">Respect attendee autonomy: never pre-check paid add-ons or insurance (enforce affirmative opt-in).</span></li>
-            <li><span class="lang-pt">Manter alvos táteis amplos e acessíveis sem penalizar quem utiliza teclado ou navegação móvel com uma só mão.</span><span class="lang-en">Maintain accessible tap boundaries without penalizing keyboard navigators or one-handed mobile users.</span></li>
+            <li><span class="lang-pt">Indicar inequivocamente tanto visualmente como semanticamente se o efeito está atualmente ativo ou inativo.</span><span class="lang-en">Unequivocally communicate both visually and programmatically whether the feature is currently active.</span></li>
           </ul>
         </div>
       </div>
