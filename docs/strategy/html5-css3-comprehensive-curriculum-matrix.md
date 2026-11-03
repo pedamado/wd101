@@ -12,7 +12,7 @@ Para capacitar os estudantes de Design de Comunicação a conceber e implementar
 
 ```mermaid
 flowchart TD
-  subgraph T1["1. Basic / Foundational (Iniciação — TP01/EX1)"]
+  subgraph T1["1. Basic / Foundational (Iniciação — EX1 • Semanas 1 a 4)"]
     T1A["Semântica de Landmarks Nativos"] --> T1B["Mobile-First Elástico (%)"]
     T1B --> T1C["Reset Universal & Box Model"]
     T1C --> T1D["Tipografia Relativa (rem/em)"]
@@ -20,7 +20,7 @@ flowchart TD
     T1E --> T1F["Seletores Descendentes (DOM Tree)"]
   end
 
-  subgraph T2["2. Intermediate (RWD, Variáveis & Webfonts Remotas — TP02 a TP05)"]
+  subgraph T2["2. Intermediate (RWD, Variáveis & Webfonts Remotas — EX2 • Semanas 3 a 5)"]
     T2A["Media Queries & Breakpoints"] --> T2B["Flexbox & Grid Unidim/Bidim"]
     T2B --> T2C["Direção de Arte (picture + srcset)"]
     T2C --> T2D["Webfonts Variáveis Remotas (<link>)"]
@@ -29,7 +29,7 @@ flowchart TD
     T2F --> T2G["Classes, IDs & Pseudo-Classes (:hover, :focus-visible)"]
   end
 
-  subgraph T3["3. Advanced / Complex (Pure CSS Engine, Tokenização & Interações — TP06 & Projeto)"]
+  subgraph T3["3. Advanced / Complex (Pure CSS Engine, Tokenização & Interações — Projeto • Semanas 5 a 13)"]
     T3A["Tipografia Fluida: clamp(), min(), max()"] --> T3B["Container Queries (@container & cqi)"]
     T3B --> T3C["Sticky Stacking & Sobrescrita por Irmãos"]
     T3C --> T3D["Parallax Puro (3D Perspective / Scroll Timeline)"]
@@ -46,7 +46,7 @@ flowchart TD
 
 ### 1.1 Matriz de Diferenciação Curricular dos Tópicos-Chave
 
-| Domínio Técnico | Nível Intermédio (TP02 a TP05) | Nível Avançado (TP06 & Projeto Final) |
+| Domínio Técnico | Nível Intermédio (EX2 • Semanas 3 a 5) | Nível Avançado (Projeto • Semanas 5 a 13) |
 | :--- | :--- | :--- |
 | **Responsividade & Escala** | **Media Queries Tradicionais (`@media`):** Adaptação baseada na largura total da janela (*Viewport Width*). | **Container Queries (`@container`):** Responsividade intrínseca do componente baseada no seu contentor pai (`container-type: inline-size`, unidades `cqi`, `cqw`). |
 | **Posicionamento & Scroll** | **Sticky Navigation Base:** Barra de topo fixa (`position: sticky; top: 0;`) com scroll suave (`scroll-behavior: smooth`). | **Sticky Stacking & Parallax:** Empilhamento de cartões deslizantes onde os irmãos seguintes sobrepõem e empurram os anteriores, e efeitos de profundidade com perspetiva 3D ou `animation-timeline: scroll()`. |
@@ -251,7 +251,7 @@ flowchart TD
 
 | # | Tag / Seletor | Tipo | Nível Curricular | No Curso WD101? | Referência MDN |
 | :---: | :--- | :---: | :--- | :---: | :--- |
-| 127| `A B` (Descendant Combinator) | CSS | Basic / Foundational | **YES** *(Pilar do TP01: `nav ul`, `header h1`)* | [MDN: Descendant combinator](https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_combinator) |
+| 127| `A B` (Descendant Combinator) | CSS | Basic / Foundational | **YES** *(Pilar do EX1: `nav ul`, `header h1`)* | [MDN: Descendant combinator](https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_combinator) |
 | 128| `A > B` (Child Combinator) | CSS | Intermediate | **YES** *(Filho direto estrito)* | [MDN: Child combinator](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) |
 | 129| `A + B` (Next-Sibling) | CSS | Intermediate | **YES** *(Irmão adjacente: parágrafos seguidos)*| [MDN: Next-sibling combinator](https://developer.mozilla.org/en-US/docs/Web/CSS/Next-sibling_combinator) |
 | 130| `A ~ B` (Subsequent-Sibling) | CSS | Intermediate / Advanced | **YES** *(Irmãos subsequentes: tab panels)* | [MDN: Subsequent-sibling combinator](https://developer.mozilla.org/en-US/docs/Web/CSS/Subsequent-sibling_combinator) |
@@ -317,7 +317,7 @@ flowchart TD
 
 | # | Tag / Seletor | Tipo | Nível Curricular | No Curso WD101? | Referência MDN |
 | :---: | :--- | :---: | :--- | :---: | :--- |
-| 164| `:has()` (Relational Parent) | CSS | Advanced / Complex | **YES** *(Pilar dos TP06 e TP06-B)* | [MDN: :has()](https://developer.mozilla.org/en-US/docs/Web/CSS/:has) |
+| 164| `:has()` (Relational Parent) | CSS | Advanced / Complex | **YES** *(Pilar da Fase 1 e Seletores Reativos)* | [MDN: :has()](https://developer.mozilla.org/en-US/docs/Web/CSS/:has) |
 | 165| `:not()` (Negation) | CSS | Intermediate / Advanced | **YES** *(Ex.: `:not(:last-child)`)* | [MDN: :not()](https://developer.mozilla.org/en-US/docs/Web/CSS/:not) |
 | 166| `:is()` (Matches-Any) | CSS | Intermediate / Advanced | **TBD** *(Redução dramática de seletores longos)*| [MDN: :is()](https://developer.mozilla.org/en-US/docs/Web/CSS/:is) |
 | 167| `:where()` (Zero Specificity) | CSS | Intermediate / Advanced | **TBD** *(Estilos de reset fáceis de sobrepor)*| [MDN: :where()](https://developer.mozilla.org/en-US/docs/Web/CSS/:where) |

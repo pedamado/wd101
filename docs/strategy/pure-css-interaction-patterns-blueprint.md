@@ -38,7 +38,7 @@ graph TD
 ## 2. Fundação de Reset: Eric Meyer CSS Reset v2.0 (Modernizado com `@layer reset`)
 
 ### 2.1 Enquadramento & Justificação Pedagógica
-Na metodologia da FBAUP (iniciada no **TP02 / TP03: Media & Box Model** e consolidada no **TP06 / Projeto Final**), o documento CSS adota como fundação estrutural o **CSS Reset de Eric Meyer (v2.0)**. 
+Na metodologia da FBAUP (iniciada no **EX2: Media & Box Model — Semanas 3 a 5** e consolidada na **Fase 1 do Projeto Final — Semanas 5 a 8**), o documento CSS adota como fundação estrutural o **CSS Reset de Eric Meyer (v2.0)**. 
 Ao contrário de normalizações opinativas que mantêm margens e tamanhos padrão dos browsers, o reset de Eric Meyer **zera deliberadamente todas as margens, preenchimentos, bordas e tamanhos de fonte**, conferindo ao estudante de Design de Comunicação controlo geométrico e tipográfico absoluto sobre cada elemento semântico da página.
 
 Na versão contemporânea aqui apresentada, o reset original é **modernizado com três adições estandardizadas essenciais**:

@@ -3,7 +3,7 @@
 
 ---
 
-# Exercício 6 / TP06-Responsive: "DRUMTIKS '26" Portal Web Responsivo & Motor Reativo Pure CSS (HTML5 + CSS3)
+# Projeto Final (Fase 1): "DRUMTIKS '26" Portal Web Responsivo & Motor Reativo Pure CSS (Semanas 5 a 8)
 
 > **Documento Estruturado em Abas (Multi-Tab Architecture)** para importação / consulta no Google Docs:
 > - **Aba 1:** Enunciado, Instruções Gerais, Metodologia & Objetivos Pedagógicos
@@ -274,7 +274,7 @@ A animação de abertura e fecho de `<details>` era tradicionalmente impossível
 ```
 
 ### 5.4 Motor Reativo de Cálculo de Preços (`:has()` + `::after`)
-Inspirado na demonstração curricular **TP06-B**, quando o utilizador seleciona uma opção de bilhete via `<input type="radio">`, a pseudo-classe `:root:has(...)` deteta o estado ativo na árvore DOM e reescreve os totais através de conteúdo gerado:
+Inspirado na demonstração de seletores avançados das **Semanas 5 a 8**, quando o utilizador seleciona uma opção de bilhete via `<input type="radio">`, a pseudo-classe `:root:has(...)` deteta o estado ativo na árvore DOM e reescreve os totais através de conteúdo gerado:
 ```css
 /* Estado Padrão (Combo Pass €30.00 Ativo) */
 #sim-price::after { content: "€30.00"; }

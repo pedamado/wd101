@@ -454,7 +454,7 @@
           <span class="chapter-index">Chapter 03 • Audit &amp; Content Strategy (Frost Ch. 4 + Kissane + Suarez)</span>
           <h2 class="chapter-title" id="ch03-title">Content Inventory &amp; UI Pattern Audit Matrix</h2>
           <p class="chapter-desc">
-            Before coding reusable components, conduct a joint <strong>Content Inventory</strong> (copy voice, character limits, media ratios) and <strong>Interface Inventory</strong> (mapping every UI module across Figma Screens <code>01–05</code>, <code>TP06-responsive</code>, and <code>TP11-integrated-responsive-project</code>). Filter the complete DRUMTIKS '26 catalog below by keyword, Atomic tier, or Kholmatova pattern class.
+            Before coding reusable components, conduct a joint <strong>Content Inventory</strong> (copy voice, character limits, media ratios) and <strong>Interface Inventory</strong> (mapping every UI module across Figma Screens <code>01–05</code>, Stage 1 Prototype (Weeks 5–8), and Stage 2 Capstone (Weeks 9–13)). Filter the complete DRUMTIKS '26 catalog below by keyword, Atomic tier, or Kholmatova pattern class.
           </p>
         </div>
 
@@ -500,7 +500,7 @@
 
         <div tabindex="0" role="region" aria-labelledby="caption-inventory" class="table-wrapper">
           <table class="spec-table" id="inventory-table" style="--label-2:'Pattern &amp; Atomic Tier'; --label-3:'Kholmatova Lens'; --label-4:'Content &amp; Media Budget'; --label-5:'HTML / CSS / Figma Source'; --label-6:'Interactive States &amp; A11y';">
-            <caption id="caption-inventory">Table 3.1 — Complete DRUMTIKS '26 Content &amp; Interface Inventory (Figma Screens 01–05 + TP06 + TP11)</caption>
+            <caption id="caption-inventory">Table 3.1 — Complete DRUMTIKS '26 Content &amp; Interface Inventory (Figma Screens 01–05 + Stage 1 Prototype + Stage 2 Capstone)</caption>
             <thead>
               <tr>
                 <th scope="col">ID</th>
@@ -549,7 +549,7 @@
                 <td><strong>Editorial Voice, UI Diction &amp; Controlled Vocabulary</strong><br><span class="spec-chip">Subatomic Standard</span></td>
                 <td>Perceptual + Functional</td>
                 <td>Kubie’s 3 copy buckets + <code>ACB</code> editing ladder; Yahoo! front-loading, exact verbs (<code>Remove</code> vs. <code>Delete</code>), 24h WEST timecodes, canonical <em>Pass</em> noun.</td>
-                <td>Section 3.2 Style Guide • Figma Copy Deck &amp; TP11 HTML strings</td>
+                <td>Section 3.2 Style Guide • Figma Copy Deck &amp; Capstone (Weeks 9–13) HTML strings</td>
                 <td>Inclusive global English, Sentence-case UI default, non-blaming <code>:user-invalid</code> recovery microcopy.</td>
               </tr>
               <tr data-tier="atom" data-lens="functional">
@@ -573,7 +573,7 @@
                 <td><strong>Registration Inputs &amp; Deferred Validation</strong><br><span class="spec-chip spec-chip--atom">Atom</span></td>
                 <td>Functional</td>
                 <td>Concise visible <code>&lt;label&gt;</code> (≤ 28 chars) + format hint <em>above</em> input (≤ 65 chars) + actionable error copy with icon.</td>
-                <td><code>TP06-responsive</code> form • <code>&lt;input required&gt;</code> • <code>:user-invalid</code></td>
+                <td>Stage 1 Prototype form • <code>&lt;input required&gt;</code> • <code>:user-invalid</code></td>
                 <td>Pristine, Focus, <code>:user-valid</code>, <code>:user-invalid</code> (post-blur), <code>disabled</code>; <code>aria-describedby</code> + synced <code>aria-invalid</code>.</td>
               </tr>
               <tr data-tier="atom" data-lens="perceptual">
@@ -652,8 +652,8 @@
                 <th scope="row">O-05</th>
                 <td><strong>Scroll-Snap Photo Strip &amp; Mobile Sticky Bar</strong><br><span class="spec-chip spec-chip--organism">Organism</span></td>
                 <td>Functional</td>
-                <td>Horizontal swipeable <code>scroll-snap-type: x mandatory</code> strip (TP06) + thumb-zone bottom bar on &lt;768px viewports.</td>
-                <td><code>TP06-responsive</code> <code>.gallery-viewport</code> &amp; <code>.sticky-footer-bar</code></td>
+                <td>Horizontal swipeable <code>scroll-snap-type: x mandatory</code> strip (Stage 1) + thumb-zone bottom bar on &lt;768px viewports.</td>
+                <td>Stage 1 Prototype <code>.gallery-viewport</code> &amp; <code>.sticky-footer-bar</code></td>
                 <td><code>touch-action: pan-x pan-y</code> preserves vertical scroll; keyboard scrollable with <code>tabindex="0"</code>.</td>
               </tr>
               <tr data-tier="organism" data-lens="functional">
@@ -685,7 +685,7 @@
                 <td><strong>Production Festival Portal &amp; Subpages (4 Pages)</strong><br><span class="spec-chip">Pages (Live HTML)</span></td>
                 <td>Perceptual + Functional</td>
                 <td>Real Porto venue copy (<em>Alfândega do Porto • Vault 02</em>), real WOFF2 fonts, real optimized WebP photography, real EUR pricing.</td>
-                <td><code>TP11-integrated-responsive-project/*.html</code></td>
+                <td><code>demos/tp11-integrated-responsive-project/*.html</code> (Capstone Stage 2)</td>
                 <td>Stress-tested from <code>320px</code> mobile portrait up to <code>1440px+</code> widescreen in Light &amp; Dark schemes.</td>
               </tr>
               <tr data-tier="template" data-lens="functional">
@@ -1451,7 +1451,7 @@
               <div class="pattern-id-line">
                 <span class="spec-chip spec-chip--atom">A-03 • Atom</span>
                 <span class="spec-chip spec-chip--functional">Functional Input</span>
-                <span>Source: <code>TP06-responsive</code> DJ Battle Registration</span>
+                <span>Source: Stage 1 Prototype DJ Battle Registration</span>
                 <span>CSS: <code>:user-valid</code> / <code>:user-invalid</code></span>
               </div>
               <h3 class="doc-subhead">Form Text Controls &amp; Deferred Post-Interaction Validation</h3>
@@ -1599,7 +1599,7 @@
                 </figure>
 
                 <div style="display:flex; flex-direction:column; gap:var(--space-sm); background:var(--color-bg-surface); border:1px solid var(--color-border-subtle); border-radius:var(--radius-md); padding:var(--space-md);">
-                  <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--color-text-muted); text-transform:uppercase;">Self-Hosted Vector Icons (TP11/assets/icons)</span>
+                  <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--color-text-muted); text-transform:uppercase;">Self-Hosted Vector Icons (Capstone /assets/icons)</span>
                   <div style="display:flex; align-items:center; gap:var(--space-lg); flex-wrap:wrap;">
                     <img src="demos/tp11-integrated-responsive-project/assets/vinyl-platter.svg" alt="Turntable Vinyl Platter Symbol" width="48" height="48" loading="lazy">
                     <img src="demos/tp11-integrated-responsive-project/assets/icons/check-badge.svg" alt="" width="36" height="36" loading="lazy">
@@ -2251,7 +2251,7 @@
             <div class="spec-rubric-cell">
               <h4>2. Overlay Decision Rule</h4>
               <ul>
-                <li>In zero-JS exercises (<code>TP06-responsive</code>), <code>:target</code> anchors provide CSS-only overlays; in production apps, always prefer native <code>&lt;dialog&gt;</code> + <code>.showModal()</code> so background content becomes truly <code>inert</code>.</li>
+                <li>In zero-JS exercises (such as the Stage 1 early prototype), <code>:target</code> anchors provide CSS-only overlays; in production apps, always prefer native <code>&lt;dialog&gt;</code> + <code>.showModal()</code> so background content becomes truly <code>inert</code>.</li>
               </ul>
             </div>
           </div>
@@ -2290,8 +2290,8 @@
             </div>
             <p>
               <strong>Instantiated Pages:</strong>
-              <a href="demos/tp11-integrated-responsive-project/index.html" style="color:var(--color-accent-red); font-weight:700;">TP11 Master Index ↗</a> •
-              <a href="demos/tp06-responsive/index.html" style="color:var(--color-accent-cyan);">TP06 Early Prototype ↗</a>
+              <a href="demos/tp11-integrated-responsive-project/index.html" style="color:var(--color-accent-red); font-weight:700;">Capstone Stage 2 Master Index (Weeks 9–13) ↗</a> •
+              <a href="demos/tp06-responsive/index.html" style="color:var(--color-accent-cyan);">Stage 1 Early Prototype (Weeks 5–8) ↗</a>
             </p>
           </article>
 

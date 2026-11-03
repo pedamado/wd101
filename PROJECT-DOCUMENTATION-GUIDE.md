@@ -36,7 +36,7 @@ Catalog every asset before drawing layout boxes so containers match real word co
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `C-01.1` | `index.html` | Festival Masthead, Dates (14–16 Nov) & Venue (Alfândega) | Hero copy (45w) + `<time>` | Original studio copy | ✓ Ready |
 | `C-01.2` | `index.html` | 3D Vinyl Crate Hero & Headliner Sleeves | 4 WebP sleeves (`1:1`, 600×600px, <90 KB) | Studio archive + custom SVG | ✓ Ready |
-| `C-01.3` | `index.html` | Reactive Festival Pass & Masterclass Simulator | Form controls + pricing tier notes | Course brief (`TP06`/`TP11`) | ▲ Revise |
+| `C-01.3` | `index.html` | Reactive Festival Pass & Masterclass Simulator | Form controls + pricing tier notes | Course brief (Stage 1 / Stage 2 Capstone) | ▲ Revise |
 | `C-02.1` | `dj-warp.html` | DJ Warp Biography, Quad-Turntable Rig & Set Slot | 280w profile + `4:5` portrait WebP | Edited press kit; AI lighting study noted | ✓ Ready |
 | `C-03.1` | `battle-rules.html` | The 808 Clash Rules, 3-Min Rounds & Hardware Matrix | 650w editorial + 5-col `<table>` | Original rules; add TL;DR summary box | ▲ Revise |
 | `C-04.1` | `credits.html` | Colophon, Fonts, Bibliography & AI Transparency Log | `<dl>` metadata + syllabus citations | Mandatory FBAUP WD101 imprint | ◆ Create |
@@ -169,7 +169,7 @@ SWIMLANE U (GLOBAL PERSISTENT FOOTER UTILITY — LINKED FROM ALL PAGES)
 ---
 
 ## 5. Recommendations for Lower- or Higher-Fidelity Wireframes in Figma
-*References: Caddick & Cable (2011, Ch. 6); Goodwin (2009, Ch. 14, 16, 23, 24); Cooper et al. (2014, Ch. 5); WD101 TP06 Figma Spec.*
+*References: Caddick & Cable (2011, Ch. 6); Goodwin (2009, Ch. 14, 16, 23, 24); Cooper et al. (2014, Ch. 5); WD101 Stage 1 Figma Spec (Weeks 5-8).*
 
 | Criterion | Lower-Fidelity Grayscale Wireframe | Higher-Fidelity Interactive Figma Prototype |
 | :--- | :--- | :--- |

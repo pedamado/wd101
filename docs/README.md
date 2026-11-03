@@ -43,5 +43,5 @@ Cada compêndio em Markdown possui uma página HTML interativa espelho acessíve
 
 - **EX1 (Hello Warp! / Wendy):** Foco estrito em HTML5 semântico, fluxo normal do documento, unidades relativas `rem` e zero classes.
 - **EX2 (Media & Box Model):** Reset acessível de Eric Meyer, direção de arte com `<picture>`, classes BEM, e posicionamento relativo/absoluto/sticky.
-- **Projeto Final (Fase 1 — TP06):** Protótipo preliminar a 2 colunas com breakpoint a 960px e calculadora de bilhetes Pure CSS.
-- **Projeto Final (Fase 2 — Capstone TP11):** Masterclass integrada com 4 breakpoints mobile-first, macro-grelha 2D com `grid-template-areas`, Flexbox 1D alternante, **Container Queries (`@container`)**, theming com `light-dark()`, Crate 3D de vinis e inspetor de Raios-X.
+- **Projeto Final (Fase 1 — Semanas 5 a 8):** Protótipo preliminar a 2 colunas com breakpoint a 960px e calculadora de bilhetes Pure CSS.
+- **Projeto Final (Fase 2 — Capstone Semanas 9 a 13):** Masterclass integrada com 4 breakpoints mobile-first, macro-grelha 2D com `grid-template-areas`, Flexbox 1D alternante, **Container Queries (`@container`)**, theming com `light-dark()`, Crate 3D de vinis e inspetor de Raios-X.

@@ -21,7 +21,7 @@ O objetivo central é conceber um **website de documentação e andaime pedagóg
    - Todos os três momentos de avaliação utilizam o mesmo universo concetual ("DRUMTIKS '26") em níveis crescentes de complexidade, permitindo ao aluno ver o projeto final a nascer de forma iterativa.
 3. **Matriz Curricular de Referência MDN (Pesquisável, Filtrável e Ordenável):**
    - Catálogo exaustivo (314 entradas de Tags, Seletores, Propriedades, At-Rules e Funções).
-   - Filtros instantâneos por Categoria/Landmark, Marco (*EX1*, *EX2*, *TP06*, *TP11*, *Beyond*), Escalão (*Basic*, *Intermediate*, *Advanced*), Presença no Curso (*YES*, *TBD*, *NO*), e pesquisa textual.
+   - Filtros instantâneos por Categoria/Landmark, Marco (*EX1*, *EX2*, *Fase 1 (Sem. 5-8)*, *Fase 2 (Sem. 9-13)*, *Beyond*), Escalão (*Basic*, *Intermediate*, *Advanced*), Presença no Curso (*YES*, *TBD*, *NO*), e pesquisa textual.
    - Definições concisas de uma frase, link oficial MDN e atalho direto para o padrão de código demonstrativo associado.
 4. **Laboratório Interativo de Padrões (*Demo Patterns Sandbox*):**
    - 13 padrões interativos com vista renderizada real em *sandbox*, abas de código HTML/CSS com realce sintático e botão de cópia, explicação pedagógica do propósito e técnicas avançadas.

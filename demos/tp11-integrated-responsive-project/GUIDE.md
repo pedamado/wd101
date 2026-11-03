@@ -1,5 +1,5 @@
 # Step-by-Step Pedagogical Guide: From Early Prototype to Full Capstone
-## Evolution: `TP06-responsive` &rarr; `TP11-integrated-responsive-project`
+## Evolution: Early Prototype (Weeks 5–8) &rarr; Full Integrated Capstone (Weeks 9–13)
 ### Faculdade de Belas Artes da Universidade do Porto (FBAUP) • Web Design (WD101) — 2026/27
 **Authors:** Pedro Amado (FBAUP / i2ADS) & Google Gemini (Pro 3 Flash / Pro4 Argon)
 
@@ -7,7 +7,7 @@
 
 ## 🎯 Pedagogical Progression & Prototype Comparison
 
-| Dimension | Final Project — Early Prototype (`TP06-responsive`) | Final Project — Advanced / Full Prototype (`TP11-integrated-responsive-project`) |
+| Dimension | Final Project — Early Prototype (Weeks 5–8) | Final Project — Advanced Integrated Capstone (Weeks 9–13) |
 | :--- | :--- | :--- |
 | **Live Demo** | [Launch Early Prototype](../tp06-responsive/index.html) | [Launch Advanced Capstone](index.html) |
 | **Grid Architecture** | Binary jump (1-column on mobile `<960px` to 2-column on desktop `minmax(0, 1.18fr) minmax(0, 1fr)`) | **4-Breakpoint Mobile-First Progressive Enhancement** with named `grid-template-areas` |
@@ -24,7 +24,7 @@
 ## 📋 The 8-Step Architectural Evolution
 
 ### Step 1: Establish the 4-Breakpoint Mobile-First Escalation
-* **Problem in TP06:** Moving directly from mobile portrait to 960px desktop caused layout distortion on phablets and landscape mobile devices.
+* **Problem in Early Prototype (Weeks 5–8):** Moving directly from mobile portrait to 960px desktop caused layout distortion on phablets and landscape mobile devices.
 * **Solution:** Implement a 4-tier mobile-first progression:
   1. `Base (< 540px)`: Single column natural flow, touch targets &ge; 44px.
   2. `Mobile Landscape / Phablet (>= 540px)`: Dual micro-tracks and wrapping flex items.
