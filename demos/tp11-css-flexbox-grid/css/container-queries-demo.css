@@ -160,7 +160,7 @@ body:has(#preset-w-fluid:checked) .playground-resizable-box {
   font-size: clamp(1.15rem, 2cqi + 0.6rem, 1.85rem);
   font-weight: 800;
   line-height: 1.2;
-  color: #fff;
+  color: var(--color-text-main);
 }
 
 .disc-card-bio {

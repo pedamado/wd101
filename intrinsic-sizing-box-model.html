@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Módulo 2: Dimensionamento Intrínseco &amp; Box Model • WD101</title>
   
-  <!-- Previne FOUC de tema e idioma -->
+    <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
   <script>
     (function() {
-      const savedTheme = localStorage.getItem('wd101_theme') || 
-                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      const savedLang = localStorage.getItem('wd101_lang') === 'en' ? 'en' : 'pt';
       document.documentElement.setAttribute('lang', savedLang);
+      const savedAesthetic = localStorage.getItem('wd101_aesthetic') || 'airy';
+      document.documentElement.setAttribute('data-aesthetic', savedAesthetic);
     })();
   </script>
 
@@ -194,39 +195,20 @@
 <body>
 
   <!-- Site Header Landmark -->
-  <header class="site-header" role="banner">
-    <div class="header-inner">
-      <div class="brand">
-        <a href="index.html" class="brand-logo">WD<span>101</span></a>
-        <span class="brand-meta">FBAUP Design 2026/27</span>
-      </div>
-
-      <nav class="site-nav" aria-label="Navegação do Guião">
-        <ul>
-          <li><a href="index.html#study-goals"><span class="lang-pt">← Portal Principal</span><span class="lang-en">← Main Portal</span></a></li>
-          <li><a href="#pedagogia"><span class="lang-pt">Objetivos &amp; Treino</span><span class="lang-en">Goals &amp; Method</span></a></li>
-          <li><a href="#mental-model"><span class="lang-pt">Modelo Mental</span><span class="lang-en">Mental Model</span></a></li>
-          <li><a href="#laboratorio"><span class="lang-pt">Laboratório</span><span class="lang-en">Interactive Lab</span></a></li>
-          <li><a href="#motor-matematico"><span class="lang-pt">Motor Matemático</span><span class="lang-en">Math Engine</span></a></li>
-          <li><a href="#padroes-ex2"><span class="lang-pt">Padrões EX2</span><span class="lang-en">EX2 Patterns</span></a></li>
-          <li><a href="#checklist"><span class="lang-pt">Checklist</span><span class="lang-en">Checklist</span></a></li>
-        </ul>
-      </nav>
-
-      <div class="header-controls">
-        <a href="demos/ex2-media-box-model/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);">
-          <span class="lang-pt">🚀 Ver Mini-Site EX2 ↗</span>
-          <span class="lang-en">🚀 View EX2 Demo ↗</span>
-        </a>
-        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
-        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
-      </div>
-    </div>
-  </header>
+  <header class="site-header" role="banner"></header>
 
   <!-- Main Content Landmark -->
   <main class="main-container" id="main-content">
     
+    <!-- Breadcrumb Strip -->
+    <nav class="breadcrumb-strip" aria-label="Navegação Estrutural" style="margin-bottom:var(--space-4);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+      <a href="index.html" style="color:var(--text-muted);text-decoration:none;">WD101</a>
+      <span>/</span>
+      <a href="index.html#cluster-1" style="color:var(--text-muted);text-decoration:none;"><span class="lang-pt">Módulo 01: Fundação</span><span class="lang-en">Module 01: Foundations</span></a>
+      <span>/</span>
+      <span style="color:var(--color-accent-blue, #0284c7);font-weight:700;">Dimensionamento Intrínseco &amp; Box Model</span>
+    </nav>
+
     <!-- Hero Section -->
     <header class="guide-hero">
       <a href="index.html#study-goals" class="guide-back-link">
@@ -246,6 +228,32 @@
         <span class="lang-en">Let content inform dimensions. Discard rigid pixel widths and master modern mathematical functions <code>min()</code>, <code>max()</code>, <code>clamp()</code>, <code>flex-basis</code>, <code>minmax()</code>, <code>16:9</code> aspect ratios, and the <em>Hero Full-Bleed</em> escape hatch through <strong>Drumtiks '26</strong> case study patterns.</span>
       </p>
     </header>
+
+    <!-- Page Layout with Sticky Aside Rail -->
+    <div class="page-layout-with-aside">
+
+      <!-- Sticky Navigation Rail -->
+      <aside class="aside-toc" aria-label="Navegação do Guia de Box Model">
+        <div class="aside-toc-card">
+          <div class="aside-toc-header">
+            <span class="aside-toc-title"><span class="lang-pt">Neste Guia</span><span class="lang-en">In this Guide</span></span>
+            <span class="aside-toc-count">7 Secções</span>
+          </div>
+          <ul class="aside-toc-list">
+            <li class="aside-toc-item"><a href="#pedagogia" class="aside-toc-link"><span>🎯 1. <span class="lang-pt">Objetivos &amp; Competências</span><span class="lang-en">Pedagogical Goals</span></span></a></li>
+            <li class="aside-toc-item"><a href="#mental-model" class="aside-toc-link"><span>🧠 2. <span class="lang-pt">Extrínseco vs. Intrínseco</span><span class="lang-en">Mental Models</span></span></a></li>
+            <li class="aside-toc-item"><a href="#laboratorio" class="aside-toc-link"><span>🎛️ 3. <span class="lang-pt">Simulador de Geometria</span><span class="lang-en">Geometry Simulator</span></span></a></li>
+            <li class="aside-toc-item"><a href="#motor-matematico" class="aside-toc-link"><span>📐 4. <span class="lang-pt">Motor Matemático CSS</span><span class="lang-en">Math Engine</span></span></a></li>
+            <li class="aside-toc-item"><a href="#padroes-ex2" class="aside-toc-link"><span>🎨 5. <span class="lang-pt">Padrões do EX2</span><span class="lang-en">EX2 Patterns</span></span></a></li>
+            <li class="aside-toc-item"><a href="#devtools" class="aside-toc-link"><span>🔍 6. <span class="lang-pt">Diagnóstico DevTools</span><span class="lang-en">DevTools Diagnostics</span></span></a></li>
+            <li class="aside-toc-item"><a href="#checklist" class="aside-toc-link"><span>✅ 7. <span class="lang-pt">Checklist Autoavaliação</span><span class="lang-en">Self-Assessment</span></span></a></li>
+            <li class="aside-toc-item"><a href="#connected-mesh" class="aside-toc-link"><span>🔗 8. <span class="lang-pt">Rede Curricular</span><span class="lang-en">Curricular Mesh</span></span></a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Educational Body -->
+      <div class="page-layout-main">
 
     <!-- 1. Filosofia Pedagógica, Objetivos & Método de Treino -->
     <section id="pedagogia" style="margin-bottom:var(--space-10);">
@@ -555,6 +563,27 @@
           <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/minmax" target="_blank" rel="noopener noreferrer" style="font-family:var(--font-mono);font-size:var(--text-xs);color:#a371f7;font-weight:700;">MDN: minmax() ↗</a>
         </div>
 
+        <!-- 6. Container Queries (@container & cqi) -->
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);padding:var(--space-4);border-radius:4px;border-top:3px solid var(--color-accent-emerald, #10b981);">
+          <h4 style="font-family:var(--font-mono);font-size:var(--text-base);color:var(--color-accent-emerald, #10b981);margin-bottom:var(--space-2);">
+            6. @container &amp; cqi (Container Queries)
+          </h4>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-2);">
+            <span class="lang-pt">O expoente máximo do dimensionamento intrínseco. O componente adapta-se à largura do elemento-pai (<code>inline-size</code>), e a unidade <code>cqi</code> (1% da largura do contentor) escala a tipografia internamente.</span>
+            <span class="lang-en">The pinnacle of intrinsic responsiveness. Components adapt to their parent container's width (<code>inline-size</code>), and <code>cqi</code> units scale internal type proportionally.</span>
+          </p>
+          <div class="code-container">
+            <pre><code>.card-slot { container-type: inline-size; }
+@container (min-width: 420px) {
+  .card { display: flex; font-size: clamp(0.9rem, 2.5cqi, 1.25rem); }
+}</code></pre>
+          </div>
+          <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-2);">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@container" target="_blank" rel="noopener noreferrer" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-emerald);font-weight:700;">MDN: @container ↗</a>
+            <a href="demos/tp11-css-flexbox-grid/04-container-queries.html" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-cyan);font-weight:700;">Lab 04: Demo Interativo ↗</a>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -777,9 +806,52 @@ section[id] {
       </ul>
     </section>
 
+      </div><!-- .page-layout-main -->
+    </div><!-- .page-layout-with-aside -->
+
   </main>
 
   <!-- Site Footer Landmark -->
+  
+    <!-- Connected in WD101 Organic Mesh Block -->
+    <section class="wd-mesh-section" id="connected-mesh">
+      <div class="wd-mesh-header">
+        <span class="wd-mesh-kicker"><span class="lang-pt">Mapeamento Pedagógico</span><span class="lang-en">Curricular Mesh</span> &bull; Connected in WD101</span>
+        <h2 class="wd-mesh-title"><span class="lang-pt">Articulação com Enunciados, Demos e Matriz W3C</span><span class="lang-en">Connected Course Milestones, Demos &amp; Matrix</span></h2>
+      </div>
+      <div class="wd-mesh-grid">
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Enunciados do Curso</span><span class="lang-en">Course Assignments</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="ex1-hello-warp-guide.html" class="wd-mesh-chip">🟢 EX1: Hello Warp!</a>
+            <a href="ex2-guide.html" class="wd-mesh-chip">🔵 EX2: Media &amp; Box Model</a>
+            <a href="tp06-early-prototype-guide.html" class="wd-mesh-chip">🔵 Projeto Fase 1: TP06</a>
+            <a href="demos/tp11-integrated-responsive-project/GUIDE.html" class="wd-mesh-chip">🟣 Projeto Fase 2: TP11</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="demos/index.html" class="wd-mesh-chip">🚀 Repositório Central de Demos</a>
+            <a href="demos/index.html?pat=1#core-patterns" class="wd-mesh-chip">Demo P1: Gaveta Móvel</a>
+            <a href="demos/index.html?pat=2#core-patterns" class="wd-mesh-chip">Demo P2: &lt;picture&gt;</a>
+            <a href="demos/index.html?pat=7#core-patterns" class="wd-mesh-chip">Demo P7: Sticky Stage</a>
+            <a href="interaction-patterns.html" class="wd-mesh-chip">✨ 142 Padrões Web</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Matriz HTML5 &amp; CSS3</span><span class="lang-en">W3C Standards Matrix</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="matrix.html" class="wd-mesh-chip" style="font-weight:700;color:var(--color-swiss-red);">Matriz Completa (314) ↗</a>
+            <a href="matrix.html?cat=cat-landmarks" class="wd-mesh-chip">Landmarks HTML5</a>
+            <a href="matrix.html?cat=cat-boxmodel" class="wd-mesh-chip">Box Model &amp; Sizing</a>
+            <a href="matrix.html?cat=cat-flex-grid" class="wd-mesh-chip">Flexbox &amp; Grid</a>
+            <a href="ixd-principles.html" class="wd-mesh-chip">🧭 Princípios de IxD</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
       <div>
@@ -802,51 +874,6 @@ section[id] {
 
   <!-- Scripts -->
   <script>
-    // 1. Language & Theme Toggles
-    const themeBtn = document.getElementById('theme-toggle-btn');
-    function updateThemeBtnState() {
-      if (!themeBtn) return;
-      const current = document.documentElement.getAttribute('data-theme') || 
-                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      const isDark = current === 'dark';
-      const lang = document.documentElement.getAttribute('lang') || 'pt';
-      const label = isDark ? (lang === 'pt' ? 'Escuro' : 'Dark') : (lang === 'pt' ? 'Claro' : 'Light');
-      const icon = isDark ? '🌙' : '☀';
-      themeBtn.innerHTML = `${icon} <span>${label}</span>`;
-    }
-
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('data-theme') || 
-                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        const next = current === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', next);
-        localStorage.setItem('wd101_theme', next);
-        updateThemeBtnState();
-      });
-      updateThemeBtnState();
-    }
-
-    const langBtn = document.getElementById('lang-toggle-btn');
-    function setLanguage(lang) {
-      document.documentElement.setAttribute('lang', lang);
-      localStorage.setItem('wd101_lang', lang);
-      if (langBtn) {
-        langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
-      }
-      updateThemeBtnState();
-      updateLabSimulation();
-    }
-
-    if (langBtn) {
-      langBtn.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('lang') || 'pt';
-        const next = current === 'pt' ? 'en' : 'pt';
-        setLanguage(next);
-      });
-      setLanguage(localStorage.getItem('wd101_lang') || 'pt');
-    }
-
     // 2. Simulador Interativo do Laboratório
     const slider = document.getElementById('slider-viewport');
     const frame = document.getElementById('simulated-frame');
@@ -988,5 +1015,6 @@ section[id] {
 
     updateLabSimulation();
   </script>
+<script src="assets/js/site-shell.js"></script>
 </body>
 </html>

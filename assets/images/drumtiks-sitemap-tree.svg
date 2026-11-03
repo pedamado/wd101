@@ -1,0 +1,269 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 1020" width="100%" height="auto" role="img" aria-labelledby="sitemap-diag-title sitemap-diag-desc">
+  <title id="sitemap-diag-title">DRUMTIKS '26 — Hierarchical Swimlane Site Map Diagram</title>
+  <desc id="sitemap-diag-desc">Hierarchical tree diagram of the DRUMTIKS website navigation structure, showing Levels A, B, C, and D with page cards, file names, template typologies, and color coding according to the course specification.</desc>
+  
+  <defs>
+    <!-- Card Drop Shadow Filter -->
+    <filter id="card-shadow" x="-8%" y="-8%" width="120%" height="124%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.14" />
+    </filter>
+    <filter id="fold-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="-1" dy="1" stdDeviation="1.5" flood-color="#000000" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="100%" height="100%" fill="transparent" />
+
+  <!-- ====================================================================
+       CONNECTING ORTHOGONAL TREE LINES
+       ==================================================================== -->
+  <g stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Drop from A1 to Bus Bar 1 -->
+    <path d="M 525 140 L 525 168" />
+    <!-- Bus Bar 1: Horizontal bus spanning B1 (150) to B3 (775) -->
+    <path d="M 150 168 L 775 168" />
+    <!-- Drops into Level B cards -->
+    <path d="M 150 168 L 150 195" />
+    <path d="M 400 168 L 400 195" />
+    <path d="M 775 168 L 775 195" />
+
+    <!-- Drop from B2 (400) straight down to C1 (400) -->
+    <path d="M 400 340 L 400 385" />
+
+    <!-- Drop from B3 (775) to Bus Bar 2 -->
+    <path d="M 775 340 L 775 362" />
+    <!-- Bus Bar 2: Horizontal bus spanning C2 (650) to C3 (900) -->
+    <path d="M 650 362 L 900 362" />
+    <!-- Drops into Level C cards -->
+    <path d="M 650 362 L 650 385" />
+    <path d="M 900 362 L 900 385" />
+
+    <!-- Drop from C2 (650) straight down to D1 (650) -->
+    <path d="M 650 660 L 650 695" />
+
+    <!-- Drop from C3 (900) straight down to D2 (900) -->
+    <path d="M 900 660 L 900 695" />
+  </g>
+
+  <!-- ====================================================================
+       LEVEL A: ROOT LANDING (A1)
+       ==================================================================== -->
+  <g id="node-a1" transform="translate(415, 30)" filter="url(#card-shadow)">
+    <!-- Black Rectangle -->
+    <rect width="220" height="110" rx="3" fill="#000000" stroke="#374151" stroke-width="1.5" />
+    <!-- Text Content -->
+    <text x="110" y="32" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="16" font-weight="800" letter-spacing="-0.01em">A1. Home /</text>
+    <text x="110" y="52" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800" letter-spacing="-0.01em">Landing Page</text>
+    
+    <!-- File pill -->
+    <rect x="55" y="64" width="110" height="20" rx="4" fill="#1F2937" stroke="#4B5563" stroke-width="1" />
+    <text x="110" y="78" text-anchor="middle" fill="#FBBF24" font-family="'Martian Mono', ui-monospace, monospace" font-size="11" font-weight="700">index.html</text>
+
+    <!-- Subtitle -->
+    <text x="110" y="98" text-anchor="middle" fill="#9CA3AF" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5">Festival Dates • Crate • Pass Simulator</text>
+  </g>
+
+  <!-- ====================================================================
+       LEVEL B: PRIMARY NAVIGATION & CONTEXT (B1, B2, B3)
+       ==================================================================== -->
+  <!-- B1: Credits / Imprint (Orange) -->
+  <g id="node-b1" transform="translate(45, 195)" filter="url(#card-shadow)">
+    <!-- Sheet Body with Clipped Corner -->
+    <path d="M 0 0 L 190 0 L 210 20 L 210 145 L 0 145 Z" fill="#FFA600" />
+    <!-- Dog-Ear Fold -->
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+    
+    <!-- Text Content -->
+    <text x="105" y="30" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800">B1. Credits /</text>
+    <text x="105" y="49" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800">Imprint</text>
+    
+    <!-- File pill -->
+    <rect x="52" y="58" width="106" height="19" rx="3" fill="rgba(0,0,0,0.12)" />
+    <text x="105" y="72" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10.5" font-weight="700">credits.html</text>
+
+    <!-- Subtitle -->
+    <text x="105" y="93" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">(Academic Context, Colophon,</text>
+    <text x="105" y="108" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Typography, Licenses,</text>
+    <text x="105" y="123" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Bibliography &amp; AI Log)</text>
+  </g>
+
+  <!-- B2: The 808 Clash / Battle Rules (Yellow) -->
+  <g id="node-b2" transform="translate(295, 195)" filter="url(#card-shadow)">
+    <!-- Sheet Body with Clipped Corner -->
+    <path d="M 0 0 L 190 0 L 210 20 L 210 145 L 0 145 Z" fill="#FFE100" />
+    <!-- Dog-Ear Fold -->
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+    
+    <!-- Text Content -->
+    <text x="105" y="27" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">B2. The 808 Clash /</text>
+    <text x="105" y="45" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">Battle Rules</text>
+    
+    <!-- File pill -->
+    <rect x="42" y="55" width="126" height="19" rx="3" fill="rgba(0,0,0,0.12)" />
+    <text x="105" y="69" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10.5" font-weight="700">battle-rules.html</text>
+
+    <!-- Subtitle -->
+    <text x="105" y="90" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">(Beat Battle Manifesto,</text>
+    <text x="105" y="105" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">3-Min Elimination Rounds,</text>
+    <text x="105" y="120" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Rubric &amp; Hardware Matrix)</text>
+  </g>
+
+  <!-- B3: Program / Full Lineup (Light Gray) -->
+  <g id="node-b3" transform="translate(670, 195)" filter="url(#card-shadow)">
+    <!-- Sheet Body with Clipped Corner -->
+    <path d="M 0 0 L 190 0 L 210 20 L 210 145 L 0 145 Z" fill="#E0E0E0" />
+    <!-- Dog-Ear Fold -->
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+    
+    <!-- Text Content -->
+    <text x="105" y="30" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800">B3. Program /</text>
+    <text x="105" y="49" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800">Full Lineup</text>
+    
+    <!-- File pill -->
+    <rect x="54" y="58" width="102" height="19" rx="3" fill="rgba(0,0,0,0.1)" />
+    <text x="105" y="72" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10.5" font-weight="700">lineup.html</text>
+
+    <!-- Subtitle -->
+    <text x="105" y="93" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">(3-Day Schedule Overview,</text>
+    <text x="105" y="108" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Stages &amp; Participating</text>
+    <text x="105" y="123" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Artist Roster)</text>
+  </g>
+
+  <!-- ====================================================================
+       LEVEL C: SECTION BREAKDOWN & HUBS (C1, C2, C3)
+       ==================================================================== -->
+  <!-- C1: Venue & Access Guide (Gray) — under B2 -->
+  <g id="node-c1" transform="translate(295, 385)" filter="url(#card-shadow)">
+    <!-- Sheet Body with Clipped Corner -->
+    <path d="M 0 0 L 190 0 L 210 20 L 210 250 L 0 250 Z" fill="#E0E0E0" />
+    <!-- Dog-Ear Fold -->
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+    
+    <!-- Text Content -->
+    <text x="105" y="32" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800">C1. Venue &amp;</text>
+    <text x="105" y="52" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800">Access Guide</text>
+    
+    <!-- File pill -->
+    <rect x="40" y="62" width="130" height="19" rx="3" fill="rgba(0,0,0,0.1)" />
+    <text x="105" y="76" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10.5" font-weight="700">venue-access.html</text>
+
+    <!-- Subtitle -->
+    <text x="105" y="105" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">(Alfândega do Porto Map,</text>
+    <text x="105" y="125" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">Transit &amp; Metro Directions,</text>
+    <text x="105" y="145" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">Step-Free Wheelchair Access,</text>
+    <text x="105" y="165" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">Acoustic Ear Protection</text>
+    <text x="105" y="185" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">&amp; Locker Safety Rules)</text>
+  </g>
+
+  <!-- C2: Headliners / Research Publications (Yellow) — Long format with complex hierarchy -->
+  <g id="node-c2" transform="translate(545, 385)" filter="url(#card-shadow)">
+    <!-- Sheet Body with Clipped Corner -->
+    <path d="M 0 0 L 190 0 L 210 20 L 210 275 L 0 275 Z" fill="#FFE100" />
+    <!-- Dog-Ear Fold -->
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+    
+    <!-- Text Content -->
+    <text x="105" y="30" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">C2. Headliners &amp;</text>
+    <text x="105" y="49" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">Featured Artists</text>
+    
+    <!-- File pill -->
+    <rect x="35" y="58" width="140" height="19" rx="3" fill="rgba(0,0,0,0.12)" />
+    <text x="105" y="72" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10.5" font-weight="700">lineup.html#artists</text>
+
+    <!-- Subtitle (Note: Long format with complex hierarchy) -->
+    <text x="105" y="102" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="700">(Long format with complex</text>
+    <text x="105" y="119" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="700">hierarchy / content structure)</text>
+
+    <text x="105" y="148" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Curated Artist Roster,</text>
+    <text x="105" y="165" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Bio Profiles, Analog Riders,</text>
+    <text x="105" y="182" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Turntable Setups, BPM Ranges</text>
+    <text x="105" y="199" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">&amp; Vinyl Discography Rows</text>
+  </g>
+
+  <!-- C3: Stages / Events & Activities (Light Gray) -->
+  <g id="node-c3" transform="translate(795, 385)" filter="url(#card-shadow)">
+    <!-- Sheet Body with Clipped Corner -->
+    <path d="M 0 0 L 190 0 L 210 20 L 210 275 L 0 275 Z" fill="#E0E0E0" />
+    <!-- Dog-Ear Fold -->
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+    
+    <!-- Text Content -->
+    <text x="105" y="30" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">C3. Stages &amp;</text>
+    <text x="105" y="49" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">Activities</text>
+    
+    <!-- File pill -->
+    <rect x="33" y="58" width="144" height="19" rx="3" fill="rgba(0,0,0,0.1)" />
+    <text x="105" y="72" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10.5" font-weight="700">lineup.html#schedule</text>
+
+    <!-- Subtitle -->
+    <text x="105" y="105" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">(Main Warehouse,</text>
+    <text x="105" y="125" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">Sub-Bass Lab, Masterclasses,</text>
+    <text x="105" y="145" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">Modular Gear Demos,</text>
+    <text x="105" y="165" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">Beat Battles, Conferences)</text>
+  </g>
+
+  <!-- ====================================================================
+       LEVEL D: LEAF DETAIL PAGES (D1, D2)
+       ==================================================================== -->
+  <!-- D1: DJ Warp — Artist Detail Page (Yellow) — Short format, simpler "more visual" structure -->
+  <g id="node-d1" transform="translate(545, 695)" filter="url(#card-shadow)">
+    <!-- Sheet Body with Clipped Corner -->
+    <path d="M 0 0 L 190 0 L 210 20 L 210 275 L 0 275 Z" fill="#FFE100" />
+    <!-- Dog-Ear Fold -->
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+    
+    <!-- Text Content -->
+    <text x="105" y="30" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">D1. DJ Warp —</text>
+    <text x="105" y="49" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">Artist Detail Page</text>
+    
+    <!-- File pill -->
+    <rect x="52" y="58" width="106" height="19" rx="3" fill="rgba(0,0,0,0.12)" />
+    <text x="105" y="72" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10.5" font-weight="700">dj-warp.html</text>
+
+    <!-- Subtitle (Note: Short format, simpler "more visual" structure) -->
+    <text x="105" y="102" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="700">(Short format, simpler</text>
+    <text x="105" y="119" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="700">"more visual" structure)</text>
+
+    <text x="105" y="148" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Sticky 4:5 Stage Portrait,</text>
+    <text x="105" y="165" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Quad-Turntable Tech Specs,</text>
+    <text x="105" y="182" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Saturday 23:30 Set Slot &amp;</text>
+    <text x="105" y="199" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">3D Vinyl Release Sleeves</text>
+  </g>
+
+  <!-- D2: Activity Output / Workshop Detail Page (Gray) with Garrett Page Stack -->
+  <g id="node-d2" transform="translate(795, 695)" filter="url(#card-shadow)">
+    <!-- Garrett Page Stack Under-Cards -->
+    <path d="M 10 10 L 200 10 L 220 30 L 220 285 L 10 285 Z" fill="#D1D5DB" stroke="#9CA3AF" stroke-width="1" />
+    <path d="M 5 5 L 195 5 L 215 25 L 215 280 L 5 280 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1" />
+
+    <!-- Sheet Body with Clipped Corner -->
+    <path d="M 0 0 L 190 0 L 210 20 L 210 275 L 0 275 Z" fill="#E0E0E0" />
+    <!-- Dog-Ear Fold -->
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+    <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+    
+    <!-- Text Content -->
+    <text x="105" y="30" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">D2. Activity Output</text>
+    <text x="105" y="49" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">Detail Page</text>
+    
+    <!-- File pill -->
+    <rect x="42" y="58" width="126" height="19" rx="3" fill="rgba(0,0,0,0.1)" />
+    <text x="105" y="72" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10" font-weight="700">artist-*.html / stage-*</text>
+
+    <!-- Subtitle (Note: Garrett Page Stack for shared templates) -->
+    <text x="105" y="102" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="700">[Garrett Page Stack]</text>
+    <text x="105" y="125" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Shared responsive template</text>
+    <text x="105" y="145" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">reused for participating</text>
+    <text x="105" y="165" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">beatmakers, guest clinics,</text>
+    <text x="105" y="185" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">workshop sheets &amp; stage</text>
+    <text x="105" y="205" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">timetable instances</text>
+  </g>
+</svg>

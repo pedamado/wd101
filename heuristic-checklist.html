@@ -1,1 +1,1271 @@
-../heuristic-checklist.html
+<!DOCTYPE html>
+<html lang="pt" data-theme="light">
+<head>
+  <!--
+    ==========================================================================
+    GRELHA INTERATIVA DE AVALIAÇÃO HEURÍSTICA & CHECKLIST CRÍTICA
+    Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+    Licenciatura em Design de Comunicação • i2ADS
+    Unidade Curricular: Web Design (WD101) — 2026/27
+    Direção Pedagógica: Prof. Pedro Amado (FBAUP / i2ADS)
+    Pair Programming & Agente IA: Google Gemini (Antigravity)
+    ==========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Grelha de Avaliação Heurística • Checklist Interativa | FBAUP WD101</title>
+  <meta name="description" content="Formulário interativo e personalizável de avaliação heurística para estudantes de Web Design na FBAUP. Selecione os critérios pretendidos, avalie mockups ou protótipos HTML5/CSS3 e imprima o relatório personalizado.">
+
+  <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+      const savedAesthetic = localStorage.getItem('wd101_aesthetic') || 'airy';
+      document.documentElement.setAttribute('data-aesthetic', savedAesthetic);
+    })();
+  </script>
+
+  <!-- CSS Layer Hierarchy: Swiss Modernist v2 -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+  <link rel="stylesheet" href="assets/css/patterns-demo.css">
+
+  <style>
+    /* Scoped Styles for Heuristic Evaluation Checklist */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .form-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .form-input, .form-select {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      font-size: var(--text-sm);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      font-family: inherit;
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .form-input:focus, .form-select:focus {
+      border-color: var(--color-swiss-red);
+      box-shadow: 0 0 0 3px var(--color-swiss-red-tint);
+    }
+
+    /* Toolbar & Presets */
+    .toolbar-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+    .preset-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .preset-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-right: 0.25rem;
+    }
+    .btn-preset {
+      font-size: var(--text-xs);
+      padding: 0.35rem 0.7rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface-elevated);
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-weight: 500;
+      transition: all var(--transition-fast);
+      user-select: none;
+    }
+    .btn-preset:hover {
+      border-color: var(--border-color-strong);
+      color: var(--text-primary);
+    }
+    .btn-preset.active {
+      background: var(--color-swiss-red);
+      color: #ffffff;
+      border-color: var(--color-swiss-red);
+      font-weight: 700;
+    }
+    .view-options {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    /* Score Dashboard */
+    .score-dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-3);
+      margin-bottom: var(--space-6);
+    }
+    .score-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: var(--space-1);
+    }
+    .score-val {
+      font-family: var(--font-mono);
+      font-size: var(--text-2xl);
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    .score-lbl {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: var(--bg-surface-elevated);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin-top: 0.35rem;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--color-accent-emerald);
+      border-radius: var(--radius-full);
+      transition: width 0.3s ease, background-color 0.3s ease;
+    }
+
+    /* Checklist Items Cards */
+    .checklist-items {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+    .c-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), opacity var(--transition-fast);
+    }
+    .c-card.inactive {
+      opacity: 0.55;
+      background: var(--bg-surface-subtle);
+    }
+    .c-card.inactive:hover {
+      opacity: 0.85;
+    }
+    .c-card.hidden-by-view {
+      display: none !important;
+    }
+    .c-card.active {
+      border-left: 4px solid var(--color-swiss-red);
+    }
+    .c-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+    .c-select-toggle {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      cursor: pointer;
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .c-checkbox {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-swiss-red);
+      cursor: pointer;
+    }
+    .c-num {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+    }
+    .c-title {
+      font-size: var(--text-base);
+    }
+    .c-question {
+      background: var(--bg-surface-elevated);
+      border-left: 2px solid var(--color-accent-cyan);
+      padding: var(--space-2) var(--space-3);
+      font-style: italic;
+      font-size: var(--text-xs);
+      color: var(--text-primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      line-height: 1.5;
+    }
+    .c-subchecks {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .c-subchecks li {
+      position: relative;
+      padding-left: 1.25rem;
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+    .c-subchecks li::before {
+      content: '•';
+      position: absolute;
+      left: 0.35rem;
+      color: var(--color-swiss-red);
+      font-weight: 700;
+    }
+    .scoring-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      padding-top: var(--space-2);
+      border-top: 1px dashed var(--border-color);
+    }
+    .score-btn {
+      font-size: var(--text-xs);
+      padding: 0.3rem 0.6rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface-elevated);
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-weight: 500;
+      transition: all var(--transition-fast);
+      user-select: none;
+    }
+    .score-btn:hover {
+      border-color: var(--border-color-strong);
+      color: var(--text-primary);
+    }
+    .score-btn.active-2 {
+      background: var(--color-accent-emerald-tint);
+      border-color: var(--color-accent-emerald);
+      color: var(--color-accent-emerald-solid);
+      font-weight: 700;
+    }
+    .score-btn.active-1 {
+      background: var(--color-accent-gold-tint);
+      border-color: var(--color-accent-gold);
+      color: var(--color-accent-gold-solid);
+      font-weight: 700;
+    }
+    .score-btn.active-0 {
+      background: var(--color-swiss-red-tint);
+      border-color: var(--color-swiss-red);
+      color: var(--color-swiss-red);
+      font-weight: 700;
+    }
+    .score-btn.active-na {
+      background: var(--bg-surface-subtle);
+      border-color: var(--border-color-strong);
+      color: var(--text-muted);
+    }
+    .notes-box {
+      margin-top: 0.25rem;
+    }
+    .notes-textarea {
+      width: 100%;
+      min-height: 60px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem 0.75rem;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: var(--text-xs);
+      resize: vertical;
+      outline: none;
+      transition: border-color var(--transition-fast);
+    }
+    .notes-textarea:focus {
+      border-color: var(--color-swiss-red);
+      box-shadow: 0 0 0 3px var(--color-swiss-red-tint);
+    }
+    .actions-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
+    }
+
+    /* Print Styles (@media print) */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        font-size: 9pt !important;
+        line-height: 1.35 !important;
+      }
+      .site-header, .breadcrumb-trail, .hero-section nav, .aside-toc, .toolbar-panel, .actions-bar, .wd-mesh-section, .page-footer {
+        display: none !important;
+      }
+      .main-container {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .page-layout-with-aside {
+        display: block !important;
+      }
+      .ixd-body {
+        width: 100% !important;
+      }
+      .c-card.inactive, .c-card.hidden-by-view {
+        display: none !important;
+      }
+      .c-card {
+        border: 1px solid #999 !important;
+        background: transparent !important;
+        padding: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+        page-break-inside: avoid !important;
+      }
+      .c-checkbox {
+        display: none !important;
+      }
+      .score-btn {
+        border: 1px solid #333 !important;
+        background: transparent !important;
+        color: #000 !important;
+      }
+      .notes-textarea {
+        border: 1px solid #ccc !important;
+        background: transparent !important;
+        color: #000 !important;
+        min-height: 40px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header Landmark: hydrated by site-shell.js -->
+  <header class="site-header" role="banner"></header>
+
+  <!-- Main Content Landmark -->
+  <main class="main-container" id="main-content">
+
+    <!-- Breadcrumb Trail -->
+    <nav class="breadcrumb-trail" aria-label="Breadcrumb" style="margin-bottom:var(--space-4);">
+      <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:0.5rem;padding:0;margin:0;font-size:var(--text-xs);color:var(--text-muted);">
+        <li><a href="index.html" style="color:var(--text-secondary);">WD101</a></li>
+        <li>/</li>
+        <li><a href="ixd-principles.html" style="color:var(--text-secondary);"><span class="lang-pt">Design de Interação</span><span class="lang-en">Interaction Design</span></a></li>
+        <li>/</li>
+        <li aria-current="page" style="color:var(--color-swiss-red);font-weight:700;"><span class="lang-pt">Checklist de Avaliação</span><span class="lang-en">Evaluation Checklist</span></li>
+      </ol>
+    </nav>
+
+    <!-- Hero / Orientation Section -->
+    <header class="hero-section" style="margin-bottom:var(--space-6);padding-bottom:var(--space-4);">
+      <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-2);flex-wrap:wrap;">
+        <span class="badge badge-transversal">
+          <span class="lang-pt">Prática Avaliativa</span>
+          <span class="lang-en">Evaluative Practice</span>
+        </span>
+        <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">
+          Nielsen &bull; Tognazzini &bull; Norman &bull; WCAG 2.2
+        </span>
+      </div>
+      <h1 class="hero-title" style="max-width:32ch;font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">Grelha de Avaliação Heurística &amp; Sessão Crítica</span>
+        <span class="lang-en">Heuristic Evaluation Grid &amp; Critique Sheet</span>
+      </h1>
+      <p class="hero-desc" style="font-size:var(--text-base);max-width:85ch;margin-bottom:var(--space-5);">
+        <span class="lang-pt">Ferramenta interativa para <strong>auto-avaliação</strong> e <strong>revisão crítica por pares</strong> do projeto prático (Website de Evento / Marca). Selecione as heurísticas aplicáveis ao vosso âmbito, classifique a conformidade de cada critério e imprima o relatório adaptado para a apresentação ou exporte para Markdown (.md).</span>
+        <span class="lang-en">Interactive tool for <strong>self-evaluation</strong> and <strong>peer critique</strong> of the practical project (Event / Brand Website). Select the applicable heuristics, rate compliance for each criterion, and print a custom PDF presentation report or export to Markdown (.md).</span>
+      </p>
+
+      <!-- Suite Navigation Hub Pills -->
+      <nav aria-label="Navegação da Suite de Design de Interação" style="display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center;">
+        <span style="font-family:var(--font-mono);font-size:var(--text-xs);font-weight:700;color:var(--text-muted);margin-right:0.25rem;">Suite IxD:</span>
+        <a href="ixd-principles.html" class="btn-control">
+          <span>🧭 <span class="lang-pt">Princípios &amp; Anti-Padrões</span><span class="lang-en">Principles &amp; Anti-Patterns</span></span>
+        </a>
+        <a href="ux-laws.html" class="btn-control">
+          <span>🧠 <span class="lang-pt">30 Leis de UX</span><span class="lang-en">30 Laws of UX</span></span>
+        </a>
+        <a href="heuristics-guide.html" class="btn-control">
+          <span>📖 <span class="lang-pt">18 Heurísticas</span><span class="lang-en">18 Heuristics</span></span>
+        </a>
+        <a href="heuristic-checklist.html" class="btn-control active" style="border-color:var(--color-swiss-red);color:var(--color-swiss-red);background:var(--color-swiss-red-tint);">
+          <span>📋 <span class="lang-pt">Checklist de Avaliação</span><span class="lang-en">Evaluation Checklist</span></span>
+        </a>
+        <a href="project-documentation-guide.html" class="btn-control">
+          <span>🗂️ <span class="lang-pt">Documentação UX</span><span class="lang-en">UX Documentation</span></span>
+        </a>
+        <a href="interaction-patterns.html" class="btn-control">
+          <span>✨ <span class="lang-pt">Catálogo 142 Padrões</span><span class="lang-en">142 Patterns Catalog</span></span>
+        </a>
+      </nav>
+    </header>
+
+    <!-- Page Layout with Sticky Aside Rail -->
+    <div class="page-layout-with-aside">
+
+      <!-- Sticky Navigation Rail -->
+      <aside class="aside-toc" aria-label="Índice da Página">
+        <div class="aside-toc-card">
+          <div class="aside-toc-header">
+            <span class="aside-toc-title"><span class="lang-pt">Nesta Checklist</span><span class="lang-en">In This Sheet</span></span>
+            <span class="aside-toc-count" style="font-size:var(--text-xs);color:var(--text-muted);">18 Itens</span>
+          </div>
+          <ul class="aside-toc-list">
+            <li class="aside-toc-item"><a href="#project-metadata" class="aside-toc-link"><span>📝 1. <span class="lang-pt">Metadados do Projeto</span><span class="lang-en">Project Metadata</span></span></a></li>
+            <li class="aside-toc-item"><a href="#toolbar-section" class="aside-toc-link"><span>⚙️ 2. <span class="lang-pt">Predefinições &amp; Filtros</span><span class="lang-en">Presets &amp; Filters</span></span></a></li>
+            <li class="aside-toc-item"><a href="#score-section" class="aside-toc-link"><span>📊 3. <span class="lang-pt">Painel de Pontuação</span><span class="lang-en">Score Dashboard</span></span></a></li>
+            <li class="aside-toc-item"><a href="#checklist-section" class="aside-toc-link"><span>📋 4. <span class="lang-pt">Grelha de Critérios (18)</span><span class="lang-en">Checklist Items (18)</span></span></a></li>
+            <li class="aside-toc-item"><a href="#actions-section" class="aside-toc-link"><span>💾 5. <span class="lang-pt">Ações &amp; Exportação</span><span class="lang-en">Actions &amp; Export</span></span></a></li>
+            <li class="aside-toc-item"><a href="#connected-mesh" class="aside-toc-link"><span>🔗 6. <span class="lang-pt">Rede Curricular WD101</span><span class="lang-en">Connected in WD101</span></span></a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Educational Body -->
+      <div class="ixd-body">
+
+        <!-- SECTION 1: PROJECT METADATA -->
+        <section id="project-metadata" class="card-item" style="margin-bottom:var(--space-6);padding:var(--space-5);">
+          <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-1);">
+            <span class="badge badge-foundational">Passo 1</span>
+            <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">Identificação da Auditoria</span>
+          </div>
+          <h2 style="font-size:var(--text-lg);margin-bottom:var(--space-1);">
+            <span class="lang-pt">📝 Metadados do Projeto &amp; Equipa Avaliadora</span>
+            <span class="lang-en">📝 Project Metadata &amp; Evaluation Team</span>
+          </h2>
+          <p style="font-size:var(--text-xs);color:var(--text-secondary);">
+            <span class="lang-pt">Estes dados serão automaticamente incorporados no cabeçalho do relatório impresso e no ficheiro Markdown exportado.</span>
+            <span class="lang-en">These metadata fields will automatically populate the header of the printed report and the exported Markdown file.</span>
+          </p>
+
+          <div class="meta-grid">
+            <div class="form-group">
+              <label class="form-label" for="metaProject">Projeto / Marca / Evento:</label>
+              <input type="text" id="metaProject" class="form-input" placeholder="ex.: DRUMTIKS '26 / Pure Print Archeology">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="metaGroup">Grupo Avaliado:</label>
+              <input type="text" id="metaGroup" class="form-input" placeholder="ex.: Grupo 03 (Ana, Bernardo, Carlos)">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="metaEvaluators">Avaliador(es):</label>
+              <input type="text" id="metaEvaluators" class="form-input" placeholder="ex.: Auto-Avaliação ou Grupo 07">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="metaPhase">Fase de Avaliação:</label>
+              <select id="metaPhase" class="form-select">
+                <option value="phase1">Passo 1: Mockup Interativo (Anexo 1)</option>
+                <option value="phase2" selected>Passo 2: Protótipo HTML5 &amp; CSS3 (Anexo 2)</option>
+                <option value="phase3">Passo 3: Website Capstone Final</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: PRESETS & TOOLBAR -->
+        <section id="toolbar-section" class="toolbar-panel">
+          <div class="toolbar-row">
+            <div class="preset-group">
+              <span class="preset-label">Predefinições:</span>
+              <button class="btn-preset active" id="btnPresetFnd" title="Ativa as 8 heurísticas fundamentais do 1º ano em HTML5/CSS3">
+                🟢 Prescrição WD101 (8 Fundação)
+              </button>
+              <button class="btn-preset" id="btnPreset4Pilares" title="Ativa os 4 pilares do Anexo 1 do briefing">
+                🎯 4 Pilares Briefing
+              </button>
+              <button class="btn-preset" id="btnPresetAll" title="Ativa todas as 18 heurísticas">
+                🔴 Auditoria Global (18)
+              </button>
+              <button class="btn-preset" id="btnClearAll" title="Desmarca todos os critérios">
+                Limpar Seleção
+              </button>
+            </div>
+
+            <div class="view-options">
+              <label style="display:flex; align-items:center; gap:0.4rem; font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-secondary); cursor:pointer;">
+                <input type="checkbox" id="toggleOnlyActive" style="accent-color:var(--color-swiss-red);">
+                Ver apenas ativas (<span id="activeCountLabel">8</span>)
+              </label>
+              <button class="btn-control" id="btnPrintTop" onclick="window.print()" style="padding:0.35rem 0.75rem;font-size:var(--text-xs);">
+                🖨️ Imprimir / Guardar PDF
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 3: SCORE DASHBOARD -->
+        <section id="score-section" class="score-dashboard">
+          <div class="score-card">
+            <div class="score-val" id="scoreActiveTotal" style="color:var(--color-accent-cyan);">8 / 18</div>
+            <div class="score-lbl">Heurísticas em Avaliação</div>
+          </div>
+          <div class="score-card">
+            <div class="score-val" id="scorePointsTotal" style="color:var(--color-accent-gold);">0 / 16</div>
+            <div class="score-lbl">Pontos Obtidos</div>
+          </div>
+          <div class="score-card">
+            <div class="score-val" id="scorePercentage" style="color:var(--color-accent-emerald);">0%</div>
+            <div class="score-lbl">Índice de Usabilidade</div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+          </div>
+          <div class="score-card">
+            <div class="score-val" id="scoreVerdict" style="font-size:1.15rem; color:var(--text-primary);">Por Avaliar</div>
+            <div class="score-lbl">Diagnóstico Global</div>
+          </div>
+        </section>
+
+        <!-- SECTION 4: CHECKLIST ITEMS CONTAINER -->
+        <section id="checklist-section" style="margin-bottom:var(--space-6);">
+          <div style="margin-bottom:var(--space-3);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-2);">
+            <div>
+              <h2 style="font-size:var(--text-xl);margin-bottom:0.25rem;">
+                <span class="lang-pt">📋 Critérios Heurísticos em Avaliação</span>
+                <span class="lang-en">📋 Heuristic Evaluation Criteria</span>
+              </h2>
+              <p style="font-size:var(--text-xs);color:var(--text-secondary);">
+                Marque a caixa de seleção para ativar/desativar cada critério no cômputo da nota. Clique nos botões de pontuação para avaliar o website.
+              </p>
+            </div>
+            <a href="heuristics-guide.html" class="btn-control" style="font-size:var(--text-xs);text-decoration:none;">
+              📖 Consultar Teoria das 18 Heurísticas ↗
+            </a>
+          </div>
+
+          <div class="checklist-items" id="checklistContainer" aria-live="polite">
+            <!-- Dynamically populated by renderChecklist() -->
+          </div>
+        </section>
+
+        <!-- SECTION 5: ACTIONS BOTTOM BAR -->
+        <section id="actions-section" class="actions-bar">
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;">
+            <button class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);" onclick="window.print()">
+              🖨️ Imprimir / Guardar Relatório PDF
+            </button>
+            <button class="btn-control" id="btnSaveLocal">
+              💾 Guardar Rascunho
+            </button>
+            <button class="btn-control" id="btnExportMarkdown">
+              📄 Exportar Markdown (.md)
+            </button>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-muted);">
+            Relatório adaptável para apresentações de projeto &bull; FBAUP 2026/27
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- SECTION 6: CURRICULAR MESH -->
+    <section class="wd-mesh-section" id="connected-mesh">
+      <div class="wd-mesh-header">
+        <span class="wd-mesh-kicker"><span class="lang-pt">Mapeamento Pedagógico</span><span class="lang-en">Curricular Mesh</span> &bull; Connected in WD101</span>
+        <h2 class="wd-mesh-title"><span class="lang-pt">Articulação com Enunciados, Demos e Matriz W3C</span><span class="lang-en">Connected Course Milestones, Demos &amp; Matrix</span></h2>
+      </div>
+      <div class="wd-mesh-grid">
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Enunciados do Curso</span><span class="lang-en">Course Assignments</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="ex1-hello-warp-guide.html" class="wd-mesh-chip">🟢 EX1: Hello Warp!</a>
+            <a href="ex2-guide.html" class="wd-mesh-chip">🔵 EX2: Media &amp; Box Model</a>
+            <a href="tp06-early-prototype-guide.html" class="wd-mesh-chip">🔵 Projeto Fase 1: TP06</a>
+            <a href="demos/tp11-integrated-responsive-project/GUIDE.html" class="wd-mesh-chip">🟣 Projeto Fase 2: TP11</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="demos/index.html" class="wd-mesh-chip">🚀 Repositório Central de Demos</a>
+            <a href="demos/index.html?pat=1#core-patterns" class="wd-mesh-chip">Demo P1: Gaveta Móvel</a>
+            <a href="demos/index.html?pat=8#core-patterns" class="wd-mesh-chip">Demo P8: Simulador :has()</a>
+            <a href="demos/index.html?pat=9#core-patterns" class="wd-mesh-chip">Demo P9: light-dark()</a>
+            <a href="interaction-patterns.html" class="wd-mesh-chip">✨ 142 Padrões Web</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Matriz HTML5 &amp; CSS3</span><span class="lang-en">W3C Standards Matrix</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="matrix.html" class="wd-mesh-chip" style="font-weight:700;color:var(--color-swiss-red);">Matriz Completa (314) ↗</a>
+            <a href="matrix.html?cat=cat-landmarks" class="wd-mesh-chip">Landmarks HTML5</a>
+            <a href="matrix.html?cat=cat-pseudo" class="wd-mesh-chip">Pseudo-Classes</a>
+            <a href="ixd-principles.html" class="wd-mesh-chip">🧭 Princípios de IxD</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Site Footer Landmark -->
+  <footer class="page-footer" role="contentinfo">
+    <div>
+      <strong style="color:var(--text-primary);">Faculdade de Belas Artes da Universidade do Porto (FBAUP)</strong><br>
+      Licenciatura em Design de Comunicação &bull; Instituto de Investigação em Arte, Design e Sociedade (i2ADS)<br>
+      <strong>Conceção &amp; Direção Pedagógica:</strong> Prof. Pedro Amado<br>
+      <strong>Pair Programming &amp; Agente IA:</strong> Google Gemini (DeepMind Antigravity)
+    </div>
+    <div style="text-align:right;">
+      <span>Living Standard: HTML5 &bull; Modern CSS &bull; Zero Jargon Gatekeeping</span><br>
+      <span>Open Educational Resources for Art &amp; Design Higher Education &bull; 2026/27</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/i18n.js"></script>
+
+  <!-- SCRIPT INTERATIVO: DATA & CONTROLLER -->
+  <script>
+const checklistData = [
+      {
+        id: 1,
+        name: "Visibilidade do Estado do Sistema & Consciência de Modo",
+        level: "foundation",
+        levelBadge: "🟢 Fundação",
+        levelClass: "tier-badge--green",
+        origin: "Nielsen #1 • Tog: State",
+        question: "Ao aterrar nesta página, o utilizador consegue identificar imediatamente o nome do website, a secção onde se encontra e o que pode fazer a seguir?",
+        subchecks: [
+          "O menu destaca inequivocamente a página atual com aria-current='page' e estilo visual diferenciado.",
+          "O logótipo ou título principal liga sempre de volta à Home (index.html).",
+          "O título semântico da janela (<title>) e o cabeçalho <h1> indicam o tópico exato do ecrã."
+        ]
+      },
+      {
+        id: 2,
+        name: "Navegação Visível & Orientação Previsível",
+        level: "foundation",
+        levelBadge: "🟢 Fundação",
+        levelClass: "tier-badge--green",
+        origin: "Tog: Visible Nav • Nielsen #1/#3",
+        question: "O utilizador consegue regressar à Home ou saltar para qualquer secção principal em qualquer ponto da página com apenas um clique?",
+        subchecks: [
+          "O cabeçalho e menu principal estão sempre acessíveis (ex.: cabeçalho fixo com position: sticky).",
+          "A estrutura de navegação mantém rigorosamente a mesma ordem e formato em todas as páginas.",
+          "Existe um Skip-Link acessível para saltar diretamente para o conteúdo principal."
+        ]
+      },
+      {
+        id: 3,
+        name: "Correspondência com o Mundo Real (Metáforas & Linguagem)",
+        level: "foundation",
+        levelBadge: "🟢 Fundação",
+        levelClass: "tier-badge--green",
+        origin: "Nielsen #2 • Tog: Metaphors",
+        question: "A linguagem e os ícones utilizados são imediatamente compreendidos por um visitante comum sem necessitar de explicações?",
+        subchecks: [
+          "Textos de hiperligação claros e contextuais (banidos links cegos como 'clique aqui' ou 'saber mais').",
+          "Ícones universais convencionais (Casa, Lupa, Envelope, Pin de Localização).",
+          "Datas e horários em formato natural com etiqueta HTML5 <time datetime='...'>."
+        ]
+      },
+      {
+        id: 4,
+        name: "Controlo do Utilizador, Liberdade & Autonomia",
+        level: "foundation",
+        levelBadge: "🟢 Fundação",
+        levelClass: "tier-badge--green",
+        origin: "Nielsen #3 • Tog: Autonomy",
+        question: "O utilizador consegue desfazer uma navegação ou fechar um painel aberto com facilidade e sem sensação de aprisionamento?",
+        subchecks: [
+          "Os links não abrem novas janelas (target='_blank') forçadas sem aviso ou necessidade.",
+          "O botão 'Retroceder' do navegador funciona de forma fiável em todos os passos.",
+          "Gavetas móveis e modais têm botão de fechar (×) óbvio e fecham com tecla Esc."
+        ]
+      },
+      {
+        id: 5,
+        name: "Interfaces Exploratórias & Reversibilidade Segura",
+        level: "intermediate",
+        levelBadge: "🟡 Intermédio",
+        levelClass: "tier-badge--gold",
+        origin: "Tog: Explorable Interfaces",
+        question: "Se o utilizador clicar num link ou abrir uma secção por curiosidade, ele consegue voltar ao estado anterior sem esforço?",
+        subchecks: [
+          "Links de regresso ao topo (#top) em páginas extensas de scroll longo.",
+          "Uso do elemento nativo <details>/<summary> para inspeção livre de informação secundária.",
+          "Filtros de conteúdo que podem ser desativados ou limpos com facilidade."
+        ]
+      },
+      {
+        id: 6,
+        name: "Proteção do Trabalho do Utilizador",
+        level: "advanced",
+        levelBadge: "🔴 Avançado",
+        levelClass: "tier-badge--red",
+        origin: "Tog: Protect Users' Work",
+        question: "O utilizador está protegido contra a perda acidental da sua informação ou percurso?",
+        subchecks: [
+          "Campos de formulário usam autocomplete adequado para recuperação pelo browser.",
+          "Inexistência de botões destrutivos de reset (<input type='reset'> é banido).",
+          "Persistência de rascunhos em tempo real em localStorage perante refresh acidental."
+        ]
+      },
+      {
+        id: 7,
+        name: "Consistência, Normas & Padrões",
+        level: "foundation",
+        levelBadge: "🟢 Fundação",
+        levelClass: "tier-badge--green",
+        origin: "Nielsen #4 • Tog: Consistency",
+        question: "O design mantém-se coerente e estável em todas as páginas? É fácil distinguir títulos, parágrafos, links e botões?",
+        subchecks: [
+          "Uma única folha de estilos partilhada por todas as páginas com CSS Design Tokens.",
+          "Títulos <h2> têm a mesma dimensão, peso e margens ao longo de todo o website.",
+          "O tratamento visual de links e botões primários é consistente em mobile e desktop."
+        ]
+      },
+      {
+        id: 8,
+        name: "Legibilidade, Ritmo Tipográfico & Contraste",
+        level: "foundation",
+        levelBadge: "🟢 Fundação",
+        levelClass: "tier-badge--green",
+        origin: "Tog: Readability & Color",
+        question: "O texto é perfeitamente legível a 1 metro de distância ou no telemóvel à luz do dia? O comprimento das linhas é confortável?",
+        subchecks: [
+          "Rácio de contraste cumpre WCAG AA (mínimo 4.5:1 para texto normal).",
+          "Comprimento da linha de texto delimitado a um máximo ergonómico (max-width: 65ch a 75ch).",
+          "Tamanho de texto do corpo &ge; 16px (1rem) e entrelinha (line-height) entre 1.5 e 1.6."
+        ]
+      },
+      {
+        id: 9,
+        name: "Estética, Design Minimalista & Redução ao Essencial",
+        level: "foundation",
+        levelBadge: "🟢 Fundação",
+        levelClass: "tier-badge--green",
+        origin: "Nielsen #8 • Dieter Rams #10",
+        question: "Todos os elementos cumprem uma função clara de informação ou navegação, ou existem elementos que são mera decoração dispensável?",
+        subchecks: [
+          "Dieter Rams: 'O mínimo de design necessário' — eliminação de caixas e linhas que não informem.",
+          "Espaço em branco generoso usado ativamente para agrupar e separar blocos de conteúdo.",
+          "Grelha ordenada com calhas (gap) consistentes e sem ruído visual competitivo."
+        ]
+      },
+      {
+        id: 10,
+        name: "Objetos de Interface Humana & Manipulação Direta",
+        level: "foundation",
+        levelBadge: "🟢 Fundação",
+        levelClass: "tier-badge--green",
+        origin: "Tog: Objects • Norman: Affordances",
+        question: "O utilizador consegue distinguir sem hesitar o que é apenas texto de leitura e o que é um elemento clicável?",
+        subchecks: [
+          "Links em texto corrido mantêm distinção perceptível (sublinhado ou contraste + peso).",
+          "Botões têm forma tangível e mudam o cursor (cursor: pointer).",
+          "Feedback táctil de pressão no clique (:active com ligeira escala ou elevação)."
+        ]
+      },
+      {
+        id: 11,
+        name: "Reconhecimento em Vez de Recordação & Descoberta",
+        level: "intermediate",
+        levelBadge: "🟡 Intermédio",
+        levelClass: "tier-badge--gold",
+        origin: "Nielsen #6 • Tog: Discoverability",
+        question: "Toda a informação necessária para tomar uma decisão está visível no ecrã sem obrigar a recordar dados de outras páginas?",
+        subchecks: [
+          "Ícones essenciais acompanhados de rótulos textuais legíveis.",
+          "Cartões de eventos exibem datas e locais diretamente na grelha sem obrigar ao clique.",
+          "Divulgação progressiva que expõe opções primárias e resguarda detalhes secundários."
+        ]
+      },
+      {
+        id: 12,
+        name: "Antecipação & Valores por Omissão Sensatos (Smart Defaults)",
+        level: "intermediate",
+        levelBadge: "🟡 Intermédio",
+        levelClass: "tier-badge--gold",
+        origin: "Tog: Anticipation & Defaults",
+        question: "O website antecipa a próxima dúvida ou passo lógico do utilizador e fornece uma resposta ou atalho imediato?",
+        subchecks: [
+          "Listagens de eventos com ordenação cronológica lógica (próximos eventos em destaque no topo).",
+          "Campos de input com tipos específicos (type='email', inputmode='numeric') para teclados móveis.",
+          "Opções pré-selecionadas que representam a escolha mais segura para o utilizador."
+        ]
+      },
+      {
+        id: 13,
+        name: "Ergonomia Motora & Aquisição de Alvos (Lei de Fitts)",
+        level: "foundation",
+        levelBadge: "🟢 Fundação",
+        levelClass: "tier-badge--green",
+        origin: "Tog: Fitts's Law • Nielsen #7",
+        question: "Num telemóvel real, é fácil carregar nos botões e links com o polegar sem hesitar nem errar o alvo?",
+        subchecks: [
+          "Área de toque mínima de pelo menos 44x44px em todos os botões e links no ecrã tátil.",
+          "Espaçamento de segurança entre controlos adjacentes para evitar toques no link errado.",
+          "Cartões visuais têm toda a sua área clicável de forma acessível."
+        ]
+      },
+      {
+        id: 14,
+        name: "Flexibilidade, Aceleradores & Eficiência do Utilizador",
+        level: "intermediate",
+        levelBadge: "🟡 Intermédio",
+        levelClass: "tier-badge--gold",
+        origin: "Nielsen #7 • Tog: Efficiency",
+        question: "Se navegar pelo site usando apenas o teclado, consigo ver sempre onde está o foco e aceder a todos os links?",
+        subchecks: [
+          "Anel de foco do teclado visível e de alto contraste (:focus-visible com outline de 3px).",
+          "Navegação sequencial lógica e fluida através da tecla Tab e Shift+Tab.",
+          "Skip link no topo para saltar rapidamente blocos de navegação repetitivos."
+        ]
+      },
+      {
+        id: 15,
+        name: "Prevenção de Erros & Design Defensivo",
+        level: "intermediate",
+        levelBadge: "🟡 Intermédio",
+        levelClass: "tier-badge--gold",
+        origin: "Nielsen #5 • Norman: Constraints",
+        question: "A interface impede ativamente que o utilizador introduza dados errados ou se engane no percurso?",
+        subchecks: [
+          "Etiquetas <label> associadas a todos os inputs através do atributo 'for' e 'id'.",
+          "Validação com CSS :user-invalid apenas depois de o utilizador sair do campo.",
+          "Indicação clara dos requisitos de preenchimento antes da submissão."
+        ]
+      },
+      {
+        id: 16,
+        name: "Reconhecimento, Diagnóstico & Recuperação de Erros",
+        level: "foundation",
+        levelBadge: "🟢 Fundação",
+        levelClass: "tier-badge--green",
+        origin: "Nielsen #9 • Tog: Explorable",
+        question: "Quando algo corre mal, a mensagem explica com clareza o que aconteceu e como o utilizador pode resolver o problema?",
+        subchecks: [
+          "Página 404 personalizada com design do site, mensagem empática e links de regresso.",
+          "Mensagens de erro em linha colocadas junto ao campo problemático.",
+          "Instruções construtivas de resolução em vez de alertas secos ou códigos de erro."
+        ]
+      },
+      {
+        id: 17,
+        name: "Redução de Latência & Responsividade Percetível",
+        level: "advanced",
+        levelBadge: "🔴 Avançado",
+        levelClass: "tier-badge--red",
+        origin: "Tog: Latency Reduction • Doherty",
+        question: "A página abre e reage a cliques de forma quase instantânea, sem atrasos perceptíveis ou saltos descontrolados na composição?",
+        subchecks: [
+          "Imagens otimizadas com width e height definidos para evitar saltos de layout (CLS = 0).",
+          "Transições CSS ágeis (150ms a 250ms) que não atrasam a interação.",
+          "Respeito escrupuloso à preferência @media (prefers-reduced-motion)."
+        ]
+      },
+      {
+        id: 18,
+        name: "Apoio Contextual, Documentação & Aprendibilidade",
+        level: "intermediate",
+        levelBadge: "🟡 Intermédio",
+        levelClass: "tier-badge--gold",
+        origin: "Nielsen #10 • Tog: Learnability",
+        question: "Se o utilizador tiver uma dúvida sobre o evento ou publicação, consegue encontrar uma resposta rápida ou um contacto direto?",
+        subchecks: [
+          "Página de contactos clara com email, localização e formulário acessível.",
+          "Secção de FAQ organizada por tópicos com recurso a acordeões <details>.",
+          "Dicas de contexto não obstrutivas para esclarecer termos técnicos."
+        ]
+      }
+    ];
+
+// Estado da Avaliação
+    const state = {
+      activeIds: new Set([1, 2, 3, 4, 7, 8, 9, 10, 13, 16]), // Padrão: 8/10 de Fundação
+      scores: {}, // id -> 2, 1, 0, 'na'
+      notes: {},  // id -> string
+      onlyActiveView: false
+    };
+
+    const container = document.getElementById('checklistContainer');
+    const toggleOnlyActive = document.getElementById('toggleOnlyActive');
+    const activeCountLabel = document.getElementById('activeCountLabel');
+
+    // Renderizar Checklist
+    function renderChecklist() {
+      container.innerHTML = '';
+      const currentLang = document.documentElement.getAttribute('lang') === 'en' ? 'en' : 'pt';
+
+      checklistData.forEach(item => {
+        const isActive = state.activeIds.has(item.id);
+        const card = document.createElement('article');
+        card.className = `c-card ${isActive ? 'active' : 'inactive'} ${!isActive && state.onlyActiveView ? 'hidden-by-view' : ''}`;
+        card.id = `item-${item.id}`;
+
+        const currentScore = state.scores[item.id] !== undefined ? state.scores[item.id] : null;
+        const currentNote = state.notes[item.id] || '';
+        const placeholderText = currentLang === 'en'
+          ? 'Notes, evidence found and constructive recommendations from evaluators...'
+          : 'Notas, evidências encontradas e recomendações construtivas dos avaliadores...';
+
+        card.innerHTML = `
+          <div class="c-card-header">
+            <label class="c-select-toggle">
+              <input type="checkbox" class="c-checkbox" data-id="${item.id}" ${isActive ? 'checked' : ''}>
+              <span class="c-num">#${String(item.id).padStart(2, '0')}</span>
+              <span class="c-title">${item.name}</span>
+            </label>
+            <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+              <span class="tier-badge ${item.levelClass}">${item.levelBadge}</span>
+              <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--color-purple); background:rgba(168,85,247,0.1); padding:0.2rem 0.5rem; border-radius:3px;">
+                ${item.origin}
+              </span>
+            </div>
+          </div>
+
+          <div class="c-question">
+            "${item.question}"
+          </div>
+
+          <ul class="c-subchecks">
+            ${item.subchecks.map(sc => `<li>${sc}</li>`).join('')}
+          </ul>
+
+          <div class="scoring-row">
+            <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-muted); text-transform:uppercase;">
+              <span class="lang-pt">Classificação:</span>
+              <span class="lang-en">Score:</span>
+            </span>
+            <button type="button" class="score-btn ${currentScore === 2 ? 'active-2' : ''}" data-score="2" data-id="${item.id}">
+              <span class="lang-pt">🟢 Cumpre Totalmente (2)</span>
+              <span class="lang-en">🟢 Fully Compliant (2)</span>
+            </button>
+            <button type="button" class="score-btn ${currentScore === 1 ? 'active-1' : ''}" data-score="1" data-id="${item.id}">
+              <span class="lang-pt">🟡 Parcial / A Melhorar (1)</span>
+              <span class="lang-en">🟡 Partial / Needs Work (1)</span>
+            </button>
+            <button type="button" class="score-btn ${currentScore === 0 ? 'active-0' : ''}" data-score="0" data-id="${item.id}">
+              <span class="lang-pt">🔴 Falha Crítica (0)</span>
+              <span class="lang-en">🔴 Critical Issue (0)</span>
+            </button>
+            <button type="button" class="score-btn ${currentScore === 'na' ? 'active-na' : ''}" data-score="na" data-id="${item.id}">
+              ⚪ N/A
+            </button>
+          </div>
+
+          <div class="notes-box">
+            <textarea class="notes-textarea" data-id="${item.id}" placeholder="${placeholderText}">${currentNote}</textarea>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      attachEvents();
+      updateScoreDashboard();
+    }
+
+    function attachEvents() {
+      // Checkbox de ativação individual
+      document.querySelectorAll('.c-checkbox').forEach(cb => {
+        cb.addEventListener('change', (e) => {
+          const id = parseInt(e.target.dataset.id, 10);
+          if (e.target.checked) {
+            state.activeIds.add(id);
+          } else {
+            state.activeIds.delete(id);
+          }
+          renderChecklist();
+        });
+      });
+
+      // Botões de pontuação
+      document.querySelectorAll('.score-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = parseInt(e.target.dataset.id, 10);
+          const scoreVal = e.target.dataset.score;
+          const finalScore = scoreVal === 'na' ? 'na' : parseInt(scoreVal, 10);
+
+          if (state.scores[id] === finalScore) {
+            delete state.scores[id]; // desmarcar ao clicar de novo
+          } else {
+            state.scores[id] = finalScore;
+            // Se o item estiver inativo, ativa-o automaticamente ao ser pontuado
+            if (!state.activeIds.has(id)) {
+              state.activeIds.add(id);
+            }
+          }
+          renderChecklist();
+        });
+      });
+
+      // Textareas de notas
+      document.querySelectorAll('.notes-textarea').forEach(ta => {
+        ta.addEventListener('input', (e) => {
+          const id = parseInt(e.target.dataset.id, 10);
+          state.notes[id] = e.target.value;
+        });
+      });
+    }
+
+    // Calcular Dashboard de Pontuação
+    function updateScoreDashboard() {
+      const activeCount = state.activeIds.size;
+      activeCountLabel.textContent = activeCount;
+      document.getElementById('scoreActiveTotal').textContent = `${activeCount} / 18`;
+
+      let totalPossible = 0;
+      let earned = 0;
+      let scoredItems = 0;
+
+      state.activeIds.forEach(id => {
+        const sc = state.scores[id];
+        if (sc !== undefined) {
+          if (sc !== 'na') {
+            totalPossible += 2;
+            earned += sc;
+            scoredItems++;
+          }
+        }
+      });
+
+      document.getElementById('scorePointsTotal').textContent = `${earned} / ${totalPossible}`;
+
+      let percentage = 0;
+      if (totalPossible > 0) {
+        percentage = Math.round((earned / totalPossible) * 100);
+      }
+
+      document.getElementById('scorePercentage').textContent = `${percentage}%`;
+      const fill = document.getElementById('progressBarFill');
+      fill.style.width = `${percentage}%`;
+
+      const verdictEl = document.getElementById('scoreVerdict');
+      if (scoredItems === 0) {
+        verdictEl.textContent = "Por Avaliar";
+        verdictEl.style.color = "var(--color-text-main)";
+        fill.style.backgroundColor = "var(--color-cyan)";
+      } else if (percentage >= 85) {
+        verdictEl.textContent = "Excelente Usabilidade";
+        verdictEl.style.color = "var(--color-green)";
+        fill.style.backgroundColor = "var(--color-green)";
+      } else if (percentage >= 65) {
+        verdictEl.textContent = "Boa (com Ajustes)";
+        verdictEl.style.color = "var(--color-gold)";
+        fill.style.backgroundColor = "var(--color-gold)";
+      } else {
+        verdictEl.textContent = "Falhas Críticas";
+        verdictEl.style.color = "var(--color-red)";
+        fill.style.backgroundColor = "var(--color-red)";
+      }
+    }
+
+    // Presets
+    document.getElementById('btnPresetFnd').addEventListener('click', () => {
+      setPreset([1, 2, 3, 4, 7, 8, 9, 10, 13, 16], 'btnPresetFnd');
+    });
+
+    document.getElementById('btnPreset4Pilares').addEventListener('click', () => {
+      setPreset([1, 4, 7, 9], 'btnPreset4Pilares');
+    });
+
+    document.getElementById('btnPresetAll').addEventListener('click', () => {
+      setPreset(checklistData.map(d => d.id), 'btnPresetAll');
+    });
+
+    document.getElementById('btnClearAll').addEventListener('click', () => {
+      setPreset([], 'btnClearAll');
+    });
+
+    function setPreset(ids, activeBtnId) {
+      document.querySelectorAll('.btn-preset').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById(activeBtnId);
+      if (activeBtn) activeBtn.classList.add('active');
+      state.activeIds = new Set(ids);
+      renderChecklist();
+    }
+
+    // Alternar vista de apenas ativas
+    toggleOnlyActive.addEventListener('change', (e) => {
+      state.onlyActiveView = e.target.checked;
+      renderChecklist();
+    });
+
+    // Guardar Rascunho em LocalStorage
+    document.getElementById('btnSaveLocal').addEventListener('click', () => {
+      const dataToSave = {
+        metaProject: document.getElementById('metaProject').value,
+        metaGroup: document.getElementById('metaGroup').value,
+        metaEvaluators: document.getElementById('metaEvaluators').value,
+        metaPhase: document.getElementById('metaPhase').value,
+        activeIds: Array.from(state.activeIds),
+        scores: state.scores,
+        notes: state.notes
+      };
+      localStorage.setItem('fbaup_wd101_heuristic_eval', JSON.stringify(dataToSave));
+      alert('✅ Avaliação guardada com sucesso no armazenamento local do navegador!');
+    });
+
+    // Carregar Rascunho se existir
+    function loadSavedState() {
+      const saved = localStorage.getItem('fbaup_wd101_heuristic_eval');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed.metaProject) document.getElementById('metaProject').value = parsed.metaProject;
+          if (parsed.metaGroup) document.getElementById('metaGroup').value = parsed.metaGroup;
+          if (parsed.metaEvaluators) document.getElementById('metaEvaluators').value = parsed.metaEvaluators;
+          if (parsed.metaPhase) document.getElementById('metaPhase').value = parsed.metaPhase;
+          if (parsed.activeIds) state.activeIds = new Set(parsed.activeIds);
+          if (parsed.scores) state.scores = parsed.scores;
+          if (parsed.notes) state.notes = parsed.notes;
+        } catch (e) {
+          console.warn('Erro ao carregar dados locais:', e);
+        }
+      }
+    }
+
+    // Exportar Markdown
+    document.getElementById('btnExportMarkdown').addEventListener('click', () => {
+      const proj = document.getElementById('metaProject').value || 'Projeto Não Indicado';
+      const grp = document.getElementById('metaGroup').value || 'Grupo Não Indicado';
+      const ev = document.getElementById('metaEvaluators').value || 'Avaliadores';
+      const ph = document.getElementById('metaPhase').selectedOptions[0].text;
+      const pts = document.getElementById('scorePointsTotal').textContent;
+      const pct = document.getElementById('scorePercentage').textContent;
+      const ver = document.getElementById('scoreVerdict').textContent;
+
+      let md = `# 📋 Relatório de Avaliação Heurística • WD101\n`;
+      md += `**Faculdade de Belas Artes da Universidade do Porto (FBAUP)**\n\n`;
+      md += `* **Projeto:** ${proj}\n`;
+      md += `* **Grupo Avaliado:** ${grp}\n`;
+      md += `* **Avaliadores:** ${ev}\n`;
+      md += `* **Fase:** ${ph}\n`;
+      md += `* **Resultado:** ${pts} (${pct}) — ${ver}\n\n`;
+      md += `---\n\n## Critérios Avaliados:\n\n`;
+
+      checklistData.forEach(item => {
+        if (state.activeIds.has(item.id)) {
+          const sc = state.scores[item.id];
+          let scLabel = "Não classificado";
+          if (sc === 2) scLabel = "🟢 Cumpre Totalmente (2 pts)";
+          else if (sc === 1) scLabel = "🟡 Cumpre Parcialmente (1 pt)";
+          else if (sc === 0) scLabel = "🔴 Falha Crítica (0 pts)";
+          else if (sc === 'na') scLabel = "⚪ Não Aplicável";
+
+          const n = state.notes[item.id] || "Sem observações adicionais.";
+
+          md += `### #${String(item.id).padStart(2, '0')} ${item.name} (${item.levelBadge})\n`;
+          md += `> "${item.question}"\n\n`;
+          md += `* **Classificação:** ${scLabel}\n`;
+          md += `* **Observações & Recomendações:** ${n}\n\n`;
+        }
+      });
+
+      const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `avaliacao-heuristica-${proj.toLowerCase().replace(/[^a-z0-9]/g, '-')}.md`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Iniciar
+    loadSavedState();
+    const hasCustomActive = state.activeIds.size > 0 && localStorage.getItem('fbaup_wd101_heuristic_eval');
+    if (!hasCustomActive) {
+      resolveInitialPreset();
+    }
+    renderChecklist();
+
+    function resolveInitialPreset() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlPreset = urlParams.get('preset');
+      const urlTier = urlParams.get('tier') || urlParams.get('difficulty');
+      const storedTier = localStorage.getItem('wd101_tier');
+      const cookieMatch = document.cookie.match(/(?:^|;\s*)wd101_tier=([^;]+)/);
+      const cookieTier = cookieMatch ? decodeURIComponent(cookieMatch[1]) : null;
+      const tierVal = urlTier || storedTier || cookieTier || (window.WD101 && window.WD101.getTier ? window.WD101.getTier() : document.documentElement.getAttribute('data-tier'));
+
+      if (urlPreset === '4pilares' || urlPreset === 'pillars') {
+        setPreset([1, 4, 7, 9], 'btnPreset4Pilares');
+      } else if (urlPreset === 'all') {
+        setPreset(checklistData.map(d => d.id), 'btnPresetAll');
+      } else if (urlPreset === 'foundation' || urlPreset === 'fnd' || tierVal === 'foundation') {
+        setPreset([1, 2, 3, 4, 7, 8, 9, 10, 13, 16], 'btnPresetFnd');
+      }
+    }
+
+    // Reactive Language & Tier Change Listeners
+    window.addEventListener('wd101:langchange', () => renderChecklist());
+    window.addEventListener('wd101:tierchange', (e) => {
+      const tierStr = (e.detail && (e.detail.tierStr || e.detail.tier)) ? (e.detail.tierStr || e.detail.tier) : '';
+      if (tierStr === 'foundation') {
+        setPreset([1, 2, 3, 4, 7, 8, 9, 10, 13, 16], 'btnPresetFnd');
+      } else if (tierStr === 'all' || tierStr.includes('advanced')) {
+        setPreset(checklistData.map(d => d.id), 'btnPresetAll');
+      }
+    });
+  
+  </script>
+
+  <!-- Global Shell Controller -->
+  <script src="assets/js/site-shell.js"></script>
+</body>
+</html>

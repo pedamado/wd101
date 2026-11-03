@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TP11: DRUMTIKS '26 — Capstone Integrado • Guião Técnico &amp; Evolução Arquitetural • WD101</title>
   
-  <!-- Previne FOUC de tema e idioma -->
+  <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
   <script>
     (function() {
-      const savedTheme = localStorage.getItem('wd101_theme') || 
-                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      const savedLang = localStorage.getItem('wd101_lang') === 'en' ? 'en' : 'pt';
       document.documentElement.setAttribute('lang', savedLang);
+      const savedAesthetic = localStorage.getItem('wd101_aesthetic') || 'airy';
+      document.documentElement.setAttribute('data-aesthetic', savedAesthetic);
     })();
   </script>
 
@@ -189,46 +190,33 @@
 </head>
 <body>
 
-  <!-- Site Header Landmark -->
-  <header class="site-header" role="banner">
-    <div class="header-inner">
-      <div class="brand">
-        <a href="../../index.html" class="brand-logo">WD<span>101</span></a>
-        <span class="brand-meta">FBAUP Design 2026/27</span>
-      </div>
-
-      <nav class="site-nav" aria-label="Navegação do Guião">
-        <ul>
-          <li><a href="../../index.html#assignments"><span class="lang-pt">← Enunciados</span><span class="lang-en">← Assignments</span></a></li>
-          <li><a href="#comparativo"><span class="lang-pt">Matriz Comparativa</span><span class="lang-en">Comparison Matrix</span></a></li>
-          <li><a href="#passos"><span class="lang-pt">Os 8 Passos</span><span class="lang-en">The 8 Steps</span></a></li>
-          <li><a href="#suites"><span class="lang-pt">Suites TP11</span><span class="lang-en">TP11 Suites</span></a></li>
-          <li><a href="#rubrica"><span class="lang-pt">Rubrica Docente</span><span class="lang-en">Grading Rubric</span></a></li>
-          <li><a href="#checklist"><span class="lang-pt">Checklist</span><span class="lang-en">Checklist</span></a></li>
-          <li><a href="#codigo-completo"><span class="lang-pt">Arquitetura</span><span class="lang-en">Architecture</span></a></li>
-        </ul>
-      </nav>
-
-      <div class="header-controls">
-        <a href="index.html" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);font-weight:700;">
-          <span class="lang-pt">🚀 Ver Mini-Site Demo ↗</span>
-          <span class="lang-en">🚀 View Live Demo ↗</span>
-        </a>
-        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
-        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
-      </div>
-    </div>
-  </header>
+  <!-- Site Header Landmark montado pelo site-shell.js -->
+  <header class="site-header" role="banner"></header>
 
   <!-- Main Container -->
   <main class="main-container">
 
+    <!-- Breadcrumb Strip -->
+    <nav class="breadcrumb-strip" aria-label="Navegação Estrutural" style="margin-bottom:var(--space-4);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+      <a href="../../index.html" style="color:var(--text-muted);text-decoration:none;">WD101</a>
+      <span>/</span>
+      <a href="../../index.html#assignments" style="color:var(--text-muted);text-decoration:none;"><span class="lang-pt">Enunciados</span><span class="lang-en">Assignments</span></a>
+      <span>/</span>
+      <span style="color:var(--color-swiss-red);font-weight:700;">TP11: Capstone Integrado</span>
+    </nav>
+
     <!-- Hero / Enquadramento -->
     <header class="guide-hero" id="inicio">
-      <a href="../../index.html#assignments" class="guide-back-link">
-        <span class="lang-pt">← Voltar aos Enunciados da Plataforma WD101</span>
-        <span class="lang-en">← Back to Course Assignments</span>
-      </a>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-3);">
+        <a href="../../index.html#assignments" class="guide-back-link" style="margin-bottom:0;">
+          <span class="lang-pt">← Voltar aos Enunciados da Plataforma WD101</span>
+          <span class="lang-en">← Back to Course Assignments</span>
+        </a>
+        <a href="index.html" class="btn-control btn-primary-red" style="padding:0.4rem 0.85rem;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.35rem;">
+          <span class="lang-pt">🚀 Ver Mini-Site Demo (TP11) ↗</span>
+          <span class="lang-en">🚀 View Live Demo (TP11) ↗</span>
+        </a>
+      </div>
       <span class="hero-eyebrow">
         <span class="lang-pt">Fase 2 • Projeto Final — Capstone Integrado • WD101</span>
         <span class="lang-en">Stage 2 • Final Project — Advanced Integrated Capstone • WD101</span>
@@ -1004,51 +992,6 @@ body {
     </div>
   </footer>
 
-  <!-- Script Progressivo de Alternância de Idioma e Tema -->
-  <script>
-    (function() {
-      const langBtn = document.getElementById('lang-toggle-btn');
-      const themeBtn = document.getElementById('theme-toggle-btn');
-
-      function updateLanguageUI(lang) {
-        document.documentElement.setAttribute('lang', lang);
-        localStorage.setItem('wd101_lang', lang);
-        if (langBtn) {
-          langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
-        }
-      }
-
-      function updateThemeUI(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('wd101_theme', theme);
-        if (themeBtn) {
-          themeBtn.innerHTML = theme === 'dark' ? '☀ <span>Tema</span>' : '◐ <span>Tema</span>';
-        }
-      }
-
-      if (langBtn) {
-        langBtn.addEventListener('click', function() {
-          const currentLang = document.documentElement.getAttribute('lang') || 'pt';
-          const newLang = currentLang === 'pt' ? 'en' : 'pt';
-          updateLanguageUI(newLang);
-        });
-      }
-
-      if (themeBtn) {
-        themeBtn.addEventListener('click', function() {
-          const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          updateThemeUI(newTheme);
-        });
-      }
-
-      const initialLang = localStorage.getItem('wd101_lang') || 'pt';
-      updateLanguageUI(initialLang);
-      const initialTheme = localStorage.getItem('wd101_theme') || 
-                           (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      updateThemeUI(initialTheme);
-    })();
-  </script>
-
+  <script src="../../assets/js/site-shell.js"></script>
 </body>
 </html>

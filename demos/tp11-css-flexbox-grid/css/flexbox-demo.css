@@ -157,7 +157,7 @@
   font-weight: 700;
   font-size: 0.95rem;
   line-height: 1.25;
-  color: #fff;
+  color: var(--color-text-main);
 }
 
 .album-subtext {
@@ -421,7 +421,7 @@ body:has(#album-sel-5:checked) .pane-album-5 { display: block; }
   font-family: var(--font-display);
   font-size: 1.1rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--color-text-main);
   line-height: 1.25;
 }
 

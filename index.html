@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WD101 — Plataforma Pedagógica & Andaime de Aprendizagem</title>
+  <title>WD101 — Plataforma Pedagógica &amp; Andaime de Aprendizagem</title>
   
-  <!-- Previne FOUC de tema e idioma -->
+  <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
   <script>
     (function() {
-      const savedTheme = localStorage.getItem('wd101_theme') || 
-                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      const savedLang = localStorage.getItem('wd101_lang') === 'en' ? 'en' : 'pt';
       document.documentElement.setAttribute('lang', savedLang);
+      const savedAesthetic = localStorage.getItem('wd101_aesthetic') || 'airy';
+      document.documentElement.setAttribute('data-aesthetic', savedAesthetic);
     })();
   </script>
 
@@ -23,81 +24,285 @@
 </head>
 <body>
 
-  <!-- Site Header Landmark -->
-  <header class="site-header" role="banner">
-    <div class="header-inner">
-      <div class="brand">
-        <a href="#" class="brand-logo">WD<span>101</span></a>
-        <span class="brand-meta" data-i18n="brand_sub">FBAUP Design 2026/27</span>
-      </div>
-
-      <nav class="site-nav" aria-label="Navegação do Portal">
-        <ul>
-          <li><a href="#study-goals" data-i18n="nav_goals">Objetivos &amp; Como Estudar</a></li>
-          <li><a href="#assignments" data-i18n="nav_assignments">Enunciados</a></li>
-          <li><a href="#matrix" data-i18n="nav_matrix">Matriz MDN</a></li>
-          <li><a href="#patterns" data-i18n="nav_patterns">Padrões Drumtiks</a></li>
-        </ul>
-      </nav>
-
-      <div class="header-controls">
-        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
-        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span data-i18n="theme_toggle">Tema</span></button>
-      </div>
-    </div>
-  </header>
+  <!-- Site Header Landmark montado automaticamente pelo site-shell.js -->
+  <header class="site-header" role="banner"></header>
 
   <!-- Main Content Landmark -->
   <main class="main-container" id="main-content">
     
     <!-- Hero Section -->
     <section class="hero-section" id="hero">
-      <span class="hero-eyebrow" data-i18n="hero_eyebrow">Unidade Curricular Web Design 101 • FBAUP</span>
-      <h1 class="hero-title" data-i18n="hero_title">Documentação &amp; Andaime Pedagógico Interativo</h1>
+      <span class="hero-eyebrow" data-i18n="hero_eyebrow">Unidade Curricular Web Design 101 &bull; FBAUP</span>
+      <h1 class="hero-title" data-i18n="hero_title">Andaime Pedagógico de Web Design &amp; Design de Interação</h1>
       <p class="hero-desc" data-i18n="hero_desc">
-        Referência completa de HTML5 Living Standard e CSS3/4/5, articulada com o universo concetual do Festival DRUMTIKS '26. Aprenda os princípios de design responsivo móvel-primeiro, sem recurso a frameworks ou JavaScript na camada de apresentação.
+        Percurso progressivo de HTML5 e CSS moderno para estudantes de Design de Comunicação, articulado através do festival DRUMTIKS '26 — do fluxo normal do documento à responsividade intrínseca e sistemas de design.
       </p>
+
+      <!-- Primary Action Buttons -->
       <div class="hero-badges">
-        <a href="#matrix" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);padding:var(--space-2) var(--space-4);" data-i18n="hero_btn_matrix">Explorar Matriz de Referência</a>
-        <a href="#patterns" class="btn-control" style="padding:var(--space-2) var(--space-4);" data-i18n="hero_btn_patterns">Ver Padrões Drumtiks</a>
+        <a href="demos/index.html" class="btn-control btn-primary-red" data-i18n="hero_btn_demos">Explorar Demos &amp; Boilerplates</a>
+        <a href="matrix.html" class="btn-control" data-i18n="hero_btn_matrix">Consultar Matriz HTML &amp; CSS</a>
+        <a href="ixd-principles.html" class="btn-control">
+          🧭 <span class="lang-pt">Princípios de IxD &amp; Anti-Padrões</span><span class="lang-en">IxD Principles &amp; Anti-Patterns</span> ↗
+        </a>
+      </div>
+
+      <!-- Orientation Stepper Strip (How to Study RWD — Linked to the 4 Learning Modules) -->
+      <nav class="orientation-strip" aria-label="Módulos Estruturantes de Aprendizagem / Core Learning Modules">
+        <a href="#cluster-1" class="orientation-step">
+          <div>
+            <span class="orientation-step-num">
+              <span class="lang-pt">Módulo 01 &bull; Nível 1</span>
+              <span class="lang-en">Module 01 &bull; Level 1</span>
+            </span>
+            <strong>
+              <span class="lang-pt">Cluster I: Fluxo Normal, Geometria &amp; Tipografia</span>
+              <span class="lang-en">Cluster I: Normal Flow, Box Geometry &amp; Typography</span>
+            </strong>
+            <p>
+              <span class="lang-pt">Comece sempre pelo HTML semântico nu no ecrã vertical (&lt;600px). Sem classes ou larguras fixas — deixe o conteúdo fluir.</span>
+              <span class="lang-en">Always begin with naked semantic HTML on vertical screens (&lt;600px). Zero classes or fixed widths — let the content flow.</span>
+            </p>
+          </div>
+          <span class="orientation-step-cta">
+            <span class="lang-pt">Explorar Módulo 01 &darr;</span>
+            <span class="lang-en">Explore Module 01 &darr;</span>
+          </span>
+        </a>
+
+        <a href="#cluster-2" class="orientation-step">
+          <div>
+            <span class="orientation-step-num">
+              <span class="lang-pt">Módulo 02 &bull; Nível 2</span>
+              <span class="lang-en">Module 02 &bull; Level 2</span>
+            </span>
+            <strong>
+              <span class="lang-pt">Cluster II: Multimédia, Grelhas &amp; Seletores</span>
+              <span class="lang-en">Cluster II: Multimedia, Grids &amp; Selectors</span>
+            </strong>
+            <p>
+              <span class="lang-pt">Introduza o CSS Reset, imagens responsivas com <code>&lt;picture&gt;</code>, posicionamento sticky e o breakpoint Desktop progressivo (960px).</span>
+              <span class="lang-en">Introduce the CSS Reset, responsive images with <code>&lt;picture&gt;</code>, sticky positioning, and the progressive Desktop breakpoint (960px).</span>
+            </p>
+          </div>
+          <span class="orientation-step-cta">
+            <span class="lang-pt">Explorar Módulo 02 &darr;</span>
+            <span class="lang-en">Explore Module 02 &darr;</span>
+          </span>
+        </a>
+
+        <a href="#cluster-3" class="orientation-step">
+          <div>
+            <span class="orientation-step-num">
+              <span class="lang-pt">Módulo 03 &bull; Nível 3 &bull; Semanas 9 a 13</span>
+              <span class="lang-en">Module 03 &bull; Level 3 &bull; Weeks 9-13</span>
+            </span>
+            <strong>
+              <span class="lang-pt">Cluster III: Usabilidade, IxD &amp; Capstone</span>
+              <span class="lang-en">Cluster III: Usability, IxD &amp; Capstone</span>
+            </strong>
+            <p>
+              <span class="lang-pt">Articule tokens <code>light-dark()</code>, macro-grelha 2D, carrosséis scroll-snap, modais e motor de preços reativo em CSS puro.</span>
+              <span class="lang-en">Articulate <code>light-dark()</code> tokens, 2D macro-grid, scroll-snap carousels, modals, and a pure CSS reactive pricing engine.</span>
+            </p>
+          </div>
+          <span class="orientation-step-cta">
+            <span class="lang-pt">Explorar Módulo 03 &darr;</span>
+            <span class="lang-en">Explore Module 03 &darr;</span>
+          </span>
+        </a>
+
+        <a href="#cluster-4" class="orientation-step">
+          <div>
+            <span class="orientation-step-num">
+              <span class="lang-pt">Módulo 04 &bull; Além do Curso &bull; Semanas 14+</span>
+              <span class="lang-en">Module 04 &bull; Beyond the Course &bull; Weeks 14+</span>
+            </span>
+            <strong>
+              <span class="lang-pt">Cluster IV: Auto-Aprendizagem &amp; Futuro do IxD</span>
+              <span class="lang-en">Cluster IV: Lifelong Learning &amp; Future of IxD</span>
+            </strong>
+            <p>
+              <span class="lang-pt">Estímulo à auto-aprendizagem e evolução contínua ao longo da vida: tópicos emergentes, IA como mentor pedagógico e dedicação constante ao aperfeiçoamento das competências em design de interação e desenvolvimento web.</span>
+              <span class="lang-en">A stimulus for lifelong self-learning and progressive skill enhancement: emerging topics, AI as a pedagogical mentor, and continuous dedication to refining your interaction design and web development craft.</span>
+            </p>
+          </div>
+          <span class="orientation-step-cta">
+            <span class="lang-pt">Explorar Módulo 04 &darr;</span>
+            <span class="lang-en">Explore Module 04 &darr;</span>
+          </span>
+        </a>
+      </nav>
+    </section>
+
+    <!-- Learning Path & Difficulty Tier Preferences Bar -->
+    <section id="learning-preferences-bar" class="learning-preferences-card" aria-label="Personalização do Percurso Pedagógico" data-aria-pt="Personalização do Percurso Pedagógico" data-aria-en="Learning Path &amp; Tier Customization">
+      <div class="pref-card-header">
+        <div class="pref-card-kicker">
+          <span class="lang-pt">🎯 Personalização do Percurso Pedagógico</span>
+          <span class="lang-en">🎯 Learning Path &amp; Tier Customization</span>
+        </div>
+        <h3 class="pref-card-title">
+          <span class="lang-pt">Escolha o seu Nível de Foco &amp; Preferências Globais</span>
+          <span class="lang-en">Choose Your Learning Focus &amp; Global Preferences</span>
+        </h3>
+        <p class="pref-card-desc">
+          <span class="lang-pt">Personalize as camadas de complexidade ativas combinando os níveis (Fundação, Intermédio e Avançado). Os módulos e conteúdos dos níveis não selecionados permanecem identificados pelo título e etiquetas de nível, permitindo visão contextual sem sobrecarga visual. As preferências são sincronizadas em todas as páginas através do menu de topo.</span>
+          <span class="lang-en">Customize your active complexity layers by combining tiers (Foundation, Intermediate, and Advanced). Non-selected tiers remain visible as titled summary cards with status badges, allowing structural orientation without cognitive overload. Preferences synchronize seamlessly across all pages via the top menu.</span>
+        </p>
+      </div>
+
+      <div class="pref-controls-grid">
+        <!-- 1. Difficulty Tier Multi-Select Checkboxes -->
+        <div class="pref-group" data-pref="tier">
+          <span class="pref-label">
+            <span class="lang-pt">Níveis Pedagógicos Ativos:</span>
+            <span class="lang-en">Active Pedagogical Tiers:</span>
+          </span>
+          <div class="pref-pills" role="group" aria-label="Níveis Pedagógicos">
+            <button type="button" class="pref-pill is-active" data-tier-action="all" aria-checked="true">
+              <span class="tier-check-box">✓</span>
+              <span class="lang-pt">Todos (Pleno)</span>
+              <span class="lang-en">All (Full View)</span>
+            </button>
+            <button type="button" class="pref-pill is-active" role="checkbox" aria-checked="true" data-tier="foundation">
+              <span class="tier-check-box">✓</span>
+              <span class="lang-pt">🟢 Fundação</span>
+              <span class="lang-en">🟢 Foundation</span>
+            </button>
+            <button type="button" class="pref-pill is-active" role="checkbox" aria-checked="true" data-tier="intermediate">
+              <span class="tier-check-box">✓</span>
+              <span class="lang-pt">🟡 Intermédio</span>
+              <span class="lang-en">🟡 Intermediate</span>
+            </button>
+            <button type="button" class="pref-pill is-active" role="checkbox" aria-checked="true" data-tier="advanced">
+              <span class="tier-check-box">✓</span>
+              <span class="lang-pt">🔴 Avançado</span>
+              <span class="lang-en">🔴 Advanced</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Language -->
+        <div class="pref-group" data-pref="lang">
+          <span class="pref-label">
+            <span class="lang-pt">Idioma (Language):</span>
+            <span class="lang-en">Language:</span>
+          </span>
+          <div class="pref-pills" role="radiogroup" aria-label="Idioma">
+            <button type="button" class="pref-pill" data-lang="en">EN (Default)</button>
+            <button type="button" class="pref-pill" data-lang="pt">PT (Português)</button>
+          </div>
+        </div>
+
+        <!-- 3. Theme -->
+        <div class="pref-group" data-pref="theme">
+          <span class="pref-label">
+            <span class="lang-pt">Tema Visual:</span>
+            <span class="lang-en">Visual Theme:</span>
+          </span>
+          <div class="pref-pills" role="radiogroup" aria-label="Tema">
+            <button type="button" class="pref-pill is-active" data-theme="light">
+              <span class="lang-pt">Claro (Padrão)</span>
+              <span class="lang-en">Light (Default)</span>
+            </button>
+            <button type="button" class="pref-pill" data-theme="dark">
+              <span class="lang-pt">Escuro</span>
+              <span class="lang-en">Dark</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4. Reset Action -->
+        <div class="pref-group pref-actions" style="margin-top:auto;">
+          <button type="button" id="pref-reset-btn" class="btn-control" style="font-size:var(--text-xs); font-family:var(--font-mono);">
+            <span class="lang-pt">↺ Repor Padrão (Pleno / EN / Claro)</span>
+            <span class="lang-en">↺ Reset All (Full / EN / Light)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Active Filter Status Feedback Banner -->
+      <div id="pref-status-banner" class="pref-status-banner" aria-live="polite">
+        <span class="lang-pt" id="pref-status-pt">Visualização atual: <strong>Todos os 4 Módulos &amp; Compêndio Pleno</strong> disponíveis.</span>
+        <span class="lang-en" id="pref-status-en">Current view: <strong>All 4 Modules &amp; Full Compendium</strong> visible.</span>
       </div>
     </section>
 
-    <!-- Study Goals & Mental Models -->
+    <!-- Study Goals Section (Organized into 4 Module Clusters) -->
     <section id="study-goals" style="margin-bottom:var(--space-12);">
       <div style="margin-bottom:var(--space-6);">
         <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-2);" data-i18n="goals_heading">Objetivos de Aprendizagem &amp; Como Estudar RWD</h2>
-        <p style="color:var(--text-secondary);font-size:var(--text-base);" data-i18n="goals_sub">Metodologias e modelos mentais para o sucesso no design e desenvolvimento web moderno.</p>
+        <p style="color:var(--text-secondary);font-size:var(--text-base);" data-i18n="goals_sub">
+          Organizados nos 4 módulos estruturantes da unidade curricular — expanda cada cartão para consultar os recursos, guias e conceitos fundamentais.
+        </p>
       </div>
 
-      <div class="grid-3">
-        <article class="card-item" style="border-left: 3px solid var(--color-swiss-red);">
+      
+  <div class="module-cluster" id="cluster-1" data-tier="foundation">
+    <div class="module-cluster-header">
+      <div>
+        <span class="module-cluster-kicker">
+          <span class="lang-pt">Módulo 01 &bull; Fundação Estruturante</span>
+          <span class="lang-en">Module 01 &bull; Foundational Structure</span>
+        </span>
+        <h3 class="module-cluster-title">
+          <span class="lang-pt">Cluster I: Fluxo Normal, Geometria da Caixa &amp; Tipografia Fluida</span>
+          <span class="lang-en">Cluster I: Normal Flow, Box Geometry &amp; Fluid Typography</span>
+        </h3>
+      </div>
+      <span class="badge badge-foundational">
+        <span class="lang-pt">Semanas 1 a 4 &bull; EX1 &amp; EX2</span>
+        <span class="lang-en">Weeks 1 to 4 &bull; EX1 &amp; EX2</span>
+      </span>
+    </div>
+    <div class="cluster-collapsed-notice" style="display:none; align-items:center; gap:var(--space-2); margin-top:var(--space-2); margin-bottom:var(--space-4); flex-wrap:wrap;">
+      <span class="tier-status-tag tier-badge--green"><span class="lang-pt">🟢 Nível Fundação (Oculto no Modo Atual)</span><span class="lang-en">🟢 Foundation Tier (Hidden in Current Mode)</span></span>
+      <button type="button" class="btn-cluster-toggle" data-tier-toggle="foundation">
+        <span class="lang-pt">+ Ativar Nível Fundação para Ver</span>
+        <span class="lang-en">+ Enable Foundation Tier</span>
+      </button>
+    </div>
+    <div class="grid-3">
+      <article class="card-item" style="border-left: 3px solid var(--color-swiss-red);">
           <div>
-            <h3 class="card-item-title" data-i18n="goal_1_title">1. Mentalidade Mobile-First</h3>
-            <p class="card-item-body" data-i18n="goal_1_desc">Desenhe e estruture primeiro para ecrãs pequenos com o fluxo normal do documento. Adicione complexidade com breakpoints min-width progressivos.</p>
+            <h3 class="card-item-title">
+              <span class="lang-pt">1. Mentalidade Mobile-First</span>
+              <span class="lang-en">1. Mobile-First Mindset</span>
+            </h3>
+            <p class="card-item-body">
+              <span class="lang-pt">Desenhe e estruture primeiro para ecrãs pequenos com o fluxo normal do documento. Adicione complexidade com breakpoints min-width progressivos.</span>
+              <span class="lang-en">Design and structure for small viewports first using normal document flow. Layer complexity progressively with mobile-first min-width media queries.</span>
+            </p>
             <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);">
-              <a href="mobile-first-foundation.html" style="color:var(--color-swiss-red);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;" data-i18n="goal_1_link">
-                📘 Guião Detalhado: Semanas 1-2 &amp; Arquitetura Web ↗
+              <a href="mobile-first-foundation.html" style="color:var(--color-swiss-red);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
+                <span class="lang-pt">📘 Guião Detalhado: Semanas 1-2 &amp; Arquitetura Web ↗</span>
+                <span class="lang-en">📘 Detailed Guide: Weeks 1-2 &amp; Web Architecture ↗</span>
               </a>
             </div>
           </div>
           <span class="badge badge-foundational">Foundational</span>
         </article>
-
-        <article class="card-item" style="border-left: 3px solid var(--color-accent-blue);">
+      <article class="card-item" style="border-left: 3px solid var(--color-accent-blue);">
           <div>
-            <h3 class="card-item-title" data-i18n="goal_2_title">2. Dimensionamento Intrínseco</h3>
-            <p class="card-item-body" data-i18n="goal_2_desc">Deixe o conteúdo ditar a sua forma. Utilize min(), max(), clamp(), flex-basis e minmax() em vez de larguras fixas em pixels.</p>
+            <h3 class="card-item-title">
+              <span class="lang-pt">2. Dimensionamento Intrínseco</span>
+              <span class="lang-en">2. Intrinsic Sizing</span>
+            </h3>
+            <p class="card-item-body">
+              <span class="lang-pt">Deixe o conteúdo ditar a sua forma. Utilize min(), max(), clamp(), flex-basis e minmax() em vez de larguras fixas em pixels.</span>
+              <span class="lang-en">Let content inform dimensions. Leverage min(), max(), clamp(), flex-basis, and minmax() rather than rigid pixel widths.</span>
+            </p>
             <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);">
-              <a href="intrinsic-sizing-box-model.html" style="color:var(--color-accent-blue);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;" data-i18n="goal_2_link">
-                📘 Guião Detalhado: Dimensionamento Intrínseco &amp; Box Model ↗
+              <a href="intrinsic-sizing-box-model.html" style="color:var(--color-accent-blue);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
+                <span class="lang-pt">📘 Guião Detalhado: Dimensionamento Intrínseco &amp; Box Model ↗</span>
+                <span class="lang-en">📘 Detailed Guide: Intrinsic Sizing &amp; Box Model ↗</span>
               </a>
             </div>
           </div>
           <span class="badge badge-intermediate">Intermediate</span>
         </article>
-
-        <article class="card-item" style="border-left: 3px solid #f5a623;">
+      <article class="card-item" style="border-left: 3px solid #f5a623;">
           <div>
             <h3 class="card-item-title">
               <span class="lang-pt">3. Tipografia Fluida &amp; Variável</span>
@@ -116,8 +321,36 @@
           </div>
           <span class="badge badge-intermediate">Intermediate</span>
         </article>
+    </div>
+  </div>
 
-        <article class="card-item" style="border-left: 3px solid var(--color-accent-gold);">
+      
+  <div class="module-cluster" id="cluster-2" data-tier="intermediate">
+    <div class="module-cluster-header">
+      <div>
+        <span class="module-cluster-kicker">
+          <span class="lang-pt">Módulo 02 &bull; Dinâmica &amp; Layout Avançado</span>
+          <span class="lang-en">Module 02 &bull; Dynamics &amp; Advanced Layout</span>
+        </span>
+        <h3 class="module-cluster-title">
+          <span class="lang-pt">Cluster II: Multimédia, Grelhas Modernas &amp; Seletores Reativos</span>
+          <span class="lang-en">Cluster II: Multimedia, Modern Grids &amp; Reactive Selectors</span>
+        </h3>
+      </div>
+      <span class="badge badge-intermediate">
+        <span class="lang-pt">Semanas 5 a 8 &bull; TP06 &amp; TP11-B</span>
+        <span class="lang-en">Weeks 5 to 8 &bull; TP06 &amp; TP11-B</span>
+      </span>
+    </div>
+    <div class="cluster-collapsed-notice" style="display:none; align-items:center; gap:var(--space-2); margin-top:var(--space-2); margin-bottom:var(--space-4); flex-wrap:wrap;">
+      <span class="tier-status-tag tier-badge--gold"><span class="lang-pt">🟡 Nível Intermédio (Oculto no Modo Atual)</span><span class="lang-en">🟡 Intermediate Tier (Hidden in Current Mode)</span></span>
+      <button type="button" class="btn-cluster-toggle" data-tier-toggle="intermediate">
+        <span class="lang-pt">+ Ativar Nível Intermédio para Ver</span>
+        <span class="lang-en">+ Enable Intermediate Tier</span>
+      </button>
+    </div>
+    <div class="grid-3">
+      <article class="card-item" style="border-left: 3px solid var(--color-accent-gold);">
           <div>
             <h3 class="card-item-title"><span class="lang-pt">4. Variáveis, Transições &amp; Animações</span><span class="lang-en">4. Variables, Transitions &amp; Animations</span></h3>
             <p class="card-item-body">
@@ -132,24 +365,25 @@
           </div>
           <span class="badge badge-advanced">Advanced</span>
         </article>
-
-        <article class="card-item" style="border-left: 3px solid var(--color-accent-cyan);">
+      <article class="card-item" style="border-left: 3px solid var(--color-accent-cyan);">
           <div>
-            <h3 class="card-item-title"><span class="lang-pt">5. Layouts Avançados: CSS Grid &amp; Flexbox</span><span class="lang-en">5. Advanced Layouts: CSS Grid &amp; Flexbox</span></h3>
+            <h3 class="card-item-title"><span class="lang-pt">5. Layouts Avançados: CSS Grid, Flexbox &amp; Container Queries</span><span class="lang-en">5. Advanced Layouts: CSS Grid, Flexbox &amp; Container Queries</span></h3>
             <p class="card-item-body">
-              <span class="lang-pt">Aplique a Regra de Ouro do Layout Moderno: CSS Grid 2D para a grelha macro estrutural com template-areas e masonry com voids; Flexbox 1D alternante para micro-alinhamentos de barras, menus e cartões flexíveis.</span>
-              <span class="lang-en">Apply the Golden Rule of Modern Layout: 2D CSS Grid for macro-structural skeleton with template-areas and masonry with voids; alternating 1D Flexbox for micro-alignments of toolbars, menus, and flex cards.</span>
+              <span class="lang-pt">Domine a tríade do layout moderno: <strong>CSS Grid 2D</strong> para a macro-estrutura com <code>grid-template-areas</code> e masonry com voids; <strong>Flexbox 1D</strong> para micro-alinhamentos de barras e menus; e <strong>Container Queries (<code>@container</code>)</strong> para a verdadeira responsividade modular, onde componentes adaptam o seu layout e tipografia fluida (<code>cqi</code>) ao espaço do contentor-pai e não à janela global.</span>
+              <span class="lang-en">Master the modern layout triad: <strong>2D CSS Grid</strong> for macro-structure with <code>grid-template-areas</code> and masonry with voids; <strong>1D Flexbox</strong> for micro-alignments of toolbars and menus; and <strong>Container Queries (<code>@container</code>)</strong> for true modular responsiveness, where components adapt their layout and fluid typography (<code>cqi</code>) to their parent container rather than the global viewport.</span>
             </p>
-            <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);">
+            <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);display:flex;flex-direction:column;gap:var(--space-2);">
               <a href="demos/tp11-css-flexbox-grid/index.html" style="color:var(--color-accent-cyan);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
                 🚀 <span class="lang-pt">Suite TP11-B: Masterclass Flexbox &amp; Grid</span><span class="lang-en">Suite TP11-B: Flexbox &amp; Grid Masterclass</span> ↗
+              </a>
+              <a href="demos/tp11-css-flexbox-grid/04-container-queries.html" style="color:var(--color-accent-emerald, #10b981);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
+                🔬 <span class="lang-pt">Lab 04: Masterclass Container Queries (@container)</span><span class="lang-en">Lab 04: Container Queries Masterclass (@container)</span> ↗
               </a>
             </div>
           </div>
           <span class="badge badge-advanced">Advanced</span>
         </article>
-
-        <article class="card-item" style="border-left: 3px solid var(--color-accent-purple);">
+      <article class="card-item" style="border-left: 3px solid var(--color-accent-purple);">
           <div>
             <h3 class="card-item-title"><span class="lang-pt">6. Seletores Modernos, Pseudo-Classes &amp; Máquinas de Estado Zero-JS</span><span class="lang-en">6. Modern Selectors, Pseudo-Classes &amp; Zero-JS State Machines</span></h3>
             <p class="card-item-body">
@@ -159,8 +393,36 @@
           </div>
           <span class="badge badge-advanced">Advanced</span>
         </article>
+    </div>
+  </div>
 
-        <article class="card-item" style="border-left: 3px solid var(--color-gray-500);">
+      
+  <div class="module-cluster" id="cluster-3" data-tier="advanced">
+    <div class="module-cluster-header">
+      <div>
+        <span class="module-cluster-kicker">
+          <span class="lang-pt">Módulo 03 &bull; Usabilidade &amp; Sistemas</span>
+          <span class="lang-en">Module 03 &bull; Usability &amp; Systems</span>
+        </span>
+        <h3 class="module-cluster-title">
+          <span class="lang-pt">Cluster III: Design de Interação, Leis de UX, Heurísticas &amp; Sistemas Atómicos</span>
+          <span class="lang-en">Cluster III: Interaction Design, UX Laws, Heuristics &amp; Atomic Systems</span>
+        </h3>
+      </div>
+      <span class="badge badge-transversal">
+        <span class="lang-pt">Semanas 9 a 13 &bull; Capstone DRUMTIKS</span>
+        <span class="lang-en">Weeks 9-13 &bull; DRUMTIKS Capstone</span>
+      </span>
+    </div>
+    <div class="cluster-collapsed-notice" style="display:none; align-items:center; gap:var(--space-2); margin-top:var(--space-2); margin-bottom:var(--space-4); flex-wrap:wrap;">
+      <span class="tier-status-tag tier-badge--red"><span class="lang-pt">🔴 Nível Avançado (Oculto no Modo Atual)</span><span class="lang-en">🔴 Advanced Tier (Hidden in Current Mode)</span></span>
+      <button type="button" class="btn-cluster-toggle" data-tier-toggle="advanced">
+        <span class="lang-pt">+ Ativar Nível Avançado para Ver</span>
+        <span class="lang-en">+ Enable Advanced Tier</span>
+      </button>
+    </div>
+    <div class="grid-3">
+      <article class="card-item" style="border-left: 3px solid var(--color-gray-500);">
           <div>
             <h3 class="card-item-title"><span class="lang-pt">7. Princípios de Design de Interação</span><span class="lang-en">7. Interaction Design Principles</span></h3>
             <p class="card-item-body">
@@ -168,8 +430,8 @@
               <span class="lang-en">Connect CSS engineering to cognitive interaction mental models: Perceptible Affordance, Explicit Signifiers, Immediate Feedback, Natural Mapping, Progressive Disclosure, and preventing Web Anti-Patterns.</span>
             </p>
             <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);display:flex;flex-direction:column;gap:var(--space-1);">
-              <a href="#interaction-design" style="color:var(--text-secondary);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
-                🔍 <span class="lang-pt">Princípios &amp; Anti-Padrões ↓</span><span class="lang-en">Principles &amp; Anti-Patterns ↓</span>
+              <a href="ixd-principles.html" style="color:var(--text-secondary);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
+                🔍 <span class="lang-pt">Princípios &amp; Anti-Padrões ↗</span><span class="lang-en">Principles &amp; Anti-Patterns ↗</span>
               </a>
               <a href="interaction-patterns.html" style="color:var(--color-swiss-red);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
                 📘 <span class="lang-pt">Catálogo Global: 142 Padrões Web ↗</span><span class="lang-en">Global Catalog: 142 Web Patterns ↗</span>
@@ -181,23 +443,22 @@
             <span class="lang-en">Transversal</span>
           </span>
         </article>
-
-        <article class="card-item" style="border-left: 3px solid var(--color-accent-purple, #a855f7);">
+      <article class="card-item card-item--laws">
           <div>
             <h3 class="card-item-title" data-i18n="goal_8_title">
               <span class="lang-pt">8. Leis de Design de Interação</span>
               <span class="lang-en">8. Interaction Design Laws</span>
             </h3>
             <p class="card-item-body" data-i18n="goal_8_desc">
-              <span class="lang-pt">Compreenda os modelos empíricos e limites cognitivos da mente humana: Leis de Fitts, Hick, Miller, Jakob, Limiar de Doherty e princípios Gestalt. Elimine atritos motores e sobrecarga perceptual.</span>
-              <span class="lang-en">Master empirical cognitive models and human limits: Fitts's, Hick's, Miller's, Jakob's Laws, Doherty Threshold, and Gestalt principles. Eliminate motor friction and perceptual load.</span>
+              <span class="lang-pt">Compreenda os modelos empíricos e limites cognitivos da mente humana: Leis de Fitts, Hick, Miller, Jakob, Limiar de Doherty e princípios Gestalt. Elimine atritos motores e sobrecarga perceptual com 30 leis classificadas em 3 níveis (Fundação, Intermédio e Avançado).</span>
+              <span class="lang-en">Master empirical cognitive models and human limits: Fitts's, Hick's, Miller's, Jakob's Laws, Doherty Threshold, and Gestalt principles. Eliminate motor friction and perceptual load with 30 laws classified across 3 tiers (Foundation, Intermediate, Advanced).</span>
             </p>
-            <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);display:flex;flex-direction:column;gap:var(--space-1);">
-              <a href="../ux-laws.html" style="color:var(--color-accent-purple, #a855f7);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
+            <div class="card-links-stack">
+              <a href="ux-laws.html" class="card-link-row card-link-purple">
                 <span class="lang-pt">🚀 Explorador Interativo: 30 Leis de UX ↗</span>
                 <span class="lang-en">🚀 Interactive Explorer: 30 UX Laws ↗</span>
               </a>
-              <a href="../UX-LAWS-AND-PATTERNS.md" style="color:var(--text-secondary);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;" data-i18n="goal_8_link">
+              <a href="UX-LAWS-AND-PATTERNS.md" class="card-link-row card-link-muted" data-i18n="goal_8_link">
                 <span class="lang-pt">📄 Compêndio Teórico Detalhado (.md) ↗</span>
                 <span class="lang-en">📄 Detailed Theory Compendium (.md) ↗</span>
               </a>
@@ -208,8 +469,7 @@
             <span class="lang-en">Transversal</span>
           </span>
         </article>
-
-        <article class="card-item" style="border-left: 3px solid var(--color-accent-cyan, #00d2ff);">
+      <article class="card-item" style="border-left: 3px solid var(--color-accent-cyan, #00d2ff);">
           <div>
             <h3 class="card-item-title" data-i18n="goal_9_title">
               <span class="lang-pt">9. Heurísticas de Interação</span>
@@ -219,14 +479,18 @@
               <span class="lang-pt">Avalie interfaces com as 18 Heurísticas harmonizadas de Jakob Nielsen e Bruce Tognazzini, estruturadas em 3 níveis (Fundação, Intermédio e Avançado). Inclui matriz com filtro dinâmico e grelha interativa de avaliação para apresentações críticas.</span>
               <span class="lang-en">Audit interfaces using 18 harmonized Usability Heuristics by Jakob Nielsen and Bruce Tognazzini, organized across 3 difficulty tiers (Foundation, Intermediate, Advanced). Features a filterable matrix and an interactive printable evaluation checklist for critique sessions.</span>
             </p>
-            <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);display:flex;flex-direction:column;gap:var(--space-1);">
-              <a href="../heuristics-guide.html" style="color:var(--color-accent-cyan, #00d2ff);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;" data-i18n="goal_9_link_guide">
+            <div class="card-links-stack">
+              <a href="heuristics-guide.html" class="card-link-row card-link-cyan" data-i18n="goal_9_link_guide">
                 <span class="lang-pt">📖 Guia Completo &amp; Matriz Filtrável ↗</span>
                 <span class="lang-en">📖 Comprehensive Guide &amp; Filterable Matrix ↗</span>
               </a>
-              <a href="../heuristic-checklist.html" style="color:var(--color-swiss-red);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;" data-i18n="goal_9_link_checklist">
+              <a href="heuristic-checklist.html" class="card-link-row card-link-red" data-i18n="goal_9_link_checklist">
                 <span class="lang-pt">📋 Checklist Interativa &amp; Grelha de Avaliação ↗</span>
                 <span class="lang-en">📋 Interactive Checklist &amp; Evaluation Form ↗</span>
+              </a>
+              <a href="HEURISTICS-AND-BEST-PRACTICES.md" class="card-link-row card-link-muted">
+                <span class="lang-pt">📄 Compêndio de Heurísticas (.md) ↗</span>
+                <span class="lang-en">📄 Heuristics Compendium (.md) ↗</span>
               </a>
             </div>
           </div>
@@ -235,12 +499,89 @@
             <span class="lang-en">Transversal</span>
           </span>
         </article>
+      <article class="card-item card-item--ds">
+          <div>
+            <h3 class="card-item-title">
+              <span class="lang-pt">10. Sistemas de Design, Cascata &amp; Atomic Design</span>
+              <span class="lang-en">10. Design Systems, Cascade &amp; Atomic Design</span>
+            </h3>
+            <p class="card-item-body">
+              <span class="lang-pt">Articule a herança em cascata do CSS (@layer, :where(), @scope, light-dark()) com os Design Tokens (Jina Anne), Atomic Design (Brad Frost), Padrões Percetuais/Funcionais (Alla Kholmatova), Guia de Escrita, Voz, Tom e Dicção (Yahoo! Style Guide + Scott Kubie), Tipografia Web (Jason Santa Maria) e a grelha 2x do IBM Carbon entre Figma e HTML vivo.</span>
+              <span class="lang-en">Bridge CSS cascading inheritance (@layer, :where(), @scope, light-dark()) with Design Tokens (Jina Anne), Atomic Design (Brad Frost), Perceptual/Functional Patterns (Alla Kholmatova), Content Writing Style Guide, Voice, Tone &amp; Diction (Yahoo! Style Guide + Scott Kubie), Web Typography (Jason Santa Maria), and IBM Carbon's 2x Grid across Figma and live HTML.</span>
+            </p>
+            <div class="card-links-stack">
+              <a href="design-system.html" class="card-link-row card-link-red">
+                <span class="lang-pt">🧬 Especificação Viva &amp; Pattern Library DRUMTIKS '26 ↗</span>
+                <span class="lang-en">🧬 DRUMTIKS '26 Live Spec &amp; Pattern Library ↗</span>
+              </a>
+              <a href="design-system-boilerplate.html" class="card-link-row card-link-cyan">
+                <span class="lang-pt">📋 Boilerplate Base para Projetos de Estudantes ↗</span>
+                <span class="lang-en">📋 Barebones Student Project Boilerplate ↗</span>
+              </a>
+            </div>
+          </div>
+          <span class="badge badge-advanced">Advanced</span>
+        </article>
+      <article class="card-item card-item--doc">
+          <div>
+            <h3 class="card-item-title">
+              <span class="lang-pt">11. Documentação UX de Projeto &amp; Testes de Usabilidade</span>
+              <span class="lang-en">11. Project UX Documentation &amp; Usability Testing</span>
+            </h3>
+            <p class="card-item-body">
+              <span class="lang-pt">Guia ilustrado passo a passo (Kim Goodwin, Caddick &amp; Cable, Rubin &amp; Chisnell, Steve Krug): Inventário de Conteúdo, Site Outline estrito, Swimlane Site Map hierárquico (apenas páginas), Task Model &amp; User Journey, Wireframes Low/High-Fi no Figma e Protocolo + Relatório de Testes de Usabilidade com colegas.</span>
+              <span class="lang-en">Illustrated step-by-step manual (Kim Goodwin, Caddick &amp; Cable, Rubin &amp; Chisnell, Steve Krug): Content Inventory, strict Site Outline, hierarchical Swimlane Site Map (pages only), Task Model &amp; User Journey, Low/High-Fi Figma Wireframes, and a first-timer Peer Usability Test Protocol &amp; Report.</span>
+            </p>
+            <div class="card-links-stack">
+              <a href="project-documentation-guide.html" class="card-link-row card-link-emerald">
+                <span class="lang-pt">🗂️ Guia Ilustrado &amp; Checklist Imprimível (PDF) ↗</span>
+                <span class="lang-en">🗂️ Illustrated Guide &amp; Printable Checklist (PDF) ↗</span>
+              </a>
+              <a href="PROJECT-DOCUMENTATION-GUIDE.md" class="card-link-row card-link-muted">
+                <span class="lang-pt">📄 Manual &amp; Templates em Markdown (.md) ↗</span>
+                <span class="lang-en">📄 Companion Manual &amp; Markdown Templates (.md) ↗</span>
+              </a>
+            </div>
+          </div>
+          <span class="badge badge-transversal">
+            <span class="lang-pt">Transversal</span>
+            <span class="lang-en">Transversal</span>
+          </span>
+        </article>
+    </div>
+  </div>
 
-        <article class="card-item" style="border-left: 3px solid var(--color-accent-emerald, #10b981);">
+      
+  <div class="module-cluster" id="cluster-4" data-tier="advanced">
+    <div class="module-cluster-header">
+      <div>
+        <span class="module-cluster-kicker">
+          <span class="lang-pt">Módulo 04 &bull; Inteligência Artificial &amp; Futuro</span>
+          <span class="lang-en">Module 04 &bull; Artificial Intelligence &amp; Future</span>
+        </span>
+        <h3 class="module-cluster-title">
+          <span class="lang-pt">Cluster IV: Mentor IA Pedagógico &amp; Programação Criativa Pós-WD101</span>
+          <span class="lang-en">Cluster IV: Socratic AI Mentor &amp; Post-WD101 Creative Coding</span>
+        </h3>
+      </div>
+      <span class="badge badge-ai">
+        <span class="lang-pt">Semanas 14+ &bull; Além do Curso &bull; Roadmap Futuro</span>
+        <span class="lang-en">Weeks 14+ &bull; Beyond the Course &bull; Future Roadmap</span>
+      </span>
+    </div>
+    <div class="cluster-collapsed-notice" style="display:none; align-items:center; gap:var(--space-2); margin-top:var(--space-2); margin-bottom:var(--space-4); flex-wrap:wrap;">
+      <span class="tier-status-tag tier-badge--red"><span class="lang-pt">🔴 Nível Avançado &bull; Além do Curso (Oculto no Modo Atual)</span><span class="lang-en">🔴 Advanced Tier &bull; Beyond Course (Hidden in Current Mode)</span></span>
+      <button type="button" class="btn-cluster-toggle" data-tier-toggle="advanced">
+        <span class="lang-pt">+ Ativar Nível Avançado para Ver</span>
+        <span class="lang-en">+ Enable Advanced Tier</span>
+      </button>
+    </div>
+    <div class="grid-2">
+      <article class="card-item" style="border-left: 3px solid var(--color-accent-emerald, #10b981);">
           <div>
             <h3 class="card-item-title" data-i18n="goal_10_title">
-              <span class="lang-pt">10. Transição para IA &amp; Antigravity ADE</span>
-              <span class="lang-en">10. Transition to AI &amp; Antigravity ADE</span>
+              <span class="lang-pt">12. Transição para IA &amp; Antigravity ADE</span>
+              <span class="lang-en">12. Transition to AI &amp; Antigravity ADE</span>
             </h3>
             <p class="card-item-body" data-i18n="goal_10_desc">
               <span class="lang-pt">Transite do código manual no VS Code para o potencial do Antigravity (Modo ADE + Editor IDE). Use a IA como mentor socrático, crie sandboxes paralelas de teste em /demos/ com links MDN, explore o browser via DevTools e aplique checklists rigorosas de controlo de qualidade e caminhos.</span>
@@ -258,10 +599,38 @@
             <span class="lang-en">Transversal</span>
           </span>
         </article>
-      </div>
+      <article class="card-item card-item--beyond">
+          <div>
+            <h3 class="card-item-title">
+              <span class="lang-pt">13. Para o Infinito e Mais Além! (Pós-WD101)</span>
+              <span class="lang-en">13. To Infinity &amp; Beyond! (Post-WD101 Roadmap)</span>
+            </h3>
+            <p class="card-item-body">
+              <span class="lang-pt">O que aprender depois de WD101? Descubra a ponte visual (Lottie, Spline 3D, WebXR) e duas vias de especialização: Design Systems canónicos (Material 3, Apple HIG, IBM Carbon) e WordPress/LocalWP vs. Creative Coding (p5.js, Vanilla JS, GSAP, D3, PWAs e SQL/PHP).</span>
+              <span class="lang-en">What to learn after WD101? Explore the visual motion/3D bridge (Lottie, Spline 3D, WebXR) and two clear tracks: Canonical Design Systems (Material 3, Apple HIG, IBM Carbon) &amp; WordPress/LocalWP vs. Creative Coding (p5.js, Vanilla JS, GSAP, D3, PWAs, and SQL/PHP).</span>
+            </p>
+            <div class="card-links-stack">
+              <a href="to-infinity-and-beyond.html" class="card-link-row card-link-amber">
+                <span class="lang-pt">🚀 Explorar Roadmap Pós-Curso ↗</span>
+                <span class="lang-en">🚀 Launch Post-Course Roadmap ↗</span>
+              </a>
+              <a href="TO-INFINITY-AND-BEYOND.md" class="card-link-row card-link-muted">
+                <span class="lang-pt">📄 Ler Compêndio Markdown (.md) ↗</span>
+                <span class="lang-en">📄 Read Markdown Compendium (.md) ↗</span>
+              </a>
+            </div>
+          </div>
+          <span class="badge badge-transversal">
+            <span class="lang-pt">Transversal</span>
+            <span class="lang-en">Transversal</span>
+          </span>
+        </article>
+    </div>
+  </div>
+
     </section>
 
-    <!-- Assignments Section -->
+    <!-- Assignments Section (Spacious Layout) -->
     <section id="assignments" style="margin-bottom:var(--space-12);">
       <div style="margin-bottom:var(--space-6);">
         <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-2);" data-i18n="assign_heading">Enunciados &amp; Decomposição Pedagógica</h2>
@@ -285,31 +654,49 @@
           <span class="lang-en">To prevent cognitive overload in introductory exercises, responsive complexity is phased across 3 gradual learning tiers:</span>
         </p>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:var(--space-3);">
-          <div style="background:var(--bg-surface); padding:var(--space-3); border-radius:4px; border-top:2px solid var(--text-muted);">
+          <div class="breakpoint-tier-card" data-tier="foundation" style="background:var(--bg-surface); padding:var(--space-3); border-radius:4px; border-top:2px solid var(--text-muted);">
             <strong style="color:var(--text-primary); display:block; margin-bottom:4px;">
               <span class="lang-pt">NÍVEL 1: BREAKPOINT ÚNICO (EX1)</span>
               <span class="lang-en">LEVEL 1: SINGLE BREAKPOINT (EX1)</span>
             </strong>
+            <div class="cluster-collapsed-notice" style="display:none; align-items:center; gap:var(--space-2); margin-top:4px; margin-bottom:4px; flex-wrap:wrap;">
+              <span class="tier-status-tag tier-badge--green"><span class="lang-pt">🟢 Oculto</span><span class="lang-en">🟢 Hidden</span></span>
+              <button type="button" class="btn-cluster-toggle" data-tier-toggle="foundation" style="font-size:10px; padding:2px 6px;">
+                <span class="lang-pt">+ Ativar</span><span class="lang-en">+ Enable</span>
+              </button>
+            </div>
             <p style="color:var(--text-secondary);">
               <span class="lang-pt"><strong>(default) Mobile Portrait:</strong> Sem qualquer media query. Layout fluido até 600px fechado em <code>min-width: 320px</code>. Contentores principais a <code>100%</code> de largura e <code>100dvh</code> (ecrã total) ou <code>height: auto</code> (para esticar conforme o conteúdo), alvos de toque &ge; 44px e <code>overflow-x: hidden</code>.</span>
               <span class="lang-en"><strong>(default) Mobile Portrait:</strong> Zero media queries. Fluid single-column layout up to 600px, locked at <code>min-width: 320px</code>. Full width containers at <code>100%</code> and <code>100dvh</code>, or <code>height: auto</code> to naturally expand, &ge; 44px touch targets, and <code>overflow-x: hidden</code>.</span>
             </p>
           </div>
-          <div style="background:var(--bg-surface); padding:var(--space-3); border-radius:4px; border-top:2px solid var(--color-accent-blue);">
+          <div class="breakpoint-tier-card" data-tier="intermediate" style="background:var(--bg-surface); padding:var(--space-3); border-radius:4px; border-top:2px solid var(--color-accent-blue);">
             <strong style="color:var(--color-accent-blue); display:block; margin-bottom:4px;">
               <span class="lang-pt">NÍVEL 2: DOIS BREAKPOINTS (EX2 &amp; STAGE 1)</span>
               <span class="lang-en">LEVEL 2: TWO BREAKPOINTS (EX2 &amp; STAGE 1)</span>
             </strong>
+            <div class="cluster-collapsed-notice" style="display:none; align-items:center; gap:var(--space-2); margin-top:4px; margin-bottom:4px; flex-wrap:wrap;">
+              <span class="tier-status-tag tier-badge--gold"><span class="lang-pt">🟡 Oculto</span><span class="lang-en">🟡 Hidden</span></span>
+              <button type="button" class="btn-cluster-toggle" data-tier-toggle="intermediate" style="font-size:10px; padding:2px 6px;">
+                <span class="lang-pt">+ Ativar</span><span class="lang-en">+ Enable</span>
+              </button>
+            </div>
             <p style="color:var(--text-secondary);">
-              <span class="lang-pt"><strong>Mobile Portrait (default) + Tablet &amp; Small Laptop (&ge;768px):</strong> Modelo progressivo focado para exercícios intermédios (EX2, Tipografia Fluida, Seletores, Máquinas de Estado e Protótipo Preliminar TP06). Permite focar na transição de 1 para 2 colunas.</span>
-              <span class="lang-en"><strong>Mobile Portrait (default) + Tablet &amp; Small Laptop (&ge;768px):</strong> Progressive dual-tier model for intermediate milestones (EX2, Fluid Typography, Selectors, State Machines, and TP06 Early Prototype). Sharp focus on the 1-to-2 column transition.</span>
+              <span class="lang-pt"><strong>Mobile Portrait (default) + Desktop Progressivo (&ge;960px):</strong> Modelo progressivo focado para exercícios intermédios (EX2, Tipografia Fluida, Seletores, Máquinas de Estado e Protótipo Preliminar TP06). Permite focar na transição de 1 para 2 colunas.</span>
+              <span class="lang-en"><strong>Mobile Portrait (default) + Progressive Desktop (&ge;960px):</strong> Progressive dual-tier model for intermediate milestones (EX2, Fluid Typography, Selectors, State Machines, and TP06 Early Prototype). Sharp focus on the 1-to-2 column transition.</span>
             </p>
           </div>
-          <div style="background:var(--bg-surface); padding:var(--space-3); border-radius:4px; border-top:2px solid var(--color-accent-cyan);">
+          <div class="breakpoint-tier-card" data-tier="advanced" style="background:var(--bg-surface); padding:var(--space-3); border-radius:4px; border-top:2px solid var(--color-accent-cyan);">
             <strong style="color:var(--color-accent-cyan); display:block; margin-bottom:4px;">
               <span class="lang-pt">NÍVEL 3: COMPLEXIDADE TOTAL (STAGE 2 CAPSTONE)</span>
               <span class="lang-en">LEVEL 3: FULL 4-TIER COMPLEXITY (STAGE 2 CAPSTONE)</span>
             </strong>
+            <div class="cluster-collapsed-notice" style="display:none; align-items:center; gap:var(--space-2); margin-top:4px; margin-bottom:4px; flex-wrap:wrap;">
+              <span class="tier-status-tag tier-badge--red"><span class="lang-pt">🔴 Oculto</span><span class="lang-en">🔴 Hidden</span></span>
+              <button type="button" class="btn-cluster-toggle" data-tier-toggle="advanced" style="font-size:10px; padding:2px 6px;">
+                <span class="lang-pt">+ Ativar</span><span class="lang-en">+ Enable</span>
+              </button>
+            </div>
             <p style="color:var(--text-secondary);">
               <span class="lang-pt"><strong>Os 4 Patamares Completos:</strong> Mobile Portrait (&lt;600px), Mobile Landscape &amp; Phablets (&ge;600px), Tablet (&ge;768px) e Desktop Widescreen (&ge;1200px) com macro-grelha 2D <code>grid-template-areas</code> e coluna sticky.</span>
               <span class="lang-en"><strong>All 4 Complete Tiers:</strong> Mobile Portrait (&lt;600px), Mobile Landscape &amp; Phablets (&ge;600px), Tablet (&ge;768px), and Desktop Widescreen (&ge;1200px) with 2D <code>grid-template-areas</code> and sticky stage column.</span>
@@ -318,67 +705,107 @@
         </div>
       </div>
 
-      <div class="grid-3" id="assignments-container">
-        <article class="card-item" id="assign-ex1" data-uid="ass-1" data-num="1">
+      <!-- Progression Container (Spacious Top Pair + Full Width Capstone) -->
+      <div class="assignments-progression" id="assignments-container" data-static="true">
+        
+        <!-- Pair: EX1 and EX2 side-by-side -->
+        <div class="assignments-top-pair">
+          <article class="card-item" id="assign-ex1" data-uid="ass-1" data-num="1" data-tier="foundation">
           <div>
             <div class="card-item-header">
               <span class="badge badge-foundational">foundational</span>
               <span class="badge badge-status-yes">EX1</span>
             </div>
-            <h3 class="card-item-title"><span class="lang-pt">EX1: Hello Warp! (Wendy) — Landmarks & Fluxo Normal</span><span class="lang-en">EX1: Hello Warp! (Wendy) — Semantic Landmarks & Normal Flow</span></h3>
-            <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
-              <span class="lang-pt">Estrutura Semântica Fundamental</span><span class="lang-en">Foundational Semantic Structure</span>
-            </p>
-            <p class="card-item-body">
-              <strong><span class="lang-pt">Objetivo:</span><span class="lang-en">Objective:</span></strong> <span class="lang-pt">Compreender o fluxo normal do documento HTML5 e a hierarquia tipográfica através de landmarks semânticos puros, estritamente sem classes ou IDs.</span><span class="lang-en">Master HTML5 normal document flow and typographic hierarchy using pure semantic landmarks, strictly with zero classes or IDs.</span>
-            </p>
-            <div style="background:var(--bg-surface-elevated);border-left:3px solid var(--color-swiss-red);padding:var(--space-3);margin-bottom:var(--space-3);font-size:var(--text-xs);">
-              <strong><span class="lang-pt">Decomposição Drumtiks:</span><span class="lang-en">Drumtiks Adaptation:</span></strong>
-              <p style="margin-top:0.3rem;color:var(--text-secondary);"><span class="lang-pt">Decomposição do Drumtiks '26 em versão 'Naked': o cartaz e alinhamento do festival estruturados apenas com header, nav, main, section, article e footer. O layout flui naturalmente em mobile e desktop recorrendo a unidades rem e seletores descendentes (nav ul li a).</span><span class="lang-en">Deconstruction of Drumtiks '26 in 'Naked' form: festival poster and lineup structured strictly with header, nav, main, section, article, and footer. Layout flows naturally on mobile and desktop using rem units and descendant selectors (nav ul li a).</span></p>
+            <h3 class="card-item-title"><span class="lang-pt">EX1: Hello Warp! (Wendy) — Landmarks &amp; Fluxo Normal</span><span class="lang-en">EX1: Hello Warp! (Wendy) — Semantic Landmarks &amp; Normal Flow</span></h3>
+            <div class="cluster-collapsed-notice" style="display:none; align-items:center; gap:var(--space-2); margin-top:var(--space-2); margin-bottom:var(--space-3); flex-wrap:wrap;">
+              <span class="tier-status-tag tier-badge--green"><span class="lang-pt">🟢 Nível Fundação (Oculto no Modo Atual)</span><span class="lang-en">🟢 Foundation Tier (Hidden in Current Mode)</span></span>
+              <button type="button" class="btn-cluster-toggle" data-tier-toggle="foundation">
+                <span class="lang-pt">+ Ativar Nível Fundação para Ver</span>
+                <span class="lang-en">+ Enable Foundation Tier</span>
+              </button>
             </div>
-            <ul style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;list-style:disc;padding-left:1.2rem;margin-bottom:var(--space-4);">
-              <li>Zero classes e Zero IDs no código HTML</li><li>Seletores CSS exclusivamente por tipo e descendência (ex: nav ul li a)</li><li>Unidades relativas rem e em; proibido width/height fixos em px</li><li>Sem qualquer recurso a JavaScript</li>
-            </ul>
-            <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-3);flex-wrap:wrap;"><a href="ex1-hello-warp-guide.html" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);font-size:var(--text-xs);font-weight:700;">📘 <span class="lang-pt">Guião Passo a Passo</span><span class="lang-en">Step-by-Step Guide</span> ↗</a><a href="demos/hello-warp/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="font-size:var(--text-xs);">🚀 <span class="lang-pt">Ver Mini-Site</span><span class="lang-en">Live Demo</span> ↗</a></div>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);border-top:1px solid var(--border-color);padding-top:var(--space-2);">
-            <span class="lang-pt">Padrões:</span><span class="lang-en">Patterns:</span> Landmarks HTML5, Descendant Selectors, Relative Units
+            <div class="assignment-card-body">
+              <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
+                <span class="lang-pt">Estrutura Semântica Fundamental</span><span class="lang-en">Foundational Semantic Structure</span>
+              </p>
+              <p class="card-item-body">
+                <strong><span class="lang-pt">Objetivo:</span><span class="lang-en">Objective:</span></strong> <span class="lang-pt">Compreender o fluxo normal do documento HTML5 e a hierarquia tipográfica através de landmarks semânticos puros, estritamente sem classes ou IDs.</span><span class="lang-en">Master HTML5 normal document flow and typographic hierarchy using pure semantic landmarks, strictly with zero classes or IDs.</span>
+              </p>
+              <div style="background:var(--bg-surface-elevated);border-left:3px solid var(--color-swiss-red);padding:var(--space-3);margin-bottom:var(--space-3);font-size:var(--text-xs);">
+                <strong><span class="lang-pt">Decomposição Drumtiks:</span><span class="lang-en">Drumtiks Adaptation:</span></strong>
+                <p style="margin-top:0.3rem;color:var(--text-secondary);"><span class="lang-pt">Decomposição do Drumtiks '26 em versão 'Naked': o cartaz e alinhamento do festival estruturados apenas com header, nav, main, section, article e footer. O layout flui naturalmente em mobile e desktop recorrendo a unidades rem e seletores descendentes (nav ul li a).</span><span class="lang-en">Deconstruction of Drumtiks '26 in 'Naked' form: festival poster and lineup structured strictly with header, nav, main, section, article, and footer. Layout flows naturally on mobile and desktop using rem units and descendant selectors (nav ul li a).</span></p>
+              </div>
+              <ul style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;list-style:disc;padding-left:1.2rem;margin-bottom:var(--space-4);">
+                <li><span class="lang-pt">Zero classes e Zero IDs no código HTML</span><span class="lang-en">Zero classes and Zero IDs in HTML markup</span></li>
+                <li><span class="lang-pt">Seletores CSS exclusivamente por tipo e descendência (ex: nav ul li a)</span><span class="lang-en">CSS selectors strictly by element type and descendance (e.g. nav ul li a)</span></li>
+                <li><span class="lang-pt">Unidades relativas rem e em; proibido width/height fixos em px</span><span class="lang-en">Relative rem and em units; fixed pixel widths/heights prohibited</span></li>
+                <li><span class="lang-pt">Sem qualquer recurso a JavaScript</span><span class="lang-en">Strictly zero JavaScript</span></li>
+              </ul>
+              <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-3);flex-wrap:wrap;"><a href="ex1-hello-warp-guide.html" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);font-size:var(--text-xs);font-weight:700;">📘 <span class="lang-pt">Guião Passo a Passo</span><span class="lang-en">Step-by-Step Guide</span> ↗</a><a href="demos/hello-warp/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="font-size:var(--text-xs);">🚀 <span class="lang-pt">Ver Mini-Site</span><span class="lang-en">Live Demo</span> ↗</a></div>
+              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);border-top:1px solid var(--border-color);padding-top:var(--space-2);">
+                <span class="lang-pt">Padrões:</span><span class="lang-en">Patterns:</span> Landmarks HTML5, Descendant Selectors, Relative Units
+              </div>
+            </div>
           </div>
         </article>
-        <article class="card-item" id="assign-ex2" data-uid="ass-2" data-num="2">
+          <article class="card-item" id="assign-ex2" data-uid="ass-2" data-num="2" data-tier="intermediate">
           <div>
             <div class="card-item-header">
               <span class="badge badge-intermediate">intermediate</span>
               <span class="badge badge-status-yes">EX2</span>
             </div>
-            <h3 class="card-item-title"><span class="lang-pt">EX2: Media & Box Model — Geometria e Imagem Responsiva</span><span class="lang-en">EX2: Media & Box Model — Responsive Images & Geometry</span></h3>
-            <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
-              <span class="lang-pt">Direção de Arte & Modelo de Caixa</span><span class="lang-en">Art Direction & Box Model</span>
-            </p>
-            <p class="card-item-body">
-              <strong><span class="lang-pt">Objetivo:</span><span class="lang-en">Objective:</span></strong> <span class="lang-pt">Introdução ao CSS Reset de Eric Meyer v2.0, classes utilitárias, incorporação de fontes remotas (Google Fonts), multimédia responsiva (&lt;picture&gt;, &lt;video&gt;, &lt;iframe&gt;) e posicionamento relativo/absoluto/sticky.</span><span class="lang-en">Introduction to Eric Meyer CSS Reset v2.0, classes, remote webfonts (Google Fonts), responsive multimedia (&lt;picture&gt;, &lt;video&gt;, &lt;iframe&gt;), and relative/absolute/sticky positioning.</span>
-            </p>
-            <div style="background:var(--bg-surface-elevated);border-left:3px solid var(--color-swiss-red);padding:var(--space-3);margin-bottom:var(--space-3);font-size:var(--text-xs);">
-              <strong><span class="lang-pt">Decomposição Drumtiks:</span><span class="lang-en">Drumtiks Adaptation:</span></strong>
-              <p style="margin-top:0.3rem;color:var(--text-secondary);"><span class="lang-pt">O Drumtiks ganha identidade visual e multimédia: o cartaz transforma-se numa página com direção de arte fotográfica para o DJ Warp (webp/jpg em rácios 16:9 e 1:1), vídeo promocional, grelha básica de artistas e barra de navegação com position: sticky.</span><span class="lang-en">Drumtiks gains visual identity and media: the poster evolves into a page featuring photographic art direction for DJ Warp (webp/jpg in 16:9 and 1:1 ratios), promo video, artist cards grid, and sticky navigation.</span></p>
+            <h3 class="card-item-title"><span class="lang-pt">EX2: Media &amp; Box Model — Geometria e Imagem Responsiva</span><span class="lang-en">EX2: Media &amp; Box Model — Responsive Images &amp; Geometry</span></h3>
+            <div class="cluster-collapsed-notice" style="display:none; align-items:center; gap:var(--space-2); margin-top:var(--space-2); margin-bottom:var(--space-3); flex-wrap:wrap;">
+              <span class="tier-status-tag tier-badge--gold"><span class="lang-pt">🟡 Nível Intermédio (Oculto no Modo Atual)</span><span class="lang-en">🟡 Intermediate Tier (Hidden in Current Mode)</span></span>
+              <button type="button" class="btn-cluster-toggle" data-tier-toggle="intermediate">
+                <span class="lang-pt">+ Ativar Nível Intermédio para Ver</span>
+                <span class="lang-en">+ Enable Intermediate Tier</span>
+              </button>
             </div>
-            <ul style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;list-style:disc;padding-left:1.2rem;margin-bottom:var(--space-4);">
-              <li>Integração obrigatória do Eric Meyer CSS Reset v2.0</li><li>Direção de arte com &lt;picture&gt; e múltiplos &lt;source&gt; otimizados</li><li>Classes semânticas BEM simplificadas</li><li>Uso de position: sticky e stacking context z-index</li>
-            </ul>
-            <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-3);flex-wrap:wrap;"><a href="ex2-guide.html" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);font-size:var(--text-xs);font-weight:700;">📘 <span class="lang-pt">Guião Passo a Passo</span><span class="lang-en">Step-by-Step Guide</span> ↗</a><a href="demos/ex2-media-box-model/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="font-size:var(--text-xs);">🚀 <span class="lang-pt">Ver Mini-Site</span><span class="lang-en">Live Demo</span> ↗</a></div>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);border-top:1px solid var(--border-color);padding-top:var(--space-2);">
-            <span class="lang-pt">Padrões:</span><span class="lang-en">Patterns:</span> P2 (Art Direction), P7 (Sticky Stage inicial), P12 (Sticky Nav inicial)
+            <div class="assignment-card-body">
+              <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
+                <span class="lang-pt">Direção de Arte &amp; Modelo de Caixa</span><span class="lang-en">Art Direction &amp; Box Model</span>
+              </p>
+              <p class="card-item-body">
+                <strong><span class="lang-pt">Objetivo:</span><span class="lang-en">Objective:</span></strong> <span class="lang-pt">Introdução ao CSS Reset de Eric Meyer v2.0, classes utilitárias, incorporação de fontes remotas (Google Fonts), multimédia responsiva (&lt;picture&gt;, &lt;video&gt;, &lt;iframe&gt;) e posicionamento relativo/absoluto/sticky.</span><span class="lang-en">Introduction to Eric Meyer CSS Reset v2.0, classes, remote webfonts (Google Fonts), responsive multimedia (&lt;picture&gt;, &lt;video&gt;, &lt;iframe&gt;), and relative/absolute/sticky positioning.</span>
+              </p>
+              <div style="background:var(--bg-surface-elevated);border-left:3px solid var(--color-swiss-red);padding:var(--space-3);margin-bottom:var(--space-3);font-size:var(--text-xs);">
+                <strong><span class="lang-pt">Decomposição Drumtiks:</span><span class="lang-en">Drumtiks Adaptation:</span></strong>
+                <p style="margin-top:0.3rem;color:var(--text-secondary);"><span class="lang-pt">O Drumtiks ganha identidade visual e multimédia: o cartaz transforma-se numa página com direção de arte fotográfica para o DJ Warp (webp/jpg em rácios 16:9 e 1:1), vídeo promocional, grelha básica de artistas e barra de navegação com position: sticky.</span><span class="lang-en">Drumtiks gains visual identity and media: the poster evolves into a page featuring photographic art direction for DJ Warp (webp/jpg in 16:9 and 1:1 ratios), promo video, artist cards grid, and sticky navigation.</span></p>
+              </div>
+              <ul style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;list-style:disc;padding-left:1.2rem;margin-bottom:var(--space-4);">
+                <li><span class="lang-pt">Integração obrigatória do Eric Meyer CSS Reset v2.0</span><span class="lang-en">Mandatory integration of Eric Meyer CSS Reset v2.0</span></li>
+                <li><span class="lang-pt">Direção de arte com &lt;picture&gt; e múltiplos &lt;source&gt; otimizados</span><span class="lang-en">Art direction with &lt;picture&gt; and optimized multi-resolution &lt;source&gt;</span></li>
+                <li><span class="lang-pt">Classes semânticas BEM simplificadas</span><span class="lang-en">Simplified BEM-style semantic class naming</span></li>
+                <li><span class="lang-pt">Uso de position: sticky e stacking context z-index</span><span class="lang-en">Use of position: sticky and proper z-index stacking contexts</span></li>
+              </ul>
+              <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-3);flex-wrap:wrap;"><a href="ex2-guide.html" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);font-size:var(--text-xs);font-weight:700;">📘 <span class="lang-pt">Guião Passo a Passo</span><span class="lang-en">Step-by-Step Guide</span> ↗</a><a href="demos/ex2-media-box-model/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="font-size:var(--text-xs);">🚀 <span class="lang-pt">Ver Mini-Site</span><span class="lang-en">Live Demo</span> ↗</a></div>
+              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);border-top:1px solid var(--border-color);padding-top:var(--space-2);">
+                <span class="lang-pt">Padrões:</span><span class="lang-en">Patterns:</span> P2 (Art Direction), P7 (Sticky Stage inicial), P12 (Sticky Nav inicial)
+              </div>
+            </div>
           </div>
         </article>
-        <article class="card-item" id="assign-project" data-uid="ass-3" data-num="3">
+        </div>
+
+        <!-- Full Width: Final Project Capstone -->
+        <div class="assignments-capstone">
+          <article class="card-item" id="assign-project" data-uid="ass-3" data-num="3" data-tier="advanced">
           <div>
             <div class="card-item-header">
               <span class="badge badge-advanced">advanced</span>
               <span class="badge badge-status-yes">PROJECT</span>
             </div>
             <h3 class="card-item-title"><span class="lang-pt">Projeto Final: Festival DRUMTIKS '26 — Portal Pure CSS</span><span class="lang-en">Final Project: DRUMTIKS '26 — Pure CSS Festival Portal</span></h3>
-            <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
+            <div class="cluster-collapsed-notice" style="display:none; align-items:center; gap:var(--space-2); margin-top:var(--space-2); margin-bottom:var(--space-3); flex-wrap:wrap;">
+              <span class="tier-status-tag tier-badge--red"><span class="lang-pt">🔴 Nível Avançado (Oculto no Modo Atual)</span><span class="lang-en">🔴 Advanced Tier (Hidden in Current Mode)</span></span>
+              <button type="button" class="btn-cluster-toggle" data-tier-toggle="advanced">
+                <span class="lang-pt">+ Ativar Nível Avançado para Ver</span>
+                <span class="lang-en">+ Enable Advanced Tier</span>
+              </button>
+            </div>
+            <div class="assignment-card-body">
+              <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-swiss-red);margin-bottom:var(--space-2);">
               <span class="lang-pt">Portal Responsivo Completo (Zero-JS)</span><span class="lang-en">Full Responsive Portal (Zero-JS)</span>
             </p>
             <p class="card-item-body">
@@ -389,7 +816,10 @@
               <p style="margin-top:0.3rem;color:var(--text-secondary);"><span class="lang-pt">A experiência integral do festival: navegação dual (desktop flyout / gaveta mobile), galeria com scroll snap, horários em acordeão expansível, simulador de bilheteira com cálculo em tempo real via :has() e :checked, tema escuro/claro nativo, e cartões intrínsecos com @container.</span><span class="lang-en">The complete festival experience: dual navigation (desktop flyout / mobile drawer), scroll-snap photo gallery, expandable schedule accordion, live cart simulator via :has() and :checked, native light/dark theming, and container queries.</span></p>
             </div>
             <ul style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.6;list-style:disc;padding-left:1.2rem;margin-bottom:var(--space-4);">
-              <li>Zero JavaScript: qualquer &lt;script&gt; invalida os componentes interativos</li><li>Organização em @layer (reset, theme, base, layout, components, interactive, xray)</li><li>Webfonts variáveis locais com continuous axes wght/wdth</li><li>Compatibilidade estrita com W3C e navegadores modernos</li>
+              <li><span class="lang-pt">Zero JavaScript: qualquer &lt;script&gt; invalida os componentes interativos</span><span class="lang-en">Zero JavaScript: any &lt;script&gt; invalidates pure CSS interactive components</span></li>
+              <li><span class="lang-pt">Organização em @layer (reset, theme, base, layout, components, interactive, xray)</span><span class="lang-en">Structured across @layer (reset, theme, base, layout, components, interactive, xray)</span></li>
+              <li><span class="lang-pt">Webfonts variáveis locais com continuous axes wght/wdth</span><span class="lang-en">Local variable webfonts with continuous wght/wdth axes</span></li>
+              <li><span class="lang-pt">Compatibilidade estrita com W3C e navegadores modernos</span><span class="lang-en">Strict W3C web standards and modern browser compliance</span></li>
             </ul>
 
             <!-- Sub-modules: Early Prototype vs Advanced Prototype & Supporting Suites -->
@@ -399,8 +829,8 @@
                 <span class="lang-en">STAGE 1: FINAL PROJECT — EARLY PROTOTYPE (TP06)</span>
               </div>
               <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-bottom:var(--space-2);">
-                <span class="lang-pt">Website responsivo preliminar a 2 colunas. <strong>Foco Pedagógico Simplificado:</strong> 2 Breakpoints (Mobile Portrait default + Tablet &amp; Small Laptop a &ge;768px), sticky stage inicial e galeria de fotos.</span>
-                <span class="lang-en">Preliminary 2-column responsive portal. <strong>Simplified Pedagogical Scope:</strong> 2 Breakpoints (Mobile Portrait default + Tablet &amp; Small Laptop at &ge;768px), early sticky stage, and photo gallery.</span>
+                <span class="lang-pt">Website responsivo preliminar a 2 colunas. <strong>Foco Pedagógico Simplificado:</strong> 2 Breakpoints (Mobile Portrait default + Desktop Widescreen a &ge;960px), sticky stage inicial e galeria de fotos.</span>
+                <span class="lang-en">Preliminary 2-column responsive portal. <strong>Simplified Pedagogical Scope:</strong> 2 Breakpoints (Mobile Portrait default + Desktop Widescreen at &ge;960px), early sticky stage, and photo gallery.</span>
               </p>
               <div style="display:flex; gap:var(--space-2); flex-wrap:wrap;">
                 <a href="demos/tp06-responsive/ASSIGNMENT-TP06-RESPONSIVE.html" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);font-size:var(--text-xs);font-weight:700;">
@@ -433,11 +863,11 @@
               <!-- Secções de Enquadramento Didático das Suites TP11 -->
               <div style="border-top:1px dashed var(--border-color); padding-top:var(--space-3); display:flex; flex-direction:column; gap:var(--space-2);">
                 
-                <div style="background:var(--bg-surface-elevated); padding:var(--space-2) var(--space-3); border-radius:4px; border-left:3px solid var(--color-accent-blue);">
-                  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-2);">
+                <div style="background:var(--bg-surface-elevated); padding:var(--space-3); border-radius:4px; border-left:3px solid var(--color-accent-blue);">
+                  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-2); margin-bottom:var(--space-2);">
                     <strong style="color:var(--color-accent-blue); font-size:var(--text-xs);">
-                      <span class="lang-pt">FASE 2A: SUITE DE LAYOUT TP11-B (FLEXBOX &amp; CSS GRID)</span>
-                      <span class="lang-en">STAGE 2A: TP11-B LAYOUT SUITE (FLEXBOX &amp; CSS GRID)</span>
+                      <span class="lang-pt">FASE 2A: SUITE DE LAYOUT TP11-B (FLEXBOX, GRID &amp; CONTAINER QUERIES)</span>
+                      <span class="lang-en">STAGE 2A: TP11-B LAYOUT SUITE (FLEXBOX, GRID &amp; CONTAINER QUERIES)</span>
                     </strong>
                     <div style="display:flex; gap:var(--space-2); flex-wrap:wrap;">
                       <a href="demos/tp11-css-flexbox-grid/README.md" class="btn-control" style="background:var(--color-swiss-red); color:#fff; border-color:var(--color-swiss-red); font-size:var(--text-xs); font-weight:700;">
@@ -448,10 +878,35 @@
                       </a>
                     </div>
                   </div>
-                  <p style="font-size:11px; color:var(--text-secondary); margin-top:2px;">
-                    <span class="lang-pt">Laboratórios dedicados à Regra de Ouro (Grid 2D macro + Flexbox 1D micro) e Container Queries (@container).</span>
-                    <span class="lang-en">Dedicated labs for the Golden Rule (2D Macro Grid + 1D Micro Flexbox) and Container Queries (@container).</span>
+                  <p style="font-size:11px; color:var(--text-secondary); margin-bottom:var(--space-2);">
+                    <span class="lang-pt">Laboratórios dedicados à Regra de Ouro (Grid 2D macro + Flexbox 1D micro) e à revolução das Container Queries (<code>@container</code>).</span>
+                    <span class="lang-en">Dedicated labs for the Golden Rule (2D Macro Grid + 1D Micro Flexbox) and the Container Queries revolution (<code>@container</code>).</span>
                   </p>
+
+                  <!-- Container Queries Pedagogical Explainer Box -->
+                  <div style="background:var(--bg-surface); border:1px solid var(--color-accent-emerald, #10b981); border-radius:4px; padding:var(--space-3); margin-top:var(--space-2);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-2); margin-bottom:var(--space-1);">
+                      <strong style="color:var(--color-accent-emerald, #10b981); font-size:11px; text-transform:uppercase; letter-spacing:0.05em;">
+                        <span class="lang-pt">💡 O Paradigma Responsivo no Projeto Avançado: Container Queries (@container)</span>
+                        <span class="lang-en">💡 Advanced Responsive Paradigm: Component Container Queries (@container)</span>
+                      </strong>
+                      <a href="demos/tp11-css-flexbox-grid/04-container-queries.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="background:var(--color-accent-emerald, #10b981); color:#fff; border-color:var(--color-accent-emerald, #10b981); font-size:10px; font-weight:700; padding:2px 8px;">
+                        🔬 <span class="lang-pt">Lab 04 Interativo</span><span class="lang-en">Interactive Lab 04</span> ↗
+                      </a>
+                    </div>
+                    <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
+                      <span class="lang-pt">No nível avançado, a responsividade evolui da <em>escala macro da janela global</em> (<code>@media</code>) para a <em>escala micro do componente modular</em> (<code>@container</code>). Numa grelha 2D assimétrica de festival (DRUMTIKS '26), um cartão de artista ou módulo de bilhetes colocado numa barra lateral estreita (320px) adota uma disposição vertical compacta, enquanto o mesmo cartão colocado na coluna central (800px) expande-se horizontalmente numa linha rica — mesmo que o monitor do utilizador seja um ecrã ultrawide de 1920px.</span>
+                      <span class="lang-en">In the advanced stage, responsiveness evolves from <em>macro viewport scaling</em> (<code>@media</code>) to <em>micro component containment</em> (<code>@container</code>). In an asymmetric 2D festival grid (DRUMTIKS '26), an artist card or ticket module placed in a narrow sidebar (320px) flows as a compact vertical stack, while the exact same card in the main column (800px) expands into a multi-column horizontal layout — even if the user's viewport is a 1920px ultrawide monitor.</span>
+                    </p>
+                    <div style="background:#0d1117; border:1px solid #30363d; border-radius:3px; padding:var(--space-2); font-family:var(--font-mono); font-size:10.5px; color:#e6edf3; line-height:1.5;">
+                      <span style="color:#8b949e;">/* 1. O elemento pai declara o contexto de contenção inline */</span><br>
+                      <span style="color:#ff7b72;">.artist-slot</span> { <span style="color:#79c0ff;">container-type</span>: inline-size; <span style="color:#79c0ff;">container-name</span>: artist-card; }<br>
+                      <span style="color:#8b949e;">/* 2. O componente responde à largura do seu próprio slot (e não da janela) */</span><br>
+                      <span style="color:#ff7b72;">@container</span> artist-card (<span style="color:#79c0ff;">min-width</span>: 420px) {<br>
+                      &nbsp;&nbsp;<span style="color:#ff7b72;">.artist-card</span> { <span style="color:#79c0ff;">display</span>: flex; <span style="color:#79c0ff;">flex-direction</span>: row; <span style="color:#79c0ff;">font-size</span>: clamp(0.9rem, 2cqi, 1.2rem); }<br>
+                      }
+                    </div>
+                  </div>
                 </div>
 
                 <div style="background:var(--bg-surface-elevated); padding:var(--space-2) var(--space-3); border-radius:4px; border-left:3px solid var(--color-accent-gold);">
@@ -475,755 +930,204 @@
                   </p>
                 </div>
 
+                <div style="background:var(--bg-surface-elevated); padding:var(--space-2) var(--space-3); border-radius:4px; border-left:3px solid var(--color-swiss-red);">
+                  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-2);">
+                    <strong style="color:var(--color-swiss-red); font-size:var(--text-xs);">
+                      <span class="lang-pt">FASE 2C: SISTEMA DE DESIGN, GUIA DE ESCRITA &amp; BOILERPLATE</span>
+                      <span class="lang-en">STAGE 2C: DESIGN SYSTEM, WRITING GUIDE &amp; BOILERPLATE</span>
+                    </strong>
+                    <div style="display:flex; gap:var(--space-2); flex-wrap:wrap;">
+                      <a href="design-system.html" class="btn-control" style="background:var(--color-swiss-red); color:#fff; border-color:var(--color-swiss-red); font-size:var(--text-xs); font-weight:700;">
+                        🧬 <span class="lang-pt">Especificação Viva</span><span class="lang-en">Living Spec</span> ↗
+                      </a>
+                      <a href="design-system-boilerplate.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="font-size:var(--text-xs); font-weight:700;">
+                        📋 <span class="lang-pt">Boilerplate Base</span><span class="lang-en">Starter Boilerplate</span> ↗
+                      </a>
+                    </div>
+                  </div>
+                  <p style="font-size:11px; color:var(--text-secondary); margin-top:2px;">
+                    <span class="lang-pt">Especificação Figma ↔ HTML5/CSS (@layer, Atomic Design, Content Inventory, Guia de Escrita Yahoo!/Kubie e Tipografia Santa Maria) + template para clonar.</span>
+                    <span class="lang-en">Figma ↔ HTML5/CSS specification (@layer, Atomic Design, Content Inventory, Yahoo!/Kubie Writing Guide &amp; Santa Maria Typography) + cloneable student starter.</span>
+                  </p>
+                </div>
+
               </div>
             </div>
 
-          </div>
-          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);border-top:1px solid var(--border-color);padding-top:var(--space-2);">
-            <span class="lang-pt">Padrões:</span><span class="lang-en">Patterns:</span> P1 a P13 (Todos os 13 Padrões) + 3D Vinyl Crate + Dense Voids
+            <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);border-top:1px solid var(--border-color);padding-top:var(--space-2);margin-top:var(--space-3);">
+              <span class="lang-pt">Padrões:</span><span class="lang-en">Patterns:</span> P1 a P13 (Todos os 13 Padrões) + 3D Vinyl Crate + Dense Voids + Atomic Design System
+            </div>
+            </div>
           </div>
         </article>
+        </div>
+
       </div>
     </section>
 
-    <!-- Interaction Design Research & Web Patterns vs Anti-Patterns -->
-    <section id="interaction-design" style="margin-bottom:var(--space-12);">
-      <div style="margin-bottom:var(--space-6);">
-        <div style="display:flex; align-items:center; gap:var(--space-2); margin-bottom:var(--space-2);">
-          <span class="badge badge-transversal">
-            <span class="lang-pt">Transversal</span>
-            <span class="lang-en">Transversal</span>
-          </span>
-          <span style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">
-            <span class="lang-pt">Fundamentação Teórica &amp; Padrões de Usabilidade</span>
-            <span class="lang-en">Theoretical Foundations &amp; Usability Patterns</span>
+    <!-- Featured Patterns Showcase (Top 3 on Hub) -->
+    <section id="patterns" style="margin-bottom:var(--space-12);">
+      <div style="margin-bottom:var(--space-4);border-bottom:2px solid var(--border-color);padding-bottom:var(--space-2);display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:var(--space-2);">
+        <div>
+          <span style="font-family:var(--font-mono);font-size:var(--text-xs);font-weight:700;color:var(--color-swiss-red);text-transform:uppercase;">Demonstradores Destaque &bull; Sandboxes 4-Vistas</span>
+          <h2 style="font-size:var(--text-xl);margin:0.2rem 0 0;">
+            <span class="lang-pt">Padrões Estruturantes DRUMTIKS '26 em Destaque</span>
+            <span class="lang-en">Featured Core DRUMTIKS '26 Patterns</span>
+          </h2>
+        </div>
+        <a href="demos/index.html#core-patterns" class="btn-control" style="border-color:var(--color-swiss-red);color:var(--color-swiss-red);">
+          <span class="lang-pt">Ver Todos os 13 Padrões</span><span class="lang-en">View All 13 Patterns</span> ↗
+        </a>
+      </div>
+
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);max-width:85ch;margin-bottom:var(--space-6);">
+        <span class="lang-pt">Amostra de 3 dos 13 padrões interativos fundamentais. Cada padrão oferece vista Renderizada, modo Raio-X com legenda anatómica, código HTML semântico, código CSS e explicação detalhada.</span>
+        <span class="lang-en">Sample of 3 of the 13 foundational interactive patterns. Each provides live Rendered view, X-Ray mode, semantic HTML, modern CSS, and pedagogical walkthrough.</span>
+      </p>
+
+      <!-- 3 Featured Flagship Sandboxes (Limited by data-limit="3") -->
+      <div id="patterns-container" data-limit="3">
+        <!-- Renderizado dinamicamente pelo app.js renderPatternsShowcase() -->
+      </div>
+
+      <!-- Gateway Banner to All Patterns -->
+      <div style="background:var(--bg-surface-elevated);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:var(--space-5);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--space-3);margin-top:var(--space-4);">
+        <div>
+          <strong style="display:block;font-size:var(--text-base);margin-bottom:0.2rem;">
+            <span class="lang-pt">Deseja explorar todos os 13 padrões ou o catálogo completo de 142 componentes?</span>
+            <span class="lang-en">Want to explore all 13 flagship patterns or the full 142 component catalog?</span>
+          </strong>
+          <span style="font-size:var(--text-xs);color:var(--text-secondary);">
+            <span class="lang-pt">Aceda ao repositório central de Demos ou consulte o catálogo global de padrões de interação web.</span>
+            <span class="lang-en">Jump to the central Demos repository or browse the comprehensive 142 web patterns catalog.</span>
           </span>
         </div>
-        <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-2);">
-          <span class="lang-pt">7. Princípios de Design de Interação &amp; Padrões vs. Anti-Padrões Web</span>
-          <span class="lang-en">7. Interaction Design Principles &amp; Web Patterns vs. Anti-Patterns</span>
+        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+          <a href="demos/index.html#core-patterns" class="btn-control btn-primary-red">
+            <span class="lang-pt">Explorar 13 Padrões no Repositório</span><span class="lang-en">Explore 13 Patterns in Repo</span> ↗
+          </a>
+          <a href="interaction-patterns.html" class="btn-control">
+            <span class="lang-pt">Catálogo 142 Padrões</span><span class="lang-en">142 Patterns Catalog</span> ↗
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 Gateway Navigation Cards (Dedicated Pages) -->
+    <section style="margin-bottom:var(--space-12);">
+      <div style="margin-bottom:var(--space-4);border-bottom:2px solid var(--border-color);padding-bottom:var(--space-2);">
+        <span style="font-family:var(--font-mono);font-size:var(--text-xs);font-weight:700;color:var(--color-swiss-red);text-transform:uppercase;">Navegação Aprofundada &bull; Áreas Dedicadas</span>
+        <h2 style="font-size:var(--text-xl);margin:0.2rem 0 0;">
+          <span class="lang-pt">Recursos Essenciais do Andaime Pedagógico</span>
+          <span class="lang-en">Core Learning Scaffold Gateways</span>
         </h2>
-        <p style="color:var(--text-secondary);font-size:var(--text-base);max-width:86ch;line-height:1.6;">
-          <span class="lang-pt">Uma distinção epistemológica e prática fundamental: enquanto os <strong>princípios de design de interação</strong> constituem leis cognitivas e ergonómicas de alto nível (Jenny Preece, Ben Shneiderman, Donald Norman e Alan Cooper), os <strong>padrões web</strong> (Tidwell, Hoober &amp; Berkman, Marcotte, W3C WAI-ARIA) representam as soluções operativas e componentes reutilizáveis na camada de código. Abaixo, organizamos a teoria em duas partes interligadas: primeiro os <em>Princípios Concetuais</em> e depois os <em>Padrões Operativos e Anti-Padrões</em>.</span>
-          <span class="lang-en">A fundamental epistemological and practical distinction: while <strong>interaction design principles</strong> constitute higher-level cognitive and ergonomic invariants (Jenny Preece, Ben Shneiderman, Donald Norman, and Alan Cooper), <strong>web patterns</strong> (Tidwell, Hoober &amp; Berkman, Marcotte, W3C WAI-ARIA) represent lower-level operative solutions and reusable components in the code layer. Below, we articulate theory in two interconnected parts: first the <em>Conceptual Principles</em>, followed by the <em>Operative Patterns and Anti-Patterns</em>.</span>
-        </p>
       </div>
 
-      <!-- ================================================================== -->
-      <!-- 7.1 PRINCÍPIOS CONCETUAIS DE DESIGN DE INTERAÇÃO (NÍVEL SUPERIOR)  -->
-      <!-- ================================================================== -->
-      <div style="margin-bottom:var(--space-8);">
-        <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-left:6px solid var(--color-accent-blue, #2563eb); padding:var(--space-4) var(--space-5); margin-bottom:var(--space-6); border-radius:0 4px 4px 0;">
-          <div style="display:flex; align-items:center; gap:var(--space-2); margin-bottom:var(--space-1);">
-            <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--color-accent-blue, #2563eb); text-transform:uppercase;">PARTE 7.1 • NÍVEL CONCETUAL &amp; TEÓRICO</span>
-            <span style="font-size:11px; color:var(--text-muted);">•</span>
-            <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted);">NORMAN • SHNEIDERMAN • PREECE • COOPER</span>
-          </div>
-          <h3 style="font-size:var(--text-lg); color:var(--text-primary); margin:0 0 var(--space-2) 0;">
-            <span class="lang-pt">7.1 Princípios Concetuais de Design de Interação Aplicados à Web</span>
-            <span class="lang-en">7.1 Conceptual Interaction Design Principles Applied to the Web</span>
-          </h3>
-          <p style="font-size:var(--text-xs); color:var(--text-secondary); margin:0; line-height:1.6; max-width:85ch;">
-            <span class="lang-pt">Os princípios situam-se no plano das ciências cognitivas, da psicologia percetiva e dos objetivos de usabilidade. Respondem ao <em>"Porquê"</em> da interação humana com artefactos digitais, transcendendo linguagens ou frameworks transitórias. Cada princípio teórico abaixo fundamenta e orienta a conceção de múltiplos padrões web concretos.</span>
-            <span class="lang-en">Principles operate at the level of cognitive science, perceptual psychology, and usability goals. They answer the <em>"Why"</em> of human interaction with digital artifacts, transcending transient languages and frameworks. Each theoretical principle below governs and inspires multiple concrete web patterns.</span>
-          </p>
-        </div>
-
-        <!-- As 8 Cartas de Princípios Concetuais -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:var(--space-4); margin-bottom:var(--space-6);">
-
-          <!-- Princípio 1 -->
-          <article class="card-item" style="border-top:3px solid var(--color-swiss-red); justify-content:flex-start; gap:var(--space-3);">
-            <div>
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:var(--space-2); flex-wrap:wrap; gap:var(--space-1);">
-                <span style="font-family:var(--font-mono); font-size:10px; font-weight:700; color:var(--color-swiss-red); text-transform:uppercase;">Princípio 01</span>
-                <span class="badge" style="background:var(--bg-surface-elevated); font-size:10px; border:1px solid var(--border-color);">Norman &amp; Preece</span>
-              </div>
-              <h4 class="card-item-title" style="font-size:var(--text-base); color:var(--text-primary); margin-bottom:var(--space-2);">
-                <span class="lang-pt">1. Perceção, Affordance &amp; Signifiers</span>
-                <span class="lang-en">1. Perception, Affordance &amp; Signifiers</span>
-              </h4>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-2);">
-                <span class="lang-pt"><strong>Fundamento Teórico:</strong> Donald Norman distingue entre <em>Affordance</em> (o potencial de ação real e relacional entre utilizador e sistema) e <em>Signifiers</em> (marcas e pistas visuais percetíveis que comunicam explicitamente onde e que ação é possível). Jenny Preece reforça o princípio da <em>Visibilidade</em> (Visibility): funções ocultas ou ambíguas geram fricção e erros.</span>
-                <span class="lang-en"><strong>Theoretical Basis:</strong> Donald Norman distinguishes between <em>Affordance</em> (the actual relational action possibility between actor and object) and <em>Signifiers</em> (perceivable marks/cues signaling where and what action can be taken). Jenny Preece underscores <em>Visibility</em>: concealed or ambiguous capabilities cause friction and error.</span>
-              </p>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-3); color:var(--text-secondary);">
-                <span class="lang-pt"><strong>Aplicação Web:</strong> Em ecrãs bidimensionais de vidro, píxeis não têm affordance física tátil; os signifiers visuais são vitais. Links devem parecer links (sublinhado, contraste WCAG), botões exigem contorno/elevação clara, o cursor deve ser semântico (<code>cursor: pointer</code>) e os alvos de toque devem ter no mínimo 44&times;44px.</span>
-                <span class="lang-en"><strong>Web Application:</strong> On 2D glass viewports, pixels possess no physical tactile affordance; explicit signifiers are crucial. Links must look like links (underlines, WCAG color contrast), buttons need explicit boundaries/elevation, cursors must be semantic (<code>cursor: pointer</code>), and touch targets must measure at least 44&times;44px.</span>
-              </p>
-            </div>
-            <div style="margin-top:auto; padding-top:var(--space-2); border-top:1px dashed var(--border-color); font-size:11px;">
-              <div style="margin-bottom:var(--space-1);"><strong style="color:var(--text-primary);">Padrões:</strong> <a href="interaction-patterns.html?cat=actions" style="color:var(--color-swiss-red); text-decoration:underline;">CTA (Call to Action)</a>, <a href="interaction-patterns.html?cat=touch" style="color:var(--color-swiss-red); text-decoration:underline;">Alvos &ge; 44px</a>, <a href="interaction-patterns.html?cat=a11y" style="color:var(--color-swiss-red); text-decoration:underline;">Anel :focus-visible</a>.</div>
-              <div style="color:var(--text-muted);"><strong>Anti-Padrão:</strong> <em>Mystery Meat Navigation</em> (ícones sem texto), links sem estilo diferenciado.</div>
-            </div>
-          </article>
-
-          <!-- Princípio 2 -->
-          <article class="card-item" style="border-top:3px solid var(--color-accent-blue, #2563eb); justify-content:flex-start; gap:var(--space-3);">
-            <div>
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:var(--space-2); flex-wrap:wrap; gap:var(--space-1);">
-                <span style="font-family:var(--font-mono); font-size:10px; font-weight:700; color:var(--color-accent-blue, #2563eb); text-transform:uppercase;">Princípio 02</span>
-                <span class="badge" style="background:var(--bg-surface-elevated); font-size:10px; border:1px solid var(--border-color);">Cooper &amp; Norman</span>
-              </div>
-              <h4 class="card-item-title" style="font-size:var(--text-base); color:var(--text-primary); margin-bottom:var(--space-2);">
-                <span class="lang-pt">2. Modelos Mentais &amp; Mapeamento Natural</span>
-                <span class="lang-en">2. Mental Models &amp; Natural Mapping</span>
-              </h4>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-2);">
-                <span class="lang-pt"><strong>Fundamento Teórico:</strong> Alan Cooper formula a tríade dos modelos: o <em>Modelo de Implementação</em> (como o código funciona na máquina), o <em>Modelo Mental</em> (como o utilizador imagina o funcionamento) e o <em>Modelo Representado/Manifestado</em> (a interface desenhada). O software deve refletir o modelo mental do utilizador, nunca o código interno. Norman adiciona o <em>Mapeamento Natural</em> (relação espacial direta entre controlo e efeito).</span>
-                <span class="lang-en"><strong>Theoretical Basis:</strong> Alan Cooper formulates the model triad: the <em>Implementation Model</em> (how code executes), the <em>Mental Model</em> (how users envision the task), and the <em>Manifested/Representational Model</em> (the UI presented). Software must match the user's mental model, never the engineering structure. Norman adds <em>Natural Mapping</em> (spatial correspondence between control and result).</span>
-              </p>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-3); color:var(--text-secondary);">
-                <span class="lang-pt"><strong>Aplicação Web:</strong> Espacialização lógica no eixo Z via Stacking Contexts (fundo &lt; fluxo rolável &lt; cabeçalho sticky &lt; modais). Metáforas físicas intuitivas como o <em>Vinyl Crate 3D</em> (folhear discos) ou carrosséis com deslizamento inercial. O scroll vertical deve respeitar a direção de leitura.</span>
-                <span class="lang-en"><strong>Web Application:</strong> Spatial logical layering on the Z-axis via Stacking Contexts (canvas &lt; content stream &lt; sticky header &lt; dialog overlays). Intuitive tactile metaphors like the <em>3D Vinyl Crate</em> (record flipping) or scroll-snap carousels. Vertical scrolling must strictly obey natural reading direction.</span>
-              </p>
-            </div>
-            <div style="margin-top:auto; padding-top:var(--space-2); border-top:1px dashed var(--border-color); font-size:11px;">
-              <div style="margin-bottom:var(--space-1);"><strong style="color:var(--text-primary);">Padrões:</strong> <a href="interaction-patterns.html?cat=actions" style="color:var(--color-swiss-red); text-decoration:underline;">Vinyl Crate 3D</a>, <a href="interaction-patterns.html?cat=nav" style="color:var(--color-swiss-red); text-decoration:underline;">Cabeçalho Sticky</a>, <a href="interaction-patterns.html?cat=nav" style="color:var(--color-swiss-red); text-decoration:underline;">Breadcrumbs</a>, <a href="interaction-patterns.html?cat=data" style="color:var(--color-swiss-red); text-decoration:underline;">Scroll-Snap</a>.</div>
-              <div style="color:var(--text-muted);"><strong>Anti-Padrão:</strong> <em>Scrolljacking</em>, sobreposição desordenada de z-index, mensagens com códigos de erro internos ("500 SQL").</div>
-            </div>
-          </article>
-
-          <!-- Princípio 3 -->
-          <article class="card-item" style="border-top:3px solid #10b981; justify-content:flex-start; gap:var(--space-3);">
-            <div>
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:var(--space-2); flex-wrap:wrap; gap:var(--space-1);">
-                <span style="font-family:var(--font-mono); font-size:10px; font-weight:700; color:#10b981; text-transform:uppercase;">Princípio 03</span>
-                <span class="badge" style="background:var(--bg-surface-elevated); font-size:10px; border:1px solid var(--border-color);">Shneiderman &amp; Preece</span>
-              </div>
-              <h4 class="card-item-title" style="font-size:var(--text-base); color:var(--text-primary); margin-bottom:var(--space-2);">
-                <span class="lang-pt">3. Consistência &amp; Usabilidade Universal</span>
-                <span class="lang-en">3. Consistency &amp; Universal Usability</span>
-              </h4>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-2);">
-                <span class="lang-pt"><strong>Fundamento Teórico:</strong> As duas primeiras Regras de Ouro de Ben Shneiderman: <em>Consistência</em> (ações idênticas em contextos análogos, uniformidade de terminologia e paletas) e <em>Usabilidade Universal</em> (projetar para a diversidade humana: principiantes e peritos, faixas etárias, deficiências sensoriais/motoras, variedade de dispositivos). Preece vincula a consistência à rápida <em>Aprendizagem</em> (Learnability).</span>
-                <span class="lang-en"><strong>Theoretical Basis:</strong> Ben Shneiderman's first two Golden Rules: <em>Strive for consistency</em> (identical action sequences, uniform terminology, predictable palettes) and <em>Seek universal usability</em> (designing for human diversity: novices to experts, age brackets, sensory/motor impairments, diverse tech setups). Preece links consistency to high <em>Learnability</em>.</span>
-              </p>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-3); color:var(--text-secondary);">
-                <span class="lang-pt"><strong>Aplicação Web:</strong> Respeito pelos padrões canónicos do navegador: o botão Retroceder nunca deve ser bloqueado; a semântica de marcos HTML5 (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>) orienta leitores de ecrã; design responsivo móvel-primeiro (RWD) e conformidade estrita WCAG 2.2 AA.</span>
-                <span class="lang-en"><strong>Web Application:</strong> Honoring browser conventions: never hijack or disable the Back button; HTML5 landmarks (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>) guide screen readers; mobile-first responsive architecture (RWD) and strict WCAG 2.2 AA conformance.</span>
-              </p>
-            </div>
-            <div style="margin-top:auto; padding-top:var(--space-2); border-top:1px dashed var(--border-color); font-size:11px;">
-              <div style="margin-bottom:var(--space-1);"><strong style="color:var(--text-primary);">Padrões:</strong> <a href="interaction-patterns.html?cat=a11y" style="color:var(--color-swiss-red); text-decoration:underline;">Marcos HTML5</a>, <a href="interaction-patterns.html?cat=layout" style="color:var(--color-swiss-red); text-decoration:underline;">Column Drop</a>, <a href="interaction-patterns.html?cat=a11y" style="color:var(--color-swiss-red); text-decoration:underline;">Skip Link</a>, <a href="interaction-patterns.html?cat=nav" style="color:var(--color-swiss-red); text-decoration:underline;">WAI-ARIA APG</a>.</div>
-              <div style="color:var(--text-muted);"><strong>Anti-Padrão:</strong> <code>outline: none !important</code>, desativar atalhos padrão do browser, ícones com significados mutáveis.</div>
-            </div>
-          </article>
-
-          <!-- Princípio 4 -->
-          <article class="card-item" style="border-top:3px solid #f59e0b; justify-content:flex-start; gap:var(--space-3);">
-            <div>
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:var(--space-2); flex-wrap:wrap; gap:var(--space-1);">
-                <span style="font-family:var(--font-mono); font-size:10px; font-weight:700; color:#f59e0b; text-transform:uppercase;">Princípio 04</span>
-                <span class="badge" style="background:var(--bg-surface-elevated); font-size:10px; border:1px solid var(--border-color);">Norman, Shneiderman &amp; Preece</span>
-              </div>
-              <h4 class="card-item-title" style="font-size:var(--text-base); color:var(--text-primary); margin-bottom:var(--space-2);">
-                <span class="lang-pt">4. Feedback Imediato &amp; Visibilidade de Estado</span>
-                <span class="lang-en">4. Immediate Feedback &amp; State Visibility</span>
-              </h4>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-2);">
-                <span class="lang-pt"><strong>Fundamento Teórico:</strong> Norman define o <em>Fosso de Avaliação</em> (Gulf of Evaluation): o esforço que o utilizador tem de fazer para perceber o estado do sistema. Shneiderman prescreve a 3.ª Regra (<em>Offer informative feedback</em>). Leis temporais da interação: &le; 100ms para sensação de causa-efeito direta; &le; 1.0s para manter o fluxo de pensamento; &gt; 10s exige indicadores percentuais de progresso.</span>
-                <span class="lang-en"><strong>Theoretical Basis:</strong> Norman defines the <em>Gulf of Evaluation</em>: the mental effort required to assess system state. Shneiderman's 3rd Rule (<em>Offer informative feedback</em>). Temporal cognitive limits: &le; 100ms for instantaneous direct manipulation; &le; 1.0s to sustain user train of thought; &gt; 10s demands explicit percentage progress meters.</span>
-              </p>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-3); color:var(--text-secondary);">
-                <span class="lang-pt"><strong>Aplicação Web:</strong> Resposta tátil imediata em <code>:hover</code> e <code>:active</code>. Barra de progresso de leitura ligada ao scroll (<code>animation-timeline: scroll(root)</code>). Validação instantânea com <code>:user-valid</code> e diagnósticos construtivos em <em>Estados Vazios</em> (Empty States com chips de recuperação em vez de ecrãs em branco).</span>
-                <span class="lang-en"><strong>Web Application:</strong> Instant tactile confirmation on <code>:hover</code> and <code>:active</code>. Scroll-driven reading progress bar (<code>animation-timeline: scroll(root)</code>). Real-time validation via <code>:user-valid</code> and constructive recovery diagnostics in <em>Empty States</em> (suggestion chips rather than blank dead ends).</span>
-              </p>
-            </div>
-            <div style="margin-top:auto; padding-top:var(--space-2); border-top:1px dashed var(--border-color); font-size:11px;">
-              <div style="margin-bottom:var(--space-1);"><strong style="color:var(--text-primary);">Padrões:</strong> <a href="interaction-patterns.html?cat=feedback" style="color:var(--color-swiss-red); text-decoration:underline;">Barra scroll(root)</a>, <a href="interaction-patterns.html?cat=input" style="color:var(--color-swiss-red); text-decoration:underline;">Validação :user-valid</a>, <a href="interaction-patterns.html?cat=search" style="color:var(--color-swiss-red); text-decoration:underline;">Empty State</a>, <a href="interaction-patterns.html?cat=feedback" style="color:var(--color-swiss-red); text-decoration:underline;">Skeleton Screens</a>.</div>
-              <div style="color:var(--text-muted);"><strong>Anti-Padrão:</strong> Cliques inertes sem resposta visual, ecrãs brancos de carregamento, 0 resultados sem opção de recuperação.</div>
-            </div>
-          </article>
-
-          <!-- Princípio 5 -->
-          <article class="card-item" style="border-top:3px solid #8b5cf6; justify-content:flex-start; gap:var(--space-3);">
-            <div>
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:var(--space-2); flex-wrap:wrap; gap:var(--space-1);">
-                <span style="font-family:var(--font-mono); font-size:10px; font-weight:700; color:#8b5cf6; text-transform:uppercase;">Princípio 05</span>
-                <span class="badge" style="background:var(--bg-surface-elevated); font-size:10px; border:1px solid var(--border-color);">Norman, Shneiderman &amp; Cooper</span>
-              </div>
-              <h4 class="card-item-title" style="font-size:var(--text-base); color:var(--text-primary); margin-bottom:var(--space-2);">
-                <span class="lang-pt">5. Prevenção de Erros &amp; Exploração Reversível</span>
-                <span class="lang-en">5. Error Prevention &amp; Reversible Exploration</span>
-              </h4>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-2);">
-                <span class="lang-pt"><strong>Fundamento Teórico:</strong> Norman introduz os <em>Constrangimentos</em> (Constraints: físicos, culturais, semânticos e lógicos) para tornar o erro impossível. Shneiderman prescreve a 5.ª e 6.ª Regras: <em>Prevenção de erros</em> e <em>Fácil reversão de ações</em>. Cooper defende interfaces tolerantes (<em>Forgiving Software</em>) onde o utilizador explora sem receio de destruição acidental.</span>
-                <span class="lang-en"><strong>Theoretical Basis:</strong> Norman defines <em>Constraints</em> (Physical, Cultural, Semantic, Logical) to structurally preclude errors. Shneiderman's 5th &amp; 6th Rules: <em>Prevent errors</em> and <em>Permit easy reversal of actions</em>. Cooper champions <em>Forgiving Software</em> where users freely explore without dreading accidental data loss.</span>
-              </p>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-3); color:var(--text-secondary);">
-                <span class="lang-pt"><strong>Aplicação Web:</strong> Constrangimentos nativos em formulários (<code>type="email"</code>, <code>min</code>, <code>max</code>, <code>pattern</code>); calendários que impedem seleção de datas passadas. Confirmações explícitas apenas para ações irreversíveis. Em operações destrutivas ou edição de bilhetes, fornecer barra de notificação com opção <em>Desfazer</em> (Undo Snackbar).</span>
-                <span class="lang-en"><strong>Web Application:</strong> Native form constraints (<code>type="email"</code>, <code>min</code>, <code>max</code>, <code>pattern</code>); date pickers disabling expired dates. Explicit confirmation modals reserved for irreversible destruction. Modeless <em>Undo Snackbars</em> allowing instant recovery following deletes or edits.</span>
-              </p>
-            </div>
-            <div style="margin-top:auto; padding-top:var(--space-2); border-top:1px dashed var(--border-color); font-size:11px;">
-              <div style="margin-bottom:var(--space-1);"><strong style="color:var(--text-primary);">Padrões:</strong> <a href="interaction-patterns.html?cat=input" style="color:var(--color-swiss-red); text-decoration:underline;">Controlos Restritos</a>, <a href="interaction-patterns.html?cat=actions" style="color:var(--color-swiss-red); text-decoration:underline;">Modal de Confirmação</a>, <a href="interaction-patterns.html?cat=feedback" style="color:var(--color-swiss-red); text-decoration:underline;">Undo Snackbar</a>, <a href="interaction-patterns.html?cat=input" style="color:var(--color-swiss-red); text-decoration:underline;">Stepper Numérico</a>.</div>
-              <div style="color:var(--text-muted);"><strong>Anti-Padrão:</strong> <em>Error-shaming</em> prematuro (campos vermelhos enquanto digita), eliminação sem Undo, limpar formulário ao errar.</div>
-            </div>
-          </article>
-
-          <!-- Princípio 6 -->
-          <article class="card-item" style="border-top:3px solid #06b6d4; justify-content:flex-start; gap:var(--space-3);">
-            <div>
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:var(--space-2); flex-wrap:wrap; gap:var(--space-1);">
-                <span style="font-family:var(--font-mono); font-size:10px; font-weight:700; color:#06b6d4; text-transform:uppercase;">Princípio 06</span>
-                <span class="badge" style="background:var(--bg-surface-elevated); font-size:10px; border:1px solid var(--border-color);">Cooper, Shneiderman &amp; Preece</span>
-              </div>
-              <h4 class="card-item-title" style="font-size:var(--text-base); color:var(--text-primary); margin-bottom:var(--space-2);">
-                <span class="lang-pt">6. Redução de Sobrecarga &amp; Eliminação de "Excise"</span>
-                <span class="lang-en">6. Cognitive Load &amp; Excise Elimination</span>
-              </h4>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-2);">
-                <span class="lang-pt"><strong>Fundamento Teórico:</strong> Alan Cooper define <em>Excise</em> como o esforço parasita exigido pela ferramenta e não pela tarefa em si (navegacional, cognitivo e mecânico). Shneiderman prescreve a 8.ª Regra (<em>Reduce short-term memory load</em>) e o seu mantra: <em>"Overview first, zoom and filter, then details-on-demand"</em>. A psicologia cognitiva (Miller 7&plusmn;2, Cowan) comprova que a memória humana de trabalho é escassa.</span>
-                <span class="lang-en"><strong>Theoretical Basis:</strong> Alan Cooper defines <em>Excise</em> as extra overhead imposed by the tool rather than the user's core task (navigational, cognitive, mechanical). Shneiderman's 8th Rule (<em>Reduce short-term memory load</em>) and Visual Information Mantra: <em>"Overview first, zoom and filter, then details-on-demand"</em>. Cognitive limits (Miller 7&plusmn;2, Cowan) prove human working memory is scarce.</span>
-              </p>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-3); color:var(--text-secondary);">
-                <span class="lang-pt"><strong>Aplicação Web:</strong> Promover o <em>Reconhecimento sobre a Evocação</em> (Recognition over Recall). Divulgação progressiva via <code>&lt;details&gt;/&lt;summary&gt;</code>; menus adaptativos (Priority+); paginação escalonada (12, 24, 48, Todos); barra lateral adesiva (Aside TOC) para wayfinding em páginas densas.</span>
-                <span class="lang-en"><strong>Web Application:</strong> Prioritizing <em>Recognition over Recall</em>. Progressive disclosure via native <code>&lt;details&gt;/&lt;summary&gt;</code>; adaptive navigation (Priority+); stepping pagination (12, 24, 48, All); sticky side rail (Aside TOC) for effortless wayfinding on long-form content.</span>
-              </p>
-            </div>
-            <div style="margin-top:auto; padding-top:var(--space-2); border-top:1px dashed var(--border-color); font-size:11px;">
-              <div style="margin-bottom:var(--space-1);"><strong style="color:var(--text-primary);">Padrões:</strong> <a href="interaction-patterns.html?cat=layout" style="color:var(--color-swiss-red); text-decoration:underline;">Divulgação Progressiva</a>, <a href="interaction-patterns.html?cat=nav" style="color:var(--color-swiss-red); text-decoration:underline;">Priority+ Menu</a>, <a href="interaction-patterns.html?cat=data" style="color:var(--color-swiss-red); text-decoration:underline;">Paginação Escalonada</a>, <a href="interaction-patterns.html?cat=search" style="color:var(--color-swiss-red); text-decoration:underline;">Chips de Filtro</a>.</div>
-              <div style="color:var(--text-muted);"><strong>Anti-Padrão:</strong> Muralhas de texto sem escaneabilidade, menus dropdown com 60 opções desordenadas, scroll infinito desenfreado.</div>
-            </div>
-          </article>
-
-          <!-- Princípio 7 -->
-          <article class="card-item" style="border-top:3px solid #ec4899; justify-content:flex-start; gap:var(--space-3);">
-            <div>
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:var(--space-2); flex-wrap:wrap; gap:var(--space-1);">
-                <span style="font-family:var(--font-mono); font-size:10px; font-weight:700; color:#ec4899; text-transform:uppercase;">Princípio 07</span>
-                <span class="badge" style="background:var(--bg-surface-elevated); font-size:10px; border:1px solid var(--border-color);">Shneiderman &amp; Cooper</span>
-              </div>
-              <h4 class="card-item-title" style="font-size:var(--text-base); color:var(--text-primary); margin-bottom:var(--space-2);">
-                <span class="lang-pt">7. Autonomia do Utilizador &amp; "Polite Software"</span>
-                <span class="lang-en">7. User Autonomy &amp; "Polite Software"</span>
-              </h4>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-2);">
-                <span class="lang-pt"><strong>Fundamento Teórico:</strong> Shneiderman consagra a 7.ª Regra: <em>Keep users in control</em> (apoiar o locus de controlo interno: o utilizador inicia e governa a ação). Cooper define os princípios do software bem-educado (<em>Considerate / Polite Software</em>): respeitoso, deferente, atento às preferências, que não interrompe com histeria nem assume que o utilizador está errado.</span>
-                <span class="lang-en"><strong>Theoretical Basis:</strong> Shneiderman's 7th Rule: <em>Support internal locus of control</em> (the user initiates and governs system behavior). Cooper champions <em>Considerate / Polite Software</em>: respectful, deferential, remembering context and preferences, avoiding abrupt interruptions, and never patronizing the user.</span>
-              </p>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-3); color:var(--text-secondary);">
-                <span class="lang-pt"><strong>Aplicação Web:</strong> Respeito pelas preferências de acessibilidade do sistema: <code>@media (prefers-reduced-motion)</code> e alternância de tema <code>light-dark()</code>. Sobreposições não-bloqueantes via Popover API. Estabilidade de layout sem saltos bruscos (CLS = 0 com reserva de <code>aspect-ratio</code>). Preservação de estado sem perda de dados na navegação.</span>
-                <span class="lang-en"><strong>Web Application:</strong> Strict compliance with system preferences: <code>@media (prefers-reduced-motion)</code> and <code>light-dark()</code> theming. Non-modal modeless overlays via Popover API. Visual layout stability (CLS = 0 via reserved <code>aspect-ratio</code> slots). State preservation preventing accidental data loss during navigation.</span>
-              </p>
-            </div>
-            <div style="margin-top:auto; padding-top:var(--space-2); border-top:1px dashed var(--border-color); font-size:11px;">
-              <div style="margin-bottom:var(--space-1);"><strong style="color:var(--text-primary);">Padrões:</strong> <a href="interaction-patterns.html?cat=actions" style="color:var(--color-swiss-red); text-decoration:underline;">Popover API</a>, <a href="interaction-patterns.html?cat=feedback" style="color:var(--color-swiss-red); text-decoration:underline;">Reduced Motion</a>, <a href="interaction-patterns.html?cat=layout" style="color:var(--color-swiss-red); text-decoration:underline;">Reserva aspect-ratio</a>, <a href="interaction-patterns.html?cat=actions" style="color:var(--color-swiss-red); text-decoration:underline;">Alternador de Tema</a>.</div>
-              <div style="color:var(--text-muted);"><strong>Anti-Padrão:</strong> <em>Hostile Popups</em> / modais de newsletter invasivos, vídeos com autoplay de som, Cumulative Layout Shift (CLS &gt; 0.1).</div>
-            </div>
-          </article>
-
-          <!-- Princípio 8 -->
-          <article class="card-item" style="border-top:3px solid #14b8a6; justify-content:flex-start; gap:var(--space-3);">
-            <div>
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:var(--space-2); flex-wrap:wrap; gap:var(--space-1);">
-                <span style="font-family:var(--font-mono); font-size:10px; font-weight:700; color:#14b8a6; text-transform:uppercase;">Princípio 08</span>
-                <span class="badge" style="background:var(--bg-surface-elevated); font-size:10px; border:1px solid var(--border-color);">Shneiderman &amp; Cooper</span>
-              </div>
-              <h4 class="card-item-title" style="font-size:var(--text-base); color:var(--text-primary); margin-bottom:var(--space-2);">
-                <span class="lang-pt">8. Fecho de Diálogos &amp; Conclusão de Tarefas</span>
-                <span class="lang-en">8. Dialog Closure &amp; Task Completion</span>
-              </h4>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-2);">
-                <span class="lang-pt"><strong>Fundamento Teórico:</strong> 4.ª Regra de Ouro de Shneiderman: <em>Design dialogs to yield closure</em>. As sequências de ação devem ser agrupadas com início, meio e fim. O fecho conclusivo proporciona alívio cognitivo, sinaliza que a mente pode libertar a atenção e confirma o sucesso da transação. Cooper sublinha a importância dos marcos e transições limpas de estado.</span>
-                <span class="lang-en"><strong>Theoretical Basis:</strong> Shneiderman's 4th Rule: <em>Design dialogs to yield closure</em>. Action sequences must be organized into logical groups with clear beginnings, middles, and ends. Conclusive closure provides psychological relief, signals that working memory can discharge attention, and reassures users. Cooper emphasizes clear milestones and state transitions.</span>
-              </p>
-              <p class="card-item-body" style="font-size:var(--text-xs); margin-bottom:var(--space-3); color:var(--text-secondary);">
-                <span class="lang-pt"><strong>Aplicação Web:</strong> Processos de checkout (ex: compra de passes Drumtiks) organizados em assistentes por etapas com indicador de progresso; cartões de confirmação final com resumo detalhado, referência de bilhete e opções claras de próximo passo (download de passe, adicionar ao calendário).</span>
-                <span class="lang-en"><strong>Web Application:</strong> Checkout flows (e.g. Drumtiks festival passes) segmented into stepped wizards with explicit progress trackers; final confirmation cards featuring order recaps, ticket reference codes, and clear next steps (download pass, add to calendar).</span>
-              </p>
-            </div>
-            <div style="margin-top:auto; padding-top:var(--space-2); border-top:1px dashed var(--border-color); font-size:11px;">
-              <div style="margin-bottom:var(--space-1);"><strong style="color:var(--text-primary);">Padrões:</strong> <a href="interaction-patterns.html?cat=actions" style="color:var(--color-swiss-red); text-decoration:underline;">Wizard Multietapas</a>, <a href="interaction-patterns.html?cat=feedback" style="color:var(--color-swiss-red); text-decoration:underline;">Ecrã de Confirmação</a>, <a href="interaction-patterns.html?cat=layout" style="color:var(--color-swiss-red); text-decoration:underline;">Etapas em Acordeão</a>.</div>
-              <div style="color:var(--text-muted);"><strong>Anti-Padrão:</strong> Submissões ambíguas sem recibo, spinners que desaparecem sem mensagem de sucesso, fluxos sem indicação de término.</div>
-            </div>
-          </article>
-
-        </div>
-      </div>
-
-      <!-- ================================================================== -->
-      <!-- 7.2 PADRÕES E ANTI-PADRÕES DE DESIGN DE INTERAÇÃO (NÍVEL OPERATIVO)-->
-      <!-- ================================================================== -->
-      <div>
-        <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-left:6px solid var(--color-swiss-red); padding:var(--space-4) var(--space-5); margin-bottom:var(--space-6); border-radius:0 4px 4px 0;">
-          <div style="display:flex; align-items:center; gap:var(--space-2); margin-bottom:var(--space-1);">
-            <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--color-swiss-red); text-transform:uppercase;">PARTE 7.2 • NÍVEL OPERATIVO &amp; PRÁTICO</span>
-            <span style="font-size:11px; color:var(--text-muted);">•</span>
-            <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted);">TIDWELL • HOOBER • MARCOTTE • JEHL • W3C ARIA APG</span>
-          </div>
-          <h3 style="font-size:var(--text-lg); color:var(--text-primary); margin:0 0 var(--space-2) 0;">
-            <span class="lang-pt">7.2 Padrões Web Operativos &amp; Matriz Crítica de Anti-Padrões</span>
-            <span class="lang-en">7.2 Operative Web Patterns &amp; Critical Anti-Pattern Matrix</span>
-          </h3>
-          <p style="font-size:var(--text-xs); color:var(--text-secondary); margin:0; line-height:1.6; max-width:85ch;">
-            <span class="lang-pt">Os <strong>padrões de design de interação</strong> são soluções canónicas, testadas e reutilizáveis para desafios específicos de interface. Em contraste, os <strong>anti-padrões</strong> representam abordagens desadequadas, fricção cognitiva ou práticas predatórias (Dark Patterns) que violam os princípios fundamentais de Norman, Shneiderman, Cooper e Preece.</span>
-            <span class="lang-en"><strong>Interaction design patterns</strong> are canonical, tested, and reusable solutions for recurring interface challenges. Conversely, <strong>anti-patterns</strong> represent flawed architectures, cognitive friction, or predatory practices (Dark Patterns) that breach the foundational principles of Norman, Shneiderman, Cooper, and Preece.</span>
-          </p>
-        </div>
-
-        <!-- BANNER DE ACESSO AO CATÁLOGO GLOBAL DE PADRÕES -->
-        <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-left:6px solid var(--badge-transversal-border, #64748b); padding:var(--space-6); margin-bottom:var(--space-8); border-radius:0 4px 4px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-4);">
+      <div class="grid-3">
+        
+        <!-- Gateway 1: IxD Principles -->
+        <article class="card-item card-tier-ixd">
           <div>
-            <div style="display:flex; align-items:center; gap:var(--space-2); margin-bottom:var(--space-1);">
-              <span class="badge badge-transversal">142 PADRÕES • 9 CATEGORIAS</span>
-              <span style="font-family:var(--font-mono); font-size:10px; color:var(--text-muted); text-transform:uppercase;">COMPÊNDIO CANÓNICO WD101</span>
+            <div class="card-item-header">
+              <span class="badge badge-transversal">Teoria &amp; Crítica</span>
+              <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">ixd-principles.html</span>
             </div>
-            <h4 style="font-size:var(--text-lg); color:var(--text-primary); margin-bottom:var(--space-1);">
-              <span class="lang-pt">Catálogo Global de Padrões de Design de Interação</span>
-              <span class="lang-en">Global Catalog of Interaction Design Patterns</span>
-            </h4>
-            <p style="font-size:var(--text-xs); color:var(--text-secondary); margin:0; max-width:72ch; line-height:1.6;">
-              <span class="lang-pt">Aceda ao compêndio exaustivo com 142 padrões indexados de Tidwell, Hoober &amp; Berkman, Marcotte, Jehl, Frost, W3C WAI-ARIA e NN/g. Apresenta arquitetura de navegação para páginas complexas com barra lateral (Aside TOC), paginação escalonada (12, 24, 48, Todos), estados vazios com diagnóstico construtivo e 24 implementações no estudo de caso Drumtiks '26.</span>
-              <span class="lang-en">Access the exhaustive compendium indexing 142 patterns from Tidwell, Hoober &amp; Berkman, Marcotte, Jehl, Frost, W3C WAI-ARIA, and NN/g. Features long-form page wayfinding with an Aside TOC rail, accessible stepping pagination (12, 24, 48, All), diagnostic empty states, and 24 live implementations in Drumtiks '26.</span>
+            <h3 class="card-item-title">
+              <span class="lang-pt">Princípios de IxD &amp; Anti-Padrões</span>
+              <span class="lang-en">IxD Principles &amp; Anti-Patterns</span>
+            </h3>
+            <p class="card-item-body">
+              <span class="lang-pt">Compêndio teórico de 8 princípios concetuais de Donald Norman, Ben Shneiderman e Jenny Preece, 9 categorias funcionais de padrões e matriz crítica de anti-padrões web.</span>
+              <span class="lang-en">Theoretical compendium of 8 conceptual interaction principles by Norman, Shneiderman, and Preece, 9 functional pattern families, and critical anti-pattern matrix.</span>
             </p>
           </div>
-          <div style="display:flex; gap:var(--space-2); flex-wrap:wrap;">
-            <a href="interaction-patterns.html" class="btn-control" style="background:var(--color-swiss-red); color:#fff; border-color:var(--color-swiss-red); font-weight:700; font-size:var(--text-xs);">
-              📘 <span class="lang-pt">Ver Catálogo Completo (142 Padrões)</span><span class="lang-en">Explore Full Catalog (142 Patterns)</span> ↗
-            </a>
-            <a href="interaction-patterns.html?drumtiks=true" class="btn-control" style="font-size:var(--text-xs); font-weight:700;">
-              ✨ <span class="lang-pt">No Drumtiks (24)</span><span class="lang-en">In Drumtiks (24)</span> ↗
-            </a>
+          <a href="ixd-principles.html" class="btn-control btn-outline-red" style="align-self:flex-start;">
+            <span class="lang-pt">Abrir Princípios de IxD</span><span class="lang-en">Open IxD Principles</span> ↗
+          </a>
+        </article>
+
+        <!-- Gateway 2: Demos & Boilerplates Repo -->
+        <article class="card-item card-tier-intermediate">
+          <div>
+            <div class="card-item-header">
+              <span class="badge badge-status-yes">Código &bull; Repositório</span>
+              <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">demos/index.html</span>
+            </div>
+            <h3 class="card-item-title">
+              <span class="lang-pt">Demos &amp; Boilerplates</span>
+              <span class="lang-en">Demos &amp; Boilerplates</span>
+            </h3>
+            <p class="card-item-body">
+              <span class="lang-pt">Repositório estruturado em 4 prateleiras: Starter Boilerplates (Básico → Intermédio → Avançado), Resoluções Oficiais dos 3 Enunciados, Masterclasses e os 13 Padrões Drumtiks.</span>
+              <span class="lang-en">Structured repository across 4 shelves: Starter Boilerplates (Basic → Intermediate → Advanced), Official Assignment Resolutions, Masterclasses, and the 13 Drumtiks Patterns.</span>
+            </p>
           </div>
-        </div>
+          <a href="demos/index.html" class="btn-control btn-outline-red" style="align-self:flex-start;">
+            <span class="lang-pt">Explorar Repositório</span><span class="lang-en">Explore Repository</span> ↗
+          </a>
+        </article>
 
-        <!-- VISÃO GERAL DAS 9 CATEGORIAS FUNCIONAIS -->
-        <div style="margin-bottom:var(--space-8);">
-          <h4 style="font-size:var(--text-base); margin-bottom:var(--space-2); color:var(--text-primary);">
-            <span class="lang-pt">Estrutura Taxonómica dos Padrões (As 9 Categorias Funcionais)</span>
-            <span class="lang-en">Taxonomic Structure of Patterns (The 9 Functional Categories)</span>
-          </h4>
-          <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-bottom:var(--space-4); max-width:75ch;">
-            <span class="lang-pt">Cada categoria resolve problemas específicos de arquitetura de informação, ergonomia móvel e acessibilidade, operacionalizando os princípios teóricos de nível superior:</span>
-            <span class="lang-en">Each category resolves distinct information architecture, mobile ergonomics, and accessibility challenges, operationalizing higher-level theoretical principles:</span>
-          </p>
-
-          <div class="grid-3" style="gap:var(--space-3);">
-            
-            <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
-                <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">1. Navegação, Wayfinding &amp; IA</span><span class="lang-en">1. Navigation &amp; IA</span></strong>
-                <span class="badge badge-transversal" style="font-size:10px;">19 Padrões</span>
-              </div>
-              <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
-                <span class="lang-pt">Breadcrumbs, Gaveta Off-Canvas, Priority+, Tab Bar Inferior, Mega Menu, Cabeçalho Sticky. Governação: Princípios 1, 2 e 6.</span>
-                <span class="lang-en">Breadcrumbs, Off-Canvas Drawer, Priority+, Bottom Tab Bar, Mega Menu, Sticky Header. Governed by: Principles 1, 2, and 6.</span>
-              </p>
-              <a href="interaction-patterns.html?cat=nav" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
-                <span class="lang-pt">Explorar Navegação (19) →</span><span class="lang-en">Explore Navigation (19) →</span>
-              </a>
+        <!-- Gateway 3: HTML & CSS Matrix -->
+        <article class="card-item card-tier-foundational">
+          <div>
+            <div class="card-item-header">
+              <span class="badge badge-foundational">Normas W3C</span>
+              <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">matrix.html</span>
             </div>
-
-            <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
-                <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">2. Layout &amp; Padrões RWD Macro</span><span class="lang-en">2. Layout &amp; Macro RWD</span></strong>
-                <span class="badge badge-transversal" style="font-size:10px;">20 Padrões</span>
-              </div>
-              <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
-                <span class="lang-pt">Cartões (Grid/Flex), Column Drop, Masonry Grid com Vazios, Acordeão, Layout Shifter. Governação: Princípios 2, 3 e 6.</span>
-                <span class="lang-en">Cards (Grid/Flex), Column Drop, Masonry Grid with Voids, Accordion, Layout Shifter. Governed by: Principles 2, 3, and 6.</span>
-              </p>
-              <a href="interaction-patterns.html?cat=layout" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
-                <span class="lang-pt">Explorar Layout (20) →</span><span class="lang-en">Explore Layout (20) →</span>
-              </a>
-            </div>
-
-            <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
-                <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">3. Ações, Comandos &amp; Controlos</span><span class="lang-en">3. Actions &amp; Controls</span></strong>
-                <span class="badge badge-transversal" style="font-size:10px;">18 Padrões</span>
-              </div>
-              <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
-                <span class="lang-pt">Call to Action (CTA), Janela Modal, Popover API, Manipulação Direta 3D, Bottom Sheet. Governação: Princípios 1, 5 e 7.</span>
-                <span class="lang-en">Call to Action (CTA), Modal Dialog, Popover API, 3D Direct Manipulation, Bottom Sheet. Governed by: Principles 1, 5, and 7.</span>
-              </p>
-              <a href="interaction-patterns.html?cat=actions" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
-                <span class="lang-pt">Explorar Ações (18) →</span><span class="lang-en">Explore Actions (18) →</span>
-              </a>
-            </div>
-
-            <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
-                <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">4. Entrada de Dados &amp; Formulários</span><span class="lang-en">4. Data Input &amp; Forms</span></strong>
-                <span class="badge badge-transversal" style="font-size:10px;">26 Padrões</span>
-              </div>
-              <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
-                <span class="lang-pt">Checkbox, Radio Group, Stepper Numérico, Validação Inline (:user-valid), Microcopy. Governação: Princípios 4, 5 e 8.</span>
-                <span class="lang-en">Checkbox, Radio Group, Numeric Stepper, Inline Validation (:user-valid), Microcopy. Governed by: Principles 4, 5, and 8.</span>
-              </p>
-              <a href="interaction-patterns.html?cat=input" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
-                <span class="lang-pt">Explorar Formulários (26) →</span><span class="lang-en">Explore Forms (26) →</span>
-              </a>
-            </div>
-
-            <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
-                <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">5. Dados Complexos &amp; Tabelas</span><span class="lang-en">5. Complex Data &amp; Tables</span></strong>
-                <span class="badge badge-transversal" style="font-size:10px;">18 Padrões</span>
-              </div>
-              <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
-                <span class="lang-pt">Tabela com Scroll, Carrossel Magnético (scroll-snap), Grelha de Miniaturas, Paginação. Governação: Princípios 2, 6 e 7.</span>
-                <span class="lang-en">Scrollable Table, Magnetic Carousel (scroll-snap), Thumbnail Grid, Pagination. Governed by: Principles 2, 6, and 7.</span>
-              </p>
-              <a href="interaction-patterns.html?cat=data" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
-                <span class="lang-pt">Explorar Dados (18) →</span><span class="lang-en">Explore Data (18) →</span>
-              </a>
-            </div>
-
-            <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
-                <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">6. Pesquisa, Filtros &amp; Descoberta</span><span class="lang-en">6. Search &amp; Discovery</span></strong>
-                <span class="badge badge-transversal" style="font-size:10px;">10 Padrões</span>
-              </div>
-              <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
-                <span class="lang-pt">Pesquisa Instantânea, Pesquisa Facetada, Chip Filters, Estado Vazio Diagnóstico. Governação: Princípios 4, 6 e 7.</span>
-                <span class="lang-en">Instant Live Search, Faceted Navigation, Filter Chips, Diagnostic Empty States. Governed by: Principles 4, 6, and 7.</span>
-              </p>
-              <a href="interaction-patterns.html?cat=search" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
-                <span class="lang-pt">Explorar Pesquisa (10) →</span><span class="lang-en">Explore Search (10) →</span>
-              </a>
-            </div>
-
-            <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
-                <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">7. Feedback &amp; Notificações</span><span class="lang-en">7. Feedback &amp; Alerts</span></strong>
-                <span class="badge badge-transversal" style="font-size:10px;">12 Padrões</span>
-              </div>
-              <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
-                <span class="lang-pt">Barra de Alerta, Barra scroll(root), Skeleton Screen, Tooltip WAI-ARIA, Undo Snackbar. Governação: Princípios 4, 5 e 7.</span>
-                <span class="lang-en">Banner Alert, Scroll Progress scroll(root), Skeleton Screen, WAI-ARIA Tooltip, Undo. Governed by: Principles 4, 5, and 7.</span>
-              </p>
-              <a href="interaction-patterns.html?cat=feedback" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
-                <span class="lang-pt">Explorar Feedback (12) →</span><span class="lang-en">Explore Feedback (12) →</span>
-              </a>
-            </div>
-
-            <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
-                <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">8. Ergonomia Tátil &amp; Gestos</span><span class="lang-en">8. Touch Ergonomics</span></strong>
-                <span class="badge badge-transversal" style="font-size:10px;">9 Padrões</span>
-              </div>
-              <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
-                <span class="lang-pt">Alvos &ge; 44px (WCAG 2.2), Alinhamento Centro-Ecrã, Barra CTA Inferior Fixa. Governação: Princípios 1, 2 e 7.</span>
-                <span class="lang-en">Touch Targets &ge; 44px (WCAG 2.2), Center-Out Bias, Sticky Bottom Action Bar. Governed by: Principles 1, 2, and 7.</span>
-              </p>
-              <a href="interaction-patterns.html?cat=touch" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
-                <span class="lang-pt">Explorar Ergonomia (9) →</span><span class="lang-en">Explore Touch (9) →</span>
-              </a>
-            </div>
-
-            <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:4px; padding:var(--space-3);">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-1);">
-                <strong style="font-size:var(--text-xs); color:var(--text-primary);"><span class="lang-pt">9. Acessibilidade &amp; Semântica</span><span class="lang-en">9. A11y &amp; Semantics</span></strong>
-                <span class="badge badge-transversal" style="font-size:10px;">10 Padrões</span>
-              </div>
-              <p style="font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:var(--space-2);">
-                <span class="lang-pt">Marcos Semânticos HTML5, Anel :focus-visible, scroll-margin-top, Confinamento de Foco. Governação: Princípios 1, 3 e 7.</span>
-                <span class="lang-en">HTML5 Landmarks, :focus-visible Ring, scroll-margin-top, Focus Trapping. Governed by: Principles 1, 3, and 7.</span>
-              </p>
-              <a href="interaction-patterns.html?cat=a11y" style="font-family:var(--font-mono); font-size:10px; color:var(--color-swiss-red); font-weight:700;">
-                <span class="lang-pt">Explorar Acessibilidade (10) →</span><span class="lang-en">Explore A11y (10) →</span>
-              </a>
-            </div>
-
+            <h3 class="card-item-title">
+              <span class="lang-pt">Matriz HTML5 &amp; CSS3 (314 Itens)</span>
+              <span class="lang-en">HTML5 &amp; CSS3 Matrix (314 Items)</span>
+            </h3>
+            <p class="card-item-body">
+              <span class="lang-pt">Página dedicada da Matriz de Referência com barra lateral sticky com as 12 categorias W3C, pesquisa rápida, filtros por tipo, escalão e estado, e links diretos para a documentação MDN.</span>
+              <span class="lang-en">Dedicated Reference Matrix page featuring a sticky 12-category rail, rapid search, type/tier/status filters, and direct deep-links to MDN Web Docs.</span>
+            </p>
           </div>
-        </div>
+          <a href="matrix.html" class="btn-control btn-outline-red" style="align-self:flex-start;">
+            <span class="lang-pt">Consultar Matriz Completa</span><span class="lang-en">Browse Full Matrix</span> ↗
+          </a>
+        </article>
 
-        <!-- Matriz Crítica Padrões vs Anti-Padrões com Cruzamento Teórico -->
-        <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:var(--space-4); overflow-x:auto;">
-          <h4 style="font-size:var(--text-base); margin-bottom:var(--space-2); color:var(--text-primary);">
-            <span class="lang-pt">Matriz Crítica Cruzada: Padrões de Sucesso vs. Anti-Padrões &amp; Princípios Teóricos Subjacentes</span>
-            <span class="lang-en">Cross-Referenced Critical Matrix: Recommended Patterns vs. Web Anti-Patterns</span>
-          </h4>
-          <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-bottom:var(--space-3); line-height:1.5;">
-            <span class="lang-pt">Cada decisão de código na Web é um reflexo direto de um princípio cognitivo. A tabela demonstra como a adoção de um padrão satisfaz a teoria enquanto o anti-padrão a corrompe:</span>
-            <span class="lang-en">Every front-end architectural decision is an operational expression of a cognitive principle. The matrix cross-references how patterns honor principles while anti-patterns violate them:</span>
-          </p>
-          <table style="width:100%; border-collapse:collapse; font-size:var(--text-xs); line-height:1.5;">
-            <thead>
-              <tr style="background:var(--bg-surface); text-align:left;">
-                <th style="padding:var(--space-2) var(--space-3); border-bottom:2px solid var(--border-color); color:var(--text-primary); width:18%;">
-                  <span class="lang-pt">Domínio de Interação</span>
-                  <span class="lang-en">Interaction Domain</span>
-                </th>
-                <th style="padding:var(--space-2) var(--space-3); border-bottom:2px solid var(--color-accent-blue, #2563eb); color:var(--color-accent-blue, #2563eb); width:22%;">
-                  <span class="lang-pt">Princípio Subjacente (Autor)</span>
-                  <span class="lang-en">Underlying Principle (Author)</span>
-                </th>
-                <th style="padding:var(--space-2) var(--space-3); border-bottom:2px solid #10b981; color:#10b981; width:30%;">
-                  <span class="lang-pt">✅ Padrão Recomendado (Sucesso)</span>
-                  <span class="lang-en">✅ Recommended Pattern (Success)</span>
-                </th>
-                <th style="padding:var(--space-2) var(--space-3); border-bottom:2px solid var(--color-swiss-red); color:var(--color-swiss-red); width:30%;">
-                  <span class="lang-pt">❌ Anti-Padrão a Evitar (Falha / Dark UX)</span>
-                  <span class="lang-en">❌ Anti-Pattern to Avoid (Dark UX)</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">
-                  <span class="lang-pt">Navegação Principal &amp; Wayfinding</span>
-                  <span class="lang-en">Primary Navigation &amp; Wayfinding</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-family:var(--font-mono); font-size:11px; color:var(--text-secondary);">
-                  <span class="lang-pt">Princípio 1 (Visibilidade) &amp; Princípio 2 (Mapeamento) • Norman &amp; Cooper</span>
-                  <span class="lang-en">Principle 1 (Visibility) &amp; Principle 2 (Mapping) • Norman &amp; Cooper</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt">Navegação horizontal visível e persistente em ecrãs largos; adaptada a gaveta acessível no telemóvel.</span>
-                  <span class="lang-en">Persistent visible navigation on widescreen viewports; graceful off-canvas drawer on mobile.</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt"><strong>Mystery Meat Navigation:</strong> Ocultar o menu sob ícone hambúrguer em monitores de 27" sem signifiers explícitos.</span>
-                  <span class="lang-en"><strong>Mystery Meat Navigation:</strong> Concealing menus behind a bare hamburger icon on 27" monitors with zero labels.</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">
-                  <span class="lang-pt">Estabilidade Visual &amp; Movimento</span>
-                  <span class="lang-en">Visual Stability &amp; Motion</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-family:var(--font-mono); font-size:11px; color:var(--text-secondary);">
-                  <span class="lang-pt">Princípio 7 (Autonomia &amp; Polite Software) • Shneiderman &amp; Cooper</span>
-                  <span class="lang-en">Principle 7 (Autonomy &amp; Polite Software) • Shneiderman &amp; Cooper</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt">Reserva de dimensões com <code>aspect-ratio</code> (CLS = 0) e suspensão de animações via <code>prefers-reduced-motion</code>.</span>
-                  <span class="lang-en">Explicit dimension reservations via <code>aspect-ratio</code> (CLS = 0) and motion overrides via <code>prefers-reduced-motion</code>.</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt"><strong>Cumulative Layout Shift:</strong> Carregamento tardio que empurra o conteúdo enquanto o utilizador lê; animações perpétuas nauseantes.</span>
-                  <span class="lang-en"><strong>Cumulative Layout Shift:</strong> Late-loading banners jarringly shifting text under fingers; gratuitous vestibular triggers.</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">
-                  <span class="lang-pt">Acessibilidade de Foco &amp; Teclado</span>
-                  <span class="lang-en">Focus &amp; Keyboard A11y</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-family:var(--font-mono); font-size:11px; color:var(--text-secondary);">
-                  <span class="lang-pt">Princípio 1 (Signifiers) &amp; Princípio 3 (Universalidade) • Norman &amp; Shneiderman</span>
-                  <span class="lang-en">Principle 1 (Signifiers) &amp; Principle 3 (Universality) • Norman &amp; Shneiderman</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt">Contorno de alto contraste em <code>:focus-visible</code> com <code>outline-offset</code> para utilizadores de teclado.</span>
-                  <span class="lang-en">High-contrast <code>:focus-visible</code> ring with <code>outline-offset</code> honoring keyboard navigators.</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt"><strong>Nuked Outlines:</strong> Eliminação de contornos com <code>outline: none !important</code> sem substituto percetível (cegueira de foco).</span>
-                  <span class="lang-en"><strong>Nuked Outlines:</strong> Eradicating focus indicators with <code>outline: none !important</code> with no visible indicator.</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">
-                  <span class="lang-pt">Formulários &amp; Validação</span>
-                  <span class="lang-en">Forms &amp; Input Validation</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-family:var(--font-mono); font-size:11px; color:var(--text-secondary);">
-                  <span class="lang-pt">Princípio 4 (Feedback) &amp; Princípio 5 (Prevenção de Erros) • Norman &amp; Shneiderman</span>
-                  <span class="lang-en">Principle 4 (Feedback) &amp; Principle 5 (Error Prevention) • Norman &amp; Shneiderman</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt">Botões de ação sempre clicáveis com validação inline contextual (<code>:user-valid</code>) indicando como corrigir.</span>
-                  <span class="lang-en">Interactive buttons paired with explanatory inline validation (<code>:user-valid</code>) instructing how to resolve errors.</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt"><strong>Fake Disabled Buttons:</strong> Botões desativados que recusam o clique sem fornecer qualquer diagnóstico explicativo do erro.</span>
-                  <span class="lang-en"><strong>Fake Disabled Buttons:</strong> Inactive disabled buttons blocking clicks without communicating what inputs are invalid.</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">
-                  <span class="lang-pt">Paginação &amp; Rodapé</span>
-                  <span class="lang-en">Pagination &amp; Footer Access</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-family:var(--font-mono); font-size:11px; color:var(--text-secondary);">
-                  <span class="lang-pt">Princípio 6 (Eliminação de Excise) &amp; Princípio 2 (Modelo Mental) • Cooper &amp; Norman</span>
-                  <span class="lang-en">Principle 6 (Excise Elimination) &amp; Principle 2 (Mental Model) • Cooper &amp; Norman</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt">Paginação semântica escalonada (12, 24, 48, Todos) ou botão explícito "Carregar Mais Conteúdo".</span>
-                  <span class="lang-en">Stepping pagination (12, 24, 48, All) or an explicit user-triggered "Load More" button.</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt"><strong>Runaway Infinite Scroll:</strong> Scroll infinito que afasta continuamente o rodapé e aprisiona a navegação por teclado.</span>
-                  <span class="lang-en"><strong>Runaway Infinite Scroll:</strong> Unstoppable scrolling that keeps the footer permanently unreachable and traps keyboard tabs.</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">
-                  <span class="lang-pt">Pesquisa &amp; Estados Vazios</span>
-                  <span class="lang-en">Search &amp; Empty States</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-family:var(--font-mono); font-size:11px; color:var(--text-secondary);">
-                  <span class="lang-pt">Princípio 4 (Feedback Construtivo) &amp; Princípio 6 (Sobrecarga) • Norman &amp; Shneiderman</span>
-                  <span class="lang-en">Principle 4 (Feedback) &amp; Principle 6 (Cognitive Load) • Norman &amp; Shneiderman</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt">Estados vazios com diagnóstico cordial, sugestões de grafia e chips para limpar filtros com 1 clique.</span>
-                  <span class="lang-en">Constructive empty states featuring helpful recovery microcopy, search suggestions, and reset chips.</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt"><strong>Dead-End Blank Screen:</strong> Ecrã em branco com texto inútil "0 Resultados", abandonando o utilizador sem alternativas.</span>
-                  <span class="lang-en"><strong>Dead-End Blank Screen:</strong> Barren page stating "0 Results Found" leaving users at an unguided dead end.</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">
-                  <span class="lang-pt">Ações Críticas &amp; Exclusão</span>
-                  <span class="lang-en">Destructive Actions &amp; Undo</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-family:var(--font-mono); font-size:11px; color:var(--text-secondary);">
-                  <span class="lang-pt">Princípio 5 (Exploração Reversível) &amp; Princípio 7 (Polite Software) • Cooper &amp; Shneiderman</span>
-                  <span class="lang-en">Principle 5 (Reversibility) &amp; Principle 7 (Polite Software) • Cooper &amp; Shneiderman</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt">Notificação de ação com botão "Desfazer" (Undo Snackbar) e diálogos de confirmação apenas para perdas permanentes.</span>
-                  <span class="lang-en">Modeless Undo Snackbars allowing quick retraction and confirmation modals only for catastrophic actions.</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt"><strong>Irreversible Destruction:</strong> Eliminar dados sem confirmação nem Undo, ou disparar popups de alerta a cada ação trivial.</span>
-                  <span class="lang-en"><strong>Irreversible Destruction:</strong> Instantly purging records with no Undo path, or firing blocking modal alerts on trivial steps.</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">
-                  <span class="lang-pt">Complexidade de Informação</span>
-                  <span class="lang-en">Information Complexity</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-family:var(--font-mono); font-size:11px; color:var(--text-secondary);">
-                  <span class="lang-pt">Princípio 6 (Mantra de Informação &amp; Redução de Sobrecarga) • Shneiderman &amp; Cooper</span>
-                  <span class="lang-en">Principle 6 (Information Mantra &amp; Cognitive Load) • Shneiderman &amp; Cooper</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt">Divulgação progressiva com <code>&lt;details&gt;/&lt;summary&gt;</code> e Aside TOC sticky para orientação em páginas longas.</span>
-                  <span class="lang-en">Progressive disclosure via native <code>&lt;details&gt;/&lt;summary&gt;</code> paired with sticky Aside TOC wayfinding.</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt"><strong>Wall of Text:</strong> Despejo maciço de dezenas de parágrafos sem ritmo visual, esgotando a memória de trabalho do utilizador.</span>
-                  <span class="lang-en"><strong>Wall of Text:</strong> Dumping monolithic walls of unformatted prose, draining human cognitive bandwidth.</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">
-                  <span class="lang-pt">Janelas Sobrepostas &amp; Modais</span>
-                  <span class="lang-en">Overlays &amp; Dialogs</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-family:var(--font-mono); font-size:11px; color:var(--text-secondary);">
-                  <span class="lang-pt">Princípio 7 (Autonomia &amp; Fluxo) &amp; Princípio 3 (Normas Web) • Cooper &amp; Shneiderman</span>
-                  <span class="lang-en">Principle 7 (Autonomy &amp; Flow) &amp; Principle 3 (Web Standards) • Cooper &amp; Shneiderman</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt">Popover API nativa para dicas modeless; <code>&lt;dialog&gt;</code> com confinamento de foco, backdrop semântico e tecla Escape.</span>
-                  <span class="lang-en">Native Popover API for modeless hints; accessible <code>&lt;dialog&gt;</code> with focus trapping and Escape key dismiss.</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt"><strong>Hostile Interruption:</strong> Modais agressivos de newsletter a meio da leitura, sem foco acessível ou com o botão 'X' camuflado.</span>
-                  <span class="lang-en"><strong>Hostile Interruption:</strong> Invasive newsletter modal takeovers mid-reading with no keyboard escape or hidden close buttons.</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-weight:700;">
-                  <span class="lang-pt">Conclusão de Fluxo &amp; Checkout</span>
-                  <span class="lang-en">Flow Completion &amp; Checkout</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); font-family:var(--font-mono); font-size:11px; color:var(--text-secondary);">
-                  <span class="lang-pt">Princípio 8 (Fecho de Diálogo) &amp; Princípio 4 (Visibilidade de Estado) • Shneiderman &amp; Preece</span>
-                  <span class="lang-en">Principle 8 (Closure) &amp; Principle 4 (State Transparency) • Shneiderman &amp; Preece</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt">Processo de compra por etapas com indicador de passos e ecrã de fecho conclusivo com resumo de bilhetes e recibo.</span>
-                  <span class="lang-en">Step-by-step wizard with clear progress indicators and an explicit receipt closure view confirming ticket issuance.</span>
-                </td>
-                <td style="padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
-                  <span class="lang-pt"><strong>Unclosed Loop:</strong> Formulário que fecha sem confirmação visível, deixando o utilizador ansioso sobre o sucesso da transação.</span>
-                  <span class="lang-en"><strong>Unclosed Loop:</strong> Silently submitting transactions with zero confirmation, leaving users stranded in uncertainty.</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </div>
     </section>
 
-    <!-- Matrix Section -->
-    <section id="matrix" style="margin-bottom:var(--space-12);">
-      <div style="margin-bottom:var(--space-6);">
-        <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-2);">
-          <span data-i18n="matrix_heading">Matriz Curricular de Referência MDN</span>
-          <span id="matrix-count" style="font-size:var(--text-sm);font-weight:400;color:var(--text-muted);"></span>
-        </h2>
-        <p style="color:var(--text-secondary);font-size:var(--text-base);" data-i18n="matrix_sub">
-          Catálogo exaustivo com 323+ entradas. Pesquise, filtre por escalão ou categoria, e abra a documentação oficial ou padrão correspondente.
-        </p>
+    <!-- Connected in WD101 Organic Mesh Block -->
+    <section class="wd-mesh-section" id="connected-mesh">
+      <div class="wd-mesh-header">
+        <span class="wd-mesh-kicker">Mapeamento Pedagógico &bull; Connected in WD101</span>
+        <h2 class="wd-mesh-title">Malha Curricular Teta &bull; Da Teoria à Prática</h2>
       </div>
-
-      <!-- Filter Bar -->
-      <div class="filter-bar">
-        <div class="search-input-wrap">
-          <input type="search" id="matrix-search" class="search-input" placeholder="Pesquisar por tag, seletor, propriedade..." data-i18n-placeholder="matrix_search_placeholder">
+      <div class="wd-mesh-grid">
+        <div class="wd-mesh-col">
+          <h3>Enunciados &amp; Exercícios</h3>
+          <div class="wd-mesh-chips">
+            <a href="ex1-hello-warp-guide.html" class="wd-mesh-chip">🟢 EX1: Hello Warp!</a>
+            <a href="ex2-guide.html" class="wd-mesh-chip">🔵 EX2: Media &amp; Box Model</a>
+            <a href="tp06-early-prototype-guide.html" class="wd-mesh-chip">🔵 Projeto Fase 1: TP06</a>
+            <a href="demos/tp11-integrated-responsive-project/GUIDE.html" class="wd-mesh-chip">🟣 Projeto Fase 2: TP11</a>
+          </div>
         </div>
-
-        <select id="filter-type" class="filter-select" aria-label="Filtrar por Tipo">
-          <option value="all" data-i18n="filter_all_types">Todos os Tipos</option>
-          <option value="HTML" data-i18n="filter_html">Apenas HTML</option>
-          <option value="CSS" data-i18n="filter_css">Apenas CSS</option>
-        </select>
-
-        <select id="filter-tier" class="filter-select" aria-label="Filtrar por Escalão">
-          <option value="all" data-i18n="filter_all_tiers">Todos os Escalões</option>
-          <option value="foundational" data-i18n="filter_foundational">Básico / Foundational</option>
-          <option value="intermediate" data-i18n="filter_intermediate">Intermédio / Intermediate</option>
-          <option value="advanced" data-i18n="filter_advanced">Avançado / Advanced</option>
-        </select>
-
-        <select id="filter-status" class="filter-select" aria-label="Filtrar por Estado no Curso">
-          <option value="all" data-i18n="filter_all_status">Todo o Estado</option>
-          <option value="YES" data-i18n="filter_status_yes">Sim (No Curso)</option>
-          <option value="TBD" data-i18n="filter_status_tbd">TBD (A Considerar)</option>
-          <option value="NO" data-i18n="filter_status_no">Não (Fora do Âmbito)</option>
-        </select>
-
-        <select id="filter-category" class="filter-select" aria-label="Filtrar por Categoria">
-          <option value="all">Todas as Categorias</option>
-        </select>
-      </div>
-
-      <!-- Matrix Table -->
-      <div class="table-responsive">
-        <table class="matrix-table">
-          <thead>
-            <tr>
-              <th data-sort="id" data-i18n="th_id">#</th>
-              <th data-sort="symbol" data-i18n="th_symbol">Tag / Seletor / Propriedade</th>
-              <th data-sort="type" data-i18n="th_type">Tipo</th>
-              <th data-sort="tier" data-i18n="th_tier">Escalão</th>
-              <th data-sort="status" data-i18n="th_status">No Curso?</th>
-              <th data-i18n="th_desc">Definição Sintética</th>
-              <th data-i18n="th_links">Ligações</th>
-            </tr>
-          </thead>
-          <tbody id="matrix-tbody">
-            <!-- Injected via JavaScript from data-store.js -->
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Interactive Patterns Showcase -->
-    <section id="patterns" style="margin-bottom:var(--space-12);">
-      <div style="margin-bottom:var(--space-6);">
-        <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-2);" data-i18n="patterns_heading">Catálogo de Padrões Interativos Drumtiks</h2>
-        <p style="color:var(--text-secondary);font-size:var(--text-base);" data-i18n="patterns_sub">
-          Soluções práticas, comentadas e prontas a inspecionar para o projeto final.
-        </p>
-      </div>
-
-      <div id="patterns-container">
-        <!-- Injected via JavaScript from data-store.js -->
+        <div class="wd-mesh-col">
+          <h3>Design de Interação &amp; UX</h3>
+          <div class="wd-mesh-chips">
+            <a href="ixd-principles.html" class="wd-mesh-chip">🧭 Princípios &amp; Anti-Padrões</a>
+            <a href="ux-laws.html" class="wd-mesh-chip">🧠 30 Leis de UX</a>
+            <a href="heuristics-guide.html" class="wd-mesh-chip">📖 18 Heurísticas</a>
+            <a href="heuristic-checklist.html" class="wd-mesh-chip">📋 Checklist de Avaliação</a>
+            <a href="project-documentation-guide.html" class="wd-mesh-chip">🗂️ Documentação UX</a>
+            <a href="interaction-patterns.html" class="wd-mesh-chip">✨ 142 Padrões Web</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3>Normas &amp; Boilerplates</h3>
+          <div class="wd-mesh-chips">
+            <a href="matrix.html" class="wd-mesh-chip" style="font-weight:700;color:var(--color-swiss-red);">Matriz HTML5/CSS3 (314) ↗</a>
+            <a href="demos/index.html" class="wd-mesh-chip">Repositório de Demos ↗</a>
+            <a href="starter-mobile-first/index.html" class="wd-mesh-chip">Starter Básico (EX1)</a>
+            <a href="starter-intermediate-media-box/index.html" class="wd-mesh-chip">Starter Intermédio (EX2)</a>
+            <a href="starter-advanced-project/index.html" class="wd-mesh-chip">Starter Avançado (@layer)</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1232,19 +1136,204 @@
   <!-- Site Footer Landmark -->
   <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
-      <div>
-        <strong>WD101 — Web Design</strong> • 2026/2027<br>
-        <span data-i18n="footer_text">Faculdade de Belas Artes da Universidade do Porto • Licenciatura em Design de Comunicação</span>
-      </div>
-      <div>
-        <a href="#hero" class="matrix-link">↑ Voltar ao Topo</a>
-      </div>
+      <span data-i18n="footer_text">Faculdade de Belas Artes da Universidade do Porto &bull; Licenciatura em Design de Comunicação &bull; WD101</span>
+      <span>2026/27 &bull; Prof. Pedro Amado</span>
     </div>
   </footer>
 
-  <!-- Core Scripts -->
+  <!-- Scripts -->
   <script src="assets/js/i18n.js"></script>
   <script src="assets/js/data-store.js"></script>
+  <script src="assets/js/site-shell.js"></script>
   <script src="assets/js/app.js"></script>
+
+  <!-- Homepage Preferences Synchronization Script -->
+  <script>
+    (function() {
+      function getActiveTiers() {
+        if (window.WD101 && window.WD101.getTiers) {
+          return window.WD101.getTiers();
+        }
+        const val = document.documentElement.getAttribute('data-tier') || 'all';
+        if (val === 'all') return ['foundation', 'intermediate', 'advanced'];
+        return val.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+      }
+
+      function syncHomePreferencesUI() {
+        const activeTiers = getActiveTiers();
+        const isAll = activeTiers.length === 3 || activeTiers.length === 0;
+        const lang = document.documentElement.getAttribute('lang') || 'en';
+        const theme = document.documentElement.getAttribute('data-theme') || 'light';
+
+        // Update tier pills in preferences bar
+        const allBtn = document.querySelector('.pref-pill[data-tier-action="all"]');
+        if (allBtn) {
+          allBtn.classList.toggle('is-active', isAll);
+          allBtn.setAttribute('aria-checked', isAll ? 'true' : 'false');
+          const box = allBtn.querySelector('.tier-check-box');
+          if (box) box.textContent = isAll ? '✓' : '';
+        }
+
+        ['foundation', 'intermediate', 'advanced'].forEach(t => {
+          const btn = document.querySelector(`.pref-pill[data-tier="${t}"]`);
+          if (btn) {
+            const active = activeTiers.includes(t);
+            btn.classList.toggle('is-active', active);
+            btn.setAttribute('aria-checked', active ? 'true' : 'false');
+            const box = btn.querySelector('.tier-check-box');
+            if (box) box.textContent = active ? '✓' : '';
+          }
+        });
+
+        // Update lang and theme pills
+        document.querySelectorAll('.pref-pill[data-lang]').forEach(b => {
+          b.classList.toggle('is-active', b.dataset.lang === lang);
+        });
+        document.querySelectorAll('.pref-pill[data-theme]').forEach(b => {
+          b.classList.toggle('is-active', b.dataset.theme === theme);
+        });
+
+        // Collapse or expand clusters based on active tiers
+        const clusters = [
+          { el: document.getElementById('cluster-1'), tier: 'foundation' },
+          { el: document.getElementById('cluster-2'), tier: 'intermediate' },
+          { el: document.getElementById('cluster-3'), tier: 'advanced' },
+          { el: document.getElementById('cluster-4'), tier: 'advanced' }
+        ];
+
+        clusters.forEach(c => {
+          if (!c.el) return;
+          const isVisible = activeTiers.includes(c.tier);
+          if (isVisible) {
+            c.el.classList.remove('is-tier-collapsed');
+          } else {
+            c.el.classList.add('is-tier-collapsed');
+          }
+        });
+
+        // Collapse or expand assignment progression cards based on active tiers
+        const assignments = [
+          { el: document.getElementById('assign-ex1'), tier: 'foundation' },
+          { el: document.getElementById('assign-ex2'), tier: 'intermediate' },
+          { el: document.getElementById('assign-project'), tier: 'advanced' }
+        ];
+
+        assignments.forEach(a => {
+          if (!a.el) return;
+          const isVisible = activeTiers.includes(a.tier);
+          if (isVisible) {
+            a.el.classList.remove('is-tier-collapsed');
+          } else {
+            a.el.classList.add('is-tier-collapsed');
+          }
+        });
+
+        // Collapse or expand breakpoint strategy cards based on active tiers
+        document.querySelectorAll('.breakpoint-tier-card[data-tier]').forEach(bp => {
+          const isVisible = activeTiers.includes(bp.dataset.tier);
+          if (isVisible) {
+            bp.classList.remove('is-tier-collapsed');
+          } else {
+            bp.classList.add('is-tier-collapsed');
+          }
+        });
+
+        // Update feedback banner text
+        const ptBanner = document.getElementById('pref-status-pt');
+        const enBanner = document.getElementById('pref-status-en');
+        if (ptBanner && enBanner) {
+          if (isAll) {
+            ptBanner.innerHTML = 'Visualização atual: <strong>Todos os 4 Módulos &amp; Compêndio Pleno (Fundação + Intermédio + Avançado)</strong> disponíveis.';
+            enBanner.innerHTML = 'Current view: <strong>All 4 Modules &amp; Full Compendium (Foundation + Intermediate + Advanced)</strong> visible.';
+          } else {
+            const ptNames = [];
+            const enNames = [];
+            if (activeTiers.includes('foundation')) { ptNames.push('🟢 Fundação (Módulo 01 &amp; EX1)'); enNames.push('🟢 Foundation (Module 01 &amp; EX1)'); }
+            if (activeTiers.includes('intermediate')) { ptNames.push('🟡 Intermédio (Módulo 02 &amp; EX2)'); enNames.push('🟡 Intermediate (Module 02 &amp; EX2)'); }
+            if (activeTiers.includes('advanced')) { ptNames.push('🔴 Avançado (Módulos 03, 04 &amp; Projeto Final)'); enNames.push('🔴 Advanced (Modules 03, 04 &amp; Capstone Project)'); }
+
+            const ptList = ptNames.join(' + ');
+            const enList = enNames.join(' + ');
+            ptBanner.innerHTML = `Visualização personalizada: <strong>${ptList}</strong> ativos. Os módulos e exercícios de nível diferente mostram apenas o cabeçalho e etiqueta de nível para manter o foco e evitar sobrecarga cognitiva.`;
+            enBanner.innerHTML = `Custom view: <strong>${enList}</strong> active. Non-active modules &amp; assignments display title &amp; status badge only to preserve structural orientation without cognitive overload.`;
+          }
+        }
+      }
+
+      function initHomePreferences() {
+        // "All (Full View)" pill click
+        const allBtn = document.querySelector('.pref-pill[data-tier-action="all"]');
+        if (allBtn) {
+          allBtn.addEventListener('click', () => {
+            if (window.WD101 && window.WD101.applyTiers) {
+              window.WD101.applyTiers(['foundation', 'intermediate', 'advanced']);
+            }
+          });
+        }
+
+        // Checkbox tier pill clicks
+        document.querySelectorAll('.pref-pill[data-tier]').forEach(b => {
+          b.addEventListener('click', () => {
+            const tier = b.dataset.tier;
+            if (window.WD101 && window.WD101.toggleTier) {
+              window.WD101.toggleTier(tier);
+            }
+          });
+        });
+
+        // Inline cluster toggle buttons (+ Ativar Nível)
+        document.querySelectorAll('.btn-cluster-toggle[data-tier-toggle]').forEach(b => {
+          b.addEventListener('click', (e) => {
+            e.preventDefault();
+            const tier = b.dataset.tierToggle;
+            if (window.WD101 && window.WD101.toggleTier) {
+              window.WD101.toggleTier(tier);
+            }
+          });
+        });
+
+        // Language pills
+        document.querySelectorAll('.pref-pill[data-lang]').forEach(b => {
+          b.addEventListener('click', () => {
+            if (window.WD101 && window.WD101.setLang) {
+              window.WD101.setLang(b.dataset.lang);
+            }
+          });
+        });
+
+        // Theme pills
+        document.querySelectorAll('.pref-pill[data-theme]').forEach(b => {
+          b.addEventListener('click', () => {
+            if (window.WD101 && window.WD101.setTheme) {
+              window.WD101.setTheme(b.dataset.theme);
+            }
+          });
+        });
+
+        // Reset button
+        const resetBtn = document.getElementById('pref-reset-btn');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', () => {
+            if (window.WD101 && window.WD101.resetPreferences) {
+              window.WD101.resetPreferences();
+            }
+          });
+        }
+
+        syncHomePreferencesUI();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHomePreferences);
+      } else {
+        initHomePreferences();
+      }
+
+      window.addEventListener('wd101:tierchange', syncHomePreferencesUI);
+      window.addEventListener('wd101:langchange', syncHomePreferencesUI);
+      window.addEventListener('wd101:themechange', syncHomePreferencesUI);
+      window.addEventListener('wd101:resetpreferences', syncHomePreferencesUI);
+    })();
+  </script>
 </body>
 </html>

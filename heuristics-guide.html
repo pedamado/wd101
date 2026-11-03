@@ -1,1 +1,1677 @@
-../heuristics-guide.html
+<!DOCTYPE html>
+<html lang="pt" data-theme="light">
+<head>
+  <!--
+    ==========================================================================
+    HEURÍSTICAS DE USABILIDADE & PRINCÍPIOS DE DESIGN DE INTERAÇÃO PARA A WEB
+    Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+    Licenciatura em Design de Comunicação • i2ADS
+    Unidade Curricular: Web Design (WD101) — 2026/27
+    Direção Pedagógica: Prof. Pedro Amado (FBAUP / i2ADS)
+    Pair Programming & Agente IA: Google Gemini (Antigravity)
+    ==========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>18 Heurísticas de Usabilidade &amp; Interação Web | FBAUP WD101</title>
+  <meta name="description" content="Compêndio pedagógico de 18 Heurísticas de Usabilidade e Princípios de Design de Interação harmonizando Jakob Nielsen e Bruce Tognazzini, articulado com Leis de UX e padrões HTML5/CSS3.">
+
+  <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+      const savedAesthetic = localStorage.getItem('wd101_aesthetic') || 'airy';
+      document.documentElement.setAttribute('data-aesthetic', savedAesthetic);
+    })();
+  </script>
+
+  <!-- CSS Layer Hierarchy: Swiss Modernist v2 -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+  <link rel="stylesheet" href="assets/css/patterns-demo.css">
+
+  <style>
+    /* Scoped Styles for 18 Usability Heuristics Compendium */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+    .stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: var(--font-mono);
+      font-size: var(--text-2xl);
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    .stat-label {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    /* 3-Tier Pedagogical Ladder */
+    .tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+    }
+    .tier-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-2);
+    }
+    .tier-box--foundation {
+      border-left: 4px solid var(--color-accent-emerald);
+    }
+    .tier-box--intermediate {
+      border-left: 4px solid var(--color-accent-gold);
+    }
+    .tier-box--advanced {
+      border-left: 4px solid var(--color-swiss-red);
+    }
+    .tier-title {
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .tier-desc {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .tier-tech {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      border-top: 1px dashed var(--border-color);
+      padding-top: var(--space-2);
+    }
+
+    /* Controls Panel */
+    .controls-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .filter-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-right: 0.25rem;
+    }
+    .filter-btn {
+      font-size: var(--text-xs);
+      padding: 0.3rem 0.65rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface-elevated);
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-weight: 500;
+      transition: all var(--transition-fast);
+      user-select: none;
+    }
+    .filter-btn:hover {
+      border-color: var(--border-color-strong);
+      color: var(--text-primary);
+    }
+    .filter-btn.active {
+      background: var(--color-swiss-red);
+      color: #ffffff;
+      border-color: var(--color-swiss-red);
+      font-weight: 700;
+    }
+    .filter-btn.active--green {
+      background: var(--color-accent-emerald);
+      color: #ffffff;
+      border-color: var(--color-accent-emerald);
+      font-weight: 700;
+    }
+    .filter-btn.active--gold {
+      background: var(--color-accent-gold);
+      color: #111111;
+      border-color: var(--color-accent-gold);
+      font-weight: 700;
+    }
+    .filter-btn.active--red {
+      background: var(--color-swiss-red);
+      color: #ffffff;
+      border-color: var(--color-swiss-red);
+      font-weight: 700;
+    }
+    .search-sort-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      align-items: center;
+      justify-content: space-between;
+    }
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 240px;
+    }
+    .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.55rem 1rem 0.55rem 2.4rem;
+      font-size: var(--text-sm);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color var(--transition-fast);
+      font-family: inherit;
+    }
+    .search-input:focus {
+      border-color: var(--color-swiss-red);
+      box-shadow: 0 0 0 3px var(--color-swiss-red-tint);
+    }
+    .sort-box {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .sort-select {
+      padding: 0.45rem 0.75rem;
+      font-size: var(--text-xs);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      font-family: inherit;
+      outline: none;
+    }
+
+    /* Heuristics Cards Detail */
+    .heuristics-detail-section {
+      margin-bottom: var(--space-8);
+    }
+    .cards-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+    .heuristic-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .heuristic-card:hover {
+      border-color: var(--border-color-strong);
+    }
+    .heuristic-card.tier--foundation {
+      border-left: 4px solid var(--color-accent-emerald);
+    }
+    .heuristic-card.tier--intermediate {
+      border-left: 4px solid var(--color-accent-gold);
+    }
+    .heuristic-card.tier--advanced {
+      border-left: 4px solid var(--color-swiss-red);
+    }
+    .h-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+    .h-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-1);
+    }
+    .h-title {
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .h-axiom {
+      background: var(--bg-surface-elevated);
+      border-left: 2px solid var(--color-swiss-red);
+      padding: var(--space-3);
+      font-style: italic;
+      font-size: var(--text-xs);
+      color: var(--text-primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      line-height: 1.5;
+    }
+    .tier-steps-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .tier-step {
+      display: flex;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      line-height: 1.45;
+      color: var(--text-secondary);
+    }
+    .checklist-question-box {
+      background: var(--bg-surface-elevated);
+      border-left: 3px solid var(--color-accent-cyan);
+      padding: var(--space-3);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: var(--text-xs);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+    .checklist-link-btn {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-swiss-red);
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .checklist-link-btn:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header Landmark: hydrated by site-shell.js -->
+  <header class="site-header" role="banner"></header>
+
+  <!-- Main Content Landmark -->
+  <main class="main-container" id="main-content">
+
+    <!-- Breadcrumb Trail -->
+    <nav class="breadcrumb-trail" aria-label="Breadcrumb" style="margin-bottom:var(--space-4);">
+      <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:0.5rem;padding:0;margin:0;font-size:var(--text-xs);color:var(--text-muted);">
+        <li><a href="index.html" style="color:var(--text-secondary);">WD101</a></li>
+        <li>/</li>
+        <li><a href="ixd-principles.html" style="color:var(--text-secondary);"><span class="lang-pt">Design de Interação</span><span class="lang-en">Interaction Design</span></a></li>
+        <li>/</li>
+        <li aria-current="page" style="color:var(--color-swiss-red);font-weight:700;"><span class="lang-pt">18 Heurísticas</span><span class="lang-en">18 Heuristics</span></li>
+      </ol>
+    </nav>
+
+    <!-- Hero / Orientation Section -->
+    <header class="hero-section" style="margin-bottom:var(--space-6);padding-bottom:var(--space-4);">
+      <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-2);flex-wrap:wrap;">
+        <span class="badge badge-transversal">
+          <span class="lang-pt">Fundamentação Transversal</span>
+          <span class="lang-en">Transversal Foundations</span>
+        </span>
+        <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">
+          Jakob Nielsen (NN/g) &bull; Bruce Tognazzini (AskTog) &bull; Don Norman &bull; Dieter Rams
+        </span>
+      </div>
+      <h1 class="hero-title" style="max-width:32ch;font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">18 Heurísticas de Usabilidade &amp; Princípios de Interação Web</span>
+        <span class="lang-en">18 Usability Heuristics &amp; Web Interaction Principles</span>
+      </h1>
+      <p class="hero-desc" style="font-size:var(--text-base);max-width:85ch;margin-bottom:var(--space-5);">
+        <span class="lang-pt">Compêndio pedagógico estruturado que harmoniza as <strong>10 Heurísticas de Jakob Nielsen (NN/g)</strong> com os <strong>18 Primeiros Princípios de Bruce Tognazzini (AskTog)</strong>. Articulado com as Leis de UX de Jon Yablonski, os princípios de Norman e Rams, e os padrões de implementação em <strong>HTML5 semântico e CSS3 puro</strong>.</span>
+        <span class="lang-en">A structured pedagogical compendium harmonizing the <strong>10 Heuristics of Jakob Nielsen (NN/g)</strong> with the <strong>18 First Principles of Bruce Tognazzini (AskTog)</strong>. Cross-referenced with Laws of UX, classic principles by Norman &amp; Rams, and <strong>semantic HTML5 &amp; modern CSS</strong> implementations.</span>
+      </p>
+
+      <!-- Suite Navigation Hub Pills -->
+      <nav aria-label="Navegação da Suite de Design de Interação" style="display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center;">
+        <span style="font-family:var(--font-mono);font-size:var(--text-xs);font-weight:700;color:var(--text-muted);margin-right:0.25rem;">Suite IxD:</span>
+        <a href="ixd-principles.html" class="btn-control">
+          <span>🧭 <span class="lang-pt">Princípios &amp; Anti-Padrões</span><span class="lang-en">Principles &amp; Anti-Patterns</span></span>
+        </a>
+        <a href="ux-laws.html" class="btn-control">
+          <span>🧠 <span class="lang-pt">30 Leis de UX</span><span class="lang-en">30 Laws of UX</span></span>
+        </a>
+        <a href="heuristics-guide.html" class="btn-control active" style="border-color:var(--color-swiss-red);color:var(--color-swiss-red);background:var(--color-swiss-red-tint);">
+          <span>📖 <span class="lang-pt">18 Heurísticas</span><span class="lang-en">18 Heuristics</span></span>
+        </a>
+        <a href="heuristic-checklist.html" class="btn-control">
+          <span>📋 <span class="lang-pt">Checklist de Avaliação</span><span class="lang-en">Evaluation Checklist</span></span>
+        </a>
+        <a href="project-documentation-guide.html" class="btn-control">
+          <span>🗂️ <span class="lang-pt">Documentação UX</span><span class="lang-en">UX Documentation</span></span>
+        </a>
+        <a href="interaction-patterns.html" class="btn-control">
+          <span>✨ <span class="lang-pt">Catálogo 142 Padrões</span><span class="lang-en">142 Patterns Catalog</span></span>
+        </a>
+      </nav>
+    </header>
+
+    <!-- Page Layout with Sticky Aside Rail -->
+    <div class="page-layout-with-aside">
+
+      <!-- Sticky Navigation Rail -->
+      <aside class="aside-toc" aria-label="Índice da Página" data-aria-pt="Índice da Página" data-aria-en="Page Index">
+        <div class="aside-toc-card">
+          <div class="aside-toc-header">
+            <span class="aside-toc-title"><span class="lang-pt">Neste Guia</span><span class="lang-en">In This Guide</span></span>
+            <span class="aside-toc-count" style="font-size:var(--text-xs);color:var(--text-muted);"><span class="lang-pt">18 Heurísticas</span><span class="lang-en">18 Heuristics</span></span>
+          </div>
+          <ul class="aside-toc-list">
+            <li class="aside-toc-item"><a href="#escada-pedagogica" class="aside-toc-link"><span>🪜 1. <span class="lang-pt">Escada Pedagógica (3 Níveis)</span><span class="lang-en">3-Tier Ladder</span></span></a></li>
+            <li class="aside-toc-item"><a href="#tabela-resumo" class="aside-toc-link"><span>📊 2. <span class="lang-pt">Matriz Resumo &amp; Filtros</span><span class="lang-en">Summary Matrix</span></span></a></li>
+            <li class="aside-toc-item"><a href="#detalhes" class="aside-toc-link"><span>📖 3. <span class="lang-pt">As 18 Heurísticas Detalhadas</span><span class="lang-en">Detailed 18 Heuristics</span></span></a></li>
+            <li class="aside-toc-item"><a href="#anexo-checklist" class="aside-toc-link"><span>📋 4. <span class="lang-pt">Checklist &amp; Auditoria Prática</span><span class="lang-en">Evaluation Checklist</span></span></a></li>
+            <li class="aside-toc-item"><a href="#connected-mesh" class="aside-toc-link"><span>🔗 5. <span class="lang-pt">Rede Curricular WD101</span><span class="lang-en">Connected in WD101</span></span></a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Educational Body -->
+      <div class="ixd-body">
+
+        <!-- SECTION 1: HERO STATS & PEDAGOGICAL LADDER -->
+        <section id="escada-pedagogica" style="margin-bottom:var(--space-8);">
+          <div class="hero-stats" style="margin-bottom:var(--space-6);">
+            <div class="stat-card">
+              <div class="stat-num" style="color:var(--color-accent-cyan);">18</div>
+              <div class="stat-label">
+                <span class="lang-pt">Heurísticas Harmonizadas</span>
+                <span class="lang-en">Harmonized Heuristics</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num" style="color:var(--color-accent-emerald);">8</div>
+              <div class="stat-label">
+                <span class="lang-pt">🟢 Fundação (1º Ano WD101)</span>
+                <span class="lang-en">🟢 Foundation (Year 1 WD101)</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num" style="color:var(--color-accent-gold);">7</div>
+              <div class="stat-label">
+                <span class="lang-pt">🟡 Intermédias (Progressão)</span>
+                <span class="lang-en">🟡 Intermediate (Progression)</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num" style="color:var(--color-swiss-red);">3</div>
+              <div class="stat-label">
+                <span class="lang-pt">🔴 Avançadas (Sistemas &amp; Ética)</span>
+                <span class="lang-en">🔴 Advanced (Systems &amp; Ethics)</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom:var(--space-4);">
+            <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-1);">
+              <span class="lang-pt">🪜 Escada Pedagógica em 3 Níveis de Complexidade</span>
+              <span class="lang-en">🪜 3-Tier Pedagogical Complexity Ladder</span>
+            </h2>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);max-width:75ch;">
+              <span class="lang-pt">Uma progressão didática rigorosa desenhada para os desafios do design de comunicação na FBAUP:</span>
+              <span class="lang-en">A rigorous didactic progression designed for the communication design challenges at FBAUP:</span>
+            </p>
+          </div>
+
+          <div class="tiers-grid">
+            <div class="tier-box tier-box--foundation">
+              <span class="badge badge-foundational">
+                <span class="lang-pt">🟢 Nível 1 • Fundação Obrigatória</span>
+                <span class="lang-en">🟢 Level 1 • Mandatory Foundation</span>
+              </span>
+              <h3 class="tier-title">
+                <span class="lang-pt">Fundação (HTML5 &amp; CSS3 Puro)</span>
+                <span class="lang-en">Foundation (HTML5 &amp; Pure CSS3)</span>
+              </h3>
+              <p class="tier-desc">
+                <span class="lang-pt">Obrigatório para alunos do 1.º ano no desenvolvimento do website de Evento/Marca. Foco estrito em semântica de marcos, contraste cromático WCAG AA, alvos de toque móveis (&ge; 44px), foco visível do teclado e consistência estável. Zero JS.</span>
+                <span class="lang-en">Mandatory for 1st-year students in developing their Event/Brand website. Strict focus on landmark semantics, WCAG AA color contrast, mobile touch targets (&ge; 44px), visible keyboard focus, and stable consistency. Zero JS.</span>
+              </p>
+              <div class="tier-tech">HTML5 Living Standard &bull; CSS Grid &amp; Flexbox &bull; WCAG 2.2 AA</div>
+            </div>
+
+            <div class="tier-box tier-box--intermediate">
+              <span class="badge badge-intermediate">
+                <span class="lang-pt">🟡 Nível 2 • Progressão</span>
+                <span class="lang-en">🟡 Level 2 • Progression</span>
+              </span>
+              <h3 class="tier-title">
+                <span class="lang-pt">Intermédio (Interação &amp; Estados)</span>
+                <span class="lang-en">Intermediate (Interaction &amp; States)</span>
+              </h3>
+              <p class="tier-desc">
+                <span class="lang-pt">Consolidação de protótipos funcionais com divulgação progressiva pura (&lt;details&gt;, :has(), :target), validação visual em formulários (:user-valid), micro-interações táteis e percursos cognitivos (Cognitive Walkthrough).</span>
+                <span class="lang-en">Consolidation of functional prototypes with pure progressive disclosure (&lt;details&gt;, :has(), :target), visual form validation (:user-valid), tactile micro-interactions, and cognitive walkthroughs.</span>
+              </p>
+              <div class="tier-tech">CSS :has() &bull; :focus-visible &bull; &lt;dialog&gt; &bull; clamp()</div>
+            </div>
+
+            <div class="tier-box tier-box--advanced">
+              <span class="badge badge-advanced">
+                <span class="lang-pt">🔴 Nível 3 • Horizonte Futuro</span>
+                <span class="lang-en">🔴 Level 3 • Future Horizon</span>
+              </span>
+              <h3 class="tier-title">
+                <span class="lang-pt">Avançado (Sistemas &amp; Ética)</span>
+                <span class="lang-en">Advanced (Systems &amp; Ethics)</span>
+              </h3>
+              <p class="tier-desc">
+                <span class="lang-pt">Visão pós-WD101: gestão de estado assíncrono (localStorage), reversão contínua (Undo sem modais punitivas), limiar de resposta Doherty sub-400ms, acessibilidade AAA e defesa intransigente contra padrões enganatórios (Dark Patterns).</span>
+                <span class="lang-en">Post-WD101 vision: asynchronous state management (localStorage), continuous reversal (Undo without punitive modals), sub-400ms Doherty response threshold, AAA accessibility, and uncompromising defense against deceptive patterns (Dark Patterns).</span>
+              </p>
+              <div class="tier-tech">Async State &bull; Doherty &lt; 400ms &bull; ARIA Live &bull; Anti-Dark Patterns</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: INTERACTIVE TABLE / EXECUTIVE SUMMARY -->
+        <section class="summary-section" id="tabela-resumo" style="margin-bottom:var(--space-8);">
+          <div style="margin-bottom:var(--space-4);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-2);">
+            <div>
+              <h2 style="font-size:var(--text-xl);margin-bottom:0.25rem;">
+                <span class="lang-pt">📊 Matriz Resumo &amp; Filtro de Heurísticas</span>
+                <span class="lang-en">📊 Heuristics Summary Matrix &amp; Filter</span>
+              </h2>
+              <p style="font-size:var(--text-xs);color:var(--text-secondary);">
+                <span class="lang-pt">Filtre por nível pedagógico, autor ou pesquise diretamente pelo conceito pretendido:</span>
+                <span class="lang-en">Filter by pedagogical tier, author, or search directly for your target concept:</span>
+              </p>
+            </div>
+            <a href="heuristic-checklist.html" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);font-size:var(--text-xs);text-decoration:none;">
+              <span class="lang-pt">📋 Abrir Checklist Interativa para Avaliação ↗</span>
+              <span class="lang-en">📋 Open Interactive Checklist for Evaluation ↗</span>
+            </a>
+          </div>
+
+          <div class="controls-panel" id="controls" aria-label="Controlos de pesquisa e filtro de heurísticas" data-aria-pt="Controlos de pesquisa e filtro de heurísticas" data-aria-en="Search and filter controls for heuristics">
+            <div class="filter-group" data-filter-group="tier" role="group" aria-label="Filtrar por nível pedagógico" data-aria-pt="Filtrar por nível pedagógico" data-aria-en="Filter by pedagogical tier">
+              <span class="filter-label">
+                <span class="lang-pt">Nível:</span>
+                <span class="lang-en">Tier:</span>
+              </span>
+              <button class="filter-btn active" data-filter="all">
+                <span class="lang-pt">Todas (18)</span>
+                <span class="lang-en">All (18)</span>
+              </button>
+              <button class="filter-btn" data-filter="foundation">
+                <span class="lang-pt">🟢 Fundação (8)</span>
+                <span class="lang-en">🟢 Foundation (8)</span>
+              </button>
+              <button class="filter-btn" data-filter="intermediate">
+                <span class="lang-pt">🟡 Intermédio (7)</span>
+                <span class="lang-en">🟡 Intermediate (7)</span>
+              </button>
+              <button class="filter-btn" data-filter="advanced">
+                <span class="lang-pt">🔴 Avançado (3)</span>
+                <span class="lang-en">🔴 Advanced (3)</span>
+              </button>
+            </div>
+
+            <div class="filter-group" data-filter-group="origin" role="group" aria-label="Filtrar por autor de origem" data-aria-pt="Filtrar por autor de origem" data-aria-en="Filter by source author">
+              <span class="filter-label">
+                <span class="lang-pt">Autor / Origem:</span>
+                <span class="lang-en">Author / Origin:</span>
+              </span>
+              <button class="filter-btn active" data-origin="all">
+                <span class="lang-pt">Todos os Autores</span>
+                <span class="lang-en">All Authors</span>
+              </button>
+              <button class="filter-btn" data-origin="nielsen">Jakob Nielsen (NN/g)</button>
+              <button class="filter-btn" data-origin="tognazzini">Bruce Tognazzini (AskTog)</button>
+            </div>
+
+            <div class="search-sort-row">
+              <div class="search-box">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input 
+                  type="text" 
+                  id="searchInput" 
+                  class="search-input" 
+                  placeholder="Pesquisar por heurística, lei de UX, padrão CSS ou autor..."
+                  aria-label="Filtrar heurísticas"
+                  data-placeholder-pt="Pesquisar por heurística, lei de UX, padrão CSS ou autor..."
+                  data-placeholder-en="Search by heuristic, UX law, CSS pattern, or author..."
+                  data-aria-pt="Filtrar heurísticas"
+                  data-aria-en="Filter heuristics"
+                >
+              </div>
+              <div class="sort-box">
+                <label for="sortSelect" class="filter-label">
+                  <span class="lang-pt">Ordenar:</span>
+                  <span class="lang-en">Sort:</span>
+                </label>
+                <select id="sortSelect" class="sort-select" aria-label="Ordenar heurísticas">
+                  <option value="id">Nº Heurística (Padrão 1 a 18)</option>
+                  <option value="level">Nível (🟢 Fundação &rarr; 🔴 Avançado)</option>
+                  <option value="name">Alfabeticamente (A-Z)</option>
+                </select>
+              </div>
+              <div id="resultsCount" style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-secondary); white-space:nowrap;">
+                <span class="lang-pt">A carregar heurísticas...</span>
+                <span class="lang-en">Loading heuristics...</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="comparison-table-wrap">
+            <table class="comparison-table" id="heuristicsTable" aria-label="Tabela de Heurísticas de Usabilidade" data-aria-pt="Tabela de Heurísticas de Usabilidade" data-aria-en="Usability Heuristics Table">
+              <thead>
+                <tr>
+                  <th style="width: 6%;"><span class="lang-pt">Nº</span><span class="lang-en">#</span></th>
+                  <th style="width: 25%;"><span class="lang-pt">Heurística Unificada</span><span class="lang-en">Unified Heuristic</span></th>
+                  <th style="width: 14%;"><span class="lang-pt">Complexidade</span><span class="lang-en">Tier / Complexity</span></th>
+                  <th style="width: 16%;"><span class="lang-pt">Proveniência</span><span class="lang-en">Origin</span></th>
+                  <th style="width: 20%;"><span class="lang-pt">Leis de UX / Princípios</span><span class="lang-en">UX Laws / Principles</span></th>
+                  <th style="width: 19%;"><span class="lang-pt">Padrão Web / Âncora</span><span class="lang-en">Web Pattern / Anchor</span></th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <!-- Renderizado dinamicamente pelo JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- SECTION 3: THE 18 DETAILED HEURISTICS CARDS -->
+        <section class="heuristics-detail-section" id="detalhes">
+          <div style="margin-bottom:var(--space-4);">
+            <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-1);">
+              <span class="lang-pt">📖 Catálogo Pedagógico das 18 Heurísticas de Interação</span>
+              <span class="lang-en">📖 Pedagogical Catalog of the 18 Interaction Heuristics</span>
+            </h2>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);max-width:75ch;">
+              <span class="lang-pt">Cada heurística detalhada inclui a proveniência teórica, o axioma comportamental, o percurso didático nos 3 níveis de complexidade, a pergunta-chave de auditoria e a implementação em HTML5/CSS3.</span>
+              <span class="lang-en">Each detailed heuristic includes theoretical origin, behavioral axiom, didactic progression across 3 complexity tiers, key audit questions, and HTML5/CSS3 implementations.</span>
+            </p>
+          </div>
+
+          <div class="cards-container" id="cardsContainer" aria-live="polite">
+            <!-- Renderizado dinamicamente pelo JavaScript -->
+          </div>
+        </section>
+
+        <!-- SECTION 4: ANEXO CHECKLIST -->
+        <section id="anexo-checklist" class="card-item" style="border-left:4px solid var(--color-swiss-red);margin-bottom:var(--space-8);padding:var(--space-6);">
+          <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-2);">
+            <span class="badge" style="background:var(--color-swiss-red);color:#fff;">
+              <span class="lang-pt">Prática de Avaliação</span>
+              <span class="lang-en">Evaluation Practice</span>
+            </span>
+            <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">
+              <span class="lang-pt">Sessão Crítica &bull; Auto-Avaliação</span>
+              <span class="lang-en">Critique Session &bull; Self-Evaluation</span>
+            </span>
+          </div>
+          <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-2);">
+            <span class="lang-pt">📋 Pronto para Avaliar um Protótipo?</span>
+            <span class="lang-en">📋 Ready to Evaluate a Prototype?</span>
+          </h2>
+          <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.5;margin-bottom:var(--space-4);">
+            <span class="lang-pt">Utilize a <strong>Grelha Interativa de Avaliação Heurística</strong> para auditar os projetos de grupo (Mockups ou Protótipos HTML5/CSS3). Poderá selecionar apenas as heurísticas aplicáveis ao vosso âmbito, classificar cada critério (0 a 2 pts), escrever notas qualitativas e imprimir o relatório em PDF ou exportar em Markdown (.md).</span>
+            <span class="lang-en">Use the <strong>Interactive Heuristic Evaluation Grid</strong> to audit group projects (Mockups or HTML5/CSS3 Prototypes). Select only heuristics applicable to your scope, score each criterion (0 to 2 pts), write qualitative notes, and print the report as PDF or export as Markdown (.md).</span>
+          </p>
+          <a href="heuristic-checklist.html" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;padding:var(--space-2) var(--space-4);">
+            <span>
+              <span class="lang-pt">Ir para a Checklist de Avaliação Heurística ↗</span>
+              <span class="lang-en">Go to Heuristic Evaluation Checklist ↗</span>
+            </span>
+          </a>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- SECTION 5: CURRICULAR MESH -->
+    <section class="wd-mesh-section" id="connected-mesh">
+      <div class="wd-mesh-header">
+        <span class="wd-mesh-kicker"><span class="lang-pt">Mapeamento Pedagógico</span><span class="lang-en">Curricular Mesh</span> &bull; Connected in WD101</span>
+        <h2 class="wd-mesh-title"><span class="lang-pt">Articulação com Enunciados, Demos e Matriz W3C</span><span class="lang-en">Connected Course Milestones, Demos &amp; Matrix</span></h2>
+      </div>
+      <div class="wd-mesh-grid">
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Enunciados do Curso</span><span class="lang-en">Course Assignments</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="ex1-hello-warp-guide.html" class="wd-mesh-chip">🟢 EX1: Hello Warp!</a>
+            <a href="ex2-guide.html" class="wd-mesh-chip">🔵 EX2: Media &amp; Box Model</a>
+            <a href="tp06-early-prototype-guide.html" class="wd-mesh-chip">🔵 Projeto Fase 1: TP06</a>
+            <a href="demos/tp11-integrated-responsive-project/GUIDE.html" class="wd-mesh-chip">🟣 Projeto Fase 2: TP11</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="demos/index.html" class="wd-mesh-chip">🚀 Repositório Central de Demos</a>
+            <a href="demos/index.html?pat=1#core-patterns" class="wd-mesh-chip">Demo P1: Gaveta Móvel</a>
+            <a href="demos/index.html?pat=8#core-patterns" class="wd-mesh-chip">Demo P8: Simulador :has()</a>
+            <a href="demos/index.html?pat=9#core-patterns" class="wd-mesh-chip">Demo P9: light-dark()</a>
+            <a href="interaction-patterns.html" class="wd-mesh-chip">✨ 142 Padrões Web</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Matriz HTML5 &amp; CSS3</span><span class="lang-en">W3C Standards Matrix</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="matrix.html" class="wd-mesh-chip" style="font-weight:700;color:var(--color-swiss-red);">Matriz Completa (314) ↗</a>
+            <a href="matrix.html?cat=cat-landmarks" class="wd-mesh-chip">Landmarks HTML5</a>
+            <a href="matrix.html?cat=cat-pseudo" class="wd-mesh-chip">Pseudo-Classes</a>
+            <a href="ixd-principles.html" class="wd-mesh-chip">🧭 Princípios de IxD</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Site Footer Landmark -->
+  <footer class="page-footer" role="contentinfo">
+    <div>
+      <strong style="color:var(--text-primary);">Faculdade de Belas Artes da Universidade do Porto (FBAUP)</strong><br>
+      Licenciatura em Design de Comunicação &bull; Instituto de Investigação em Arte, Design e Sociedade (i2ADS)<br>
+      <strong>Conceção &amp; Direção Pedagógica:</strong> Prof. Pedro Amado<br>
+      <strong>Pair Programming &amp; Agente IA:</strong> Google Gemini (DeepMind Antigravity)
+    </div>
+    <div style="text-align:right;">
+      <span>Living Standard: HTML5 &bull; Modern CSS &bull; Zero Jargon Gatekeeping</span><br>
+      <span>Open Educational Resources for Art &amp; Design Higher Education &bull; 2026/27</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/i18n.js"></script>
+
+  <!-- SCRIPT INTERATIVO: DATA & CONTROLLER -->
+  <script>
+    // 18 Heurísticas Unificadas de Usabilidade (WD101 - FBAUP)
+    const TIER_LABELS = {
+      foundation: { pt: '🟢 Fundação', en: '🟢 Foundation' },
+      intermediate: { pt: '🟡 Intermédio', en: '🟡 Intermediate' },
+      advanced: { pt: '🔴 Avançado', en: '🔴 Advanced' }
+    };
+
+    function getCurrentLang() {
+      return document.documentElement.getAttribute('lang') === 'en' ? 'en' : 'pt';
+    }
+
+    const heuristicsData = [
+      {
+            "id": 1,
+            "name": "Visibilidade do Estado do Sistema & Consciência de Modo",
+            "level": "foundation",
+            "levelLabel": "🟢 Fundação",
+            "levelClass": "tier-badge--green",
+            "levelOrder": 1,
+            "origin": [
+                  "nielsen",
+                  "tognazzini"
+            ],
+            "originLabel": "Nielsen #1 • Tog: State",
+            "uxLaws": "Doherty Threshold, Lei de Jakob",
+            "principles": "Norman: Feedback & Signifiers",
+            "patterns": "aria-current='page', Active nav, Breadcrumbs",
+            "rationale": "O sistema deve sempre manter os utilizadores informados sobre o que está a acontecer, através de feedback apropriado e atempado. O visitante nunca deve duvidar de 'onde estou?', 'que página é esta?' ou 'o que está o site a carregar?'.",
+            "appFnd": "Indicar visualmente no menu a página atual com aria-current='page' e contraste nítido. O logótipo deve ligar sempre à Home.",
+            "appInt": "Micro-interações de estado reativo em :hover, :active e :focus-visible através de transições suaves.",
+            "appAdv": "Barras de progresso assíncronas, skeleton screens durante carregamentos e anúncios auditivos via aria-live='polite'.",
+            "antiPattern": "Menus onde todas as opções parecem idênticas; cliques sem qualquer feedback visual ou tátil.",
+            "checklistQ": "Ao aterrar nesta página, o utilizador consegue identificar imediatamente o nome do website, a secção onde se encontra e o que pode fazer a seguir?",
+            "name_en": "Visibility of System Status & Mode Awareness",
+            "uxLaws_en": "Doherty Threshold, Jakob's Law",
+            "principles_en": "Norman: Feedback & Signifiers",
+            "patterns_en": "aria-current='page', Active nav, Breadcrumbs",
+            "rationale_en": "The system should always keep users informed about what is going on, through appropriate and timely feedback. Visitors should never have to wonder 'where am I?', 'what page is this?', or 'what is the site loading?'.",
+            "appFnd_en": "Visually indicate the current page in the menu with aria-current='page' and crisp contrast. The logo must always link to Home.",
+            "appInt_en": "Reactive state micro-interactions on :hover, :active, and :focus-visible via smooth transitions.",
+            "appAdv_en": "Asynchronous progress indicators, skeleton screens during asset loading, and auditory announcements via aria-live='polite'.",
+            "antiPattern_en": "Navigation menus where all items look identical; click events without any visual or tactile feedback.",
+            "checklistQ_en": "Upon landing on this page, can the user immediately identify the website name, their current section, and what actions are available next?"
+      },
+      {
+            "id": 2,
+            "name": "Navegação Visível & Orientação Previsível",
+            "level": "foundation",
+            "levelLabel": "🟢 Fundação",
+            "levelClass": "tier-badge--green",
+            "levelOrder": 1,
+            "origin": [
+                  "tognazzini",
+                  "nielsen"
+            ],
+            "originLabel": "Tog: Visible Nav • Nielsen #1/#3",
+            "uxLaws": "Lei de Hick, Efeito da Posição Serial",
+            "principles": "Norman: Discoverability & Mapping",
+            "patterns": "Sticky <header>, Landmarks semânticos, Skip Link",
+            "rationale": "A navegação nunca deve ser escondida ou tornada num jogo de adivinhas. Menus invisíveis aumentam drasticamente a carga na memória de trabalho. A estrutura de caminhos deve ser estável e evidente.",
+            "appFnd": "Manter a mesma navegação de topo em todas as páginas. Em desktop, a barra deve estar sempre visível (sem menus mistério).",
+            "appInt": "Menu móvel acessível Pure CSS recorrendo a :has() ou checkbox acessível, sem saltos de layout.",
+            "appAdv": "Padrão Priority+ Navigation que reagrupa itens excedentes automaticamente conforme a largura do viewport.",
+            "antiPattern": "Esconder a navegação desktop sob um ícone de hambúrguer desnecessário; alterar a ordem dos links entre páginas.",
+            "checklistQ": "O utilizador consegue regressar à Home ou saltar para qualquer secção principal em qualquer ponto da página com apenas um clique?",
+            "name_en": "Visible Navigation & Predictable Orientation",
+            "uxLaws_en": "Hick's Law, Serial Position Effect",
+            "principles_en": "Norman: Discoverability & Mapping",
+            "patterns_en": "Sticky <header>, Semantic landmarks, Skip Link",
+            "rationale_en": "Navigation must never be concealed or turned into a guessing game. Invisible menus drastically inflate working memory load. Wayfinding architecture must remain stable and self-evident.",
+            "appFnd_en": "Maintain identical top-level navigation across all pages. On desktop viewports, keep the bar visible without mystery meats.",
+            "appInt_en": "Accessible Pure CSS mobile drawer using :has() or accessible checkbox without layout shifts.",
+            "appAdv_en": "Priority+ Navigation pattern that gracefully collapses overflow items into a secondary drawer as viewport width shrinks.",
+            "antiPattern_en": "Hiding desktop navigation under an unnecessary hamburger icon; rearranging link orders between pages.",
+            "checklistQ_en": "Can the user return to Home or jump to any primary section from anywhere on the page in a single click?"
+      },
+      {
+            "id": 3,
+            "name": "Correspondência com o Mundo Real (Metáforas & Linguagem)",
+            "level": "foundation",
+            "levelLabel": "🟢 Fundação",
+            "levelClass": "tier-badge--green",
+            "levelOrder": 1,
+            "origin": [
+                  "nielsen",
+                  "tognazzini"
+            ],
+            "originLabel": "Nielsen #2 • Tog: Metaphors",
+            "uxLaws": "Lei de Jakob, Modelos Mentais",
+            "principles": "Norman: Natural Mapping & Mental Models",
+            "patterns": "Nomes semânticos, <time datetime>, Ícones universais",
+            "rationale": "O sistema deve falar a linguagem do utilizador, com palavras e conceitos que lhe sejam familiares, e não jargão técnico interno. As convenções e ordenações cronológicas naturais devem ser respeitadas.",
+            "appFnd": "Textos de hiperligação claros e contextuais. Proibido links vagos como 'clique aqui' ou 'saber mais' isolados.",
+            "appInt": "Listas de definição <dl>, <dt>, <dd> para metadados de oradores/eventos e etiqueta <time> legível por máquinas.",
+            "appAdv": "Manipulação direta e metáforas espaciais tácteis em organizadores de agenda interativos.",
+            "antiPattern": "Inventar termos crípticos para parecer 'original' (ex.: chamar 'Dimensão Cósmica' aos 'Contactos').",
+            "checklistQ": "A linguagem e os ícones utilizados são imediatamente compreendidos por um utilizador comum sem necessitar de instruções?",
+            "name_en": "Match Between System and the Real World (Metaphors & Language)",
+            "uxLaws_en": "Jakob's Law, Mental Models",
+            "principles_en": "Norman: Natural Mapping & Mental Models",
+            "patterns_en": "Semantic naming, <time datetime>, Universal icons",
+            "rationale_en": "The system must speak the user's language, using words, phrases, and concepts familiar to them rather than internal jargon. Real-world conventions and natural chronological sequences must be respected.",
+            "appFnd_en": "Contextual and descriptive hyperlink text. Ban vague links like 'click here' or isolated 'read more'.",
+            "appInt_en": "Definition lists <dl>, <dt>, <dd> for speaker/event metadata and machine-readable <time datetime> elements.",
+            "appAdv_en": "Direct manipulation and tactile spatial metaphors within interactive schedule organizers.",
+            "antiPattern_en": "Inventing cryptic terminology to sound 'edgy' or 'artistic' (e.g., naming 'Contacts' as 'Cosmic Dimension').",
+            "checklistQ_en": "Are the language, iconography, and classifications immediately comprehensible to everyday users without specialized instructions?"
+      },
+      {
+            "id": 4,
+            "name": "Controlo do Utilizador, Liberdade & Autonomia",
+            "level": "foundation",
+            "levelLabel": "🟢 Fundação",
+            "levelClass": "tier-badge--green",
+            "levelOrder": 1,
+            "origin": [
+                  "nielsen",
+                  "tognazzini"
+            ],
+            "originLabel": "Nielsen #3 • Tog: Autonomy",
+            "uxLaws": "Locus de Controlo Interno, Posse Psicológica",
+            "principles": "Norman: Forgiveness; Shneiderman: Autonomy",
+            "patterns": "Botão Fechar (×), Histórico de navegação nativo",
+            "rationale": "Os utilizadores cometem enganos frequentemente e precisam de saídas de emergência visíveis e imediatas. O computador pertence ao utilizador; o sistema sugere, mas o utilizador governa.",
+            "appFnd": "Nunca abrir links em novas abas (target='_blank') desnecessariamente; preservar o botão 'Retroceder' do navegador.",
+            "appInt": "Diálogos e gavetas nativas com <dialog> ou <details> que fecham com a tecla Esc ou clique fora da área ativa.",
+            "appAdv": "Cancelamento de pedidos assíncronos e barras de progresso interrompíveis pelo utilizador.",
+            "antiPattern": "Janelas pop-up sem botão de fechar; vídeos que arrancam com som em autoplay; aprisionar o foco do teclado.",
+            "checklistQ": "O utilizador consegue desfazer uma ação ou fechar um painel aberto com facilidade e sem sensação de aprisionamento?",
+            "name_en": "User Control, Freedom & Autonomy",
+            "uxLaws_en": "Internal Locus of Control, Psychological Ownership",
+            "principles_en": "Norman: Forgiveness; Shneiderman: Autonomy",
+            "patterns_en": "Close button (×), Native browser history",
+            "rationale_en": "Users frequently make errors and require clearly marked emergency exits to leave unwanted states. The computer belongs to the user; the system suggests, but the user commands.",
+            "appFnd_en": "Avoid gratuitous target='_blank' tabs; strictly preserve native browser back/forward navigation histories.",
+            "appInt_en": "Native modals with <dialog> or <details> dismissible via the Escape key or clicks outside the active backdrop.",
+            "appAdv_en": "Asynchronous fetch abort controllers and user-cancellable operations with instant restoration.",
+            "antiPattern_en": "Popups missing dismiss controls; autoplaying unmuted audio/video; trapping keyboard focus unintentionally.",
+            "checklistQ_en": "Can the user undo an action or dismiss an active overlay with ease, without feeling trapped or coerced?"
+      },
+      {
+            "id": 5,
+            "name": "Interfaces Exploratórias & Reversibilidade Segura",
+            "level": "intermediate",
+            "levelLabel": "🟡 Intermédio",
+            "levelClass": "tier-badge--gold",
+            "levelOrder": 2,
+            "origin": [
+                  "tognazzini"
+            ],
+            "originLabel": "Tog: Explorable Interfaces • Shneiderman",
+            "uxLaws": "Navalha de Occam, Lei de Hick",
+            "principles": "Shneiderman: Permit Easy Reversal of Actions",
+            "patterns": "<details>/<summary>, Undo Toast, Chips removíveis",
+            "rationale": "Interfaces de excelência incentivam a descoberta sem medo. O utilizador deve saber que nenhuma ação casual provocará perdas irreversíveis.",
+            "appFnd": "Âncoras de topo ('Voltar ao início #top') em páginas longas com múltiplos ecrãs de rolagem.",
+            "appInt": "Uso do elemento <details> para divulgar pormenores longos (FAQs, bio completa) sem poluir a visualização global.",
+            "appAdv": "Pilha completa de histórico Undo/Redo com suporte aos atalhos de teclado universais Ctrl+Z / Cmd+Z.",
+            "antiPattern": "Ações destrutivas imediatas sem alternativa de reversão ou regresso ao estado original.",
+            "checklistQ": "Se o utilizador clicar num link ou abrir uma secção por curiosidade, ele consegue voltar ao estado anterior sem esforço?",
+            "name_en": "Exploratory Interfaces & Safe Reversibility",
+            "uxLaws_en": "Occam's Razor, Hick's Law",
+            "principles_en": "Shneiderman: Permit Easy Reversal of Actions",
+            "patterns_en": "<details>/<summary>, Undo Toast, Removable chips",
+            "rationale_en": "Exceptional interfaces encourage fearless exploration. Users must know with certainty that casual actions will never trigger irreversible loss.",
+            "appFnd_en": "Return-to-top links ('Back to top #top') on long, multi-screen scrolling pages.",
+            "appInt_en": "Semantic <details>/<summary> disclosure widgets for secondary details (full bios, FAQs) without visual clutter.",
+            "appAdv_en": "Full multi-step Undo/Redo history stack with universal keyboard shortcut support (Ctrl+Z / Cmd+Z).",
+            "antiPattern_en": "Immediate destructive operations without confirmation dialogs, undo windows, or return routes.",
+            "checklistQ_en": "If users click a link or open a panel out of curiosity, can they effortlessly return to their prior state?"
+      },
+      {
+            "id": 6,
+            "name": "Proteção do Trabalho do Utilizador",
+            "level": "advanced",
+            "levelLabel": "🔴 Avançado",
+            "levelClass": "tier-badge--red",
+            "levelOrder": 3,
+            "origin": [
+                  "tognazzini"
+            ],
+            "originLabel": "Tog: Protect Users' Work • Cooper",
+            "uxLaws": "Efeito Zeigarnik, Inércia Cognitiva",
+            "principles": "Alan Cooper: Polite Software preserves state",
+            "patterns": "Atributos autocomplete, Autosave em localStorage",
+            "rationale": "O tempo e os dados do ser humano são invioláveis. O sistema nunca deve perder informação introduzida devido a refresh acidental, fecho de aba ou quebra de rede.",
+            "appFnd": "Atributos semânticos de formulário (name, id, autocomplete) para permitir preenchimento assistido pelo browser.",
+            "appInt": "Evitar botões de reset que apagam o formulário (<input type='reset'> é banido).",
+            "appAdv": "Persistência contínua de rascunhos em tempo real com sincronização via Web Storage API.",
+            "antiPattern": "Formulários que, ao encontrarem um erro, limpam todos os campos já preenchidos forçando a recomeçar.",
+            "checklistQ": "O utilizador está protegido contra a perda acidental da sua informação ou percurso?",
+            "name_en": "Protection of User Work",
+            "uxLaws_en": "Zeigarnik Effect, Cognitive Inertia",
+            "principles_en": "Alan Cooper: Polite Software preserves state",
+            "patterns_en": "autocomplete attributes, localStorage autosave",
+            "rationale_en": "Human time and typed input are sacred. The system must never discard user-entered data due to accidental refresh, tab closure, or network loss.",
+            "appFnd_en": "Strict semantic form attributes (name, id, autocomplete) enabling browser auto-fill assistance.",
+            "appInt_en": "Avoid form clear/reset triggers (<input type='reset'> is strictly deprecated).",
+            "appAdv_en": "Continuous draft autosaving via Web Storage API with instant restoration upon page reload.",
+            "antiPattern_en": "Forms that wipe all entered inputs whenever an error is encountered, forcing users to restart from scratch.",
+            "checklistQ_en": "Is the user fully safeguarded against accidental loss of their draft information or navigation state?"
+      },
+      {
+            "id": 7,
+            "name": "Consistência, Normas & Padrões",
+            "level": "foundation",
+            "levelLabel": "🟢 Fundação",
+            "levelClass": "tier-badge--green",
+            "levelOrder": 1,
+            "origin": [
+                  "nielsen",
+                  "tognazzini"
+            ],
+            "originLabel": "Nielsen #4 • Tog: Consistency",
+            "uxLaws": "Lei de Jakob, Lei de Miller",
+            "principles": "Norman: Consistency; Shneiderman: Standards",
+            "patterns": "CSS Design Tokens (:root), Arquitetura @layer",
+            "rationale": "Os utilizadores não devem ter de adivinhar se elementos visuais ou situações diferentes significam a mesma coisa. A consistência visual, funcional, interna e externa reduz a carga cognitiva a zero.",
+            "appFnd": "Uma única folha de estilos partilhada por todas as 4 páginas; tamanhos de títulos h1-h6 rigorosamente estáveis.",
+            "appInt": "Separação modular em @layer (Reset, Tokens, Layout, Componentes) para evitar guerras de especificidade.",
+            "appAdv": "Design System centralizado com tokens integrados entre Figma e repositório de código.",
+            "antiPattern": "Alterar a cor ou o formato dos links entre páginas; botões com comportamentos imprevisíveis.",
+            "checklistQ": "O design mantém-se coerente e estável em todas as páginas? É fácil distinguir títulos, parágrafos, links e botões?",
+            "name_en": "Consistency, Standards & Patterns",
+            "uxLaws_en": "Jakob's Law, Miller's Law",
+            "principles_en": "Norman: Consistency; Shneiderman: Standards",
+            "patterns_en": "CSS Design Tokens (:root), @layer Architecture",
+            "rationale_en": "Users should not have to wonder whether different words, situations, or visual elements mean the same thing. Internal, external, visual, and behavioral consistency reduces cognitive friction.",
+            "appFnd_en": "A single shared stylesheet across all pages; typography hierarchies h1-h6 strictly harmonized.",
+            "appInt_en": "Modular @layer architecture (Reset, Tokens, Layout, Components) avoiding CSS specificity conflicts.",
+            "appAdv_en": "Centralized Design System token sync bridging Figma design files and production codebases.",
+            "antiPattern_en": "Altering hyperlink colors or visual treatments across pages; unpredictable button styling.",
+            "checklistQ_en": "Does the design maintain rigorous consistency across all site pages? Are headings, paragraphs, links, and buttons distinct and predictable?"
+      },
+      {
+            "id": 8,
+            "name": "Legibilidade, Ritmo Tipográfico & Contraste",
+            "level": "foundation",
+            "levelLabel": "🟢 Fundação",
+            "levelClass": "tier-badge--green",
+            "levelOrder": 1,
+            "origin": [
+                  "tognazzini"
+            ],
+            "originLabel": "Tog: Readability & Color • WCAG 2.2",
+            "uxLaws": "Efeito Estética-Usabilidade, Weber-Fechner",
+            "principles": "Rams: Bom Design é Honesto; Pereyra: Legibilidade",
+            "patterns": "WCAG AA (4.5:1), max-width: 65ch, line-height: 1.5",
+            "rationale": "O texto na web existe para ser descodificado sem esforço visual. O rácio de contraste, o corpo de letra e a extensão da linha devem respeitar a ergonomia ótica e a acessibilidade universal.",
+            "appFnd": "Tamanho base &ge; 16px/1rem, line-height de 1.5 a 1.6 e largura máxima de 65 a 75 caracteres por linha.",
+            "appInt": "Tipografia fluida com clamp() adaptando-se sem quebras bruscas entre dispositivos móveis e desktop.",
+            "appAdv": "Suporte nativo a modo escuro com light-dark() no espaço OKLCH e media query prefers-contrast.",
+            "antiPattern": "Texto cinzento claro em fundo branco; linhas com 150 caracteres em ecrãs largos; texto justificado na web.",
+            "checklistQ": "O texto é perfeitamente legível a 1 metro de distância ou no telemóvel à luz do dia? O comprimento das linhas é confortável?",
+            "name_en": "Readability, Typographic Rhythm & Contrast",
+            "uxLaws_en": "Aesthetic-Usability Effect, Weber-Fechner Law",
+            "principles_en": "Dieter Rams: Good Design is Honest; Pereyra: Readability",
+            "patterns_en": "WCAG AA (4.5:1), max-width: 65ch, line-height: 1.5",
+            "rationale_en": "Web typography exists to be decoded without ocular strain. Contrast ratios, font scale, and measure (line length) must adhere to optical ergonomics and universal accessibility standards.",
+            "appFnd_en": "Base size ≥ 16px/1rem, line-height 1.5–1.6, and optimal measure of 65–75 characters (max-width: 65ch–75ch).",
+            "appInt_en": "Fluid typography with clamp() scaling smoothly between mobile screens and wide desktop displays.",
+            "appAdv_en": "Native light/dark theming via light-dark() in OKLCH color space with prefers-contrast accessibility support.",
+            "antiPattern_en": "Low-contrast light gray copy on white backdrops; 150-character measures on wide displays; justified text on the web.",
+            "checklistQ_en": "Is copy effortlessly legible from an arm's length or in bright outdoor glare? Is line measure comfortable to track?"
+      },
+      {
+            "id": 9,
+            "name": "Estética, Design Minimalista & Redução ao Essencial",
+            "level": "foundation",
+            "levelLabel": "🟢 Fundação",
+            "levelClass": "tier-badge--green",
+            "levelOrder": 1,
+            "origin": [
+                  "nielsen",
+                  "tognazzini"
+            ],
+            "originLabel": "Nielsen #8 • Tog: Simplicity • Rams #10",
+            "uxLaws": "Navalha de Occam, Efeito Estética-Usabilidade",
+            "principles": "Dieter Rams: Menos, mas melhor; Pereyra: Less is more",
+            "patterns": "Espaço negativo ativo, Grelha de calhas consistentes",
+            "rationale": "As interfaces não devem conter dados redundantes. Cada elemento decorativo supérfluo compete diretamente com a informação essencial. O minimalismo é uma disciplina de economia funcional.",
+            "appFnd": "Auditoria de ruído: eliminar caixas, fundos e linhas decorativas que não informem, alertem ou separem conteúdos.",
+            "appInt": "Organização estruturada em cartões (Card UI pattern) com proporção harmoniosa de padding interno.",
+            "appAdv": "Paleta restrita: uma cor primária funcional, neutros equilibrados e cor de destaque reservada a ações críticas.",
+            "antiPattern": "Tratar a página web como tela ilustrativa barroca, sobrecarregando o utilizador com ornamentos gratuitos.",
+            "checklistQ": "Todos os elementos cumprem uma função clara de informação ou navegação, ou existem elementos que são mera decoração dispensável?",
+            "name_en": "Aesthetic, Minimalist Design & Reduction to Essentials",
+            "uxLaws_en": "Occam's Razor, Aesthetic-Usability Effect",
+            "principles_en": "Dieter Rams: Less, but better; Pereyra: Less is more",
+            "patterns_en": "Active negative space, Harmonious grid gutters",
+            "rationale_en": "Interfaces should not contain redundant or rarely needed information. Every extraneous visual unit competes with pertinent information units. Minimalism is a discipline of functional economy.",
+            "appFnd_en": "Visual noise audit: remove superfluous boxes, borders, and decorative dividers that do not aid comprehension.",
+            "appInt_en": "Structured Card UI architecture with balanced whitespace, clear rhythm, and uniform internal padding.",
+            "appAdv_en": "Restrained palette: one dominant semantic hue, balanced neutrals, and an accent reserved solely for critical calls to action.",
+            "antiPattern_en": "Treating the webpage as a baroque decorative canvas, overwhelming viewers with aimless visual gimmicks.",
+            "checklistQ_en": "Does every element serve a clear informational or navigational purpose, or are there gratuitous visual distractors?"
+      },
+      {
+            "id": 10,
+            "name": "Objetos de Interface Humana & Manipulação Direta",
+            "level": "foundation",
+            "levelLabel": "🟢 Fundação",
+            "levelClass": "tier-badge--green",
+            "levelOrder": 1,
+            "origin": [
+                  "tognazzini"
+            ],
+            "originLabel": "Tog: Objects • Norman: Affordances",
+            "uxLaws": "Lei da Região Comum, Lei de Fitts",
+            "principles": "Norman: Affordance & Signifiers; Shneiderman",
+            "patterns": "Forma de botão tátil, cursor: pointer, :active feedback",
+            "rationale": "Os elementos clicáveis devem parecer clicáveis. Os objetos devem expressar visualmente a sua função e responder ao toque com deformação elástica percetível.",
+            "appFnd": "Nunca retirar o sublinhado dos links sem fornecer distinção óbvia de peso e cor contrastante; botões com padding tátil.",
+            "appInt": "Micro-compressão no clique com transform: scale(0.98) em :active para simular o toque mecânico de uma tecla.",
+            "appAdv": "Componentes com suporte a gestos inerciais táteis de arrastar e reorganizar diretamente no ecrã.",
+            "antiPattern": "Textos estáticos com estilo de botão que não fazem nada; botões completamente planos sem contraste.",
+            "checklistQ": "O utilizador consegue distinguir sem hesitar o que é apenas texto de leitura e o que é um elemento clicável?",
+            "name_en": "Human Interface Objects & Direct Manipulation",
+            "uxLaws_en": "Law of Common Region, Fitts's Law",
+            "principles_en": "Norman: Affordance & Signifiers; Shneiderman",
+            "patterns_en": "Tactile button styling, cursor: pointer, :active feedback",
+            "rationale_en": "Interactive elements must look interactive. Objects should express their affordance visually and respond to human gestures with perceptible mechanical or elastic feedback.",
+            "appFnd_en": "Never remove hyperlink underlines without clear weight and contrast compensation; buttons styled with tangible padding.",
+            "appInt_en": "Micro-compression on press using transform: scale(0.98) on :active states to simulate tactile key depression.",
+            "appAdv_en": "Components supporting fluid inertial swipe gestures and direct on-screen manipulation.",
+            "antiPattern_en": "Static copy styled like pills or buttons that does nothing; flat clickable elements devoid of contrast.",
+            "checklistQ_en": "Can users distinguish static editorial content from actionable elements at a single glance without hesitation?"
+      },
+      {
+            "id": 11,
+            "name": "Reconhecimento em Vez de Recordação & Descoberta",
+            "level": "intermediate",
+            "levelLabel": "🟡 Intermédio",
+            "levelClass": "tier-badge--gold",
+            "levelOrder": 2,
+            "origin": [
+                  "nielsen",
+                  "tognazzini"
+            ],
+            "originLabel": "Nielsen #6 • Tog: Discoverability",
+            "uxLaws": "Lei de Miller, Efeito de Von Restorff",
+            "principles": "Norman: Conhecimento no Mundo vs. na Cabeça",
+            "patterns": "Menus explícitos, Ícone acompanhado de texto, Cards",
+            "rationale": "A memória humana imediata é limitada. É infinitamente mais fácil reconhecer uma opção visualmente presente do que recordá-la de memória. Informações e opções devem estar à vista.",
+            "appFnd": "Acompanhar ícones de texto explicativo (ex.: 'Menu ☰', 'Email ✉️'); exibir data e local diretamente nos cartões de evento.",
+            "appInt": "Divulgação progressiva inteligente (Progressive Disclosure): expor o núcleo e facultar detalhes secundários a pedido.",
+            "appAdv": "Histórico visual de páginas e artigos recentemente consultados disponível com 1 clique.",
+            "antiPattern": "Obrigar o visitante a memorizar códigos ou horários vistos numa página para preencher um formulário noutra.",
+            "checklistQ": "Toda a informação necessária para tomar uma decisão está visível no ecrã sem obrigar a recordar dados de outras páginas?",
+            "name_en": "Recognition Rather Than Recall & Discoverability",
+            "uxLaws_en": "Miller's Law, Von Restorff Effect",
+            "principles_en": "Norman: Knowledge in the World vs. in the Head",
+            "patterns_en": "Explicit menus, Text-accompanied iconography, Cards",
+            "rationale_en": "Human short-term memory is bounded. Recognizing a visibly displayed option is vastly easier than recalling it from scratch. Key tools, options, and actions must remain discoverable.",
+            "appFnd_en": "Accompany iconography with descriptive labels (e.g. 'Menu ☰', 'Email ✉️'); show date and venue right on cards.",
+            "appInt_en": "Progressive Disclosure patterns: expose core summaries upfront and offer detailed breakdowns on demand.",
+            "appAdv_en": "Visual history of recently viewed sessions, speakers, or items accessible within one tap.",
+            "antiPattern_en": "Forcing visitors to memorize passcodes, dates, or prices from previous pages to complete later forms.",
+            "checklistQ_en": "Is all critical information required to make a decision visible on screen without requiring memory retrieval?"
+      },
+      {
+            "id": 12,
+            "name": "Antecipação & Valores por Omissão Sensatos (Smart Defaults)",
+            "level": "intermediate",
+            "levelLabel": "🟡 Intermédio",
+            "levelClass": "tier-badge--gold",
+            "levelOrder": 2,
+            "origin": [
+                  "tognazzini"
+            ],
+            "originLabel": "Tog: Anticipation & Defaults",
+            "uxLaws": "Lei de Hick, Efeito de Padrão (Default Effect)",
+            "principles": "Pereyra: Eliminar Decisões Desnecessárias",
+            "patterns": "type='email', inputmode='numeric', Ordenação lógica",
+            "rationale": "O sistema deve antecipar o próximo passo lógico do utilizador e disponibilizar as ferramentas necessárias antes de serem solicitadas. Os valores pré-definidos devem ser seguros e ecológicos.",
+            "appFnd": "Listas de eventos ordenadas por proximidade temporal (os acontecimentos iminentes surgem em primeiro lugar).",
+            "appInt": "Atributos semânticos de formulário que ativam teclados apropriados em telemóveis (inputmode='numeric' para números).",
+            "appAdv": "Deteção automática de fuso horário local do utilizador para exibição correta das horas da conferência internacional.",
+            "antiPattern": "Deixar campos de seleção essenciais vazios obrigando a cliques inúteis; pré-ativar caixas de publicidade (dark pattern).",
+            "checklistQ": "O website antecipa a próxima dúvida ou passo lógico do utilizador e fornece uma resposta ou atalho imediato?",
+            "name_en": "Anticipation & Smart Defaults",
+            "uxLaws_en": "Hick's Law, Default Effect",
+            "principles_en": "Pereyra: Eliminate Unnecessary Decisions",
+            "patterns_en": "type='email', inputmode='numeric', Chronological sorting",
+            "rationale_en": "The system should anticipate the user's next logical step and surface relevant controls before they are summoned. Default selections should be helpful, safe, and privacy-respecting.",
+            "appFnd_en": "Schedule listings pre-sorted chronologically so imminent events surface first.",
+            "appInt_en": "Semantic form attributes triggering appropriate mobile keyboards (inputmode='numeric' for quantities).",
+            "appAdv_en": "Automatic local timezone detection and conversion for international schedule agendas.",
+            "antiPattern_en": "Leaving essential dropdowns blank, causing useless clicks; pre-checking spam opt-ins (dark pattern).",
+            "checklistQ_en": "Does the interface anticipate the user's next logical inquiry or action, offering an immediate shortcut?"
+      },
+      {
+            "id": 13,
+            "name": "Ergonomia Motora & Aquisição de Alvos (Lei de Fitts)",
+            "level": "foundation",
+            "levelLabel": "🟢 Fundação",
+            "levelClass": "tier-badge--green",
+            "levelOrder": 1,
+            "origin": [
+                  "tognazzini",
+                  "nielsen"
+            ],
+            "originLabel": "Tog: Fitts's Law • Nielsen #7",
+            "uxLaws": "Lei de Fitts, Lei de Direção (Steering Law)",
+            "principles": "Norman: Ergonomia Física; WCAG 2.2 SC 2.5.5",
+            "patterns": "Alvos &ge; 44x44px, Padding generoso, Bordas infinitas",
+            "rationale": "O tempo para atingir um alvo motor depende da distância e da dimensão do alvo. Em ecrãs táteis, botões microscópicos ou colados provocam toques errados, frustração e lentidão.",
+            "appFnd": "Padding generoso em links e botões (mínimo 44x44px de área clicável no telemóvel) com espaçamento de segurança entre si.",
+            "appInt": "Tornar o cartão inteiro clicável com o pseudo-elemento a::after cobrindo a superfície interna do componente.",
+            "appAdv": "Otimização ergonómica da Thumb Zone (Zona do Polegar) colocando controlos principais no terço inferior do ecrã.",
+            "antiPattern": "Links minúsculos de texto colados no rodapé móvel que originam toques acidentais no destino errado.",
+            "checklistQ": "Num telemóvel real, é fácil carregar nos botões e links com o polegar sem hesitar nem errar o alvo?",
+            "name_en": "Motor Ergonomics & Target Acquisition (Fitts's Law)",
+            "uxLaws_en": "Fitts's Law, Steering Law",
+            "principles_en": "Norman: Physical Ergonomics; WCAG 2.2 SC 2.5.5",
+            "patterns_en": "Targets ≥ 44x44px, Generous padding, Infinite edges",
+            "rationale_en": "The time required to rapidly acquire a target depends on the ratio between target distance and width. On touchscreens, microscopic or tightly clustered targets breed miss-taps and friction.",
+            "appFnd_en": "Generous touch padding (minimum 44x44px interactive bounding box on mobile) with safe margins.",
+            "appInt_en": "Make entire card surfaces clickable using an stretched a::after pseudo-element over the container.",
+            "appAdv_en": "Thumb Zone ergonomics positioning primary navigation and action triggers within the lower screen viewport.",
+            "antiPattern_en": "Tiny, tightly crammed inline links in mobile footers triggering accidental navigations.",
+            "checklistQ_en": "On a real handheld smartphone, can touch targets be tapped comfortably with one thumb without misses?"
+      },
+      {
+            "id": 14,
+            "name": "Flexibilidade, Aceleradores & Eficiência do Utilizador",
+            "level": "intermediate",
+            "levelLabel": "🟡 Intermédio",
+            "levelClass": "tier-badge--gold",
+            "levelOrder": 2,
+            "origin": [
+                  "nielsen",
+                  "tognazzini"
+            ],
+            "originLabel": "Nielsen #7 • Tog: Efficiency",
+            "uxLaws": "Princípio de Pareto (80/20)",
+            "principles": "Shneiderman: Enable Shortcuts for Frequent Users",
+            "patterns": ":focus-visible, Navegação completa por Tab, Skip link",
+            "rationale": "O tempo humano é a moeda mais valiosa. Interfaces devem ser acolhedoras para novatos, mas oferecer rotas rápidas e aceleradores para utilizadores regulares e navegação motora.",
+            "appFnd": "Nunca suprimir o foco do teclado (proibido outline: none); testar a navegação completa usando apenas a tecla Tab.",
+            "appInt": "Implementar atalho oculto de salto para o conteúdo (.skip-link:focus) visível ao premir Tab no topo da página.",
+            "appAdv": "Paleta de comandos rápida (Cmd+K) e atalhos de teclado de página única (ex.: tecla '/' para pesquisar).",
+            "antiPattern": "Eliminar a indicação de foco por mero capricho estético, tornando o site inacessível a quem não usa rato.",
+            "checklistQ": "Se navegar pelo site usando apenas o teclado, consigo ver sempre onde está o foco e aceder a todos os links?",
+            "name_en": "Flexibility, Accelerators & Efficiency of Use",
+            "uxLaws_en": "Pareto Principle (80/20)",
+            "principles_en": "Shneiderman: Enable Shortcuts for Frequent Users",
+            "patterns_en": ":focus-visible, Full keyboard Tab navigation, Skip link",
+            "rationale_en": "Human time is the ultimate currency. Interfaces should cater gracefully to novices while providing accelerators, keyboard paths, and swift shortcuts for power users.",
+            "appFnd_en": "Never suppress keyboard focus outlines (outline: none is banned); test full navigation using Tab exclusively.",
+            "appInt_en": "Provide a hidden skip-link (.skip-link:focus) that becomes visible upon initial Tab to bypass repetitive navigation.",
+            "appAdv_en": "Command palette (Cmd+K / Ctrl+K) and single-key navigation accelerators (e.g. '/' to focus search).",
+            "antiPattern_en": "Stripping focus rings for cosmetic aesthetics, rendering the interface completely unnavigable without a mouse.",
+            "checklistQ_en": "When navigating via keyboard alone, is the focus ring persistently visible across all actionable elements?"
+      },
+      {
+            "id": 15,
+            "name": "Prevenção de Erros & Design Defensivo",
+            "level": "intermediate",
+            "levelLabel": "🟡 Intermédio",
+            "levelClass": "tier-badge--gold",
+            "levelOrder": 2,
+            "origin": [
+                  "nielsen",
+                  "tognazzini"
+            ],
+            "originLabel": "Nielsen #5 • Norman: Constraints",
+            "uxLaws": "Lei de Postel (Robustez), Funções Coercivas",
+            "principles": "Norman: Forcing Functions; Shneiderman: Prevent Errors",
+            "patterns": "required, :user-invalid, type='date', Seletores",
+            "rationale": "Melhor do que uma boa mensagem de erro é um design defensivo que impede o problema de acontecer. Devem usar-se controlos que restrinjam escolhas a formatos válidos.",
+            "appFnd": "Associação rigorosa de etiquetas <label for='id'> aos campos de input e instruções claras de formato.",
+            "appInt": "Validação visual com CSS :user-invalid (só sinaliza erro após o utilizador interagir com o campo e sair).",
+            "appAdv": "Auto-formatação e máscaras em tempo real de números de telefone e identificadores fiscais.",
+            "antiPattern": "Campos que gritam mensagens de erro a vermelho mal o utilizador digita a primeira letra.",
+            "checklistQ": "A interface impede ativamente que o utilizador introduza dados errados ou se engane no percurso?",
+            "name_en": "Error Prevention & Defensive Design",
+            "uxLaws_en": "Postel's Law (Robustness Principle), Forcing Functions",
+            "principles_en": "Norman: Forcing Functions; Shneiderman: Prevent Errors",
+            "patterns_en": "required, :user-invalid, type='date', Constraint Selectors",
+            "rationale_en": "Even better than good error messages is a careful design that prevents problems from occurring in the first place. Use constraints and defensive controls that eliminate invalid choices.",
+            "appFnd_en": "Explicit association of <label for='id'> tags with inputs, accompanied by clear formatting hints.",
+            "appInt_en": "Modern CSS :user-invalid pseudo-class validation (only reveals errors after interaction and blur).",
+            "appAdv_en": "Real-time input masking and smart formatting for telephone numbers and identification values.",
+            "antiPattern_en": "Inputs screaming aggressive red error badges before the user finishes typing their first character.",
+            "checklistQ_en": "Does the interface actively prevent users from inputting invalid entries or making unintended mistakes?"
+      },
+      {
+            "id": 16,
+            "name": "Reconhecimento, Diagnóstico & Recuperação de Erros",
+            "level": "foundation",
+            "levelLabel": "🟢 Fundação",
+            "levelClass": "tier-badge--green",
+            "levelOrder": 1,
+            "origin": [
+                  "nielsen",
+                  "tognazzini"
+            ],
+            "originLabel": "Nielsen #9 • Tog: Explorable",
+            "uxLaws": "Regra do Pico-Fim (Peak-End Rule)",
+            "principles": "Norman: Mensagens como conversas construtivas",
+            "patterns": "Página 404 personalizada, Inline Error Feedback",
+            "rationale": "Quando ocorrem erros, as mensagens devem ser expressas em linguagem humana sem jargão técnico, indicar com rigor o problema e oferecer uma solução de recuperação prática.",
+            "appFnd": "Criar uma página 404.html personalizada com cabeçalho e rodapé do projeto e links de regresso para a Home.",
+            "appInt": "Mensagens de erro em linha colocadas logo abaixo do campo com aria-describedby e ícone de alerta.",
+            "appAdv": "Sugestões de correção ortográfica automática inteligente em sistemas de busca ('Quis dizer...?').",
+            "antiPattern": "Códigos de erro crípticos do servidor (ex.: 'Error 0x8004') ou páginas 404 vazias que provocam becos sem saída.",
+            "checklistQ": "Quando algo corre mal, a mensagem explica com clareza o que aconteceu e como o utilizador pode resolver o problema?",
+            "name_en": "Error Recognition, Diagnosis & Recovery",
+            "uxLaws_en": "Peak-End Rule",
+            "principles_en": "Norman: Constructive error conversations",
+            "patterns_en": "Custom 404 page, Inline Error Feedback",
+            "rationale_en": "When errors occur, messages should be expressed in plain language without jargon, precisely diagnose the problem, and constructively suggest a tangible solution.",
+            "appFnd_en": "Deploy a branded 404.html page containing site navigation, friendly guidance, and direct paths back Home.",
+            "appInt_en": "Inline error messages positioned directly beneath inputs using aria-describedby and warning iconography.",
+            "appAdv_en": "Intelligent spelling correction and search fallback recommendations ('Did you mean...?').",
+            "antiPattern_en": "Cryptic server error codes (e.g. 'Error 0x8004') or unstyled dead-end 404 screens.",
+            "checklistQ_en": "When something goes wrong, does the feedback clearly explain what happened and offer a constructive fix?"
+      },
+      {
+            "id": 17,
+            "name": "Redução de Latência & Responsividade Percetível",
+            "level": "advanced",
+            "levelLabel": "🔴 Avançado",
+            "levelClass": "tier-badge--red",
+            "levelOrder": 3,
+            "origin": [
+                  "tognazzini"
+            ],
+            "originLabel": "Tog: Latency Reduction • Doherty",
+            "uxLaws": "Limiar de Doherty (&lt; 400ms), Ilusão do Trabalho",
+            "principles": "Norman: Response Times; Core Web Vitals (CLS=0)",
+            "patterns": "Imagens WebP/AVIF, aspect-ratio, Transições CSS 200ms",
+            "rationale": "O cérebro humano exige respostas rápidas: menos de 100ms parece instantâneo; menos de 400ms preserva a atenção contínua (Limiar de Doherty). Latências elevadas quebram o fluxo de navegação.",
+            "appFnd": "Otimizar todas as imagens e declarar sempre width e height intrínsecos nas tags <img> para garantir CLS = 0.",
+            "appInt": "Transições de estado ágeis (150ms a 250ms) com respeito à acessibilidade @media (prefers-reduced-motion).",
+            "appAdv": "Optimistic UI: atualizar a interface de imediato assumindo sucesso na operação antes da resposta do servidor.",
+            "antiPattern": "Fotografias pesadas de 15MB que demoram 8 segundos a descarregar; animações lentas que travam a leitura.",
+            "checklistQ": "A página abre e reage a cliques de forma quase instantânea, sem atrasos perceptíveis ou saltos descontrolados na composição?",
+            "name_en": "Latency Reduction & Perceived Responsiveness",
+            "uxLaws_en": "Doherty Threshold (< 400ms), Illusion of Work",
+            "principles_en": "Norman: Response Times; Core Web Vitals (CLS=0)",
+            "patterns_en": "WebP/AVIF images, aspect-ratio, CSS Transitions ~200ms",
+            "rationale_en": "Human cognitive pacing demands rapid feedback: < 100ms feels instantaneous; < 400ms retains continuous focus (Doherty Threshold). High latency shatters navigation flow.",
+            "appFnd_en": "Optimize all image assets and always declare intrinsic width and height attributes on <img> to maintain CLS = 0.",
+            "appInt_en": "Snappy state transitions (150ms–250ms) that gracefully respect @media (prefers-reduced-motion).",
+            "appAdv_en": "Optimistic UI patterns: render expected success states instantly while network transactions resolve asynchronously.",
+            "antiPattern_en": "Bloated 15MB uncompressed photography delaying paints for 8 seconds; sluggish animations stalling user flow.",
+            "checklistQ_en": "Does the page load and respond to clicks almost instantaneously, without perceptible lag or jarring layout shifts?"
+      },
+      {
+            "id": 18,
+            "name": "Apoio Contextual, Documentação & Aprendibilidade",
+            "level": "intermediate",
+            "levelLabel": "🟡 Intermédio",
+            "levelClass": "tier-badge--gold",
+            "levelOrder": 2,
+            "origin": [
+                  "nielsen",
+                  "tognazzini"
+            ],
+            "originLabel": "Nielsen #10 • Tog: Learnability",
+            "uxLaws": "Carga Cognitiva de Sweller, Efeito Zeigarnik",
+            "principles": "Cooper: Good software is self-explaining",
+            "patterns": "FAQ colapsável com <details>, Dicas contextuais",
+            "rationale": "Um bom website deve ser auto-explicativo. Todavia, em projetos culturais e académicos complexos, é fundamental fornecer respostas a dúvidas comuns de forma rápida, contextual e não intrusiva.",
+            "appFnd": "Página de contactos com formulário claro, mapa e endereço de email direto devidamente formatado (mailto:).",
+            "appInt": "Secção de FAQ colapsável com recurso aos elementos nativos <details> e <summary> agrupados por tópicos.",
+            "appAdv": "Centros de ajuda com pesquisa instantânea e tours interativos de introdução não bloqueantes.",
+            "antiPattern": "Obrigar o visitante a ler manuais de 10 páginas para compreender um formulário simples; esconder contactos de suporte.",
+            "checklistQ": "Se o utilizador tiver uma dúvida sobre o evento ou publicação, consegue encontrar uma resposta rápida ou um contacto direto?",
+            "name_en": "Contextual Help, Documentation & Learnability",
+            "uxLaws_en": "Sweller's Cognitive Load, Zeigarnik Effect",
+            "principles_en": "Cooper: Good software is self-explaining",
+            "patterns_en": "Collapsible FAQ via <details>, Contextual tooltips",
+            "rationale_en": "A well-crafted web application should be self-explanatory. Nonetheless, in complex cultural and academic projects, providing contextual, non-intrusive answers to common questions is indispensable.",
+            "appFnd_en": "Contact section with a clear structured form, location details, and direct mailto: links.",
+            "appInt_en": "Collapsible FAQ section leveraging native semantic <details> and <summary> grouped by category.",
+            "appAdv_en": "Contextual help centers featuring instant query matching and non-blocking onboarding hints.",
+            "antiPattern_en": "Requiring users to read extensive manuals to understand a straightforward form; concealing help links.",
+            "checklistQ_en": "If users have a question regarding an event or publication, can they quickly find clear answers or reach direct support?"
+      }
+];
+
+    // Elementos DOM
+    const tableBody = document.getElementById('tableBody');
+    const cardsContainer = document.getElementById('cardsContainer');
+    const searchInput = document.getElementById('searchInput');
+    const sortSelect = document.getElementById('sortSelect');
+    const resultsCount = document.getElementById('resultsCount');
+    const filterBtns = document.querySelectorAll('.filter-btn[data-filter]');
+    const originBtns = document.querySelectorAll('.filter-btn[data-origin]');
+    const controlsPanel = document.getElementById('controls');
+    const heuristicsTable = document.getElementById('heuristicsTable');
+
+    let currentFilter = document.documentElement.getAttribute('data-tier') || 'all';
+    let currentOrigin = 'all';
+    let currentSearch = '';
+    let currentSort = 'id';
+
+    function getActiveTiersList() {
+      if (window.WD101 && window.WD101.getTiers) {
+        return window.WD101.getTiers();
+      }
+      const p = new URLSearchParams(window.location.search);
+      const urlTier = p.get('tier') || p.get('difficulty');
+      const stored = localStorage.getItem('wd101_tier');
+      const cookieMatch = document.cookie.match(/(?:^|;\s*)wd101_tier=([^;]+)/);
+      const cookieTier = cookieMatch ? decodeURIComponent(cookieMatch[1]) : null;
+      const val = urlTier || stored || cookieTier || currentFilter || 'all';
+      if (val === 'all') return ['foundation', 'intermediate', 'advanced'];
+      return val.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+    }
+
+    function syncFilterButtonStates() {
+      const activeTiers = getActiveTiersList();
+      const isAll = activeTiers.length === 3 || activeTiers.length === 0;
+
+      filterBtns.forEach(btn => {
+        btn.classList.remove('active', 'active--green', 'active--gold', 'active--red');
+        const f = btn.dataset.filter;
+        if (f === 'all') {
+          if (isAll) btn.classList.add('active');
+        } else if (activeTiers.includes(f)) {
+          if (f === 'foundation') btn.classList.add('active--green');
+          else if (f === 'intermediate') btn.classList.add('active--gold');
+          else if (f === 'advanced') btn.classList.add('active--red');
+        }
+      });
+    }
+
+    // Atualização reativa de controlos e acessibilidade
+    function updateControlsLanguage(lang = getCurrentLang()) {
+      if (searchInput) {
+        const ph = lang === 'en' ? searchInput.dataset.placeholderEn : searchInput.dataset.placeholderPt;
+        if (ph) searchInput.setAttribute('placeholder', ph);
+        const aria = lang === 'en' ? searchInput.dataset.ariaEn : searchInput.dataset.ariaPt;
+        if (aria) searchInput.setAttribute('aria-label', aria);
+      }
+      if (sortSelect) {
+        sortSelect.setAttribute('aria-label', lang === 'en' ? 'Sort heuristics' : 'Ordenar heurísticas');
+        const optId = sortSelect.querySelector('option[value="id"]');
+        if (optId) optId.textContent = lang === 'en' ? 'Heuristic # (Default 1 to 18)' : 'Nº Heurística (Padrão 1 a 18)';
+        const optLevel = sortSelect.querySelector('option[value="level"]');
+        if (optLevel) optLevel.textContent = lang === 'en' ? 'Tier (🟢 Foundation → 🔴 Advanced)' : 'Nível (🟢 Fundação → 🔴 Avançado)';
+        const optName = sortSelect.querySelector('option[value="name"]');
+        if (optName) optName.textContent = lang === 'en' ? 'Alphabetical (A-Z)' : 'Alfabeticamente (A-Z)';
+      }
+      if (controlsPanel) {
+        const aria = lang === 'en' ? controlsPanel.dataset.ariaEn : controlsPanel.dataset.ariaPt;
+        if (aria) controlsPanel.setAttribute('aria-label', aria);
+      }
+      if (heuristicsTable) {
+        const aria = lang === 'en' ? heuristicsTable.dataset.ariaEn : heuristicsTable.dataset.ariaPt;
+        if (aria) heuristicsTable.setAttribute('aria-label', aria);
+      }
+      document.querySelectorAll('[data-filter-group]').forEach(group => {
+        const aria = lang === 'en' ? group.dataset.ariaEn : group.dataset.ariaPt;
+        if (aria) group.setAttribute('aria-label', aria);
+      });
+    }
+
+    // Função de Renderização da Tabela
+    function renderTable(items) {
+      if (!tableBody) return;
+      tableBody.innerHTML = '';
+      const lang = getCurrentLang();
+      if (items.length === 0) {
+        const emptyMsg = lang === 'en'
+          ? 'No heuristics found for the selected filters.'
+          : 'Nenhuma heurística encontrada para os filtros selecionados.';
+        tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--color-text-muted);">${emptyMsg}</td></tr>`;
+        if (resultsCount) {
+          resultsCount.innerHTML = lang === 'en'
+            ? 'Showing <strong>0</strong> of 18 heuristics'
+            : 'A mostrar <strong>0</strong> de 18 heurísticas';
+        }
+        return;
+      }
+
+      items.forEach(h => {
+        const name = (lang === 'en' && h.name_en) ? h.name_en : h.name;
+        const tierObj = TIER_LABELS[h.level] || { pt: h.levelLabel, en: h.levelLabel };
+        const tierLabel = lang === 'en' ? tierObj.en : tierObj.pt;
+        const uxLaws = (lang === 'en' && h.uxLaws_en) ? h.uxLaws_en : h.uxLaws;
+        const patterns = (lang === 'en' && h.patterns_en) ? h.patterns_en : h.patterns;
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td style="font-family:var(--font-mono); font-weight:700; color:var(--color-cyan);">${String(h.id).padStart(2, '0')}</td>
+          <td>
+            <a href="#h-${h.id}" class="h-link">
+              <span>${name}</span>
+              <span style="font-size:0.75rem; color:var(--color-cyan);">↓</span>
+            </a>
+          </td>
+          <td>
+            <span class="tier-badge ${h.levelClass}">${tierLabel}</span>
+          </td>
+          <td style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-purple);">${h.originLabel}</td>
+          <td style="font-size:0.8rem; color:var(--color-text-muted);">${uxLaws}</td>
+          <td>
+            <span class="code-pill">${patterns}</span>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+
+      if (resultsCount) {
+        resultsCount.innerHTML = lang === 'en'
+          ? `Showing <strong>${items.length}</strong> of 18 heuristics`
+          : `A mostrar <strong>${items.length}</strong> de 18 heurísticas`;
+      }
+    }
+
+    // Função de Renderização dos Cartões Detalhados
+    function renderCards(items) {
+      if (!cardsContainer) return;
+      cardsContainer.innerHTML = '';
+      const lang = getCurrentLang();
+
+      items.forEach(h => {
+        const name = (lang === 'en' && h.name_en) ? h.name_en : h.name;
+        const tierObj = TIER_LABELS[h.level] || { pt: h.levelLabel, en: h.levelLabel };
+        const tierLabel = lang === 'en' ? tierObj.en : tierObj.pt;
+        const rationale = (lang === 'en' && h.rationale_en) ? h.rationale_en : h.rationale;
+        const uxLaws = (lang === 'en' && h.uxLaws_en) ? h.uxLaws_en : h.uxLaws;
+        const principles = (lang === 'en' && h.principles_en) ? h.principles_en : h.principles;
+        const patterns = (lang === 'en' && h.patterns_en) ? h.patterns_en : h.patterns;
+        const appFnd = (lang === 'en' && h.appFnd_en) ? h.appFnd_en : h.appFnd;
+        const appInt = (lang === 'en' && h.appInt_en) ? h.appInt_en : h.appInt;
+        const appAdv = (lang === 'en' && h.appAdv_en) ? h.appAdv_en : h.appAdv;
+        const antiPattern = (lang === 'en' && h.antiPattern_en) ? h.antiPattern_en : h.antiPattern;
+        const checklistQ = (lang === 'en' && h.checklistQ_en) ? h.checklistQ_en : h.checklistQ;
+
+        const card = document.createElement('article');
+        card.className = 'h-card';
+        card.id = `h-${h.id}`;
+        card.innerHTML = `
+          <div class="h-card-header">
+            <div class="h-title-group">
+              <span class="h-num-id"><span class="lang-pt">HEURÍSTICA</span><span class="lang-en">HEURISTIC</span> ${String(h.id).padStart(2, '0')}</span>
+              <h3 class="h-title">${name}</h3>
+            </div>
+            <div class="h-badges">
+              <span class="tier-badge ${h.levelClass}">${tierLabel}</span>
+              <span class="badge-prov">${h.originLabel}</span>
+            </div>
+          </div>
+
+          <p class="h-body"><strong><span class="lang-pt">Fundamento Teórico:</span><span class="lang-en">Theoretical Rationale:</span></strong> ${rationale}</p>
+
+          <div class="cross-ref-grid">
+            <div class="ref-box">
+              <div class="ref-box-title"><span class="lang-pt">🧠 Leis de UX Conectadas</span><span class="lang-en">🧠 Connected UX Laws</span></div>
+              <div class="ref-box-content">${uxLaws}</div>
+            </div>
+            <div class="ref-box">
+              <div class="ref-box-title"><span class="lang-pt">🏛️ Princípios Clássicos</span><span class="lang-en">🏛️ Classical Principles</span></div>
+              <div class="ref-box-content">${principles}</div>
+            </div>
+            <div class="ref-box">
+              <div class="ref-box-title"><span class="lang-pt">📐 Padrão UI &amp; Âncora Web</span><span class="lang-en">📐 UI Pattern &amp; Web Anchor</span></div>
+              <div class="ref-box-content"><span class="code-pill">${patterns}</span></div>
+            </div>
+          </div>
+
+          <div class="tiers-application">
+            <div class="tiers-app-title">
+              <span class="lang-pt">Aplicação Prática por Nível de Complexidade:</span>
+              <span class="lang-en">Practical Application by Complexity Tier:</span>
+            </div>
+            <div class="tier-step">
+              <span class="tier-step-badge tier-badge--green"><span class="lang-pt">🟢 Fundação</span><span class="lang-en">🟢 Foundation</span></span>
+              <div>${appFnd}</div>
+            </div>
+            <div class="tier-step">
+              <span class="tier-step-badge tier-badge--gold"><span class="lang-pt">🟡 Intermédio</span><span class="lang-en">🟡 Intermediate</span></span>
+              <div>${appInt}</div>
+            </div>
+            <div class="tier-step">
+              <span class="tier-step-badge tier-badge--red"><span class="lang-pt">🔴 Avançado</span><span class="lang-en">🔴 Advanced</span></span>
+              <div>${appAdv}</div>
+            </div>
+          </div>
+
+          <div style="margin-bottom:1rem; font-size:0.85rem; color:var(--color-red);">
+            <strong><span class="lang-pt">⚠️ Anti-Padrão a Evitar:</span><span class="lang-en">⚠️ Anti-Pattern to Avoid:</span></strong> ${antiPattern}
+          </div>
+
+          <div class="checklist-question-box">
+            <div>
+              <strong><span class="lang-pt">📋 Pergunta de Auto-Avaliação (Anexo 1):</span><span class="lang-en">📋 Self-Evaluation Question (Annex 1):</span></strong><br>
+              <em>&ldquo;${checklistQ}&rdquo;</em>
+            </div>
+            <a href="heuristic-checklist.html#item-${h.id}" class="checklist-link-btn">
+              <span class="lang-pt">Avaliar na Checklist &rarr;</span>
+              <span class="lang-en">Evaluate in Checklist &rarr;</span>
+            </a>
+          </div>
+        `;
+        cardsContainer.appendChild(card);
+      });
+    }
+
+    // Filtrar e Ordenar
+    function updateView() {
+      const lang = getCurrentLang();
+      const activeTiers = getActiveTiersList();
+      const isAll = activeTiers.length === 3 || activeTiers.length === 0;
+
+      let filtered = heuristicsData.filter(item => {
+        // Filtro por Nível (suporta múltiplos níveis)
+        if (!isAll && !activeTiers.includes(item.level)) return false;
+
+        // Filtro por Origem
+        if (currentOrigin !== 'all' && !item.origin.includes(currentOrigin)) return false;
+
+        // Pesquisa
+        if (currentSearch.trim() !== '') {
+          const q = currentSearch.toLowerCase();
+          const matchNamePt = item.name && item.name.toLowerCase().includes(q);
+          const matchNameEn = item.name_en && item.name_en.toLowerCase().includes(q);
+          const matchLawsPt = item.uxLaws && item.uxLaws.toLowerCase().includes(q);
+          const matchLawsEn = item.uxLaws_en && item.uxLaws_en.toLowerCase().includes(q);
+          const matchPatPt = item.patterns && item.patterns.toLowerCase().includes(q);
+          const matchPatEn = item.patterns_en && item.patterns_en.toLowerCase().includes(q);
+          const matchOrig = item.originLabel && item.originLabel.toLowerCase().includes(q);
+          const matchRatPt = item.rationale && item.rationale.toLowerCase().includes(q);
+          const matchRatEn = item.rationale_en && item.rationale_en.toLowerCase().includes(q);
+          if (!matchNamePt && !matchNameEn && !matchLawsPt && !matchLawsEn && !matchPatPt && !matchPatEn && !matchOrig && !matchRatPt && !matchRatEn) {
+            return false;
+          }
+        }
+
+        return true;
+      });
+
+      // Ordenação
+      if (currentSort === 'id') {
+        filtered.sort((a, b) => a.id - b.id);
+      } else if (currentSort === 'level') {
+        filtered.sort((a, b) => a.levelOrder - b.levelOrder || a.id - b.id);
+      } else if (currentSort === 'name') {
+        filtered.sort((a, b) => {
+          const nameA = (lang === 'en' && a.name_en) ? a.name_en : a.name;
+          const nameB = (lang === 'en' && b.name_en) ? b.name_en : b.name;
+          return nameA.localeCompare(nameB, lang);
+        });
+      }
+
+      renderTable(filtered);
+      renderCards(filtered);
+    }
+
+    // Event Listeners
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const f = btn.dataset.filter;
+        if (f === 'all') {
+          if (window.WD101 && window.WD101.applyTiers) {
+            window.WD101.applyTiers(['foundation', 'intermediate', 'advanced']);
+          } else {
+            currentFilter = 'all';
+            syncFilterButtonStates();
+            updateView();
+          }
+        } else {
+          if (window.WD101 && window.WD101.toggleTier) {
+            window.WD101.toggleTier(f);
+          } else {
+            currentFilter = f;
+            syncFilterButtonStates();
+            updateView();
+          }
+        }
+      });
+    });
+
+    originBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        originBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentOrigin = btn.dataset.origin;
+        updateView();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        currentSearch = e.target.value;
+        updateView();
+      });
+    }
+
+    if (sortSelect) {
+      sortSelect.addEventListener('change', (e) => {
+        currentSort = e.target.value;
+        updateView();
+      });
+    }
+
+    // Inicialização com suporte a URL params e storage
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlOrigin = urlParams.get('origin') || urlParams.get('author');
+    if (urlOrigin) {
+      currentOrigin = urlOrigin.toLowerCase();
+      originBtns.forEach(b => b.classList.toggle('active', b.dataset.origin === currentOrigin));
+    }
+    const urlQ = urlParams.get('q');
+    if (urlQ && searchInput) {
+      currentSearch = urlQ;
+      searchInput.value = urlQ;
+    }
+    const urlSort = urlParams.get('sort');
+    if (urlSort && sortSelect) {
+      currentSort = urlSort;
+      sortSelect.value = urlSort;
+    }
+
+    syncFilterButtonStates();
+    updateControlsLanguage();
+    updateView();
+
+    // Reactive Language & Tier Change Listeners
+    window.addEventListener('wd101:langchange', () => {
+      updateControlsLanguage();
+      updateView();
+    });
+
+    window.addEventListener('wd101:tierchange', (e) => {
+      currentFilter = (e.detail && (e.detail.tierStr || e.detail.tier)) ? (e.detail.tierStr || e.detail.tier) : 'all';
+      syncFilterButtonStates();
+      updateView();
+    });
+
+    window.addEventListener('wd101:resetpreferences', () => {
+      currentFilter = 'all';
+      currentOrigin = 'all';
+      currentSearch = '';
+      currentSort = 'id';
+      if (searchInput) searchInput.value = '';
+      if (sortSelect) sortSelect.value = 'id';
+      originBtns.forEach(b => b.classList.toggle('active', b.dataset.origin === 'all'));
+      syncFilterButtonStates();
+      updateControlsLanguage();
+      updateView();
+    });
+  </script>
+
+  <!-- Global Shell Controller -->
+  <script src="assets/js/site-shell.js"></script>
+</body>
+</html>

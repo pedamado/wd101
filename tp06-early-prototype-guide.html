@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TP06: DRUMTIKS '26 — Protótipo Preliminar • Guião Técnico &amp; Resolução • WD101</title>
   
-  <!-- Previne FOUC de tema e idioma -->
+    <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
   <script>
     (function() {
-      const savedTheme = localStorage.getItem('wd101_theme') || 
-                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      const savedLang = localStorage.getItem('wd101_lang') === 'en' ? 'en' : 'pt';
       document.documentElement.setAttribute('lang', savedLang);
+      const savedAesthetic = localStorage.getItem('wd101_aesthetic') || 'airy';
+      document.documentElement.setAttribute('data-aesthetic', savedAesthetic);
     })();
   </script>
 
@@ -200,34 +201,7 @@
 <body>
 
   <!-- Site Header Landmark -->
-  <header class="site-header" role="banner">
-    <div class="header-inner">
-      <div class="brand">
-        <a href="index.html" class="brand-logo">WD<span>101</span></a>
-        <span class="brand-meta">FBAUP Design 2026/27</span>
-      </div>
-
-      <nav class="site-nav" aria-label="Navegação do Guião">
-        <ul>
-          <li><a href="index.html#assignments"><span class="lang-pt">← Enunciados</span><span class="lang-en">← Assignments</span></a></li>
-          <li><a href="#enquadramento"><span class="lang-pt">Enquadramento</span><span class="lang-en">Overview</span></a></li>
-          <li><a href="#passos"><span class="lang-pt">Passo a Passo</span><span class="lang-en">Step-by-Step</span></a></li>
-          <li><a href="#rubrica"><span class="lang-pt">Rubrica Docente</span><span class="lang-en">Grading Rubric</span></a></li>
-          <li><a href="#checklist"><span class="lang-pt">Checklist</span><span class="lang-en">Checklist</span></a></li>
-          <li><a href="#codigo-completo"><span class="lang-pt">Código Oficial</span><span class="lang-en">Official Code</span></a></li>
-        </ul>
-      </nav>
-
-      <div class="header-controls">
-        <a href="demos/tp06-responsive/index.html" target="_blank" rel="noopener noreferrer" class="btn-control" style="background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);">
-          <span class="lang-pt">🚀 Ver Mini-Site Demo ↗</span>
-          <span class="lang-en">🚀 View Live Demo ↗</span>
-        </a>
-        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
-        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
-      </div>
-    </div>
-  </header>
+  <header class="site-header" role="banner"></header>
 
   <!-- Main Container -->
   <main class="main-container">
@@ -1124,6 +1098,46 @@
       </div>
     </section>
 
+  
+    <!-- Connected in WD101 Organic Mesh Block -->
+    <section class="wd-mesh-section" id="connected-mesh">
+      <div class="wd-mesh-header">
+        <span class="wd-mesh-kicker"><span class="lang-pt">Mapeamento Pedagógico</span><span class="lang-en">Curricular Mesh</span> &bull; Connected in WD101</span>
+        <h2 class="wd-mesh-title"><span class="lang-pt">Articulação com Enunciados, Demos e Matriz W3C</span><span class="lang-en">Connected Course Milestones, Demos &amp; Matrix</span></h2>
+      </div>
+      <div class="wd-mesh-grid">
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Enunciados do Curso</span><span class="lang-en">Course Assignments</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="ex1-hello-warp-guide.html" class="wd-mesh-chip">🟢 EX1: Hello Warp!</a>
+            <a href="ex2-guide.html" class="wd-mesh-chip">🔵 EX2: Media &amp; Box Model</a>
+            <a href="tp06-early-prototype-guide.html" class="wd-mesh-chip">🔵 Projeto Fase 1: TP06</a>
+            <a href="demos/tp11-integrated-responsive-project/GUIDE.html" class="wd-mesh-chip">🟣 Projeto Fase 2: TP11</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="demos/index.html" class="wd-mesh-chip">🚀 Repositório Central de Demos</a>
+            <a href="demos/index.html?pat=1#core-patterns" class="wd-mesh-chip">Demo P1: Gaveta Móvel</a>
+            <a href="demos/index.html?pat=2#core-patterns" class="wd-mesh-chip">Demo P2: &lt;picture&gt;</a>
+            <a href="demos/index.html?pat=7#core-patterns" class="wd-mesh-chip">Demo P7: Sticky Stage</a>
+            <a href="interaction-patterns.html" class="wd-mesh-chip">✨ 142 Padrões Web</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Matriz HTML5 &amp; CSS3</span><span class="lang-en">W3C Standards Matrix</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="matrix.html" class="wd-mesh-chip" style="font-weight:700;color:var(--color-swiss-red);">Matriz Completa (314) ↗</a>
+            <a href="matrix.html?cat=cat-landmarks" class="wd-mesh-chip">Landmarks HTML5</a>
+            <a href="matrix.html?cat=cat-boxmodel" class="wd-mesh-chip">Box Model &amp; Sizing</a>
+            <a href="matrix.html?cat=cat-flex-grid" class="wd-mesh-chip">Flexbox &amp; Grid</a>
+            <a href="ixd-principles.html" class="wd-mesh-chip">🧭 Princípios de IxD</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- Sincronização Progressiva de Tema e Idioma com localStorage -->
@@ -1175,5 +1189,6 @@
     }
   </script>
 
+<script src="assets/js/site-shell.js"></script>
 </body>
 </html>

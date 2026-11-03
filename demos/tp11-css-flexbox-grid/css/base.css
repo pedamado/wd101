@@ -75,7 +75,14 @@ html[data-theme="light"] {
 }
 
 html[data-theme="light"] .site-header {
-  background-color: rgba(248, 249, 250, 0.88);
+  background-color: rgba(248, 249, 250, 0.92);
+  border-bottom: 1px solid var(--color-border-medium);
+}
+
+html[data-theme="light"] .btn-control {
+  background-color: var(--color-surface-1);
+  color: var(--color-text-main);
+  border-color: var(--color-border-medium);
 }
 
 /* Bilingual Presentation Layer */
@@ -200,7 +207,8 @@ button, input, select, textarea {
   font-weight: 800;
   font-size: 1.25rem;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--color-text-main);
+  text-decoration: none;
 }
 
 .brand-logo span.tag {
@@ -213,7 +221,7 @@ button, input, select, textarea {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: 0.25rem 0.6rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-surface-2);
   border: 1px solid var(--color-border-medium);
   border-radius: var(--radius-full);
   color: var(--color-text-muted);
@@ -238,16 +246,17 @@ button, input, select, textarea {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  text-decoration: none;
 }
 
 .nav-link:hover {
-  color: #fff;
+  color: var(--color-text-main);
   background-color: var(--color-surface-2);
   border-color: var(--color-border-medium);
 }
 
 .nav-link.active {
-  color: #fff;
+  color: var(--color-accent-cyan);
   background-color: var(--color-surface-1);
   border-color: var(--color-accent-cyan);
   box-shadow: 0 0 12px var(--color-accent-cyan-glow);
@@ -256,6 +265,10 @@ button, input, select, textarea {
 .nav-pill-num {
   font-size: 0.7rem;
   padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  background: var(--color-surface-2);
+  color: var(--color-text-dim);
+}
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.1);
   color: var(--color-accent-cyan);
@@ -415,14 +428,14 @@ button, input, select, textarea {
 }
 
 .segmented-options label:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-main);
+  background: var(--color-surface-hover);
 }
 
 /* Checked state activated via sibling combinator (+) */
 .segmented-options input[type="radio"]:checked + label {
   background-color: var(--color-surface-hover);
-  color: #fff;
+  color: var(--color-accent-cyan);
   border: 1px solid var(--color-accent-cyan);
   box-shadow: 0 0 10px var(--color-accent-cyan-glow);
 }
@@ -667,13 +680,13 @@ pre.code-block {
 }
 
 .sandbox-view-tabs label:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-main);
+  background: var(--color-surface-hover);
 }
 
 .sandbox-view-tabs input[type="radio"]:checked + label {
   background-color: var(--color-surface-hover);
-  color: #fff;
+  color: var(--color-accent-cyan);
   border: 1px solid var(--color-accent-cyan);
   box-shadow: 0 0 10px var(--color-accent-cyan-glow);
 }
@@ -782,7 +795,7 @@ body:has(#tab-view-css:checked) .sandbox-pane-css { display: block !important; }
   font-family: var(--font-display);
   font-size: 1.45rem;
   font-weight: 800;
-  color: #fff;
+  color: var(--color-text-main);
   margin-top: 0.4rem;
 }
 

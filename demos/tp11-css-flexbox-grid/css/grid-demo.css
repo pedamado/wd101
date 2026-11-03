@@ -123,7 +123,7 @@
   font-size: 1.25rem;
   font-weight: 800;
   line-height: 1.2;
-  color: #fff;
+  color: var(--color-text-main);
 }
 
 .card-album-desc {
@@ -178,7 +178,7 @@
   font-size: 1.05rem;
   font-weight: 700;
   line-height: 1.4;
-  color: #fff;
+  color: var(--color-text-main);
 }
 
 .quote-author {
@@ -253,7 +253,7 @@
   font-size: 2.8rem;
   font-weight: 800;
   line-height: 1;
-  color: #fff;
+  color: var(--color-text-main);
 }
 
 .stat-sublabel {

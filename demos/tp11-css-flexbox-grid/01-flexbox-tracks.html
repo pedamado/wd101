@@ -26,6 +26,16 @@
   <title>01 • Flexbox Layout | DJ Warp Track Listing | DRUMTIKS '26</title>
   <meta name="description" content="Pedagogical interactive laboratory for CSS Flexbox: 1D axes, direction, wrapping, alignment, order, and responsive breakpoints using DJ Warp's discography.">
 
+  <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') === 'en' ? 'en' : 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
+
   <!-- Local variable fonts (Inter, Martian Mono, Syne) -->
   <link rel="stylesheet" href="css/fonts.css">
   <!-- Shared design system tokens, typography, resets and header -->
@@ -40,7 +50,7 @@
     Sticky global top bar. Uses Flexbox (display: flex; justify-content: space-between;)
     to anchor brand typography to the left and navigation pills to the right.
   -->
-  <header class="site-header" role="banner">
+  <header class="site-header" role="banner" data-static-shell="true">
     <div class="header-container">
       <div class="brand-group">
         <a href="index.html" class="brand-logo" aria-label="Return to Curriculum Hub">
@@ -49,10 +59,16 @@
         <span class="brand-badge">WD101 • LAB 01</span>
       </div>
 
-      <!-- Navigation tabs between all 3 Masterclass pages and the Hub -->
+      <!-- Navigation tabs between all Masterclass pages and the Hubs -->
       <nav class="main-nav" aria-label="Curriculum Navigation">
+        <a href="../../index.html" class="nav-link" style="color:var(--color-accent-gold);">
+          <span>🏠 Hub Global</span>
+        </a>
+        <a href="../index.html" class="nav-link" style="color:var(--color-accent-cyan);">
+          <span>📦 Demos Hub</span>
+        </a>
         <a href="index.html" class="nav-link">
-          <span>🏠 Hub</span>
+          <span>Labs Hub</span>
         </a>
         <a href="01-flexbox-tracks.html" class="nav-link active" aria-current="page">
           <span class="nav-pill-num">01</span>
@@ -71,6 +87,10 @@
           <span>Container Queries</span>
         </a>
       </nav>
+
+      <div class="header-controls">
+        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
+      </div>
     </div>
   </header>
 
@@ -1061,7 +1081,7 @@
    ========================================================================== */
 .track-card {
   /*
-    Shorthand: flex: <flex-grow> <flex-shrink> <flex-basis>
+    Shorthand: flex: &lt;flex-grow&gt; &lt;flex-shrink&gt; &lt;flex-basis&gt;
     - flex-grow: 1   (expands to fill leftover empty space on its row)
     - flex-shrink: 1 (shrinks proportionally if viewport is constrained)
     - flex-basis: 320px (ideal starting size on desktop before wrapping)
@@ -1104,6 +1124,8 @@
   order: -10;                     /* Negative order renders BEFORE natural order: 0 */
 }</code></pre>
       </div>
+
+    </section> <!-- .tracklist-workspace -->
 
       <!-- ====================================================================
            BAREBONE STRUCTURAL BLUEPRINT (Pedagogical Cheat Sheet)
@@ -1337,5 +1359,29 @@
     </div>
   </footer>
 
+  <script>
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    function updateThemeBtnState() {
+      if (!themeBtn) return;
+      const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const isDark = current === 'dark';
+      const lang = document.documentElement.getAttribute('lang') || 'pt';
+      const label = isDark ? (lang === 'pt' ? 'Claro' : 'Light') : (lang === 'pt' ? 'Escuro' : 'Dark');
+      themeBtn.textContent = label;
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('wd101_theme', next);
+        updateThemeBtnState();
+      });
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      updateThemeBtnState();
+    }
+  </script>
 </body>
 </html>

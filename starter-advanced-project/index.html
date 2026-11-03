@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DRUMTIKS '26 — Starter Avançado (Projeto Final Pure CSS)</title>
+  
+  <!-- CSS Layer Hierarchy -->
+  <link rel="stylesheet" href="css/01-reset.css">
+  <link rel="stylesheet" href="css/02-tokens.css">
+  <link rel="stylesheet" href="css/03-layout.css">
+  <link rel="stylesheet" href="css/04-components.css">
+  <link rel="stylesheet" href="css/05-xray.css">
+</head>
+<body>
+
+  <!-- X-Ray Toggle Checkbox (Pure CSS) -->
+  <input type="checkbox" id="xray-toggle" aria-label="Ativar Modo Raio-X">
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-logo">DRUMTIKS<span>'26</span></a>
+
+      <input type="checkbox" id="nav-drawer" class="nav-checkbox">
+      <label for="nav-drawer" class="nav-toggle-btn">☰ Menu</label>
+
+      <nav class="nav-list">
+        <a href="#lineup">Lineup</a>
+        <a href="#stages">Palcos</a>
+        <a href="#schedule">Horários</a>
+        <a href="#tickets">Bilhetes</a>
+        <a href="../index.html" style="color:var(--color-brand);">← Hub WD101</a>
+      </nav>
+
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <label for="xray-toggle" class="xray-label">🩻 Raio-X</label>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    
+    <header style="margin-bottom:var(--space-8);">
+      <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-brand);font-weight:700;">PROJETO FINAL CAPSTONE &bull; ARQUITETURA @LAYER</span>
+      <h1 style="font-size:var(--text-2xl);font-weight:900;line-height:1.1;margin-top:0.25rem;">Portal Festival DRUMTIKS '26</h1>
+      <p style="font-size:var(--text-base);color:var(--color-ink-muted);max-width:68ch;margin-top:0.5rem;">
+        Boilerplate avançado com organização por camadas <code>@layer</code>, tokens dinâmicos com <code>light-dark()</code>, carrossel scroll-snap, acordeão <code>&lt;details&gt;</code> e motor de preços reativo via <code>:has()</code> — estritamente sem JavaScript.
+      </p>
+    </header>
+
+    <div class="festival-grid">
+      
+      <!-- Aside Sticky Stage Info -->
+      <aside style="position:sticky;top:5rem;">
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);border-left:4px solid var(--color-brand);border-radius:var(--radius);padding:var(--space-4);margin-bottom:var(--space-4);">
+          <h2 style="font-size:1.15rem;margin-bottom:0.25rem;">Palco Jardim FBAUP</h2>
+          <p style="font-size:var(--text-sm);color:var(--color-ink-muted);">Capacidade: 800 lugares &bull; Entrada livre para estudantes UP.</p>
+        </div>
+
+        <!-- P8: Simulador de Bilhetes -->
+        <div class="ticket-shop" id="tickets">
+          <h3 style="font-size:1rem;margin-bottom:var(--space-2);">Simulador de Bilhetes</h3>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:var(--space-3);font-size:var(--text-sm);">
+            <label><input type="checkbox" id="opt-standard" checked> Geral (+35 €)</label>
+            <label><input type="checkbox" id="opt-vip"> VIP Backstage (+75 €)</label>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-weight:800;border-top:1px solid var(--color-border);padding-top:0.5rem;">
+            <span>Total:</span>
+            <span class="total-display" style="color:var(--color-brand);font-family:var(--font-mono);"></span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Column -->
+      <section>
+        
+        <!-- P3: Carrossel Scroll-Snap -->
+        <h2 style="font-size:1.3rem;margin-bottom:var(--space-3);" id="stages">Destaques dos Palcos (Scroll Snap)</h2>
+        <div class="snap-carousel">
+          <article class="carousel-item">
+            <h3 style="font-size:1.1rem;color:var(--color-brand);margin-bottom:0.25rem;">Beat Foundry</h3>
+            <p style="font-size:var(--text-sm);color:var(--color-ink-muted);">Percussão experimental com chapas e triggers analógicos.</p>
+          </article>
+          <article class="carousel-item">
+            <h3 style="font-size:1.1rem;color:var(--color-brand);margin-bottom:0.25rem;">Warp Tunnel</h3>
+            <p style="font-size:var(--text-sm);color:var(--color-ink-muted);">DJ Warp ao vivo: bateria acústica e síntese modular Buchla.</p>
+          </article>
+          <article class="carousel-item">
+            <h3 style="font-size:1.1rem;color:var(--color-brand);margin-bottom:0.25rem;">Ambient Garden</h3>
+            <p style="font-size:var(--text-sm);color:var(--color-ink-muted);">Instalação sonora binaural e marimba eletroacústica.</p>
+          </article>
+        </div>
+
+        <!-- P4: Acordeão de Horários -->
+        <h2 style="font-size:1.3rem;margin:var(--space-8) 0 var(--space-3);" id="schedule">Horários Oficiais (&lt;details&gt;)</h2>
+        <div class="festival-accordion">
+          <details open>
+            <summary>Sexta-Feira, 24 Outubro</summary>
+            <div class="accordion-body">
+              <p>21:00 — Abertura de Portas &bull; Soundcheck Aberto</p>
+              <p>22:30 — DJ Warp (Main Stage Headliner)</p>
+            </div>
+          </details>
+          <details>
+            <summary>Sábado, 25 Outubro</summary>
+            <div class="accordion-body">
+              <p>19:00 — Workshop de Percussão Experimental</p>
+              <p>23:00 — Polyrhythm Jam Ensemble &bull; Encerramento</p>
+            </div>
+          </details>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="background:var(--color-surface);border-top:1px solid var(--color-border);padding:var(--space-6) var(--space-4);text-align:center;font-size:var(--text-xs);color:var(--color-ink-muted);">
+    <p>DRUMTIKS '26 &bull; Faculdade de Belas Artes da Universidade do Porto &bull; Web Design 101</p>
+  </footer>
+
+</body>
+</html>

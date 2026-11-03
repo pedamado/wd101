@@ -9,25 +9,21 @@
     Licenciatura em Design de Comunicação • i2ADS
     Autoria: Prof. Pedro Amado (FBAUP/i2ADS) & Google Gemini (Antigravity)
     ==========================================================================
-    MDN & SCHOLARLY CANONICAL REFERENCES:
-    - Harvard CS50: Teaching CS50 with AI (David J. Malan et al.):
-      https://cs50.harvard.edu
-    - Ethan & Lilach Mollick: Assigning AI: Seven Approaches for Students:
-      https://oneusefulthing.org
-    - MDN Web Docs: Learn Web Development:
-      https://developer.mozilla.org/en-US/docs/Learn
-    - Google web.dev: Modern Web Guidance & Core Web Vitals:
-      https://web.dev/learn/css
-    - The Front-End Checklist (David Dias):
-      https://frontendchecklist.io
-    - The A11Y Project Checklist:
-      https://www.a11yproject.com/checklist/
+    ENQUADRAMENTO INSTITUCIONAL & CANÓNICO:
+    - Universidade do Porto: Orientações para uso e adoção responsável de 
+      Inteligência Artificial Generativa no Domínio Educativo (Junho de 2026)
+    - Despacho N.º GR. 08/05/2025 (Unidade de Inovação Educativa U.Porto)
+    - Código de Conduta e Boas Práticas da Universidade do Porto (2026)
+    - Harvard CS50: Teaching CS50 with AI (David J. Malan et al.)
+    - Ethan & Lilach Mollick: Assigning AI: Seven Approaches for Students
+    - MDN Web Docs: Living Standard HTML5 & CSS3/4/5
+    - The Front-End Checklist (David Dias) & A11Y Project (WCAG 2.2 AAA)
     ==========================================================================
   -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Transição para IA &amp; Modo Antigravity ADE • WD101 FBAUP</title>
-  <meta name="description" content="Manual pedagógico e ético de transição do código manual em VS Code para o modo Antigravity ADE. Aprenda a usar a IA como mentor socrático, criar sandboxes de aprendizagem com links MDN e aplicar checklists de controlo de qualidade.">
+  <meta name="description" content="Manual pedagógico e ético de transição do código manual em VS Code para o modo Antigravity ADE. Normas da U.Porto, semáforos verde/amarelo/vermelho, rasto de processo, sandboxes de aprendizagem com links MDN e auditoria de qualidade.">
 
   <!-- Previne FOUC de tema e idioma -->
   <script>
@@ -50,6 +46,9 @@
       --color-guide-accent-hover: #059669;
       --color-ide: #0284c7;
       --color-ade: #a855f7;
+      --color-traffic-green: #10b981;
+      --color-traffic-yellow: #f5a623;
+      --color-traffic-red: #e60000;
     }
 
     .guide-hero {
@@ -110,6 +109,63 @@
     .engine-badge--ade {
       background: rgba(168, 85, 247, 0.15);
       color: var(--color-ade);
+    }
+
+    /* Traffic Light Cards */
+    .traffic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-4);
+      margin: var(--space-6) 0;
+    }
+    .traffic-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: var(--space-5);
+      display: flex;
+      flex-direction: column;
+    }
+    .traffic-card--green {
+      border-top: 5px solid var(--color-traffic-green);
+    }
+    .traffic-card--yellow {
+      border-top: 5px solid var(--color-traffic-yellow);
+    }
+    .traffic-card--red {
+      border-top: 5px solid var(--color-traffic-red);
+    }
+    .traffic-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      font-weight: 700;
+    }
+    .traffic-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .traffic-tag--green {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--color-traffic-green);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .traffic-tag--yellow {
+      background: rgba(245, 166, 35, 0.15);
+      color: var(--color-traffic-yellow);
+      border: 1px solid rgba(245, 166, 35, 0.3);
+    }
+    .traffic-tag--red {
+      background: rgba(230, 0, 0, 0.15);
+      color: var(--color-traffic-red);
+      border: 1px solid rgba(230, 0, 0, 0.3);
     }
 
     /* Step Card */
@@ -176,6 +232,28 @@
       border-color: var(--color-guide-accent);
     }
 
+    /* Institutional Callout */
+    .up-callout {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--color-guide-accent);
+      border-radius: 6px;
+      padding: var(--space-4);
+      margin: var(--space-5) 0;
+    }
+    .up-callout-title {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-guide-accent);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+
     /* Interactive Checklist */
     .checklist-container {
       background: var(--bg-surface-elevated);
@@ -226,6 +304,26 @@
       cursor: pointer;
     }
 
+    /* Comparison Table for Prompts */
+    .prompt-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-4) 0;
+      font-size: var(--text-xs);
+    }
+    .prompt-table th, .prompt-table td {
+      border: 1px solid var(--border-color);
+      padding: var(--space-3);
+      text-align: left;
+      vertical-align: top;
+    }
+    .prompt-table th {
+      background: var(--bg-surface-elevated);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
     /* Interactive Simulator */
     .sim-container {
       background: var(--bg-surface-elevated);
@@ -270,32 +368,32 @@
 </head>
 <body>
 
-  <!-- Barra de Acessibilidade & Cabeçalho -->
-  <header style="background:var(--bg-surface); border-bottom:1px solid var(--border-color); padding:var(--space-2) 0; position:sticky; top:0; z-index:100; backdrop-filter:blur(8px);">
-    <div style="max-width:1200px; margin:0 auto; padding:0 var(--space-4); display:flex; justify-content:space-between; align-items:center;">
-      <a href="index.html#study-goals" class="guide-back-link" style="margin-bottom:0;">
-        ← <span class="lang-pt">Andaime Pedagógico (Objetivos de Estudo)</span><span class="lang-en">Learning Scaffold (Study Goals)</span>
-      </a>
+  <!-- Barra de Acessibilidade & Cabeçalho Global (site-shell.js) -->
+  <header class="site-header" role="banner"></header>
 
-      <div style="display:flex; gap:var(--space-2); align-items:center;">
-        <button id="theme-toggle-btn" class="btn-control" style="font-size:var(--text-xs); padding:4px 8px;">
-          🌙 <span>Escuro</span>
-        </button>
-        <button id="lang-toggle-btn" class="btn-control" style="font-size:var(--text-xs); padding:4px 8px;">
-          English
-        </button>
-      </div>
-    </div>
-  </header>
+  <main class="main-container" id="main-content">
 
-  <main style="max-width:1100px; margin:0 auto; padding:var(--space-6) var(--space-4);">
+    <!-- Breadcrumb Strip -->
+    <nav class="breadcrumb-strip" aria-label="Navegação Estrutural" style="margin-bottom:var(--space-4);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+      <a href="index.html" style="color:var(--text-muted);text-decoration:none;">WD101</a>
+      <span>/</span>
+      <a href="index.html#cluster-4" style="color:var(--text-muted);text-decoration:none;"><span class="lang-pt">Módulo 04: IA &amp; Futuro</span><span class="lang-en">Module 04: AI &amp; Future</span></a>
+      <span>/</span>
+      <span style="color:var(--color-guide-accent, #10b981);font-weight:700;">Manual de Transição para IA &amp; ADE</span>
+    </nav>
 
     <!-- Hero Section -->
     <section class="guide-hero">
-      <span class="badge badge-transversal" style="margin-bottom:var(--space-3); border-color:var(--color-guide-accent); color:var(--color-guide-accent);">
-        <span class="lang-pt">Módulo Transversal • Tutoria IA &amp; Metodologia</span>
-        <span class="lang-en">Transversal Module • AI Mentorship &amp; Methodology</span>
-      </span>
+      <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-3);">
+        <span class="badge badge-transversal" style="border-color:var(--color-guide-accent); color:var(--color-guide-accent);">
+          <span class="lang-pt">Módulo Transversal • Tutoria IA &amp; Metodologia</span>
+          <span class="lang-en">Transversal Module • AI Mentorship &amp; Methodology</span>
+        </span>
+        <span class="badge badge-foundational" style="border-color:var(--color-ide); color:var(--color-ide);">
+          <span class="lang-pt">Enquadramento Ético U.Porto 2026</span>
+          <span class="lang-en">U.Porto 2026 Ethical Framework</span>
+        </span>
+      </div>
 
       <h1 style="font-size:clamp(1.8rem, 3.5vw + 0.5rem, 3rem); line-height:1.15; margin-bottom:var(--space-3);">
         <span class="lang-pt">Transição para IA &amp; Modo Antigravity ADE</span>
@@ -303,45 +401,105 @@
       </h1>
 
       <p style="font-size:var(--text-lg); color:var(--text-secondary); max-width:75ch; margin-bottom:var(--space-4); line-height:1.6;">
-        <span class="lang-pt">Como transitar da codificação manual no Visual Studio Code para orquestrar agentes autónomos no Antigravity. Use a IA como mentor socrático, crie sandboxes paralelas de teste com referências canónicas da Living Standard MDN e aplique rotinas de controlo de qualidade 360°.</span>
-        <span class="lang-en">How to transition from manual coding in Visual Studio Code to orchestrating autonomous agents in Antigravity. Use AI as a Socratic mentor, build parallel learning sandboxes with canonical MDN references, and enforce 360° quality assurance protocols.</span>
+        <span class="lang-pt">Manual de Adoção Responsável de IA para Estudantes de Web Design: Enquadramento Ético da Universidade do Porto (Junho 2026), Semáforos de Atividade, Modo Antigravity ADE (IDE + Agente), Padrão Socratic Sandbox, Rasto de Processo e Controlo de Qualidade 360°.</span>
+        <span class="lang-en">Responsible AI Adoption Manual for Web Design Students: University of Porto Ethical Guidelines (June 2026), Activity Traffic Lights, Antigravity ADE Mode (IDE + Agent), Socratic Sandbox Pattern, Process Traceability, and 360° Quality Assurance.</span>
       </p>
 
       <div style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-muted); display:flex; flex-wrap:wrap; gap:var(--space-4); border-top:1px solid var(--border-color); padding-top:var(--space-3);">
         <span><strong>Direção Pedagógica:</strong> Prof. Pedro Amado (FBAUP / i2ADS)</span>
         <span><strong>Co-Autoria:</strong> Google Gemini (DeepMind Antigravity)</span>
+        <span><strong>Normas Institucionais:</strong> U.Porto Grupo IA (Despacho GR. 08/05/2025)</span>
         <span><strong>Curso:</strong> Web Design 101 • 2026/27</span>
         <a href="AI-MENTOR-TRANSITION-GUIDE.md" style="color:var(--color-guide-accent); font-weight:700;">📄 Versão Markdown (.md) ↗</a>
       </div>
     </section>
 
-    <!-- Índice de Navegação Interno -->
-    <nav style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-radius:6px; padding:var(--space-4); margin-bottom:var(--space-8);">
-      <strong style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-primary); text-transform:uppercase; display:block; margin-bottom:var(--space-2);">
-        <span class="lang-pt">Neste Guia:</span><span class="lang-en">In this Guide:</span>
-      </strong>
-      <div style="display:flex; flex-wrap:wrap; gap:var(--space-2) var(--space-4); font-size:var(--text-sm);">
-        <a href="#manifesto" style="color:var(--text-secondary);">1. <span class="lang-pt">Manifesto Ético &amp; Carta de Condução</span><span class="lang-en">Ethical Manifesto &amp; Driver's License</span></a>
-        <a href="#dual-engine" style="color:var(--text-secondary);">2. <span class="lang-pt">Arquitetura Dupla: IDE vs. ADE</span><span class="lang-en">Dual Architecture: IDE vs. ADE</span></a>
-        <a href="#workflows" style="color:var(--text-secondary);">3. <span class="lang-pt">Os 4 Fluxos de Trabalho</span><span class="lang-en">The 4 Practical Workflows</span></a>
-        <a href="#sandbox-pattern" style="color:var(--text-secondary);">4. <span class="lang-pt">O Padrão Socratic Sandbox</span><span class="lang-en">The Socratic Sandbox Pattern</span></a>
-        <a href="#checklist" style="color:var(--text-secondary);">5. <span class="lang-pt">Checklist 360° de Qualidade Web</span><span class="lang-en">360° Web Quality Checklist</span></a>
-        <a href="#prompts" style="color:var(--text-secondary);">6. <span class="lang-pt">Biblioteca de Prompts para Alunos</span><span class="lang-en">Student Prompt Library</span></a>
-        <a href="#simulator" style="color:var(--text-secondary);">7. <span class="lang-pt">Laboratório Comparativo Interativo</span><span class="lang-en">Interactive Comparison Lab</span></a>
-      </div>
-    </nav>
+    <!-- Page Layout with Sticky Aside Rail -->
+    <div class="page-layout-with-aside">
 
-    <!-- 1. MANIFESTO & CARTA DE CONDUÇÃO -->
+      <!-- Sticky Aside TOC Navigation Card -->
+      <aside class="aside-toc" aria-label="Navegação do Manual de IA">
+        <div class="aside-toc-card">
+          <div class="aside-toc-header">
+            <span class="aside-toc-title"><span class="lang-pt">Neste Manual</span><span class="lang-en">In this Guide</span></span>
+            <span class="aside-toc-count">9 Secções</span>
+          </div>
+          <ul class="aside-toc-list">
+            <li class="aside-toc-item"><a href="#manifesto" class="aside-toc-link"><span>📜 1. <span class="lang-pt">Ética U.Porto</span><span class="lang-en">U.Porto Ethics</span></span></a></li>
+            <li class="aside-toc-item"><a href="#traffic-lights" class="aside-toc-link"><span>🚦 2. <span class="lang-pt">Sistema Semáforos</span><span class="lang-en">Traffic Lights</span></span></a></li>
+            <li class="aside-toc-item"><a href="#dual-engine" class="aside-toc-link"><span>⚙️ 3. <span class="lang-pt">Motor IDE vs. ADE</span><span class="lang-en">IDE vs. ADE</span></span></a></li>
+            <li class="aside-toc-item"><a href="#workflows" class="aside-toc-link"><span>🔄 4. <span class="lang-pt">4 Fases Práticas</span><span class="lang-en">4 Practical Phases</span></span></a></li>
+            <li class="aside-toc-item"><a href="#declarations" class="aside-toc-link"><span>📝 5. <span class="lang-pt">Declaração &amp; Rasto</span><span class="lang-en">Process Trace</span></span></a></li>
+            <li class="aside-toc-item"><a href="#critique" class="aside-toc-link"><span>🎯 6. <span class="lang-pt">Crítica Presencial</span><span class="lang-en">In-Person Critique</span></span></a></li>
+            <li class="aside-toc-item"><a href="#checklist" class="aside-toc-link"><span>✅ 7. <span class="lang-pt">Checklist 360°</span><span class="lang-en">360° Checklist</span></span></a></li>
+            <li class="aside-toc-item"><a href="#prompts" class="aside-toc-link"><span>💬 8. <span class="lang-pt">Promptário U.Porto</span><span class="lang-en">U.Porto Prompts</span></span></a></li>
+            <li class="aside-toc-item"><a href="#simulator" class="aside-toc-link"><span>🔬 9. <span class="lang-pt">Simulador Interativo</span><span class="lang-en">Comparison Lab</span></span></a></li>
+            <li class="aside-toc-item"><a href="#connected-mesh" class="aside-toc-link"><span>🔗 10. <span class="lang-pt">Rede Curricular</span><span class="lang-en">Curriculum Mesh</span></span></a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Educational Body -->
+      <div class="page-layout-main">
+
+    <!-- 1. ENQUADRAMENTO ÉTICO U.PORTO & CARTA DE CONDUÇÃO -->
     <section id="manifesto" style="margin-bottom:var(--space-10);">
       <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-3); border-bottom:1px solid var(--border-color); padding-bottom:var(--space-2);">
-        <span class="lang-pt">1. Manifesto Pedagógico: A Armadilha do Assistente &amp; A "Carta de Condução"</span>
-        <span class="lang-en">1. Pedagogical Manifesto: The Assistant Trap &amp; The "Driver's License"</span>
+        <span class="lang-pt">1. Enquadramento Ético da Universidade do Porto &amp; A "Carta de Condução"</span>
+        <span class="lang-en">1. University of Porto Ethical Framework &amp; The Code "Driver's License"</span>
       </h2>
 
       <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:var(--space-4);">
-        <span class="lang-pt">Na aprendizagem de Web Design e Design de Comunicação, a inteligência artificial generativa sem restrições é perigosa: ela sofre do <em>"Viés do Assistente Prestável"</em>. Ao fornecer de imediato blocos de código prontos a colar, o modelo rouba ao estudante o <strong>esforço produtivo</strong> (<em>productive struggle</em>), criando a ilusão de competência. O estudante cola o código, o layout funciona no momento, mas na primeira avaria ou necessidade de ajuste visual fino, fica completamente indefeso.</span>
-        <span class="lang-en">In communication and web design education, unrestricted generative AI carries a severe pedagogical risk: the <em>"Helpful Assistant Bias"</em>. By immediately providing turnkey code snippets, standard LLMs rob the student of the <strong>productive struggle</strong>, generating an illusion of competence. The layout renders, but as soon as a breakpoint breaks or fine typographic adjustments are required, the learner is completely helpless.</span>
+        <span class="lang-pt">De acordo com as <em>Orientações para o Uso e Adoção Responsável de Inteligência Artificial Generativa no Domínio Educativo da Universidade do Porto (Junho de 2026)</em> e o <em>Código de Conduta e Boas Práticas da U.Porto</em>, a missão formativa da universidade concentra-se na <strong>essencial dimensão humana dos estudantes</strong>. A inteligência artificial generativa (IAGen) constitui um recurso legítimo e inovador de apoio pedagógico, treino e feedback — mas <strong>nunca pode substituir o esforço intelectual, a autoria e o pensamento crítico do estudante</strong>.</span>
+        <span class="lang-en">According to the <em>Guidelines for the Responsible Use and Adoption of Generative Artificial Intelligence in the Educational Domain of the University of Porto (June 2026)</em> and the <em>U.Porto Code of Conduct and Good Practice</em>, the university's educational mission centers on the <strong>essential human dimension of students</strong>. Generative AI (GenAI) is a legitimate and innovative resource for pedagogical scaffolding, practice, and feedback — but <strong>it must never replace the student's intellectual struggle, authorship, and critical thinking</strong>.</span>
       </p>
+
+      <!-- Princípios Inegociáveis U.Porto -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:var(--space-3); margin-bottom:var(--space-5);">
+        <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-left:3px solid var(--color-guide-accent); padding:var(--space-3); border-radius:4px;">
+          <strong style="color:var(--text-primary); font-size:var(--text-xs); text-transform:uppercase; font-family:var(--font-mono); display:block; margin-bottom:4px;">
+            <span class="lang-pt">⚖️ 1. Autoria &amp; Responsabilidade Exclusiva</span>
+            <span class="lang-en">⚖️ 1. Authorship &amp; Exclusive Responsibility</span>
+          </strong>
+          <p style="font-size:var(--text-xs); color:var(--text-secondary); line-height:1.5;">
+            <span class="lang-pt">A IA não é co-autora jurídica nem académica. O estudante é 100% responsável pelo código, semântica, desempenho e conformidade de acessibilidade do seu website. Não se pode culpar a IA por erros, falhas ou vulnerabilidades submetidas.</span>
+            <span class="lang-en">AI is neither a legal nor academic co-author. The student retains 100% responsibility for code, semantics, performance, and accessibility compliance. AI cannot be blamed for bugs, flaws, or vulnerabilities submitted.</span>
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-left:3px solid var(--color-ide); padding:var(--space-3); border-radius:4px;">
+          <strong style="color:var(--text-primary); font-size:var(--text-xs); text-transform:uppercase; font-family:var(--font-mono); display:block; margin-bottom:4px;">
+            <span class="lang-pt">🤝 2. Equidade &amp; Ferramentas Gratuitas</span>
+            <span class="lang-en">🤝 2. Equity &amp; Functional Free Standard</span>
+          </strong>
+          <p style="font-size:var(--text-xs); color:var(--text-secondary); line-height:1.5;">
+            <span class="lang-pt">Regra mínima da U.Porto: nenhuma atividade avaliada pode pressupor ou exigir ferramentas pagas. No curso WD101, todos os métodos funcionam estritamente no standard gratuito: Google Antigravity, Gemini, VS Code e Live Server local.</span>
+            <span class="lang-en">U.Porto standard: no graded coursework can mandate or rely on paid tools. In WD101, all methods operate strictly on free standards: Google Antigravity, Gemini, VS Code, and local Live Server.</span>
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-left:3px solid var(--color-traffic-red); padding:var(--space-3); border-radius:4px;">
+          <strong style="color:var(--text-primary); font-size:var(--text-xs); text-transform:uppercase; font-family:var(--font-mono); display:block; margin-bottom:4px;">
+            <span class="lang-pt">🔒 3. Privacidade, RGPD &amp; Credenciais</span>
+            <span class="lang-en">🔒 3. Privacy, GDPR &amp; Credentials</span>
+          </strong>
+          <p style="font-size:var(--text-xs); color:var(--text-secondary); line-height:1.5;">
+            <span class="lang-pt">Nunca introduzir dados pessoais, institucionais confidenciais, chaves privadas de API, senhas de FTP/SSH ou materiais sob sigilo em ferramentas públicas de IA. Todo o código submetido a agentes cloud deve ser anonimizado e estritamente público.</span>
+            <span class="lang-en">Never feed personal data, confidential institutional details, API private keys, FTP/SSH passwords, or non-public work into public AI tools. Any code submitted to cloud agents must be anonymized and strictly public.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- A Regra de Ouro dos 15 Minutos -->
+      <div class="up-callout">
+        <div class="up-callout-title">
+          <span>⏱️ A Regra dos 15 Minutos (Promptário de Estudo U.Porto)</span>
+        </div>
+        <p style="font-size:var(--text-sm); color:var(--text-secondary); line-height:1.6; margin:0;">
+          <span class="lang-pt"><em>"Tentar primeiro sozinho durante alguns minutos antes de consultar a IAGen."</em> Ao deparares-te com um desafio de layout (ex: um Flexbox que não quebra ou um Sticky que não fixa), investiga o problema com as tuas mãos e olhos no IDE e nas DevTools durante pelo menos 15 minutos. Só depois desse esforço cognitivo — que consolida o modelo mental — deves abrir o Antigravity ADE para pedir pistas, analogias ou explicações de causa.</span>
+          <span class="lang-en"><em>"Always attempt on your own for a few minutes before consulting GenAI."</em> When encountering a layout issue (e.g. Flexbox not wrapping or Sticky failing), inspect the problem manually in your IDE and browser DevTools for at least 15 minutes. Only after that cognitive struggle should you open Antigravity ADE to request hints, analogies, or causal explanations.</span>
+        </p>
+      </div>
 
       <!-- Auto-Avaliação da Carta de Condução -->
       <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-left:4px solid var(--color-guide-accent); border-radius:6px; padding:var(--space-4); margin:var(--space-5) 0;">
@@ -378,16 +536,100 @@
       </div>
     </section>
 
-    <!-- 2. ARQUITETURA DUPLA: IDE VS ADE -->
-    <section id="dual-engine" style="margin-bottom:var(--space-10);">
+    <!-- 2. O SISTEMA DE SEMÁFOROS DA U.PORTO NO WEB DESIGN -->
+    <section id="traffic-lights" style="margin-bottom:var(--space-10);">
       <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-3); border-bottom:1px solid var(--border-color); padding-bottom:var(--space-2);">
-        <span class="lang-pt">2. Arquitetura Dupla: O Editor IDE vs. O Modo Agente ADE</span>
-        <span class="lang-en">2. Dual Architecture: The IDE Editor vs. The ADE Agent Mode</span>
+        <span class="lang-pt">2. O Sistema Institucional de Semáforos no Web Design (WD101)</span>
+        <span class="lang-en">2. The U.Porto Institutional Traffic Light System in Web Design</span>
       </h2>
 
       <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:var(--space-4);">
-        <span class="lang-pt">O Antigravity combina dois motores complementares. Aprender a alternar deliberadamente entre eles é a chave para a mestria técnica e criativa:</span>
-        <span class="lang-en">Antigravity combines two complementary engines. Learning to deliberately switch between them is the key to technical and creative mastery:</span>
+        <span class="lang-pt">A Universidade do Porto regula as atividades pedagógicas através de uma matriz de semáforos. No âmbito de Web Design e Design de Comunicação (FBAUP), esta regulação traduz-se nas seguintes regras operativas claras:</span>
+        <span class="lang-en">The University of Porto regulates educational tasks through a traffic light matrix. In Web Design and Communication Design at FBAUP, this translates into clear operational boundaries:</span>
+      </p>
+
+      <div class="traffic-grid">
+        <!-- SEMÁFORO VERDE -->
+        <article class="traffic-card traffic-card--green">
+          <div class="traffic-header">
+            <span style="font-size:1.4rem;">🟩</span>
+            <span>Semáforo Verde • Permitido</span>
+            <span class="traffic-tag traffic-tag--green">Apoio &amp; Estudo</span>
+          </div>
+          <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-bottom:var(--space-3); line-height:1.5;">
+            <strong>Objetivo:</strong> Usar a IA para aprender, esclarecer conceitos e melhorar a qualidade do trabalho autónomo.
+          </p>
+          <ul style="font-size:var(--text-xs); color:var(--text-secondary); line-height:1.6; padding-left:var(--space-3); margin-bottom:var(--space-4); flex-grow:1;">
+            <li><strong>Explicação de conceitos:</strong> Pedir analogias e explicações em 3 níveis sobre <code>@container</code>, <code>light-dark()</code>, <code>:has()</code> ou <code>clamp()</code>.</li>
+            <li><strong>Socratic Sandboxes:</strong> Gerar projetos isolados de teste em <code>demos/sandbox-*/</code> com links para a MDN.</li>
+            <li><strong>Autoteste &amp; Quizzes:</strong> Pedir à IA para formular 5 perguntas difíceis sobre a cascata ou o box model para treino pessoal.</li>
+            <li><strong>Checklists de Validação:</strong> Gerar planos de teste de acessibilidade (WCAG 2.2 AAA) e matrizes de verificação cross-browser.</li>
+            <li><strong>Revisão de Clareza:</strong> Melhorar a redação de comentários técnicos e documentação no <code>README.md</code>.</li>
+          </ul>
+          <div style="border-top:1px dashed var(--border-color); padding-top:var(--space-2); font-family:var(--font-mono); font-size:11px; color:var(--color-traffic-green);">
+            ✓ Regra: Confirmar sempre no original (MDN/W3C). Declaração curta opcional/quando pedida.
+          </div>
+        </article>
+
+        <!-- SEMÁFORO AMARELO -->
+        <article class="traffic-card traffic-card--yellow">
+          <div class="traffic-header">
+            <span style="font-size:1.4rem;">🟨</span>
+            <span>Semáforo Amarelo • Condicionado</span>
+            <span class="traffic-tag traffic-tag--yellow">Rasto &amp; Declaração</span>
+          </div>
+          <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-bottom:var(--space-3); line-height:1.5;">
+            <strong>Objetivo:</strong> Assistência técnica e scaffolding pontual, mantendo rasto de processo e defesa presencial.
+          </p>
+          <ul style="font-size:var(--text-xs); color:var(--text-secondary); line-height:1.6; padding-left:var(--space-3); margin-bottom:var(--space-4); flex-grow:1;">
+            <li><strong>Scaffolding Estrutural:</strong> Gerar esqueletos semânticos HTML5 sem estilos, com base em especificações estritas do estudante.</li>
+            <li><strong>Depuração Guiada:</strong> Pedir hipóteses de causa para bugs de layout nas DevTools (sem pedir a resolução mágica pronta).</li>
+            <li><strong>Snippet Utilitário:</strong> Obter pequenos cálculos de curvas de easing <code>cubic-bezier()</code> ou matrizes SVG.</li>
+            <li><strong>Obrigações Inegociáveis:</strong>
+              <br>• <em>Rasto de processo:</em> Commits Git frequentes, pasta <code>demos/</code> com rascunhos.
+              <br>• <em>Declaração de Uso:</em> Declaração curta no <code>README.md</code>.
+              <br>• <em>Defesa Presencial:</em> Capacidade de explicar e alterar qualquer linha ao vivo.
+            </li>
+          </ul>
+          <div style="border-top:1px dashed var(--border-color); padding-top:var(--space-2); font-family:var(--font-mono); font-size:11px; color:var(--color-traffic-yellow);">
+            ⚠️ Regra: Exige rasto de commits, declaração no README e defesa oral.
+          </div>
+        </article>
+
+        <!-- SEMÁFORO VERMELHO -->
+        <article class="traffic-card traffic-card--red">
+          <div class="traffic-header">
+            <span style="font-size:1.4rem;">🟥</span>
+            <span>Semáforo Vermelho • Proibido</span>
+            <span class="traffic-tag traffic-tag--red">Fraude Académica</span>
+          </div>
+          <p style="font-size:var(--text-xs); color:var(--text-secondary); margin-bottom:var(--space-3); line-height:1.5;">
+            <strong>Objetivo:</strong> Atividades onde a IA é estritamente proibida por anular os resultados de aprendizagem nucleares.
+          </p>
+          <ul style="font-size:var(--text-xs); color:var(--text-secondary); line-height:1.6; padding-left:var(--space-3); margin-bottom:var(--space-4); flex-grow:1;">
+            <li><strong>Geração Integral ("Vibe Coding"):</strong> Gerar o website completo, páginas inteiras ou o capstone e submeter como trabalho autoral.</li>
+            <li><strong>Delegação da Conceção Visual:</strong> Deixar a IA decidir a direção de arte, a escala modular tipográfica ou a narrativa gráfica.</li>
+            <li><strong>Depuração Cega:</strong> Pedir à IA para corrigir erros sem procurar compreender a causa nas DevTools (copiar e colar código cego).</li>
+            <li><strong>Avaliações Presenciais Fechadas:</strong> Provas individuais, testes de código em aula ou momentos de exame sem autorização explícita.</li>
+            <li><strong>Dados Confidenciais:</strong> Inserir senhas de servidores (FTP/SSH), chaves privadas ou dados de colegas em ferramentas cloud.</li>
+          </ul>
+          <div style="border-top:1px dashed var(--border-color); padding-top:var(--space-2); font-family:var(--font-mono); font-size:11px; color:var(--color-traffic-red);">
+            🛑 Consequência: Anulação da entrega e processo disciplinar por falha de integridade.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 3. ARQUITETURA DUPLA: IDE VS ADE -->
+    <section id="dual-engine" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-3); border-bottom:1px solid var(--border-color); padding-bottom:var(--space-2);">
+        <span class="lang-pt">3. Arquitetura Dupla: O Editor IDE vs. O Modo Agente ADE</span>
+        <span class="lang-en">3. Dual Architecture: The IDE Editor vs. The ADE Agent Mode</span>
+      </h2>
+
+      <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:var(--space-4);">
+        <span class="lang-pt">O ecossistema do Antigravity assenta na coexistência de dois motores fundamentais. Saber exatamente quando usar cada um é a marca de maturidade do designer tecnólogo:</span>
+        <span class="lang-en">The Antigravity ecosystem is built upon two complementary engines. Knowing precisely when to deploy each is the hallmark of a mature design technologist:</span>
       </p>
 
       <div class="engine-grid">
@@ -419,19 +661,19 @@
       </div>
     </section>
 
-    <!-- 3. OS 4 FLUXOS DE TRABALHO -->
+    <!-- 4. OS 4 FLUXOS DE TRABALHO -->
     <section id="workflows" style="margin-bottom:var(--space-10);">
       <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-3); border-bottom:1px solid var(--border-color); padding-bottom:var(--space-2);">
-        <span class="lang-pt">3. O Ciclo de Transição em 4 Fases Práticas</span>
-        <span class="lang-en">3. The 4-Phase Practical Transition Workflow</span>
+        <span class="lang-pt">4. O Ciclo de Transição em 4 Fases Práticas</span>
+        <span class="lang-en">4. The 4-Phase Practical Transition Workflow</span>
       </h2>
 
       <!-- FASE 1 -->
       <article class="step-card">
-        <div class="step-num">Fase 01 • Scaffolding Estrutural</div>
+        <div class="step-num">Fase 01 • Scaffolding Estrutural (Sem Estilos Precoces)</div>
         <h3 style="font-size:var(--text-lg); margin-bottom:var(--space-2);">
-          <span class="lang-pt">Pedir a Estrutura Semântica Sem Estilos Precoces</span>
-          <span class="lang-en">Prompting for Semantic Skeletons Without Premature Styling</span>
+          <span class="lang-pt">Pedir a Estrutura Semântica Sob Especificação Estrita</span>
+          <span class="lang-en">Prompting for Semantic Skeletons Under Strict Specification</span>
         </h3>
         <p style="color:var(--text-secondary); font-size:var(--text-sm); line-height:1.6;">
           <span class="lang-pt">Nunca peças: <em>"Cria um site para o meu festival."</em> Pede uma especificação estrutural rigorosa para um componente ou secção. Exige apenas HTML5 semântico com comentários que justifiquem a escolha de cada tag.</span>
@@ -528,21 +770,159 @@ Guia-me passo a passo nas DevTools do Chrome/Firefox:
       </article>
     </section>
 
-    <!-- 4. CHECKLIST 360° DE QUALIDADE WEB -->
-    <section id="checklist" style="margin-bottom:var(--space-10);">
+    <!-- 5. RASTO DE PROCESSO & MODELOS DE DECLARAÇÃO -->
+    <section id="declarations" style="margin-bottom:var(--space-10);">
       <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-3); border-bottom:1px solid var(--border-color); padding-bottom:var(--space-2);">
-        <span class="lang-pt">4. Checklist Interativa 360° de Qualidade Web &amp; Publicação</span>
-        <span class="lang-en">4. Interactive 360° Web Quality &amp; Deployment Checklist</span>
+        <span class="lang-pt">5. Rasto de Processo &amp; Modelos Oficiais de Declaração de Uso de IA</span>
+        <span class="lang-en">5. Process Traceability &amp; Official AI Usage Declaration Templates</span>
       </h2>
 
       <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:var(--space-4);">
-        <span class="lang-pt">Antes de submeteres um exercício ou publicares no GitHub Pages / servidor web institucional, pede ao Antigravity ADE para verificar todos estes pontos críticos, ou testa-os tu mesmo abaixo:</span>
+        <span class="lang-pt">Em qualquer atividade ou projeto com <strong>Semáforo Amarelo (🟨)</strong> na Universidade do Porto, o estudante tem a obrigação de documentar o <em>rasto mínimo de processo</em> e incluir uma declaração transparente de uso. A ideia não é burocratizar, mas ser honesto sobre onde a IA entrou:</span>
+        <span class="lang-en">In any coursework flagged with <strong>Yellow Light (🟨)</strong> at the University of Porto, students are required to maintain a <em>minimum process trace</em> and submit a transparent disclosure declaration:</span>
+      </p>
+
+      <!-- O que é o Rasto de Processo -->
+      <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-radius:6px; padding:var(--space-4); margin-bottom:var(--space-5);">
+        <strong style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-primary); text-transform:uppercase; display:block; margin-bottom:var(--space-2);">
+          <span class="lang-pt">📌 O que constitui "Rasto Mínimo de Processo" em Web Design?</span>
+          <span class="lang-en">📌 What constitutes a "Minimum Process Trace" in Web Design?</span>
+        </strong>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:var(--space-3); font-size:var(--text-xs); color:var(--text-secondary); line-height:1.6;">
+          <div>
+            <strong>1. Commits no Git:</strong> Histórico de versões com mensagens descritivas (<code>feat: add mobile grid</code>, <code>refactor: replace flex with subgrid</code>).
+          </div>
+          <div>
+            <strong>2. Demonstradores em /demos/:</strong> Mini-sandboxes intermédias que provam a exploração e teste isolado de conceitos.
+          </div>
+          <div>
+            <strong>3. Capturas de DevTools:</strong> Prints do painel Computed do Box Model ou da grelha com overlay ativo.
+          </div>
+          <div>
+            <strong>4. Diário de Bordo no README:</strong> Notas sucintas no <code>README.md</code> sobre as decisões tomadas e o que foi aceite/rejeitado.
+          </div>
+        </div>
+      </div>
+
+      <!-- TEMPLATE 1: DECLARAÇÃO CURTA (README.MD) -->
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <strong>Template 1: Declaração Curta no README.md (Modelo Oficial Anexo B1 U.Porto)</strong>
+          <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
+        </div>
+        <pre class="prompt-content">### 🤖 Declaração de Uso de Inteligência Artificial Generativa
+* **Ferramenta &amp; Versão:** Google Antigravity / Gemini 3.8 Flash (acesso gratuito).
+* **Âmbito:** Apoio auxiliar com impacto limitado (Semáforo Amarelo 🟨).
+* **Finalidade:** Esclarecimento de sintaxe de seletores relacionais `:has()` e geração de sandbox isolada para teste de `minmax()`.
+* **O que foi gerado:** Esqueleto inicial da secção de lineup musical em `demos/sandbox-grid/` e sugestões de reestruturação de tags.
+* **O que foi verificado manualmente:** Conformidade com a Living Standard da MDN Web Docs, validação de rácio de contraste WCAG 2.2 AAA no painel Lighthouse, e funcionamento cross-browser em Chrome, Firefox e Safari.
+* **Rasto de Processo:** 12 commits semânticos no repositório Git e pasta `/demos/sandbox-grid/` anexada.
+* **Responsabilidade:** O autor assume integral responsabilidade intelectual e técnica pelo código final entregue.</pre>
+      </div>
+
+      <!-- TEMPLATE 2: REGISTO BREVE DE PROMPTS (PROMPT LOG) -->
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <strong>Template 2: Registo Breve de Prompts (Prompt Log - Anexo B3 U.Porto)</strong>
+          <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
+        </div>
+        <pre class="prompt-content">| Data | Prompt / Questão Submetida | Output da IA (Resumo) | Decisão do Estudante (O que aceitei / rejeitei e porquê) |
+| :--- | :--- | :--- | :--- |
+| 2026-10-18 | "Como fazer sticky nav que muda de cor ao descer sem JS?" | Sugeriu scroll-driven animations com animation-timeline: scroll(). | Aceitei a sintaxe de scroll(); rejeitei as cores sugeridas para manter a paleta tipográfica do festival. |
+| 2026-10-24 | "Porque é que o meu grid-template-columns está a quebrar a 480px?" | Apontou que os cartões tinham min-width: 320px rígido. | Aceitei a correção usando minmax(0, 1fr) após testar no painel Layout das DevTools. |</pre>
+      </div>
+
+      <!-- TEMPLATE 3: DECLARAÇÃO ESTRUTURADA (CAPSTONE FINAL TP11) -->
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <strong>Template 3: Declaração Estruturada para Projeto Capstone Final (Anexo B2 U.Porto / GAIDeT)</strong>
+          <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
+        </div>
+        <pre class="prompt-content">### Declaração Estruturada de Uso de IA (Capstone TP11 / FBAUP)
+* **Identificação do Trabalho:** DRUMTIKS '26 • Integrated Capstone Project
+* **Estudante / Turma:** [Nome do Estudante] • Design de Comunicação (WD101)
+* **Docente Responsável:** Prof. Pedro Amado
+* **Ferramenta(s) e Período:** Antigravity ADE / Gemini (Outubro - Novembro 2026)
+* **Âmbito do Uso:** [x] Apoio auxiliar com impacto limitado   [ ] Contributo substantivo
+
+* **Tarefas Delegadas à IA (Assinalar):**
+  [ ] Conceptualização e Ideação Visual (Autoria 100% humana do estudante)
+  [x] Apoio Sintático a Software &amp; Código (Scaffolding inicial de secções isoladas)
+  [x] Supervisão &amp; Controlo de Qualidade (Auditoria de caminhos relativos e conformidade WCAG)
+  [ ] Escrita de Memória Descritiva (Redação 100% autoral do estudante)
+  [x] Apoio a Depuração / Testes (Identificação de causas de overflow nas DevTools)
+
+* **Verificações Humanas Efetuadas:**
+  - Código testado em Live Server local sem qualquer framework externa.
+  - Zero erros vermelhos na consola do navegador.
+  - Links relativos validados para suporte local e GitHub Pages.
+  - Defesa presencial: o estudante declara estar preparado para modificar qualquer regra CSS ao vivo em aula.</pre>
+      </div>
+    </section>
+
+    <!-- 6. A PROVA REAL: A CRÍTICA PRESENCIAL NA FBAUP -->
+    <section id="critique" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-3); border-bottom:1px solid var(--border-color); padding-bottom:var(--space-2);">
+        <span class="lang-pt">6. A Prova Real da Autoria: Como Preparar a Crítica Presencial na FBAUP</span>
+        <span class="lang-en">6. The Real Authorship Test: Preparing for In-Person Critique at FBAUP</span>
+      </h2>
+
+      <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:var(--space-4);">
+        <span class="lang-pt">No ensino universitário de design na FBAUP, <strong>a entrega de código não é um ato cego</strong>. A avaliação culmina na crítica presencial individual ou em grupo. Se um estudante utilizou a IA de forma acrítica para "fazer o trabalho por si", isso tornar-se-á imediatamente visível. O estudante deve ser capaz de demonstrar controlo total sobre o seu ficheiro e defender as suas opções técnicas e visuais:</span>
+        <span class="lang-en">In university design education at FBAUP, <strong>submitting code is never a blind transaction</strong>. Evaluation culminates in live, in-person critique. If a student used AI as an uncritical ghostwriter, this will become painfully apparent within seconds. You must demonstrate complete ownership and explain every design decision:</span>
+      </p>
+
+      <div style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-radius:6px; padding:var(--space-5); margin-bottom:var(--space-4);">
+        <strong style="color:var(--color-guide-accent); font-family:var(--font-mono); font-size:var(--text-xs); text-transform:uppercase; display:block; margin-bottom:var(--space-3);">
+          🎯 As 4 Perguntas Típicas na Crítica de Código da FBAUP
+        </strong>
+        <div style="display:flex; flex-direction:column; gap:var(--space-3); font-size:var(--text-sm); line-height:1.6;">
+          <div style="border-left:3px solid var(--color-guide-accent); padding-left:var(--space-3);">
+            <strong>1. O Teste de Modificação em Tempo Real:</strong> <em>"Abre o teu ficheiro styles.css no ecrã. Altera agora o breakpoint dos 768px para 840px e explica-me o que acontece à distribuição dos vazios editoriais na grelha."</em>
+          </div>
+          <div style="border-left:3px solid var(--color-ide); padding-left:var(--space-3);">
+            <strong>2. A Justificação Semântica:</strong> <em>"Porque utilizaste aqui um elemento &lt;aside&gt; e não uma &lt;section&gt;? Como é que o leitor de ecrã interpreta este marco na hierarquia do documento?"</em>
+          </div>
+          <div style="border-left:3px solid var(--color-traffic-yellow); padding-left:var(--space-3);">
+            <strong>3. O Diagnóstico nas DevTools:</strong> <em>"Abre o painel Computed do browser. Onde está o espaçamento que está a empurrar este botão? É margem, preenchimento ou gap da grelha?"</em>
+          </div>
+          <div style="border-left:3px solid var(--color-traffic-red); padding-left:var(--space-3);">
+            <strong>4. A Rastreabilidade do Git:</strong> <em>"Mostra-me no teu histórico de commits quando desenhaste a versão inicial deste componente antes de pedires à IA para o refatorar."</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prompt de Treino para Crítica -->
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span>Prompt do Promptário U.Porto: Simulação de Crítica Presencial Cética</span>
+          <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
+        </div>
+        <pre class="prompt-content">Atua como o meu docente de Web Design na FBAUP durante a sessão de crítica presencial.
+Analisa este meu código CSS e HTML [COLAR FICHEIROS].
+Faz-me 5 perguntas difíceis sobre:
+1. Porque escolhi certas propriedades em vez de alternativas mais simples.
+2. Como funciona a hierarquia de especificidade no meu CSS.
+3. O que acontece se a imagem falhar o carregamento (resiliência).
+NÃO dês as respostas. Faz uma pergunta de cada vez e aguarda pela minha justificação para avaliar se compreendo verdadeiramente o que escrevi.</pre>
+      </div>
+    </section>
+
+    <!-- 7. CHECKLIST 360° DE QUALIDADE WEB & NORMAS U.PORTO -->
+    <section id="checklist" style="margin-bottom:var(--space-10);">
+      <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-3); border-bottom:1px solid var(--border-color); padding-bottom:var(--space-2);">
+        <span class="lang-pt">7. Checklist Interativa 360° de Qualidade Web &amp; Normas U.Porto</span>
+        <span class="lang-en">7. Interactive 360° Web Quality &amp; U.Porto Standards Checklist</span>
+      </h2>
+
+      <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:var(--space-4);">
+        <span class="lang-pt">Antes de submeteres um exercício ou publicares no GitHub Pages / servidor web institucional, pede ao Antigravity ADE para verificar todos estes pontos críticos, ou valida-os tu mesmo abaixo:</span>
         <span class="lang-en">Before submitting an assignment or publishing to GitHub Pages / your web server, prompt Antigravity ADE to audit these critical checks, or verify them yourself below:</span>
       </p>
 
       <div class="checklist-container">
         <div style="display:flex; justify-content:space-between; align-items:center; font-family:var(--font-mono); font-size:var(--text-xs);">
-          <span>PROGRESSO DE CONFORMIDADE: <strong id="check-counter">0 / 12</strong></span>
+          <span>PROGRESSO DE CONFORMIDADE: <strong id="check-counter">0 / 16</strong></span>
           <span id="check-percent" style="color:var(--color-guide-accent); font-weight:700;">0%</span>
         </div>
 
@@ -622,76 +1002,158 @@ Guia-me passo a passo nas DevTools do Chrome/Firefox:
             <span><strong>Hierarquia e Contraste:</strong> Apenas um <code>&lt;h1&gt;</code> lógico por página, sem salto de níveis de títulos, e rácio de contraste &ge; 4.5:1 para texto corrente.</span>
           </label>
         </div>
+
+        <!-- Categoria 6: NORMAS ÉTICAS U.PORTO -->
+        <div class="check-category">
+          <div class="check-category-title">⚖️ 6. Integridade Académica, Ética &amp; Normas U.Porto</div>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Declaração de Uso de IA:</strong> Declaração curta transparente preenchida no <code>README.md</code> do projeto, especificando ferramenta, versão, finalidade e verificações manuais realizadas.</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Rasto de processo comprovável:</strong> Histórico de commits semânticos no Git e presença de demonstradores intermédios na pasta <code>demos/</code> que provam a evolução autoral.</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Privacidade &amp; RGPD assegurados:</strong> Zero credenciais de acesso (FTP, senhas, chaves privadas) e zero dados confidenciais introduzidos em prompts.</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" onchange="updateChecklist()">
+            <span><strong>Prontidão para defesa presencial:</strong> Capacidade de explicar e reescrever qualquer linha de código em direto no browser DevTools a pedido do docente.</span>
+          </label>
+        </div>
       </div>
     </section>
 
-    <!-- 5. BIBLIOTECA DE PROMPTS -->
+    <!-- 8. BIBLIOTECA DE PROMPTS & PROMPTÁRIO U.PORTO -->
     <section id="prompts" style="margin-bottom:var(--space-10);">
       <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-3); border-bottom:1px solid var(--border-color); padding-bottom:var(--space-2);">
-        <span class="lang-pt">5. Biblioteca de Prompts de Tutoria para Alunos</span>
-        <span class="lang-en">5. Student Mentorship Prompt Library</span>
+        <span class="lang-pt">8. Promptário U.Porto: Bons Prompts vs. Anti-Padrões a Evitar</span>
+        <span class="lang-en">8. U.Porto Promptary: Effective Prompts vs. Anti-Patterns to Avoid</span>
       </h2>
 
       <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:var(--space-4);">
-        <span class="lang-pt">Guarda estes cinco arquétipos de prompt no teu ficheiro de regras do Antigravity (<code>.gemini/antigravity/rules/</code>) ou nas instruções do teu projeto para moldar o comportamento do agente:</span>
-        <span class="lang-en">Save these five prompt archetypes into your Antigravity project rules or chat to anchor your agent's behavior:</span>
+        <span class="lang-pt">O <em>Promptário de Estudo com IAGen da Universidade do Porto (Junho 2026)</em> estabelece que a utilidade da IA não está em pedir mais, mas em <strong>pensar melhor</strong>. Abaixo comparam-se os anti-padrões destrutivos com as formulações socráticas recomendadas para Web Design:</span>
+        <span class="lang-en">The <em>U.Porto GenAI Study Promptary (June 2026)</em> states that the value of AI lies not in asking for more, but in <strong>thinking better</strong>. Below we contrast toxic anti-patterns with recommended Socratic prompts tailored to Web Design:</span>
       </p>
+
+      <!-- Tabela Comparativa de Prompts -->
+      <div style="overflow-x:auto;">
+        <table class="prompt-table">
+          <thead>
+            <tr>
+              <th style="color:var(--color-traffic-red); width:35%;">❌ Prompt a Evitar (Mau Uso / Prejudica Aprendizagem)</th>
+              <th style="width:30%;">Porquê Prejudica</th>
+              <th style="color:var(--color-traffic-green); width:35%;">✅ Alternativa Socrática Recomendada (Bom Uso)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-family:var(--font-mono); color:var(--color-traffic-red);">"Faz-me a página HTML e CSS completa para o festival Drumtiks."</td>
+              <td>Substitui o esforço concetual, elimina a autoria e produz código que o estudante não sabe defender na crítica presencial.</td>
+              <td style="font-family:var(--font-mono); color:var(--color-traffic-green);">"Gera apenas o esqueleto semântico HTML5 para a secção de bilhetes, explicando a razão de cada tag escolhida."</td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--font-mono); color:var(--color-traffic-red);">"O meu layout quebrou a 768px. Corrige o meu CSS aqui [cola ficheiro]."</td>
+              <td>Impede o estudante de compreender o box model, a colisão de larguras e o fluxo de flexbox/grid. Cria dependência total.</td>
+              <td style="font-family:var(--font-mono); color:var(--color-traffic-green);">"Analisa este erro e indica que propriedades devo inspecionar nas DevTools para isolar o elemento que causa overflow."</td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--font-mono); color:var(--color-traffic-red);">"Escreve a memória descritiva do meu projeto de web design com referências."</td>
+              <td>Gera texto genérico, destrói a voz crítica do designer e tem alto risco de inventar citações e normas inexistentes.</td>
+              <td style="font-family:var(--font-mono); color:var(--color-traffic-green);">"Com base nestas 3 decisões de design que tomei [listar], sugere tópicos para organizar a minha memória descritiva."</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Arquétipos de Prompts Prontos -->
+      <h3 style="font-size:var(--text-lg); margin:var(--space-6) 0 var(--space-3) 0;">
+        <span class="lang-pt">5 Prompts Prontos a Usar pelos Estudantes (Copiar &amp; Colar)</span>
+        <span class="lang-en">5 Ready-to-Use Student Prompt Archetypes (Copy &amp; Paste)</span>
+      </h3>
 
       <div style="display:flex; flex-direction:column; gap:var(--space-4);">
         
-        <!-- PROMPT A -->
+        <!-- PROMPT 1: MENTOR SOCRÁTICO -->
         <div class="prompt-box">
           <div class="prompt-header">
-            <strong>Arquétipo 1: O Mentor Socrático (Explicação de Conceitos)</strong>
+            <strong>Prompt 1: O Mentor Socrático em 3 Níveis (Compreensão Conceptual)</strong>
             <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
           </div>
-          <pre class="prompt-content">Atua como o meu Mentor de Web Design na FBAUP. 
-Estou a estudar [INSERE O CONCEITO, ex: a função CSS clamp() para tipografia fluida].
-NÃO escrevas o código do meu projeto por mim.
+          <pre class="prompt-content">Atua como o meu Mentor Socrático de Web Design na FBAUP. 
+Estou a estudar [CONCEITO, ex: a função CSS clamp() para tipografia fluida].
+NÃO me dês o código final pronto para entregar.
 Em vez disso:
-1. Explica o modelo mental com uma metáfora visual ligada ao design.
-2. Fornece um exemplo mínimo de 8 linhas de código funcional barebones.
-3. Dá-me o link direto para a documentação canónica da MDN.
-4. Faz-me duas perguntas de diagnóstico para verificar se compreendi verdadeiramente.</pre>
+1. Explica este conceito em 3 níveis pedagógicos: (a) intuitivo/básico, (b) mecânica de cálculo, (c) caso avançado em web design.
+2. Dá-me um exemplo funcional mínimo de 6 linhas com valores ilustrativos.
+3. Fornece o link canónico para a documentação oficial da MDN.
+4. Faz-me 2 perguntas de diagnóstico para eu testar a minha compreensão.</pre>
         </div>
 
-        <!-- PROMPT B -->
+        <!-- PROMPT 2: REVISOR DE CÓDIGO -->
         <div class="prompt-box">
           <div class="prompt-header">
-            <strong>Arquétipo 2: O Revisor de Código &amp; Arquiteto de Design</strong>
+            <strong>Prompt 2: O Revisor de Código &amp; Arquiteto (Feedback de Qualidade)</strong>
             <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
           </div>
           <pre class="prompt-content">Atua como Designer Tecnologista Sénior e Revisor de Código. 
-Inspeciona o meu ficheiro [CAMINHO, ex: css/styles.css] e [index.html].
-Avalia a qualidade do meu trabalho segundo estes três critérios estritos:
-1. Pureza semântica: Tenho divs desnecessários ou classes que duplicam seletores nativos?
-2. A Regra de Ouro do Layout: Estou a usar CSS Grid para a estrutura 2D e Flexbox para micro-alinhamentos 1D?
-3. Design Tokens: Estou a usar variáveis CSS consistentes para espaçamento, tipografia e cor?
-Indica apenas as 3 correções mais urgentes e explica a razão técnica de cada uma.</pre>
+Inspeciona este meu excerto de código [COLAR EXCERTO]:
+Avalia-o segundo os princípios de excelência do curso WD101:
+1. Pureza semântica: Tenho divs desnecessários ou atributos redundantes?
+2. A Regra de Ouro do Layout: Estou a usar Grid para 2D e Flexbox para 1D?
+3. Design Tokens: Estou a utilizar variáveis CSS para cores, espaçamentos e tipografia?
+Não reescrevas o ficheiro todo. Aponta apenas as 3 melhorias mais importantes e explica o 'porquê'.</pre>
         </div>
 
-        <!-- PROMPT C -->
+        <!-- PROMPT 3: SANDBOX ISOLADA -->
         <div class="prompt-box">
           <div class="prompt-header">
-            <strong>Arquétipo 3: O Auditor de Pré-Publicação (Strict QA)</strong>
+            <strong>Prompt 3: O Gerador de Socratic Sandbox (Demonstrador Paralelo em /demos/)</strong>
+            <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
+          </div>
+          <pre class="prompt-content">Antigravity, estou com dificuldades em entender o comportamento de [PROPRIEDADE, ex: grid-auto-flow: dense].
+Cria um projeto de aprendizagem isolado na pasta 'demos/sandbox-[NOME]/' com:
+1. 'index.html': Página minimalista e limpa demonstrando o conceito em 6 cartões numerados.
+2. 'styles.css': Estilos com contornos visuais coloridos para visualizar o comportamento das pistas.
+3. Links para a documentação oficial da MDN.
+4. Três desafios em comentário no topo para eu testar diretamente no browser DevTools.</pre>
+        </div>
+
+        <!-- PROMPT 4: AUDITOR DE PRÉ-PUBLICAÇÃO -->
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <strong>Prompt 4: O Auditor Rigoroso de Qualidade &amp; Caminhos (Pre-Deployment QA)</strong>
             <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
           </div>
           <pre class="prompt-content">Assume o papel de Líder de Controlo de Qualidade Web (QA). 
 Inspeciona todos os ficheiros da pasta [CAMINHO DO PROJETO] antes da publicação:
-1. Verifica se todos os nomes de ficheiros seguem o padrão minúsculo kebab-case sem acentos nem espaços.
-2. Inspeciona todos os links em &lt;link&gt;, &lt;script&gt;, &lt;img&gt; e &lt;a&gt; para garantir que são estritamente relativos.
-3. Verifica se as fontes locais WOFF2 têm 'font-display: swap' e se as imagens têm dimensões explícitas para evitar CLS.
-Devolve um relatório com a classificação: APROVADO, AVISO ou DEFEITO CRÍTICO, com as instruções de correção.</pre>
+1. Nomenclatura: todos os ficheiros em minúsculas (kebab-case) sem acentos nem espaços.
+2. Caminhos: confirma se todos os links em &lt;link&gt;, &lt;script&gt;, &lt;img&gt; e &lt;a&gt; são estritamente relativos.
+3. Fontes: verifica se as fontes locais WOFF2 têm 'font-display: swap' e se as imagens têm dimensões explícitas.
+4. Gera um relatório estruturado indicando: APROVADO, AVISO ou DEFEITO CRÍTICO com instruções para eu próprio corrigir no IDE.</pre>
+        </div>
+
+        <!-- PROMPT 5: SUMÁRIO NEUTRO PARA DECLARAÇÃO -->
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <strong>Prompt 5: Assistente de Rasto de Processo (Para a Declaração no README)</strong>
+            <button class="btn-copy" onclick="copyPrompt(this)">Copiar</button>
+          </div>
+          <pre class="prompt-content">Com base na descrição do trabalho que realizei [DESCREVER BREVEMENTE AS TAREFAS ONDE USEI IA], ajuda-me a redigir o rascunho da Declaração Curta de Uso de IA para o meu README.md, segundo o modelo da Universidade do Porto.
+Usa linguagem neutra e objetiva. 
+Preenche apenas: Ferramenta e versão, Âmbito, Finalidade, O que foi gerado, e O que foi verificado manualmente por mim. Não inventes nada que eu não tenha dito.</pre>
         </div>
 
       </div>
     </section>
 
-    <!-- 6. LABORATÓRIO COMPARATIVO INTERATIVO -->
+    <!-- 9. LABORATÓRIO COMPARATIVO INTERATIVO -->
     <section id="simulator" class="sim-container">
       <h2 style="font-size:var(--text-2xl); margin-bottom:var(--space-2);">
-        <span class="lang-pt">6. Laboratório Comparativo: Oráculo Ingénuo vs. Mentor Socrático ADE</span>
-        <span class="lang-en">6. Comparative Lab: Naive Oracle vs. Socratic ADE Mentor</span>
+        <span class="lang-pt">9. Laboratório Comparativo: Oráculo Ingénuo vs. Mentor Socrático ADE</span>
+        <span class="lang-en">9. Comparative Lab: Naive Oracle vs. Socratic ADE Mentor</span>
       </h2>
       <p style="color:var(--text-secondary); font-size:var(--text-sm); margin-bottom:var(--space-4);">
         <span class="lang-pt">Compara o impacto na aprendizagem entre recorrer a um modelo como "gerador de código pronto" versus utilizá-lo como "mentor e laboratório socrático":</span>
@@ -700,10 +1162,10 @@ Devolve um relatório com a classificação: APROVADO, AVISO ou DEFEITO CRÍTICO
 
       <div class="sim-tabs">
         <button class="sim-tab-btn active" onclick="switchSimTab('naive', this)">
-          ❌ Abordagem 1: O "Oráculo" Ingénuo (Anti-Padrão)
+          ❌ Abordagem 1: O "Oráculo" Ingénuo (Anti-Padrão / Semáforo Vermelho)
         </button>
         <button class="sim-tab-btn" onclick="switchSimTab('socratic', this)">
-          ✅ Abordagem 2: Mentor Socrático &amp; Sandboxes ADE
+          ✅ Abordagem 2: Mentor Socrático &amp; Sandboxes ADE (Semáforo Verde/Amarelo)
         </button>
       </div>
 
@@ -719,7 +1181,7 @@ Devolve um relatório com a classificação: APROVADO, AVISO ou DEFEITO CRÍTICO
           <ul style="padding-left:var(--space-4); margin-top:var(--space-2);">
             <li>O estudante não aprendeu a sintaxe de <code>grid-template-columns</code> nem <code>minmax()</code>.</li>
             <li>Quando o professor pedir para adicionar um vazio editorial (void) ou alterar um breakpoint, o estudante fica paralisado.</li>
-            <li>Zero retenção na memória de longo prazo; perda de controlo do projeto.</li>
+            <li>Zero retenção na memória de longo prazo; perda de controlo do projeto; risco de falha grave na defesa presencial.</li>
           </ul>
         </div>
       </div>
@@ -736,7 +1198,7 @@ Devolve um relatório com a classificação: APROVADO, AVISO ou DEFEITO CRÍTICO
           <ul style="padding-left:var(--space-4); margin-top:var(--space-2);">
             <li>O estudante compreende exatamente o que a unidade fracionária <code>1fr</code> faz em conjunto com <code>minmax()</code>.</li>
             <li>O projeto capstone principal permanece imaculado e sob o controlo total do autor.</li>
-            <li>Construção de competências de engenharia visual transferíveis e duradouras.</li>
+            <li>Construção de competências de engenharia visual duradouras e total à-vontade na crítica presencial.</li>
           </ul>
         </div>
       </div>
@@ -748,14 +1210,56 @@ Devolve um relatório com a classificação: APROVADO, AVISO ou DEFEITO CRÍTICO
         ← <span class="lang-pt">Voltar ao Andaime Pedagógico (Objetivos de Estudo)</span><span class="lang-en">Return to Learning Scaffold (Study Goals)</span>
       </a>
       <span style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-muted);">
-        WD101 • FBAUP 2026/27
+        WD101 • FBAUP 2026/27 • U.Porto
       </span>
     </footer>
+
+      </div><!-- .page-layout-main -->
+    </div><!-- .page-layout-with-aside -->
+
+    <!-- Connected in WD101 Organic Mesh Block -->
+    <section class="wd-mesh-section" id="connected-mesh">
+      <div class="wd-mesh-header">
+        <span class="wd-mesh-kicker"><span class="lang-pt">Mapeamento Pedagógico</span><span class="lang-en">Curricular Mesh</span> &bull; Connected in WD101</span>
+        <h2 class="wd-mesh-title"><span class="lang-pt">Articulação com Enunciados, Demos e Matriz W3C</span><span class="lang-en">Connected Course Milestones, Demos &amp; Matrix</span></h2>
+      </div>
+      <div class="wd-mesh-grid">
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Enunciados do Curso</span><span class="lang-en">Course Assignments</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="ex1-hello-warp-guide.html" class="wd-mesh-chip">🟢 EX1: Hello Warp!</a>
+            <a href="ex2-guide.html" class="wd-mesh-chip">🔵 EX2: Media &amp; Box Model</a>
+            <a href="tp06-early-prototype-guide.html" class="wd-mesh-chip">🔵 Projeto Fase 1: TP06</a>
+            <a href="demos/tp11-integrated-responsive-project/GUIDE.html" class="wd-mesh-chip">🟣 Projeto Fase 2: TP11</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="demos/index.html" class="wd-mesh-chip">🚀 Repositório Central de Demos</a>
+            <a href="demos/index.html?pat=1#core-patterns" class="wd-mesh-chip">Demo P1: Gaveta Móvel</a>
+            <a href="demos/index.html?pat=2#core-patterns" class="wd-mesh-chip">Demo P2: &lt;picture&gt;</a>
+            <a href="demos/index.html?pat=7#core-patterns" class="wd-mesh-chip">Demo P7: Sticky Stage</a>
+            <a href="interaction-patterns.html" class="wd-mesh-chip">✨ 142 Padrões Web</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Matriz HTML5 &amp; CSS3</span><span class="lang-en">W3C Standards Matrix</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="matrix.html" class="wd-mesh-chip" style="font-weight:700;color:var(--color-swiss-red);">Matriz Completa (314) ↗</a>
+            <a href="matrix.html?cat=cat-landmarks" class="wd-mesh-chip">Landmarks HTML5</a>
+            <a href="matrix.html?cat=cat-boxmodel" class="wd-mesh-chip">Box Model &amp; Sizing</a>
+            <a href="matrix.html?cat=cat-flex-grid" class="wd-mesh-chip">Flexbox &amp; Grid</a>
+            <a href="ixd-principles.html" class="wd-mesh-chip">🧭 Princípios de IxD</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
   <script>
-    // Checklist Calculator
+    // Checklist Calculator (16 items)
     function updateChecklist() {
       const allChecks = document.querySelectorAll('.checklist-container input[type="checkbox"]');
       const total = allChecks.length;
@@ -793,55 +1297,8 @@ Devolve um relatório com a classificação: APROVADO, AVISO ou DEFEITO CRÍTICO
         }, 2000);
       });
     }
-
-    // Theme & Language Handlers
-    const themeBtn = document.getElementById('theme-toggle-btn');
-    function updateThemeBtnState() {
-      if (!themeBtn) return;
-      const current = document.documentElement.getAttribute('data-theme') || 
-                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      const isDark = current === 'dark';
-      const lang = document.documentElement.getAttribute('lang') || 'pt';
-      const label = isDark ? (lang === 'pt' ? 'Escuro' : 'Dark') : (lang === 'pt' ? 'Claro' : 'Light');
-      const icon = isDark ? '🌙' : '☀';
-      themeBtn.innerHTML = `${icon} <span>${label}</span>`;
-    }
-
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('data-theme') || 
-                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        const next = current === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', next);
-        localStorage.setItem('wd101_theme', next);
-        updateThemeBtnState();
-      });
-      const savedTheme = localStorage.getItem('wd101_theme');
-      if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-      }
-      updateThemeBtnState();
-    }
-
-    const langBtn = document.getElementById('lang-toggle-btn');
-    function setLanguage(lang) {
-      document.documentElement.setAttribute('lang', lang);
-      localStorage.setItem('wd101_lang', lang);
-      if (langBtn) {
-        langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
-      }
-      updateThemeBtnState();
-    }
-
-    if (langBtn) {
-      langBtn.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('lang') || 'pt';
-        const next = current === 'pt' ? 'en' : 'pt';
-        setLanguage(next);
-      });
-      setLanguage(localStorage.getItem('wd101_lang') || 'pt');
-    }
   </script>
 
+  <script src="assets/js/site-shell.js"></script>
 </body>
 </html>

@@ -1,0 +1,27 @@
+/* Layer 1: Reset */
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html {
+    font-size: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-wrap: break-word;
+  }
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  input, button, textarea, select {
+    font: inherit;
+  }
+  ul, ol {
+    list-style: none;
+  }
+}

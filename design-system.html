@@ -1,0 +1,2423 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="light">
+<head>
+  <!--
+    ==========================================================================
+    DESIGN SYSTEM, CONTENT INVENTORY & LIVING PATTERN LIBRARY SPECIFICATION
+    Case Study: Festival DRUMTIKS '26 (Figma Prototype <-> Live HTML5/CSS)
+    Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+    Course: Web Design (WD101) — 2026/27 • Licenciatura em Design de Comunicação
+    Credits:
+      - Pedagogical Design, Architecture & Supervision: Prof. Pedro Amado (FBAUP / i2ADS)
+      - Agentic AI Pair Programming: Google Gemini (DeepMind Antigravity)
+    Core Theoretical & Industry Bibliography:
+      - Brad Frost, Atomic Design (2016) — https://atomicdesign.bradfrost.com/
+      - Alla Kholmatova, Design Systems (Smashing Magazine, 2017)
+      - Marco Suarez, Jina Anne, Katie Sylor-Miller, Diana Mounter & Roy Stanfield,
+        Design Systems Handbook (InVision / DesignBetter.co, 2019)
+      - Erin Kissane, The Elements of Content Strategy (A Book Apart, 2011)
+      - Chris Barr & The Senior Editors of Yahoo!, The Yahoo! Style Guide (2010)
+      - Scott Kubie, Writing for Designers (A Book Apart, 2018)
+      - Jason Santa Maria, On Web Typography (A Book Apart, 2014)
+      - IBM Carbon Design System — https://carbondesignsystem.com/
+      - Google Material Design 3 — https://m3.material.io/
+      - Apple Human Interface Guidelines — https://developer.apple.com/design/human-interface-guidelines/
+    ==========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+      const savedAesthetic = localStorage.getItem('wd101_aesthetic') || 'airy';
+      document.documentElement.setAttribute('data-aesthetic', savedAesthetic);
+    })();
+  </script>
+  <meta name="color-scheme" content="light dark">
+  <script>
+    try {
+      document.querySelector('meta[name="color-scheme"]').content =
+        localStorage.getItem("color-scheme") ?? "light dark";
+    } catch (_) {}
+  </script>
+  <title>Design System, Content Inventory &amp; Pattern Library • DRUMTIKS '26 Spec | WD101 FBAUP</title>
+  <meta name="description" content="Pedagogical Figma-to-HTML Design System, Content &amp; UI Inventory, Content Writing Style Guide (Yahoo! Style Guide + Scott Kubie), Web Typography Specification (Jason Santa Maria), and Living Pattern Library for Festival DRUMTIKS '26.">
+
+  <!-- Self-Hosted Variable Fonts (Syne, Inter, Martian Mono) -->
+  <link rel="stylesheet" href="demos/tp11-integrated-responsive-project/css/fonts.css">
+  <link rel="icon" type="image/svg+xml" href="demos/tp11-integrated-responsive-project/assets/favicon.svg">
+
+  <!-- Modular Design System Cascade (@layer reset, tokens, doc-shell, drumtiks-specimens, utilities) -->
+  <link rel="stylesheet" href="assets/css/design-system.css">
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+</head>
+<body>
+  <div class="scroll-progress-bar" aria-hidden="true"></div>
+  <a href="#doc-title" class="skip-link visually-hidden">Skip to main specification</a>
+
+  <!-- Site Header Landmark montado pelo site-shell.js -->
+  <header class="site-header" role="banner"></header>
+
+  <!-- ======================================================================
+       WORKSPACE SHELL: Sticky Left TOC (<aside>) + Specification (<main>)
+       ====================================================================== -->
+  <div class="doc-workspace">
+
+    <aside class="aside-toc" aria-label="Navegação da Especificação / Specification Table of Contents">
+      <div class="aside-toc-card">
+        <div class="aside-toc-header">
+          <span class="aside-toc-title">
+            <span class="lang-pt">Neste Sistema</span>
+            <span class="lang-en">In this System</span>
+          </span>
+          <span class="aside-toc-count">13 Partes</span>
+        </div>
+        <ul class="aside-toc-list">
+          <li class="aside-toc-item"><a href="#doc-title" class="aside-toc-link"><span>🏛️ 0. <span class="lang-pt">Visão do Sistema</span><span class="lang-en">System Overview</span></span></a></li>
+          <li class="aside-toc-item"><a href="#sec-bibliography" class="aside-toc-link"><span>📚 1. <span class="lang-pt">Teoria &amp; Bibliografia</span><span class="lang-en">Theory &amp; Bibliography</span></span></a></li>
+          <li class="aside-toc-item"><a href="#sec-cascade" class="aside-toc-link"><span>⚡ 2. <span class="lang-pt">Cascata Dupla (CSS &amp; Figma)</span><span class="lang-en">The Dual Cascade</span></span></a></li>
+          <li class="aside-toc-item"><a href="#sec-inventory" class="aside-toc-link"><span>📋 3. <span class="lang-pt">Inventário de Conteúdo &amp; UI</span><span class="lang-en">Content &amp; UI Inventory</span></span></a></li>
+          <li class="aside-toc-item"><a href="#sec-writing" class="aside-toc-link"><span>✍️ 3.2 <span class="lang-pt">Guia de Escrita &amp; Tom</span><span class="lang-en">Content Writing &amp; Tone</span></span></a></li>
+          <li class="aside-toc-item"><a href="#sec-tokens" class="aside-toc-link"><span>🧬 4. <span class="lang-pt">Design Tokens Subatómicos</span><span class="lang-en">Subatomic Tokens</span></span></a></li>
+          <li class="aside-toc-item"><a href="#tok-colors" class="aside-toc-link"><span>🎨 4.1 <span class="lang-pt">Cor &amp; Superfícies</span><span class="lang-en">Color &amp; Surfaces</span></span></a></li>
+          <li class="aside-toc-item"><a href="#tok-type" class="aside-toc-link"><span>🔤 4.2 <span class="lang-pt">Tipografia Triad</span><span class="lang-en">Typography Triad</span></span></a></li>
+          <li class="aside-toc-item"><a href="#tok-space" class="aside-toc-link"><span>📐 4.3 <span class="lang-pt">IBM Carbon 2x Grelha</span><span class="lang-en">IBM Carbon 2x Grid</span></span></a></li>
+          <li class="aside-toc-item"><a href="#tok-motion" class="aside-toc-link"><span>🎬 4.4 <span class="lang-pt">Física de Motion</span><span class="lang-en">Motion Physics</span></span></a></li>
+          <li class="aside-toc-item"><a href="#sec-atoms" class="aside-toc-link"><span>⚛️ 5. <span class="lang-pt">Átomos &amp; Estados</span><span class="lang-en">Atoms &amp; States</span></span></a></li>
+          <li class="aside-toc-item"><a href="#sec-molecules" class="aside-toc-link"><span>🧪 6. <span class="lang-pt">Moléculas</span><span class="lang-en">Molecules</span></span></a></li>
+          <li class="aside-toc-item"><a href="#sec-organisms" class="aside-toc-link"><span>🦠 7. <span class="lang-pt">Organismos</span><span class="lang-en">Organisms</span></span></a></li>
+          <li class="aside-toc-item"><a href="#sec-templates" class="aside-toc-link"><span>📄 8. <span class="lang-pt">Templates &amp; Rubrica</span><span class="lang-en">Templates &amp; Rubric</span></span></a></li>
+          <li class="aside-toc-item"><a href="#connected-mesh" class="aside-toc-link"><span>🔗 9. <span class="lang-pt">Rede Curricular WD101</span><span class="lang-en">Curricular Mesh</span></span></a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- ====================================================================
+         LANDMARK: <main> — Single Primary Document Canvas
+         ==================================================================== -->
+    <main class="doc-main" id="main-spec">
+
+      <!-- Breadcrumb Strip -->
+      <nav class="breadcrumb-strip" aria-label="Navegação Estrutural" style="margin-bottom:var(--space-4);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+        <a href="index.html" style="color:var(--text-muted);text-decoration:none;">WD101</a>
+        <span>/</span>
+        <a href="ixd-principles.html" style="color:var(--text-muted);text-decoration:none;"><span class="lang-pt">Módulo 03: Sistemas</span><span class="lang-en">Module 03: Systems</span></a>
+        <span>/</span>
+        <span style="color:var(--color-swiss-red);font-weight:700;">Design System DRUMTIKS '26</span>
+      </nav>
+
+      <!-- HERO SPECIFICATION HEADER -->
+      <section class="doc-hero" aria-labelledby="doc-title">
+        <p class="doc-eyebrow">WD101 Pedagogical Reference • Figma ↔ Live HTML5/CSS Living Style Guide</p>
+        <h1 class="doc-h1" id="doc-title" tabindex="-1">DRUMTIKS '26 Design System, Content Inventory &amp; Pattern Library</h1>
+        <p class="doc-lead">
+          A barebones, production-grade design specification and front-end style guide bridging the <strong>Figma Mobile Prototype</strong> and the <strong>TP11 Integrated Responsive HTML5/CSS Capstone</strong>. Built as an annotated pedagogical model demonstrating how <em>cascading inheritance</em> governs both CSS stylesheets and modular design systems—from subatomic tokens to full responsive templates.
+        </p>
+
+        <dl class="doc-meta-strip">
+          <div class="doc-meta-cell">
+            <dt>Theoretical Pillars</dt>
+            <dd>Frost • Kholmatova • Suarez • Kissane • Barr (Yahoo!) • Kubie • Santa Maria</dd>
+          </div>
+          <div class="doc-meta-cell">
+            <dt>Industry Benchmark</dt>
+            <dd>IBM Carbon (2x Grid) • Material 3 • Apple HIG</dd>
+          </div>
+          <div class="doc-meta-cell">
+            <dt>Figma Prototype Source</dt>
+            <dd><a href="https://www.figma.com/design/khltT9eeMTCJn5ItjYtw7C/DRUMTIKS-2026-Mobile-Prototype" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent-red);">DRUMTIKS-2026 Node 0:1 ↗</a></dd>
+          </div>
+          <div class="doc-meta-cell">
+            <dt>Student Starter Kit</dt>
+            <dd><a href="design-system-boilerplate.html" style="color:var(--color-accent-cyan);">Fork Blank Boilerplate →</a></dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- ==================================================================
+           CHAPTER 01: BIBLIOGRAPHY & DESIGN SYSTEMS THEORY
+           ================================================================== -->
+      <section class="spec-chapter" id="sec-bibliography" aria-labelledby="ch01-title">
+        <div class="chapter-header">
+          <span class="chapter-index">Chapter 01 • Literature Synthesis &amp; Industry Standards</span>
+          <h2 class="chapter-title" id="ch01-title">Why We Design Systems, Not Pages</h2>
+          <p class="chapter-desc">
+            A front-end style guide is more than a sticker sheet of buttons. Synthesizing the WD101 bibliography reveals how compositional hierarchy (Frost), shared pattern language (Kholmatova), single-source-of-truth tokens (Suarez &amp; Anne), and content budgets (Kissane) converge in modern systems like <strong>IBM Carbon</strong>.
+          </p>
+        </div>
+
+        <div class="doc-grid-2">
+          <!-- Pillar 1: Brad Frost -->
+          <article class="doc-card">
+            <span class="spec-chip spec-chip--atom">Compositional Hierarchy • 2016</span>
+            <h3>Brad Frost — Atomic Design</h3>
+            <p>
+              Frost dismantles the print-era myth of static "pages" by organizing interfaces as nested matter: <strong>Design Tokens (Subatomic) → Atoms → Molecules → Organisms → Templates → Pages</strong>. Crucially, Chapter 3 insists that style-guide documentation chrome remain <em>barebones and neutral</em> so it never competes visually with live specimens, while Chapter 4 introduces the <strong>Interface Inventory</strong> audit to expose duplicated styles before writing CSS.
+            </p>
+            <figure class="bib-quote">
+              <blockquote cite="https://atomicdesign.bradfrost.com/chapter-2/">
+                <p>“Atomic design is not a linear process, but rather a mental model to help us think of our user interfaces as both a cohesive whole and a collection of parts at the same time.”</p>
+              </blockquote>
+              <figcaption>Brad Frost, <cite>Atomic Design</cite>, Ch. 2 (2016)</figcaption>
+            </figure>
+          </article>
+
+          <!-- Pillar 2: Alla Kholmatova -->
+          <article class="doc-card">
+            <span class="spec-chip spec-chip--perceptual">Shared Language &amp; Dual Patterns • 2017</span>
+            <h3>Alla Kholmatova — Design Systems</h3>
+            <p>
+              Kholmatova critiques purely mechanical size buckets when teams lack a shared domain vocabulary. She divides every design system into two interlocking layers: <strong>Perceptual Patterns</strong> (aesthetic voice, granite-and-neon contrast, typographic tension, spring motion physics) and <strong>Functional Patterns</strong> (concrete domain modules solving user tasks, such as a <em>Schedule Row</em> or <em>Pass Simulator</em>), governed along a strict-vs-loose spectrum.
+            </p>
+            <figure class="bib-quote">
+              <blockquote cite="https://www.smashingmagazine.com/design-systems-book/">
+                <p>“A design system is a set of interconnected patterns and shared practices coherently organized to serve the purposes of a digital product.”</p>
+              </blockquote>
+              <figcaption>Alla Kholmatova, <cite>Design Systems</cite>, Smashing Magazine (2017)</figcaption>
+            </figure>
+          </article>
+
+          <!-- Pillar 3: Suarez, Jina Anne et al. -->
+          <article class="doc-card">
+            <span class="spec-chip spec-chip--molecule">Tokens &amp; Living Specs • 2019</span>
+            <h3>Suarez, Jina Anne et al. — Design Systems Handbook</h3>
+            <p>
+              Suarez, Sylor-Miller, Mounter, Stanfield, and <strong>Jina Anne</strong> (coiner of <em>Design Tokens</em> during the Salesforce Lightning system) formalize how design scales across design tools and codebases: pairing reusable UI components with explicit standards explaining <em>Why</em>, <em>When</em>, and <em>When Not</em> to use each pattern. Design tokens store subatomic visual decisions as platform-agnostic key-value pairs shared between Figma Variables and CSS Custom Properties.
+            </p>
+            <figure class="bib-quote">
+              <blockquote cite="https://www.designbetter.co/design-systems-handbook">
+                <p>“If it’s not documented, it doesn’t exist. Clear standards link the ‘what’ of a component library with the ‘why’ of architectural intent.”</p>
+              </blockquote>
+              <figcaption>Marco Suarez et al., <cite>Design Systems Handbook</cite> (2019)</figcaption>
+            </figure>
+          </article>
+
+          <!-- Pillar 4: Erin Kissane & IBM Carbon -->
+          <article class="doc-card">
+            <span class="spec-chip spec-chip--functional">Content-First &amp; Industrial Rigor</span>
+            <h3>Erin Kissane &amp; IBM Carbon Design System</h3>
+            <p>
+              Following Kissane’s <em>Content Inventory</em> discipline, components never hold `Lorem ipsum`; real copy character limits, microcopy tone, and media aspect ratios dictate intrinsic box sizing. We pair this with <strong>IBM Carbon</strong>’s Neo-Grotesque Swiss grid discipline: the <code>2x</code> Grid, an <code>8px</code> spatial mini-unit (with <code>4px</code> half-steps), contextual surface layering (<code>canvas → surface → elevated</code>), and Carbon’s 4-part component specification contract (<em>Usage, Anatomy, States, Code/A11y</em>).
+            </p>
+            <figure class="bib-quote">
+              <blockquote cite="https://carbondesignsystem.com/guidelines/2x-grid/overview/">
+                <p>“Good content is appropriate for the user and for the business. Every interface container must be stress-tested against real editorial constraints.”</p>
+              </blockquote>
+              <figcaption>Erin Kissane, <cite>The Elements of Content Strategy</cite> (2011) &amp; <cite>IBM Carbon Design System</cite></figcaption>
+            </figure>
+          </article>
+
+          <!-- Pillar 5: Chris Barr (Yahoo!) & Scott Kubie -->
+          <article class="doc-card">
+            <span class="spec-chip spec-chip--molecule">Editorial Voice, Tone &amp; UI Diction • 2010 / 2018</span>
+            <h3>Chris Barr (Yahoo!) &amp; Scott Kubie — Writing for Designers</h3>
+            <p>
+              <strong>Chris Barr &amp; Yahoo!</strong> ground web writing in eye-tracking behavior (3-second gaze scans, front-loaded headings, self-descriptive links, inclusive global English, and exact UI verb pairs like <code>Delete</code> vs. <code>Remove</code>). <strong>Scott Kubie</strong> organizes all project text into <strong>Interface, Product, and Marketing Copy</strong>, replacing <code>Lorem ipsum</code> with a 4-phase workflow (<em>Prepare → Compose → Edit → Finish</em>), the <strong>Accuracy → Clarity → Brevity (ACB)</strong> editing ladder, context-adaptive Tone (Urgency, Scale, Emotion), and a shared Controlled Vocabulary.
+            </p>
+            <figure class="bib-quote">
+              <blockquote cite="https://abookapart.com/products/writing-for-designers">
+                <p>“Everything left unwritten is a mystery box of incomplete design… Clarity is in the middle of this ACB sandwich because text can never be clear if it’s not accurate or too brief. Brevity is last.”</p>
+              </blockquote>
+              <figcaption>Scott Kubie, <cite>Writing for Designers</cite> (2018) &amp; Chris Barr, <cite>The Yahoo! Style Guide</cite> (2010)</figcaption>
+            </figure>
+          </article>
+
+          <!-- Pillar 6: Jason Santa Maria -->
+          <article class="doc-card">
+            <span class="spec-chip spec-chip--perceptual">Web Typography Triad • 2014</span>
+            <h3>Jason Santa Maria — On Web Typography</h3>
+            <p>
+              Santa Maria separates mere <strong>legibility</strong> (decoding glyphs) from true <strong>readability</strong> (sustained comfort across saccadic eye jumps and word-shape fixations). He pairs versatile <strong>Workhorse</strong> body faces (tall x-height, open apertures) with expressive short-burst <strong>Moment/Display</strong> faces, locking in the interlocked <strong>Typographic Triad</strong>: user-honoring <code>rem</code> Font Size (≥ <code>16px</code>), a <code>45–75ch</code> Measure (<code>80ch</code> ceiling), and unitless <code>1.5–1.65</code> Leading.
+            </p>
+            <figure class="bib-quote">
+              <blockquote cite="https://abookapart.com/products/on-web-typography">
+                <p>“Legibility means that text can be interpreted, but that’s like saying tree bark is edible… Readability combines the emotional impact of a design with the amount of effort it takes to read.”</p>
+              </blockquote>
+              <figcaption>Jason Santa Maria, <cite>On Web Typography</cite>, Ch. 1 (A Book Apart, 2014)</figcaption>
+            </figure>
+          </article>
+        </div>
+
+        <!-- Comparative Industry Benchmark Table -->
+        <div tabindex="0" role="region" aria-labelledby="caption-benchmarks" class="table-wrapper">
+          <table class="spec-table" style="--label-2:'Spatial Grid'; --label-3:'Token Architecture'; --label-4:'Hallmark Strength'; --label-5:'Adopted in DRUMTIKS 26';">
+            <caption id="caption-benchmarks">Table 1.1 — Canonical Industry Design Systems Cross-Referenced in WD101</caption>
+            <thead>
+              <tr>
+                <th scope="col">System</th>
+                <th scope="col">Spatial Grid</th>
+                <th scope="col">Token Architecture</th>
+                <th scope="col">Hallmark Pedagogical Strength</th>
+                <th scope="col">How DRUMTIKS '26 Adopts It</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"><a href="https://carbondesignsystem.com/" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent-red);">IBM Carbon v11 ↗</a></th>
+                <td><code>2x</code> Grid (16 cols) &amp; <code>8px</code> base mini-unit (<code>4px</code> half-step)</td>
+                <td>Contextual Surface Layering (<code>$background</code>, <code>$layer-01</code>, <code>$layer-02</code>)</td>
+                <td>Swiss modernist clarity, data-dense rhythm, 4-tab component spec (Usage, Style, Code, Accessibility)</td>
+                <td><code>--space-2xs</code> (4px) to <code>--space-3xl</code> (72px), 3-level surface elevation, and the 4-quadrant helper-text rubric on every card below.</td>
+              </tr>
+              <tr>
+                <th scope="row"><a href="https://m3.material.io/" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent-cyan);">Google Material 3 ↗</a></th>
+                <td><code>4dp</code> / <code>8dp</code> adaptive window size classes</td>
+                <td>3-Tier Cascade: Reference → System (<code>on-surface</code>) → Component</td>
+                <td>Dynamic color scheme adaptation &amp; explicit state-layer opacity tokens (hover 8%, focus 12%, press 12%)</td>
+                <td>Tier 1 Primitive → Tier 2 <code>light-dark()</code> Semantic → Tier 3 Component custom properties.</td>
+              </tr>
+              <tr>
+                <th scope="row"><a href="https://developer.apple.com/design/human-interface-guidelines/" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent-gold);">Apple HIG ↗</a></th>
+                <td>Safe-area insets &amp; <code>44×44pt</code> minimum touch ergonomics</td>
+                <td>Semantic Vibrancy Materials (<code>backdrop-filter</code>) &amp; Dynamic Type</td>
+                <td>Physical spring continuity, direct manipulation, and hardware-safe viewport framing</td>
+                <td><code>viewport-fit=cover</code>, <code>min-block-size: 44px</code> on interactive controls, glassmorphic header, and <code>--ease-spring</code> Vinyl Crate physics.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           CHAPTER 02: THE DUAL CASCADE (CSS INHERITANCE <-> DESIGN SYSTEMS <-> FIGMA)
+           ================================================================== -->
+      <section class="spec-chapter" id="sec-cascade" aria-labelledby="ch02-title">
+        <div class="chapter-header">
+          <span class="chapter-index">Chapter 02 • Architectural Core</span>
+          <h2 class="chapter-title" id="ch02-title">The Dual Cascade: Hierarchical Inheritance in CSS, Design Systems &amp; Figma</h2>
+          <p class="chapter-desc">
+            Students often learn the “C” in <strong>Cascading Style Sheets</strong> as a browser conflict-resolution algorithm without realizing that <strong>Atomic Design Systems</strong> and <strong>Figma Variables/Variants</strong> run on the exact same principle: <em>define high-level intent once at the root, inherit downwards automatically, and override only at the narrowest scope required</em>.
+          </p>
+        </div>
+
+        <div class="doc-grid-2">
+          <article class="doc-card">
+            <h3>1. The CSS Engine Cascade &amp; DOM Inheritance</h3>
+            <p>
+              When a browser resolves every property on an element, it filters declarations through a strict priority waterfall before falling back to DOM tree inheritance:
+            </p>
+            <ol style="padding-inline-start:1.2rem; font-size:var(--font-size-small); color:var(--doc-text-secondary); display:flex; flex-direction:column; gap:6px;">
+              <li><strong>Origin &amp; Cascade Layers (<code>@layer</code>):</strong> Unlayered rules beat layered rules; in DRUMTIKS '26, <code>@layer reset, tokens, layout, components, interactive, xray;</code> guarantees a component class always beats a reset rule—even at <code>(0,0,0)</code> specificity.</li>
+              <li><strong>Selector Specificity:</strong> <code>:where()</code> flattens resets and fallback groups to <code>(0,0,0)</code>; base classes sit cleanly at <code>(0,1,0)</code>; relational state selectors like <code>.ticket-tier-card:has(input:checked)</code> rise intentionally to <code>(0,2,0)</code>.</li>
+              <li><strong>Scoping Proximity (<code>@scope</code>):</strong> <code>@scope (.specimen-canvas)</code> scopes festival components to their stage container so closer ancestors win without class-name collisions.</li>
+              <li><strong>DOM Property Inheritance:</strong> Typography (<code>font-family</code>, <code>line-height</code>), <code>color</code> (propagated into SVG icons via <code>currentColor</code>), and all <code>--*</code> custom properties flow down the DOM tree automatically.</li>
+            </ol>
+          </article>
+
+          <article class="doc-card">
+            <h3>2. The Design System Token &amp; Atomic Cascade</h3>
+            <p>
+              In a design system, changing a single upstream decision propagates through four hierarchical tiers without touching component markup:
+            </p>
+            <ol style="padding-inline-start:1.2rem; font-size:var(--font-size-small); color:var(--doc-text-secondary); display:flex; flex-direction:column; gap:6px;">
+              <li><strong>Tier 1 — Primitive / Option Tokens:</strong> Context-free raw values (<code>--prim-red-60: #e60000</code>, <code>--space-md: 1rem</code>). Never referenced directly inside organisms.</li>
+              <li><strong>Tier 2 — Semantic / Decision Tokens:</strong> Role-based aliases carrying dark/light intent (<code>--color-accent-red</code>, <code>--color-bg-surface: light-dark(#fff, #121316)</code>).</li>
+              <li><strong>Tier 3 — Component-Scoped Tokens:</strong> Local hooks (<code>--card-border</code>, <code>--btn-bg</code>) overridden on state changes (<code>:hover</code>, <code>:has(:checked)</code>).</li>
+              <li><strong>Compositional Inheritance (Frost):</strong> Updating an <strong>Atom</strong> (e.g., <code>.pill-badge</code> radius or focus ring) automatically updates every <strong>Molecule</strong> (<code>.program-item-card</code>) and <strong>Organism</strong> (<code>.hero-stage-card</code>) containing it—just like editing a Main Component in Figma updates every nested Instance.</li>
+            </ol>
+          </article>
+        </div>
+
+        <div class="helper-note">
+          <strong>⚠️ Critical CSS Inheritance Gotcha with <code>light-dark()</code>:</strong> Because <code>light-dark()</code> resolves at <em>computed-value time</em> on inherited properties like <code>color</code> and <code>accent-color</code>, descendants only inherit the already-picked color—not the live <code>light-dark()</code> expression. Never register design-token custom properties with <code>@property</code> <code>syntax: "&lt;color&gt;"</code>, and whenever a sub-surface overrides <code>color-scheme</code> (like our dark <code>&lt;pre&gt;</code> blocks or specimen preview toggles), always set an explicit <code>background</code> and re-declare <code>color: var(--color-text-primary)</code> and <code>accent-color</code> on that container!
+        </div>
+
+        <!-- LIVE INTERACTIVE TOKEN CASCADE SANDBOX -->
+        <div class="cascade-sandbox" aria-labelledby="sandbox-heading">
+          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:var(--space-sm);">
+            <div>
+              <span class="spec-chip spec-chip--organism">Interactive Pure-CSS Lab</span>
+              <h3 id="sandbox-heading" style="font-family:var(--font-display); font-size:var(--font-size-h3); margin-block-start:4px;">
+                Live 3-Tier Cascade Propagator (Token → Atom → Molecule → Organism)
+              </h3>
+              <p style="font-size:var(--font-size-small); color:var(--doc-text-secondary);">
+                Mutate a single <strong>Tier 1 Primitive Seed</strong> (<code>--seed-brand</code>) below—zero JavaScript—and observe how Tier 2 Semantic aliases, Tier 3 Component hooks, and nested Atomic UI elements inherit the decision instantaneously.
+              </p>
+            </div>
+
+            <fieldset style="border:1px solid var(--doc-border-strong); border-radius:var(--radius-sm); padding:var(--space-xs) var(--space-sm); display:flex; flex-wrap:wrap; gap:var(--space-sm);">
+              <legend style="font-family:var(--font-mono); font-size:0.68rem; padding-inline:4px; color:var(--doc-text-muted);">Tier 1 Primitive Seed (--seed-brand)</legend>
+              <label style="font-family:var(--font-mono); font-size:0.74rem; cursor:pointer; display:inline-flex; align-items:center; gap:4px;">
+                <input type="radio" name="cascade-seed" id="seed-red" checked> Red #e60000
+              </label>
+              <label style="font-family:var(--font-mono); font-size:0.74rem; cursor:pointer; display:inline-flex; align-items:center; gap:4px;">
+                <input type="radio" name="cascade-seed" id="seed-cyan"> Cyan #0095b6
+              </label>
+              <label style="font-family:var(--font-mono); font-size:0.74rem; cursor:pointer; display:inline-flex; align-items:center; gap:4px;">
+                <input type="radio" name="cascade-seed" id="seed-gold"> Gold #d97706
+              </label>
+              <label style="font-family:var(--font-mono); font-size:0.74rem; cursor:pointer; display:inline-flex; align-items:center; gap:4px;">
+                <input type="radio" name="cascade-seed" id="seed-violet"> Violet #7c3aed
+              </label>
+            </fieldset>
+          </div>
+
+          <div class="cascade-tier-flow">
+            <div class="cascade-node">
+              <span style="font-family:var(--font-mono); font-size:0.68rem; text-transform:uppercase; opacity:0.8;">1. Semantic Alias</span>
+              <strong style="font-size:0.88rem;"><code>--sem-action: var(--seed-brand)</code></strong>
+              <span style="font-size:0.78rem; color:var(--doc-text-secondary);">Computes translucent surface tint automatically via <code>color-mix(in srgb, var(--sem-action) 14%, transparent)</code>.</span>
+            </div>
+
+            <div class="cascade-node">
+              <span style="font-family:var(--font-mono); font-size:0.68rem; text-transform:uppercase; opacity:0.8;">2. Atom Consumer</span>
+              <strong style="font-size:0.88rem;">Primary Action Button</strong>
+              <button type="button" class="cascade-demo-btn">Reserve Vault Pass →</button>
+            </div>
+
+            <div class="cascade-node">
+              <span style="font-family:var(--font-mono); font-size:0.68rem; text-transform:uppercase; opacity:0.8;">3. Molecule Consumer</span>
+              <strong style="font-size:0.88rem;">Selected Pass Tier Card</strong>
+              <div style="display:flex; justify-content:space-between; align-items:center; font-family:var(--font-mono); font-size:0.78rem;">
+                <span>Turntable VIP</span>
+                <strong style="color:var(--sem-action);">65.00 €</strong>
+              </div>
+            </div>
+
+            <div class="cascade-node">
+              <span style="font-family:var(--font-mono); font-size:0.68rem; text-transform:uppercase; opacity:0.8;">4. Organism Consumer</span>
+              <strong style="font-size:0.88rem;">Receipt Checkout Banner</strong>
+              <span style="font-family:var(--font-mono); font-size:0.74rem;"> SVG icon inherits <code>currentColor</code>:
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="display:inline; vertical-align:middle; color:var(--sem-action);">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <strong style="color:var(--sem-action);">PASS VERIFIED</strong>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FIGMA <-> HTML/CSS ARCHITECTURAL PARITY TABLE -->
+        <div tabindex="0" role="region" aria-labelledby="caption-figma-parity" class="table-wrapper">
+          <table class="spec-table" style="--label-2:'Figma Prototype Construct'; --label-3:'Live HTML5 / CSS Equivalent'; --label-4:'Cascading &amp; Inheritance Mechanism';">
+            <caption id="caption-figma-parity">Table 2.1 — Figma-to-Code Architectural Parity (DRUMTIKS '26 Workshop Prototype ↔ TP11 Live CSS)</caption>
+            <thead>
+              <tr>
+                <th scope="col">System Concept</th>
+                <th scope="col">Figma Construct (Screens <code>01</code>–<code>05</code>)</th>
+                <th scope="col">Live HTML5 / CSS Equivalent</th>
+                <th scope="col">Cascading &amp; Inheritance Mechanism</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Structural Landmarks</th>
+                <td>Top-level Frames (<code>01_Splash</code>, <code>02_Schedule</code>, <code>03_Warp</code>, <code>04_Tickets</code>, <code>05_Credits</code>)</td>
+                <td><code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code></td>
+                <td>Establishes accessibility tree landmarks &amp; root/section DOM inheritance scopes.</td>
+              </tr>
+              <tr>
+                <th scope="row">1D &amp; 2D Auto Layout</th>
+                <td>Auto Layout Vertical/Horizontal, <code>Gap</code>, <code>Hug contents</code>, <code>Fill container</code>, <code>Wrap</code></td>
+                <td>CSS Flexbox (1D) &amp; CSS Grid (2D), <code>gap: var(--space-md)</code>, <code>fit-content</code>, <code>1fr</code>, <code>flex-wrap: wrap</code></td>
+                <td>Intrinsic content-out sizing replaces brittle fixed pixel coordinates across all 4 breakpoints.</td>
+              </tr>
+              <tr>
+                <th scope="row">Variables &amp; Theme Modes</th>
+                <td>Figma Local Color/Number Variables with <code>Dark</code> &amp; <code>Light</code> Variable Modes</td>
+                <td><code>:root</code> Custom Properties + <code>color-scheme: light dark</code> + <code>light-dark()</code></td>
+                <td>Switching mode on parent Frame or <code>:root</code> re-evaluates every semantic token down the subtree.</td>
+              </tr>
+              <tr>
+                <th scope="row">Main Component &amp; Variants</th>
+                <td>Component Set <code>State=Default | Hover | Focused | Selected | Disabled</code></td>
+                <td>Base class <code>.btn-primary-cta</code> + pseudo-classes <code>:hover:not(:disabled)</code>, <code>:focus-visible</code>, <code>:active</code>, <code>:disabled</code></td>
+                <td>Base component layer defines shared geometry; state selectors specialize only delta properties.</td>
+              </tr>
+              <tr>
+                <th scope="row">Reactive Ticket State</th>
+                <td>Figma Boolean &amp; Number Variables (<code>hasBattleTicket</code>, <code>hasWarpTicket</code>, <code>totalPrice</code>)</td>
+                <td>Pure CSS relational state machine: <code>.sim-split:has(input:checked)</code> + native <code>&lt;input type="radio|checkbox"&gt;</code></td>
+                <td>Child input state bubbles upward via <code>:has()</code> to toggle parent card borders &amp; receipt totals with zero JS.</td>
+              </tr>
+              <tr>
+                <th scope="row">Motion &amp; Smart Animate</th>
+                <td>Figma <em>Smart Animate</em> Custom Spring / Gentle Bezier transitions between frames</td>
+                <td><code>transition: transform 0.55s var(--ease-spring)</code> &amp; <code>animation-timeline: scroll(root) | view()</code></td>
+                <td>Shared easing token <code>cubic-bezier(0.34, 1.56, 0.64, 1)</code> ensures consistent tactile physics everywhere.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           CHAPTER 03: CONTENT STRATEGY & COMPLETE INTERFACE INVENTORY
+           ================================================================== -->
+      <section class="spec-chapter" id="sec-inventory" aria-labelledby="ch03-title">
+        <div class="chapter-header">
+          <span class="chapter-index">Chapter 03 • Audit &amp; Content Strategy (Frost Ch. 4 + Kissane + Suarez)</span>
+          <h2 class="chapter-title" id="ch03-title">Content Inventory &amp; UI Pattern Audit Matrix</h2>
+          <p class="chapter-desc">
+            Before coding reusable components, conduct a joint <strong>Content Inventory</strong> (copy voice, character limits, media ratios) and <strong>Interface Inventory</strong> (mapping every UI module across Figma Screens <code>01–05</code>, <code>TP06-responsive</code>, and <code>TP11-integrated-responsive-project</code>). Filter the complete DRUMTIKS '26 catalog below by keyword, Atomic tier, or Kholmatova pattern class.
+          </p>
+        </div>
+
+        <!-- Semantic <search> Landmark for Real-Time Inventory Filtering -->
+        <search aria-label="Filter the DRUMTIKS 26 Content and Interface Inventory">
+          <div class="inventory-controls">
+            <div class="search-field-group">
+              <label for="inv-search-input">Search ID, Pattern Name, Selector, or Page</label>
+              <input
+                type="search"
+                id="inv-search-input"
+                class="doc-search-input"
+                placeholder="e.g. Vinyl Crate, :has(), Syne, 04_Tickets, dialog..."
+              >
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:4px;">
+              <span style="font-family:var(--font-mono); font-size:0.7rem; text-transform:uppercase; color:var(--doc-text-muted);">Atomic Tier (Frost)</span>
+              <div style="display:flex; flex-wrap:wrap; gap:6px;" role="group" aria-label="Filter by Atomic Design Tier">
+                <button type="button" class="filter-chip-btn" data-tier-filter="all" aria-pressed="true">All (23)</button>
+                <button type="button" class="filter-chip-btn" data-tier-filter="token" aria-pressed="false">Tokens</button>
+                <button type="button" class="filter-chip-btn" data-tier-filter="atom" aria-pressed="false">Atoms</button>
+                <button type="button" class="filter-chip-btn" data-tier-filter="molecule" aria-pressed="false">Molecules</button>
+                <button type="button" class="filter-chip-btn" data-tier-filter="organism" aria-pressed="false">Organisms</button>
+                <button type="button" class="filter-chip-btn" data-tier-filter="template" aria-pressed="false">Templates &amp; Pages</button>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:4px;">
+              <span style="font-family:var(--font-mono); font-size:0.7rem; text-transform:uppercase; color:var(--doc-text-muted);">Pattern Lens (Kholmatova)</span>
+              <div style="display:flex; flex-wrap:wrap; gap:6px;" role="group" aria-label="Filter by Kholmatova Pattern Category">
+                <button type="button" class="filter-chip-btn" data-lens-filter="all" aria-pressed="true">Both</button>
+                <button type="button" class="filter-chip-btn" data-lens-filter="perceptual" aria-pressed="false">Perceptual</button>
+                <button type="button" class="filter-chip-btn" data-lens-filter="functional" aria-pressed="false">Functional</button>
+              </div>
+            </div>
+
+            <p id="inv-status-count" aria-live="polite" style="font-family:var(--font-mono); font-size:0.74rem; color:var(--doc-text-muted); margin-inline-start:auto;">
+              Showing 23 of 23 documented entries
+            </p>
+          </div>
+        </search>
+
+        <div tabindex="0" role="region" aria-labelledby="caption-inventory" class="table-wrapper">
+          <table class="spec-table" id="inventory-table" style="--label-2:'Pattern &amp; Atomic Tier'; --label-3:'Kholmatova Lens'; --label-4:'Content &amp; Media Budget'; --label-5:'HTML / CSS / Figma Source'; --label-6:'Interactive States &amp; A11y';">
+            <caption id="caption-inventory">Table 3.1 — Complete DRUMTIKS '26 Content &amp; Interface Inventory (Figma Screens 01–05 + TP06 + TP11)</caption>
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Pattern &amp; Atomic Tier</th>
+                <th scope="col">Kholmatova Lens</th>
+                <th scope="col">Content &amp; Media Budget (Kissane)</th>
+                <th scope="col">HTML / CSS / Figma Source</th>
+                <th scope="col">Interactive States &amp; A11y</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-tier="token" data-lens="perceptual">
+                <th scope="row">T-01</th>
+                <td><strong>Surface &amp; Neon Color Palette</strong><br><span class="spec-chip">Subatomic Token</span></td>
+                <td>Perceptual</td>
+                <td>Granite club dark (<code>#060608</code>) ↔ Swiss daylight paper (<code>#f4f4f6</code>); Red <code>#e60000</code> reserved strictly for primary actions &amp; headliner emphasis.</td>
+                <td><code>tokens.css</code> • <code>light-dark()</code> • Figma Local Color Variables</td>
+                <td>Auto OS, Forced Light, Forced Dark; ≥ 4.5:1 AA body text (15.8:1–18.1:1 AAA primary).</td>
+              </tr>
+              <tr data-tier="token" data-lens="perceptual">
+                <th scope="row">T-02</th>
+                <td><strong>Variable Typography Triad</strong><br><span class="spec-chip">Subatomic Token</span></td>
+                <td>Perceptual</td>
+                <td><code>Syne</code> Display (≤ 42 chars uppercase/title), <code>Inter</code> Body (45–75ch measure), <code>Martian Mono</code> Timecodes/EUR prices (tabular numerals).</td>
+                <td><code>fonts.css</code> • <code>clamp()</code> scale • WOFF2 variable axes</td>
+                <td>Fluid viewport scaling from <code>320px</code> to <code>1440px+</code>; survives 200% browser text zoom.</td>
+              </tr>
+              <tr data-tier="token" data-lens="perceptual">
+                <th scope="row">T-03</th>
+                <td><strong>Carbon 2x Spatial &amp; Breakpoint Grid</strong><br><span class="spec-chip">Subatomic Token</span></td>
+                <td>Perceptual</td>
+                <td><code>8px</code> base mini-unit (<code>4px</code> half-step) up to <code>72px</code>; fluid site gutter <code>clamp(1rem, 3vw, 2.5rem)</code>; max-width <code>1380px</code>.</td>
+                <td><code>--space-2xs</code>…<code>--space-3xl</code> • 4 mobile-first <code>min-width</code> queries</td>
+                <td>Zero horizontal scroll down to <code>320px</code>; coarse touch spacing ≥ <code>8px</code> between targets.</td>
+              </tr>
+              <tr data-tier="token" data-lens="perceptual">
+                <th scope="row">T-04</th>
+                <td><strong>Spring Physics &amp; Scroll Timelines</strong><br><span class="spec-chip">Subatomic Token</span></td>
+                <td>Perceptual</td>
+                <td>Tactile vinyl crate bounce <code>cubic-bezier(0.34, 1.56, 0.64, 1)</code>; micro UI feedback <code>150ms ease</code>; document progress bar.</td>
+                <td><code>animations-transitions.css</code> • <code>scroll(root)</code> • <code>view()</code></td>
+                <td>Mandatory <code>@media (prefers-reduced-motion: reduce)</code> disables bounce &amp; scroll motion.</td>
+              </tr>
+              <tr data-tier="token" data-lens="functional">
+                <th scope="row">T-05</th>
+                <td><strong>Editorial Voice, UI Diction &amp; Controlled Vocabulary</strong><br><span class="spec-chip">Subatomic Standard</span></td>
+                <td>Perceptual + Functional</td>
+                <td>Kubie’s 3 copy buckets + <code>ACB</code> editing ladder; Yahoo! front-loading, exact verbs (<code>Remove</code> vs. <code>Delete</code>), 24h WEST timecodes, canonical <em>Pass</em> noun.</td>
+                <td>Section 3.2 Style Guide • Figma Copy Deck &amp; TP11 HTML strings</td>
+                <td>Inclusive global English, Sentence-case UI default, non-blaming <code>:user-invalid</code> recovery microcopy.</td>
+              </tr>
+              <tr data-tier="atom" data-lens="functional">
+                <th scope="row">A-01</th>
+                <td><strong>Primary, Outline &amp; Splash Pulse Buttons</strong><br><span class="spec-chip spec-chip--atom">Atom</span></td>
+                <td>Functional + Perceptual</td>
+                <td>2–3 imperative verb words (12–24 chars max, e.g., <em>"Get Passes"</em>, <em>"Proceed to Checkout"</em>). Never wrap to 2 lines on ≥ 360px.</td>
+                <td><code>&lt;button&gt;</code> / <code>&lt;a class="btn-primary-cta"&gt;</code> • Figma <code>01_Splash</code> CTA</td>
+                <td>Default, <code>:hover:not(:disabled)</code>, <code>:focus-visible</code>, <code>:active</code>, <code>:disabled</code> / <code>aria-disabled</code>; ≥ 44×44px.</td>
+              </tr>
+              <tr data-tier="atom" data-lens="perceptual">
+                <th scope="row">A-02</th>
+                <td><strong>Status Pills &amp; Timecode Badges</strong><br><span class="spec-chip spec-chip--atom">Atom</span></td>
+                <td>Perceptual</td>
+                <td>1–2 uppercase metadata tokens (≤ 18 chars: <em>"Stage A"</em>, <em>"Vault 02"</em>, <em>"18:00 – 19:30"</em>). Non-clickable signifier shape.</td>
+                <td><code>.pill-badge</code>, <code>.program-time-badge</code> • <code>components.css</code></td>
+                <td>Static read-only metadata; high-contrast border so color is never the sole differentiator.</td>
+              </tr>
+              <tr data-tier="atom" data-lens="functional">
+                <th scope="row">A-03</th>
+                <td><strong>Registration Inputs &amp; Deferred Validation</strong><br><span class="spec-chip spec-chip--atom">Atom</span></td>
+                <td>Functional</td>
+                <td>Concise visible <code>&lt;label&gt;</code> (≤ 28 chars) + format hint <em>above</em> input (≤ 65 chars) + actionable error copy with icon.</td>
+                <td><code>TP06-responsive</code> form • <code>&lt;input required&gt;</code> • <code>:user-invalid</code></td>
+                <td>Pristine, Focus, <code>:user-valid</code>, <code>:user-invalid</code> (post-blur), <code>disabled</code>; <code>aria-describedby</code> + synced <code>aria-invalid</code>.</td>
+              </tr>
+              <tr data-tier="atom" data-lens="perceptual">
+                <th scope="row">A-04</th>
+                <td><strong>Art-Directed <code>&lt;picture&gt;</code> &amp; SVG Icons</strong><br><span class="spec-chip spec-chip--atom">Atom</span></td>
+                <td>Perceptual</td>
+                <td>WebP primary + JPG fallback; <code>16:9</code> stage landscape, <code>1:1</code> vinyl covers (600×600), <code>9:16</code> / portrait crops; descriptive <code>alt</code> (≤ 110 chars).</td>
+                <td><code>&lt;picture&gt;</code> + <code>srcset</code> • <code>vinyl-platter.svg</code>, <code>check-badge.svg</code></td>
+                <td>Explicit <code>width</code>/<code>height</code> (CLS = 0); <code>fetchpriority="high"</code> on hero; <code>aria-hidden="true"</code> on decorative SVGs.</td>
+              </tr>
+              <tr data-tier="molecule" data-lens="functional">
+                <th scope="row">M-01</th>
+                <td><strong>Pass Tier Radio &amp; Add-On Checkbox Cards</strong><br><span class="spec-chip spec-chip--molecule">Molecule</span></td>
+                <td>Functional</td>
+                <td>Tier title (≤ 22 chars) + EUR price in <code>Martian Mono</code> + 1-sentence perk summary (≤ 95 chars).</td>
+                <td><code>label.ticket-tier-card</code> • <code>:has(input:checked)</code> • Figma <code>04_Tickets</code></td>
+                <td>Default, Hover, <code>:focus-within</code> ring, Checked/Selected, Disabled; native keyboard arrow/space support.</td>
+              </tr>
+              <tr data-tier="molecule" data-lens="functional">
+                <th scope="row">M-02</th>
+                <td><strong>Alternating 1D Schedule Row Card</strong><br><span class="spec-chip spec-chip--molecule">Molecule</span></td>
+                <td>Functional</td>
+                <td><code>HH:MM – HH:MM</code> slot + Act title (≤ 52 chars) + 1-line synopsis (≤ 120 chars) + max 2 venue/genre pills.</td>
+                <td><code>article.program-item-card</code> • <code>layout-micro-flexbox.css</code> • Figma <code>02_Schedule</code></td>
+                <td>Stacks vertically on mobile (&lt;680px); aligns horizontally on desktop; Headliner variant adds 4px red start border.</td>
+              </tr>
+              <tr data-tier="molecule" data-lens="functional">
+                <th scope="row">M-03</th>
+                <td><strong>Zero-JS Exclusive FAQ Disclosure</strong><br><span class="spec-chip spec-chip--molecule">Molecule</span></td>
+                <td>Functional</td>
+                <td>Question prompt in <code>&lt;summary&gt;</code> (≤ 70 chars) + answer paragraph (40–80 words, plain transit/acoustics facts).</td>
+                <td><code>&lt;details class="faq-accordion-item" name="faq"&gt;</code> • <code>battle-rules.html</code></td>
+                <td>Collapsed, Hover, <code>:focus-visible</code>, <code>[open]</code> (<code>+</code> rotates <code>45deg</code>); never nest headings inside <code>&lt;summary&gt;</code>.</td>
+              </tr>
+              <tr data-tier="molecule" data-lens="functional">
+                <th scope="row">M-04</th>
+                <td><strong>Segmented Theme Pill &amp; Subpage Breadcrumb</strong><br><span class="spec-chip spec-chip--molecule">Molecule</span></td>
+                <td>Functional</td>
+                <td>3 short mode labels (<em>Auto, Light, Dark</em>) + diagnostic <em>X-Ray</em> switch; subpage return link (<em>"← Back to Festival Stage"</em>).</td>
+                <td><code>.theme-toggle-cluster</code> • <code>dj-warp.html</code>, <code>credits.html</code></td>
+                <td>Grouped via <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code>; active pill highlighted via <code>:has(input:checked)</code>.</td>
+              </tr>
+              <tr data-tier="organism" data-lens="functional">
+                <th scope="row">O-01</th>
+                <td><strong>Sticky Glassmorphic Site Header</strong><br><span class="spec-chip spec-chip--organism">Organism</span></td>
+                <td>Functional + Perceptual</td>
+                <td>Brand logotype <code>DRUMTIKS'26</code> + max 5 section anchor links + utility controls + 1 primary CTA button.</td>
+                <td><code>header.site-header</code> • <code>backdrop-filter: blur(12px)</code></td>
+                <td>Landmark <code>banner</code> + <code>&lt;nav aria-label="Festival Primary"&gt;</code>; wraps gracefully without hiding links on desktop.</td>
+              </tr>
+              <tr data-tier="organism" data-lens="perceptual">
+                <th scope="row">O-02</th>
+                <td><strong>Hero Headliner Stage + 3D Vinyl Crate</strong><br><span class="spec-chip spec-chip--organism">Organism</span></td>
+                <td>Perceptual + Functional</td>
+                <td>Eyebrow tag + Headliner H1/H2 + hero 16:9 photo + 3 square LP covers (<em>Warp Theory</em>, <em>Concrete Pulse</em>, <em>Dust &amp; Grooves</em>) + Venue box.</td>
+                <td><code>.hero-stage-card</code> + <code>.vinyl-crate-container</code> • Figma <code>03_Warp</code></td>
+                <td>Resting stacked crate → <code>:hover</code> / <code>:focus-within</code> 3D fan-out (<code>perspective: 1000px</code>) + vinyl disc extrusion.</td>
+              </tr>
+              <tr data-tier="organism" data-lens="perceptual">
+                <th scope="row">O-03</th>
+                <td><strong>Asymmetric Dense Masonry Gallery + Voids</strong><br><span class="spec-chip spec-chip--organism">Organism</span></td>
+                <td>Perceptual</td>
+                <td>5 photographic tiles (<code>2×2</code> featured, <code>2×1</code> wide, <code>1×2</code> tall, two <code>1×1</code> LPs) + 2 Swiss typographic negative-space voids (<code>1869</code>, <code>808</code>).</td>
+                <td><code>.gallery-masonry-stage</code> • <code>grid-auto-flow: dense</code> • <code>xray-inspector.css</code></td>
+                <td>1 col (&lt;540px) → 2 cols (≥540px) → 4 cols dense (≥768px); X-Ray mode reveals live grid span coordinates.</td>
+              </tr>
+              <tr data-tier="organism" data-lens="functional">
+                <th scope="row">O-04</th>
+                <td><strong>Pure CSS Reactive Ticket Simulator &amp; Receipt</strong><br><span class="spec-chip spec-chip--organism">Organism</span></td>
+                <td>Functional</td>
+                <td>3 mutually exclusive Pass tiers (35€ / 65€ / 95€) + 2 optional Add-ons (+25€ / +30€) + live itemized receipt terminal + checkout modal.</td>
+                <td><code>.simulator-panel</code> + <code>.receipt-terminal-card</code> + <code>&lt;dialog&gt;</code> • Figma <code>04_Tickets</code></td>
+                <td>Zero-JS <code>:has(:checked)</code> updates receipt total across all 12 combinations; modal uses native <code>&lt;dialog&gt;</code> focus trap.</td>
+              </tr>
+              <tr data-tier="organism" data-lens="functional">
+                <th scope="row">O-05</th>
+                <td><strong>Scroll-Snap Photo Strip &amp; Mobile Sticky Bar</strong><br><span class="spec-chip spec-chip--organism">Organism</span></td>
+                <td>Functional</td>
+                <td>Horizontal swipeable <code>scroll-snap-type: x mandatory</code> strip (TP06) + thumb-zone bottom bar on &lt;768px viewports.</td>
+                <td><code>TP06-responsive</code> <code>.gallery-viewport</code> &amp; <code>.sticky-footer-bar</code></td>
+                <td><code>touch-action: pan-x pan-y</code> preserves vertical scroll; keyboard scrollable with <code>tabindex="0"</code>.</td>
+              </tr>
+              <tr data-tier="organism" data-lens="functional">
+                <th scope="row">O-06</th>
+                <td><strong>4-Column Academic Colophon Footer</strong><br><span class="spec-chip spec-chip--organism">Organism</span></td>
+                <td>Functional</td>
+                <td>Brand colophon, FBAUP / i2ADS institutional credits, suite cross-links, and canonical MDN reference list.</td>
+                <td><code>footer.site-footer</code> • Figma <code>05_Credits</code></td>
+                <td><code>contentinfo</code> landmark; responsive <code>1fr → 2fr → 2fr 1fr 1fr 1fr</code> Grid.</td>
+              </tr>
+              <tr data-tier="template" data-lens="functional">
+                <th scope="row">TMP-01</th>
+                <td><strong>2D Sticky Stage + Scroll Stream Master Grid</strong><br><span class="spec-chip">Template</span></td>
+                <td>Functional + Perceptual</td>
+                <td>Left sticky command stage (<code>420px–460px</code>) anchored beside fluid <code>1fr</code> right-hand narrative stream (Schedule → Masonry → Tickets → FAQ).</td>
+                <td><code>main.festival-master-grid</code> • <code>grid-template-areas</code> (≥1120px)</td>
+                <td>Single-column normal document flow on mobile/tablet; 2D spatial split on widescreen without altering DOM order.</td>
+              </tr>
+              <tr data-tier="template" data-lens="functional">
+                <th scope="row">TMP-02</th>
+                <td><strong>Editorial Technical Rider Subpage Shell</strong><br><span class="spec-chip">Template</span></td>
+                <td>Functional</td>
+                <td>Breadcrumb header + sticky quick-facts sidebar + long-form biography, tournament bracket rules, or institutional colophon.</td>
+                <td><code>dj-warp.html</code>, <code>battle-rules.html</code>, <code>credits.html</code></td>
+                <td>Consistent landmark hierarchy &amp; shared <code>styles.css</code> cascade across all subpages.</td>
+              </tr>
+              <tr data-tier="template" data-lens="perceptual">
+                <th scope="row">PG-01</th>
+                <td><strong>Production Festival Portal &amp; Subpages (4 Pages)</strong><br><span class="spec-chip">Pages (Live HTML)</span></td>
+                <td>Perceptual + Functional</td>
+                <td>Real Porto venue copy (<em>Alfândega do Porto • Vault 02</em>), real WOFF2 fonts, real optimized WebP photography, real EUR pricing.</td>
+                <td><code>TP11-integrated-responsive-project/*.html</code></td>
+                <td>Stress-tested from <code>320px</code> mobile portrait up to <code>1440px+</code> widescreen in Light &amp; Dark schemes.</td>
+              </tr>
+              <tr data-tier="template" data-lens="functional">
+                <th scope="row">PG-02</th>
+                <td><strong>Figma Interactive Mobile Prototype (5 Screens)</strong><br><span class="spec-chip">Pages (Figma)</span></td>
+                <td>Functional + Perceptual</td>
+                <td><code>01_Splash</code>, <code>02_Schedule</code>, <code>03_Warp</code>, <code>04_Tickets</code>, <code>05_Credits</code> wired with Smart Animate &amp; Local Variables.</td>
+                <td><a href="https://www.figma.com/design/khltT9eeMTCJn5ItjYtw7C/DRUMTIKS-2026-Mobile-Prototype" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent-red);">Figma Node 0:1 ↗</a></td>
+                <td>1:1 variable &amp; component naming parity with live CSS tokens.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           SECTION 3.2: CONTENT WRITING STYLE GUIDE (YAHOO! STYLE GUIDE + KUBIE)
+           ================================================================== -->
+      <section class="spec-chapter" id="sec-writing" aria-labelledby="ch03b-title">
+        <div class="chapter-header">
+          <span class="chapter-index">Chapter 03.2 • Content Writing Style Guide (Chris Barr / Yahoo! 2010 + Scott Kubie 2018)</span>
+          <h2 class="chapter-title" id="ch03b-title">Information Types, Writing Style, Voice, Tone &amp; User Diction</h2>
+          <p class="chapter-desc">
+            Every empty wireframe box is an unresolved design decision. Grounded in <strong>Chris Barr’s <cite>The Yahoo! Style Guide</cite></strong> (online eye-tracking, front-loading, global plain language, UI microcopy mechanics) and <strong>Scott Kubie’s <cite>Writing for Designers</cite></strong> (<em>Interface / Product / Marketing</em> copy buckets, <code>Accuracy → Clarity → Brevity</code> editing, tone calibration, and controlled vocabularies), this section documents how DRUMTIKS ’26 populates the blank student boilerplate with real festival language.
+          </p>
+        </div>
+
+        <!-- 3.2.1 KUBIE'S 3 COPY BUCKETS X YAHOO!'S MOST COMMON INFORMATION TYPES -->
+        <div tabindex="0" role="region" aria-labelledby="caption-copy-buckets" class="table-wrapper">
+          <table class="spec-table" style="--label-2:'Kubie Copy Bucket'; --label-3:'Yahoo! &amp; Kubie Rule'; --label-4:'Live DRUMTIKS 26 Implementation';">
+            <caption id="caption-copy-buckets">Table 3.2 — Most Common Types of User Information Mapped Across DRUMTIKS ’26</caption>
+            <thead>
+              <tr>
+                <th scope="col">Information Type</th>
+                <th scope="col">Kubie Copy Bucket</th>
+                <th scope="col">Editorial &amp; Scannability Rule (Yahoo! + Kubie)</th>
+                <th scope="col">Live DRUMTIKS ’26 String &amp; Budget</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1. Page Titles (<code>&lt;title&gt;</code>)</th>
+                <td><span class="spec-chip spec-chip--functional">Interface / SEO</span></td>
+                <td>Make the first 65 characters count (Yahoo! Ch. 7): front-load the specific page topic before the festival brand so open tabs and search snippets stay distinct.</td>
+                <td><code>DJ ’Warp’ Technical Rider • DRUMTIKS ’26 Porto</code> (46 chars) instead of generic <code>DRUMTIKS Website - Artist Page</code>.</td>
+              </tr>
+              <tr>
+                <th scope="row">2. Hero &amp; Section Headings</th>
+                <td><span class="spec-chip spec-chip--perceptual">Marketing / Product</span></td>
+                <td>3-second gaze scan &amp; Inverted Pyramid (Yahoo! Ch. 1): front-load concrete nouns, dates, and place on the left; zero throat-clearing lead-ins.</td>
+                <td><code>GRAND MASTER DJ ’WARP’</code> + lead: <em>“19th-century granite vaults beside the Douro River tuned for analog 808 sub-bass and scratch battles.”</em></td>
+              </tr>
+              <tr>
+                <th scope="row">3. Navigation &amp; Text Links</th>
+                <td><span class="spec-chip spec-chip--functional">Interface Copy</span></td>
+                <td>Self-descriptive out of context for screen-reader Rotor lists (Yahoo! Ch. 7); ban <em>“Click here”</em> and vague <em>“More…”</em>.</td>
+                <td><code>Read Scratch Battle Rules →</code> and <code>← Back to Festival Stage</code> (tells users exact destination before clicking).</td>
+              </tr>
+              <tr>
+                <th scope="row">4. Buttons &amp; User Prompts</th>
+                <td><span class="spec-chip spec-chip--functional">Interface Copy</span></td>
+                <td>Imperative action verb + domain noun, ≤ 24 chars, single line at <code>360px</code>, zero <code>-ing</code> gerunds.</td>
+                <td><code>Reserve Pass</code>, <code>Open Receipt Summary</code>, <code>Reset Filters</code>.</td>
+              </tr>
+              <tr>
+                <th scope="row">5. Form Labels, Hints &amp; Errors</th>
+                <td><span class="spec-chip spec-chip--functional">Interface Copy</span></td>
+                <td>Permanent visible <code>&lt;label&gt;</code>, format hint <em>above</em> input, calm post-blur <code>:user-invalid</code> recovery explaining what failed + how to fix it.</td>
+                <td>Hint: <em>“Format: <code>DT26-XXXX</code> (printed on confirmation email)”</em> • Error: <em>“Enter a valid @ email to receive your e-pass.”</em></td>
+              </tr>
+              <tr>
+                <th scope="row">6. Modals, Receipts &amp; Empty States</th>
+                <td><span class="spec-chip spec-chip--functional">Interface / Product</span></td>
+                <td>If removing the text breaks the interface, it is Interface Copy (Kubie p. 3). Confirm itemized selections, VAT status, and next step.</td>
+                <td><code>&lt;dialog&gt;</code> Receipt: <em>“Pass Selection Verified • Reference #DT26-808 • Present QR at Vault 02 West Gate.”</em></td>
+              </tr>
+              <tr>
+                <th scope="row">7. Rules, Transit &amp; FAQs</th>
+                <td><span class="spec-chip spec-chip--molecule">Product Copy</span></td>
+                <td>2–4 sentence paragraphs, one idea per block, numbered <code>&lt;ol&gt;</code> tournament rounds, parallel <code>&lt;ul&gt;</code> rider specs, global plain language (Yahoo! Ch. 4–6).</td>
+                <td><code>battle-rules.html</code> 15-minute elimination heats + FAQ disclosures (<em>“How do I reach Alfândega do Porto by tram?”</em> — Line 1 to Alfândega stop).</td>
+              </tr>
+              <tr>
+                <th scope="row">8. Alt Text vs. Captions</th>
+                <td><span class="spec-chip spec-chip--atom">Product / A11y</span></td>
+                <td>Functional <code>alt</code> (≤ 110 chars, no <em>“Photo of…”</em>) for non-sighted users vs. visible editorial <code>&lt;figcaption&gt;</code> credits; <code>alt=""</code> on decorative SVGs.</td>
+                <td><code>alt="Close-up of Technics SL-1200 tonearm tracking red timecode vinyl under stage strobe"</code> (91 chars).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 3.2.2 VOICE CHARTER VS. CONTEXT-ADAPTIVE TONE -->
+        <div class="doc-grid-3">
+          <article class="doc-card">
+            <span class="spec-chip spec-chip--perceptual">Voice Trait 01 • Invariant</span>
+            <h3>Crate-Digger Precision</h3>
+            <p>
+              <strong>We are:</strong> Grounded in real turntablism craft, real hardware (<code>SL-1200MK7</code>, <code>808</code>, <code>24-bit DVS</code>), and real Porto geography (<em>Alfândega Vault 02</em>).<br>
+              <strong>We are not:</strong> Elitist, gatekeeping, or hiding practical ticket rules behind obscure club slang.
+            </p>
+          </article>
+          <article class="doc-card">
+            <span class="spec-chip spec-chip--perceptual">Voice Trait 02 • Invariant</span>
+            <h3>Kinetic &amp; Scannable</h3>
+            <p>
+              <strong>We are:</strong> Concise, active-verb-driven, and front-loaded so mobile attendees standing outside the venue find gate times in under 3 seconds.<br>
+              <strong>We are not:</strong> Breathless clickbait, empty superlatives (Kubie p. 42), or multi-sentence ALL-CAPS shouting.
+            </p>
+          </article>
+          <article class="doc-card">
+            <span class="spec-chip spec-chip--functional">Voice Trait 03 • Invariant</span>
+            <h3>Transparent Host</h3>
+            <p>
+              <strong>We are:</strong> Direct about EUR pricing, sound-pressure protection, step-free riverfront ramps, and error recovery.<br>
+              <strong>We are not:</strong> Sarcastic, blaming when a form field fails, or cutesy while handling money.
+            </p>
+          </article>
+        </div>
+
+        <div tabindex="0" role="region" aria-labelledby="caption-tone-matrix" class="table-wrapper">
+          <table class="spec-table" style="--label-2:'User State'; --label-3:'Urgency, Scale &amp; Emotion (Kubie)'; --label-4:'DRUMTIKS 26 Tone Execution';">
+            <caption id="caption-tone-matrix">Table 3.3 — Context-Adaptive Tone Matrix (Same Voice, Calibrated to User Moment • Yahoo! Ch. 3 + Kubie pp. 41–42)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Touchpoint / Organism</th>
+                <th scope="col">User State</th>
+                <th scope="col">Urgency • Scale • Emotion</th>
+                <th scope="col">Tone Calibration &amp; Live Copy Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Hero Stage &amp; Vinyl Crate (<code>O-02</code>)</th>
+                <td>Excited, exploring lineup</td>
+                <td>Medium urgency • Poster scale • Tactile anticipation</td>
+                <td>Sensory architectural imagery without hyperbole: <em>“Two nights of analog scratch duels, modular sub-bass, and rare crate sessions inside Porto’s riverfront customs vaults.”</em></td>
+              </tr>
+              <tr>
+                <th scope="row">Pass Simulator &amp; Receipt (<code>O-04</code>)</th>
+                <td>Comparing prices, checking trust</td>
+                <td>Calm urgency • Exact scale • Serious &amp; reassuring</td>
+                <td>Zero jokes or fake countdown pressure (Kubie p. 42): <em>“Turntable VIP • 65.00 € (includes 23% IVA, balcony sightline &amp; fast-track Vault 02 entry).”</em></td>
+              </tr>
+              <tr>
+                <th scope="row">Form Validation Error (<code>A-03</code>)</th>
+                <td>Blocked mid-task on mobile</td>
+                <td>Immediate help • Low scale • Calm &amp; constructive</td>
+                <td>Non-accusing second-person guidance: <em>“Enter a 9-digit voucher code starting with DT26 (for example, DT26-4810).”</em></td>
+              </tr>
+              <tr>
+                <th scope="row">Battle Rules &amp; Acoustic Safety (<code>M-03</code>)</th>
+                <td>Checking constraints on-site</td>
+                <td>Zero hype • Operational scale • Matter-of-fact</td>
+                <td>Front-loaded numbers: <em>“Vault 02 peaks at 102 dB SPL; complimentary filtered earplugs are available at every bar.”</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 3.2.3 LIVE ACB EDITING & YAHOO! UI DICTION MAKEOVERS -->
+        <div class="copy-makeover-grid">
+          <article class="doc-card">
+            <span class="spec-chip spec-chip--atom">Kubie ACB Pass • Accuracy → Clarity → Brevity</span>
+            <h3>Makeover 1: Cutting Hyperbole &amp; Deadwood</h3>
+            <div class="copy-diff-pair">
+              <div class="copy-diff-bad">
+                <strong>✗ Draft (Inaccurate hype + deadwood):</strong><br>
+                “In order to experience the most revolutionary, mind-blowing DJ event in human history where you will never wait in line, click here now!”
+              </div>
+              <div class="copy-diff-good">
+                <strong>✓ ACB Edited (Accurate → Clear → Brief):</strong><br>
+                “Reserve a Turntable VIP Pass for dedicated West Gate entry and elevated Vault 02 sightlines.”
+              </div>
+            </div>
+          </article>
+
+          <article class="doc-card">
+            <span class="spec-chip spec-chip--functional">Yahoo! Ch. 7 • Exact UI Verb Diction</span>
+            <h3>Makeover 2: <code>Remove</code> vs. <code>Delete</code> &amp; <code>Add</code> vs. <code>Create</code></h3>
+            <div class="copy-diff-pair">
+              <div class="copy-diff-bad">
+                <strong>✗ Ambiguous Diction:</strong><br>
+                Button: <code>Delete Vinyl Add-on</code> (implies destroying the product record) • Button: <code>Create Masterclass</code>.
+              </div>
+              <div class="copy-diff-good">
+                <strong>✓ Precise UI Verbs:</strong><br>
+                <code>Remove Vinyl LP from Pass</code> (detaches from selection; reversible) • <code>Add Scratch Clinic (+30 €)</code>.
+              </div>
+            </div>
+          </article>
+
+          <article class="doc-card">
+            <span class="spec-chip spec-chip--molecule">Yahoo! Ch. 5–7 • Global Plain Language</span>
+            <h3>Makeover 3: Banishing Idioms &amp; Blaming Errors</h3>
+            <div class="copy-diff-pair">
+              <div class="copy-diff-bad">
+                <strong>✗ Idiomatic + Blaming:</strong><br>
+                “Oops! You dropped the ball—illegal email string submitted. Hit the back button and take another swing.”
+              </div>
+              <div class="copy-diff-good">
+                <strong>✓ Global + Actionable:</strong><br>
+                “Enter an email address containing <code>@</code> and a domain (such as <code>ana@fba.up.pt</code>) so we can send your QR pass.”
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- 3.2.4 DRUMTIKS '26 CONTROLLED VOCABULARY / WORD LIST -->
+        <div tabindex="0" role="region" aria-labelledby="caption-wordlist" class="table-wrapper">
+          <table class="spec-table" style="--label-2:'Canonical DRUMTIKS Term'; --label-3:'Avoid / Deprecated Synonyms'; --label-4:'Casing, Mechanics &amp; Formatting Rule';">
+            <caption id="caption-wordlist">Table 3.4 — DRUMTIKS ’26 Controlled Vocabulary &amp; Editorial Mechanics Word List (Yahoo! Ch. 10–19 + Kubie p. 40)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Domain Concept</th>
+                <th scope="col">Canonical Term (Use)</th>
+                <th scope="col">Deprecated Synonyms (Avoid)</th>
+                <th scope="col">Mechanics &amp; Formatting Standard</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Festival Name</th>
+                <td><code>DRUMTIKS ’26</code></td>
+                <td><em>DrumTiks 2026 / Drum-Tiks ’26</em></td>
+                <td>All-caps logotype with typographic right single quote (<code>’26</code>, U+2019), never a backwards grave accent or straight prime.</td>
+              </tr>
+              <tr>
+                <th scope="row">Entry Credential</th>
+                <td><code>Pass</code> (<em>Day Pass, Turntable VIP Pass</em>)</td>
+                <td>Alternating <em>Ticket / Wristband / Stub / Badge</em></td>
+                <td>Kubie Controlled Vocabulary rule: one noun everywhere across nav links, radio cards, receipt lines, and modal titles.</td>
+              </tr>
+              <tr>
+                <th scope="row">Optional Extras</th>
+                <td><code>Add-on</code> (noun) • <code>Add</code> (verb)</td>
+                <td><em>Plugin / Upgrade / Extra / Supplement</em></td>
+                <td>Hyphenated as a noun (<code>Add-on</code>); paired with <code>+25.00 €</code> delta prefix in <code>Martian Mono</code>.</td>
+              </tr>
+              <tr>
+                <th scope="row">Venue &amp; Stage Names</th>
+                <td><code>Alfândega do Porto • Vault 02</code></td>
+                <td><em>Porto Customs House Room 2 / Cave B</em></td>
+                <td>Preserve Portuguese diacritic (<code>â</code>); zero-pad single-digit room codes (<code>Vault 02</code>) for monospaced alignment.</td>
+              </tr>
+              <tr>
+                <th scope="row">Timecodes &amp; Ranges</th>
+                <td><code>21:30–23:45 WEST</code></td>
+                <td><em>9:30pm - 11:45pm</em></td>
+                <td>24-hour clock connected by a true en-dash (<code>–</code>, U+2013) + explicit timezone on schedules; set with <code>tabular-nums</code>.</td>
+              </tr>
+              <tr>
+                <th scope="row">Prices &amp; Numerals</th>
+                <td><code>65.00 €</code> (receipts) • <code>65 €</code> (badges)</td>
+                <td><em>EUR 65,- / sixty-five euros</em></td>
+                <td>Use numerals for all UI counts, durations (<code>15-minute heat</code>), decibels (<code>102 dB</code>), and prices (Yahoo! Ch. 12).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           CHAPTER 04: SUBATOMIC FOUNDATIONS & DESIGN TOKENS
+           ================================================================== -->
+      <section class="spec-chapter" id="sec-tokens" aria-labelledby="ch04-title">
+        <div class="chapter-header">
+          <span class="chapter-index">Chapter 04 • Subatomic Foundations (Jina Anne + IBM Carbon + Kholmatova Perceptual Layer)</span>
+          <h2 class="chapter-title" id="ch04-title">Design Tokens: Color, Variable Typography, 2x Spatial Grid &amp; Motion</h2>
+          <p class="chapter-desc">
+            Design tokens are the subatomic quarks of our system. Every visual property in DRUMTIKS '26 is governed by a semantic custom property in <code>@layer tokens</code>—eliminating magic numbers and guaranteeing automatic Light/Dark parity.
+          </p>
+        </div>
+
+        <!-- 4.1 COLOR & CONTEXTUAL SURFACE LAYERING -->
+        <div id="tok-colors" class="doc-subblock">
+          <h3 class="doc-subhead">4.1 Color System &amp; IBM Carbon Contextual Surface Layering</h3>
+          <p style="font-size:var(--font-size-small); color:var(--doc-text-secondary); max-inline-size:75ch;">
+            Following <strong>IBM Carbon</strong>’s layering model, surfaces step progressively in luminance (<code>canvas → surface → surface-elevated</code>) so nested cards remain distinguishable without heavy drop shadows. Toggle the page theme in the topbar to watch every live swatch resolve <code>light-dark()</code> automatically.
+          </p>
+
+          <div class="doc-grid-3">
+            <!-- Swatch 1 -->
+            <div class="doc-card doc-card--flush">
+              <div style="block-size:76px; background:var(--color-bg-canvas); border-block-end:1px solid var(--doc-border-subtle); display:flex; align-items:flex-end; justify-content:space-between; padding:var(--space-xs) var(--space-md); font-family:var(--font-mono); font-size:0.68rem; color:var(--color-text-primary);">
+                <span>LIVE RESOLVED</span><span>Layer 00 (Canvas)</span>
+              </div>
+              <div class="swatch-meta">
+                <code>--color-bg-canvas</code>
+                <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--doc-text-muted);">Light: #f4f4f6 • Dark: #060608</span>
+                <p>Root viewport &amp; masonry negative background. Never place muted text directly on canvas without checking ≥ 4.5:1 contrast.</p>
+              </div>
+            </div>
+
+            <!-- Swatch 2 -->
+            <div class="doc-card doc-card--flush">
+              <div style="block-size:76px; background:var(--color-bg-surface); border-block-end:1px solid var(--doc-border-subtle); display:flex; align-items:flex-end; justify-content:space-between; padding:var(--space-xs) var(--space-md); font-family:var(--font-mono); font-size:0.68rem; color:var(--color-text-primary);">
+                <span>LIVE RESOLVED</span><span>Layer 01 (Surface)</span>
+              </div>
+              <div class="swatch-meta">
+                <code>--color-bg-surface</code>
+                <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--doc-text-muted);">Light: #ffffff • Dark: #121316</span>
+                <p>Primary container surface for Hero Stage, Schedule cards, FAQ disclosures, and Simulator panel.</p>
+              </div>
+            </div>
+
+            <!-- Swatch 3 -->
+            <div class="doc-card doc-card--flush">
+              <div style="block-size:76px; background:var(--color-bg-surface-elevated); border-block-end:1px solid var(--doc-border-subtle); display:flex; align-items:flex-end; justify-content:space-between; padding:var(--space-xs) var(--space-md); font-family:var(--font-mono); font-size:0.68rem; color:var(--color-text-primary);">
+                <span>LIVE RESOLVED</span><span>Layer 02 (Elevated)</span>
+              </div>
+              <div class="swatch-meta">
+                <code>--color-bg-surface-elevated</code>
+                <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--doc-text-muted);">Light: #f8f9fa • Dark: #1c1d22</span>
+                <p>Nested sub-containers inside Layer 01: Venue box, Pass Tier radio cards, Receipt terminal, and Editorial Voids.</p>
+              </div>
+            </div>
+
+            <!-- Swatch 4 -->
+            <div class="doc-card doc-card--flush">
+              <div style="block-size:76px; background:var(--color-text-primary); color:var(--color-bg-surface); border-block-end:1px solid var(--doc-border-subtle); display:flex; align-items:flex-end; justify-content:space-between; padding:var(--space-xs) var(--space-md); font-family:var(--font-mono); font-size:0.68rem;">
+                <span>WCAG 15.8:1 – 18.1:1 AAA</span><span>Ink Primary</span>
+              </div>
+              <div class="swatch-meta">
+                <code>--color-text-primary</code>
+                <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--doc-text-muted);">Light: #111318 • Dark: #f4f4f6</span>
+                <p>Off-black / off-white primary ink prevents OLED halation buzz while comfortably exceeding WCAG 2.2 AAA (7:1).</p>
+              </div>
+            </div>
+
+            <!-- Swatch 5 -->
+            <div class="doc-card doc-card--flush">
+              <div style="block-size:76px; background:#e60000; color:#ffffff; border-block-end:1px solid var(--doc-border-subtle); display:flex; align-items:flex-end; justify-content:space-between; padding:var(--space-xs) var(--space-md); font-family:var(--font-mono); font-size:0.68rem;">
+                <span>#E60000 • White 4.8:1 AA</span><span>Brand Signal Red</span>
+              </div>
+              <div class="swatch-meta">
+                <code>--color-accent-red</code>
+                <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--doc-text-muted);">Hover: #ff2626 • Subtle: 8% / 16% alpha</span>
+                <p>High-urgency focal signifier: Primary CTA buttons, Headliner active slot, selected Pass ring, and focus outlines.</p>
+              </div>
+            </div>
+
+            <!-- Swatch 6 -->
+            <div class="doc-card doc-card--flush">
+              <div style="block-size:76px; background:linear-gradient(90deg, #00d2ff 0 50%, #f5a623 50% 100%); color:#060608; font-weight:700; border-block-end:1px solid var(--doc-border-subtle); display:flex; align-items:flex-end; justify-content:space-between; padding:var(--space-xs) var(--space-md); font-family:var(--font-mono); font-size:0.68rem;">
+                <span>#00D2FF Cyan</span><span>#F5A623 Gold</span>
+              </div>
+              <div class="swatch-meta">
+                <code>--color-accent-cyan / -gold</code>
+                <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--doc-text-muted);">Mode-adapted in Light (#006d87 / #9e6200)</span>
+                <p>Secondary technical telemetry: Vault 02 stage tags, Add-on selection borders, X-Ray grid inspector overlays, and prototype notices.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4.2 VARIABLE TYPOGRAPHY TRIAD & JASON SANTA MARIA'S WEB TYPOGRAPHY SYSTEM -->
+        <div id="tok-type" class="doc-subblock">
+          <h3 class="doc-subhead">4.2 Variable Typography Triad, Fluid <code>clamp()</code> Scale &amp; Santa Maria’s Assumed Defaults</h3>
+          <p style="font-size:var(--font-size-small); color:var(--doc-text-secondary); max-inline-size:75ch;">
+            Three self-hosted variable WOFF2 families establish Kholmatova’s perceptual voice without external CDN requests while fulfilling <strong>Jason Santa Maria</strong>’s <cite>On Web Typography</cite> pairing model: <strong>Syne</strong> as the high-contrast <em>Moment/Display</em> face, <strong>Inter</strong> as the high-x-height <em>Workhorse</em> body/UI face, and <strong>Martian Mono</strong> for fixed-width tabular telemetry.
+          </p>
+
+          <div tabindex="0" role="region" aria-labelledby="caption-type-scale" class="table-wrapper">
+            <table class="spec-table" style="--label-2:'Font &amp; Weight'; --label-3:'Fluid CSS Formula'; --label-4:'Line-Height &amp; Measure'; --label-5:'Live Rendered Specimen';">
+              <caption id="caption-type-scale">Table 4.1 — Fluid Responsive Typographic Scale (320px → 1380px Viewport Interpolation)</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Token</th>
+                  <th scope="col">Family &amp; Axis</th>
+                  <th scope="col">Fluid CSS Formula</th>
+                  <th scope="col">Leading &amp; Budget</th>
+                  <th scope="col">Live Specimen</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><code>--font-size-hero</code></th>
+                  <td><code>Syne</code> • <code>wght 800</code></td>
+                  <td><code>clamp(2.25rem, 5.5vw + 1rem, 4.5rem)</code></td>
+                  <td><code>1.08</code> • ≤ 24 chars</td>
+                  <td><span style="font-family:var(--font-display); font-weight:800; font-size:clamp(1.6rem, 2vw + 1rem, 2.3rem); line-height:1.08; letter-spacing:-0.03em;">DRUMTIKS ’26</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><code>--font-size-h1</code></th>
+                  <td><code>Syne</code> • <code>wght 800</code></td>
+                  <td><code>clamp(1.75rem, 3.8vw + 0.8rem, 3.25rem)</code></td>
+                  <td><code>1.12</code> • ≤ 42 chars</td>
+                  <td><span style="font-family:var(--font-display); font-weight:800; font-size:1.45rem; line-height:1.15;">GRAND MASTER DJ ’WARP’</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><code>--font-size-h2</code></th>
+                  <td><code>Syne</code> • <code>wght 700–800</code></td>
+                  <td><code>clamp(1.35rem, 2.5vw + 0.5rem, 2.25rem)</code></td>
+                  <td><code>1.20</code> • ≤ 55 chars</td>
+                  <td><span style="font-family:var(--font-display); font-weight:700; font-size:1.2rem;">Stage Schedule &amp; Battles</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><code>--font-size-body</code></th>
+                  <td><code>Inter</code> • <code>wght 400–600</code></td>
+                  <td><code>clamp(0.95rem, 0.5vw + 0.85rem, 1.05rem)</code></td>
+                  <td><code>1.60</code> • 45–75ch measure</td>
+                  <td><span style="font-family:var(--font-body); font-size:0.98rem;">19th-century granite vaults beside the Douro River tuned for 808 sub-bass.</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><code>--font-size-micro</code></th>
+                  <td><code>Martian Mono</code> • <code>wght 600–700</code></td>
+                  <td><code>0.75rem</code> (<code>12px</code> floor)</td>
+                  <td><code>1.40</code> • <code>tabular-nums</code></td>
+                  <td><span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-accent-red); font-weight:700; font-variant-numeric:tabular-nums;">21:30–23:45 • 65.00 € • VAULT 02</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- SANTA MARIA'S ASSUMED TYPOGRAPHIC OPTIONS MATRIX -->
+          <div tabindex="0" role="region" aria-labelledby="caption-santa-maria" class="table-wrapper">
+            <table class="spec-table" style="--label-2:'Assumed Baseline Option'; --label-3:'Santa Maria Principle (2014)'; --label-4:'Modern CSS Implementation';">
+              <caption id="caption-santa-maria">Table 4.2 — Most Common Typographic Options Assumed in the Style Guide (Jason Santa Maria, <cite>On Web Typography</cite> + Modern CSS)</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Typographic Axis</th>
+                  <th scope="col">Assumed Option</th>
+                  <th scope="col">Optical &amp; Reading Rationale (Santa Maria Ch. 1–6)</th>
+                  <th scope="col">CSS Rule &amp; Guardrail</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Workhorse vs. Moment Pairing</th>
+                  <td>Max 3 families (<code>Inter</code> + <code>Syne</code> + <code>Martian Mono</code>)</td>
+                  <td><code>Inter</code> provides tall x-height and open apertures for sustained reading; <code>Syne</code>’s wide geometric idiosyncrasy acts as a short-burst “Moment” anchor without taxing prose readability.</td>
+                  <td>Load variable WOFF2 files with real weights (<code>400–800</code>); never allow browser-synthesized faux bold/italic.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Triad 1 • Body Size &amp; Zoom</th>
+                  <td><code>≥ 1rem</code> optical floor (never <code>px</code>)</td>
+                  <td>“When in doubt, make it bigger” (Ch. 5, p. 90): arms-length desktop and glancing mobile screens demand generous body size and full 200% user zoom support.</td>
+                  <td><code>clamp(rem, vw + rem, rem)</code> — never bare <code>vw</code> or locked <code>px</code> so browser font-size preferences scale smoothly.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Triad 2 • Measure (Line Length)</th>
+                  <td><code>65ch</code> target (<code>45–75ch</code> window; <code>80ch</code> ceiling)</td>
+                  <td>Lines longer than 75–80 characters cause the eye to lose horizontal tracking during the return sweep from line end to next line start (Ch. 5, p. 91).</td>
+                  <td><code>max-inline-size: 65ch</code> on prose paragraphs, <code>75ch</code> max on chapter intros, <code>38–45ch</code> on mobile/sidebars.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Triad 3 • Leading (Line Height)</th>
+                  <td>Unitless <code>1.6–1.65</code> body • <code>1.08–1.2</code> display</td>
+                  <td>Wider measures and high-contrast dark club surfaces (<code>#060608</code>) need slightly looser vertical breathing room; large display headlines need tighter leading to hold together as one unit.</td>
+                  <td>Unitless <code>line-height: 1.65</code> ensures child elements inherit proportional ratios rather than fixed pixel heights.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Alignment, Wrapping &amp; Rivers</th>
+                  <td><code>start</code> ragged-end + <code>balance</code> / <code>pretty</code></td>
+                  <td>Web hyphenation/justification creates distracting rivers of whitespace; lowercase word shapes carry primary saccadic cues (avoid multi-line ALL-CAPS).</td>
+                  <td><code>text-align: start; overflow-wrap: break-word;</code> <code>text-wrap: balance</code> on unboxed headings only (never on bordered buttons/badges) and <code>text-wrap: pretty</code> on prose.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Numerals, Quotes &amp; Rhythm</th>
+                  <td><code>tabular-nums</code> + curly <code>“ ” ’</code> + <code>–</code> / <code>—</code></td>
+                  <td>Rigid print baseline grids fracture on fluid viewports (Ch. 6, p. 118); rely instead on modular <code>--space-*</code> flow rhythm, real typographic punctuation, and fixed-width receipt figures.</td>
+                  <td><code>font-variant-numeric: tabular-nums</code> keeps all 12 pure-CSS Simulator totals aligned to the pixel.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4.3 SPATIAL RHYTHM (IBM CARBON 2X MINI-UNIT) & BREAKPOINTS -->
+        <div id="tok-space" class="doc-subblock">
+          <h3 class="doc-subhead">4.3 IBM Carbon <code>2x</code> Spatial Scale (<code>8px</code> Mini-Unit) &amp; 4 Mobile-First Breakpoints</h3>
+
+          <div class="doc-grid-2">
+            <!-- Visual Spatial Ruler -->
+            <div class="doc-card">
+              <h4 style="font-family:var(--font-mono); font-size:0.74rem; text-transform:uppercase; color:var(--doc-text-muted);">Modular Spacing Tokens (rem / px)</h4>
+              <div style="display:flex; flex-direction:column; gap:8px; font-family:var(--font-mono); font-size:0.74rem;">
+                <div class="space-ruler-row">
+                  <code>--space-2xs</code><span>4px</span><span style="block-size:10px; inline-size:4px; background:var(--color-accent-red); border-radius:2px;"></span>
+                </div>
+                <div class="space-ruler-row">
+                  <code>--space-xs</code><span>8px (1x)</span><span style="block-size:10px; inline-size:8px; background:var(--color-accent-red); border-radius:2px;"></span>
+                </div>
+                <div class="space-ruler-row">
+                  <code>--space-sm</code><span>12px</span><span style="block-size:10px; inline-size:12px; background:var(--color-accent-red); border-radius:2px;"></span>
+                </div>
+                <div class="space-ruler-row">
+                  <code>--space-md</code><span>16px (2x)</span><span style="block-size:10px; inline-size:16px; background:var(--color-accent-red); border-radius:2px;"></span>
+                </div>
+                <div class="space-ruler-row">
+                  <code>--space-lg</code><span>24px (3x)</span><span style="block-size:10px; inline-size:24px; background:var(--color-accent-red); border-radius:2px;"></span>
+                </div>
+                <div class="space-ruler-row">
+                  <code>--space-xl</code><span>32px (4x)</span><span style="block-size:10px; inline-size:32px; background:var(--color-accent-red); border-radius:2px;"></span>
+                </div>
+                <div class="space-ruler-row">
+                  <code>--space-2xl</code><span>48px (6x)</span><span style="block-size:10px; inline-size:48px; background:var(--color-accent-red); border-radius:2px;"></span>
+                </div>
+                <div class="space-ruler-row">
+                  <code>--space-3xl</code><span>72px (9x)</span><span style="block-size:10px; inline-size:72px; background:var(--color-accent-red); border-radius:2px;"></span>
+                </div>
+              </div>
+              <p style="margin-block-start:var(--space-xs);">
+                <strong>Radii &amp; Z-Index Ladder:</strong> Radii scale geometrically (<code>--radius-sm: 4px</code> buttons, <code>--radius-md: 8px</code> inner frames, <code>--radius-lg: 16px</code> organisms, <code>--radius-full: 9999px</code> pills). Z-index tokens prevent arbitrary <code>z-index: 99999</code> wars: <code>base(1) &lt; sticky(100) &lt; header(500) &lt; modal(1000) &lt; progress(1100) &lt; inspector(2000)</code>.
+              </p>
+            </div>
+
+            <!-- 4 Breakpoint Ladder -->
+            <div class="doc-card">
+              <h4 style="font-family:var(--font-mono); font-size:0.74rem; text-transform:uppercase; color:var(--doc-text-muted);">Progressive Mobile-First Breakpoint Contract</h4>
+              <ul style="padding-inline-start:1.1rem; display:flex; flex-direction:column; gap:8px; font-size:var(--font-size-small); color:var(--doc-text-secondary);">
+                <li><strong>BP0 — Base Default (<code>&lt; 540px</code>, locked <code>min-width: 320px</code>):</strong> Zero media queries. 1-column vertical document flow, stacked Flexbox schedule cards, 1-column gallery, ≥ <code>44px</code> touch targets.</li>
+                <li><strong>BP1 — Mobile Landscape / Phablet (<code>@media (min-width: 540px)</code>):</strong> Masonry gallery shifts to 2 columns; Pass Tier radio cards form a responsive multi-column row.</li>
+                <li><strong>BP2 — Tablet Portrait (<code>@media (min-width: 768px)</code>):</strong> Schedule items switch from column stack to 1D horizontal Flexbox row; Masonry gallery expands to 4 dense columns with spans &amp; voids; Pricing Simulator splits 2-column.</li>
+                <li><strong>BP3 — Desktop Widescreen (<code>@media (min-width: 1120px)</code>):</strong> 2D Master Grid activates <code>grid-template-areas</code> pinning the <code>420px–460px</code> Sticky DJ Warp Stage beside the scrolling content stream.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4.4 MOTION CHOREOGRAPHY -->
+        <div id="tok-motion" class="doc-subblock">
+          <h3 class="doc-subhead">4.4 Motion Physics, Scroll Timelines &amp; Vestibular Safety</h3>
+          <div class="doc-card">
+            <p>
+              Hover or focus the track below to compare DRUMTIKS '26’s three canonical timing tokens side by side. Notice how <code>--ease-spring</code> overshoots past <code>1.0</code> (<code>1.56</code> control point) to emulate physical vinyl sleeve inertia, whereas micro-state transitions stay crisp at <code>150ms ease</code>.
+            </p>
+            <div tabindex="0" style="display:flex; flex-direction:column; gap:10px; padding:var(--space-md); background:var(--doc-layer-02); border-radius:var(--radius-sm); cursor:pointer;" aria-label="Hover or focus to preview motion timing tokens">
+              <div class="motion-probe-track" style="display:flex; flex-direction:column; gap:8px;">
+                <div style="display:flex; align-items:center; gap:12px; font-family:var(--font-mono); font-size:0.72rem;">
+                  <code style="min-inline-size:165px;">--transition-fast</code>
+                  <span class="motion-puck" style="inline-size:28px; block-size:18px; border-radius:4px; background:var(--color-accent-cyan); transition: transform 150ms ease;"></span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; font-family:var(--font-mono); font-size:0.72rem;">
+                  <code style="min-inline-size:165px;">--ease-out-expo</code>
+                  <span class="motion-puck" style="inline-size:28px; block-size:18px; border-radius:4px; background:var(--color-accent-gold); transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1);"></span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; font-family:var(--font-mono); font-size:0.72rem;">
+                  <code style="min-inline-size:165px;">--ease-spring</code>
+                  <span class="motion-puck" style="inline-size:28px; block-size:18px; border-radius:4px; background:var(--color-accent-red); transition: transform 550ms cubic-bezier(0.34, 1.56, 0.64, 1);"></span>
+                </div>
+              </div>
+              <span style="font-family:var(--font-mono); font-size:0.68rem; color:var(--doc-text-muted);">↳ Hover or Tab-focus this box to fire all 3 easing curves simultaneously (automatically disabled under <code>prefers-reduced-motion: reduce</code>).</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           CHAPTER 05: ATOMS — FOUNDATIONAL UI PRIMITIVES
+           ================================================================== -->
+      <section class="spec-chapter" id="sec-atoms" aria-labelledby="ch05-title">
+        <div class="chapter-header">
+          <span class="chapter-index">Chapter 05 • Atomic Tier 1 (Brad Frost Atoms + IBM Carbon State Specs)</span>
+          <h2 class="chapter-title" id="ch05-title">Atoms: Indivisible HTML5 Primitives, Helper Texts &amp; State Matrices</h2>
+          <p class="chapter-desc">
+            Atoms are single-purpose HTML elements (<code>&lt;button&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;picture&gt;</code>) that cannot be decomposed further without losing functional meaning. Each specimen below renders inside an isolated <code>@scope (.specimen-canvas)</code> stage with an independent Light/Dark surface tester.
+          </p>
+        </div>
+
+        <!-- ================================================================
+             ATOM A-01: ACTION BUTTONS & CALL-TO-ACTION TRIGGERS
+             ================================================================ -->
+        <article class="pattern-spec-card" id="atom-buttons">
+          <div class="pattern-spec-head">
+            <div class="pattern-spec-title-group">
+              <div class="pattern-id-line">
+                <span class="spec-chip spec-chip--atom">A-01 • Atom</span>
+                <span class="spec-chip spec-chip--functional">Functional + Perceptual</span>
+                <span>Figma: <code>Button / Variant=Primary|Secondary|Pulse</code></span>
+                <span>CSS: <code>@layer components</code></span>
+              </div>
+              <h3 class="doc-subhead">Action Buttons &amp; Call-to-Action Triggers</h3>
+            </div>
+          </div>
+
+          <div class="specimen-stage-wrap">
+            <div class="specimen-toolbar">
+              <span>LIVE SPECIMEN &amp; 6-STATE MATRIX • Min Target: 44×44 CSS px</span>
+              <fieldset class="specimen-surface-switch">
+                <legend class="visually-hidden">Preview surface scheme for Buttons</legend>
+                <label><input type="radio" name="surf-a01" value="auto" checked>Inherit</label>
+                <label><input type="radio" name="surf-a01" value="light">Light</label>
+                <label><input type="radio" name="surf-a01" value="dark">Dark</label>
+              </fieldset>
+            </div>
+
+            <div class="specimen-canvas">
+              <div class="state-matrix">
+                <div class="state-cell">
+                  <span class="state-cell-label">1. Default</span>
+                  <button type="button" class="btn-primary-cta">Get Passes</button>
+                </div>
+                <div class="state-cell">
+                  <span class="state-cell-label">2. :hover:not(:disabled)</span>
+                  <button type="button" class="btn-primary-cta is-sim-hover">Get Passes</button>
+                </div>
+                <div class="state-cell">
+                  <span class="state-cell-label">3. :focus-visible</span>
+                  <button type="button" class="btn-primary-cta is-sim-focus">Get Passes</button>
+                </div>
+                <div class="state-cell">
+                  <span class="state-cell-label">4. :active (Pressed)</span>
+                  <button type="button" class="btn-primary-cta is-sim-active">Get Passes</button>
+                </div>
+                <div class="state-cell">
+                  <span class="state-cell-label">5. :disabled / Sold Out</span>
+                  <button type="button" class="btn-primary-cta" disabled>Sold Out</button>
+                </div>
+                <div class="state-cell">
+                  <span class="state-cell-label">6. Splash Pulse + Outline</span>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                    <button type="button" class="btn-primary-cta btn-pulse-splash">Enter Vault</button>
+                    <button type="button" class="btn-secondary-outline">Rider PDF</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="spec-rubric-grid">
+            <div class="spec-rubric-cell">
+              <h4>1. Usage &amp; Function</h4>
+              <ul>
+                <li><strong>Semantic choice:</strong> Use <code>&lt;button type="button|submit"&gt;</code> strictly for state mutations, modals, and form submissions; use <code>&lt;a href="#tickets" class="btn-primary-cta"&gt;</code> strictly when navigating to a URL or landmark hash.</li>
+                <li><strong>Hierarchy:</strong> Maximum <strong>one</strong> Primary Red CTA per viewport cluster; pair with <code>.btn-secondary-outline</code> for secondary actions.</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>2. Anatomy</h4>
+              <ol>
+                <li><strong>Container:</strong> <code>--radius-sm</code> (4px), <code>min-block-size: 44px</code>, horizontal padding <code>--space-md</code> (16px).</li>
+                <li><strong>Label:</strong> <code>Syne</code> 700, 2–3 action verbs (≤ 24 chars), pure white <code>#fff</code> ink on <code>#e60000</code> (4.8:1 contrast).</li>
+                <li><strong>Optional Trailing Icon:</strong> 16px SVG using <code>stroke="currentColor"</code> and <code>aria-hidden="true"</code>.</li>
+              </ol>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>3. Interactive States</h4>
+              <ul>
+                <li><strong>Hover guard:</strong> Written as <code>:hover:not(:disabled)</code> so rule reordering never triggers hover lift on disabled controls.</li>
+                <li><strong>Pressed:</strong> <code>translateY(1px) scale(0.98)</code> + darkened <code>#b80000</code> confirms mechanical actuation.</li>
+                <li><strong>Pulse variant:</strong> Used exclusively on Figma <code>01_Splash</code> hero entry; halted under <code>prefers-reduced-motion</code>.</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>4. A11y &amp; Ergonomics</h4>
+              <ul>
+                <li><strong>Focus ring:</strong> <code>3px solid</code> high-contrast ring with <code>outline-offset: 3px</code> on <code>:focus-visible</code>.</li>
+                <li><strong><code>disabled</code> vs <code>aria-disabled</code>:</strong> Avoid mute disabled submit buttons in forms—keep submit clickable to surface inline field errors, or use <code>aria-disabled="true"</code> when keyboard users must discover why an action is locked.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="do-dont-grid">
+            <div class="do-box">
+              <strong>✅ DO:</strong> Guard state selectors with <code>.btn-primary-cta:hover:not(:disabled)</code> and keep labels concise and verb-led (<em>"Reserve Pass"</em>, <em>"Proceed to Checkout"</em>).
+            </div>
+            <div class="dont-box">
+              <strong>❌ DON'T:</strong> Never attach click actions to <code>&lt;div role="button"&gt;</code> or place three competing Signal Red primary buttons inside the same card header.
+            </div>
+          </div>
+
+          <figure class="code-figure" style="border-radius:0; border:0; border-block-start:1px solid var(--doc-border-subtle);">
+            <div class="code-figure-bar">
+              <span>HTML5 + Modern CSS • Non-Overmatching Button Pattern</span>
+              <button type="button" class="copy-code-btn">Copy Snippet</button>
+            </div>
+            <pre tabindex="0"><code>&lt;!-- Navigation CTA uses &lt;a&gt;; Stateful trigger uses &lt;button type="button"&gt; --&gt;
+&lt;a href="#tickets" class="btn-primary-cta"&gt;Get Passes&lt;/a&gt;
+&lt;button type="button" class="btn-secondary-outline"&gt;Download Technical Rider&lt;/button&gt;
+
+&lt;style&gt;
+.btn-primary-cta:hover:not(:disabled) {
+  background-color: var(--color-accent-red-hover);
+  transform: translateY(-2px);
+}
+.btn-primary-cta:focus-visible {
+  outline: 3px solid var(--color-accent-red);
+  outline-offset: 3px;
+}
+&lt;/style&gt;</code></pre>
+          </figure>
+        </article>
+
+        <!-- ================================================================
+             ATOM A-02: STATUS PILLS & TIMECODE BADGES
+             ================================================================ -->
+        <article class="pattern-spec-card" id="atom-badges">
+          <div class="pattern-spec-head">
+            <div class="pattern-spec-title-group">
+              <div class="pattern-id-line">
+                <span class="spec-chip spec-chip--atom">A-02 • Atom</span>
+                <span class="spec-chip spec-chip--perceptual">Perceptual Signifier</span>
+                <span>Figma: <code>Badge / Tone=Neutral|Accent|Cyan|Timecode</code></span>
+                <span>CSS: <code>.pill-badge</code>, <code>.program-time-badge</code></span>
+              </div>
+              <h3 class="doc-subhead">Status Pills, Venue Tags &amp; Tabular Timecode Badges</h3>
+            </div>
+          </div>
+
+          <div class="specimen-stage-wrap">
+            <div class="specimen-toolbar">
+              <span>LIVE SPECIMEN • Non-Interactive Metadata Signifiers</span>
+              <fieldset class="specimen-surface-switch">
+                <legend class="visually-hidden">Preview surface scheme for Badges</legend>
+                <label><input type="radio" name="surf-a02" value="auto" checked>Inherit</label>
+                <label><input type="radio" name="surf-a02" value="light">Light</label>
+                <label><input type="radio" name="surf-a02" value="dark">Dark</label>
+              </fieldset>
+            </div>
+
+            <div class="specimen-canvas">
+              <div style="display:flex; flex-wrap:wrap; align-items:center; gap:var(--space-sm);">
+                <span class="pill-badge pill-badge--accent">Headliner</span>
+                <span class="pill-badge pill-badge--cyan">Vault 02</span>
+                <span class="pill-badge">808 &amp; 909 Beats</span>
+                <span class="pill-badge">Accessible Ramp</span>
+                <span class="program-time-badge">18:00 – 19:30</span>
+                <span class="program-time-badge" style="border-color:var(--color-accent-red); color:var(--color-accent-red);">21:30 – 23:45</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="spec-rubric-grid">
+            <div class="spec-rubric-cell">
+              <h4>1. Usage &amp; Function</h4>
+              <ul>
+                <li>Classifies schedule slots, venue acoustics, transit lines, and headliner priority at a glance.</li>
+                <li>Strictly <strong>read-only</strong>: never add hover lift or pointer cursors to static badges (prevents false button affordances).</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>2. Anatomy</h4>
+              <ul>
+                <li><strong>Status Pill:</strong> Full capsule <code>--radius-full</code> (<code>9999px</code>), <code>1px</code> semantic border + translucent tint.</li>
+                <li><strong>Timecode Badge:</strong> Rectangular <code>--radius-xs</code> (<code>2px</code>) with <code>Martian Mono</code> <code>font-variant-numeric: tabular-nums</code> so stacked schedule columns align to the pixel.</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>3. Content Budget</h4>
+              <ul>
+                <li>Maximum <strong>18 characters</strong> (1–2 words or <code>HH:MM – HH:MM</code> WEST time range).</li>
+                <li>Pair color tints with explicit text labels (<em>"Headliner"</em>, <em>"Vault 02"</em>) so colorblind readers never rely on hue alone.</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>4. A11y Contract</h4>
+              <ul>
+                <li>Render with neutral inline <code>&lt;span&gt;</code> or <code>&lt;time datetime="21:30"&gt;</code>—never <code>&lt;button&gt;</code> or <code>tabindex="0"</code>.</li>
+                <li>Cyan and Gold text tones automatically darken in Light mode (<code>#006d87</code>) via <code>light-dark()</code> to maintain ≥ 4.5:1 AA contrast.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- ================================================================
+             ATOM A-03: FORM INPUTS & DEFERRED :USER-INVALID VALIDATION
+             ================================================================ -->
+        <article class="pattern-spec-card" id="atom-inputs">
+          <div class="pattern-spec-head">
+            <div class="pattern-spec-title-group">
+              <div class="pattern-id-line">
+                <span class="spec-chip spec-chip--atom">A-03 • Atom</span>
+                <span class="spec-chip spec-chip--functional">Functional Input</span>
+                <span>Source: <code>TP06-responsive</code> DJ Battle Registration</span>
+                <span>CSS: <code>:user-valid</code> / <code>:user-invalid</code></span>
+              </div>
+              <h3 class="doc-subhead">Form Text Controls &amp; Deferred Post-Interaction Validation</h3>
+            </div>
+          </div>
+
+          <div class="specimen-stage-wrap">
+            <div class="specimen-toolbar">
+              <span>INTERACTIVE PLAYGROUND • Type an incomplete email, Tab out (blur), then fix it!</span>
+              <fieldset class="specimen-surface-switch">
+                <legend class="visually-hidden">Preview surface scheme for Form Inputs</legend>
+                <label><input type="radio" name="surf-a03" value="auto" checked>Inherit</label>
+                <label><input type="radio" name="surf-a03" value="light">Light</label>
+                <label><input type="radio" name="surf-a03" value="dark">Dark</label>
+              </fieldset>
+            </div>
+
+            <div class="specimen-canvas">
+              <form id="ds-validation-demo" class="dt-form-grid" novalidate>
+                <div class="dt-field">
+                  <label for="dj-email">Competitor Email (Required)</label>
+                  <span id="dj-email-hint" class="dt-hint">Format: mc@crew.pt (checked after blur)</span>
+                  <input
+                    type="email"
+                    id="dj-email"
+                    name="dj-email"
+                    class="dt-input"
+                    required
+                    autocomplete="email"
+                    inputmode="email"
+                    placeholder="warp@alfandega.pt"
+                    aria-describedby="dj-email-hint"
+                  >
+                  <span class="dt-error-msg"><span aria-hidden="true">✕ </span>Enter a complete email address (e.g. dj@porto.pt).</span>
+                  <span class="dt-valid-msg"><span aria-hidden="true">✓ </span>Rider confirmation address verified.</span>
+                </div>
+
+                <div class="dt-field">
+                  <label for="dj-handle">Battle Crew Tag (Pattern <code>DT-###</code>)</label>
+                  <span id="dj-handle-hint" class="dt-hint">Uppercase prefix DT- followed by 3 digits</span>
+                  <input
+                    type="text"
+                    id="dj-handle"
+                    name="dj-handle"
+                    class="dt-input"
+                    required
+                    pattern="DT-[0-9]{3}"
+                    placeholder="DT-808"
+                    aria-describedby="dj-handle-hint"
+                  >
+                  <span class="dt-error-msg"><span aria-hidden="true">✕ </span>Use exact battle code format: DT-808.</span>
+                  <span class="dt-valid-msg"><span aria-hidden="true">✓ </span>Bracket slot code valid.</span>
+                </div>
+
+                <div class="dt-field" inert>
+                  <label for="dj-locked">Locked Bracket Seed (<code>[inert]</code> state)</label>
+                  <span class="dt-hint">Assigned automatically at weigh-in</span>
+                  <input type="text" id="dj-locked" class="dt-input" value="VAULT-02-SEED-A" readonly>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="spec-rubric-grid">
+            <div class="spec-rubric-cell">
+              <h4>1. Why <code>:user-invalid</code> Beats <code>:invalid</code></h4>
+              <ul>
+                <li>Legacy <code>input:invalid</code> fires the instant a page loads or on the very first keystroke (<code>"w"</code>), shouting red errors prematurely.</li>
+                <li><code>:user-invalid</code> defers error styling until the user commits a value (blur or submit), then clears the instant the format becomes valid!</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>2. Anatomy &amp; Hint Placement</h4>
+              <ol>
+                <li><strong>Explicit <code>&lt;label for&gt;</code>:</strong> Persistent above field; never replace labels with vanishing low-contrast placeholders.</li>
+                <li><strong>Hint <em>above</em> input:</strong> Linked via <code>aria-describedby</code> so browser autofill popovers and virtual keyboards never cover format rules.</li>
+                <li><strong>Dual-cue feedback:</strong> Border + subtle surface shift + text/icon message below.</li>
+              </ol>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>3. All 5 Field States</h4>
+              <ul>
+                <li><strong>Pristine:</strong> Neutral <code>2px</code> border; zero error noise.</li>
+                <li><strong>Focused:</strong> <code>3px</code> offset focus ring.</li>
+                <li><strong><code>:user-invalid</code>:</strong> Red border + rose tint + visible sibling <code>.dt-error-msg</code> + synced <code>aria-invalid="true"</code>.</li>
+                <li><strong><code>:user-valid</code>:</strong> Emerald confirmation border + check caption.</li>
+                <li><strong><code>disabled</code> / <code>[inert]</code>:</strong> 45% opacity, removed from tab order.</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>4. Autofill &amp; Progressive Fallback</h4>
+              <ul>
+                <li>Pair <code>type="email"</code> + <code>inputmode="email"</code> + <code>autocomplete="email"</code> so mobile keyboards, validation, and password managers reinforce one another.</li>
+                <li>Includes <code>.user-invalid-fallback</code> via a lightweight <code>WeakMap</code> blur listener + automatic <code>aria-invalid</code> synchronization.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- ================================================================
+             ATOM A-04: RESPONSIVE ART-DIRECTED MEDIA & VECTOR ICONS
+             ================================================================ -->
+        <article class="pattern-spec-card" id="atom-media">
+          <div class="pattern-spec-head">
+            <div class="pattern-spec-title-group">
+              <div class="pattern-id-line">
+                <span class="spec-chip spec-chip--atom">A-04 • Atom</span>
+                <span class="spec-chip spec-chip--perceptual">Perceptual Media</span>
+                <span>Assets: <code>WebP + JPG Fallback + SVG</code></span>
+                <span>CLS Budget: <code>0.00</code></span>
+              </div>
+              <h3 class="doc-subhead">Art-Directed <code>&lt;picture&gt;</code> Frames &amp; Local SVG Iconography</h3>
+            </div>
+          </div>
+
+          <div class="specimen-stage-wrap">
+            <div class="specimen-toolbar">
+              <span>LIVE SPECIMEN • Resize viewport or inspect aspect-ratio reservation</span>
+              <fieldset class="specimen-surface-switch">
+                <legend class="visually-hidden">Preview surface scheme for Media</legend>
+                <label><input type="radio" name="surf-a04" value="auto" checked>Inherit</label>
+                <label><input type="radio" name="surf-a04" value="light">Light</label>
+                <label><input type="radio" name="surf-a04" value="dark">Dark</label>
+              </fieldset>
+            </div>
+
+            <div class="specimen-canvas">
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap:var(--space-md); align-items:center;">
+                <figure style="background:var(--color-bg-surface); border:1px solid var(--color-border-subtle); border-radius:var(--radius-md); overflow:hidden;">
+                  <picture>
+                    <source media="(max-width: 600px)" srcset="demos/tp11-integrated-responsive-project/assets/images/dj-warp-vault-1x1-600w.webp" type="image/webp" width="600" height="600">
+                    <source srcset="demos/tp11-integrated-responsive-project/assets/hero-dj-warp-960w.webp" type="image/webp" width="960" height="540">
+                    <img
+                      src="demos/tp11-integrated-responsive-project/assets/dj-warp-600w.jpg"
+                      alt="Grand Master DJ Warp scratching on dual turntables inside Alfândega Vault 02"
+                      width="960"
+                      height="540"
+                      loading="lazy"
+                      style="inline-size:100%; block-size:auto; aspect-ratio:16/9; object-fit:cover;"
+                    >
+                  </picture>
+                  <figcaption style="padding:var(--space-xs) var(--space-sm); font-family:var(--font-mono); font-size:0.68rem; color:var(--color-text-muted);">
+                    Art Direction: 1:1 square crop ≤600px → 16:9 widescreen stage ≥601px (WebP + JPG fallback)
+                  </figcaption>
+                </figure>
+
+                <div style="display:flex; flex-direction:column; gap:var(--space-sm); background:var(--color-bg-surface); border:1px solid var(--color-border-subtle); border-radius:var(--radius-md); padding:var(--space-md);">
+                  <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--color-text-muted); text-transform:uppercase;">Self-Hosted Vector Icons (TP11/assets/icons)</span>
+                  <div style="display:flex; align-items:center; gap:var(--space-lg); flex-wrap:wrap;">
+                    <img src="demos/tp11-integrated-responsive-project/assets/vinyl-platter.svg" alt="Turntable Vinyl Platter Symbol" width="48" height="48" loading="lazy">
+                    <img src="demos/tp11-integrated-responsive-project/assets/icons/check-badge.svg" alt="" width="36" height="36" loading="lazy">
+                    <img src="demos/tp11-integrated-responsive-project/assets/favicon.svg" alt="DRUMTIKS 26 Monogram Badge" width="40" height="40" loading="lazy">
+                  </div>
+                  <p style="font-size:0.8rem; color:var(--color-text-secondary);">
+                    Informative icons carry concise functional <code>alt</code> text; purely decorative badges adjacent to text labels use <code>alt=""</code> or inline <code>&lt;svg aria-hidden="true"&gt;</code>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="spec-rubric-grid">
+            <div class="spec-rubric-cell">
+              <h4>1. Performance &amp; CLS = 0</h4>
+              <ul>
+                <li>Always declare intrinsic <code>width</code> and <code>height</code> attributes on <code>&lt;img&gt;</code> and <code>&lt;source&gt;</code> so the browser reserves aspect-ratio boxes before bytes arrive.</li>
+                <li>Use <code>fetchpriority="high"</code> (never <code>loading="lazy"</code>) on the above-the-fold Hero image; apply <code>loading="lazy"</code> to below-the-fold Masonry and Crate sleeves.</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>2. Alt Text Discipline</h4>
+              <ul>
+                <li>Describe communicative purpose (<em>"Grand Master DJ Warp scratching..."</em>), omitting redundant <em>"Image of..."</em> prefixes.</li>
+                <li>Use hyphenated filenames (<code>album-2-concrete-pulse.jpg</code>, never underscores) for clean fallback announcements.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ==================================================================
+           CHAPTER 06: MOLECULES — COMPOSED FUNCTIONAL CLUSTERS
+           ================================================================== -->
+      <section class="spec-chapter" id="sec-molecules" aria-labelledby="ch06-title">
+        <div class="chapter-header">
+          <span class="chapter-index">Chapter 06 • Atomic Tier 2 (Brad Frost Molecules + Kholmatova Functional Patterns)</span>
+          <h2 class="chapter-title" id="ch06-title">Molecules: Multi-Atom Functional Clusters &amp; Zero-JS Parent Styling</h2>
+          <p class="chapter-desc">
+            Molecules bond two or more Atoms into a single task-focused unit: a radio input + title + monospace price forming a selectable <strong>Pass Tier Card</strong>, or a <code>&lt;details&gt;</code> + <code>&lt;summary&gt;</code> disclosure item. Modern CSS <code>:has()</code> lets these molecules style their own outer frame from child state without JavaScript event listeners.
+          </p>
+        </div>
+
+        <!-- ================================================================
+             MOLECULE M-01: PASS TIER RADIO CARD (:HAS(INPUT:CHECKED))
+             ================================================================ -->
+        <article class="pattern-spec-card" id="mol-pass-card">
+          <div class="pattern-spec-head">
+            <div class="pattern-spec-title-group">
+              <div class="pattern-id-line">
+                <span class="spec-chip spec-chip--molecule">M-01 • Molecule</span>
+                <span class="spec-chip spec-chip--functional">Functional Selection</span>
+                <span>Figma: <code>TicketCard / Selected=False|True</code></span>
+                <span>CSS: <code>.ticket-tier-card:has(input:checked)</code></span>
+              </div>
+              <h3 class="doc-subhead">Pass Tier Radio Card &amp; Add-On Checkbox Row</h3>
+            </div>
+          </div>
+
+          <div class="specimen-stage-wrap">
+            <div class="specimen-toolbar">
+              <span>INTERACTIVE SPECIMEN • Click or use Arrow/Space keys to test :has(input:checked)</span>
+              <fieldset class="specimen-surface-switch">
+                <legend class="visually-hidden">Preview surface scheme for Pass Cards</legend>
+                <label><input type="radio" name="surf-m01" value="auto" checked>Inherit</label>
+                <label><input type="radio" name="surf-m01" value="light">Light</label>
+                <label><input type="radio" name="surf-m01" value="dark">Dark</label>
+              </fieldset>
+            </div>
+
+            <div class="specimen-canvas">
+              <fieldset style="border:0; display:flex; flex-direction:column; gap:var(--space-sm);">
+                <legend style="font-family:var(--font-mono); font-size:0.72rem; text-transform:uppercase; color:var(--color-text-muted); margin-block-end:var(--space-xs);">
+                  Select Festival Pass Tier (Native Radio Group — Not Wrapped in &lt;ul&gt;)
+                </legend>
+                <div class="ticket-option-grid">
+                  <label class="ticket-tier-card">
+                    <input type="radio" name="mol-demo-pass" value="standard" checked>
+                    <div class="tier-header">
+                      <span class="tier-title">① General Admission</span>
+                      <span class="tier-price">② 35.00 €</span>
+                    </div>
+                    <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
+                      ③ Full access to live stages, riverfront terrace, and MPC beat ciphers.
+                    </p>
+                  </label>
+
+                  <label class="ticket-tier-card">
+                    <input type="radio" name="mol-demo-pass" value="vip">
+                    <div class="tier-header">
+                      <span class="tier-title">Turntable VIP</span>
+                      <span class="tier-price">65.00 €</span>
+                    </div>
+                    <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
+                      Stage-side front row access, artist lounge pass, and 180g festival tote.
+                    </p>
+                  </label>
+                </div>
+
+                <label class="addon-checkbox-label" style="margin-block-start:var(--space-xs);">
+                  <span>
+                    <input type="checkbox" name="mol-demo-vinyl" checked>
+                    <strong>Festival Vinyl 2×LP</strong> (Limited 180g Gatefold Pressing)
+                  </span>
+                  <span style="font-family:var(--font-mono); font-weight:700; color:var(--color-accent-cyan);">+ 25.00 €</span>
+                </label>
+              </fieldset>
+            </div>
+          </div>
+
+          <div class="spec-rubric-grid">
+            <div class="spec-rubric-cell">
+              <h4>1. Usage &amp; Function</h4>
+              <ul>
+                <li>Replaces cramped 16px radio dots with generous full-card Fitts’s Law targets for mutually exclusive tiers (<code>type="radio"</code>) or cumulative add-ons (<code>type="checkbox"</code>).</li>
+                <li>Mirrors Figma <code>04_Tickets</code> Boolean variables (<code>hasBattleTicket</code>, <code>hasWarpTicket</code>).</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>2. Anatomy</h4>
+              <ol>
+                <li><strong>Outer <code>&lt;label&gt;</code> + hidden <code>&lt;input&gt;</code>:</strong> Expands click target across the entire card while keeping native keyboard roving tabindex.</li>
+                <li><strong>Flex Header:</strong> <code>Syne</code> title + right-aligned <code>Martian Mono</code> EUR price.</li>
+                <li><strong>Perk Copy:</strong> Max 95 characters in secondary ink.</li>
+              </ol>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>3. Child-State Container Styling</h4>
+              <ul>
+                <li>Scoped directly to <code>.ticket-tier-card:has(input:checked)</code> (never anchored broadly on <code>body:has(...)</code>) to minimize browser style recalculation scope.</li>
+                <li>Includes <code>@supports not selector(:has(*))</code> fallback class <code>.is-selected</code> for legacy engines.</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>4. A11y Grouping Rule</h4>
+              <ul>
+                <li>Group related radios/checkboxes inside <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code>—<strong>never</strong> inside <code>&lt;ul&gt;/&lt;li&gt;</code>, because screen readers already announce the radio set size and index natively.</li>
+                <li><code>:focus-within</code> draws a 3px Cyan ring when tabbing onto the visually hidden input.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- ================================================================
+             MOLECULE M-02: ALTERNATING 1D SCHEDULE ROW CARD
+             ================================================================ -->
+        <article class="pattern-spec-card" id="mol-schedule-row">
+          <div class="pattern-spec-head">
+            <div class="pattern-spec-title-group">
+              <div class="pattern-id-line">
+                <span class="spec-chip spec-chip--molecule">M-02 • Molecule</span>
+                <span class="spec-chip spec-chip--functional">Functional Timeline</span>
+                <span>Figma: <code>ScheduleRow / Variant=Standard|Headliner</code></span>
+                <span>CSS: <code>layout-micro-flexbox.css</code></span>
+              </div>
+              <h3 class="doc-subhead">Alternating 1D Flexbox Schedule Row Card</h3>
+            </div>
+          </div>
+
+          <div class="specimen-stage-wrap">
+            <div class="specimen-toolbar">
+              <span>LIVE SPECIMEN • Column stack on narrow mobile → 1D horizontal Flexbox row ≥680px</span>
+              <fieldset class="specimen-surface-switch">
+                <legend class="visually-hidden">Preview surface scheme for Schedule Rows</legend>
+                <label><input type="radio" name="surf-m02" value="auto" checked>Inherit</label>
+                <label><input type="radio" name="surf-m02" value="light">Light</label>
+                <label><input type="radio" name="surf-m02" value="dark">Dark</label>
+              </fieldset>
+            </div>
+
+            <div class="specimen-canvas">
+              <div class="program-schedule-list">
+                <article class="program-item-card">
+                  <div class="program-time-badge">18:00 – 19:30</div>
+                  <div style="flex:1 1 auto;">
+                    <h4 style="font-family:var(--font-display); font-size:var(--font-size-body); font-weight:700;">MPC Finger Drumming Invitational</h4>
+                    <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">16 national beatmakers compete on hardware samplers in 60-second knockout rounds.</p>
+                  </div>
+                  <div class="program-tag-cluster">
+                    <span class="pill-badge pill-badge--cyan">Vault 02</span>
+                    <span class="pill-badge">Hardware</span>
+                  </div>
+                </article>
+
+                <article class="program-item-card program-item-card--headliner">
+                  <div class="program-time-badge" style="color:var(--color-accent-red); border-color:var(--color-accent-red);">21:30 – 23:45</div>
+                  <div style="flex:1 1 auto;">
+                    <h4 style="font-family:var(--font-display); font-size:var(--font-size-body); font-weight:700; color:var(--color-accent-red);">GRAND MASTER DJ 'WARP' • Live 4-Deck Set</h4>
+                    <p style="font-size:var(--font-size-small); color:var(--color-text-secondary);">Four-turntable symphonic scratch showcase featuring original dubplates &amp; 808 synthesis.</p>
+                  </div>
+                  <div class="program-tag-cluster">
+                    <span class="pill-badge pill-badge--accent">Headliner</span>
+                    <span class="pill-badge">Main Arena</span>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <div class="spec-rubric-grid">
+            <div class="spec-rubric-cell">
+              <h4>1. Why 1D Flexbox (Golden Rule)</h4>
+              <ul>
+                <li>Each schedule card aligns a linear sequence (<em>Timecode → Act Metadata → Venue Pills</em>) along a single axis—making 1D Flexbox superior to rigid Grid column tracks when act titles vary in length.</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>2. Specialization Override</h4>
+              <ul>
+                <li><code>.program-item-card--headliner</code> specializes the base molecule via logical <code>border-inline-start: 4px solid var(--color-accent-red)</code> so RTL writing modes flip automatically.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- ================================================================
+             MOLECULE M-03: ZERO-JS NATIVE DISCLOSURE ACCORDION
+             ================================================================ -->
+        <article class="pattern-spec-card" id="mol-accordion">
+          <div class="pattern-spec-head">
+            <div class="pattern-spec-title-group">
+              <div class="pattern-id-line">
+                <span class="spec-chip spec-chip--molecule">M-03 • Molecule</span>
+                <span class="spec-chip spec-chip--functional">Progressive Disclosure</span>
+                <span>HTML5: <code>&lt;details name="faq"&gt; + &lt;summary&gt;</code></span>
+              </div>
+              <h3 class="doc-subhead">Exclusive Zero-JS FAQ Disclosure Accordion</h3>
+            </div>
+          </div>
+
+          <div class="specimen-stage-wrap">
+            <div class="specimen-toolbar">
+              <span>INTERACTIVE SPECIMEN • Shared name="ds-faq" enforces exclusive accordion behavior natively</span>
+              <fieldset class="specimen-surface-switch">
+                <legend class="visually-hidden">Preview surface scheme for Accordion</legend>
+                <label><input type="radio" name="surf-m03" value="auto" checked>Inherit</label>
+                <label><input type="radio" name="surf-m03" value="light">Light</label>
+                <label><input type="radio" name="surf-m03" value="dark">Dark</label>
+              </fieldset>
+            </div>
+
+            <div class="specimen-canvas">
+              <div class="faq-accordion-group">
+                <details class="faq-accordion-item" name="ds-faq" open>
+                  <summary class="faq-summary">How do I reach Alfândega do Porto by public transit?</summary>
+                  <div class="faq-content-body">
+                    Historic Tram Line 1 stops directly in front of the riverfront terminal. STCP Bus 500 connects from São Bento Station every 15 minutes.
+                  </div>
+                </details>
+                <details class="faq-accordion-item" name="ds-faq">
+                  <summary class="faq-summary">What are the tournament rules for the MPC Scratch Battle?</summary>
+                  <div class="faq-content-body">
+                    Two 60-second rounds per entrant on identical Technics SL-1200MK7 decks; no pre-recorded stems permitted (full rules in <code>battle-rules.html</code>).
+                  </div>
+                </details>
+              </div>
+            </div>
+          </div>
+
+          <div class="do-dont-grid">
+            <div class="do-box">
+              <strong>✅ DO:</strong> Place plain text inside <code>&lt;summary&gt;</code> (first child of <code>&lt;details&gt;</code>), replace the hidden marker with a clear <code>+</code> → <code>×</code> signifier on <code>details[open]</code>, and share a <code>name</code> attribute when exclusive opening is desired.
+            </div>
+            <div class="dont-box">
+              <strong>❌ DON'T:</strong> Never nest <code>&lt;h3&gt;</code>, <code>&lt;a&gt;</code>, or <code>&lt;button&gt;</code> inside <code>&lt;summary&gt;</code>—browsers expose <code>&lt;summary&gt;</code> as a button, stripping child heading semantics and breaking keyboard focus.
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ==================================================================
+           CHAPTER 07: ORGANISMS — AUTONOMOUS DOMAIN SECTIONS
+           ================================================================== -->
+      <section class="spec-chapter" id="sec-organisms" aria-labelledby="ch07-title">
+        <div class="chapter-header">
+          <span class="chapter-index">Chapter 07 • Atomic Tier 3 (Brad Frost Organisms + Domain Modules)</span>
+          <h2 class="chapter-title" id="ch07-title">Organisms: Complex Domain Sections, 3D Vinyl Crate, Dense Masonry &amp; Pricing Engine</h2>
+          <p class="chapter-desc">
+            Organisms combine Atoms and Molecules into distinct, self-contained interface regions that establish brand personality (Kholmatova’s Perceptual layer) while solving complete user workflows (Functional layer).
+          </p>
+        </div>
+
+        <!-- ================================================================
+             ORGANISM O-01: STICKY GLASSMORPHIC SITE HEADER
+             ================================================================ -->
+        <article class="pattern-spec-card" id="org-header">
+          <div class="pattern-spec-head">
+            <div class="pattern-spec-title-group">
+              <div class="pattern-id-line">
+                <span class="spec-chip spec-chip--organism">O-01 • Organism</span>
+                <span class="spec-chip spec-chip--functional">Global Navigation Landmark</span>
+                <span>Landmark: <code>&lt;header&gt; + &lt;nav aria-label&gt;</code></span>
+              </div>
+              <h3 class="doc-subhead">Sticky Glassmorphic Festival Header &amp; Utility Bar</h3>
+            </div>
+          </div>
+
+          <div class="specimen-stage-wrap">
+            <div class="specimen-toolbar">
+              <span>LIVE SPECIMEN • Visible horizontal links (Never hide desktop nav behind a Hamburger icon!)</span>
+              <fieldset class="specimen-surface-switch">
+                <legend class="visually-hidden">Preview surface scheme for Header</legend>
+                <label><input type="radio" name="surf-o01" value="auto" checked>Inherit</label>
+                <label><input type="radio" name="surf-o01" value="light">Light</label>
+                <label><input type="radio" name="surf-o01" value="dark">Dark</label>
+              </fieldset>
+            </div>
+
+            <div class="specimen-canvas">
+              <div class="dt-site-header-demo">
+                <div style="display:flex; align-items:center; gap:var(--space-xs);">
+                  <span style="font-family:var(--font-display); font-weight:800; font-size:1.3rem; letter-spacing:-0.03em;">
+                    DRUMTIKS<span style="color:var(--color-accent-red);">'26</span>
+                  </span>
+                  <span class="pill-badge pill-badge--accent">CAPSTONE</span>
+                </div>
+
+                <ul class="dt-header-links" role="list">
+                  <li><a href="#org-crate">Stage</a></li>
+                  <li><a href="#mol-schedule-row">Schedule</a></li>
+                  <li><a href="#org-masonry">Masonry</a></li>
+                  <li><a href="#org-simulator">Tickets</a></li>
+                </ul>
+
+                <div style="display:flex; align-items:center; gap:var(--space-xs); flex-wrap:wrap;">
+                  <span class="pill-badge pill-badge--cyan">📐 X-Ray</span>
+                  <a href="#org-simulator" class="btn-primary-cta" style="min-block-size:38px; padding:4px 12px;">Get Passes</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="spec-rubric-grid">
+            <div class="spec-rubric-cell">
+              <h4>1. Usage &amp; Anti-Pattern Guard</h4>
+              <ul>
+                <li>Exposes top-level sections immediately via 1D Flexbox wrapping—avoiding <em>Mystery Meat Hamburger Menus</em> on widescreen viewports.</li>
+                <li>Uses <code>backdrop-filter: blur(12px)</code> over <code>--color-bg-surface-glass</code> at <code>--z-header: 500</code>.</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>2. Safari List Semantics Note</h4>
+              <ul>
+                <li>When styling a <code>&lt;ul&gt;</code> with <code>list-style: none</code> outside a <code>&lt;nav&gt;</code>, add <code>role="list"</code> to preserve list announcements in WebKit/Safari; inside <code>&lt;nav aria-label="Festival Primary"&gt;</code>, native semantics remain intact.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- ================================================================
+             ORGANISM O-02: HERO STAGE + 3D VINYL CRATE FAN-OUT
+             ================================================================ -->
+        <article class="pattern-spec-card" id="org-crate">
+          <div class="pattern-spec-head">
+            <div class="pattern-spec-title-group">
+              <div class="pattern-id-line">
+                <span class="spec-chip spec-chip--organism">O-02 • Organism</span>
+                <span class="spec-chip spec-chip--perceptual">Signature Perceptual Showcase</span>
+                <span>Figma: <code>03_Warp</code> • CSS: <code>perspective: 1000px</code> + <code>--ease-spring</code></span>
+              </div>
+              <h3 class="doc-subhead">Hero Stage Showcase &amp; Interactive 3D Vinyl Crate</h3>
+            </div>
+          </div>
+
+          <div class="specimen-stage-wrap">
+            <div class="specimen-toolbar">
+              <span>INTERACTIVE 3D SPECIMEN • Hover or Tab-focus the Vinyl Crate to fan sleeves &amp; eject the LP!</span>
+              <fieldset class="specimen-surface-switch">
+                <legend class="visually-hidden">Preview surface scheme for Vinyl Crate</legend>
+                <label><input type="radio" name="surf-o02" value="auto" checked>Inherit</label>
+                <label><input type="radio" name="surf-o02" value="light">Light</label>
+                <label><input type="radio" name="surf-o02" value="dark">Dark</label>
+              </fieldset>
+            </div>
+
+            <div class="specimen-canvas">
+              <div style="max-inline-size:540px; margin-inline:auto; background:var(--color-bg-surface); border:1px solid var(--color-border-subtle); border-radius:var(--radius-lg); padding:var(--space-lg);">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <span class="pill-badge pill-badge--cyan">3D VINYL CRATE</span>
+                  <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--color-text-muted);">Hover or Focus Stage ↗</span>
+                </div>
+
+                <div class="vinyl-crate-container" tabindex="0" role="group" aria-label="DJ Warp 3D Vinyl Discography Crate — hover or focus to fan out three LP records">
+                  <div class="crate-sleeve-wrapper crate-sleeve-1">
+                    <img class="crate-sleeve-cover" src="demos/tp11-integrated-responsive-project/assets/images/album-1-warp-theory.jpg" alt="LP 1: Warp Theory — The 808 Chronicles" width="176" height="176" loading="lazy">
+                    <div class="crate-vinyl-disc" aria-hidden="true"></div>
+                  </div>
+                  <div class="crate-sleeve-wrapper crate-sleeve-2">
+                    <img class="crate-sleeve-cover" src="demos/tp11-integrated-responsive-project/assets/images/album-2-concrete-pulse.jpg" alt="LP 2: Concrete Pulse — Alfândega Vault Sessions" width="176" height="176" loading="lazy">
+                    <div class="crate-vinyl-disc" aria-hidden="true"></div>
+                  </div>
+                  <div class="crate-sleeve-wrapper crate-sleeve-3">
+                    <img class="crate-sleeve-cover" src="demos/tp11-integrated-responsive-project/assets/images/album-3-dust-and-grooves.jpg" alt="LP 3: Dust and Grooves — Subterranean Cuts" width="176" height="176" loading="lazy">
+                    <div class="crate-vinyl-disc" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="spec-rubric-grid">
+            <div class="spec-rubric-cell">
+              <h4>1. Perceptual Function (Kholmatova)</h4>
+              <ul>
+                <li>Translates tactile turntablist crate-digging directly into the browser via GPU-composited <code>transform</code> properties (never animating layout-thrashing <code>left</code>/<code>top</code>).</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>2. 3D Transform Geometry</h4>
+              <ul>
+                <li>Parent sets <code>perspective: 1000px</code>; each <code>.crate-sleeve-wrapper</code> pivots around <code>transform-origin: bottom center</code> (`-6deg`, `0deg`, `+6deg` → `-16deg`, `translateY(-16px)`, `+16deg`).</li>
+                <li>Inner <code>.crate-vinyl-disc</code> uses multi-stop <code>radial-gradient</code> grooves and extrudes upward (`translateY(-58px) rotate(35deg)`).</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>3. Keyboard &amp; Motion Parity</h4>
+              <ul>
+                <li>Paired via forgiving <code>:where(:hover, :focus-within)</code> so keyboard navigators trigger the exact same fan-out as pointer users.</li>
+                <li><code>@media (prefers-reduced-motion: reduce)</code> strips spring transitions for vestibular comfort.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- ================================================================
+             ORGANISM O-03: ASYMMETRIC DENSE MASONRY + SCOPED X-RAY INSPECTOR
+             ================================================================ -->
+        <article class="pattern-spec-card" id="org-masonry">
+          <div class="pattern-spec-head">
+            <div class="pattern-spec-title-group">
+              <div class="pattern-id-line">
+                <span class="spec-chip spec-chip--organism">O-03 • Organism</span>
+                <span class="spec-chip spec-chip--perceptual">2D Swiss Grid + Negative Space</span>
+                <span>CSS: <code>grid-auto-flow: dense</code> + <code>xray-inspector.css</code></span>
+              </div>
+              <h3 class="doc-subhead">Asymmetric Dense Masonry Gallery with Editorial Voids &amp; X-Ray Mode</h3>
+            </div>
+          </div>
+
+          <div class="specimen-stage-wrap xray-demo-scope">
+            <div class="specimen-toolbar">
+              <label style="display:inline-flex; align-items:center; gap:6px; cursor:pointer; color:var(--color-accent-cyan); font-weight:700;">
+                <input type="checkbox" class="xray-local-toggle" checked>
+                <span>📐 Toggle Live CSS X-Ray Grid Spans</span>
+              </label>
+              <fieldset class="specimen-surface-switch">
+                <legend class="visually-hidden">Preview surface scheme for Masonry Gallery</legend>
+                <label><input type="radio" name="surf-o03" value="auto" checked>Inherit</label>
+                <label><input type="radio" name="surf-o03" value="light">Light</label>
+                <label><input type="radio" name="surf-o03" value="dark">Dark</label>
+              </fieldset>
+            </div>
+
+            <div class="specimen-canvas">
+              <div class="masonry-demo-stage">
+                <figure class="masonry-tile masonry-tile--featured" data-grid-spec="2×2 FEATURED">
+                  <img src="demos/tp11-integrated-responsive-project/assets/images/album-2-concrete-pulse.jpg" alt="Concrete Pulse live performance in Alfândega Vault" width="600" height="600" loading="lazy">
+                </figure>
+                <figure class="masonry-tile masonry-tile--wide" data-grid-spec="2×1 WIDE">
+                  <img src="demos/tp11-integrated-responsive-project/assets/hero-dj-warp-960w.webp" alt="Crowd gathered inside Alfândega do Porto granite arches" width="960" height="540" loading="lazy">
+                </figure>
+                <div class="masonry-tile masonry-tile--void" data-grid-spec="1×1 VOID">
+                  <span class="void-monogram">1869</span>
+                  <span class="void-caption">GRANITE VAULT ACOUSTICS</span>
+                </div>
+                <figure class="masonry-tile" data-grid-spec="1×1 LP">
+                  <img src="demos/tp11-integrated-responsive-project/assets/images/album-4-fader-kinetics.jpg" alt="Fader Kinetics vinyl sleeve" width="600" height="600" loading="lazy">
+                </figure>
+                <figure class="masonry-tile masonry-tile--tall" data-grid-spec="1×2 TALL">
+                  <img src="demos/tp11-integrated-responsive-project/assets/dj-warp-600w.webp" alt="DJ Warp close-up portrait over mixer" width="600" height="800" loading="lazy">
+                </figure>
+                <div class="masonry-tile masonry-tile--void" data-grid-spec="1×1 VOID">
+                  <span class="void-monogram" style="color:var(--color-accent-cyan);">808</span>
+                  <span class="void-caption">PURE ANALOG PULSE</span>
+                </div>
+                <figure class="masonry-tile" data-grid-spec="1×1 DENSE BACKFILL">
+                  <img src="demos/tp11-integrated-responsive-project/assets/images/album-5-circuit-bender.jpg" alt="Circuit Bender vinyl release" width="600" height="600" loading="lazy">
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <div class="spec-rubric-grid">
+            <div class="spec-rubric-cell">
+              <h4>1. Swiss Negative-Space Tension</h4>
+              <ul>
+                <li>Instead of wall-to-wall visual clutter, intentional <code>.masonry-tile--void</code> cells inject typographic breathing room (Josef Müller-Brockmann grid tension).</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>2. Dense Packing Caution</h4>
+              <ul>
+                <li><code>grid-auto-flow: dense</code> backfills <code>1×1</code> album tiles into earlier row gaps automatically. Use <code>dense</code> only on non-sequential visual galleries—never on interactive tab sequences where visual order would diverge from DOM focus order!</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- ================================================================
+             ORGANISM O-04: PURE CSS REACTIVE PRICING SIMULATOR & <DIALOG>
+             ================================================================ -->
+        <article class="pattern-spec-card" id="org-simulator">
+          <div class="pattern-spec-head">
+            <div class="pattern-spec-title-group">
+              <div class="pattern-id-line">
+                <span class="spec-chip spec-chip--organism">O-04 • Organism</span>
+                <span class="spec-chip spec-chip--functional">Zero-JS State Machine + Native &lt;dialog&gt;</span>
+                <span>Figma: <code>04_Tickets</code> (<code>hasBattleTicket</code>, <code>totalPrice</code>)</span>
+              </div>
+              <h3 class="doc-subhead">Pure CSS Ticket Simulator, Receipt Terminal &amp; Accessible Modal</h3>
+            </div>
+          </div>
+
+          <div class="specimen-stage-wrap">
+            <div class="specimen-toolbar">
+              <span>LIVE STATE MACHINE • Toggle radios &amp; checkboxes — CSS :has() computes all 12 EUR totals!</span>
+              <fieldset class="specimen-surface-switch">
+                <legend class="visually-hidden">Preview surface scheme for Ticket Simulator</legend>
+                <label><input type="radio" name="surf-o04" value="auto" checked>Inherit</label>
+                <label><input type="radio" name="surf-o04" value="light">Light</label>
+                <label><input type="radio" name="surf-o04" value="dark">Dark</label>
+              </fieldset>
+            </div>
+
+            <div class="specimen-canvas">
+              <div class="sim-split">
+                <div style="display:flex; flex-direction:column; gap:var(--space-md);">
+                  <fieldset style="border:0; display:flex; flex-direction:column; gap:var(--space-xs);">
+                    <legend style="font-family:var(--font-display); font-weight:700; margin-block-end:var(--space-xs);">1. Choose Festival Access Pass</legend>
+                    <div class="ticket-option-grid">
+                      <label class="ticket-tier-card">
+                        <input type="radio" name="sim-pass" value="35" checked>
+                        <div class="tier-header">
+                          <span class="tier-title">General</span>
+                          <span class="tier-price">35 €</span>
+                        </div>
+                        <p style="font-size:0.78rem; color:var(--color-text-secondary);">All stages &amp; outdoor riverfront cipher.</p>
+                      </label>
+
+                      <label class="ticket-tier-card">
+                        <input type="radio" name="sim-pass" value="65">
+                        <div class="tier-header">
+                          <span class="tier-title">VIP Deck</span>
+                          <span class="tier-price">65 €</span>
+                        </div>
+                        <p style="font-size:0.78rem; color:var(--color-text-secondary);">Front-row boiler pit + lounge + tote.</p>
+                      </label>
+
+                      <label class="ticket-tier-card">
+                        <input type="radio" name="sim-pass" value="95">
+                        <div class="tier-header">
+                          <span class="tier-title">Masterclass</span>
+                          <span class="tier-price">95 €</span>
+                        </div>
+                        <p style="font-size:0.78rem; color:var(--color-text-secondary);">Includes DJ Warp hands-on Vault 02 clinic.</p>
+                      </label>
+                    </div>
+                  </fieldset>
+
+                  <fieldset style="border:0; display:flex; flex-direction:column; gap:var(--space-xs);">
+                    <legend style="font-family:var(--font-display); font-weight:700; margin-block-end:4px;">2. Optional Hardware &amp; Vinyl Add-Ons</legend>
+                    <label class="addon-checkbox-label">
+                      <span><input type="checkbox" id="sim-addon-vinyl"> <strong>Festival 2×LP Gatefold</strong> (180g Pressing)</span>
+                      <span style="font-family:var(--font-mono); font-weight:700; color:var(--color-accent-red);">+ 25.00 €</span>
+                    </label>
+                    <label class="addon-checkbox-label">
+                      <span><input type="checkbox" id="sim-addon-clinic"> <strong>Analog 808 Synth Clinic</strong> (Morning Lab)</span>
+                      <span style="font-family:var(--font-mono); font-weight:700; color:var(--color-accent-red);">+ 30.00 €</span>
+                    </label>
+                  </fieldset>
+                </div>
+
+                <!-- Live Pure-CSS Receipt Terminal -->
+                <div class="receipt-terminal-card" role="region" aria-label="Live Order Receipt Calculation">
+                  <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--color-text-muted); padding-block-end:var(--space-xs); border-block-end:1px solid var(--color-border-subtle); margin-block-end:var(--space-xs);">
+                    Order Calculation Terminal
+                  </div>
+
+                  <div class="receipt-row">
+                    <span>Selected Tier</span>
+                    <strong>
+                      <span class="sim-price-out pass-label-35">General (35.00 €)</span>
+                      <span class="sim-price-out pass-label-65">VIP Deck (65.00 €)</span>
+                      <span class="sim-price-out pass-label-95">Masterclass (95.00 €)</span>
+                    </strong>
+                  </div>
+
+                  <div class="receipt-row sim-addon-line addon-line-vinyl">
+                    <span>+ Vinyl 2×LP</span>
+                    <span>25.00 €</span>
+                  </div>
+
+                  <div class="receipt-row sim-addon-line addon-line-clinic">
+                    <span>+ 808 Synth Clinic</span>
+                    <span>30.00 €</span>
+                  </div>
+
+                  <div class="receipt-row">
+                    <span>IVA (23%) &amp; e-Wallet</span>
+                    <span>Included</span>
+                  </div>
+
+                  <div class="receipt-row" style="border-block-end:0; padding-block-start:var(--space-sm); font-size:0.95rem; font-weight:700;">
+                    <span>TOTAL DUE</span>
+                    <span style="color:var(--color-accent-red);">
+                      <span class="sim-price-out tot-35">35.00 €</span>
+                      <span class="sim-price-out tot-60">60.00 €</span>
+                      <span class="sim-price-out tot-65">65.00 €</span>
+                      <span class="sim-price-out tot-90">90.00 €</span>
+                      <span class="sim-price-out tot-95">95.00 €</span>
+                      <span class="sim-price-out tot-120">120.00 €</span>
+                      <span class="sim-price-out tot-125">125.00 €</span>
+                      <span class="sim-price-out tot-150">150.00 €</span>
+                    </span>
+                  </div>
+
+                  <button type="button" id="open-receipt-modal-btn" class="btn-primary-cta" style="inline-size:100%; margin-block-start:var(--space-md);">
+                    Preview Native &lt;dialog&gt; Receipt
+                  </button>
+                </div>
+              </div>
+
+              <!-- Native Accessible Modal <dialog> Specimen -->
+              <dialog id="ds-receipt-dialog" class="dt-receipt-dialog" closedby="any" aria-labelledby="receipt-dialog-title">
+                <p style="font-family:var(--font-mono); font-size:0.7rem; color:var(--color-accent-red); text-transform:uppercase; letter-spacing:0.1em;">
+                  HTML5 Living Standard Overlay
+                </p>
+                <h3 id="receipt-dialog-title" style="font-family:var(--font-display); font-size:var(--font-size-h3); margin-block:4px var(--space-sm);">
+                  DRUMTIKS '26 Provisional Pass Voucher
+                </h3>
+                <p style="font-size:var(--font-size-small); color:var(--doc-text-secondary); margin-block-end:var(--space-md);">
+                  Opened via <code>dialog.showModal()</code>: the browser automatically renders <code>::backdrop</code>, marks background landmarks <code>inert</code>, traps Tab focus inside, and dismisses cleanly on <kbd>Esc</kbd>, backdrop click (<code>closedby="any"</code>), or <code>&lt;form method="dialog"&gt;</code>.
+                </p>
+                <form method="dialog" style="display:flex; justify-content:flex-end; gap:var(--space-xs);">
+                  <button value="close" class="btn-primary-cta">Close Voucher (Esc)</button>
+                </form>
+              </dialog>
+            </div>
+          </div>
+
+          <div class="spec-rubric-grid">
+            <div class="spec-rubric-cell">
+              <h4>1. Pure CSS vs Figma Variables</h4>
+              <ul>
+                <li>Reproduces Figma’s <code>totalPrice</code> expression variable in zero-JS CSS via compound <code>.sim-split:has(input[value="65"]:checked):has(#sim-addon-vinyl:checked)</code> selectors.</li>
+              </ul>
+            </div>
+            <div class="spec-rubric-cell">
+              <h4>2. Overlay Decision Rule</h4>
+              <ul>
+                <li>In zero-JS exercises (<code>TP06-responsive</code>), <code>:target</code> anchors provide CSS-only overlays; in production apps, always prefer native <code>&lt;dialog&gt;</code> + <code>.showModal()</code> so background content becomes truly <code>inert</code>.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ==================================================================
+           CHAPTER 08: TEMPLATES, PAGES & REUSABLE SPEC RUBRIC
+           ================================================================== -->
+      <section class="spec-chapter" id="sec-templates" aria-labelledby="ch08-title">
+        <div class="chapter-header">
+          <span class="chapter-index">Chapter 08 • Atomic Tiers 4 &amp; 5 + Student Documentation Boilerplate</span>
+          <h2 class="chapter-title" id="ch08-title">Templates, Production Pages &amp; The Component Helper-Text Checklist</h2>
+          <p class="chapter-desc">
+            <strong>Templates</strong> arrange Organisms onto a macro spatial skeleton (2D CSS Grid); <strong>Pages</strong> pour real Porto photography, headliner biographies, and festival pricing into those templates to stress-test edge cases.
+          </p>
+        </div>
+
+        <div class="doc-grid-2">
+          <!-- Template TMP-01 Schematic -->
+          <article class="doc-card">
+            <span class="spec-chip">TMP-01 • Master Festival Portal Template</span>
+            <h3>2D Sticky Stage + Dynamic Scroll Stream</h3>
+            <p>
+              Below <code>1120px</code>, all regions stack in accessible linear reading order. Above <code>1120px</code>, <code>grid-template-areas</code> pins <code>stage-headliner</code> (`420px–460px`, <code>position: sticky</code>) on the left while four right-hand regions scroll alongside it:
+            </p>
+            <div style="display:grid; grid-template-columns:1fr 1.65fr; gap:8px; padding:var(--space-sm); background:var(--doc-layer-02); border-radius:var(--radius-sm); font-family:var(--font-mono); font-size:0.68rem;">
+              <div style="grid-row:span 4; border:2px solid var(--color-accent-red); border-radius:4px; padding:var(--space-sm); background:var(--doc-layer-01); display:flex; flex-direction:column; justify-content:space-between;">
+                <strong style="color:var(--color-accent-red);">stage-headliner</strong>
+                <span>Sticky 460px<br>• Hero Card<br>• 3D Vinyl Crate<br>• Venue Aside</span>
+              </div>
+              <div style="border:1px dashed var(--doc-border-strong); padding:8px; border-radius:4px;"><strong>stage-schedule</strong> (1D Flex Rows)</div>
+              <div style="border:1px dashed var(--doc-border-strong); padding:8px; border-radius:4px;"><strong>stage-gallery</strong> (4-Col Dense Masonry)</div>
+              <div style="border:1px dashed var(--doc-border-strong); padding:8px; border-radius:4px;"><strong>stage-simulator</strong> (:has() Pricing + Receipt)</div>
+              <div style="border:1px dashed var(--doc-border-strong); padding:8px; border-radius:4px;"><strong>stage-faq</strong> (&lt;details&gt; Disclosures)</div>
+            </div>
+            <p>
+              <strong>Instantiated Pages:</strong>
+              <a href="demos/tp11-integrated-responsive-project/index.html" style="color:var(--color-accent-red); font-weight:700;">TP11 Master Index ↗</a> •
+              <a href="demos/tp06-responsive/index.html" style="color:var(--color-accent-cyan);">TP06 Early Prototype ↗</a>
+            </p>
+          </article>
+
+          <!-- Template TMP-02 Schematic -->
+          <article class="doc-card">
+            <span class="spec-chip">TMP-02 • Editorial Technical Rider Template</span>
+            <h3>Subpage Deep-Dive Shell (3 Production Pages)</h3>
+            <p>
+              Reuses the exact same <code>tokens.css</code>, <code>reset.css</code>, header, and footer organisms while swapping the main grid for an editorial long-form reading measure (`65ch`) paired with a technical specification sidebar:
+            </p>
+            <ul style="padding-inline-start:1.15rem; font-size:var(--font-size-small); color:var(--doc-text-secondary); display:flex; flex-direction:column; gap:6px;">
+              <li><a href="demos/tp11-integrated-responsive-project/dj-warp.html" style="color:var(--color-accent-red); font-weight:700;">dj-warp.html ↗</a> — Full artist biography, 4-deck Technics setup, and discography (Figma <code>03_Warp</code>).</li>
+              <li><a href="demos/tp11-integrated-responsive-project/battle-rules.html" style="color:var(--color-accent-red); font-weight:700;">battle-rules.html ↗</a> — Official 16-seed knockout regulations &amp; judging criteria.</li>
+              <li><a href="demos/tp11-integrated-responsive-project/credits.html" style="color:var(--color-accent-red); font-weight:700;">credits.html ↗</a> — Academic colophon, licensing &amp; bibliography (Figma <code>05_Credits</code>).</li>
+            </ul>
+
+            <div style="margin-block-start:auto; padding:var(--space-md); background:var(--doc-layer-02); border-inline-start:4px solid var(--color-accent-gold); border-radius:var(--radius-sm);">
+              <strong style="display:block; font-family:var(--font-display); margin-block-end:4px;">Ready to Build Your Own Project’s Design System?</strong>
+              <p style="margin-block-end:var(--space-xs);">
+                Duplicate our clean, placeholder-ready starter file pre-wired with <code>@layer</code> tokens, inventory tables, and helper-text prompts:
+              </p>
+              <a href="design-system-boilerplate.html" class="doc-nav-pill doc-nav-pill--primary">📋 Open &amp; Fork Student Boilerplate Template →</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Copyable Component Helper-Text Documentation Checklist -->
+        <figure class="code-figure">
+          <div class="code-figure-bar">
+            <span>Markdown / HTML Documentation Rubric • Copy for Every New Component You Author</span>
+            <button type="button" class="copy-code-btn">Copy Rubric</button>
+          </div>
+          <pre tabindex="0"><code>## [ID] Component Name (Atom | Molecule | Organism)
+- **Kholmatova Pattern Lens:** Perceptual | Functional
+- **Figma Component / Variant Path:** `Category / Variant=Default|Hover|Focused|Selected|Disabled`
+- **CSS Cascade Layer &amp; Scope:** `@layer components` • `.component-selector`
+
+### 1. Purpose &amp; When to Use (Suarez et al. + IBM Carbon)
+- **What problem does it solve?** [1-2 sentences linking UI form to user task]
+- **When NOT to use:** [Name the alternative pattern to prevent overlap]
+
+### 2. Anatomy &amp; Content Budget (Kissane)
+1. **Container:** [Semantic tag, min-block-size, padding &amp; surface token]
+2. **Copy Constraints:** [Character max, line-wrap behavior, font token]
+3. **Media / Iconography:** [Aspect-ratio, width/height reservation, alt/aria-hidden rule]
+
+### 3. Interactive State Matrix
+- `Default` | `:hover:not(:disabled)` | `:focus-visible` (≥3:1 outline) | `:active` | `:checked` / `[open]` | `:user-invalid` | `disabled` / `[inert]`
+
+### 4. Responsive &amp; Accessibility Contract (WCAG 2.2 AA/AAA)
+- **Mobile (&lt;600px, min 320px) → Desktop (≥1120px):** [1D Flex / 2D Grid adaptation]
+- **Keyboard &amp; Screen Reader:** [Landmark/role, label association, prefers-reduced-motion behavior]</code></pre>
+        </figure>
+      </section>
+
+      <!-- ==================================================================
+           LANDMARK: <footer> — Institutional & Curricular Colophon
+           ================================================================== -->
+      
+    <!-- Connected in WD101 Organic Mesh Block -->
+    <section class="wd-mesh-section" id="connected-mesh">
+      <div class="wd-mesh-header">
+        <span class="wd-mesh-kicker"><span class="lang-pt">Mapeamento Pedagógico</span><span class="lang-en">Curricular Mesh</span> &bull; Connected in WD101</span>
+        <h2 class="wd-mesh-title"><span class="lang-pt">Articulação com Enunciados, Demos e Matriz W3C</span><span class="lang-en">Connected Course Milestones, Demos &amp; Matrix</span></h2>
+      </div>
+      <div class="wd-mesh-grid">
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Enunciados do Curso</span><span class="lang-en">Course Assignments</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="ex1-hello-warp-guide.html" class="wd-mesh-chip">🟢 EX1: Hello Warp!</a>
+            <a href="ex2-guide.html" class="wd-mesh-chip">🔵 EX2: Media &amp; Box Model</a>
+            <a href="tp06-early-prototype-guide.html" class="wd-mesh-chip">🔵 Projeto Fase 1: TP06</a>
+            <a href="demos/tp11-integrated-responsive-project/GUIDE.html" class="wd-mesh-chip">🟣 Projeto Fase 2: TP11</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="demos/index.html" class="wd-mesh-chip">🚀 Repositório Central de Demos</a>
+            <a href="demos/index.html?pat=1#core-patterns" class="wd-mesh-chip">Demo P1: Gaveta Móvel</a>
+            <a href="demos/index.html?pat=8#core-patterns" class="wd-mesh-chip">Demo P8: Simulador :has()</a>
+            <a href="demos/index.html?pat=9#core-patterns" class="wd-mesh-chip">Demo P9: light-dark()</a>
+            <a href="interaction-patterns.html" class="wd-mesh-chip">✨ 142 Padrões Web</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Matriz HTML5 &amp; CSS3</span><span class="lang-en">W3C Standards Matrix</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="matrix.html" class="wd-mesh-chip" style="font-weight:700;color:var(--color-swiss-red);">Matriz Completa (314) ↗</a>
+            <a href="matrix.html?cat=cat-landmarks" class="wd-mesh-chip">Landmarks HTML5</a>
+            <a href="matrix.html?cat=cat-pseudo" class="wd-mesh-chip">Pseudo-Classes</a>
+            <a href="ixd-principles.html" class="wd-mesh-chip">🧭 Princípios de IxD</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <footer class="doc-footer">
+        <div>
+          <strong style="color:var(--doc-text-primary);">FBAUP • Faculdade de Belas Artes da Universidade do Porto</strong><br>
+          Web Design (WD101) — 2026/27 • Licenciatura em Design de Comunicação • i2ADS<br>
+          <strong>Pedagogical Architecture &amp; Supervision:</strong> Prof. Pedro Amado •
+          <strong>Pair Programming:</strong> Google Gemini (DeepMind Antigravity)
+        </div>
+        <div style="font-family:var(--font-mono); font-size:0.74rem;">
+          <a href="index.html" style="color:var(--color-accent-red);">← Main Course Hub</a> •
+          <a href="design-system-boilerplate.html" style="color:var(--color-accent-cyan);">Student Boilerplate</a> •
+          <a href="project-documentation-guide.html" style="color:var(--doc-text-primary);">UX Documentation Guide</a>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- ======================================================================
+       PROGRESSIVE ENHANCEMENT SCRIPT
+       Note: All layout, specimens, 3D Vinyl Crate, Masonry X-Ray, and Ticket
+       Pricing Simulator work in 100% Pure CSS if JavaScript is disabled!
+       JS enhances:
+         1. Persistent tri-state <meta name="color-scheme"> + storage sync
+         2. Real-time <search> + chip filtering on Table 3.1 Inventory
+         3. Copy-to-clipboard buttons on <pre> snippets
+         4. Native <dialog>.showModal() trigger
+         5. :user-invalid WeakMap fallback + aria-invalid synchronization
+       ====================================================================== -->
+  <script src="assets/js/design-system.js" defer></script>
+<script src="assets/js/site-shell.js"></script>
+</body>
+</html>

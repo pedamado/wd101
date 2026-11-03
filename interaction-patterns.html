@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catálogo Global de Padrões de Design de Interação • WD101</title>
   
-  <!-- Previne FOUC de tema e idioma -->
+    <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
   <script>
     (function() {
-      const savedTheme = localStorage.getItem('wd101_theme') || 
-                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      const savedLang = localStorage.getItem('wd101_lang') === 'en' ? 'en' : 'pt';
       document.documentElement.setAttribute('lang', savedLang);
+      const savedAesthetic = localStorage.getItem('wd101_aesthetic') || 'airy';
+      document.documentElement.setAttribute('data-aesthetic', savedAesthetic);
     })();
   </script>
 
@@ -141,7 +142,7 @@
     /* Grelha dos Padrões */
     .patterns-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
       gap: var(--space-4);
       scroll-margin-top: calc(var(--header-height, 4rem) + var(--space-4));
     }
@@ -149,7 +150,9 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      border: 1px solid var(--border-color);
       border-top: 3px solid var(--badge-transversal-border, #64748b);
+      border-radius: var(--radius-sm);
       padding: var(--space-4);
       height: 100%;
       background: var(--bg-surface);
@@ -232,41 +235,22 @@
 <body>
 
   <!-- Site Header Landmark -->
-  <header class="site-header" role="banner">
-    <div class="header-inner">
-      <div class="brand">
-        <a href="index.html" class="brand-logo">WD<span>101</span></a>
-        <span class="brand-meta">FBAUP Design 2026/27</span>
-      </div>
-
-      <nav class="site-nav" aria-label="Navegação do Catálogo">
-        <ul>
-          <li><a href="index.html#interaction-design"><span class="lang-pt">← Hub: Princípios</span><span class="lang-en">← Hub: Principles</span></a></li>
-          <li><a href="index.html#assignments"><span class="lang-pt">Enunciados</span><span class="lang-en">Assignments</span></a></li>
-          <li><a href="demos/tp11-integrated-responsive-project/index.html" target="_blank" rel="noopener noreferrer"><span class="lang-pt">🚀 Drumtiks Capstone</span><span class="lang-en">🚀 Drumtiks Capstone</span> ↗</a></li>
-        </ul>
-      </nav>
-
-      <div class="header-controls">
-        <a href="index.html" class="btn-control">
-          <span class="lang-pt">← Voltar ao Hub</span>
-          <span class="lang-en">← Back to Hub</span>
-        </a>
-        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
-        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
-      </div>
-    </div>
-  </header>
+  <header class="site-header" role="banner"></header>
 
   <!-- Main Container -->
   <main class="main-container">
 
+    <!-- Breadcrumb Strip -->
+    <nav class="breadcrumb-strip" aria-label="Navegação Estrutural" style="margin-bottom:var(--space-4);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+      <a href="index.html" style="color:var(--text-muted);text-decoration:none;">WD101</a>
+      <span>/</span>
+      <a href="ixd-principles.html" style="color:var(--text-muted);text-decoration:none;"><span class="lang-pt">Módulo 03: Usabilidade &amp; Sistemas</span><span class="lang-en">Module 03: Usability &amp; Systems</span></a>
+      <span>/</span>
+      <span style="color:var(--color-swiss-red);font-weight:700;"><span class="lang-pt">Catálogo 142 Padrões Web</span><span class="lang-en">142 Web Patterns Catalog</span></span>
+    </nav>
+
     <!-- Hero / Enquadramento -->
     <header class="patterns-hero" id="topo">
-      <a href="index.html#interaction-design" class="guide-back-link">
-        <span class="lang-pt">← Voltar à Secção 7: Princípios de Design de Interação</span>
-        <span class="lang-en">← Back to Section 7: Interaction Design Principles</span>
-      </a>
       <div style="display:flex; align-items:center; gap:var(--space-2); margin-bottom:var(--space-2);">
         <span class="badge badge-transversal">
           <span class="lang-pt">Transversal</span>
@@ -281,10 +265,33 @@
         <span class="lang-pt">Catálogo Global de Padrões de Design de Interação</span>
         <span class="lang-en">Global Catalog of Web Interaction Design Patterns</span>
       </h1>
-      <p style="font-size:var(--text-base);color:var(--text-secondary);max-width:80ch;line-height:1.6;">
+      <p style="font-size:var(--text-base);color:var(--text-secondary);max-width:80ch;line-height:1.6;margin-bottom:var(--space-5);">
         <span class="lang-pt">Compilação exaustiva cruzando a bibliografia de referência do curso (<strong>Jenifer Tidwell</strong> — <em>Designing Interfaces 3rd Ed.</em>, <strong>Steven Hoober &amp; Eric Berkman</strong> — <em>Designing Mobile Interfaces</em> e <em>Touch Design</em>, <strong>Ethan Marcotte</strong> — <em>Responsive Web Design</em>, <strong>Scott Jehl</strong> — <em>Responsible RWD</em> e <strong>Brad Frost</strong> — <em>Atomic Design</em>) com as diretrizes <strong>W3C WAI-ARIA APG</strong> e <strong>Nielsen Norman Group (NN/g)</strong>. Cada padrão inclui o seu propósito de usabilidade, ligação ao estudo de caso "Drumtiks '26" (se aplicável) e ancoragem para demonstrações isoladas.</span>
         <span class="lang-en">Exhaustive compilation cross-referencing core course bibliography (<strong>Jenifer Tidwell</strong> — <em>Designing Interfaces 3rd Ed.</em>, <strong>Steven Hoober &amp; Eric Berkman</strong> — <em>Designing Mobile Interfaces</em> &amp; <em>Touch Design</em>, <strong>Ethan Marcotte</strong> — <em>Responsive Web Design</em>, <strong>Scott Jehl</strong> — <em>Responsible RWD</em>, and <strong>Brad Frost</strong> — <em>Atomic Design</em>) with <strong>W3C WAI-ARIA APG</strong> and <strong>Nielsen Norman Group (NN/g)</strong>. Each pattern features its usability rationale, live Drumtiks '26 capstone links (when implemented), and barebones demo anchors.</span>
       </p>
+
+      <!-- Suite Navigation Hub Pills -->
+      <nav aria-label="Navegação da Suite de Design de Interação" style="display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center;">
+        <span style="font-family:var(--font-mono);font-size:var(--text-xs);font-weight:700;color:var(--text-muted);margin-right:0.25rem;">Suite IxD:</span>
+        <a href="ixd-principles.html" class="btn-control">
+          <span>🧭 <span class="lang-pt">Princípios &amp; Anti-Padrões</span><span class="lang-en">Principles &amp; Anti-Patterns</span></span>
+        </a>
+        <a href="ux-laws.html" class="btn-control">
+          <span>🧠 <span class="lang-pt">30 Leis de UX</span><span class="lang-en">30 Laws of UX</span></span>
+        </a>
+        <a href="heuristics-guide.html" class="btn-control">
+          <span>📖 <span class="lang-pt">18 Heurísticas</span><span class="lang-en">18 Heuristics</span></span>
+        </a>
+        <a href="heuristic-checklist.html" class="btn-control">
+          <span>📋 <span class="lang-pt">Checklist de Avaliação</span><span class="lang-en">Evaluation Checklist</span></span>
+        </a>
+        <a href="project-documentation-guide.html" class="btn-control">
+          <span>🗂️ <span class="lang-pt">Documentação UX</span><span class="lang-en">UX Documentation</span></span>
+        </a>
+        <a href="interaction-patterns.html" class="btn-control active" style="border-color:var(--color-swiss-red);color:var(--color-swiss-red);background:var(--color-swiss-red-tint);">
+          <span>✨ <span class="lang-pt">Catálogo 142 Padrões</span><span class="lang-en">142 Patterns Catalog</span></span>
+        </a>
+      </nav>
     </header>
 
     <!-- Layout com Barra Lateral / Aside Rail para Navegação e Wayfinding -->
@@ -3915,6 +3922,46 @@
   </button>
 
   <!-- Site Footer Landmark -->
+  
+    <!-- Connected in WD101 Organic Mesh Block -->
+    <section class="wd-mesh-section" id="connected-mesh">
+      <div class="wd-mesh-header">
+        <span class="wd-mesh-kicker"><span class="lang-pt">Mapeamento Pedagógico</span><span class="lang-en">Curricular Mesh</span> &bull; Connected in WD101</span>
+        <h2 class="wd-mesh-title"><span class="lang-pt">Articulação com Enunciados, Demos e Matriz W3C</span><span class="lang-en">Connected Course Milestones, Demos &amp; Matrix</span></h2>
+      </div>
+      <div class="wd-mesh-grid">
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Enunciados do Curso</span><span class="lang-en">Course Assignments</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="ex1-hello-warp-guide.html" class="wd-mesh-chip">🟢 EX1: Hello Warp!</a>
+            <a href="ex2-guide.html" class="wd-mesh-chip">🔵 EX2: Media &amp; Box Model</a>
+            <a href="tp06-early-prototype-guide.html" class="wd-mesh-chip">🔵 Projeto Fase 1: TP06</a>
+            <a href="demos/tp11-integrated-responsive-project/GUIDE.html" class="wd-mesh-chip">🟣 Projeto Fase 2: TP11</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="demos/index.html" class="wd-mesh-chip">🚀 Repositório Central de Demos</a>
+            <a href="demos/index.html?pat=1#core-patterns" class="wd-mesh-chip">Demo P1: Gaveta Móvel</a>
+            <a href="demos/index.html?pat=2#core-patterns" class="wd-mesh-chip">Demo P2: &lt;picture&gt;</a>
+            <a href="demos/index.html?pat=7#core-patterns" class="wd-mesh-chip">Demo P7: Sticky Stage</a>
+            <a href="interaction-patterns.html" class="wd-mesh-chip">✨ 142 Padrões Web</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Matriz HTML5 &amp; CSS3</span><span class="lang-en">W3C Standards Matrix</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="matrix.html" class="wd-mesh-chip" style="font-weight:700;color:var(--color-swiss-red);">Matriz Completa (314) ↗</a>
+            <a href="matrix.html?cat=cat-landmarks" class="wd-mesh-chip">Landmarks HTML5</a>
+            <a href="matrix.html?cat=cat-boxmodel" class="wd-mesh-chip">Box Model &amp; Sizing</a>
+            <a href="matrix.html?cat=cat-flex-grid" class="wd-mesh-chip">Flexbox &amp; Grid</a>
+            <a href="ixd-principles.html" class="wd-mesh-chip">🧭 Princípios de IxD</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
       <div>
@@ -3935,49 +3982,7 @@
   <!-- Script Interativo: Filtragem, Pesquisa, Paginação, Aside Sync & Empty State Recovery -->
   <script>
     (function() {
-      // 1. Theme & Language Management
-      const langBtn = document.getElementById('lang-toggle-btn');
-      const themeBtn = document.getElementById('theme-toggle-btn');
-
-      function updateLanguageUI(lang) {
-        document.documentElement.setAttribute('lang', lang);
-        localStorage.setItem('wd101_lang', lang);
-        if (langBtn) {
-          langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
-        }
-      }
-
-      function updateThemeUI(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('wd101_theme', theme);
-        if (themeBtn) {
-          themeBtn.innerHTML = theme === 'dark' ? '☀ <span>Tema</span>' : '◐ <span>Tema</span>';
-        }
-      }
-
-      if (langBtn) {
-        langBtn.addEventListener('click', function() {
-          const currentLang = document.documentElement.getAttribute('lang') || 'pt';
-          const newLang = currentLang === 'pt' ? 'en' : 'pt';
-          updateLanguageUI(newLang);
-        });
-      }
-
-      if (themeBtn) {
-        themeBtn.addEventListener('click', function() {
-          const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          updateThemeUI(newTheme);
-        });
-      }
-
-      const initialLang = localStorage.getItem('wd101_lang') || 'pt';
-      updateLanguageUI(initialLang);
-      const initialTheme = localStorage.getItem('wd101_theme') || 
-                           (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      updateThemeUI(initialTheme);
-
-      // 2. Pattern Search, Filtering & Pagination State
+      // 1. Pattern Search, Filtering & Pagination State
       const searchInput = document.getElementById('pattern-search');
       const drumtiksOnlyCheckbox = document.getElementById('drumtiks-only-filter');
       const filterPills = document.querySelectorAll('.filter-pill');
@@ -4007,9 +4012,21 @@
       let currentPage = 1;
       let pageSize = 24; // default items per page
 
-      function setCategory(cat) {
+      function setCategory(cat, updateURL = true) {
         currentCategory = cat;
         currentPage = 1;
+        try {
+          localStorage.setItem('wd101_patterns_category', cat);
+          if (updateURL) {
+            const url = new URL(window.location.href);
+            if (cat && cat !== 'all') {
+              url.searchParams.set('cat', cat);
+            } else {
+              url.searchParams.delete('cat');
+            }
+            window.history.replaceState({}, '', url.toString());
+          }
+        } catch (e) {}
 
         filterPills.forEach(p => {
           if (p.getAttribute('data-filter') === cat) {
@@ -4340,11 +4357,11 @@
         });
       }
 
-      // 3. URL Parameters Support (e.g. ?cat=nav, ?q=drawer, ?drumtiks=true, ?page=2)
+      // 3. URL Parameters, LocalStorage & Cookie Support (e.g. ?cat=nav, ?q=drawer, ?drumtiks=true, ?page=2)
       const urlParams = new URLSearchParams(window.location.search);
-      const catParam = urlParams.get('cat');
+      const catParam = urlParams.get('cat') || localStorage.getItem('wd101_patterns_category');
       const qParam = urlParams.get('q');
-      const drumParam = urlParams.get('drumtiks');
+      const drumParam = urlParams.get('drumtiks') || localStorage.getItem('wd101_patterns_drumtiks');
       const pageParam = urlParams.get('page');
       const perPageParam = urlParams.get('per_page');
 
@@ -4371,7 +4388,7 @@
       }
 
       if (catParam) {
-        setCategory(catParam);
+        setCategory(catParam, false);
       } else {
         renderCatalog();
       }
@@ -4379,5 +4396,6 @@
     })();
   </script>
 
+<script src="assets/js/site-shell.js"></script>
 </body>
 </html>

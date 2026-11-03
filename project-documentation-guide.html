@@ -1,0 +1,3248 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="light">
+<head>
+  <!--
+    ==========================================================================
+    FINAL PROJECT UX & IA DOCUMENTATION GUIDE, MODELS & CHECKLIST
+    Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+    Licenciatura em Design de Comunicação • i2ADS
+    Course: Web Design (WD101) — 2026/27
+    Subject: Information Architecture, Interaction Design & Usability Testing
+    Primary References:
+      - Kim Goodwin (2009), Designing for the Digital Age
+      - Richard Caddick & Steve Cable (2011), Communicating the User Experience
+      - Jeffrey Rubin, Dana Chisnell & Jared Spool (2008), Handbook of Usability Testing (2nd ed.)
+      - Steve Krug (2014), Don't Make Me Think, Revisited
+      - Alan Cooper et al. (2014), About Face (4th ed.)
+    Pedagogical Design & Supervision: Prof. Pedro Amado (FBAUP / i2ADS)
+    Agentic AI Pair Programming: Google Gemini (DeepMind Antigravity)
+    ==========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+      const savedAesthetic = localStorage.getItem('wd101_aesthetic') || 'airy';
+      document.documentElement.setAttribute('data-aesthetic', savedAesthetic);
+    })();
+  </script>
+  <title>Final Project UX Documentation Guide, Models &amp; Usability Protocol | WD101 FBAUP</title>
+  <meta name="description" content="Illustrated step-by-step instructions, canonical models, templates, and printable checklist for WD101 Final Project UX documentation: Content Inventory, Site Outline, Swimlane Site Map, Task Model &amp; User Journey, Figma Wireframes, and First-Time Usability Testing.">
+
+  <!-- CSS Layer Hierarchy -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+  <link rel="stylesheet" href="assets/css/patterns-demo.css">
+  <!-- Local Variable Fonts -->
+  <link rel="stylesheet" href="demos/tp11-integrated-responsive-project/css/fonts.css">
+
+  <style>
+
+    /* Dynamic Swiss Modernist Light/Dark Theme Adapter */
+    :root, html[data-theme="light"] {
+      color-scheme: light;
+      --color-bg: var(--bg-page, #f8f9fa);
+      --color-surface: var(--bg-surface, #ffffff);
+      --color-surface-elevated: var(--bg-surface-elevated, #f1f3f5);
+      --color-surface-card: var(--bg-surface, #ffffff);
+      --color-surface-subtle: var(--bg-surface-subtle, #f4f5f7);
+      --color-border: var(--border-color, #e2e5e9);
+      --color-border-bright: var(--border-color-strong, #94a3b8);
+      --color-text-main: var(--text-primary, #111827);
+      --color-text-muted: var(--text-secondary, #475569);
+      --color-text-subtle: var(--text-muted, #64748b);
+      --color-ink: var(--text-primary, #111827);
+
+      --color-red: #c8102e;
+      --color-red-bg: rgba(200, 16, 46, 0.09);
+      --color-cyan: #00668c;
+      --color-cyan-bg: rgba(0, 102, 140, 0.09);
+      --color-gold: #9a5b00;
+      --color-gold-bg: rgba(154, 91, 0, 0.1);
+      --color-purple: #6b21a8;
+      --color-purple-bg: rgba(107, 33, 168, 0.09);
+      --color-green: #047857;
+      --color-green-bg: rgba(4, 120, 87, 0.1);
+
+      /* Wireframe grayscale visual heat palette (Caddick & Cable Ch. 6) */
+      --wf-canvas: #f4f5f7;
+      --wf-panel: #e5e7eb;
+      --wf-mid: #cbd5e1;
+      --wf-strong: #64748b;
+      --wf-ink: #334155;
+      --wf-callout: #d97706;
+
+      --font-display: 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'Martian Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+      --site-max-width: 1260px;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --color-bg: #0b0c10;
+      --color-surface: #14161d;
+      --color-surface-elevated: #1d202a;
+      --color-surface-card: #14161d;
+      --color-surface-subtle: #101218;
+      --color-border: #272b38;
+      --color-border-bright: #475569;
+      --color-text-main: #f8fafc;
+      --color-text-muted: #cbd5e1;
+      --color-text-subtle: #94a3b8;
+      --color-ink: #f8fafc;
+
+      --color-red: #ff3b3b;
+      --color-red-bg: rgba(255, 59, 59, 0.12);
+      --color-cyan: #00d2ff;
+      --color-cyan-bg: rgba(0, 210, 255, 0.12);
+      --color-gold: #f5a623;
+      --color-gold-bg: rgba(245, 166, 35, 0.13);
+      --color-purple: #b57aff;
+      --color-purple-bg: rgba(181, 122, 255, 0.13);
+      --color-green: #10b981;
+      --color-green-bg: rgba(16, 185, 129, 0.13);
+
+      --wf-canvas: #1e222d;
+      --wf-panel: #272b38;
+      --wf-mid: #475569;
+      --wf-strong: #94a3b8;
+      --wf-ink: #f8fafc;
+      --wf-callout: #f5a623;
+    }
+
+    @layer reset, tokens, base, layout, diagrams, checklist, print;
+
+    /* ------------------------------------------------------------------------
+       1. ZERO-SPECIFICITY ELEMENT RESET (No universal * selector)
+       ------------------------------------------------------------------------ */
+    @layer reset {
+      :where(
+        html, body, div, span, header, nav, main, section, article, aside, footer,
+        figure, figcaption, h1, h2, h3, h4, p, ul, ol, li, dl, dt, dd,
+        table, caption, thead, tbody, tfoot, tr, th, td,
+        form, fieldset, legend, label, input, select, textarea, button, progress,
+        pre, code, kbd, samp, blockquote, cite, details, summary, svg
+      ) {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :where(html) {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        :where(html) {
+          scroll-behavior: auto;
+        }
+      }
+    }
+
+    /* ------------------------------------------------------------------------
+       2. DESIGN TOKENS
+       ------------------------------------------------------------------------ */
+    @layer tokens {
+      /* Shared functional token references */
+    }
+
+    /* ------------------------------------------------------------------------
+       3. BASE TYPOGRAPHY, FOCUS & ACCESSIBILITY PRIMITIVES
+       ------------------------------------------------------------------------ */
+    @layer base {
+      body {
+        background-color: var(--color-bg);
+        color: var(--color-text-main);
+        font-family: var(--font-body);
+        font-size: 1rem;
+        line-height: 1.65;
+        padding-block-end: 5rem;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: var(--color-cyan);
+        text-underline-offset: 0.2em;
+        text-decoration-thickness: 1.5px;
+      }
+
+      a:hover {
+        color: var(--color-text-main);
+      }
+
+      :where(a, button, input, select, textarea, summary, [tabindex="0"]):focus-visible {
+        outline: 3px solid var(--color-gold);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+
+      h1, h2, h3, h4 {
+        font-family: var(--font-display);
+        line-height: 1.18;
+        letter-spacing: -0.02em;
+        color: var(--color-text-main);
+      }
+
+      h1 {
+        font-size: clamp(2rem, 4.2vw, 3.35rem);
+        font-weight: 800;
+      }
+
+      h2 {
+        font-size: clamp(1.5rem, 2.8vw, 2.15rem);
+        font-weight: 800;
+      }
+
+      h3 {
+        font-size: clamp(1.15rem, 2vw, 1.4rem);
+        font-weight: 700;
+      }
+
+      h4 {
+        font-size: 1.02rem;
+        font-weight: 700;
+      }
+
+      p:not(:last-child) {
+        margin-block-end: 0.9rem;
+      }
+
+      code, kbd {
+        font-family: var(--font-mono);
+        font-size: 0.84em;
+        background: var(--color-surface-elevated);
+        border: 1px solid var(--color-border);
+        border-radius: 4px;
+        padding: 0.12rem 0.38rem;
+      }
+
+      cite {
+        font-style: italic;
+      }
+
+      .skip-link {
+        position: absolute;
+        inset-block-start: -999px;
+        inset-inline-start: 1rem;
+        z-index: 1000;
+        background: var(--color-gold);
+        color: #111827;
+        font-family: var(--font-mono);
+        font-weight: 700;
+        padding: 0.75rem 1.25rem;
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+      }
+
+      .skip-link:focus {
+        inset-block-start: 1rem;
+      }
+
+      .sr-only {
+        position: absolute;
+        inline-size: 1px;
+        block-size: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    }
+
+    /* ------------------------------------------------------------------------
+       4. MACRO & MICRO LAYOUT ARCHITECTURE
+       ------------------------------------------------------------------------ */
+    @layer layout {
+      .page-shell {
+        max-inline-size: var(--site-max-width);
+        margin-inline: auto;
+        padding-inline: clamp(1rem, 3vw, 2rem);
+      }
+
+      .top-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-block: 1.25rem;
+        border-block-end: 1px solid var(--color-border);
+      }
+
+      .brand-home {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        text-decoration: none;
+        color: var(--color-text-main);
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 1.05rem;
+        min-block-size: 48px;
+      }
+
+      .brand-pill {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.22rem 0.55rem;
+        border-radius: 999px;
+        background: var(--color-cyan-bg);
+        border: 1px solid var(--color-cyan);
+        color: var(--color-cyan);
+      }
+
+      .top-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .btn-nav {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        min-block-size: 48px;
+        padding-inline: 0.85rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--color-border);
+        background: var(--color-surface);
+        color: var(--color-text-main);
+        font-family: var(--font-mono);
+        font-size: 0.76rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .btn-nav:hover {
+        border-color: var(--color-border-strong);
+        background: var(--color-surface-elevated);
+      }
+
+      .btn-nav--accent {
+        background: var(--color-red-bg);
+        border-color: var(--color-red);
+        color: var(--color-red);
+      }
+
+      .hero-banner {
+        padding-block: 2.75rem 2.25rem;
+        border-block-end: 1px solid var(--color-border);
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      @media (min-width: 920px) {
+        .hero-banner {
+          grid-template-columns: minmax(0, 1.65fr) minmax(280px, 1fr);
+          align-items: end;
+        }
+      }
+
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 0.76rem;
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        color: var(--color-gold);
+        margin-block-end: 0.65rem;
+      }
+
+      .hero-lead {
+        font-size: 1.08rem;
+        color: var(--color-text-muted);
+        max-inline-size: 72ch;
+        margin-block-start: 0.9rem;
+      }
+
+      .hero-meta-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border-strong);
+        border-inline-start: 4px solid var(--color-cyan);
+        border-radius: var(--radius-md);
+        padding: 1.25rem;
+      }
+
+      .hero-meta-list {
+        list-style: none;
+        display: grid;
+        gap: 0.55rem;
+        font-size: 0.88rem;
+        color: var(--color-text-muted);
+      }
+
+      .hero-meta-list strong {
+        color: var(--color-text-main);
+      }
+
+      /* Stage Jump Navigation */
+      .stage-toc {
+        position: sticky;
+        inset-block-start: 0;
+        z-index: 20;
+        background: var(--color-bg);
+        border-block-end: 1px solid var(--color-border);
+        padding-block: 0.65rem;
+        margin-block-end: 2.5rem;
+      }
+
+      .stage-toc-list {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+      }
+
+      .stage-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        min-block-size: 44px;
+        padding-inline: 0.7rem;
+        border-radius: var(--radius-sm);
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        color: var(--color-text-muted);
+        font-family: var(--font-mono);
+        font-size: 0.73rem;
+        text-decoration: none;
+      }
+
+      .stage-chip:hover {
+        color: var(--color-text-main);
+        border-color: var(--color-cyan);
+      }
+
+      /* Major Documentation Sections */
+      .doc-stage {
+        scroll-margin-block-start: 5.5rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        padding: clamp(1.35rem, 3vw, 2.4rem);
+        margin-block-end: 2.5rem;
+      }
+
+      .stage-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding-block-end: 1.15rem;
+        margin-block-end: 1.5rem;
+        border-block-end: 1px solid var(--color-border);
+      }
+
+      .stage-kicker {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--color-cyan);
+        display: block;
+        margin-block-end: 0.35rem;
+      }
+
+      .stage-source-tag {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        padding: 0.3rem 0.65rem;
+        border-radius: 999px;
+        background: var(--color-surface-elevated);
+        border: 1px solid var(--color-border);
+        color: var(--color-text-muted);
+      }
+
+      /* Grids & Callout Cards */
+      .grid-2 {
+        display: grid;
+        gap: 1.25rem;
+        margin-block: 1.25rem;
+      }
+
+      .grid-3 {
+        display: grid;
+        gap: 1.15rem;
+        margin-block: 1.25rem;
+      }
+
+      @media (min-width: 780px) {
+        .grid-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .grid-3 {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      .info-card {
+        background: var(--color-surface-elevated);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: 1.2rem;
+      }
+
+      .info-card h3,
+      .info-card h4 {
+        margin-block-end: 0.55rem;
+      }
+
+      .info-card ul,
+      .info-card ol {
+        padding-inline-start: 1.2rem;
+        display: grid;
+        gap: 0.4rem;
+        font-size: 0.93rem;
+        color: var(--color-text-muted);
+      }
+
+      .info-card--do {
+        border-inline-start: 4px solid var(--color-green);
+      }
+
+      .info-card--dont {
+        border-inline-start: 4px solid var(--color-red);
+      }
+
+      .info-card--theory {
+        border-inline-start: 4px solid var(--color-gold);
+      }
+
+      .info-card--bridge {
+        border-inline-start: 4px solid var(--color-purple);
+      }
+
+      .quote-box {
+        background: var(--color-surface-elevated);
+        border-inline-start: 4px solid var(--color-gold);
+        border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        padding: 1rem 1.25rem;
+        margin-block: 1.25rem;
+        color: var(--color-text-muted);
+        font-size: 0.95rem;
+      }
+
+      .quote-box footer {
+        margin-block-start: 0.45rem;
+        font-family: var(--font-mono);
+        font-size: 0.76rem;
+        color: var(--color-text-subtle);
+      }
+
+      /* Semantic Status Badges (Color + Shape Symbol + Text) */
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 0.18rem 0.5rem;
+        border-radius: 999px;
+        border: 1px solid currentColor;
+        white-space: nowrap;
+      }
+
+      .status-pill--keep {
+        color: var(--color-green);
+        background: var(--color-green-bg);
+      }
+
+      .status-pill--revise {
+        color: var(--color-gold);
+        background: var(--color-gold-bg);
+      }
+
+      .status-pill--create {
+        color: var(--color-cyan);
+        background: var(--color-cyan-bg);
+      }
+
+      .status-pill--critical {
+        color: var(--color-red);
+        background: var(--color-red-bg);
+      }
+
+      .status-pill--purple {
+        color: var(--color-purple);
+        background: var(--color-purple-bg);
+      }
+
+      /* Responsive Container-Queried Data Tables */
+      .table-region {
+        container-type: inline-size;
+        overflow-x: auto;
+        border: 1px solid var(--color-border-strong);
+        border-radius: var(--radius-md);
+        background: var(--color-surface-elevated);
+        margin-block: 1.35rem;
+      }
+
+      .data-table {
+        inline-size: 100%;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+        text-align: start;
+      }
+
+      .data-table caption {
+        text-align: start;
+        padding: 0.9rem 1rem;
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: var(--color-text-muted);
+        background: var(--color-surface);
+        border-block-end: 1px solid var(--color-border);
+      }
+
+      .data-table th,
+      .data-table td {
+        padding: 0.75rem 0.9rem;
+        border-block-end: 1px solid var(--color-border);
+        vertical-align: top;
+      }
+
+      .data-table thead th {
+        position: sticky;
+        inset-block-start: 0;
+        z-index: 2;
+        background: var(--color-surface-soft);
+        color: var(--color-text-main);
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .data-table tbody th[scope="row"] {
+        position: sticky;
+        inset-inline-start: 0;
+        z-index: 1;
+        background: var(--color-surface-elevated);
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        color: var(--color-text-main);
+      }
+
+      .num-cell {
+        text-align: end;
+        font-variant-numeric: tabular-nums;
+        font-family: var(--font-mono);
+      }
+
+      @container (width < 680px) {
+        .data-table,
+        .data-table thead,
+        .data-table tbody,
+        .data-table tr,
+        .data-table th,
+        .data-table td {
+          display: block;
+        }
+
+        .data-table thead {
+          position: absolute;
+          inline-size: 1px;
+          block-size: 1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+        }
+
+        .data-table tbody tr {
+          padding: 0.85rem;
+          border-block-end: 2px solid var(--color-border-strong);
+        }
+
+        .data-table tbody th[scope="row"] {
+          position: static;
+          padding: 0 0 0.45rem;
+          border-block-end: 1px dashed var(--color-border);
+          margin-block-end: 0.45rem;
+        }
+
+        .data-table td {
+          padding: 0.35rem 0;
+          border-block-end: 0;
+          text-align: start;
+        }
+
+        .data-table td::before {
+          content: attr(data-label) ": ";
+          font-family: var(--font-mono);
+          font-size: 0.72rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          color: var(--color-text-subtle);
+          display: inline-block;
+          min-inline-size: 10.5rem;
+        }
+      }
+
+      /* Disclosures (<details> with zero headings inside <summary>) */
+      .template-disclosure {
+        border: 1px solid var(--color-border-strong);
+        border-radius: var(--radius-md);
+        background: var(--color-surface-elevated);
+        margin-block-start: 1.15rem;
+      }
+
+      .template-disclosure summary {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        min-block-size: 48px;
+        padding: 0.85rem 1.1rem;
+        cursor: pointer;
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--color-cyan);
+      }
+
+      .template-disclosure summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .template-disclosure summary::after {
+        content: "+ Expand Copyable Template";
+        font-size: 0.73rem;
+        color: var(--color-text-muted);
+      }
+
+      .template-disclosure[open] summary {
+        border-block-end: 1px solid var(--color-border);
+      }
+
+      .template-disclosure[open] summary::after {
+        content: "− Collapse Template";
+      }
+
+      .disclosure-body {
+        padding: 1rem 1.15rem;
+      }
+
+      .code-block {
+        overflow-x: auto;
+        background: var(--color-bg);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+        padding: 1rem;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        line-height: 1.55;
+        color: var(--color-text-main);
+      }
+
+      .copy-bar {
+        display: flex;
+        justify-content: flex-end;
+        margin-block-end: 0.55rem;
+      }
+
+      .hub-footer {
+        border-block-start: 1px solid var(--color-border);
+        padding-block-start: 2.25rem;
+        margin-block-start: 3rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1.5rem;
+        font-size: 0.86rem;
+        color: var(--color-text-muted);
+      }
+    }
+
+    /* ------------------------------------------------------------------------
+       5. ARCHITECTURAL DIAGRAMS, SWIMLANE SITEMAP, WIREFRAMES & FUNNEL
+       ------------------------------------------------------------------------ */
+    @layer diagrams {
+      .diagram-figure {
+        background: var(--color-surface-elevated);
+        border: 1px solid var(--color-border-strong);
+        border-radius: var(--radius-md);
+        padding: clamp(1rem, 2.2vw, 1.5rem);
+        margin-block: 1.4rem;
+      }
+
+      .diagram-figure figcaption {
+        margin-block-start: 0.95rem;
+        padding-block-start: 0.75rem;
+        border-block-start: 1px dashed var(--color-border);
+        font-size: 0.84rem;
+        color: var(--color-text-muted);
+      }
+
+      /* Pipeline Strip */
+      .pipeline-grid {
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      @media (min-width: 900px) {
+        .pipeline-grid {
+          grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
+      }
+
+      .pipeline-step {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border-strong);
+        border-block-start: 4px solid var(--color-cyan);
+        border-radius: var(--radius-sm);
+        padding: 0.85rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+      }
+
+      .pipeline-step--eval {
+        border-block-start-color: var(--color-gold);
+      }
+
+      .pipeline-step--test {
+        border-block-start-color: var(--color-green);
+      }
+
+      .pipeline-num {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: var(--color-text-subtle);
+        text-transform: uppercase;
+      }
+
+      .pipeline-title {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.96rem;
+      }
+
+      .pipeline-desc {
+        font-size: 0.79rem;
+        color: var(--color-text-muted);
+      }
+
+      /* Syntax Anatomy Comparison Cards (Outline vs Sitemap Node Order) */
+      .syntax-anatomy {
+        display: grid;
+        gap: 0.55rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border-strong);
+        border-radius: var(--radius-md);
+        padding: 1.1rem;
+      }
+
+      .syntax-row {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.75rem;
+        align-items: baseline;
+        padding: 0.5rem 0.65rem;
+        border-radius: var(--radius-sm);
+        background: var(--color-surface-elevated);
+        border: 1px solid var(--color-border);
+      }
+
+      .syntax-badge {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 0.15rem 0.45rem;
+        border-radius: 4px;
+        background: var(--color-cyan-bg);
+        color: var(--color-cyan);
+        border: 1px solid var(--color-cyan);
+      }
+
+      .syntax-badge--invert {
+        background: var(--color-gold-bg);
+        color: var(--color-gold);
+        border-color: var(--color-gold);
+      }
+
+      /* Hierarchical Outline Tree */
+      .outline-tree {
+        list-style: none;
+        display: grid;
+        gap: 0.65rem;
+      }
+
+      .outline-node {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-inline-start: 4px solid var(--color-cyan);
+        border-radius: var(--radius-sm);
+        padding: 0.75rem 1rem;
+      }
+
+      .outline-children {
+        list-style: none;
+        display: grid;
+        gap: 0.55rem;
+        margin-block-start: 0.65rem;
+        padding-inline-start: clamp(0.85rem, 2.5vw, 1.75rem);
+        border-inline-start: 2px dashed var(--color-border-strong);
+      }
+
+      .outline-page-name {
+        font-family: var(--font-display);
+        font-weight: 700;
+        color: var(--color-text-main);
+      }
+
+      .outline-file {
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        color: var(--color-gold);
+        margin-inline-start: 0.4rem;
+      }
+
+      .outline-desc {
+        display: block;
+        font-size: 0.87rem;
+        color: var(--color-text-muted);
+        margin-block-start: 0.25rem;
+      }
+
+      /* SWIMLANE SITEMAP DIAGRAM (Stage 03) */
+      .sitemap-visual-container {
+        overflow-x: auto;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border-strong);
+        background: #ffffff;
+        padding: clamp(0.85rem, 2vw, 1.75rem);
+        margin-block: 1.25rem;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+      }
+
+      .sitemap-visual-svg {
+        display: block;
+        inline-size: 100%;
+        min-inline-size: 820px;
+        max-inline-size: 1060px;
+        margin-inline: auto;
+        block-size: auto;
+      }
+
+      .sitemap-actions-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-block-start: 1rem;
+        padding-block-start: 0.85rem;
+        border-block-start: 1px dashed var(--color-border);
+      }
+
+      .gloomaps-legend-box {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border-strong);
+        border-radius: var(--radius-md);
+        padding: 1.15rem 1.25rem;
+        margin-block: 1rem 1.5rem;
+      }
+
+      .gloomaps-legend-title {
+        font-family: var(--font-mono);
+        font-size: 0.76rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-cyan);
+        margin-block-end: 0.65rem;
+      }
+
+      .gloomaps-legend-grid {
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      @media (min-width: 768px) {
+        .gloomaps-legend-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      .gloomaps-legend-item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.65rem;
+        align-items: flex-start;
+        font-size: 0.86rem;
+        color: var(--color-text-muted);
+      }
+
+      .gloomaps-chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        inline-size: 1.6rem;
+        block-size: 1.6rem;
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        font-weight: 800;
+        color: #111827;
+        flex-shrink: 0;
+      }
+
+      .gloomaps-chip--a { background: #000000; color: #ffffff; border: 1px solid #4b5563; }
+      .gloomaps-chip--b1 { background: #ffa600; color: #000000; }
+      .gloomaps-chip--yel { background: #ffe100; color: #000000; }
+      .gloomaps-chip--gry { background: #e0e0e0; color: #000000; border: 1px solid #9ca3af; }
+
+      .sitemap-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        margin-block-end: 1rem;
+      }
+
+      .swimlane-board {
+        display: grid;
+        gap: 0.85rem;
+      }
+
+      .swimlane-row {
+        display: grid;
+        gap: 0.85rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border-strong);
+        border-radius: var(--radius-md);
+        padding: 0.95rem;
+      }
+
+      @media (min-width: 860px) {
+        .swimlane-row {
+          grid-template-columns: 185px minmax(0, 1fr);
+          align-items: stretch;
+        }
+      }
+
+      .swimlane-label {
+        background: var(--color-surface-elevated);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+        padding: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.25rem;
+      }
+
+      .swimlane-tier {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--color-cyan);
+      }
+
+      .swimlane-sub {
+        font-size: 0.78rem;
+        color: var(--color-text-muted);
+      }
+
+      .swimlane-cards {
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      @media (min-width: 680px) {
+        .swimlane-cards--cols-3 {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .swimlane-cards--cols-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      /* Strict Sitemap Page Card: 1. filename -> 2. Page Name -> 3. Brief Desc -> 4. Optional Content/Visual */
+      .sm-node {
+        background: var(--color-surface-elevated);
+        border: 1px solid var(--color-border-strong);
+        border-block-start: 4px solid var(--color-cyan);
+        border-radius: var(--radius-sm);
+        padding: 0.8rem 0.9rem;
+        display: grid;
+        gap: 0.32rem;
+        position: relative;
+      }
+
+      .sm-node--landing {
+        border-block-start-color: var(--color-red);
+      }
+
+      .sm-node--visual {
+        border-block-start-color: var(--color-cyan);
+      }
+
+      .sm-node--editorial {
+        border-block-start-color: var(--color-gold);
+      }
+
+      .sm-node--utility {
+        border-block-start-color: var(--color-purple);
+      }
+
+      /* Garrett Page Stack visual effect for repeated template instances */
+      .sm-node--stack {
+        box-shadow:
+          5px 5px 0 -1px var(--color-surface),
+          5px 5px 0 0 var(--color-border-strong),
+          10px 10px 0 -1px var(--color-surface),
+          10px 10px 0 0 var(--color-border-strong);
+        margin-inline-end: 10px;
+        margin-block-end: 10px;
+      }
+
+      .sm-field-file {
+        font-family: var(--font-mono);
+        font-size: 0.77rem;
+        font-weight: 700;
+        color: var(--color-gold);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.4rem;
+      }
+
+      .sm-field-title {
+        font-family: var(--font-display);
+        font-size: 0.98rem;
+        font-weight: 700;
+        color: var(--color-text-main);
+      }
+
+      .sm-field-desc {
+        font-size: 0.82rem;
+        color: var(--color-text-muted);
+      }
+
+      .sm-field-visual {
+        margin-block-start: 0.25rem;
+        padding-block-start: 0.35rem;
+        border-block-start: 1px dashed var(--color-border);
+        font-family: var(--font-mono);
+        font-size: 0.71rem;
+        color: var(--color-text-subtle);
+      }
+
+      .connector-caption {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--color-text-subtle);
+        text-align: center;
+        padding-block: 0.15rem;
+      }
+
+      /* TASK MODEL & USER JOURNEY FLOW (Stage 04) */
+      .journey-track {
+        display: grid;
+        gap: 0.85rem;
+      }
+
+      @media (min-width: 960px) {
+        .journey-track {
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+      }
+
+      .journey-stage {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border-strong);
+        border-radius: var(--radius-md);
+        padding: 0.9rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .journey-pill {
+        display: inline-block;
+        align-self: flex-start;
+        font-family: var(--font-mono);
+        font-size: 0.69rem;
+        font-weight: 700;
+        padding: 0.15rem 0.55rem;
+        border-radius: 999px;
+        background: var(--color-purple-bg);
+        border: 1px solid var(--color-purple);
+        color: var(--color-purple);
+      }
+
+      .journey-diamond {
+        background: var(--color-gold-bg);
+        border: 1px dashed var(--color-gold);
+        border-radius: var(--radius-sm);
+        padding: 0.45rem 0.6rem;
+        font-size: 0.79rem;
+        color: var(--color-text-main);
+      }
+
+      .journey-probe {
+        margin-block-start: auto;
+        padding-block-start: 0.45rem;
+        border-block-start: 1px dashed var(--color-border);
+        font-family: var(--font-mono);
+        font-size: 0.71rem;
+        color: var(--color-cyan);
+      }
+
+      /* LOW-FI vs HIGH-FI WIREFRAME MOCKUPS (Stage 05) */
+      .wf-frame {
+        background: var(--wf-canvas);
+        color: var(--wf-ink);
+        border: 2px solid var(--wf-strong);
+        border-radius: var(--radius-md);
+        padding: 1rem;
+        font-family: var(--font-body);
+        position: relative;
+      }
+
+      .wf-topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-block-end: 0.6rem;
+        margin-block-end: 0.75rem;
+        border-block-end: 1px solid var(--wf-mid);
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--wf-ink);
+      }
+
+      .wf-media-box {
+        background: var(--wf-panel);
+        border: 1.5px dashed var(--wf-strong);
+        border-radius: var(--radius-sm);
+        padding: 1rem;
+        margin-block-end: 0.75rem;
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        color: var(--wf-ink);
+      }
+
+      .wf-cta-gray {
+        display: inline-block;
+        background: var(--wf-ink);
+        color: #ffffff;
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        font-weight: 700;
+        padding: 0.45rem 0.75rem;
+        border-radius: 4px;
+        margin-block-start: 0.4rem;
+      }
+
+      .wf-fold-line {
+        margin-block: 0.8rem;
+        border-block-start: 2px dashed var(--wf-callout);
+        padding-block-start: 0.25rem;
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        font-weight: 700;
+        color: #92400e;
+        text-transform: uppercase;
+      }
+
+      .wf-callout-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        inline-size: 1.35rem;
+        block-size: 1.35rem;
+        border-radius: 999px;
+        background: #d97706;
+        color: #ffffff;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 700;
+        margin-inline-end: 0.3rem;
+      }
+
+      .wf-frame--hifi {
+        background: #0d1017;
+        color: #f3f4f6;
+        border-color: var(--color-cyan);
+      }
+
+      .wf-hifi-hero {
+        background: rgba(255, 59, 59, 0.14);
+        border: 1px solid #ff3b3b;
+        border-radius: var(--radius-sm);
+        padding: 0.9rem;
+        margin-block-end: 0.75rem;
+      }
+
+      .wf-token-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-block-start: 0.5rem;
+      }
+
+      .wf-note-gap {
+        margin-block-start: 0.65rem;
+      }
+
+      .wf-token-chip {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        padding: 0.18rem 0.45rem;
+        border-radius: 4px;
+        background: rgba(0, 210, 255, 0.14);
+        border: 1px solid #00d2ff;
+        color: #7ce8ff;
+      }
+
+      /* USABILITY REPORT VISUAL FINDING CARD (Caddick Fig. 7-2) & FUNNEL (Fig. 8-7) */
+      .finding-report-card {
+        display: grid;
+        gap: 1.15rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border-strong);
+        border-inline-start: 5px solid var(--color-red);
+        border-radius: var(--radius-md);
+        padding: 1.2rem;
+      }
+
+      @media (min-width: 820px) {
+        .finding-report-card {
+          grid-template-columns: minmax(250px, 0.95fr) minmax(0, 1.35fr);
+        }
+      }
+
+      .funnel-grid {
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      @media (min-width: 860px) {
+        .funnel-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          align-items: end;
+        }
+      }
+
+      .funnel-step {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border-strong);
+        border-radius: var(--radius-sm);
+        padding: 0.9rem;
+        display: grid;
+        gap: 0.45rem;
+      }
+
+      .funnel-bar {
+        block-size: 14px;
+        border-radius: 999px;
+        background: var(--color-green);
+        border: 1px solid var(--color-border-strong);
+      }
+
+      .funnel-bar--step1 { inline-size: 100%; }
+      .funnel-bar--step2 { inline-size: 80%; background: var(--color-cyan); }
+      .funnel-bar--step3 { inline-size: 60%; background: var(--color-gold); }
+      .funnel-bar--step4 { inline-size: 60%; background: var(--color-green); }
+
+      .funnel-dropoff {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--color-red);
+      }
+    }
+
+    /* ------------------------------------------------------------------------
+       6. INTERACTIVE DOCUMENTATION CHECKLIST (<form> + :has(:checked))
+       ------------------------------------------------------------------------ */
+    @layer checklist {
+      .checklist-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        background: var(--color-surface-elevated);
+        border: 1px solid var(--color-border-strong);
+        border-radius: var(--radius-md);
+        padding: 1rem 1.2rem;
+        margin-block-end: 1.35rem;
+      }
+
+      .progress-cluster {
+        display: grid;
+        gap: 0.35rem;
+        min-inline-size: min(100%, 320px);
+      }
+
+      .progress-cluster progress {
+        inline-size: 100%;
+        block-size: 12px;
+        accent-color: var(--color-green);
+      }
+
+      .meta-inputs-grid {
+        display: grid;
+        gap: 1rem;
+        margin-block-end: 1.5rem;
+      }
+
+      @media (min-width: 720px) {
+        .meta-inputs-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      .field-group {
+        display: grid;
+        gap: 0.35rem;
+      }
+
+      .field-group label {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--color-text-muted);
+      }
+
+      .field-group input {
+        min-block-size: 48px;
+        padding-inline: 0.8rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--color-border-strong);
+        background: var(--color-bg);
+        color: var(--color-text-main);
+        font-family: var(--font-body);
+        font-size: 1rem;
+      }
+
+      .check-fieldset {
+        border: 1px solid var(--color-border-strong);
+        border-radius: var(--radius-md);
+        padding: 1.1rem 1.2rem;
+        margin-block-end: 1.15rem;
+        background: var(--color-surface-elevated);
+      }
+
+      .check-fieldset legend {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1.05rem;
+        padding-inline: 0.45rem;
+        color: var(--color-cyan);
+      }
+
+      .check-group {
+        display: grid;
+        gap: 0.55rem;
+        margin-block-start: 0.5rem;
+      }
+
+      .check-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.8rem;
+        min-block-size: 48px;
+        padding: 0.65rem 0.8rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--color-border);
+        background: var(--color-surface);
+        transition: border-color 0.15s ease, background-color 0.15s ease;
+      }
+
+      @media (pointer: coarse) {
+        .check-row {
+          min-block-size: 52px;
+        }
+      }
+
+      .check-row input[type="checkbox"] {
+        inline-size: 1.3rem;
+        block-size: 1.3rem;
+        margin-block-start: 0.18rem;
+        flex-shrink: 0;
+        accent-color: var(--color-green);
+        cursor: pointer;
+      }
+
+      .check-row label {
+        font-size: 1rem;
+        line-height: 1.5;
+        cursor: pointer;
+        flex: 1;
+      }
+
+      .check-row:has(input:checked) {
+        border-color: var(--color-green);
+        background: var(--color-green-bg);
+      }
+
+      .check-row:has(input:checked) label {
+        color: var(--color-text-main);
+      }
+
+      @media (forced-colors: active) {
+        .doc-stage,
+        .info-card,
+        .sm-node,
+        .check-row,
+        .status-pill {
+          border: 1px solid CanvasText;
+        }
+        .check-row:has(input:checked) {
+          outline: 2px solid Highlight;
+        }
+      }
+    }
+
+    /* ------------------------------------------------------------------------
+       7. CLEAN ACADEMIC PRINT / PDF STYLESHEET
+       ------------------------------------------------------------------------ */
+    @layer print {
+      @media print {
+        :root {
+          --color-bg: #ffffff;
+          --color-surface: #ffffff;
+          --color-surface-elevated: #f8fafc;
+          --color-surface-soft: #eef2f7;
+          --color-border: #cbd5e1;
+          --color-border-strong: #64748b;
+          --color-text-main: #0f172a;
+          --color-text-muted: #334155;
+          --color-text-subtle: #475569;
+        }
+
+        body {
+          padding: 0;
+          font-size: 10.5pt;
+        }
+
+        .top-links,
+        .stage-toc,
+        .copy-bar,
+        .no-print {
+          display: none;
+        }
+
+        .doc-stage {
+          break-inside: avoid-page;
+          border: 1px solid #94a3b8;
+          margin-block-end: 1.25rem;
+          padding: 1rem;
+        }
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-heading">Skip to main content</a>
+
+  <!-- Site Header Landmark montado pelo site-shell.js -->
+  <header class="site-header" role="banner"></header>
+
+  <!-- Main Content Landmark -->
+  <main class="main-container" id="main-content">
+    <div class="page-shell">
+
+      <!-- Breadcrumb Strip -->
+      <nav class="breadcrumb-strip" aria-label="Navegação Estrutural" style="margin-bottom:var(--space-4);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+        <a href="index.html" style="color:var(--text-muted);text-decoration:none;">WD101</a>
+        <span>/</span>
+        <a href="ixd-principles.html" style="color:var(--text-muted);text-decoration:none;"><span class="lang-pt">Módulo 03: Usabilidade &amp; Sistemas</span><span class="lang-en">Module 03: Usability &amp; Systems</span></a>
+        <span>/</span>
+        <span style="color:var(--color-swiss-red);font-weight:700;"><span class="lang-pt">Documentação UX de Projeto</span><span class="lang-en">Project UX Documentation</span></span>
+      </nav>
+
+      <!-- HERO BANNER -->
+      <section class="hero-banner" aria-labelledby="main-heading">
+        <div>
+          <p class="eyebrow">FBAUP • Licenciatura em Design de Comunicação • WD101 (2026/27)</p>
+          <h1 id="main-heading" tabindex="-1">
+            <span class="lang-pt">Guia de Documentação UX, Arquitetura &amp; Protocolo de Usabilidade</span>
+            <span class="lang-en">Final Project UX Documentation, Architecture &amp; Usability Guide</span>
+          </h1>
+          <p class="hero-lead">
+            <span class="lang-pt">Antes de codificar grelhas CSS Grid ou alinhamentos Flexbox, os designers de comunicação clarificam <strong>que conteúdos existem</strong>, <strong>como os destinos estão estruturados</strong>, <strong>como o utilizador navega até ao seu objetivo</strong> e <strong>se pessoas reais conseguem concluir as tarefas</strong>. Este manual ilustrado fornece a sequência operativa, modelos, templates e protocolo de testes com pares exigidos no Dossier do Projeto Final.</span>
+            <span class="lang-en">Before writing production CSS Grid or Flexbox layouts, communication designers clarify <strong>what content exists</strong>, <strong>how destinations are structured</strong>, <strong>how people move toward a goal</strong>, and <strong>whether first-time visitors actually succeed</strong>. This illustrated manual provides the exact sequence, visual syntax, templates, and peer usability protocol required for your Final Project dossier (<span lang="pt">Dossier de Projeto Final</span>).</span>
+          </p>
+
+          <!-- Suite Navigation Hub Pills -->
+          <nav aria-label="Navegação da Suite de Design de Interação" style="display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center;margin-top:var(--space-4);">
+            <span style="font-family:var(--font-mono);font-size:var(--text-xs);font-weight:700;color:var(--text-muted);margin-right:0.25rem;">Suite IxD:</span>
+            <a href="ixd-principles.html" class="btn-control">
+              <span>🧭 <span class="lang-pt">Princípios &amp; Anti-Padrões</span><span class="lang-en">Principles &amp; Anti-Patterns</span></span>
+            </a>
+            <a href="ux-laws.html" class="btn-control">
+              <span>🧠 <span class="lang-pt">30 Leis de UX</span><span class="lang-en">30 Laws of UX</span></span>
+            </a>
+            <a href="heuristics-guide.html" class="btn-control">
+              <span>📖 <span class="lang-pt">18 Heurísticas</span><span class="lang-en">18 Heuristics</span></span>
+            </a>
+            <a href="heuristic-checklist.html" class="btn-control">
+              <span>📋 <span class="lang-pt">Checklist de Avaliação</span><span class="lang-en">Evaluation Checklist</span></span>
+            </a>
+            <a href="project-documentation-guide.html" class="btn-control active" style="border-color:var(--color-swiss-red);color:var(--color-swiss-red);background:var(--color-swiss-red-tint);">
+              <span>🗂️ <span class="lang-pt">Documentação UX</span><span class="lang-en">UX Documentation</span></span>
+            </a>
+            <a href="interaction-patterns.html" class="btn-control">
+              <span>✨ <span class="lang-pt">Catálogo 142 Padrões</span><span class="lang-en">142 Patterns Catalog</span></span>
+            </a>
+          </nav>
+        </div>
+
+        <aside class="hero-meta-card" aria-label="Core methodological anchors">
+          <ul class="hero-meta-list">
+            <li><strong>Primary Methodology:</strong> Kim Goodwin (<cite>Designing for the Digital Age</cite>, 2009) &amp; Richard Caddick + Steve Cable (<cite>Communicating the User Experience</cite>, 2011).</li>
+            <li><strong>Usability Testing Anchor:</strong> Jeffrey Rubin, Dana Chisnell &amp; Jared Spool (<cite>Handbook of Usability Testing</cite>, 2008) + Steve Krug (<cite>Don't Make Me Think</cite>, 2014).</li>
+            <li><strong>Course Case Studies:</strong> <a href="demos/tp11-integrated-responsive-project/index.html">DRUMTIKS '26 Festival</a> &amp; <em>Pure Print Archaeology (PPA)</em>.</li>
+            <li><strong>Deliverable Sequence:</strong> Inventory → Outline → Swimlane Site Map → Task/Journey Flow → Figma Wireframes → Usability Protocol &amp; Report.</li>
+          </ul>
+        </aside>
+      </section>
+
+    <!-- Page Layout with Sticky Aside Rail -->
+    <div class="page-layout-with-aside">
+
+      <!-- Sticky Navigation Rail -->
+      <aside class="aside-toc" aria-label="Navegação do Dossier de Documentação">
+        <div class="aside-toc-card">
+          <div class="aside-toc-header">
+            <span class="aside-toc-title"><span class="lang-pt">Neste Dossier</span><span class="lang-en">In this Dossier</span></span>
+            <span class="aside-toc-count">9 Etapas</span>
+          </div>
+          <ul class="aside-toc-list">
+            <li class="aside-toc-item"><a href="#stage-00" class="aside-toc-link"><span>📊 00. <span class="lang-pt">Pipeline Global</span><span class="lang-en">Pipeline Overview</span></span></a></li>
+            <li class="aside-toc-item"><a href="#stage-01" class="aside-toc-link"><span>📋 01. <span class="lang-pt">Inventário de Conteúdo</span><span class="lang-en">Content Inventory</span></span></a></li>
+            <li class="aside-toc-item"><a href="#stage-02" class="aside-toc-link"><span>🗂️ 02. <span class="lang-pt">Site Outline</span><span class="lang-en">Site Outline</span></span></a></li>
+            <li class="aside-toc-item"><a href="#stage-03" class="aside-toc-link"><span>🗺️ 03. <span class="lang-pt">Swimlane Site Map</span><span class="lang-en">Swimlane Site Map</span></span></a></li>
+            <li class="aside-toc-item"><a href="#stage-04" class="aside-toc-link"><span>🔄 04. <span class="lang-pt">Task Model &amp; Fluxo</span><span class="lang-en">Task Model &amp; Journey</span></span></a></li>
+            <li class="aside-toc-item"><a href="#stage-05" class="aside-toc-link"><span>📐 05. <span class="lang-pt">Figma Wireframes</span><span class="lang-en">Figma Wireframes</span></span></a></li>
+            <li class="aside-toc-item"><a href="#stage-06" class="aside-toc-link"><span>🔬 06. <span class="lang-pt">Testes de Usabilidade</span><span class="lang-en">Usability Tests</span></span></a></li>
+            <li class="aside-toc-item"><a href="#stage-07" class="aside-toc-link"><span>✅ 07. <span class="lang-pt">Checklist de Entrega</span><span class="lang-en">Master Checklist</span></span></a></li>
+            <li class="aside-toc-item"><a href="#stage-08" class="aside-toc-link"><span>📚 08. <span class="lang-pt">Bibliografia Anotada</span><span class="lang-en">Annotated Bibliography</span></span></a></li>
+            <li class="aside-toc-item"><a href="#connected-mesh" class="aside-toc-link"><span>🔗 09. <span class="lang-pt">Rede Curricular WD101</span><span class="lang-en">Curricular Mesh</span></span></a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Educational Body -->
+      <div class="page-layout-main">
+
+      <!-- ==================================================================
+           STAGE 00: END-TO-END DOCUMENTATION PIPELINE
+           ================================================================== -->
+      <section class="doc-stage" id="stage-00" aria-labelledby="heading-stage-00">
+        <div class="stage-header">
+          <div>
+            <span class="stage-kicker">Stage 00 • Architectural Overview</span>
+            <h2 id="heading-stage-00">How Every Deliverable Feeds the Next</h2>
+          </div>
+          <span class="stage-source-tag">Caddick &amp; Cable Intro Fig. 9 • Goodwin Ch. 12–24 • Garrett 5 Planes</span>
+        </div>
+
+        <p>
+          UX documentation is never bureaucratic filler (<span lang="pt">trabalho para encher dossier</span>). As Caddick and Cable demonstrate in <cite>Communicating the User Experience</cite>, each artifact answers one specific design question and directly generates the inputs for the next artifact—preventing expensive layout rewrites once you start coding semantic HTML5 and responsive CSS.
+        </p>
+
+        <figure class="diagram-figure" aria-labelledby="caption-pipeline">
+          <div class="pipeline-grid">
+            <div class="pipeline-step">
+              <span class="pipeline-num">Step 01 • Scope</span>
+              <span class="pipeline-title">Content Inventory</span>
+              <span class="pipeline-desc">Audits raw text, media, tables, rights, and gaps so layout containers fit real assets.</span>
+            </div>
+            <div class="pipeline-step">
+              <span class="pipeline-num">Step 02 • Hierarchy</span>
+              <span class="pipeline-title">Site Outline</span>
+              <span class="pipeline-desc">Groups audited assets into named pages, exact <code>*.html</code> filenames, and brief descriptions.</span>
+            </div>
+            <div class="pipeline-step">
+              <span class="pipeline-num">Step 03 • Structure</span>
+              <span class="pipeline-title">Swimlane Site Map</span>
+              <span class="pipeline-desc">Maps navigation tiers of <strong>pages only</strong> (filename first → title → brief &amp; visual notes).</span>
+            </div>
+            <div class="pipeline-step pipeline-step--eval">
+              <span class="pipeline-num">Step 04 • Behavior</span>
+              <span class="pipeline-title">Task &amp; User Journey</span>
+              <span class="pipeline-desc">Models user goals, page transitions, and decision points for heuristic &amp; peer evaluation.</span>
+            </div>
+            <div class="pipeline-step pipeline-step--eval">
+              <span class="pipeline-num">Step 05 • Skeleton</span>
+              <span class="pipeline-title">Figma Wireframes</span>
+              <span class="pipeline-desc">Translates screen archetypes into grayscale Visual Heat layouts or interactive prototypes.</span>
+            </div>
+            <div class="pipeline-step pipeline-step--test">
+              <span class="pipeline-num">Step 06 • Validation</span>
+              <span class="pipeline-title">Usability Test &amp; Report</span>
+              <span class="pipeline-desc">Tests 2–3 core flows with 3–5 peers; logs completion, hesitations, severity, and fixes.</span>
+            </div>
+          </div>
+          <figcaption id="caption-pipeline">
+            <strong>Figure 0.1 — The WD101 Documentation Pipeline:</strong> Synthesized from <cite>Communicating the User Experience</cite> (Intro, Fig. 9, p. 9), Kim Goodwin's Goal-Directed Design workflow (<cite>Designing for the Digital Age</cite>, Ch. 12, 16, 23), and Jesse James Garrett's five planes (<cite>The Elements of User Experience</cite>).
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- ==================================================================
+           STAGE 01: CONTENT INVENTORY & QUALITATIVE AUDIT
+           ================================================================== -->
+      <section class="doc-stage" id="stage-01" aria-labelledby="heading-stage-01">
+        <div class="stage-header">
+          <div>
+            <span class="stage-kicker">Stage 01 • Scope &amp; Data Objects</span>
+            <h2 id="heading-stage-01">1. Content Inventory &amp; Qualitative Content Audit</h2>
+          </div>
+          <span class="stage-source-tag">Caddick &amp; Cable Ch. 4 • Goodwin Ch. 12 &amp; 16 • Kissane (2011)</span>
+        </div>
+
+        <p>
+          Start by cataloging every piece of text, photography, vector diagram, audio sample, downloadable file, and structured table your site needs. Kim Goodwin calls these core nouns <strong>Data Objects</strong> (<cite>Designing for the Digital Age</cite>, Ch. 16): before designing a festival artist page, you must know what attributes an <em>Artist</em> object actually carries (stage name, set time, modular gear list, portrait aspect ratio, audio preview). Caddick and Cable (<cite>Communicating the User Experience</cite>, Ch. 4) pair this quantitative spreadsheet with a <strong>qualitative audit</strong> so you know whether each item is ready, needs editing, or must still be produced.
+        </p>
+
+        <div class="grid-2">
+          <article class="info-card info-card--do">
+            <h3>✓ Essential Columns for WD101 Inventories</h3>
+            <ul>
+              <li><strong>Asset ID:</strong> Hierarchical code (<code>C-01.1</code>, <code>C-02.1</code>) matching your future Outline and Wireframe callouts.</li>
+              <li><strong>Target File:</strong> Destination HTML document (e.g., <code>index.html</code>, <code>dj-warp.html</code>, <code>battle-rules.html</code>).</li>
+              <li><strong>Content Title &amp; Type:</strong> Headline copy, editorial body (~250 words), 4:5 portrait WebP, HTML data table, SVG map, etc.</li>
+              <li><strong>Source, Author &amp; AI / License Provenance:</strong> Original photography, public domain specimen, CC-BY credit, or explicit AI generation disclosure (mandatory for your <code>credits.html</code> imprint).</li>
+              <li><strong>Action Status:</strong> <span class="status-pill status-pill--keep">✓ Ready</span>, <span class="status-pill status-pill--revise">▲ Revise</span>, or <span class="status-pill status-pill--create">◆ Create</span>.</li>
+            </ul>
+          </article>
+
+          <article class="info-card info-card--dont">
+            <h3>✕ Common First-Time Student Pitfalls</h3>
+            <ul>
+              <li><strong>Inventing containers before auditing copy:</strong> Designing three equal cards in Figma when one item has 18 words and another has 190 words.</li>
+              <li><strong>Ignoring media aspect ratios:</strong> Mixing landscape <code>16:9</code> stage photos and vertical <code>3:4</code> posters without planning <code>aspect-ratio</code> reservations (causing Cumulative Layout Shift).</li>
+              <li><strong>Forgetting tabular &amp; utility content:</strong> Omitting ticket pricing matrices, hardware comparison tables, venue transit instructions, or academic credits until the night before submission.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- Worked Content Inventory Table (DRUMTIKS '26 Capstone) -->
+        <div class="table-region" tabindex="0" role="region" aria-labelledby="caption-inventory">
+          <table class="data-table">
+            <caption id="caption-inventory">
+              Table 1.1 — Worked Excerpt: Content Inventory &amp; Qualitative Audit for the DRUMTIKS '26 Capstone Website
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Target Page File</th>
+                <th scope="col">Content Item / Data Object</th>
+                <th scope="col">Format &amp; Specs</th>
+                <th scope="col">Source &amp; License / AI Note</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">C-01.1</th>
+                <td data-label="Target Page File"><code>index.html</code></td>
+                <td data-label="Content Item">Festival Masthead, Dates (14–16 Nov) &amp; Venue (Alfândega do Porto)</td>
+                <td data-label="Format &amp; Specs">Hero copy (45 words) + semantic <code>&lt;time&gt;</code></td>
+                <td data-label="Source &amp; License">Original studio copy (Team)</td>
+                <td data-label="Status"><span class="status-pill status-pill--keep">✓ Ready</span></td>
+              </tr>
+              <tr>
+                <th scope="row">C-01.2</th>
+                <td data-label="Target Page File"><code>index.html</code></td>
+                <td data-label="Content Item">3D Vinyl Crate Hero &amp; Headliner Quick Teasers</td>
+                <td data-label="Format &amp; Specs">4 square WebP sleeves (<code>1:1</code>, 600×600px, &lt;90 KB each)</td>
+                <td data-label="Source &amp; License">FBAUP Studio Archive + SVG sleeves</td>
+                <td data-label="Status"><span class="status-pill status-pill--keep">✓ Ready</span></td>
+              </tr>
+              <tr>
+                <th scope="row">C-01.3</th>
+                <td data-label="Target Page File"><code>index.html</code></td>
+                <td data-label="Content Item">Reactive Festival Pass &amp; Masterclass Pricing Simulator</td>
+                <td data-label="Format &amp; Specs">Interactive form controls + tier breakdown copy</td>
+                <td data-label="Source &amp; License">Course brief (<span lang="pt">Enunciado TP06/TP11</span>)</td>
+                <td data-label="Status"><span class="status-pill status-pill--revise">▲ Revise</span></td>
+              </tr>
+              <tr>
+                <th scope="row">C-02.1</th>
+                <td data-label="Target Page File"><code>dj-warp.html</code></td>
+                <td data-label="Content Item">DJ Warp Artist Biography, Quad-Turntable Setup &amp; Set Schedule</td>
+                <td data-label="Format &amp; Specs">Editorial profile (280 words) + <code>4:5</code> portrait WebP + gear list</td>
+                <td data-label="Source &amp; License">Press kit text edited for scannability; AI-assisted lighting study disclosed</td>
+                <td data-label="Status"><span class="status-pill status-pill--keep">✓ Ready</span></td>
+              </tr>
+              <tr>
+                <th scope="row">C-03.1</th>
+                <td data-label="Target Page File"><code>battle-rules.html</code></td>
+                <td data-label="Content Item">The 808 Clash Official Rules, Elimination Rounds &amp; Allowed Hardware Matrix</td>
+                <td data-label="Format &amp; Specs">Long-form rules (650 words) + 5-column HTML <code>&lt;table&gt;</code></td>
+                <td data-label="Source &amp; License">Original competition spec; needs plain-language summary box</td>
+                <td data-label="Status"><span class="status-pill status-pill--revise">▲ Revise</span></td>
+              </tr>
+              <tr>
+                <th scope="row">C-04.1</th>
+                <td data-label="Target Page File"><code>credits.html</code></td>
+                <td data-label="Content Item">Academic Colophon, Typography Specs, Bibliography &amp; AI Transparency Log</td>
+                <td data-label="Format &amp; Specs">Structured definition list (<code>&lt;dl&gt;</code>) + external references</td>
+                <td data-label="Source &amp; License">Mandatory WD101 FBAUP academic imprint</td>
+                <td data-label="Status"><span class="status-pill status-pill--create">◆ Create</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <details class="template-disclosure">
+          <summary>Copyable Markdown / Spreadsheet Template — Content Inventory</summary>
+          <div class="disclosure-body">
+            <div class="copy-bar">
+              <button type="button" class="btn-nav" data-copy-target="tpl-inventory">📋 Copy Template</button>
+            </div>
+            <pre class="code-block" tabindex="0"><code id="tpl-inventory">| Asset ID | Target File (`*.html`) | Content Title / Data Object | Format &amp; Dimensions | Owner / Copyright / AI Disclosure | Status (Ready / Revise / Create) | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| C-01.1 | `index.html` | Primary Hero Headline &amp; Event Dates | Text (max 12 words) + `&lt;time&gt;` | Original team copy | Ready | Must answer "What, Where, When" above the fold |
+| C-01.2 | `index.html` | Hero Visual / Key Artwork | WebP `16:9` (1600x900px, &lt;150KB) | Original photo / CC-BY | Revise | Reserve `width`/`height` for zero CLS |
+| C-02.1 | `artist-detail.html` | Featured Profile &amp; Technical Rider | 300w text + `4:5` portrait | Studio shoot | Create | Uses Short-Form Visual template |
+| C-03.1 | `rules.html` | Participation Rules &amp; Comparison Table | 600w text + `&lt;table&gt;` | Team editorial | Revise | Uses Long-Form Editorial template |
+| C-04.1 | `credits.html` | Colophon, Fonts, Bibliography &amp; AI Log | Structured text + links | FBAUP WD101 requirement | Create | Link from global footer on all pages |</code></pre>
+          </div>
+        </details>
+      </section>
+
+      <!-- ==================================================================
+           STAGE 02: STRUCTURED SITE OUTLINE
+           ================================================================== -->
+      <section class="doc-stage" id="stage-02" aria-labelledby="heading-stage-02">
+        <div class="stage-header">
+          <div>
+            <span class="stage-kicker">Stage 02 • Textual Information Architecture</span>
+            <h2 id="heading-stage-02">2. Site Outline (Hierarchical Page Specification)</h2>
+          </div>
+          <span class="stage-source-tag">Caddick &amp; Cable Ch. 5 ("Outline View") • WD101 Final Project Brief</span>
+        </div>
+
+        <p>
+          Before drawing boxes in a diagramming tool, translate your Content Inventory into a clean, indented <strong>Site Outline</strong> (Caddick &amp; Cable, Ch. 5). The Outline lets your team and instructor verify page scope, URL naming conventions (lowercase ASCII, hyphen-separated, zero spaces or accents), and template reuse in seconds.
+        </p>
+
+        <blockquote class="quote-box">
+          <strong>Mandatory WD101 Outline Entry Syntax (Strict Field Order):</strong> Every entry in your Site Outline must follow this exact three-part sequence:
+          <strong>1st Page Name</strong> → <strong>2nd File Name (<code>*.html</code>)</strong> → <strong>3rd Brief Description</strong> (summarizing core content, user purpose, and assigned layout template).
+          <footer>— Note how Stage 03 (Swimlane Site Map) intentionally flips #1 and #2 so <code>filename.html</code> leads each visual node.</footer>
+        </blockquote>
+
+        <!-- Visual Syntax Anatomy Diagram -->
+        <figure class="diagram-figure" aria-labelledby="caption-outline-syntax">
+          <div class="syntax-anatomy">
+            <div class="syntax-row">
+              <span class="syntax-badge">1. Page Name</span>
+              <div><strong>Headliner Profile: DJ Warp</strong> — Human-readable page title matching <code>&lt;h1&gt;</code> and navigation meaning.</div>
+            </div>
+            <div class="syntax-row">
+              <span class="syntax-badge">2. File Name</span>
+              <div><code>dj-warp.html</code> — Clean, lowercase, kebab-case production file slug (no spaces, capitals, or accents).</div>
+            </div>
+            <div class="syntax-row">
+              <span class="syntax-badge">3. Brief Description</span>
+              <div>Concise 1–2 sentence scope of page contents and role (e.g., <em>"Short-form visual profile featuring DJ Warp's Porto premiere time, quad-deck analog setup, discography sleeves, and stage link."</em>).</div>
+            </div>
+          </div>
+          <figcaption id="caption-outline-syntax">
+            <strong>Figure 2.1 — Site Outline Entry Anatomy:</strong> Always write <em>Page Name → File Name → Brief Description</em> in textual project outlines.
+          </figcaption>
+        </figure>
+
+        <div class="grid-2">
+          <!-- Worked Example A: DRUMTIKS '26 -->
+          <article class="info-card">
+            <h3>Worked Model A — DRUMTIKS '26 Festival Capstone</h3>
+            <ol class="outline-tree">
+              <li class="outline-node">
+                <span class="outline-page-name">0.0 Festival Home &amp; Pass Simulator</span>
+                <code class="outline-file">index.html</code>
+                <span class="outline-desc">Root landing page introducing festival dates/venue at Alfândega do Porto, 3D vinyl headliner showcase, photo masonry, and interactive pass/workshop cost simulator. <em>(Landing Archetype)</em></span>
+                <ol class="outline-children">
+                  <li class="outline-node">
+                    <span class="outline-page-name">1.0 Full Lineup &amp; Stage Timetable</span>
+                    <code class="outline-file">lineup.html</code>
+                    <span class="outline-desc">Chronological Friday–Sunday schedule across Main Hall and Sub-Bass Lab with filterable artist cards linking to individual artist profiles. <em>(Index / Hub Archetype)</em></span>
+                    <ol class="outline-children">
+                      <li class="outline-node">
+                        <span class="outline-page-name">1.1 Headliner Profile: DJ Warp</span>
+                        <code class="outline-file">dj-warp.html</code>
+                        <span class="outline-desc">Short-form visual artist page with sticky stage portrait, quad-turntable technical rider, selected vinyl releases, and Saturday 23:30 set slot. <em>(Short-Form Visual Template)</em></span>
+                      </li>
+                    </ol>
+                  </li>
+                  <li class="outline-node">
+                    <span class="outline-page-name">2.0 The 808 Clash — Battle Rules &amp; Gear</span>
+                    <code class="outline-file">battle-rules.html</code>
+                    <span class="outline-desc">Long-form editorial specification of beat-battle rounds, time limits, judging criteria, laptop restrictions, and permitted hardware sampler table. <em>(Long-Form Editorial Template)</em></span>
+                  </li>
+                  <li class="outline-node">
+                    <span class="outline-page-name">3.0 Academic Credits &amp; Colophon</span>
+                    <code class="outline-file">credits.html</code>
+                    <span class="outline-desc">Institutional FBAUP/WD101 context, variable typography specimens, bibliographic references, asset licenses, and AI pair-programming disclosure. <em>(Utility / Editorial Imprint)</em></span>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </article>
+
+          <!-- Worked Example B: Pure Print Archaeology (PPA) -->
+          <article class="info-card">
+            <h3>Worked Model B — Pure Print Archaeology (PPA Brief)</h3>
+            <ol class="outline-tree">
+              <li class="outline-node">
+                <span class="outline-page-name">0.0 Archive Home &amp; Featured Press</span>
+                <code class="outline-file">index.html</code>
+                <span class="outline-desc">Editorial gateway introducing the letterpress specimen archive, featured 19th-century wood type exhibition, and upcoming studio open days. <em>(Landing Archetype)</em></span>
+                <ol class="outline-children">
+                  <li class="outline-node">
+                    <span class="outline-page-name">1.0 Type Specimen Catalogue</span>
+                    <code class="outline-file">collection.html</code>
+                    <span class="outline-desc">Visual grid of cataloged wood and lead typefaces sorted by classification, body size (ciceros/points), and foundry provenance. <em>(Index / Hub Archetype)</em></span>
+                    <ol class="outline-children">
+                      <li class="outline-node">
+                        <span class="outline-page-name">1.1 Specimen Sheet: Grotesque Wood No. 8</span>
+                        <code class="outline-file">specimen-wood-08.html</code>
+                        <span class="outline-desc">High-resolution macro proof gallery, glyph completeness table, historical foundry notes, and ink-pull dimensions. <em>(Short-Form Visual Template)</em></span>
+                      </li>
+                    </ol>
+                  </li>
+                  <li class="outline-node">
+                    <span class="outline-page-name">2.0 Letterpress Workshop Manual &amp; Safety</span>
+                    <code class="outline-file">press-manual.html</code>
+                    <span class="outline-desc">Long-form studio protocol covering Vandercook cylinder press operation, lock-up furniture rules, solvent safety, and booking tiers. <em>(Long-Form Editorial Template)</em></span>
+                  </li>
+                  <li class="outline-node">
+                    <span class="outline-page-name">3.0 Colophon, Archival Sources &amp; Credits</span>
+                    <code class="outline-file">credits.html</code>
+                    <span class="outline-desc">Project authorship, archival photography permissions, typefaces used, bibliography, and transparent AI assistance log. <em>(Utility / Editorial Imprint)</em></span>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </article>
+        </div>
+
+        <details class="template-disclosure">
+          <summary>Copyable Markdown Template — Structured Site Outline</summary>
+          <div class="disclosure-body">
+            <div class="copy-bar">
+              <button type="button" class="btn-nav" data-copy-target="tpl-outline">📋 Copy Template</button>
+            </div>
+            <pre class="code-block" tabindex="0"><code id="tpl-outline"># Site Outline — [Project Title]
+Syntax: **Page Name** — `filename.html` — Brief description of contents, user goal, and assigned template.
+
+- **0.0 Home / Landing** — `index.html` — Core value proposition, key dates/featured highlight, and primary entry pathways. *(Landing Template)*
+  - **1.0 [Category / Overview Name]** — `section-index.html` — Curated overview of items/program with clear scannable cards. *(Hub Template)*
+    - **1.1 [Representative Item Detail]** — `item-detail.html` — Visual focus, key metadata specs, and contextual cross-links. *(Short-Form Visual Template)*
+  - **2.0 [Deep Editorial / Rules / Story]** — `editorial-page.html` — Structured long-form reading, pull-quotes, and comparison data table. *(Long-Form Editorial Template)*
+  - **3.0 Credits &amp; Colophon** — `credits.html` — FBAUP WD101 authorship, typography, asset licenses, bibliography, and AI disclosure. *(Academic Utility Template)*</code></pre>
+          </div>
+        </details>
+      </section>
+
+      <!-- ==================================================================
+           STAGE 03: SWIMLANE SITE MAP (PAGES / NAVIGATION STATES ONLY)
+           ================================================================== -->
+      <section class="doc-stage" id="stage-03" aria-labelledby="heading-stage-03">
+        <div class="stage-header">
+          <div>
+            <span class="stage-kicker">Stage 03 • Structural Information Architecture</span>
+            <h2 id="heading-stage-03">3. Swimlane Site Map (Hierarchical Navigation Destinations Only)</h2>
+          </div>
+          <span class="stage-source-tag">Caddick &amp; Cable Ch. 5 • Garrett Visual Vocabulary • WD101 Strict Spec</span>
+        </div>
+
+        <p>
+          A <strong>Site Map</strong> visualizes the structural hierarchy of discrete pages (or distinct URL-addressable navigation states) across horizontal <strong>hierarchical swimlanes</strong>. As Caddick and Cable (<cite>Communicating the User Experience</cite>, Ch. 5) emphasize, first-time designers frequently confuse a Site Map with a flowchart (<span lang="pt">fluxograma</span>): they draw boxes for "Navigation Bar", "Dropdown Menu", "Click Ticket Button?", or "Yes/No" diamonds. <strong>Never do that in a Site Map.</strong> Those belong in Stage 04 (User Journey / Flow Diagram).
+        </p>
+
+        <div class="grid-2">
+          <article class="info-card info-card--do">
+            <h3>✓ Mandatory Swimlane Site Map Rules</h3>
+            <ul>
+              <li><strong>Swimlanes = Navigation Depth Tiers:</strong> Organize horizontal bands strictly by structural hierarchy (e.g., <em>Lane 0: Root Landing</em> → <em>Lane 1: Primary Navigation Pages</em> → <em>Lane 2: Category / Detail Pages</em> → <em>Global Utility Lane</em>).</li>
+              <li><strong>Nodes = Pages / Navigation Destinations ONLY:</strong> Every box represents a real HTML document or standalone screen state that a user can land on.</li>
+              <li><strong>Garrett Page Stack for Repeated Templates:</strong> When multiple items share the exact same HTML/CSS template (e.g., 8 artist profiles modeled on <code>dj-warp.html</code>), draw a stacked card box rather than 8 redundant rectangles.</li>
+              <li><strong>Strict Internal Node Hierarchy (4 Fields):</strong> Notice how #1 and #2 invert the Outline order so developers spot the file slug immediately!</li>
+            </ul>
+          </article>
+
+          <article class="info-card info-card--dont">
+            <h3>✕ What NEVER Appears in a Site Map</h3>
+            <ul>
+              <li><strong>NO Menus or UI Chrome Boxes:</strong> Do not draw a box labeled "Header Menu", "Hamburger Drawer", "Footer Bar", or "Filter Dropdown".</li>
+              <li><strong>NO Flowchart / Decision Diamonds (<span lang="pt">Não é um fluxograma</span>):</strong> Do not draw "User selects VIP?" or Yes/No branching arrows.</li>
+              <li><strong>NO Intra-Page Micro-Interactions:</strong> Toggling dark mode, opening a <code>&lt;details&gt;</code> accordion, or clicking a pricing radio button inside <code>index.html</code> stays inside that single page—it is not a separate Site Map destination.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- Node Anatomy Card (Inverting #1 and #2 relative to Outline) -->
+        <figure class="diagram-figure" aria-labelledby="caption-sm-node-anatomy">
+          <div class="syntax-anatomy">
+            <div class="syntax-row">
+              <span class="syntax-badge syntax-badge--invert">1st • File Name</span>
+              <div><code>dj-warp.html</code> — Leads at the top of the card in monospace type for instant file-to-architecture mapping.</div>
+            </div>
+            <div class="syntax-row">
+              <span class="syntax-badge syntax-badge--invert">2nd • Page Name / Title</span>
+              <div><strong>DJ Warp — Headliner Profile</strong> — Clear editorial/navigation title of the destination.</div>
+            </div>
+            <div class="syntax-row">
+              <span class="syntax-badge syntax-badge--invert">3rd • Brief Description</span>
+              <div>Concise summary of the destination's contents (set time, biography, quad-deck technical rider, vinyl releases).</div>
+            </div>
+            <div class="syntax-row">
+              <span class="syntax-badge syntax-badge--invert">4th • Optional Content / Visual Note</span>
+              <div><em>[Optional]</em> Layout archetype &amp; key visual cues (e.g., <em>"Short-Form Visual Template • Sticky 4:5 Portrait + 3D Sleeve Strip"</em>).</div>
+            </div>
+          </div>
+          <figcaption id="caption-sm-node-anatomy">
+            <strong>Figure 3.1 — Mandatory Site Map Card Hierarchy:</strong> Compare with Stage 02: in the Site Map, <code>filename.html</code> is always <strong>1st</strong>, followed by <strong>2nd Page Name/Title</strong>, <strong>3rd Brief Description</strong>, and <strong>4th Optional Content/Visual Description</strong>.
+          </figcaption>
+        </figure>
+
+        <!-- Visual Gloomaps-Style Hierarchical Tree Diagram (Syllabus Figure 2 Alignment) -->
+        <figure class="diagram-figure" aria-labelledby="caption-tree-sitemap">
+          <div class="gloomaps-legend-box" aria-label="Syllabus Color Coding Key (Gloomaps / Course Brief Figure 2)">
+            <div class="gloomaps-legend-title">Syllabus Sitemap Color Key (Course Brief Fig. 2 • Gloomaps Architecture)</div>
+            <div class="gloomaps-legend-grid">
+              <div class="gloomaps-legend-item">
+                <span class="gloomaps-chip gloomaps-chip--root" aria-hidden="true">◼</span>
+                <div>
+                  <strong>Solid Black (A1):</strong> Root Landing Page (<code>index.html</code>) — the entry gateway, global orientation, and primary anchor for the site architecture.
+                </div>
+              </div>
+              <div class="gloomaps-legend-item">
+                <span class="gloomaps-chip gloomaps-chip--colophon" aria-hidden="true">🟧</span>
+                <div>
+                  <strong>Vivid Orange (B1):</strong> Credits / Imprint (<code>credits.html</code>) — mandatory academic colophon, student authorship, font/media licenses, and AI usage disclosure.
+                </div>
+              </div>
+              <div class="gloomaps-legend-item">
+                <span class="gloomaps-chip gloomaps-chip--yellow" aria-hidden="true">🟨</span>
+                <div>
+                  <strong>Vivid Yellow (B2, C2, D1):</strong> Mandatory Informative Formats — Long format with complex hierarchy (<code>battle-rules.html</code>, <code>lineup.html#artists</code>) and Short format simpler visual structure (<code>dj-warp.html</code>).
+                </div>
+              </div>
+              <div class="gloomaps-legend-item">
+                <span class="gloomaps-chip gloomaps-chip--gray" aria-hidden="true">⬜</span>
+                <div>
+                  <strong>Light Gray (B3, C1, C3, D2):</strong> Section hubs, secondary guides, and Garrett Page Stacks for repeated detail templates (<code>venue-access.html</code>, <code>lineup.html</code>, <code>artist-*.html</code>).
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sitemap-visual-container" tabindex="0" role="region" aria-label="Visual Site Map Tree Diagram for DRUMTIKS '26">
+            <svg class="sitemap-visual-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 1020" width="100%" height="auto" role="img" aria-labelledby="sitemap-diag-title sitemap-diag-desc">
+              <title id="sitemap-diag-title">DRUMTIKS '26 — Hierarchical Swimlane Site Map Diagram</title>
+              <desc id="sitemap-diag-desc">Hierarchical tree diagram of the DRUMTIKS website navigation structure, showing Levels A, B, C, and D with page cards, file names, template typologies, and color coding according to the course specification.</desc>
+              
+              <defs>
+                <!-- Card Drop Shadow Filter -->
+                <filter id="card-shadow" x="-8%" y="-8%" width="120%" height="124%" filterUnits="userSpaceOnUse">
+                  <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.14" />
+                </filter>
+                <filter id="fold-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="-1" dy="1" stdDeviation="1.5" flood-color="#000000" flood-opacity="0.25" />
+                </filter>
+              </defs>
+
+              <!-- Background Canvas -->
+              <rect width="100%" height="100%" fill="transparent" />
+
+              <!-- CONNECTING ORTHOGONAL TREE LINES -->
+              <g stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <!-- Drop from A1 to Bus Bar 1 -->
+                <path d="M 525 140 L 525 168" />
+                <!-- Bus Bar 1: Horizontal bus spanning B1 (150) to B3 (775) -->
+                <path d="M 150 168 L 775 168" />
+                <!-- Drops into Level B cards -->
+                <path d="M 150 168 L 150 195" />
+                <path d="M 400 168 L 400 195" />
+                <path d="M 775 168 L 775 195" />
+
+                <!-- Drop from B2 (400) straight down to C1 (400) -->
+                <path d="M 400 340 L 400 385" />
+
+                <!-- Drop from B3 (775) to Bus Bar 2 -->
+                <path d="M 775 340 L 775 362" />
+                <!-- Bus Bar 2: Horizontal bus spanning C2 (650) to C3 (900) -->
+                <path d="M 650 362 L 900 362" />
+                <!-- Drops into Level C cards -->
+                <path d="M 650 362 L 650 385" />
+                <path d="M 900 362 L 900 385" />
+
+                <!-- Drop from C2 (650) straight down to D1 (650) -->
+                <path d="M 650 660 L 650 695" />
+
+                <!-- Drop from C3 (900) straight down to D2 (900) -->
+                <path d="M 900 660 L 900 695" />
+              </g>
+
+              <!-- LEVEL A: ROOT LANDING (A1) -->
+              <g id="node-a1" transform="translate(415, 30)" filter="url(#card-shadow)">
+                <rect width="220" height="110" rx="3" fill="#000000" stroke="#374151" stroke-width="1.5" />
+                <text x="110" y="32" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="16" font-weight="800" letter-spacing="-0.01em">A1. Home /</text>
+                <text x="110" y="52" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800" letter-spacing="-0.01em">Landing Page</text>
+                <rect x="55" y="64" width="110" height="20" rx="4" fill="#1F2937" stroke="#4B5563" stroke-width="1" />
+                <text x="110" y="78" text-anchor="middle" fill="#FBBF24" font-family="'Martian Mono', ui-monospace, monospace" font-size="11" font-weight="700">index.html</text>
+                <text x="110" y="98" text-anchor="middle" fill="#9CA3AF" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5">Festival Dates • Crate • Pass Simulator</text>
+              </g>
+
+              <!-- LEVEL B: PRIMARY NAVIGATION & CONTEXT (B1, B2, B3) -->
+              <!-- B1: Credits / Imprint (Orange) -->
+              <g id="node-b1" transform="translate(45, 195)" filter="url(#card-shadow)">
+                <path d="M 0 0 L 190 0 L 210 20 L 210 145 L 0 145 Z" fill="#FFA600" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+                <text x="105" y="30" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800">B1. Credits /</text>
+                <text x="105" y="49" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800">Imprint</text>
+                <rect x="52" y="58" width="106" height="19" rx="3" fill="rgba(0,0,0,0.12)" />
+                <text x="105" y="72" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10.5" font-weight="700">credits.html</text>
+                <text x="105" y="93" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">(Academic Context, Colophon,</text>
+                <text x="105" y="108" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Typography, Licenses,</text>
+                <text x="105" y="123" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Bibliography &amp; AI Log)</text>
+              </g>
+
+              <!-- B2: The 808 Clash / Battle Rules (Yellow) -->
+              <g id="node-b2" transform="translate(295, 195)" filter="url(#card-shadow)">
+                <path d="M 0 0 L 190 0 L 210 20 L 210 145 L 0 145 Z" fill="#FFE100" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+                <text x="105" y="27" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">B2. The 808 Clash /</text>
+                <text x="105" y="45" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">Battle Rules</text>
+                <rect x="42" y="55" width="126" height="19" rx="3" fill="rgba(0,0,0,0.12)" />
+                <text x="105" y="69" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10.5" font-weight="700">battle-rules.html</text>
+                <text x="105" y="90" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">(Beat Battle Manifesto,</text>
+                <text x="105" y="105" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">3-Min Elimination Rounds,</text>
+                <text x="105" y="120" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Rubric &amp; Hardware Matrix)</text>
+              </g>
+
+              <!-- B3: Program / Full Lineup (Light Gray) -->
+              <g id="node-b3" transform="translate(670, 195)" filter="url(#card-shadow)">
+                <path d="M 0 0 L 190 0 L 210 20 L 210 145 L 0 145 Z" fill="#E0E0E0" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+                <text x="105" y="30" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800">B3. Program /</text>
+                <text x="105" y="49" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800">Full Lineup</text>
+                <rect x="54" y="58" width="102" height="19" rx="3" fill="rgba(0,0,0,0.1)" />
+                <text x="105" y="72" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10.5" font-weight="700">lineup.html</text>
+                <text x="105" y="93" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">(3-Day Schedule Overview,</text>
+                <text x="105" y="108" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Stages &amp; Participating</text>
+                <text x="105" y="123" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Artist Roster)</text>
+              </g>
+
+              <!-- LEVEL C: SECTION BREAKDOWN & HUBS (C1, C2, C3) -->
+              <!-- C1: Venue & Access Guide (Gray) — under B2 -->
+              <g id="node-c1" transform="translate(295, 385)" filter="url(#card-shadow)">
+                <path d="M 0 0 L 190 0 L 210 20 L 210 250 L 0 250 Z" fill="#E0E0E0" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+                <text x="105" y="32" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800">C1. Venue &amp;</text>
+                <text x="105" y="52" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800">Access Guide</text>
+                <rect x="40" y="62" width="130" height="19" rx="3" fill="rgba(0,0,0,0.1)" />
+                <text x="105" y="76" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10.5" font-weight="700">venue-access.html</text>
+                <text x="105" y="105" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">(Alfândega do Porto Map,</text>
+                <text x="105" y="125" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">Transit &amp; Metro Directions,</text>
+                <text x="105" y="145" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">Step-Free Wheelchair Access,</text>
+                <text x="105" y="165" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">Acoustic Ear Protection</text>
+                <text x="105" y="185" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">&amp; Locker Safety Rules)</text>
+              </g>
+
+              <!-- C2: Headliners / Research Publications (Yellow) -->
+              <g id="node-c2" transform="translate(545, 385)" filter="url(#card-shadow)">
+                <path d="M 0 0 L 190 0 L 210 20 L 210 275 L 0 275 Z" fill="#FFE100" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+                <text x="105" y="30" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">C2. Headliners &amp;</text>
+                <text x="105" y="49" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">Featured Artists</text>
+                <rect x="35" y="58" width="140" height="19" rx="3" fill="rgba(0,0,0,0.12)" />
+                <text x="105" y="72" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10.5" font-weight="700">lineup.html#artists</text>
+                <text x="105" y="102" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="700">(Long format with complex</text>
+                <text x="105" y="119" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="700">hierarchy / content structure)</text>
+                <text x="105" y="148" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Curated Artist Roster,</text>
+                <text x="105" y="165" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Bio Profiles, Analog Riders,</text>
+                <text x="105" y="182" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Turntable Setups, BPM Ranges</text>
+                <text x="105" y="199" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">&amp; Vinyl Discography Rows</text>
+              </g>
+
+              <!-- C3: Stages / Events & Activities (Light Gray) -->
+              <g id="node-c3" transform="translate(795, 385)" filter="url(#card-shadow)">
+                <path d="M 0 0 L 190 0 L 210 20 L 210 275 L 0 275 Z" fill="#E0E0E0" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+                <text x="105" y="30" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">C3. Stages &amp;</text>
+                <text x="105" y="49" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">Activities</text>
+                <rect x="33" y="58" width="144" height="19" rx="3" fill="rgba(0,0,0,0.1)" />
+                <text x="105" y="72" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10.5" font-weight="700">lineup.html#schedule</text>
+                <text x="105" y="105" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">(Main Warehouse,</text>
+                <text x="105" y="125" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">Sub-Bass Lab, Masterclasses,</text>
+                <text x="105" y="145" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">Modular Gear Demos,</text>
+                <text x="105" y="165" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="600">Beat Battles, Conferences)</text>
+              </g>
+
+              <!-- LEVEL D: LEAF DETAIL PAGES (D1, D2) -->
+              <!-- D1: DJ Warp — Artist Detail Page (Yellow) -->
+              <g id="node-d1" transform="translate(545, 695)" filter="url(#card-shadow)">
+                <path d="M 0 0 L 190 0 L 210 20 L 210 275 L 0 275 Z" fill="#FFE100" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+                <text x="105" y="30" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">D1. DJ Warp —</text>
+                <text x="105" y="49" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">Artist Detail Page</text>
+                <rect x="52" y="58" width="106" height="19" rx="3" fill="rgba(0,0,0,0.12)" />
+                <text x="105" y="72" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10.5" font-weight="700">dj-warp.html</text>
+                <text x="105" y="102" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="700">(Short format, simpler</text>
+                <text x="105" y="119" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="700">"more visual" structure)</text>
+                <text x="105" y="148" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Sticky 4:5 Stage Portrait,</text>
+                <text x="105" y="165" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Quad-Turntable Tech Specs,</text>
+                <text x="105" y="182" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Saturday 23:30 Set Slot &amp;</text>
+                <text x="105" y="199" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">3D Vinyl Release Sleeves</text>
+              </g>
+
+              <!-- D2: Activity Output / Workshop Detail Page (Gray) with Garrett Page Stack -->
+              <g id="node-d2" transform="translate(795, 695)" filter="url(#card-shadow)">
+                <path d="M 10 10 L 200 10 L 220 30 L 220 285 L 10 285 Z" fill="#D1D5DB" stroke="#9CA3AF" stroke-width="1" />
+                <path d="M 5 5 L 195 5 L 215 25 L 215 280 L 5 280 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1" />
+                <path d="M 0 0 L 190 0 L 210 20 L 210 275 L 0 275 Z" fill="#E0E0E0" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="#8E8E93" filter="url(#fold-shadow)" />
+                <path d="M 190 0 L 190 20 L 210 20 Z" fill="none" stroke="#6B7280" stroke-width="0.8" />
+                <text x="105" y="30" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">D2. Activity Output</text>
+                <text x="105" y="49" text-anchor="middle" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="14.5" font-weight="800">Detail Page</text>
+                <rect x="42" y="58" width="126" height="19" rx="3" fill="rgba(0,0,0,0.1)" />
+                <text x="105" y="72" text-anchor="middle" fill="#000000" font-family="'Martian Mono', ui-monospace, monospace" font-size="10" font-weight="700">artist-*.html / stage-*</text>
+                <text x="105" y="102" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="11" font-weight="700">[Garrett Page Stack]</text>
+                <text x="105" y="125" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">Shared responsive template</text>
+                <text x="105" y="145" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">reused for participating</text>
+                <text x="105" y="165" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">beatmakers, guest clinics,</text>
+                <text x="105" y="185" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">workshop sheets &amp; stage</text>
+                <text x="105" y="205" text-anchor="middle" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600">timetable instances</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="sitemap-actions-bar">
+            <div>
+              <span class="step-badge">Visual Tree Diagram</span>
+              <span style="color: var(--color-text-muted); font-size: 0.82rem; margin-inline-start: 0.5rem;">Clipped dog-ear document card notation • Orthogonal hierarchical tree</span>
+            </div>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <a href="assets/images/drumtiks-sitemap-tree.svg" class="button button--secondary" download="drumtiks-sitemap-tree.svg" style="font-size: 0.8rem; padding: 0.35rem 0.75rem;">Download SVG Vector</a>
+              <a href="assets/images/drumtiks-sitemap-tree.png" class="button button--secondary" download="drumtiks-sitemap-tree.png" style="font-size: 0.8rem; padding: 0.35rem 0.75rem;">Download PNG (1x)</a>
+              <a href="assets/images/drumtiks-sitemap-tree@2x.png" class="button button--secondary" download="drumtiks-sitemap-tree@2x.png" style="font-size: 0.8rem; padding: 0.35rem 0.75rem;">Download PNG (2x Retina)</a>
+            </div>
+          </div>
+
+          <figcaption id="caption-tree-sitemap">
+            <strong>Figure 3.2 — Visual Hierarchical Tree Site Map (DRUMTIKS '26 Festival Case Study):</strong> Modeled strictly after Figure 2 of the course project syllabus (<cite>Exemplo de um "Swimlane" Sitemap utilizando o Gloomaps</cite>). Each card represents a discrete HTML destination with clipped dog-ear notation, four-part internal hierarchy, and syllabus-mandated color coding: Black for Root Landing, Orange for Credits/Colophon, Yellow for mandatory Long &amp; Short format typologies, and Gray for Section Hubs and Garrett Stacked repeated templates.
+          </figcaption>
+        </figure>
+
+        <!-- Full Worked Swimlane Site Map Diagram -->
+        <figure class="diagram-figure" aria-labelledby="caption-swimlane-sitemap">
+          <!-- Accessible Color + Symbol Legend -->
+          <div class="sitemap-legend" aria-label="Site Map Page Typology Legend">
+            <span class="status-pill status-pill--critical">◼ Root Gateway Template</span>
+            <span class="status-pill status-pill--create">◆ Visual / Hub Template</span>
+            <span class="status-pill status-pill--revise">▲ Long-Form Editorial Template</span>
+            <span class="status-pill status-pill--purple">● Global Utility / Imprint</span>
+          </div>
+
+          <div class="swimlane-board">
+            <!-- LANE 0: ROOT GATEWAY -->
+            <div class="swimlane-row">
+              <div class="swimlane-label">
+                <span class="swimlane-tier">Swimlane L0 • Root</span>
+                <span class="swimlane-sub">Entry gateway &amp; primary orientation</span>
+              </div>
+              <div class="swimlane-cards">
+                <div class="sm-node sm-node--landing">
+                  <div class="sm-field-file">
+                    <span>1. index.html</span>
+                    <span>◼ Gateway</span>
+                  </div>
+                  <div class="sm-field-title">2. DRUMTIKS '26 — Festival Home &amp; Pass Simulator</div>
+                  <div class="sm-field-desc">3. Root landing page presenting festival dates/venue, headliner highlights, photo masonry, and pass/workshop calculator.</div>
+                  <div class="sm-field-visual">4. Visual/Content: 4-breakpoint 2D Macro Grid • 3D Vinyl Crate Hero • Pure CSS Pricing Simulator</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="connector-caption" aria-hidden="true">↓ Hierarchical Parent-to-Child Page Links (Primary Navigation Tier) ↓</div>
+
+            <!-- LANE 1: PRIMARY NAVIGATION DESTINATIONS -->
+            <div class="swimlane-row">
+              <div class="swimlane-label">
+                <span class="swimlane-tier">Swimlane L1 • Primary</span>
+                <span class="swimlane-sub">Top-level peer destinations reachable from global nav</span>
+              </div>
+              <div class="swimlane-cards swimlane-cards--cols-2">
+                <div class="sm-node sm-node--visual">
+                  <div class="sm-field-file">
+                    <span>1. lineup.html</span>
+                    <span>◆ Hub</span>
+                  </div>
+                  <div class="sm-field-title">2. Full Lineup &amp; Stage Schedule</div>
+                  <div class="sm-field-desc">3. Friday–Sunday timetable across Main Warehouse and Sub-Bass Lab with artist overview cards.</div>
+                  <div class="sm-field-visual">4. Visual/Content: Asymmetric Card Grid • Day/Stage Filter Chips • 1:1 Artist Thumbnails</div>
+                </div>
+
+                <div class="sm-node sm-node--editorial">
+                  <div class="sm-field-file">
+                    <span>1. battle-rules.html</span>
+                    <span>▲ Editorial</span>
+                  </div>
+                  <div class="sm-field-title">2. The 808 Clash — Official Rules &amp; Gear</div>
+                  <div class="sm-field-desc">3. Competition structure, 3-minute round rules, judging rubric, and permitted standalone hardware matrix.</div>
+                  <div class="sm-field-visual">4. Visual/Content: Long-Form Editorial (65ch measure) • Sticky Section Nav • Responsive 5-Col Data Table</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="connector-caption" aria-hidden="true">↓ Child Detail Destinations (From Lineup Hub &amp; Hero Teasers) ↓</div>
+
+            <!-- LANE 2: DETAIL / INSTANCE LEVEL (WITH GARRETT PAGE STACK) -->
+            <div class="swimlane-row">
+              <div class="swimlane-label">
+                <span class="swimlane-tier">Swimlane L2 • Detail</span>
+                <span class="swimlane-sub">Leaf content pages &amp; shared template stacks</span>
+              </div>
+              <div class="swimlane-cards swimlane-cards--cols-2">
+                <div class="sm-node sm-node--visual sm-node--stack">
+                  <div class="sm-field-file">
+                    <span>1. dj-warp.html (+ artist-*.html stack)</span>
+                    <span>◆ Short-Form Visual</span>
+                  </div>
+                  <div class="sm-field-title">2. DJ Warp — Headliner Artist Profile</div>
+                  <div class="sm-field-desc">3. Featured artist dossier detailing Saturday 23:30 slot, biography, quad-turntable analog rig, and key EPs.</div>
+                  <div class="sm-field-visual">4. Visual/Content: Garrett Page Stack (reused template) • Sticky 4:5 Stage Portrait + Audio/Discography Strip</div>
+                </div>
+
+                <div class="sm-node sm-node--editorial">
+                  <div class="sm-field-file">
+                    <span>1. venue-access.html</span>
+                    <span>▲ Editorial / Info</span>
+                  </div>
+                  <div class="sm-field-title">2. Alfândega Venue Map, Transit &amp; Accessibility</div>
+                  <div class="sm-field-desc">3. Tram/metro arrival routes, step-free wheelchair entrances, locker rules, and acoustic ear-protection policy.</div>
+                  <div class="sm-field-visual">4. Visual/Content: Annotated SVG Floorplan + Scannable Transit Definition List</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- LANE 3: GLOBAL PERSISTENT UTILITY -->
+            <div class="swimlane-row">
+              <div class="swimlane-label">
+                <span class="swimlane-tier">Swimlane U • Global</span>
+                <span class="swimlane-sub">Cross-linked from persistent footer across all pages</span>
+              </div>
+              <div class="swimlane-cards">
+                <div class="sm-node sm-node--utility">
+                  <div class="sm-field-file">
+                    <span>1. credits.html</span>
+                    <span>● Academic Utility</span>
+                  </div>
+                  <div class="sm-field-title">2. Colophon, Bibliography &amp; AI Disclosure</div>
+                  <div class="sm-field-desc">3. FBAUP WD101 student authorship, type specimen credits, media licenses, syllabus references, and AI usage log.</div>
+                  <div class="sm-field-visual">4. Visual/Content: Clean 2-Column Editorial Colophon + Structured Citation Table</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <figcaption id="caption-swimlane-sitemap">
+            <strong>Figure 3.3 — Swimlane Depth Breakdown &amp; Page Cards (DRUMTIKS '26):</strong> Notice that every box is strictly a <strong>page destination</strong>, organized into horizontal hierarchy lanes, with stacked cards indicating repeated detail templates (Garrett, <cite>The Elements of User Experience</cite>, Ch. 5; Caddick &amp; Cable, Ch. 5).
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- ==================================================================
+           STAGE 04: TASK MODEL & EXPECTED USER JOURNEY / FLOW DIAGRAM
+           ================================================================== -->
+      <section class="doc-stage" id="stage-04" aria-labelledby="heading-stage-04">
+        <div class="stage-header">
+          <div>
+            <span class="stage-kicker">Stage 04 • Behavioral Modeling &amp; Evaluation Bridge</span>
+            <h2 id="heading-stage-04">4. Task Model &amp; Expected User Journey / Flow Diagram</h2>
+          </div>
+          <span class="stage-source-tag">Caddick &amp; Cable Ch. 2 &amp; Ch. 3 • Goodwin Ch. 16 &amp; Ch. 23</span>
+        </div>
+
+        <p>
+          While the Swimlane Site Map shows <em>static geography</em> (where pages live), a <strong>Task Model</strong> and <strong>Expected User Journey / Flow Diagram</strong> show <em>human movement over time</em>: how a visitor arrives with a specific question, evaluates information across pages, makes decisions, and reaches completion.
+        </p>
+
+        <!-- Caddick & Cable Ch. 2: Three Evaluation Patterns -->
+        <div class="grid-3">
+          <article class="info-card info-card--theory">
+            <h3>1. Direct Connection</h3>
+            <p>
+              The user knows exactly what they want and goes straight to it with zero comparison (e.g., <em>"Check what time DJ Warp plays on Saturday night"</em>). Design requirement: clear scent of information and zero unnecessary clicks.
+            </p>
+          </article>
+
+          <article class="info-card info-card--theory">
+            <h3>2. Controlled Evaluation</h3>
+            <p>
+              The user compares 2–3 bounded options against clear criteria before acting (e.g., <em>"Compare a Day Pass vs. Full 3-Day Pass + Masterclass bundle within a €75 student budget"</em>). Design requirement: transparent side-by-side pricing feedback.
+            </p>
+          </article>
+
+          <article class="info-card info-card--theory">
+            <h3>3. Complex Evaluation</h3>
+            <p>
+              The user loops across multiple sources and constraints before committing (e.g., <em>"Verify whether my Roland SP-404MKII + external laptop setup qualifies for The 808 Clash before registering"</em>). Design requirement: scannable rules + hardware table + clear recovery paths.
+            </p>
+          </article>
+        </div>
+
+        <!-- Worked Expected User Journey / Flow Diagram -->
+        <figure class="diagram-figure" aria-labelledby="caption-user-journey">
+          <div class="journey-track">
+            <div class="journey-stage">
+              <span class="journey-pill">● Start Trigger</span>
+              <h4>Step 1 • Entry &amp; Orientation</h4>
+              <p>Beatmaker sees poster link; lands on <code>index.html</code> on mobile phone.</p>
+              <div class="journey-diamond"><strong>Question:</strong> Is there a live hardware beat battle this year?</div>
+              <div class="journey-probe">Heuristic Check: #1 Visibility &amp; #2 Real-World Match (clear hero/nav signifier)</div>
+            </div>
+
+            <div class="journey-stage">
+              <span class="journey-pill">Page: index.html</span>
+              <h4>Step 2 • Scent of Information</h4>
+              <p>Scans primary navigation or program cards; spots <em>"The 808 Clash"</em> callout.</p>
+              <div class="journey-diamond"><strong>Decision:</strong> Click through to <code>battle-rules.html</code>.</div>
+              <div class="journey-probe">Usability Metric: Optimal = 1 click from Home (&lt;10s hesitation)</div>
+            </div>
+
+            <div class="journey-stage">
+              <span class="journey-pill">Page: battle-rules.html</span>
+              <h4>Step 3 • Controlled/Complex Check</h4>
+              <p>Reads round duration (3 min) and inspects Allowed Hardware Table for laptop/DAW policy.</p>
+              <div class="journey-diamond"><strong>Decision:</strong> Standalone samplers allowed; laptops banned!</div>
+              <div class="journey-probe">Heuristic Check: #6 Recognition over Recall (scannable table vs. wall of text)</div>
+            </div>
+
+            <div class="journey-stage">
+              <span class="journey-pill">Loopback → index.html</span>
+              <h4>Step 4 • Pass &amp; Fee Calculation</h4>
+              <p>Returns to Pass Simulator on <code>index.html</code> to check Competitor / Weekend Pass cost.</p>
+              <div class="journey-diamond"><strong>Decision:</strong> Selects Weekend Pass + Workshop add-on; verifies € total.</div>
+              <div class="journey-probe">Heuristic Check: #3 User Control &amp; #5 Error Prevention (instant total update)</div>
+            </div>
+
+            <div class="journey-stage">
+              <span class="journey-pill">✓ Goal Complete</span>
+              <h4>Step 5 • Confident Action</h4>
+              <p>Confirms gear eligibility, round limit, and exact ticket cost without external help.</p>
+              <div class="journey-diamond"><strong>Outcome:</strong> Ready for registration CTA.</div>
+              <div class="journey-probe">Peer Test SCC: Names 3-min limit + "No Laptops" + exact € pass price</div>
+            </div>
+          </div>
+
+          <figcaption id="caption-user-journey">
+            <strong>Figure 4.1 — Expected User Journey / Flow Diagram (Caddick &amp; Cable Ch. 3; Goodwin Key Path Scenario Ch. 16):</strong> Unlike the Site Map, this behavioral diagram <em>does</em> include user triggers, page containers, decision points, and loopbacks—and every step carries built-in hooks for heuristic inspection and peer usability testing.
+          </figcaption>
+        </figure>
+
+        <!-- Explicit Downstream Reuse Bridge (Requested by User) -->
+        <div class="grid-2">
+          <article class="info-card info-card--bridge">
+            <h3>Downstream Reuse A — Formative Heuristic Evaluation &amp; Walkthrough</h3>
+            <p>
+              Before showing your prototype to anyone else, walk step-by-step through your Expected User Journey alongside the <a href="heuristic-checklist.html">Interactive Heuristic Evaluation Checklist</a> and <a href="heuristics-guide.html">Heuristics Guide</a> (Goodwin, Ch. 23):
+            </p>
+            <ul>
+              <li>At every <strong>page transition</strong>, check Williges/Cognitive Walkthrough questions: <em>Is the link visible? Does its label match the user's goal words, not internal jargon?</em></li>
+              <li>At every <strong>decision point</strong>, verify Nielsen #6 (<em>Recognition rather than recall</em>): does the user have to memorize prices from one screen to compare them on another?</li>
+              <li>At every <strong>loopback</strong>, verify Nielsen #3 (<em>User control and freedom</em>): can the user return without losing context?</li>
+            </ul>
+          </article>
+
+          <article class="info-card info-card--bridge">
+            <h3>Downstream Reuse B — Quick &amp; Dirty Peer Usability Sessions</h3>
+            <p>
+              Do not invent random usability tasks at the end of the semester! As Goodwin (Ch. 23) and Rubin &amp; Chisnell (Ch. 5) explain, each <strong>Expected User Journey</strong> converts directly into one <strong>Usability Test Task Scenario</strong> in Stage 06:
+            </p>
+            <ul>
+              <li><strong>Journey Trigger</strong> → becomes your <em>Task Scenario Prompt</em> read aloud to your friend/colleague.</li>
+              <li><strong>Expected Path</strong> → becomes your <em>Optimal Click Benchmark</em> (e.g., 2 page loads).</li>
+              <li><strong>Journey Outcome</strong> → becomes your objective <em>Successful Completion Criterion (SCC)</em>.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           STAGE 05: LOW-FI VS. HIGH-FI WIREFRAMES IN FIGMA
+           ================================================================== -->
+      <section class="doc-stage" id="stage-05" aria-labelledby="heading-stage-05">
+        <div class="stage-header">
+          <div>
+            <span class="stage-kicker">Stage 05 • Screen Skeleton &amp; Interactive Prototyping</span>
+            <h2 id="heading-stage-05">5. Designing Lower- or Higher-Fidelity Wireframes in Figma</h2>
+          </div>
+          <span class="stage-source-tag">Caddick &amp; Cable Ch. 6 • Goodwin Ch. 14, 16, 23, 24 • Cooper Ch. 5 • TP06 Figma Spec</span>
+        </div>
+
+        <p>
+          Wireframes bridge abstract architecture and visual HTML/CSS code. Whether you choose <strong>Lower-Fidelity Grayscale Wireframes</strong> or <strong>Higher-Fidelity Interactive Prototypes</strong> in Figma (or Penpot), Kim Goodwin (<cite>Designing for the Digital Age</cite>, Ch. 14 &amp; Ch. 23) warns of a classic student trap: <em>fidelity dictates the feedback you get</em>. Rough, uncolored layouts invite honest critique about hierarchy and missing content; polished dark-mode neon UI makes friends comment on colors and fonts while overlooking broken navigation.
+        </p>
+
+        <!-- Side-by-Side Illustrated Comparison: Low-Fi Visual Heat vs High-Fi Figma Auto Layout -->
+        <h3>Side-by-Side Visual Comparison: Low-Fi Grayscale vs. High-Fi Figma Architecture</h3>
+        <div class="grid-2">
+          <!-- LOW-FI ILLUSTRATION -->
+          <figure class="diagram-figure" aria-labelledby="caption-lowfi">
+            <div class="wf-frame" role="img" aria-label="Low-fidelity grayscale wireframe example showing visual heat hierarchy, real headlines, descriptive media ratio box, fold marker, and numbered behavioral annotations">
+              <div class="wf-topbar">
+                <span><strong>DRUMTIKS '26</strong> [Logo]</span>
+                <span>Lineup • 808 Clash • Credits <span class="wf-callout-badge">1</span></span>
+              </div>
+              <div class="wf-media-box">
+                <strong>[Hero Portrait — Aspect Ratio 4:5]</strong><br>
+                Subject: DJ Warp live over 4 analog turntables (high-contrast B&amp;W press photo, &lt;90 KB WebP).<br>
+                <em>Note: Never draw an empty blind "X" box without stating media ratio &amp; subject!</em>
+              </div>
+              <p><strong>DJ WARP — SATURDAY 23:30 • MAIN WAREHOUSE</strong></p>
+              <p>Pioneer of four-deck electro-acoustic turntablism performing an exclusive 90-minute hardware set at Alfândega do Porto.</p>
+              <span class="wf-cta-gray">Check Weekend Pass Simulator →</span> <span class="wf-callout-badge">2</span>
+
+              <div class="wf-fold-line">--- Approximate Mobile Initial Viewport Fold (844px) ---</div>
+
+              <p><span class="wf-callout-badge">3</span> <strong>Technical Rider &amp; Discography Table</strong> (3 vinyl EPs + BPM metadata)</p>
+            </div>
+            <figcaption id="caption-lowfi">
+              <strong>Figure 5.1 — Low-Fi Annotated Grayscale Wireframe (Caddick &amp; Cable Ch. 6):</strong>
+              Uses <strong>Visual Heat</strong> (tonal grays <code>#e5e7eb</code> → <code>#334155</code>, avoiding pure <code>#000000</code> except when testing extreme contrast), <strong>real headlines</strong> instead of blind <em>Lorem Ipsum</em>, <strong>descriptive image specs</strong>, an approximate <strong>viewport fold guide</strong>, and loud <strong>numbered callouts</strong> explaining behavior:
+              <br><code>[1]</code> Persistent global nav collapses into accessible <code>&lt;details&gt;</code> drawer &lt;768px.
+              <br><code>[2]</code> Primary CTA deep-links directly to `#pass-simulator` on `index.html`.
+              <br><code>[3]</code> Below-the-fold discography strip uses horizontal scroll snap on touch screens.
+            </figcaption>
+          </figure>
+
+          <!-- HIGH-FI ILLUSTRATION -->
+          <figure class="diagram-figure" aria-labelledby="caption-hifi">
+            <div class="wf-frame wf-frame--hifi" role="img" aria-label="High-fidelity Figma prototype example showing semantic HTML5 Auto Layout frame names, design token variables, component variants, and interactive wireflow connections">
+              <div class="wf-topbar">
+                <span><code>Frame: &lt;header&gt;</code> • Auto Layout (Space-Between)</span>
+                <span class="status-pill status-pill--create">⚡ Prototype Link →</span>
+              </div>
+              <div class="wf-hifi-hero">
+                <p><code>Frame: &lt;main&gt; / &lt;article class="artist-hero"&gt;</code></p>
+                <p><strong>DJ WARP • LIVE 4-DECK ANALOG SET</strong></p>
+                <p>Styled with Figma Local Variables mirroring <code>tokens.css</code>, real variable fonts (<code>Syne</code> + <code>Inter</code> + <code>Martian Mono</code>), and interactive Component Variants.</p>
+                <div class="wf-token-row">
+                  <span class="wf-token-chip">--color-red</span>
+                  <span class="wf-token-chip">--space-lg: 24px</span>
+                  <span class="wf-token-chip">Variant: Hover / Focus-Visible</span>
+                </div>
+              </div>
+              <p><strong>Responsive Frame Pair Required (TP06 Figma Brief):</strong></p>
+              <div class="wf-token-row">
+                <span class="wf-token-chip">📱 Mobile: 390×844px (1-Col Stack)</span>
+                <span class="wf-token-chip">🖥️ Desktop: 1440×900px (12-Col Grid)</span>
+              </div>
+              <p class="wf-note-gap">
+                <strong>Interactive Noodle Flow:</strong> Connect clickable nav links, cards, and pricing toggles across your 4 core templates so peers can click through Tasks 1–3 realistically!
+              </p>
+            </div>
+            <figcaption id="caption-hifi">
+              <strong>Figure 5.2 — High-Fi Interactive Figma Prototype (Goodwin Ch. 24 F&amp;BS + WD101 TP06 Figma Spec):</strong>
+              Name Figma frames after <strong>HTML5 semantic landmarks</strong> (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;footer&gt;</code>), enforce <strong>Auto Layout</strong> (= CSS Flexbox), bind <strong>Local Variables</strong> (= CSS Custom Properties), define <code>Default / Hover / Focus-Visible</code> component variants, and wire clickable <strong>Prototype Flows</strong>.
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- Low-Fi vs High-Fi Decision Matrix -->
+        <div class="table-region" tabindex="0" role="region" aria-labelledby="caption-wf-matrix">
+          <table class="data-table">
+            <caption id="caption-wf-matrix">
+              Table 5.1 — Choosing Between Low-Fidelity Wireframes and High-Fidelity Figma Prototypes
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Dimension</th>
+                <th scope="col">Lower-Fidelity Grayscale Wireframe</th>
+                <th scope="col">Higher-Fidelity Interactive Figma Prototype</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">When to Use</th>
+                <td data-label="Lower-Fidelity">Early weeks (Scope → Skeleton): validating content hierarchy, reading order, Screen Archetypes (Landing vs. Visual vs. Editorial), and copy length before styling.</td>
+                <td data-label="Higher-Fidelity">Mid-to-late project (Skeleton → Surface): testing visual affordances, color contrast, typography scale, micro-states, and realistic peer task flows before/alongside HTML/CSS coding.</td>
+              </tr>
+              <tr>
+                <th scope="row">Color &amp; Typography</th>
+                <td data-label="Lower-Fidelity">Strictly grayscale <em>Visual Heat</em> (3–4 neutral gray steps; ~75% dark gray body text); 1 neutral system/grotesk typeface; zero decorative gradients.</td>
+                <td data-label="Higher-Fidelity">Full project token palette (<code>light-dark()</code> equivalents), real self-hosted display/body/mono fonts, WCAG AA/AAA verified contrast ratios.</td>
+              </tr>
+              <tr>
+                <th scope="row">Copy &amp; Media Rule</th>
+                <td data-label="Lower-Fidelity"><strong>Real headlines, real nav labels, real table headers</strong> (short representative body copy allowed; never use blind <em>Lorem Ipsum</em> in menus or buttons!). Explicit aspect-ratio labels on media boxes.</td>
+                <td data-label="Higher-Fidelity">100% final audited copy and cropped WebP-equivalent imagery from your Stage 01 Content Inventory.</td>
+              </tr>
+              <tr>
+                <th scope="row">Figma Construction</th>
+                <td data-label="Lower-Fidelity">Fast Auto Layout stacks for Mobile (<code>390px</code>) + Desktop (<code>1280px–1440px</code>) + numbered behavioral annotation sidebar (Caddick Ch. 6).</td>
+                <td data-label="Higher-Fidelity">Semantic HTML5 layer naming, Figma Variables, Component Variants (<code>Default</code>, <code>Hover</code>, <code>Focus</code>, <code>Checked</code>), and interactive click-through prototype links.</td>
+              </tr>
+              <tr>
+                <th scope="row">Usability Testing Fit</th>
+                <td data-label="Lower-Fidelity">Ideal for early 5-minute comprehension, navigation-label testing, and paper/clickable Wireflow walkthroughs (Snyder; Goodwin Ch. 23).</td>
+                <td data-label="Higher-Fidelity">Ideal for full Task Completion, visual distraction checks (whether flashy art buries the CTA), and mobile tap-target ergonomics.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           STAGE 06: FIRST-TIMER USABILITY TEST PROTOCOL & REPORT
+           ================================================================== -->
+      <section class="doc-stage" id="stage-06" aria-labelledby="heading-stage-06">
+        <div class="stage-header">
+          <div>
+            <span class="stage-kicker">Stage 06 • Empirical Validation with Friends &amp; Colleagues</span>
+            <h2 id="heading-stage-06">6. Usability Test Protocol &amp; Actionable Report (First-Timer Guide)</h2>
+          </div>
+          <span class="stage-source-tag">Rubin, Chisnell &amp; Spool (2008) • Krug Ch. 9 • Caddick &amp; Cable Ch. 7–8</span>
+        </div>
+
+        <p>
+          As Jared Spool notes in the foreword to <cite>Handbook of Usability Testing</cite> (Rubin &amp; Chisnell, 2008), design teams rarely make bad decisions on purpose—they make bad decisions because <strong>key information about real user behavior was missing</strong> when they argued about layouts. Even if you have never moderated a usability test before, watching just <strong>3 to 5 friends or FBAUP colleagues</strong> (who did <em>not</em> work on your project) attempt 3 realistic tasks for 15–20 minutes will expose ~80% of your site's most damaging navigation, copy, and layout barriers.
+        </p>
+
+        <blockquote class="quote-box">
+          <strong>Golden Rule for First-Time Moderators (Rubin &amp; Chisnell Ch. 1 &amp; Ch. 9; Krug Ch. 9):</strong>
+          A usability test is <strong>not a focus group</strong> (never test peers in a group asking "Do you like this color?") and <strong>not a guided demo</strong>. Test <strong>one person at a time</strong>, give them a concrete goal without using your menu words, ask them to <strong>think out loud</strong>, and hold your tongue when they hesitate—that silence is where you learn what your design failed to communicate.
+          <footer>— Synthesized from <cite>Handbook of Usability Testing</cite> (2nd ed., Ch. 5, 8, 9) &amp; <cite>Don't Make Me Think, Revisited</cite> (Ch. 9: "Recruit loosely and grade on a curve").</footer>
+        </blockquote>
+
+        <!-- Logistics & Setup Cards -->
+        <div class="grid-3">
+          <article class="info-card info-card--do">
+            <h3>1. Sample &amp; Device Split</h3>
+            <ul>
+              <li><strong>4–5 Participants Total:</strong> Friends, roommates, or students from other studios/years (`P1`–`P5`, anonymized in your report).</li>
+              <li><strong>Test Both Postures:</strong> Run at least <strong>2 sessions on a real smartphone</strong> (`375–412px`) and <strong>2–3 sessions on a laptop/desktop</strong>.</li>
+              <li><strong>Counterbalance Task Order:</strong> Give `P1`/`P3` Tasks `1 → 2 → 3` and `P2`/`P4` Tasks `2 → 3 → 1` so learning effects don't skew Task 3 (Rubin Ch. 5).</li>
+            </ul>
+          </article>
+
+          <article class="info-card info-card--theory">
+            <h3>2. Seating &amp; Roles (15–20 Min)</h3>
+            <ul>
+              <li><strong>Moderator:</strong> Sits slightly behind and ~45° to the side so you see both screen and finger/mouse without intimidating the participant (Rubin Ch. 9).</li>
+              <li><strong>Note-Taker (Observer):</strong> Logs clicks, hesitations, quotes, and shorthand codes silently—never interrupts!</li>
+              <li><strong> Timeline:</strong> 2 min orientation → 3 min Home Page Tour → 10 min for 3 tasks → 3 min debrief &amp; ratings.</li>
+            </ul>
+          </article>
+
+          <article class="info-card info-card--dont">
+            <h3>3. Top Things NEVER to Say</h3>
+            <ul>
+              <li>✕ <em>"Click on '808 Clash' in the top right..."</em> (Leading / giving away the UI label!)</li>
+              <li>✕ <em>"Actually, we put that table there because..."</em> (Defending your design!)</li>
+              <li>✕ <em>"Isn't this pricing calculator super clear?"</em> (Biased yes/no prompt!)</li>
+              <li>✓ <strong>Say instead:</strong> <em>"What are you thinking right now?"</em> or <em>"What did you expect would happen?"</em></li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- 3 Worked Project Task Scenarios & Observation Metrics (DRUMTIKS '26) -->
+        <h3>Proposed First-Timer User Flows, Task Scenarios &amp; Observation Measures (DRUMTIKS '26 Example)</h3>
+        <p>
+          Notice how Rubin and Chisnell (<cite>Handbook of Usability Testing</cite>, Ch. 5 &amp; Ch. 8) construct <strong>indirect task scenarios</strong>: never repeat the exact words printed inside your navigation bar! If your nav link says <code>Battle Rules</code>, prompt the user with <em>"beat competition rules and allowed gear"</em> so you test whether they genuinely recognize your label.
+        </p>
+
+        <div class="table-region" tabindex="0" role="region" aria-labelledby="caption-tasks">
+          <table class="data-table">
+            <caption id="caption-tasks">
+              Table 6.1 — Three Ready-to-Adapt Task Models, Verbatim Scenarios, Completion Criteria &amp; Efficiency Metrics
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Flow &amp; Task Model</th>
+                <th scope="col">Verbatim Prompt Read to Participant</th>
+                <th scope="col">Test Objective &amp; Optimal Path</th>
+                <th scope="col">Successful Completion Criteria (SCC) &amp; Observation Measures</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Task 1 • Pass Budget<br><span class="status-pill status-pill--revise">▲ Controlled Eval</span></th>
+                <td data-label="Verbatim Prompt"><em>"Imagine you are a student with a <strong>€75 maximum budget</strong>. You want to attend <strong>all three festival days</strong> and join <strong>one hands-on synthesis masterclass</strong>. Find out whether your budget covers this combination and state the exact total price."</em></td>
+                <td data-label="Objective &amp; Path">
+                  <strong>Objective:</strong> Test discoverability and live feedback of the pure CSS Pass Simulator on <code>index.html</code>.<br>
+                  <strong>Optimal Path:</strong> Scroll or jump on <code>index.html</code> → select Full Pass + Masterclass toggle (1 page, 2 clicks).
+                </td>
+                <td data-label="SCC &amp; Measures">
+                  <strong>SCC:</strong> Correctly states exact € bundle total and yes/no vs. €75 without moderator help.<br>
+                  <strong>Observe:</strong> Do they realize toggles update live, or do they hunt for a missing "Submit/Calculate" button? Log clicks &amp; hesitations (&gt;5s).
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Task 2 • Gear Rules<br><span class="status-pill status-pill--critical">◼ Complex Eval</span></th>
+                <td data-label="Verbatim Prompt"><em>"Your friend makes beats using a <strong>MacBook laptop running Ableton</strong> paired with a <strong>standalone hardware sampler</strong>, and wants to compete in the festival's live beat contest. Check <strong>how many minutes each round lasts</strong> and whether <strong>their setup is allowed</strong>."</em></td>
+                <td data-label="Objective &amp; Path">
+                  <strong>Objective:</strong> Test information scent from Home to <code>battle-rules.html</code> and scannability of long-form copy + responsive HTML table.<br>
+                  <strong>Optimal Path:</strong> <code>index.html</code> → <code>battle-rules.html</code> → Hardware Table (2 pages, 1–2 clicks).
+                </td>
+                <td data-label="SCC &amp; Measures">
+                  <strong>SCC:</strong> Identifies <strong>3-minute round limit</strong> AND states that <strong>standalone samplers are permitted while laptops are prohibited</strong>.<br>
+                  <strong>Observe:</strong> On mobile, can they read/scroll the 5-column hardware table without horizontal clipping?
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Task 3 • Artist &amp; Imprint<br><span class="status-pill status-pill--create">◆ Direct + Trust</span></th>
+                <td data-label="Verbatim Prompt"><em>"Find out <strong>which night, time, and how many turntables</strong> the main turntablism headliner uses live. Finally, check <strong>who created this website</strong> and whether <strong>any AI tools were used</strong> in its production."</em></td>
+                <td data-label="Objective &amp; Path">
+                  <strong>Objective:</strong> Test featured artist navigation (<code>dj-warp.html</code>) and global footer utility discovery (<code>credits.html</code>).<br>
+                  <strong>Optimal Path:</strong> Hero/Lineup → <code>dj-warp.html</code> → Global Footer → <code>credits.html</code> (3 pages, 2 clicks).
+                </td>
+                <td data-label="SCC &amp; Measures">
+                  <strong>SCC:</strong> Names Saturday 23:30 + 4 turntables on <code>dj-warp.html</code>, then locates author &amp; AI disclosure on <code>credits.html</code>.<br>
+                  <strong>Observe:</strong> Do they expect the 3D Vinyl Crate hero to be clickable or purely decorative?
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- How First-Timers Measure Completion, Efficiency & Criticality -->
+        <div class="grid-2">
+          <article class="info-card">
+            <h3>How to Log Observation &amp; Efficiency (Keep It Simple!)</h3>
+            <ul>
+              <li><strong>1. Task Completion Rate (Effectiveness):</strong> Score each task objectively: <code>100%</code> = Completed independently; <code>50%</code> = Completed only after a moderator hint; <code>0%</code> = Gave up or stated wrong answer without noticing (<em>false completion</em>—watch closely for this!).</li>
+              <li><strong>2. Clicks &amp; Hesitations vs. Stopwatch Time (Efficiency):</strong> Count actual page loads vs. your Optimal Path (e.g., <em>5 clicks vs. 2 optimal</em>) and count pauses &gt;5 seconds. <em>Rubin &amp; Chisnell Caveat (Ch. 5):</em> Because asking peers to <strong>Think Aloud</strong> naturally slows down reading, never panic over raw seconds alone—use <strong>Median</strong> time alongside click detours so one chatty friend doesn't skew your average!</li>
+              <li><strong>3. Post-Task Single Ease Question (SEQ):</strong> Right after each task, ask: <em>"Overall, how difficult or easy was that task, from 1 (Very Difficult) to 7 (Very Easy)?"</em> Anything averaging below <code>5.0</code> needs redesign.</li>
+            </ul>
+          </article>
+
+          <article class="info-card">
+            <h3>Caddick Note Codes &amp; Rubin Criticality Score</h3>
+            <ul>
+              <li><strong>Rapid Note-Taking Symbols (Caddick &amp; Cable Fig. 7-10):</strong>
+                <code>"</code> Verbatim quote • <code>!</code> Critical barrier/error • <code>*</code> Hesitation or layout insight • <code>?</code> Participant confusion • <code>+</code> Positive reaction • <code>??</code> Probe during debrief (Rubin Ch. 10).</li>
+              <li><strong>Rubin's Prioritization Formula (Ch. 11):</strong> Rank every observed problem using <code>Criticality = Severity (1–4) + Frequency (1–4)</code>:
+                <br>• <strong>Severity:</strong> <code>4</code> Unusable/Blocks task • <code>3</code> Severe friction • <code>2</code> Moderate detour • <code>1</code> Minor cosmetic annoyance.
+                <br>• <strong>Frequency:</strong> <code>4</code> ≥4 of 5 peers • <code>3</code> 3 of 5 peers • <code>2</code> 2 of 5 peers • <code>1</code> 1 of 5 peers.
+                <br>• <strong>Action Threshold:</strong> Scores <code>7–8</code> = Mandatory immediate fix; <code>5–6</code> = High-priority fix; <code>2–4</code> = Polish if time permits.
+              </li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- Illustrated Model 6.1: Visual Annotated Usability Finding Card (Caddick Fig. 7-2) -->
+        <figure class="diagram-figure" aria-labelledby="caption-finding-card">
+          <div class="finding-report-card">
+            <div class="wf-frame" role="img" aria-label="Annotated mobile screen excerpt from usability test report highlighting two numbered friction points on battle-rules.html">
+              <div class="wf-topbar">
+                <span><code>battle-rules.html</code> (390px Mobile)</span>
+                <span class="wf-callout-badge">1</span>
+              </div>
+              <p><strong>THE 808 CLASH — OFFICIAL MANIFESTO</strong></p>
+              <p> Three dense paragraphs of atmospheric festival lore pushed the actual round length (3 minutes) and laptop ban 1,400px down the page...</p>
+              <div class="wf-fold-line">--- Mobile Viewport Fold ---</div>
+              <div class="wf-media-box">
+                <span class="wf-callout-badge">2</span> <strong>[5-Column Hardware Table Overflowing Right →]</strong><br>
+                Columns 4–5 ("Laptop Tether", "Verdict") clipped off-screen with no scroll shadow or stacked card layout.
+              </div>
+            </div>
+
+            <div>
+              <div class="sitemap-legend">
+                <span class="status-pill status-pill--critical">◼ Finding F-01 • Criticality 7/8 (Severity 4 + Frequency 3)</span>
+                <span class="status-pill status-pill--purple">● Violates Heuristic #6 &amp; #8</span>
+              </div>
+              <h4>Laptop Ban &amp; Verdict Column Missed on Mobile in Task 2</h4>
+              <p>
+                <strong>Observation (3 of 5 peers; both mobile testers P1 &amp; P3):</strong> Participants reached <code>battle-rules.html</code> in 1 click, skimmed the opening lore, and scrolled past the 5-column hardware table without noticing horizontal overflow—wrongly concluding laptops were allowed (<em>false completion</em>).
+              </p>
+              <blockquote class="quote-box">
+                "I see Roland SP-404 listed in the first column, so my friend's Ableton + SP-404 rig is totally fine—I didn't realize the table kept going to the right!"
+                <footer>— Participant P3 (Mobile Safari, 390px)</footer>
+              </blockquote>
+              <p>
+                <strong>Short-Term Fix (Implemented before final submission):</strong> <code>[1]</code> Added a 3-bullet "TL;DR Quick Rules Summary" box above the fold (<em>3-Min Rounds • Hardware Only • Zero Laptops</em>). <code>[2]</code> Converted the table wrapper to an accessible <code>@container (width &lt; 680px)</code> stacked card layout with explicit <code>data-label</code> headers.
+              </p>
+            </div>
+          </div>
+          <figcaption id="caption-finding-card">
+            <strong>Figure 6.1 — Visual Usability Report Finding Card (modeled on Caddick &amp; Cable Ch. 7, Fig. 7-2 &amp; Rubin Ch. 12):</strong> Nobody reads 15 pages of dense prose. Pair an annotated screen crop with severity/frequency math, a verbatim peer quote, root heuristic cause, and your concrete HTML/CSS fix.
+          </figcaption>
+        </figure>
+
+        <!-- Illustrated Model 6.2: Block-Step Task Completion Funnel (Caddick Fig. 8-7) -->
+        <figure class="diagram-figure" aria-labelledby="caption-funnel">
+          <div class="funnel-grid">
+            <div class="funnel-step">
+              <span class="pipeline-num">Step 1 • Home Entry</span>
+              <h4>Land on <code>index.html</code></h4>
+              <div class="funnel-bar funnel-bar--step1" aria-hidden="true"></div>
+              <p><strong>5 / 5 peers (100%)</strong> oriented within 5 seconds during Home Page Tour.</p>
+            </div>
+
+            <div class="funnel-step">
+              <span class="pipeline-num">Step 2 • Nav Scent</span>
+              <h4>Open <code>battle-rules.html</code></h4>
+              <div class="funnel-bar funnel-bar--step2" aria-hidden="true"></div>
+              <p><strong>4 / 5 peers (80%)</strong> clicked directly.</p>
+              <span class="funnel-dropoff">▼ −1 detour: P4 checked Lineup first ("808 Clash" sounded like a DJ name)</span>
+            </div>
+
+            <div class="funnel-step">
+              <span class="pipeline-num">Step 3 • Round Limit</span>
+              <h4>Find 3-Minute Rule</h4>
+              <div class="funnel-bar funnel-bar--step3" aria-hidden="true"></div>
+              <p><strong>3 / 5 peers (60%)</strong> located round length unassisted.</p>
+              <span class="funnel-dropoff">▼ −1 drop: P1 skimmed past dense lore paragraph</span>
+            </div>
+
+            <div class="funnel-step">
+              <span class="pipeline-num">Step 4 • Table Verdict</span>
+              <h4>Confirm Laptop Ban</h4>
+              <div class="funnel-bar funnel-bar--step4" aria-hidden="true"></div>
+              <p><strong>3 / 5 peers (60%)</strong> verified hardware-only rule (3/3 desktop, 0/2 mobile before fix).</p>
+            </div>
+          </div>
+          <figcaption id="caption-funnel">
+            <strong>Figure 6.2 — Block-Step Task Completion Funnel (modeled on Caddick &amp; Cable Ch. 8, Fig. 8-7):</strong> Plotting step-by-step survival across your 5 peer sessions pinpoints <em>exactly where</em> comprehension breaks down (Step 2 ambiguous label + Step 4 mobile table clipping).
+          </figcaption>
+        </figure>
+
+        <!-- Copyable Protocol & Report Markdown Template -->
+        <details class="template-disclosure">
+          <summary>Copyable Markdown Template — Usability Test Protocol, Session Sheet &amp; Report</summary>
+          <div class="disclosure-body">
+            <div class="copy-bar">
+              <button type="button" class="btn-nav" data-copy-target="tpl-usability">📋 Copy Protocol &amp; Report Template</button>
+            </div>
+            <pre class="code-block" tabindex="0"><code id="tpl-usability"># Usability Test Protocol &amp; Report — [Project Title]
+
+## 1. Test Objectives &amp; Sample
+- **Prototype Tested:** [Figma Interactive Prototype / Live HTML+CSS URL]
+- **Participants:** 5 peer students outside our team (`P1`–`P5`, anonymized): 2 Mobile (`390px`), 3 Desktop (`1440px`).
+- **Counterbalancing:** Odd IDs (`P1, P3, P5`) ran Tasks `1 → 2 → 3`; Even IDs (`P2, P4`) ran Tasks `2 → 3 → 1`.
+
+## 2. Verbatim Orientation &amp; Home Page Tour Script (Read Aloud — 3 Min)
+&gt; "Thank you for helping us evaluate our project. Remember: **we are testing the website, never testing you.** Nothing you click can break it, and if anything feels confusing, that helps us find a design flaw. Please **think out loud** as you look around—tell me what you are looking for and what surprises you. I won't be able to answer questions during tasks because we want to see how the site works when we aren't sitting next to someone.
+&gt; Before clicking anything on this first screen: **Whose site is this, what is it offering, and what catches your eye first?**"
+
+## 3. Task Scenarios &amp; Observation Matrix
+| Participant | Device | Task 1 (100/50/0%) | Task 1 Clicks (vs Opt) | Task 1 SEQ (1-7) | Task 2 (100/50/0%) | Task 2 Clicks (vs Opt) | Task 2 SEQ (1-7) | Key Shorthand Notes (`"` `!` `*` `?` `+`) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| P1 | Mobile | 100% | 2 (Opt 2) | 6 | 0% | 4 (Opt 2) | 3 | `!` Missed right columns of table; `"` "Looks legal to me" |
+| P2 | Desktop | 100% | 2 (Opt 2) | 7 | 100% | 2 (Opt 2) | 6 | `+` Loved instant price update |
+| P3 | Mobile | 50% | 4 (Opt 2) | 4 | 50% | 3 (Opt 2) | 4 | `?` Unsure if "808 Clash" was an artist or contest |
+
+## 4. Top Prioritized Findings (`Criticality = Severity [1-4] + Frequency [1-4]`)
+### Finding F-01: [Short Descriptive Problem Title] — Criticality: [e.g., 7/8]
+- **Page / Step Affected:** `[filename.html]` — [Task # / Step #]
+- **Behavioral Observation:** [X of 5 participants did Y instead of Z...]
+- **Verbatim Quote:** &gt; "[Exact quote from P#]"
+- **Heuristic / UX Law Root Cause:** [e.g., Nielsen #6 Recognition rather than recall / Fitts's Law]
+- **Concrete Redesign Action:** [Exact label, layout, or CSS change applied]</code></pre>
+          </div>
+        </details>
+      </section>
+
+      <!-- ==================================================================
+           STAGE 07: INTERACTIVE & PRINTABLE MASTER DOCUMENTATION CHECKLIST
+           ================================================================== -->
+      <section class="doc-stage" id="stage-07" aria-labelledby="heading-stage-07">
+        <div class="stage-header">
+          <div>
+            <span class="stage-kicker">Stage 07 • Quality Assurance &amp; Submission Readiness</span>
+            <h2 id="heading-stage-07">7. Interactive Final Project Documentation Checklist</h2>
+          </div>
+          <span class="stage-source-tag">Auto-Saved Locally • Print / Export PDF Ready</span>
+        </div>
+
+        <p>
+          Verify every deliverable before submitting your Final Project dossier. Progress is stored privately in your browser's <code>localStorage</code> and formats cleanly onto A4 sheets when you click <strong>Print / Save PDF</strong>.
+        </p>
+
+        <form id="doc-checklist-form" novalidate>
+          <div class="checklist-toolbar">
+            <div class="progress-cluster">
+              <label for="checklist-progress" id="progress-label">
+                <strong>Completion Status:</strong> <span id="progress-text" aria-live="polite">0 of 18 criteria verified (0%)</span>
+              </label>
+              <progress id="checklist-progress" max="18" value="0"></progress>
+            </div>
+
+            <div class="top-links no-print">
+              <button type="button" id="btn-reset-checklist" class="btn-nav">↺ Reset Checks</button>
+              <button type="button" id="btn-print-checklist" class="btn-nav btn-nav--accent">🖨️ Print / Save Dossier PDF</button>
+            </div>
+          </div>
+
+          <div class="meta-inputs-grid">
+            <div class="field-group">
+              <label for="meta-project">Project / Brand Title</label>
+              <input type="text" id="meta-project" name="project_title" placeholder="e.g., DRUMTIKS '26 / Pure Print Archaeology">
+            </div>
+            <div class="field-group">
+              <label for="meta-authors">Student Name(s) &amp; Group</label>
+              <input type="text" id="meta-authors" name="student_authors" placeholder="e.g., Ana Silva, Tiago Costa — Group 04">
+            </div>
+            <div class="field-group">
+              <label for="meta-date">Review Date</label>
+              <input type="date" id="meta-date" name="review_date">
+            </div>
+          </div>
+
+          <!-- Group 1: Content Inventory & Site Outline -->
+          <fieldset class="check-fieldset">
+            <legend>01 &amp; 02 • Content Inventory &amp; Site Outline</legend>
+            <div class="check-group">
+              <div class="check-row">
+                <input type="checkbox" id="chk-01" name="chk_01">
+                <label for="chk-01"><strong>Complete Content Inventory:</strong> Every text block, image, SVG, table, and interactive widget has a unique Asset ID (<code>C-01.1</code>), target <code>*.html</code> file, format/aspect-ratio spec, and Readiness status (Ready / Revise / Create).</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="chk-02" name="chk_02">
+                <label for="chk-02"><strong>Rights &amp; AI Provenance Audited:</strong> Authorship, open-license credits, and any generative/agentic AI assistance are logged per asset for <code>credits.html</code>.</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="chk-03" name="chk_03">
+                <label for="chk-03"><strong>Strict Site Outline Order:</strong> Every outline entry follows the exact sequence <strong>1. Page Name → 2. File Name (<code>*.html</code>) → 3. Brief Description</strong> (+ assigned template archetype).</label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Group 2: Swimlane Site Map -->
+          <fieldset class="check-fieldset">
+            <legend>03 • Hierarchical Swimlane Site Map</legend>
+            <div class="check-group">
+              <div class="check-row">
+                <input type="checkbox" id="chk-04" name="chk_04">
+                <label for="chk-04"><strong>Pages / Navigation Destinations ONLY:</strong> Zero boxes for menus, navigation bars, buttons, internal section anchors, or Yes/No flowchart diamonds.</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="chk-05" name="chk_05">
+                <label for="chk-05"><strong>Swimlane Depth Bands:</strong> Pages are grouped into clear horizontal hierarchy tiers (Root Landing → Primary Nav → Category/Detail → Global Persistent Utility).</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="chk-06" name="chk_06">
+                <label for="chk-06"><strong>Strict Site Map Node Order:</strong> Every page box lists <strong>1st <code>filename.html</code> → 2nd Page Name/Title → 3rd Brief Description → 4th Optional Content/Visual Note</strong>, with a color+symbol legend and Garrett Page Stacks where templates repeat.</label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Group 3: Task Model & Expected User Journey -->
+          <fieldset class="check-fieldset">
+            <legend>04 • Task Model &amp; Expected User Journey / Flow Diagram</legend>
+            <div class="check-group">
+              <div class="check-row">
+                <input type="checkbox" id="chk-07" name="chk_07">
+                <label for="chk-07"><strong>Evaluation Pattern Identified:</strong> Core user goals are classified using Caddick &amp; Cable's patterns (<em>Direct Connection</em>, <em>Controlled Evaluation</em>, or <em>Complex Evaluation</em>).</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="chk-08" name="chk_08">
+                <label for="chk-08"><strong>Complete Journey Flow Syntax:</strong> Diagrams show entry trigger, shaded page containers, user actions, key decision points, loopbacks, and completion state.</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="chk-09" name="chk_09">
+                <label for="chk-09"><strong>Formative Heuristic Walkthrough Completed:</strong> Every transition and decision point in the Expected Journey was inspected against the <a href="heuristic-checklist.html">WD101 Heuristic Checklist</a> before peer testing.</label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Group 4: Figma Wireframes / Interactive Prototype -->
+          <fieldset class="check-fieldset">
+            <legend>05 • Lower- or Higher-Fidelity Figma Wireframes</legend>
+            <div class="check-group">
+              <div class="check-row">
+                <input type="checkbox" id="chk-10" name="chk_10">
+                <label for="chk-10"><strong>Mobile + Desktop Archetypes Covered:</strong> Responsive frame pairs (<code>375–390px</code> Mobile &amp; <code>1280–1440px</code> Desktop) built for Landing, Short-Form Visual, Long-Form Editorial, and Credits templates.</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="chk-11" name="chk_11">
+                <label for="chk-11"><strong>Real Navigation Copy &amp; Visual Heat:</strong> Zero blind <em>Lorem Ipsum</em> in headings/menus/CTAs; descriptive media aspect-ratio placeholders; grayscale Visual Heat (Low-Fi) or semantic Auto Layout + Variables + Variants (High-Fi).</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="chk-12" name="chk_12">
+                <label for="chk-12"><strong>Behavioral Annotations &amp; Viewport Fold:</strong> Numbered callouts specify responsive collapse, sticky behavior, interactive states, and initial viewport fold reference.</label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Group 5: First-Time Usability Test Protocol & Report -->
+          <fieldset class="check-fieldset">
+            <legend>06 • Usability Test Protocol &amp; Actionable Report</legend>
+            <div class="check-group">
+              <div class="check-row">
+                <input type="checkbox" id="chk-13" name="chk_13">
+                <label for="chk-13"><strong>Non-Leading Protocol &amp; Home Page Tour:</strong> Includes orientation script ("testing the site, not you"), Krug's hands-off Home Page Tour, and 2–3 indirect task scenarios that avoid repeating UI menu labels.</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="chk-14" name="chk_14">
+                <label for="chk-14"><strong>3–5 Individual Peer Sessions Across Devices:</strong> Conducted 1-on-1 with friends/colleagues outside the project team (`P1`–`P5`, anonymized), splitting Mobile and Desktop with counterbalanced task order.</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="chk-15" name="chk_15">
+                <label for="chk-15"><strong>Objective Completion &amp; Efficiency Logged:</strong> Recorded Successful Completion Criteria (<code>100% / 50% / 0%</code>), actual clicks vs. optimal path, hesitations, verbatim quotes, and post-task SEQ ratings (1–7).</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="chk-16" name="chk_16">
+                <label for="chk-16"><strong>Prioritized Visual Report &amp; Funnel:</strong> Ranked top barriers via Rubin's <code>Criticality = Severity + Frequency</code>, illustrated findings with annotated screenshots (Caddick Fig. 7-2) + Block-Step Funnel (Fig. 8-7), and documented concrete design fixes.</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="chk-17" name="chk_17">
+                <label for="chk-17"><strong>Production HTML5 / CSS Alignment:</strong> Final coded filenames, semantic landmarks, responsive tables, and `:focus-visible` states match the updated documentation.</label>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="chk-18" name="chk_18">
+                <label for="chk-18"><strong>Academic Bibliography &amp; Credits Linked:</strong> Dossier and <code>credits.html</code> properly cite the Syllabus books and disclose all external assets and AI workflows.</label>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </section>
+
+      <!-- ==================================================================
+           STAGE 08: SYLLABUS & SUPPORTING MATERIALS BIBLIOGRAPHY
+           ================================================================== -->
+      <section class="doc-stage" id="stage-08" aria-labelledby="heading-stage-08">
+        <div class="stage-header">
+          <div>
+            <span class="stage-kicker">Stage 08 • Canonical Theoretical References</span>
+            <h2 id="heading-stage-08">8. Annotated Syllabus Bibliography (<span lang="pt">Materiais de Apoio 2026</span>)</h2>
+          </div>
+          <span class="stage-source-tag">Course Reference Shelf • WD101 FBAUP</span>
+        </div>
+
+        <div class="table-region" tabindex="0" role="region" aria-labelledby="caption-biblio">
+          <table class="data-table">
+            <caption id="caption-biblio">
+              Table 8.1 — Primary Books &amp; Course References Grounding Each Stage of This Guide
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Author(s) &amp; Year</th>
+                <th scope="col">Work Title &amp; Publisher</th>
+                <th scope="col">Key Chapters &amp; Direct Application in Your Final Project</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Caddick, R., &amp; Cable, S. (2011)</th>
+                <td data-label="Work Title"><cite>Communicating the User Experience: A Practical Guide for Creating Useful UX Documentation</cite>. Wiley.</td>
+                <td data-label="Application"><strong>Core Documentation Spine:</strong> Intro Fig. 9 (artifact pipeline), Ch. 2 (Task Models &amp; 3 evaluation patterns), Ch. 3 (User Journeys), Ch. 4 (Content Requirements &amp; Audit), Ch. 5 (Outline &amp; Swimlane Sitemaps), Ch. 6 (Grayscale Visual Heat Wireframes), Ch. 7 (Visual Usability Reports &amp; shorthand coding), Ch. 8 (Block-Step Funnel Diagrams).</td>
+              </tr>
+              <tr>
+                <th scope="row">Goodwin, K. (2009)</th>
+                <td data-label="Work Title"><cite>Designing for the Digital Age: How to Create Human-Centered Products and Services</cite>. Wiley.</td>
+                <td data-label="Application"><strong>Goal-Directed Architecture &amp; Evaluation:</strong> Ch. 12 (Context Scenarios &amp; Data/Functional Requirements), Ch. 14 (Sketching Structure before Details), Ch. 16 (Data Objects, Screen Archetypes &amp; Key Path Scenarios), Ch. 23 (Formative Heuristic Walkthroughs vs. Usability Testing &amp; fidelity traps), Ch. 24 (Form &amp; Behavior Specification).</td>
+              </tr>
+              <tr>
+                <th scope="row">Rubin, J., Chisnell, D., &amp; Spool, J. (2008)</th>
+                <td data-label="Work Title"><cite>Handbook of Usability Testing: How to Plan, Design, and Conduct Effective Tests</cite> (2nd ed.). Wiley.</td>
+                <td data-label="Application"><strong>Empirical Testing Rigor:</strong> Foreword by Jared Spool; Ch. 1–3 (Formative vs. Assessment testing), Ch. 5 (Test Plan, 4–5 participant rationale, counterbalancing, indirect task prompts, Successful Completion Criteria &amp; Think-Aloud timing caveats), Ch. 8–10 (Orientation script, Beginner's Mind, non-leading moderation &amp; debriefing), Ch. 11–12 (<code>Criticality = Severity + Frequency</code> &amp; short/long-term fixes).</td>
+              </tr>
+              <tr>
+                <th scope="row">Krug, S. (2014)</th>
+                <td data-label="Work Title"><cite>Don't Make Me Think, Revisited: A Common Sense Approach to Web and Mobile Usability</cite> (3rd ed.). New Riders.</td>
+                <td data-label="Application"><strong>Quick &amp; Dirty Peer Testing:</strong> Ch. 2 (How people actually scan pages rather than reading), Ch. 6 (Street signs, breadcrumbs &amp; trunk test), Ch. 9 (DIY 1-on-1 testing with 3–5 loosely recruited peers, the 3-minute Home Page Tour, neutral prompts, and fixing the top 3 most serious flaws first).</td>
+              </tr>
+              <tr>
+                <th scope="row">Cooper, A., Reimann, R., Cronin, D., &amp; Noessel, C. (2014)</th>
+                <td data-label="Work Title"><cite>About Face: The Essentials of Interaction Design</cite> (4th ed.). Wiley.</td>
+                <td data-label="Application"><strong>Posture &amp; Screen Archetypes:</strong> Ch. 5 &amp; Ch. 9 (Informational vs. Sovereign/Transient postures on desktop and mobile; grouping Functional and Data Elements cleanly without excise).</td>
+              </tr>
+              <tr>
+                <th scope="row">Garrett, J. J. (2011) &amp; Saffer, D. (2010)</th>
+                <td data-label="Work Title"><cite>The Elements of User Experience</cite> (2nd ed.) &amp; <cite>Designing for Interaction</cite> (2nd ed.). New Riders.</td>
+                <td data-label="Application"><strong>5 Planes &amp; Visual Vocabulary:</strong> Progressive refinement from Strategy &amp; Scope to Structure, Skeleton, and Surface; Page Stack notation for shared HTML/CSS templates in Swimlane Site Maps.</td>
+              </tr>
+              <tr>
+                <th scope="row">Kissane, E. (2011) • Nielsen, J. (1994/2020) • Yablonski, J. (2020)</th>
+                <td data-label="Work Title"><cite>The Elements of Content Strategy</cite> • <cite>10 Usability Heuristics</cite> • <cite>Laws of UX</cite>.</td>
+                <td data-label="Application"><strong>Content Governance &amp; Inspection Benchmarks:</strong> Directly integrated with the WD101 <a href="heuristics-guide.html">Heuristics Guide</a>, <a href="heuristic-checklist.html">Interactive Heuristic Checklist</a>, and <a href="ux-laws.html">UX Laws Compendium</a>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      </div><!-- .page-layout-main -->
+    </div><!-- .page-layout-with-aside -->
+
+    <!-- Connected in WD101 Organic Mesh Block -->
+    <section class="wd-mesh-section" id="connected-mesh">
+      <div class="wd-mesh-header">
+        <span class="wd-mesh-kicker"><span class="lang-pt">Mapeamento Pedagógico</span><span class="lang-en">Curricular Mesh</span> &bull; Connected in WD101</span>
+        <h2 class="wd-mesh-title"><span class="lang-pt">Articulação com Enunciados, Demos e Matriz W3C</span><span class="lang-en">Connected Course Milestones, Demos &amp; Matrix</span></h2>
+      </div>
+      <div class="wd-mesh-grid">
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Enunciados do Curso</span><span class="lang-en">Course Assignments</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="ex1-hello-warp-guide.html" class="wd-mesh-chip">🟢 EX1: Hello Warp!</a>
+            <a href="ex2-guide.html" class="wd-mesh-chip">🔵 EX2: Media &amp; Box Model</a>
+            <a href="tp06-early-prototype-guide.html" class="wd-mesh-chip">🔵 Projeto Fase 1: TP06</a>
+            <a href="demos/tp11-integrated-responsive-project/GUIDE.html" class="wd-mesh-chip">🟣 Projeto Fase 2: TP11</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="demos/index.html" class="wd-mesh-chip">🚀 Repositório Central de Demos</a>
+            <a href="demos/index.html?pat=1#core-patterns" class="wd-mesh-chip">Demo P1: Gaveta Móvel</a>
+            <a href="demos/index.html?pat=8#core-patterns" class="wd-mesh-chip">Demo P8: Simulador :has()</a>
+            <a href="demos/index.html?pat=9#core-patterns" class="wd-mesh-chip">Demo P9: light-dark()</a>
+            <a href="interaction-patterns.html" class="wd-mesh-chip">✨ 142 Padrões Web</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Matriz HTML5 &amp; CSS3</span><span class="lang-en">W3C Standards Matrix</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="matrix.html" class="wd-mesh-chip" style="font-weight:700;color:var(--color-swiss-red);">Matriz Completa (314) ↗</a>
+            <a href="matrix.html?cat=cat-landmarks" class="wd-mesh-chip">Landmarks HTML5</a>
+            <a href="matrix.html?cat=cat-pseudo" class="wd-mesh-chip">Pseudo-Classes</a>
+            <a href="ixd-principles.html" class="wd-mesh-chip">🧭 Princípios de IxD</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <footer class="hub-footer">
+      <div>
+        <strong>FBAUP • Faculdade de Belas Artes da Universidade do Porto</strong><br>
+        Course: Web Design (WD101) — 2026/27 • Licenciatura em Design de Comunicação (i2ADS)<br>
+        <strong>Pedagogical Design &amp; Supervision:</strong> Prof. Pedro Amado (FBAUP / i2ADS)<br>
+        <strong>Technical Co-Authorship &amp; Pair Programming:</strong> Google Gemini (DeepMind Antigravity)
+      </div>
+      <div>
+        <span>Semantic HTML5 • <code>@layer</code> + <code>@container</code> CSS • WCAG 2.2 AA/AAA</span><br>
+        <span>Companion Markdown: <a href="PROJECT-DOCUMENTATION-GUIDE.md">PROJECT-DOCUMENTATION-GUIDE.md</a> • <a href="index.html">Back to WD101 Hub</a></span>
+      </div>
+    </footer>
+  </div>
+  </main>
+
+  <!-- PROGRESSIVE ENHANCEMENT SCRIPT (Zero inline handlers; localStorage + Copy + Print) -->
+  <script type="module">
+    const STORAGE_KEY = 'wd101_project_doc_checklist_v1';
+    const form = document.getElementById('doc-checklist-form');
+    const checkboxes = Array.from(form.querySelectorAll('input[type="checkbox"]'));
+    const textInputs = Array.from(form.querySelectorAll('input[type="text"], input[type="date"]'));
+    const progressEl = document.getElementById('checklist-progress');
+    const progressText = document.getElementById('progress-text');
+
+    function updateProgressUI() {
+      const total = checkboxes.length;
+      const checked = checkboxes.filter((cb) => cb.checked).length;
+      const pct = total > 0 ? Math.round((checked / total) * 100) : 0;
+      progressEl.max = total;
+      progressEl.value = checked;
+      progressText.textContent = `${checked} of ${total} criteria verified (${pct}%)`;
+    }
+
+    function saveState() {
+      try {
+        const payload = { checks: {}, meta: {} };
+        for (const cb of checkboxes) {
+          payload.checks[cb.id] = cb.checked;
+        }
+        for (const input of textInputs) {
+          payload.meta[input.id] = input.value;
+        }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      } catch {
+        // Ignore storage quota or private-browsing restrictions gracefully
+      }
+      updateProgressUI();
+    }
+
+    function restoreState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === 'object') {
+            for (const cb of checkboxes) {
+              if (parsed.checks && typeof parsed.checks[cb.id] === 'boolean') {
+                cb.checked = parsed.checks[cb.id];
+              }
+            }
+            for (const input of textInputs) {
+              if (parsed.meta && typeof parsed.meta[input.id] === 'string') {
+                input.value = parsed.meta[input.id];
+              }
+            }
+          }
+        }
+      } catch {
+        // Ignore malformed saved JSON
+      }
+      updateProgressUI();
+    }
+
+    form.addEventListener('change', saveState);
+    form.addEventListener('input', saveState);
+
+    document.getElementById('btn-reset-checklist')?.addEventListener('click', () => {
+      for (const cb of checkboxes) {
+        cb.checked = false;
+      }
+      saveState();
+    });
+
+    const triggerPrint = () => window.print();
+    document.getElementById('btn-print-top')?.addEventListener('click', triggerPrint);
+    document.getElementById('btn-print-checklist')?.addEventListener('click', triggerPrint);
+
+    for (const btn of document.querySelectorAll('[data-copy-target]')) {
+      btn.addEventListener('click', async () => {
+        const targetId = btn.getAttribute('data-copy-target');
+        const codeEl = targetId ? document.getElementById(targetId) : null;
+        if (!codeEl) return;
+        const originalLabel = btn.textContent;
+        try {
+          await navigator.clipboard.writeText(codeEl.textContent || '');
+          btn.textContent = '✓ Copied!';
+          window.setTimeout(() => {
+            btn.textContent = originalLabel;
+          }, 1800);
+        } catch {
+          btn.textContent = 'Select & Cmd+C';
+        }
+      });
+    }
+
+    restoreState();
+  </script>
+<script src="assets/js/site-shell.js"></script>
+</body>
+</html>

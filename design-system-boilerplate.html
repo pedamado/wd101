@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="light">
+<head>
+  <!--
+    ==========================================================================
+    STUDENT STARTER BOILERPLATE: BAREBONES DESIGN SYSTEM & PATTERN LIBRARY
+    Faculdade de Belas Artes da Universidade do Porto (FBAUP) • WD101 (2026/27)
+    HOW TO USE THIS STARTER FILE:
+      1. Duplicate this file into your own project folder as `design-system.html`.
+      2. Replace `[PROJECT NAME]` placeholders and customize `@layer tokens` (:root).
+      3. Audit your Figma frames & HTML pages in Section 02 (Content & UI Inventory).
+      4. Define your Copy Buckets, Voice, Tone, Diction & Word List in Section 03
+         (grounded in The Yahoo! Style Guide + Scott Kubie's Writing for Designers).
+      5. Review or tune the Assumed Web Typography Defaults in Section 05
+         (grounded in Jason Santa Maria's On Web Typography + modern CSS).
+      6. Paste your live HTML components inside `.specimen-stage` boxes and fill out
+         the 4 helper-text quadrants (Usage, Anatomy, States, A11y/Responsive).
+    Reference Exemplar: See `design-system.html` (DRUMTIKS '26 Full Spec).
+    ==========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+      const savedAesthetic = localStorage.getItem('wd101_aesthetic') || 'airy';
+      document.documentElement.setAttribute('data-aesthetic', savedAesthetic);
+    })();
+  </script>
+  <meta name="color-scheme" content="light dark">
+  <script>
+    try {
+      document.querySelector('meta[name="color-scheme"]').content =
+        localStorage.getItem("boilerplate-color-scheme") ?? "light dark";
+    } catch (_) {}
+  </script>
+  <title>[PROJECT NAME] • Design System, Writing Guide &amp; Pattern Library Boilerplate | WD101</title>
+  <meta name="description" content="Clone-ready barebones HTML5/CSS Design System, Content Inventory, Content Writing Style Guide (Yahoo! Style Guide + Scott Kubie), Web Typography Specification (Jason Santa Maria), and Atomic Pattern Library starter template for FBAUP WD101 students.">
+
+  <link rel="stylesheet" href="demos/tp11-integrated-responsive-project/css/fonts.css">
+
+  <style>
+
+    /* Dynamic Swiss Modernist Light/Dark Theme Adapter */
+    :root, html[data-theme="light"] {
+      color-scheme: light;
+      --color-bg: var(--bg-page, #f8f9fa);
+      --color-surface: var(--bg-surface, #ffffff);
+      --color-surface-elevated: var(--bg-surface-elevated, #f1f3f5);
+      --color-surface-card: var(--bg-surface, #ffffff);
+      --color-surface-subtle: var(--bg-surface-subtle, #f4f5f7);
+      --color-border: var(--border-color, #e2e5e9);
+      --color-border-bright: var(--border-color-strong, #94a3b8);
+      --color-text-main: var(--text-primary, #111827);
+      --color-text-muted: var(--text-secondary, #475569);
+      --color-text-subtle: var(--text-muted, #64748b);
+      --color-ink: var(--text-primary, #111827);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --color-bg: #0b0c10;
+      --color-surface: #14161d;
+      --color-surface-elevated: #1d202a;
+      --color-surface-card: #14161d;
+      --color-surface-subtle: #101218;
+      --color-border: #272b38;
+      --color-border-bright: #475569;
+      --color-text-main: #f8fafc;
+      --color-text-muted: #cbd5e1;
+      --color-text-subtle: #94a3b8;
+      --color-ink: #f8fafc;
+    }
+
+    /* 1. Explicit Cascade Hierarchy — keeps documentation chrome separate from specimens */
+    @layer reset, tokens, doc-chrome, components, utilities;
+
+    @layer reset {
+      :where(
+        html, body, div, span, header, nav, main, section, article, aside, footer,
+        h1, h2, h3, h4, p, ul, ol, li, dl, dt, dd, figure, figcaption, blockquote,
+        pre, code, table, caption, thead, tbody, tr, th, td, form, fieldset, legend,
+        label, input, button, select, textarea, details, summary, dialog
+      ) {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :where(img, svg, picture) {
+        display: block;
+        max-inline-size: 100%;
+      }
+
+      :where(button, input, select, textarea) {
+        font: inherit;
+        color: inherit;
+      }
+
+      :where(table) {
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+    }
+
+    /* 2. Replace these Tier 1 & Tier 2 tokens with your own Figma Local Variables */
+    @layer tokens {
+      :root {
+        color-scheme: light dark;
+
+        /* --- TIER 1: PRIMITIVES (Raw Palette & IBM Carbon 8px Spatial Scale) --- */
+        --prim-brand-light: #0f62fe;   /* IBM Carbon Blue 60 placeholder — swap for your brand */
+        --prim-brand-dark:  #78a9ff;
+        --prim-brand-hover: #0353e9;
+
+        --space-2xs: 0.25rem; /*  4px (0.5x mini-unit) */
+        --space-xs:  0.5rem;  /*  8px (1x base mini-unit) */
+        --space-sm:  0.75rem; /* 12px */
+        --space-md:  1rem;    /* 16px (2x) */
+        --space-lg:  1.5rem;  /* 24px (3x) */
+        --space-xl:  2rem;    /* 32px (4x) */
+        --space-2xl: 3rem;    /* 48px (6x) */
+
+        /* --- ASSUMED WEB TYPOGRAPHY DEFAULTS (Jason Santa Maria, On Web Typography) --- */
+        /* Max 2–3 families: 1 Display ("Moment"), 1 Workhorse Body/UI, 1 Tabular Mono */
+        --font-display: 'Syne', system-ui, sans-serif;
+        --font-body:    'Inter', system-ui, sans-serif;
+        --font-mono:    'Martian Mono', ui-monospace, monospace;
+
+        /* Fluid Modular Type Scale (rem + vw inside clamp(); NEVER raw px or bare vw) */
+        --font-size-h1:    clamp(1.65rem, 2.4vw + 0.95rem, 2.5rem);
+        --font-size-h2:    clamp(1.3rem, 1.5vw + 0.8rem, 1.85rem);
+        --font-size-h3:    clamp(1.08rem, 0.7vw + 0.85rem, 1.3rem);
+        --font-size-body:  clamp(1rem, 0.25vw + 0.92rem, 1.0625rem); /* 16px–17px floor */
+        --font-size-small: 0.875rem;
+        --font-size-micro: 0.75rem;
+
+        /* Santa Maria's Typographic Triad: Unitless Leading & Character Measure */
+        --lh-display:     1.12; /* Tight optical leading for short display headlines */
+        --lh-heading:     1.24; /* Subhead leading */
+        --lh-body:        1.6;  /* Unitless 1.5–1.65 comfortable reading leading */
+        --measure-prose:  65ch; /* Sweet spot within 45–75ch (80ch hard ceiling) */
+        --measure-narrow: 42ch; /* Captions, form hints, and narrow sidebars */
+
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-full: 9999px;
+
+        /* --- TIER 2: SEMANTIC DECISIONS (Fallback + light-dark()) --- */
+        --surface-canvas: #f4f4f4;
+        --surface-layer-01: #ffffff;
+        --surface-layer-02: #e8e8e8;
+        --ink-primary: #161616;
+        --ink-secondary: #525252;
+        --ink-muted: #6f6f6f;
+        --status-ok: #047857;
+        --status-err: #c81e1e;
+        --border-subtle: rgba(22, 22, 22, 0.12);
+        --border-strong: rgba(22, 22, 22, 0.28);
+        --brand-accent: var(--prim-brand-light);
+
+        @media (prefers-color-scheme: dark) {
+          --surface-canvas: #161616;
+          --surface-layer-01: #262626;
+          --surface-layer-02: #393939;
+          --ink-primary: #f4f4f4;
+          --ink-secondary: #c6c6c6;
+          --ink-muted: #8d8d8d;
+          --status-ok: #34d399;
+          --status-err: #f87171;
+          --border-subtle: rgba(244, 244, 244, 0.12);
+          --border-strong: rgba(244, 244, 244, 0.28);
+          --brand-accent: var(--prim-brand-dark);
+        }
+
+        @supports (color: light-dark(white, black)) {
+          --surface-canvas: light-dark(#f4f4f4, #161616);
+          --surface-layer-01: light-dark(#ffffff, #262626);
+          --surface-layer-02: light-dark(#e8e8e8, #393939);
+          --ink-primary: light-dark(#161616, #f4f4f4);
+          --ink-secondary: light-dark(#525252, #c6c6c6);
+          --ink-muted: light-dark(#6f6f6f, #a8a8a8);
+          --status-ok: light-dark(#047857, #34d399);
+          --status-err: light-dark(#c81e1e, #f87171);
+          --border-subtle: light-dark(rgba(22, 22, 22, 0.12), rgba(244, 244, 244, 0.12));
+          --border-strong: light-dark(rgba(22, 22, 22, 0.28), rgba(244, 244, 244, 0.28));
+          --brand-accent: light-dark(var(--prim-brand-light), var(--prim-brand-dark));
+        }
+
+        accent-color: var(--brand-accent);
+
+        &:has(> head > meta[name="color-scheme"][content="dark"]) { color-scheme: dark; }
+        &:has(> head > meta[name="color-scheme"][content="light"]) { color-scheme: light; }
+      }
+
+      :root:has(#bp-theme-light:checked) { color-scheme: light; }
+      :root:has(#bp-theme-dark:checked)  { color-scheme: dark; }
+    }
+
+    /* 3. Barebones Style-Guide Chrome (Frost Ch. 3: Neutral, Unobtrusive Shell) */
+    @layer doc-chrome {
+      body {
+        background: var(--surface-canvas);
+        color: var(--ink-primary);
+        font-family: var(--font-body);
+        font-size: var(--font-size-body);
+        line-height: var(--lh-body);
+        text-align: start;
+        overflow-wrap: break-word;
+      }
+
+      /* Deliberate text-wrap rules: balance ONLY unboxed standalone headings; pretty on prose */
+      :where(h1, h2, h3, h4) {
+        text-wrap: balance;
+      }
+
+      :where(p, li, dd, blockquote) {
+        text-wrap: pretty;
+      }
+
+      :where(a:any-link, button, summary, input, [tabindex="0"]):focus-visible {
+        outline: 3px solid var(--brand-accent);
+        outline-offset: 3px;
+      }
+
+      .bp-header {
+        background: var(--surface-layer-01);
+        border-block-end: 1px solid var(--border-subtle);
+        padding: var(--space-md) clamp(1rem, 3vw, 2rem);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-md);
+      }
+
+      .bp-brand-title {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+      }
+
+      .bp-brand-ver {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--ink-muted);
+        margin-inline-start: var(--space-xs);
+      }
+
+      .bp-nav {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--space-sm);
+      }
+
+      .bp-nav-link {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--ink-primary);
+      }
+
+      .bp-nav-link--accent {
+        color: var(--brand-accent);
+      }
+
+      .bp-theme-fieldset {
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-full);
+        padding: 2px 8px;
+        display: inline-flex;
+        gap: var(--space-xs);
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+      }
+
+      .bp-h1 {
+        font-family: var(--font-display);
+        font-size: var(--font-size-h1);
+        line-height: var(--lh-display);
+      }
+
+      .bp-shell {
+        max-inline-size: 1340px;
+        margin-inline: auto;
+        padding: var(--space-xl) clamp(1rem, 3vw, 2rem) var(--space-2xl);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-xl);
+      }
+
+      @media (min-width: 980px) {
+        .bp-shell {
+          grid-template-columns: 248px minmax(0, 1fr);
+          align-items: start;
+        }
+        .bp-toc {
+          position: sticky;
+          inset-block-start: var(--space-lg);
+        }
+      }
+
+      .bp-toc {
+        background: var(--surface-layer-01);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        padding: var(--space-md);
+      }
+
+      .bp-toc-group {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--ink-muted);
+        margin-block: var(--space-sm) 4px;
+      }
+
+      .bp-toc-group:first-child {
+        margin-block-start: 0;
+      }
+
+      .bp-toc ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 0.82rem;
+      }
+
+      .bp-toc a {
+        color: var(--ink-secondary);
+        text-decoration: none;
+      }
+
+      .bp-toc a:hover {
+        color: var(--brand-accent);
+      }
+
+      .bp-main {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2xl);
+        min-inline-size: 0;
+      }
+
+      .bp-section {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+        scroll-margin-block-start: var(--space-lg);
+      }
+
+      .bp-section-head {
+        border-block-end: 1px solid var(--border-strong);
+        padding-block-end: var(--space-xs);
+      }
+
+      .bp-section-head h2 {
+        font-family: var(--font-display);
+        font-size: var(--font-size-h2);
+        line-height: var(--lh-heading);
+      }
+
+      .bp-lead {
+        color: var(--ink-secondary);
+        font-size: var(--font-size-small);
+        max-inline-size: var(--measure-prose);
+      }
+
+      .bp-kicker {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--brand-accent);
+        display: block;
+        margin-block-end: 2px;
+      }
+
+      .bp-card {
+        background: var(--surface-layer-01);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+      }
+
+      .bp-card-head {
+        padding: var(--space-sm) var(--space-md);
+        background: var(--surface-layer-02);
+        border-block-end: 1px solid var(--border-subtle);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--space-xs);
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+      }
+
+      .bp-card-head h3 {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--ink-primary);
+      }
+
+      .specimen-stage {
+        padding: var(--space-xl) var(--space-lg);
+        background: var(--surface-canvas);
+        border-block-end: 1px solid var(--border-subtle);
+      }
+
+      .helper-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+        gap: 1px;
+        background: var(--border-subtle);
+      }
+
+      .helper-grid--boxed {
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+      }
+
+      .bp-card > .helper-grid:not(:last-child) {
+        border-block-end: 1px solid var(--border-subtle);
+      }
+
+      .bp-card > .table-wrapper {
+        border: 0;
+        border-radius: 0;
+      }
+
+      .bp-swatch-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: var(--space-sm);
+      }
+
+      .bp-swatch {
+        padding: var(--space-md);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-sm);
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+      }
+
+      .bp-swatch--canvas { background: var(--surface-canvas); }
+      .bp-swatch--layer  { background: var(--surface-layer-01); }
+      .bp-swatch--accent { background: var(--brand-accent); color: #ffffff; border-color: transparent; }
+
+      .bp-footer {
+        border-block-start: 1px solid var(--border-subtle);
+        padding-block-start: var(--space-lg);
+        font-size: 0.82rem;
+        color: var(--ink-muted);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: var(--space-sm);
+      }
+
+      .bp-footer a {
+        color: var(--brand-accent);
+      }
+
+      .helper-cell {
+        background: var(--surface-layer-01);
+        padding: var(--space-md);
+        font-size: 0.85rem;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .helper-cell h3,
+      .helper-cell h4 {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--ink-muted);
+      }
+
+      .helper-prompt {
+        color: var(--ink-secondary);
+        font-size: 0.82rem;
+        max-inline-size: var(--measure-prose);
+      }
+
+      .bp-quote {
+        background: var(--surface-layer-01);
+        border: 1px solid var(--border-subtle);
+        border-inline-start: 4px solid var(--brand-accent);
+        border-radius: var(--radius-sm);
+        padding: var(--space-sm) var(--space-md);
+        font-size: var(--font-size-small);
+      }
+
+      .bp-quote blockquote {
+        font-style: italic;
+        max-inline-size: var(--measure-prose);
+      }
+
+      .bp-quote figcaption {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: var(--ink-muted);
+        margin-block-start: 4px;
+      }
+
+      .bp-pill {
+        display: inline-block;
+        padding: 2px 7px;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border-strong);
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .bp-do {
+        color: var(--status-ok);
+        font-weight: 700;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+      }
+
+      .bp-dont {
+        color: var(--status-err);
+        font-weight: 700;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+      }
+
+      .table-wrapper {
+        overflow: auto;
+        container-type: inline-size;
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        background: var(--surface-layer-01);
+      }
+
+      table {
+        inline-size: 100%;
+        font-size: 0.82rem;
+        text-align: start;
+      }
+
+      caption {
+        text-align: start;
+        padding: var(--space-sm) var(--space-md);
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        background: var(--surface-layer-02);
+        border-block-end: 1px solid var(--border-subtle);
+      }
+
+      th, td {
+        padding: 0.65rem 0.85rem;
+        border-block-end: 1px solid var(--border-subtle);
+        vertical-align: top;
+      }
+
+      thead th {
+        background: var(--surface-layer-02);
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      tbody th {
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        white-space: nowrap;
+      }
+
+      :not(pre) > code {
+        font-family: var(--font-mono);
+        font-size: 0.84em;
+        padding: 0.1em 0.35em;
+        border-radius: var(--radius-sm);
+        background: var(--surface-layer-02);
+      }
+
+      pre {
+        color-scheme: dark;
+        background: #121418;
+        color: #e5e7eb;
+        accent-color: var(--brand-accent);
+        padding: var(--space-md);
+        overflow-x: auto;
+        font-family: var(--font-mono);
+        font-size: 0.76rem;
+        line-height: 1.55;
+      }
+    }
+
+    /* 4. Author your own project's scoped UI components inside @layer components */
+    @layer components {
+      @scope (.specimen-stage) {
+        .starter-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-block-size: 44px;
+          padding: var(--space-xs) var(--space-md);
+          border-radius: var(--radius-sm);
+          border: 2px solid transparent;
+          background: #0f62fe;
+          color: #ffffff;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background-color 150ms ease, transform 150ms ease;
+        }
+
+        .starter-btn:hover:not(:disabled) {
+          background: #0353e9;
+          transform: translateY(-1px);
+        }
+
+        .starter-btn:disabled {
+          opacity: 0.45;
+          cursor: not-allowed;
+        }
+
+        .starter-card {
+          display: block;
+          max-inline-size: 360px;
+          padding: var(--space-md);
+          border: 2px solid var(--border-subtle);
+          border-radius: var(--radius-md);
+          background: var(--surface-layer-01);
+          cursor: pointer;
+        }
+
+        .starter-card:has(input:checked) {
+          border-color: var(--brand-accent);
+        }
+
+        .specimen-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: var(--space-md);
+          align-items: center;
+        }
+
+        .specimen-fieldset {
+          border: 0;
+          display: flex;
+          flex-wrap: wrap;
+          gap: var(--space-sm);
+        }
+
+        .specimen-legend {
+          font-family: var(--font-mono);
+          font-size: 0.75rem;
+          margin-block-end: var(--space-xs);
+        }
+
+        .specimen-hint {
+          color: var(--ink-secondary);
+        }
+
+        /* Section 05 Live Typography Specimen Scoped Styles */
+        .type-triad-specimen {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-md);
+          max-inline-size: var(--measure-prose);
+        }
+
+        .type-triad-display {
+          font-family: var(--font-display);
+          font-size: var(--font-size-h1);
+          font-weight: 800;
+          line-height: var(--lh-display);
+          letter-spacing: -0.02em;
+        }
+
+        .type-triad-prose {
+          font-family: var(--font-body);
+          font-size: var(--font-size-body);
+          line-height: var(--lh-body);
+          max-inline-size: var(--measure-prose);
+          color: var(--ink-secondary);
+        }
+
+        .type-triad-meta {
+          display: flex;
+          flex-wrap: wrap;
+          gap: var(--space-md);
+          padding-block-start: var(--space-xs);
+          border-block-start: 1px dashed var(--border-strong);
+          font-family: var(--font-mono);
+          font-size: var(--font-size-micro);
+          font-variant-numeric: tabular-nums;
+          color: var(--ink-primary);
+        }
+      }
+    }
+
+    @layer utilities {
+      .tabular-nums {
+        font-variant-numeric: tabular-nums;
+      }
+
+      .visually-hidden:where(:not(:focus-within, :active)) {
+        position: absolute !important;
+        clip-path: inset(50%) !important;
+        overflow: hidden !important;
+        inline-size: 1px !important;
+        block-size: 1px !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+</head>
+<body>
+  <a href="#starter-title" class="visually-hidden">Skip to starter specification</a>
+
+  <header class="site-header" role="banner"></header>
+
+  <div class="bp-shell">
+    <aside class="bp-toc" aria-label="Boilerplate sections">
+      <nav aria-label="Boilerplate Table of Contents">
+        <p class="bp-toc-group">Strategy &amp; Writing</p>
+        <ul>
+          <li><a href="#s01">01. Brand Principles &amp; Shared Language</a></li>
+          <li><a href="#s02">02. Content &amp; UI Inventory</a></li>
+          <li><a href="#s03">03. Content Writing Style Guide</a></li>
+        </ul>
+
+        <p class="bp-toc-group">Subatomic Foundations</p>
+        <ul>
+          <li><a href="#s04">04. Design Tokens (:root)</a></li>
+          <li><a href="#s05">05. Assumed Web Typography</a></li>
+        </ul>
+
+        <p class="bp-toc-group">Atomic Pattern Library</p>
+        <ul>
+          <li><a href="#s06">06. Atoms &amp; States</a></li>
+          <li><a href="#s07">07. Molecules (:has())</a></li>
+          <li><a href="#s08">08. Organisms &amp; Breakpoints</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="bp-main">
+      <section class="bp-section" aria-labelledby="starter-title">
+        <div class="bp-section-head">
+          <span class="bp-kicker">WD101 Forkable Boilerplate • Frost + Kholmatova + Suarez + Carbon + Yahoo! + Kubie + Santa Maria</span>
+          <h1 id="starter-title" tabindex="-1" class="bp-h1">
+            [YOUR PROJECT NAME] — Design System, Content Writing Guide &amp; Pattern Library
+          </h1>
+        </div>
+        <p class="bp-lead">
+          <strong>Helper Instruction:</strong> Replace bracketed <code>[…]</code> prompts with your project’s real domain decisions, or retain the pre-filled baseline editorial and typographic defaults until empirical testing demands an override. Keep this outer style-guide chrome neutral so your live component specimens inside <code>.specimen-stage</code> stand out without visual interference.
+        </p>
+      </section>
+
+      <!-- ====================================================================
+           SECTION 01: PRINCIPLES & SHARED LANGUAGE
+           ==================================================================== -->
+      <section class="bp-section" id="s01" aria-labelledby="h-s01">
+        <div class="bp-section-head">
+          <span class="bp-kicker">01 • Alla Kholmatova Shared Language</span>
+          <h2 id="h-s01">Brand Principles: Perceptual vs. Functional Patterns</h2>
+        </div>
+        <div class="helper-grid helper-grid--boxed">
+          <div class="helper-cell">
+            <h3>Perceptual Patterns (Mood &amp; Voice)</h3>
+            <p class="helper-prompt">[Describe 3 adjectives governing typography, surface contrast, imagery crop style, and motion physics—e.g. “Brutalist editorial, tactile spring transitions, high-contrast monochrome + 1 signal hue.”]</p>
+          </div>
+          <div class="helper-cell">
+            <h3>Functional Patterns (Core User Tasks)</h3>
+            <p class="helper-prompt">[List the key domain tasks your UI modules solve—e.g. “Browse timetable, filter artists, simulate pass total, inspect venue accessibility.”]</p>
+          </div>
+          <div class="helper-cell">
+            <h3>Figma ↔ Code Source of Truth</h3>
+            <p class="helper-prompt">[Link your Figma file URL here and confirm Local Variable collection names match your <code>:root</code> CSS Custom Properties.]</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SECTION 02: CONTENT & INTERFACE INVENTORY
+           ==================================================================== -->
+      <section class="bp-section" id="s02" aria-labelledby="h-s02">
+        <div class="bp-section-head">
+          <span class="bp-kicker">02 • Erin Kissane + Brad Frost Ch. 4 Audit</span>
+          <h2 id="h-s02">Content Strategy &amp; UI Pattern Inventory</h2>
+        </div>
+
+        <div tabindex="0" role="region" aria-labelledby="bp-inv-cap" class="table-wrapper">
+          <table>
+            <caption id="bp-inv-cap">Audit every repeatable element across your Figma screens and HTML pages before writing component CSS</caption>
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Pattern Name</th>
+                <th scope="col">Atomic Tier</th>
+                <th scope="col">Content &amp; Media Budget</th>
+                <th scope="col">HTML / CSS Selector</th>
+                <th scope="col">States &amp; A11y</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">A-01</th>
+                <td>[Primary CTA Button]</td>
+                <td>Atom</td>
+                <td>[Max 24 chars, verb-first label, 1 line]</td>
+                <td><code>&lt;button class="starter-btn"&gt;</code></td>
+                <td>[Default, Hover, Focus-Visible, Active, Disabled; ≥44×44px]</td>
+              </tr>
+              <tr>
+                <th scope="row">M-01</th>
+                <td>[Selectable Option Card]</td>
+                <td>Molecule</td>
+                <td>[Title ≤25 chars + price + 1-line summary ≤90 chars]</td>
+                <td><code>.starter-card:has(input:checked)</code></td>
+                <td>[Grouped in <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code>; <code>:focus-within</code>]</td>
+              </tr>
+              <tr>
+                <th scope="row">O-01</th>
+                <td>[Hero / Primary Section]</td>
+                <td>Organism</td>
+                <td>[16:9 WebP ≤180KB + H1 ≤45 chars + lead ≤140 chars]</td>
+                <td><code>section.hero-stage</code></td>
+                <td>[<code>fetchpriority="high"</code>, explicit width/height CLS=0]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SECTION 03: CONTENT WRITING STYLE GUIDE (YAHOO! STYLE GUIDE + KUBIE)
+           ==================================================================== -->
+      <section class="bp-section" id="s03" aria-labelledby="h-s03">
+        <div class="bp-section-head">
+          <span class="bp-kicker">03 • Chris Barr (The Yahoo! Style Guide, 2010) + Scott Kubie (Writing for Designers, 2018)</span>
+          <h2 id="h-s03">Content Writing Style Guide: Information Types, Voice, Tone &amp; Diction</h2>
+        </div>
+
+        <p class="bp-lead">
+          Words are interface material, not post-launch decoration. Synthesizing <strong>Chris Barr &amp; Yahoo! Editorial</strong> (eye-tracking scannability, front-loading, global plain language, UI microcopy mechanics) with <strong>Scott Kubie</strong> (<em>Interface / Product / Marketing</em> copy buckets, <code>Accuracy → Clarity → Brevity</code> editing, tone calibration, and controlled vocabularies), adopt and customize the baseline editorial rules below.
+        </p>
+
+        <figure class="bp-quote">
+          <blockquote cite="https://abookapart.com/products/writing-for-designers">
+            <p>“Writing is part of design… Everything left unwritten is a mystery box of incomplete design. Clarity is in the middle of this ACB sandwich because text can never be clear if it’s not accurate or too brief. Brevity is last—short doesn’t automatically mean easier to read or understand.”</p>
+          </blockquote>
+          <figcaption>Scott Kubie, <cite>Writing for Designers</cite>, Intro &amp; Ch. 3 (A Book Apart, 2018, pp. 2, 31)</figcaption>
+        </figure>
+
+        <!-- 3A. MOST COMMON TYPES OF INFORMATION & COPY BUCKETS -->
+        <article class="bp-card" aria-labelledby="h-s03-buckets">
+          <div class="bp-card-head">
+            <h3 id="h-s03-buckets">3.1 Most Common Web &amp; UI Information Types (Kubie’s 3 Copy Buckets × Yahoo! Ch. 1 &amp; 7)</h3>
+            <span>Ban <code>Lorem ipsum</code> in Figma &amp; HTML</span>
+          </div>
+          <div tabindex="0" role="region" aria-labelledby="bp-info-types-cap" class="table-wrapper">
+            <table>
+              <caption id="bp-info-types-cap">Baseline character budgets, structure rules, and examples for the 8 most common information types</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Information Type</th>
+                  <th scope="col">Kubie Bucket</th>
+                  <th scope="col">Best-Practice Rule (Yahoo! + Kubie)</th>
+                  <th scope="col">Assumed Budget &amp; Starter Pattern</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1. Page Titles &amp; Metadata</th>
+                  <td><span class="bp-pill">Interface / Findability</span></td>
+                  <td>Make the first 65 characters count (Yahoo! Ch. 7): front-load the specific page topic before the site brand so browser tabs, bookmarks, and search results stay distinguishable.</td>
+                  <td><code>[Specific Topic] • [Brand Name]</code> (≤ 65 chars). Never leave <code>Untitled</code> or generic <code>Home</code>.</td>
+                </tr>
+                <tr>
+                  <th scope="row">2. Hero Value Props &amp; Headings</th>
+                  <td><span class="bp-pill">Marketing / Product</span></td>
+                  <td>Readers judge a page in ~3 seconds along an upper-left gaze triangle (Yahoo! Ch. 1). Use the <strong>Inverted Pyramid</strong>: lead with the conclusion and front-load concrete nouns/verbs.</td>
+                  <td><code>H1</code> ≤ 45 chars; section <code>H2</code> ≤ 55 chars; lead summary ≤ 140 chars (1–2 crisp sentences).</td>
+                </tr>
+                <tr>
+                  <th scope="row">3. Navigation &amp; Text Links</th>
+                  <td><span class="bp-pill">Interface Copy</span></td>
+                  <td>Links must make sense out of context when listed by a screen reader (Yahoo! Ch. 7). Never use bare <em>“Click here”</em>, <em>“Link”</em>, or vague <em>“More…”</em>; never paste raw URLs as prose link labels.</td>
+                  <td>Nav items: 1–2 nouns (≤ 16 chars). Inline links: verb + specific destination, e.g. <em>“Read tournament rules”</em>.</td>
+                </tr>
+                <tr>
+                  <th scope="row">4. Buttons, CTAs &amp; Prompts</th>
+                  <td><span class="bp-pill">Interface Copy</span></td>
+                  <td>Start with an imperative action verb naming what happens next (<em>Reserve, Download, Filter, Save</em>). Avoid <code>-ing</code> gerunds and vague <em>“Submit”</em> / <em>“OK”</em> labels.</td>
+                  <td>2–3 words, ≤ 24 chars, single line at <code>360px</code>, e.g. <code>[Verb] + [Object]</code> (<em>“Reserve Pass”</em>).</td>
+                </tr>
+                <tr>
+                  <th scope="row">5. Form Labels, Hints &amp; Errors</th>
+                  <td><span class="bp-pill">Interface Copy</span></td>
+                  <td>Keep visible <code>&lt;label&gt;</code> permanent (placeholders vanish on typing). Put format constraints <em>above</em> the input; write calm, non-blaming errors explaining <strong>what went wrong + how to fix it</strong>.</td>
+                  <td>Label ≤ 28 chars; hint ≤ 65 chars; error: <span class="bp-do">DO</span> <em>“Enter an email with @, like name@domain.pt”</em> vs. <span class="bp-dont">DON’T</span> <em>“Invalid input”</em>.</td>
+                </tr>
+                <tr>
+                  <th scope="row">6. Empty States, Modals &amp; Receipts</th>
+                  <td><span class="bp-pill">Interface / Product</span></td>
+                  <td>If removing the text breaks the flow, it is Interface Copy (Kubie p. 3). Confirm exact state change, item totals, reference ID, and provide one clear recovery or next-step action.</td>
+                  <td>State headline + 1-sentence explanation + primary recovery link/button (e.g. <em>“No Friday sets match this filter. Reset filters.”</em>).</td>
+                </tr>
+                <tr>
+                  <th scope="row">7. Rules, Onboarding &amp; FAQs</th>
+                  <td><span class="bp-pill">Product Copy</span></td>
+                  <td>Break walls of text into 2–4 sentence paragraphs (one idea per paragraph), numbered <code>&lt;ol&gt;</code> steps for sequential tasks, and grammatically parallel <code>&lt;ul&gt;</code> bullets (Yahoo! Ch. 4 &amp; 7).</td>
+                  <td>FAQ <code>&lt;summary&gt;</code> phrased as a real user question (≤ 70 chars); answer body 40–80 words in plain language.</td>
+                </tr>
+                <tr>
+                  <th scope="row">8. Alt Text vs. Captions</th>
+                  <td><span class="bp-pill">Product / A11y</span></td>
+                  <td><code>alt</code> text substitutes for the image’s function for screen-reader and broken-image users (skip redundant <em>“Photo of…”</em>); <code>&lt;figcaption&gt;</code> adds visible editorial context (credits, date, place).</td>
+                  <td>Functional <code>alt</code> ≤ 110 chars; decorative flourishes require explicit empty <code>alt=""</code> or <code>aria-hidden="true"</code>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <!-- 3B. WRITING STYLE WORKFLOW & GLOBAL PLAIN LANGUAGE -->
+        <article class="bp-card" aria-labelledby="h-s03-workflow">
+          <div class="bp-card-head">
+            <h3 id="h-s03-workflow">3.2 Writing Style Best Practices &amp; Kubie’s 4-Phase Workflow</h3>
+            <span>Prepare → Compose → Edit (ACB) → Finish</span>
+          </div>
+          <div class="helper-grid">
+            <div class="helper-cell">
+              <h4>1. Anti-Lorem-Ipsum Workflow (Kubie Ch. 1–2)</h4>
+              <p class="helper-prompt">Draft real copy <em>before</em> locking component dimensions: <strong>Prepare</strong> (define audience, user goal, and screen context) → <strong>Compose</strong> (write complete drafts outside tiny wireframe boxes first so premature brevity doesn’t distort meaning).</p>
+            </div>
+            <div class="helper-cell">
+              <h4>2. The ACB Editing Ladder (Kubie Ch. 3, p. 31)</h4>
+              <p class="helper-prompt">Edit every string in strict sequence: <strong>Accuracy</strong> (verify facts, prices, policies—no false guarantees) → <strong>Clarity</strong> (plain words, unambiguous referents) → <strong>Brevity</strong> (cut deadwood <em>last</em>). Read copy <strong>aloud</strong> to expose awkward cadence.</p>
+            </div>
+            <div class="helper-cell">
+              <h4>3. Cut Deadwood &amp; Passive Voice (Yahoo! Ch. 13)</h4>
+              <p class="helper-prompt">Prefer active voice (<em>“Your pass unlocks Vault 02”</em>, not <em>“Vault 02 is unlocked by…”</em>). Strip throat-clearing fillers: replace <em>“In order to”</em> → <em>“To”</em>, <em>“At this point in time”</em> → <em>“Now”</em>, <em>“Utilize”</em> → <em>“Use”</em>.</p>
+            </div>
+            <div class="helper-cell">
+              <h4>4. Write for the World (Yahoo! Ch. 5–6)</h4>
+              <p class="helper-prompt">[Specify primary language locale, e.g. EN-GB / PT-PT.] Use inclusive, bias-free, gender-neutral terms (<em>“Crew”</em>, <em>“Attendees”</em>, <em>“They”</em>) and avoid local slang, idioms, or sports metaphors that alienate global readers and translators.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3C. BRAND VOICE CHARTER VS. CONTEXT-ADAPTIVE TONE -->
+        <article class="bp-card" aria-labelledby="h-s03-voice">
+          <div class="bp-card-head">
+            <h3 id="h-s03-voice">3.3 Brand Voice vs. Context-Adaptive Tone Matrix (Yahoo! Ch. 3 + Kubie Ch. 3)</h3>
+            <span>Voice stays constant • Tone adapts to user state</span>
+          </div>
+          <div class="helper-grid">
+            <div class="helper-cell">
+              <h4>Voice Trait 1: [e.g. Knowledgeable Insider]</h4>
+              <p class="helper-prompt"><strong>We are:</strong> [Precise, craft-obsessed, grounded in real facts.]<br><strong>We are not:</strong> [Gatekeeping, elitist, or buried in unexplained jargon.]</p>
+            </div>
+            <div class="helper-cell">
+              <h4>Voice Trait 2: [e.g. Kinetic &amp; Direct]</h4>
+              <p class="helper-prompt"><strong>We are:</strong> [Energetic, verb-driven, respectful of user time.]<br><strong>We are not:</strong> [Hype-ridden, ALL-CAPS shouting, or clickbait hyperbole.]</p>
+            </div>
+            <div class="helper-cell">
+              <h4>Voice Trait 3: [e.g. Reassuring Host]</h4>
+              <p class="helper-prompt"><strong>We are:</strong> [Clear, welcoming, transparent on prices and access.]<br><strong>We are not:</strong> [Sarcastic, blaming on errors, or overly cutesy at checkout.]</p>
+            </div>
+          </div>
+
+          <div tabindex="0" role="region" aria-labelledby="bp-tone-cap" class="table-wrapper">
+            <table>
+              <caption id="bp-tone-cap">Calibrate Tone across Kubie’s 3 lenses—Urgency, Scale (anti-hyperbole), and Emotion/Timing (pp. 41–42)</caption>
+              <thead>
+                <tr>
+                  <th scope="col">User Context / Screen</th>
+                  <th scope="col">User Emotional State</th>
+                  <th scope="col">Urgency, Scale &amp; Emotion Setting</th>
+                  <th scope="col">Boilerplate Tone Rule &amp; Example Prompt</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Splash / Hero / Lineup</th>
+                  <td>Curious, scanning fast</td>
+                  <td>Medium urgency • Bold scale • High energy</td>
+                  <td>[Evocative sensory nouns + concrete date/place; ban empty superlatives like <em>“most revolutionary ever”</em>.]</td>
+                </tr>
+                <tr>
+                  <th scope="row">Pricing / Checkout / Receipt</th>
+                  <td>Careful, evaluating trust</td>
+                  <td>Calm urgency • Exact scale • Serious &amp; transparent</td>
+                  <td>[Zero humor or false scarcity timers during money flows (Kubie p. 42). State VAT, fees, and refund rules plainly.]</td>
+                </tr>
+                <tr>
+                  <th scope="row">Form Validation / Error</th>
+                  <td>Interrupted, frustrated</td>
+                  <td>Immediate clarity • Low ego • Supportive</td>
+                  <td>[Never blame the user (no <em>“You entered an illegal value”</em>) and never use cute jokes like <em>“Oopsie!”</em>—give the exact fix.]</td>
+                </tr>
+                <tr>
+                  <th scope="row">Rules / Transit / A11y Info</th>
+                  <td>Task-focused, on mobile</td>
+                  <td>Zero hype • Practical scale • Matter-of-fact</td>
+                  <td>[Front-load measurements, doors-open times, step-free access routes, and decibel/safety facts.]</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <!-- 3D. DICTION, EXACT UI VERBS & CONTROLLED VOCABULARY -->
+        <article class="bp-card" aria-labelledby="h-s03-diction">
+          <div class="bp-card-head">
+            <h3 id="h-s03-diction">3.4 User Diction, Exact UI Verb Pairs &amp; Controlled Vocabulary (Yahoo! Ch. 7, 10–19 + Kubie p. 40)</h3>
+            <span>One concept = One canonical term everywhere</span>
+          </div>
+          <div tabindex="0" role="region" aria-labelledby="bp-wordlist-cap" class="table-wrapper">
+            <table>
+              <caption id="bp-wordlist-cap">Assumed UI Diction &amp; Project Word List — extend this controlled vocabulary so Figma and HTML never drift</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Category / Concept</th>
+                  <th scope="col">Use (Canonical Term)</th>
+                  <th scope="col">Avoid / Deprecated</th>
+                  <th scope="col">Editorial &amp; Mechanics Rationale</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Destructive vs. Detach Verbs</th>
+                  <td><code>Delete</code> vs. <code>Remove</code></td>
+                  <td>Mixing <em>Erase / Destroy / Drop</em></td>
+                  <td><strong>Yahoo! Ch. 7 rule:</strong> Use <code>Delete</code> only when permanently destroying data/accounts; use <code>Remove</code> when taking an item off a cart, filter, or list without destroying it.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Creation vs. Attachment Verbs</th>
+                  <td><code>Create</code> vs. <code>Add</code></td>
+                  <td><em>New / Insert / Append</em></td>
+                  <td><strong>Yahoo! Ch. 7 rule:</strong> Use <code>Create</code> when generating a new entity; use <code>Add</code> when attaching an existing add-on or item to a selection.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Session &amp; Ownership Pronouns</th>
+                  <td><code>Sign in / Sign out</code> • <code>Your</code></td>
+                  <td><em>Log on / Log off</em> • Mixing <em>My</em> &amp; <em>Your</em></td>
+                  <td>Pick one address perspective: address the user as <strong>you / your</strong> in instructions and confirmations (<em>“Your pass receipt”</em>) rather than alternating randomly with <em>“My”</em>.</td>
+                </tr>
+                <tr>
+                  <th scope="row">UI Casing Default</th>
+                  <td><strong>Sentence case</strong></td>
+                  <td>Random Title Case Every Word / ALL CAPS</td>
+                  <td>Assume <strong>Sentence case</strong> for headings, buttons, labels, and FAQs (capitalizing only first word + proper nouns). Faster to read and eliminates capitalization disputes.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Numbers, Time &amp; Currency</th>
+                  <td class="tabular-nums"><code>21:30</code> • <code>65.00 €</code> • <code>3 stages</code></td>
+                  <td><em>9:30 PM / sixty-five euros</em></td>
+                  <td>In UI copy, tables, schedules, and stats, use numerals (even for 1–9) so eyes scan quantities instantly (Yahoo! Ch. 12); pair with <code>tabular-nums</code>.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Project Domain Term 01</th>
+                  <td><code>[e.g. Pass]</code></td>
+                  <td><code>[Ticket / Wristband / Voucher]</code></td>
+                  <td>[Kubie p. 40 Controlled Vocabulary: pick one noun for your core domain object and enforce it across nav, cards, and modals.]</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <!-- ====================================================================
+           SECTION 04: DESIGN TOKENS
+           ==================================================================== -->
+      <section class="bp-section" id="s04" aria-labelledby="h-s04">
+        <div class="bp-section-head">
+          <span class="bp-kicker">04 • Jina Anne 3-Tier Token Cascade</span>
+          <h2 id="h-s04">Subatomic Design Tokens (Color, 8px Space, Surface Layering)</h2>
+        </div>
+        <div class="bp-card">
+          <div class="bp-card-head">
+            <h3>Token Swatches • Edit in <code>@layer tokens (:root)</code></h3>
+            <span>WCAG 2.2 Target: ≥ 4.5:1 Text / ≥ 3:1 UI</span>
+          </div>
+          <div class="specimen-stage bp-swatch-grid">
+            <div class="bp-swatch bp-swatch--canvas">
+              <strong>--surface-canvas</strong><br>Root viewport
+            </div>
+            <div class="bp-swatch bp-swatch--layer">
+              <strong>--surface-layer-01</strong><br>Card container
+            </div>
+            <div class="bp-swatch bp-swatch--accent">
+              <strong>--brand-accent</strong><br>Interactive focal
+            </div>
+          </div>
+          <pre tabindex="0"><code>:root {
+  color-scheme: light dark;
+  --surface-layer-01: light-dark(#ffffff, #262626);
+  --ink-primary:      light-dark(#161616, #f4f4f4);
+  --brand-accent:     light-dark(#0f62fe, #78a9ff);
+}</code></pre>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SECTION 05: ASSUMED WEB TYPOGRAPHY DEFAULTS (JASON SANTA MARIA)
+           ==================================================================== -->
+      <section class="bp-section" id="s05" aria-labelledby="h-s05">
+        <div class="bp-section-head">
+          <span class="bp-kicker">05 • Jason Santa Maria (On Web Typography, 2014) + Modern CSS Typography</span>
+          <h2 id="h-s05">Assumed Web Typography Options, Triad Defaults &amp; Type Scale</h2>
+        </div>
+
+        <p class="bp-lead">
+          Following <strong>Jason Santa Maria</strong>’s <cite>On Web Typography</cite>, distinguish <strong>legibility</strong> (whether individual letterforms can be decoded) from <strong>readability</strong> (the sustained comfort and emotional clarity of reading across saccadic eye jumps). Assume the battle-tested defaults below in your style guide unless your content proves otherwise.
+        </p>
+
+        <figure class="bp-quote">
+          <blockquote cite="https://abookapart.com/products/on-web-typography">
+            <p>“Legibility means that text can be interpreted, but that’s like saying tree bark is edible… Readability combines the emotional impact of a design with the amount of effort it takes to read. In general, I would rather err on the side of making something too large than risk it being too small. Conventional wisdom is to aim for a 45–75 character measure.”</p>
+          </blockquote>
+          <figcaption>Jason Santa Maria, <cite>On Web Typography</cite>, Ch. 1 &amp; Ch. 5 (A Book Apart, 2014, pp. 13, 90)</figcaption>
+        </figure>
+
+        <!-- 5A. TYPEFACE EVALUATION & 3 ROLE SLOTS -->
+        <article class="bp-card" aria-labelledby="h-s05-roles">
+          <div class="bp-card-head">
+            <h3 id="h-s05-roles">5.1 Typeface Evaluation &amp; 3-Role Palette (Max 2–3 Families • Santa Maria Ch. 3–4)</h3>
+            <span>Self-hosted WOFF2 • Zero faux bold/italic</span>
+          </div>
+          <div class="helper-grid">
+            <div class="helper-cell">
+              <h4>1. Workhorse Body &amp; UI (<code>--font-body</code>)</h4>
+              <p class="helper-prompt"><strong>Assumed criteria:</strong> Tall <strong>x-height</strong>, open <strong>apertures &amp; counters</strong> (clear <code>a, e, c, s</code> and <code>I / l / 1</code> distinction at small sizes), moderate contrast, and real upright + true italic weights. <em>[Swap <code>Inter</code> for your body workhorse.]</em></p>
+            </div>
+            <div class="helper-cell">
+              <h4>2. Display / “Moment” Face (<code>--font-display</code>)</h4>
+              <p class="helper-prompt"><strong>Assumed criteria:</strong> High-personality editorial voice reserved strictly for short headlines (<code>H1–H2</code>, ≤ 45 chars). Pair with <code>--font-body</code> via deliberate structural contrast—never two nearly identical sans-serifs. <em>[Swap <code>Syne</code> for your display face.]</em></p>
+            </div>
+            <div class="helper-cell">
+              <h4>3. Tabular Monospace (<code>--font-mono</code>)</h4>
+              <p class="helper-prompt"><strong>Assumed criteria:</strong> Fixed-width numerals (<code>font-variant-numeric: tabular-nums</code>) for prices, timestamps, kickers, and code tokens so vertical columns never shift when values update. <em>[Swap <code>Martian Mono</code> if needed.]</em></p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5B. MOST COMMON TYPOGRAPHIC OPTIONS TO ASSUME -->
+        <article class="bp-card" aria-labelledby="h-s05-defaults">
+          <div class="bp-card-head">
+            <h3 id="h-s05-defaults">5.2 Most Common Typographic Options to Assume in Your Style Guide</h3>
+            <span>Santa Maria’s Triad: Size × Measure × Leading</span>
+          </div>
+          <div tabindex="0" role="region" aria-labelledby="bp-typo-defaults-cap" class="table-wrapper">
+            <table>
+              <caption id="bp-typo-defaults-cap">Default CSS typographic parameters pre-wired in <code>@layer tokens</code> and <code>@layer doc-chrome</code></caption>
+              <thead>
+                <tr>
+                  <th scope="col">Typographic Parameter</th>
+                  <th scope="col">Assumed Default Option</th>
+                  <th scope="col">CSS Declaration</th>
+                  <th scope="col">Pedagogical &amp; Optical Rationale (Santa Maria + Modern CSS)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1. Root &amp; Body Size</th>
+                  <td><code>1rem</code>–<code>1.0625rem</code> (16–17px floor)</td>
+                  <td><code>font-size: clamp(1rem, 0.25vw + 0.92rem, 1.0625rem);</code></td>
+                  <td><strong>Never use <code>px</code> or bare <code>vw</code></strong> for <code>font-size</code>. Combining <code>rem + vw</code> inside <code>clamp()</code> honors browser root preferences and survives <strong>200% zoom</strong> without clipping.</td>
+                </tr>
+                <tr>
+                  <th scope="row">2. Line Length (Measure)</th>
+                  <td><code>65ch</code> prose (45–75ch range; <code>80ch</code> max)</td>
+                  <td><code>max-inline-size: var(--measure-prose);</code></td>
+                  <td>Lines beyond <code>80ch</code> cause readers to lose their place on the eye’s return sweep to the next line (Santa Maria p. 91). Use <code>38–45ch</code> on mobile and captions.</td>
+                </tr>
+                <tr>
+                  <th scope="row">3. Line Height (Leading)</th>
+                  <td>Unitless <code>1.6</code> body • <code>1.12</code> display</td>
+                  <td><code>line-height: 1.6;</code></td>
+                  <td>Always use <strong>unitless numbers</strong> so children scale proportionally. Tighten leading on large headlines; loosen slightly on wide measures or high-contrast dark surfaces.</td>
+                </tr>
+                <tr>
+                  <th scope="row">4. Modular Type Scale</th>
+                  <td><code>1.250</code> (Mobile) → <code>1.333</code> (Desktop)</td>
+                  <td><code>--font-size-h1</code> … <code>--font-size-micro</code></td>
+                  <td>Restrained 6-step hierarchy (<code>0.75rem</code> micro, <code>0.875rem</code> small, <code>1rem</code> body, <code>1.3rem</code> H3, <code>1.85rem</code> H2, <code>2.5rem</code> H1) prevents arbitrary one-off font sizes.</td>
+                </tr>
+                <tr>
+                  <th scope="row">5. Alignment &amp; Overflow</th>
+                  <td>Logical ragged-end (<code>start</code>)</td>
+                  <td><code>text-align: start; overflow-wrap: break-word;</code></td>
+                  <td>Avoids ugly rivers of whitespace caused by <code>text-align: justify</code> (if justification is ever required, pair with <code>hyphens: auto</code>) and prevents long URLs from breaking mobile layouts.</td>
+                </tr>
+                <tr>
+                  <th scope="row">6. Modern Text Wrapping</th>
+                  <td><code>balance</code> heads • <code>pretty</code> prose</td>
+                  <td><code>h1, h2, h3 { text-wrap: balance; } p { text-wrap: pretty; }</code></td>
+                  <td>Eliminates orphaned 1-word last lines. <strong>Gotcha:</strong> never put <code>balance</code>/<code>pretty</code> on <code>*</code>, and avoid <code>text-wrap: balance</code> on bordered/filled boxes (buttons, pills) where it leaves awkward trailing space inside the box.</td>
+                </tr>
+                <tr>
+                  <th scope="row">7. Tracking, Case &amp; Emphasis</th>
+                  <td><code>-0.02em</code> display • <code>0</code> body • <code>+0.08em</code> kickers</td>
+                  <td><code>letter-spacing: -0.02em;</code></td>
+                  <td>Word coastline shapes live in lowercase ascenders/descenders (Santa Maria Ch. 1): avoid multi-word ALL-CAPS blocks; use semantic <code>&lt;strong&gt;</code>/<code>&lt;em&gt;</code> sparingly rather than bolding whole paragraphs.</td>
+                </tr>
+                <tr>
+                  <th scope="row">8. Figures &amp; Punctuation</th>
+                  <td>Curly quotes <code>“ ” ’</code> • <code>–</code> / <code>—</code> • <code>tabular-nums</code></td>
+                  <td><code>font-variant-numeric: tabular-nums;</code></td>
+                  <td>Use real typographic quotes/apostrophes, en-dashes (<code>–</code>) for time/date ranges, em-dashes (<code>—</code>) for clause breaks, and modular <code>margin-block-end</code> rhythm instead of fragile print baseline grids (Santa Maria p. 118).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <!-- 5C. LIVE TYPOGRAPHIC TRIAD SPECIMEN -->
+        <article class="bp-card" aria-labelledby="h-s05-specimen">
+          <div class="bp-card-head">
+            <h3 id="h-s05-specimen">5.3 Live Typographic Triad Specimen (Scoped inside <code>.specimen-stage</code>)</h3>
+            <span>Inspect at 320px ↔ 1280px &amp; 200% Zoom</span>
+          </div>
+          <div class="specimen-stage">
+            <div class="type-triad-specimen">
+              <span class="bp-kicker">[Kicker • 0.75rem Mono • +0.08em Tracking]</span>
+              <p class="type-triad-display">Balanced Display Headline Scaled Fluidly Without Orphaned Words</p>
+              <p class="type-triad-prose">
+                Body prose defaults to a <strong>65-character measure</strong> with unitless <code>1.6</code> leading, ragged-end <code>text-align: start</code>, and <code>text-wrap: pretty</code>—pairing curly quotation marks (“like these”) and true en-dash time ranges (18:00–19:30) so sustained reading feels effortless in both Light and Dark color schemes.
+              </p>
+              <div class="type-triad-meta">
+                <span>SLOT: 21:30–23:45 WEST</span>
+                <span>PASS: 65.00 €</span>
+                <span>MEASURE: 45–75ch</span>
+              </div>
+            </div>
+          </div>
+          <pre tabindex="0"><code>/* Copy-ready Assumed Web Typography Starter */
+body {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 0.25vw + 0.92rem, 1.0625rem);
+  line-height: 1.6;           /* Unitless inheritance */
+  text-align: start;          /* Logical LTR/RTL ragged-end */
+  overflow-wrap: break-word;  /* Safe URL wrapping */
+}
+:where(h1, h2, h3) { line-height: 1.15; text-wrap: balance; } /* Unboxed headings only */
+:where(p, li, blockquote) { max-inline-size: 65ch; text-wrap: pretty; }
+.price, .timecode, td[data-num] { font-variant-numeric: tabular-nums; }</code></pre>
+        </article>
+      </section>
+
+      <!-- ====================================================================
+           SECTION 06: ATOM TEMPLATE
+           ==================================================================== -->
+      <section class="bp-section" id="s06" aria-labelledby="h-s06">
+        <div class="bp-section-head">
+          <span class="bp-kicker">06 • Atomic Tier 1</span>
+          <h2 id="h-s06">Atom Specification Card Template</h2>
+        </div>
+
+        <article class="bp-card">
+          <div class="bp-card-head">
+            <h3>A-01 • [Atom Name] (Functional / Perceptual)</h3>
+            <span>Figma: <code>[Component / State=*]</code></span>
+          </div>
+          <div class="specimen-stage specimen-row">
+            <button type="button" class="starter-btn">Reserve Pass</button>
+            <button type="button" class="starter-btn" disabled>Sold Out</button>
+          </div>
+          <div class="helper-grid">
+            <div class="helper-cell">
+              <h4>1. Usage &amp; Function</h4>
+              <p class="helper-prompt">[Explain when to use this element and when to use an alternative like a link or secondary button.]</p>
+            </div>
+            <div class="helper-cell">
+              <h4>2. Anatomy &amp; Copy Budget</h4>
+              <p class="helper-prompt">[Document padding tokens, font family/weight, icon gap, imperative verb diction, and ≤24-character single-line limit.]</p>
+            </div>
+            <div class="helper-cell">
+              <h4>3. Interactive States</h4>
+              <p class="helper-prompt">[Document Default, <code>:hover:not(:disabled)</code>, <code>:focus-visible</code>, <code>:active</code>, <code>:user-invalid</code>, and <code>:disabled</code>.]</p>
+            </div>
+            <div class="helper-cell">
+              <h4>4. Responsive &amp; A11y Contract</h4>
+              <p class="helper-prompt">[Confirm ≥44×44px coarse touch size, ≥3:1 focus outline contrast, and keyboard Enter/Space operability.]</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ====================================================================
+           SECTION 07: MOLECULE TEMPLATE
+           ==================================================================== -->
+      <section class="bp-section" id="s07" aria-labelledby="h-s07">
+        <div class="bp-section-head">
+          <span class="bp-kicker">07 • Atomic Tier 2</span>
+          <h2 id="h-s07">Molecule Specification Card Template</h2>
+        </div>
+
+        <article class="bp-card">
+          <div class="bp-card-head">
+            <h3>M-01 • [Molecule Name]</h3>
+            <span>CSS: <code>.starter-card:has(input:checked)</code></span>
+          </div>
+          <div class="specimen-stage">
+            <fieldset class="specimen-fieldset">
+              <legend class="specimen-legend">[Group Legend Label]</legend>
+              <label class="starter-card">
+                <input type="radio" name="bp-opt" checked>
+                <strong>Option A</strong> — <span class="specimen-hint">Parent border reacts via <code>:has(input:checked)</code>.</span>
+              </label>
+              <label class="starter-card">
+                <input type="radio" name="bp-opt">
+                <strong>Option B</strong> — <span class="specimen-hint">Zero JavaScript state class required.</span>
+              </label>
+            </fieldset>
+          </div>
+          <div class="helper-grid">
+            <div class="helper-cell">
+              <h4>Composed Atoms</h4>
+              <p class="helper-prompt">[List which Atoms combine inside this Molecule and which layout model (1D Flexbox vs 2D Grid) aligns them.]</p>
+            </div>
+            <div class="helper-cell">
+              <h4>State &amp; Fallback Strategy</h4>
+              <p class="helper-prompt">[Document child-to-parent <code>:has()</code> selectors and any <code>@supports not selector(:has(*))</code> fallback.]</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ====================================================================
+           SECTION 08: ORGANISMS & TEMPLATES
+           ==================================================================== -->
+      <section class="bp-section" id="s08" aria-labelledby="h-s08">
+        <div class="bp-section-head">
+          <span class="bp-kicker">08 • Atomic Tiers 3–5</span>
+          <h2 id="h-s08">Organisms, Macro Grid Templates &amp; Breakpoints</h2>
+        </div>
+        <div class="helper-grid helper-grid--boxed">
+          <div class="helper-cell">
+            <h3>Mobile Default (&lt; 600px, min 320px)</h3>
+            <p class="helper-prompt">[1-column normal flow, 0 horizontal overflow, stacked 1D Flex cards, 38–45ch comfortable mobile measure.]</p>
+          </div>
+          <div class="helper-cell">
+            <h3>Tablet (≥ 768px)</h3>
+            <p class="helper-prompt">[Multi-column Grid cards, horizontal 1D toolbars &amp; rows, 65ch prose cap.]</p>
+          </div>
+          <div class="helper-cell">
+            <h3>Widescreen (≥ 1120px)</h3>
+            <p class="helper-prompt">[2D <code>grid-template-areas</code> macro skeleton + sticky rail.]</p>
+          </div>
+        </div>
+      </section>
+
+      
+    <!-- Connected in WD101 Organic Mesh Block -->
+    <section class="wd-mesh-section" id="connected-mesh">
+      <div class="wd-mesh-header">
+        <span class="wd-mesh-kicker"><span class="lang-pt">Mapeamento Pedagógico</span><span class="lang-en">Curricular Mesh</span> &bull; Connected in WD101</span>
+        <h2 class="wd-mesh-title"><span class="lang-pt">Articulação com Enunciados, Demos e Matriz W3C</span><span class="lang-en">Connected Course Milestones, Demos &amp; Matrix</span></h2>
+      </div>
+      <div class="wd-mesh-grid">
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Enunciados do Curso</span><span class="lang-en">Course Assignments</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="ex1-hello-warp-guide.html" class="wd-mesh-chip">🟢 EX1: Hello Warp!</a>
+            <a href="ex2-guide.html" class="wd-mesh-chip">🔵 EX2: Media &amp; Box Model</a>
+            <a href="tp06-early-prototype-guide.html" class="wd-mesh-chip">🔵 Projeto Fase 1: TP06</a>
+            <a href="demos/tp11-integrated-responsive-project/GUIDE.html" class="wd-mesh-chip">🟣 Projeto Fase 2: TP11</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="demos/index.html" class="wd-mesh-chip">🚀 Repositório Central de Demos</a>
+            <a href="demos/index.html?pat=1#core-patterns" class="wd-mesh-chip">Demo P1: Gaveta Móvel</a>
+            <a href="demos/index.html?pat=8#core-patterns" class="wd-mesh-chip">Demo P8: Simulador :has()</a>
+            <a href="demos/index.html?pat=9#core-patterns" class="wd-mesh-chip">Demo P9: light-dark()</a>
+            <a href="interaction-patterns.html" class="wd-mesh-chip">✨ 142 Padrões Web</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Matriz HTML5 &amp; CSS3</span><span class="lang-en">W3C Standards Matrix</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="matrix.html" class="wd-mesh-chip" style="font-weight:700;color:var(--color-swiss-red);">Matriz Completa (314) ↗</a>
+            <a href="matrix.html?cat=cat-landmarks" class="wd-mesh-chip">Landmarks HTML5</a>
+            <a href="matrix.html?cat=cat-pseudo" class="wd-mesh-chip">Pseudo-Classes</a>
+            <a href="ixd-principles.html" class="wd-mesh-chip">🧭 Princípios de IxD</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <footer class="bp-footer">
+        <span>[Student Name / Group] • FBAUP Web Design (WD101) — 2026/27</span>
+        <a href="design-system.html">Inspect Full DRUMTIKS ’26 Exemplar →</a>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const meta = document.querySelector('meta[name="color-scheme"]');
+      document.querySelectorAll('input[name="bp-theme"]').forEach((r) => {
+        r.addEventListener('change', () => {
+          if (meta) meta.content = r.value;
+          try {
+            if (r.value === 'light dark') localStorage.removeItem('boilerplate-color-scheme');
+            else localStorage.setItem('boilerplate-color-scheme', r.value);
+          } catch (_) {}
+        });
+      });
+    })();
+  </script>
+<script src="assets/js/site-shell.js"></script>
+</body>
+</html>

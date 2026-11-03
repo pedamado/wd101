@@ -1,0 +1,55 @@
+/* Layer 3: Layout & Container Queries */
+@layer layout {
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header-inner {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: var(--space-3) var(--space-4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .main-container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4) var(--space-12);
+    width: 100%;
+    flex: 1;
+  }
+
+  /* 2D CSS Grid Layout with Template Areas */
+  .festival-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 860px) {
+    .festival-grid {
+      grid-template-columns: 320px minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+
+  /* Container Query Box */
+  .stage-slot {
+    container-type: inline-size;
+    container-name: stage-box;
+  }
+}

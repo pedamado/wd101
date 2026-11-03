@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" data-theme="light" data-root="../../">
 <head>
   <!--
     ==========================================================================
@@ -16,121 +16,119 @@
   <title>Advanced CSS Layout Lab • Grid &amp; Flexbox | FBAUP WD101</title>
   <meta name="description" content="FBAUP Web Design 2026/27 Laboratory Hub: Advanced layout techniques using CSS Grid (2D macro) and CSS Flexbox (1D micro) applied to the DRUMTIKS '26 DJ Warp festival discography.">
 
-  <!-- Previne FOUC de tema e idioma -->
+  <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
   <script>
     (function() {
-      const savedTheme = localStorage.getItem('wd101_theme') || 
-                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      const savedLang = localStorage.getItem('wd101_lang') === 'en' ? 'en' : 'pt';
       document.documentElement.setAttribute('lang', savedLang);
     })();
   </script>
 
+  <!-- CSS Layer Hierarchy -->
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../assets/css/modernist.css">
+  <link rel="stylesheet" href="../../assets/css/patterns-demo.css">
   <!-- Local variable fonts (Inter, Martian Mono, Syne) -->
   <link rel="stylesheet" href="css/fonts.css">
-  <!-- Shared design system tokens, typography, resets and header -->
-  <link rel="stylesheet" href="css/base.css">
 
   <style>
     /* Specific styling for the Hub Dashboard Cards & Comparison Matrix */
-    .hub-hero {
-      max-width: var(--site-max-width);
-      margin: 0 auto;
-      padding: 3.5rem 1.5rem 2.5rem;
-    }
-
     .modules-showcase-grid {
-      max-width: var(--site-max-width);
-      margin: 0 auto 3.5rem;
-      padding: 0 1.5rem;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 1.75rem;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+      gap: var(--space-6);
+      margin-bottom: var(--space-8);
     }
 
     .module-card {
-      background: var(--color-surface-1);
-      border: 1px solid var(--color-border-medium);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
       overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: all var(--transition-normal);
+      transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
       position: relative;
+      box-shadow: var(--shadow-card);
     }
 
     .module-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--color-accent-cyan);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      transform: translateY(-4px);
+      border-color: var(--color-accent-cyan, #00d2ff);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
     }
 
     .module-card-header {
-      padding: 1.75rem 1.75rem 1.25rem;
+      padding: var(--space-5);
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
-      border-bottom: 1px solid var(--color-border-subtle);
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
     }
 
     .module-num-badge {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: var(--text-xs);
       font-weight: 700;
-      color: var(--color-accent-cyan);
+      color: var(--color-accent-cyan, #00d2ff);
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
 
     .module-card-title {
       font-family: var(--font-display);
-      font-size: 1.45rem;
+      font-size: var(--text-xl);
       font-weight: 800;
-      color: #fff;
+      color: var(--text-primary);
       line-height: 1.25;
+      margin: 0;
     }
 
     .module-card-body {
-      padding: 1.5rem 1.75rem;
+      padding: var(--space-5);
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: var(--space-3);
       flex-grow: 1;
     }
 
     .module-card-desc {
-      font-size: 0.9rem;
-      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
       line-height: 1.6;
+      margin: 0;
     }
 
     .module-feature-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.45rem;
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--color-text-dim);
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      margin: var(--space-2) 0 0;
+      padding: 0;
     }
 
     .module-feature-list li {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.5rem;
     }
 
     .module-feature-list li span.bullet {
-      color: var(--color-accent-green);
+      color: var(--color-accent-emerald, #10b981);
       font-weight: bold;
     }
 
     .module-card-footer {
-      padding: 1.25rem 1.75rem;
-      background: var(--color-charcoal);
-      border-top: 1px solid var(--color-border-subtle);
+      padding: var(--space-3) var(--space-5);
+      background: var(--bg-surface-elevated);
+      border-top: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -138,145 +136,252 @@
 
     .module-cta-btn {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: var(--text-xs);
       font-weight: 700;
-      color: #fff;
+      color: var(--text-primary);
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: var(--color-surface-2);
-      border: 1px solid var(--color-border-medium);
+      gap: 0.4rem;
+      padding: 0.45rem 0.9rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-sm);
       transition: all var(--transition-fast);
+      text-decoration: none;
     }
 
     .module-card:hover .module-cta-btn {
-      background: var(--color-accent-cyan);
-      color: #000;
-      border-color: var(--color-accent-cyan);
+      background: var(--color-accent-cyan, #00d2ff);
+      color: #09090b;
+      border-color: var(--color-accent-cyan, #00d2ff);
     }
 
     /* Comparison Matrix Table */
     .comparison-section {
-      max-width: var(--site-max-width);
-      margin: 0 auto 4rem;
-      padding: 0 1.5rem;
+      margin: 0 0 var(--space-8);
     }
 
     .comparison-table-wrap {
-      background: var(--color-surface-1);
-      border: 1px solid var(--color-border-medium);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 2rem;
+      padding: var(--space-5);
       overflow-x: auto;
+      box-shadow: var(--shadow-card);
     }
 
     .comparison-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.9rem;
+      font-size: var(--text-sm);
       text-align: left;
     }
 
     .comparison-table th, .comparison-table td {
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid var(--color-border-subtle);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border-color);
     }
 
     .comparison-table th {
       font-family: var(--font-display);
       font-weight: 700;
-      color: #fff;
-      font-size: 1.05rem;
-      background: rgba(0, 0, 0, 0.2);
+      color: var(--text-primary);
+      font-size: var(--text-sm);
+      background: var(--bg-surface-elevated);
+    }
+
+    .comparison-table td {
+      color: var(--text-secondary);
     }
 
     .comparison-table td code {
       font-family: var(--font-mono);
-      color: var(--color-accent-cyan);
-      font-size: 0.8rem;
+      color: var(--color-accent-cyan, #0095b6);
+      font-size: var(--text-xs);
       background: rgba(0, 210, 255, 0.08);
       padding: 0.15rem 0.4rem;
       border-radius: 4px;
     }
 
     .comparison-table tr:hover td {
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--bg-surface-elevated);
+    }
+
+    /* Pedagogy References Panel */
+    .pedagogy-panel {
+      margin-bottom: var(--space-8);
+      width: 100%;
+    }
+
+    .pedagogy-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .pedagogy-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-swiss-red), var(--color-accent-cyan, #00d2ff), var(--color-accent-gold, #f5a623));
+    }
+
+    .pedagogy-title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .pedagogy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
+      gap: var(--space-5);
+      margin-top: var(--space-4);
+    }
+
+    .pedagogy-box {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+    }
+
+    .pedagogy-box h4 {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-accent-cyan, #0095b6);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 0 0 var(--space-3);
+      font-weight: 700;
+    }
+
+    .mdn-resource-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      margin: 0;
+      padding: 0;
+    }
+
+    .mdn-resource-item a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+
+    .mdn-resource-item a:hover {
+      background: var(--bg-surface-elevated);
+      border-color: var(--color-accent-cyan, #00d2ff);
+      transform: translateX(3px);
+      color: var(--color-accent-cyan, #00d2ff);
+    }
+
+    .mdn-tag {
+      font-size: 0.68rem;
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
     }
   </style>
 </head>
 <body>
 
-  <!-- Sticky Global Header -->
-  <header class="site-header" role="banner">
-    <div class="header-container">
-      <div class="brand-group">
-        <a href="index.html" class="brand-logo" aria-label="Curriculum Hub">
-          DRUMTIKS<span class="tag">'26</span>
-        </a>
-        <span class="brand-badge">WD101 • LAYOUT LABS</span>
+  <!-- Site Header Landmark montado automaticamente pelo site-shell.js -->
+  <header class="site-header" role="banner"></header>
+
+  <!-- Main Content Landmark -->
+  <main class="main-container" id="main-content">
+
+    <!-- Breadcrumb Strip -->
+    <nav class="breadcrumb-strip" aria-label="Navegação Estrutural" style="margin-bottom:var(--space-4);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+      <a href="../../index.html" style="color:var(--text-muted);text-decoration:none;">WD101</a>
+      <span>/</span>
+      <a href="../index.html" style="color:var(--text-muted);text-decoration:none;"><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></a>
+      <span>/</span>
+      <span style="color:var(--color-swiss-red);font-weight:700;">TP11-B: Grid &amp; Flexbox Layout Suite</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <header class="hero-section" id="hero" style="margin-bottom:var(--space-8);padding-bottom:var(--space-6);border-bottom:2px solid var(--border-color);">
+      <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-2);flex-wrap:wrap;">
+        <span class="badge badge-advanced">🟣 TP11-B &bull; Masterclass de Layout</span>
+        <span class="badge badge-status-yes">Zero JavaScript</span>
+        <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">
+          Festival DRUMTIKS '26 &bull; Alfândega do Porto
+        </span>
       </div>
-
-      <nav class="main-nav" aria-label="Curriculum Navigation">
-        <a href="../../index.html" class="nav-link" style="color:var(--color-accent-gold);">
-          <span>🏠 <span class="lang-pt">Hub Global</span><span class="lang-en">Global Hub</span></span>
-        </a>
-        <a href="../tp11-integrated-responsive-project/index.html" class="nav-link" style="color:var(--color-accent-red);">
-          <span>🚀 <span class="lang-pt">Projeto Final</span><span class="lang-en">Capstone</span></span>
-        </a>
-        <a href="index.html" class="nav-link active" aria-current="page">
-          <span><span class="lang-pt">Hub Labs</span><span class="lang-en">Labs Hub</span></span>
-        </a>
-        <a href="01-flexbox-tracks.html" class="nav-link">
-          <span class="nav-pill-num">01</span>
-          <span>Flexbox Tracks</span>
-        </a>
-        <a href="02-grid-albums.html" class="nav-link">
-          <span class="nav-pill-num">02</span>
-          <span>CSS Grid Albums</span>
-        </a>
-        <a href="03-hybrid-discography.html" class="nav-link">
-          <span class="nav-pill-num">03</span>
-          <span>Hybrid Architecture</span>
-        </a>
-        <a href="04-container-queries.html" class="nav-link">
-          <span class="nav-pill-num">04</span>
-          <span>Container Queries</span>
-        </a>
-      </nav>
-
-      <div class="header-controls">
-        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
-        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
-      </div>
-    </div>
-  </header>
-
-  <main role="main">
-
-    <!-- Hero Section -->
-    <section class="hub-hero">
-      <div class="hero-meta-strip">
-        <span class="hero-chip chip-red">FBAUP Web Design 2026/27</span>
-        <span class="hero-chip chip-cyan"><span class="lang-pt">Arquitetura de Layout Avançada</span><span class="lang-en">Advanced Layout Architecture</span></span>
-        <span class="hero-chip chip-amber"><span class="lang-pt">Selo DJ Warp Turntablist</span><span class="lang-en">DJ Warp Turntablist Imprint</span></span>
-      </div>
-      <h1 class="hero-title">
+      <h1 class="hero-title" style="max-width:32ch;font-size:var(--text-3xl);margin-bottom:var(--space-3);">
         <span class="lang-pt">Suite Pedagógica de CSS Grid &amp; Flexbox</span>
         <span class="lang-en">CSS Grid &amp; Flexbox Pedagogical Suite</span>
       </h1>
-      <p class="hero-description">
+      <p class="hero-desc" style="font-size:var(--text-base);max-width:85ch;margin-bottom:var(--space-5);">
         <span class="lang-pt">Laboratório pedagógico abrangente que explora os paradigmas modernos de layout em CSS. Descubra como o fluxo unidimensional do Flexbox e as matrizes bidimensionais do CSS Grid se combinam de forma sinérgica em arquiteturas responsivas de nível profissional sem recorrer a uma única linha de JavaScript.</span>
         <span class="lang-en">A comprehensive educational laboratory explaining modern CSS layout paradigms. Explore how 1-dimensional Flexbox flow and 2-dimensional CSS Grid matrices combine seamlessly into production-grade, responsive architectures without a single line of JavaScript.</span>
       </p>
-    </section>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center;">
+        <a href="#modules" class="btn-control btn-primary-red">🔬 <span class="lang-pt">Explorar os 4 Módulos</span><span class="lang-en">Explore 4 Modules</span></a>
+        <a href="#comp-heading" class="btn-control">📊 <span class="lang-pt">Matriz de Decisão</span><span class="lang-en">Decision Matrix</span></a>
+        <a href="../tp11-variables-transitions-animations/index.html" class="btn-control">⚡ <span class="lang-pt">Ir para Masterclass Motion (TP11-A) ↗</span><span class="lang-en">Go to Motion Masterclass (TP11-A) ↗</span></a>
+        <a href="../index.html" class="btn-control">📦 <span class="lang-pt">Repositório de Demos ↗</span><span class="lang-en">Demos Repository ↗</span></a>
+      </div>
+    </header>
 
-    <!-- The 3 Module Showcase Cards -->
-    <section class="modules-showcase-grid" aria-label="Laboratory Demonstrators">
+    <!-- Page Layout with Sticky Aside Rail -->
+    <div class="page-layout-with-aside">
+      
+      <!-- Sticky Navigation Rail -->
+      <aside class="aside-toc" aria-label="Navegação da Suite de Layout">
+        <div class="aside-toc-card">
+          <div class="aside-toc-header">
+            <span class="aside-toc-title"><span class="lang-pt">Nesta Suite</span><span class="lang-en">In this Suite</span></span>
+            <span class="aside-toc-count">4 Labs</span>
+          </div>
+          <ul class="aside-toc-list">
+            <li class="aside-toc-item"><a href="#mod-01" class="aside-toc-link"><span>01. <span class="lang-pt">Flexbox Tracks</span><span class="lang-en">Flexbox Tracks</span></span></a></li>
+            <li class="aside-toc-item"><a href="#mod-02" class="aside-toc-link"><span>02. <span class="lang-pt">CSS Grid Albums</span><span class="lang-en">CSS Grid Albums</span></span></a></li>
+            <li class="aside-toc-item"><a href="#mod-03" class="aside-toc-link"><span>03. <span class="lang-pt">Arquitetura Híbrida</span><span class="lang-en">Hybrid Architecture</span></span></a></li>
+            <li class="aside-toc-item"><a href="#mod-04" class="aside-toc-link"><span>04. <span class="lang-pt">Container Queries</span><span class="lang-en">Container Queries</span></span></a></li>
+            <li class="aside-toc-item"><a href="#comp-heading" class="aside-toc-link"><span>📊 <span class="lang-pt">Matriz Comparativa</span><span class="lang-en">Comparison Matrix</span></span></a></li>
+            <li class="aside-toc-item"><a href="#pedagogy-ref" class="aside-toc-link"><span>📖 <span class="lang-pt">Recursos MDN</span><span class="lang-en">MDN Resources</span></span></a></li>
+            <li class="aside-toc-item"><a href="#connected-mesh" class="aside-toc-link"><span>🔗 <span class="lang-pt">Rede Curricular</span><span class="lang-en">Curriculum Mesh</span></span></a></li>
+          </ul>
+        </div>
+      </aside>
 
-      <!-- Module 01: Flexbox -->
-      <article class="module-card">
+      <!-- Main Content Column -->
+      <div class="page-layout-main">
+
+        <!-- The 4 Module Showcase Cards -->
+        <section class="modules-showcase-grid" id="modules" aria-label="Laboratory Demonstrators">
+
+          <!-- Module 01: Flexbox -->
+          <article class="module-card" id="mod-01">
         <div>
           <div class="module-card-header">
             <span class="module-num-badge">
@@ -313,7 +418,7 @@
       </article>
 
       <!-- Module 02: CSS Grid -->
-      <article class="module-card">
+      <article class="module-card" id="mod-02">
         <div>
           <div class="module-card-header">
             <span class="module-num-badge">
@@ -350,7 +455,7 @@
       </article>
 
       <!-- Module 03: Hybrid Architecture -->
-      <article class="module-card">
+      <article class="module-card" id="mod-03">
         <div>
           <div class="module-card-header">
             <span class="module-num-badge">
@@ -387,7 +492,7 @@
       </article>
 
       <!-- Module 04: Container Queries -->
-      <article class="module-card">
+      <article class="module-card" id="mod-04">
         <div>
           <div class="module-card-header">
             <span class="module-num-badge" style="color:var(--color-accent-green);">
@@ -645,6 +750,45 @@
       </div>
     </section>
 
+      </div><!-- .page-layout-main -->
+    </div><!-- .page-layout-with-aside -->
+
+    <!-- Connected in WD101 Organic Mesh Block -->
+    <section class="wd-mesh-section" id="connected-mesh" style="margin-top:var(--space-12);">
+      <div class="wd-mesh-header">
+        <span class="wd-mesh-kicker"><span class="lang-pt">Mapeamento Pedagógico</span><span class="lang-en">Curricular Mesh</span> &bull; Connected in WD101</span>
+        <h2 class="wd-mesh-title"><span class="lang-pt">Articulação com Enunciados, Demos e Matriz W3C</span><span class="lang-en">Connected Course Milestones, Demos &amp; Matrix</span></h2>
+      </div>
+      <div class="wd-mesh-grid">
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Enunciados do Curso</span><span class="lang-en">Course Assignments</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="../../ex1-hello-warp-guide.html" class="wd-mesh-chip">🟢 EX1: Hello Warp!</a>
+            <a href="../../ex2-guide.html" class="wd-mesh-chip">🔵 EX2: Media &amp; Box Model</a>
+            <a href="../../tp06-early-prototype-guide.html" class="wd-mesh-chip">🔵 Projeto Fase 1: TP06</a>
+            <a href="../tp11-integrated-responsive-project/GUIDE.html" class="wd-mesh-chip">🟣 Projeto Fase 2: TP11</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="../index.html" class="wd-mesh-chip">🚀 Repositório Central de Demos</a>
+            <a href="../tp11-variables-transitions-animations/index.html" class="wd-mesh-chip">🟣 Masterclass Motion (TP11-A)</a>
+            <a href="../../interaction-patterns.html" class="wd-mesh-chip">✨ 142 Padrões Web</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Matriz HTML5 &amp; CSS3</span><span class="lang-en">W3C Standards Matrix</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="../../matrix.html" class="wd-mesh-chip" style="font-weight:700;color:var(--color-swiss-red);">Matriz Completa (314) ↗</a>
+            <a href="../../matrix.html?cat=cat-flexbox" class="wd-mesh-chip">CSS Flexbox</a>
+            <a href="../../matrix.html?cat=cat-grid" class="wd-mesh-chip">CSS Grid</a>
+            <a href="../../matrix.html?cat=cat-container" class="wd-mesh-chip">Container Queries</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer class="site-footer" role="contentinfo">
@@ -664,54 +808,6 @@
     </div>
   </footer>
 
-  <script>
-    // Theme & Language Handlers
-    const themeBtn = document.getElementById('theme-toggle-btn');
-    function updateThemeBtnState() {
-      if (!themeBtn) return;
-      const current = document.documentElement.getAttribute('data-theme') || 
-                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      const isDark = current === 'dark';
-      const lang = document.documentElement.getAttribute('lang') || 'pt';
-      const label = isDark ? (lang === 'pt' ? 'Escuro' : 'Dark') : (lang === 'pt' ? 'Claro' : 'Light');
-      const icon = isDark ? '🌙' : '☀';
-      themeBtn.innerHTML = `${icon} <span>${label}</span>`;
-    }
-
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('data-theme') || 
-                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        const next = current === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', next);
-        localStorage.setItem('wd101_theme', next);
-        updateThemeBtnState();
-      });
-      const savedTheme = localStorage.getItem('wd101_theme');
-      if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-      }
-      updateThemeBtnState();
-    }
-
-    const langBtn = document.getElementById('lang-toggle-btn');
-    function setLanguage(lang) {
-      document.documentElement.setAttribute('lang', lang);
-      localStorage.setItem('wd101_lang', lang);
-      if (langBtn) {
-        langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
-      }
-      updateThemeBtnState();
-    }
-
-    if (langBtn) {
-      langBtn.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('lang') || 'pt';
-        const next = current === 'pt' ? 'en' : 'pt';
-        setLanguage(next);
-      });
-      setLanguage(localStorage.getItem('wd101_lang') || 'pt');
-    }
-  </script>
+  <script src="../../assets/js/site-shell.js"></script>
 </body>
 </html>

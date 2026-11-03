@@ -296,32 +296,69 @@ window.SCAFFOLD_DATA = {
       ],
       "stages": [
         {
-          "name": { "pt": "Fase 1: Protótipo Preliminar (TP06)", "en": "Stage 1: Early Prototype (TP06)" },
-          "desc": { "pt": "Website responsivo preliminar a 2 colunas com breakpoint Tablet a 768px, sticky stage inicial e galeria de fotos.", "en": "Two-column responsive website with 768px Tablet breakpoint, sticky hero stage, and photo gallery." },
+          "name": {
+            "pt": "Fase 1: Protótipo Preliminar (TP06)",
+            "en": "Stage 1: Early Prototype (TP06)"
+          },
+          "desc": {
+            "pt": "Website responsivo preliminar a 2 colunas com breakpoint Desktop a 960px, sticky stage inicial e galeria de fotos.",
+            "en": "Two-column responsive website with 960px Desktop breakpoint, sticky hero stage, and photo gallery."
+          },
           "color": "var(--color-swiss-red)",
           "guide_url": "demos/tp06-responsive/ASSIGNMENT-TP06-RESPONSIVE.html",
           "demo_url": "demos/tp06-responsive/index.html"
         },
         {
-          "name": { "pt": "Fase 2: Capstone Avançado Integrado (TP11)", "en": "Stage 2: Full Integrated Capstone (TP11)" },
-          "desc": { "pt": "Masterclass integrada: 4 breakpoints mobile-first (<600px, 600px, 768px, 1200px), Macro Grid 2D com template-areas, Masonry denso com voids artísticos, Crate 3D fan-out, theming dinâmico e inspetor de Raios-X.", "en": "Integrated masterclass: 4 mobile-first breakpoints (<600px, 600px, 768px, 1200px), 2D Grid with template-areas, Dense Masonry with artistic voids, 3D Vinyl Crate fan-out, dynamic theming, and X-Ray inspector." },
+          "name": {
+            "pt": "Fase 2: Capstone Avançado Integrado (TP11)",
+            "en": "Stage 2: Full Integrated Capstone (TP11)"
+          },
+          "desc": {
+            "pt": "Masterclass integrada: 4 breakpoints mobile-first (<600px, 600px, 960px, 1200px), Macro Grid 2D com template-areas, Masonry denso com voids artísticos, Crate 3D fan-out, theming dinâmico e inspetor de Raios-X.",
+            "en": "Integrated masterclass: 4 mobile-first breakpoints (<600px, 600px, 960px, 1200px), 2D Grid with template-areas, Dense Masonry with artistic voids, 3D Vinyl Crate fan-out, dynamic theming, and X-Ray inspector."
+          },
           "color": "var(--color-accent-cyan)",
           "guide_url": "demos/tp11-integrated-responsive-project/GUIDE.html",
           "demo_url": "demos/tp11-integrated-responsive-project/index.html"
         },
         {
-          "name": { "pt": "Fase 2A: TP11-B Layout Suite (Flexbox & CSS Grid)", "en": "Stage 2A: TP11-B Layout Suite (Flexbox & CSS Grid)" },
-          "desc": { "pt": "4 demonstradores autónomos focados em Flexbox 1D no console de faixas, CSS Grid 2D com auto-flow denso, arquitetura híbrida e Container Queries (@container).", "en": "4 dedicated labs: 1D Flexbox track console, 2D CSS Grid with dense auto-flow, hybrid architecture, and Container Queries (@container)." },
+          "name": {
+            "pt": "Fase 2A: TP11-B Layout Suite (Flexbox & CSS Grid)",
+            "en": "Stage 2A: TP11-B Layout Suite (Flexbox & CSS Grid)"
+          },
+          "desc": {
+            "pt": "4 demonstradores autónomos focados em Flexbox 1D no console de faixas, CSS Grid 2D com auto-flow denso, arquitetura híbrida e Container Queries (@container).",
+            "en": "4 dedicated labs: 1D Flexbox track console, 2D CSS Grid with dense auto-flow, hybrid architecture, and Container Queries (@container)."
+          },
           "color": "var(--color-accent-blue)",
           "guide_url": "demos/tp11-css-flexbox-grid/README.md",
           "demo_url": "demos/tp11-css-flexbox-grid/index.html"
         },
         {
-          "name": { "pt": "Fase 2B: TP11 Motion Suite (Vars, Transitions & Animations)", "en": "Stage 2B: TP11 Motion Suite (Vars, Transitions & Animations)" },
-          "desc": { "pt": "5 módulos direcionados explorando tokens CSS :root, alternador light-dark(), física elástica cubic-bezier() na caixa de vinis 3D e animações scroll(root) e view().", "en": "5 focused modules exploring :root tokens, light-dark() switching, cubic-bezier() spring physics on the 3D vinyl crate, and scroll-driven animations." },
+          "name": {
+            "pt": "Fase 2B: TP11 Motion Suite (Vars, Transitions & Animations)",
+            "en": "Stage 2B: TP11 Motion Suite (Vars, Transitions & Animations)"
+          },
+          "desc": {
+            "pt": "5 módulos direcionados explorando tokens CSS :root, alternador light-dark(), física elástica cubic-bezier() na caixa de vinis 3D e animações scroll(root) e view().",
+            "en": "5 focused modules exploring :root tokens, light-dark() switching, cubic-bezier() spring physics on the 3D vinyl crate, and scroll-driven animations."
+          },
           "color": "var(--color-accent-gold)",
           "guide_url": "demos/tp11-variables-transitions-animations/README.md",
           "demo_url": "demos/tp11-variables-transitions-animations/index.html"
+        },
+        {
+          "name": {
+            "pt": "Fase 2C: Sistema de Design, Guia de Escrita & Boilerplate",
+            "en": "Stage 2C: Design System, Writing Guide & Boilerplate"
+          },
+          "desc": {
+            "pt": "Especificação viva Figma ↔ HTML5/CSS (@layer, Atomic Design, Content Inventory, Guia de Escrita Yahoo!/Kubie e Tipografia Santa Maria) + boilerplate base para estudantes.",
+            "en": "Living Figma ↔ HTML5/CSS specification (@layer, Atomic Design, Content Inventory, Yahoo!/Kubie Writing Guide, and Santa Maria Typography) + cloneable student starter boilerplate."
+          },
+          "color": "var(--color-swiss-red)",
+          "guide_url": "design-system.html",
+          "demo_url": "design-system-boilerplate.html"
         }
       ],
       "patterns_used": [
@@ -329,7 +366,8 @@ window.SCAFFOLD_DATA = {
         "3D Vinyl Crate",
         "Dense Masonry Voids",
         "Flexbox 1D",
-        "Container Queries"
+        "Container Queries",
+        "Atomic Design System & Tokens"
       ]
     }
   ],
@@ -384,7 +422,22 @@ window.SCAFFOLD_DATA = {
       ],
       "html_code": "<!-- P1: Navegação Dual Drumtiks -->\n<nav class=\"demo-p1-nav\" aria-label=\"Navegação Principal\">\n  <div class=\"nav-bar\">\n    <div class=\"brand\">DRUMTIKS '26</div>\n    <input type=\"checkbox\" id=\"p1-drawer-toggle\" class=\"menu-toggle\" aria-label=\"Abrir Menu\">\n    <label for=\"p1-drawer-toggle\" class=\"burger-label\">☰ Menu</label>\n    <ul class=\"nav-list\">\n      <li><a href=\"#\">Início</a></li>\n      <li class=\"has-sub\">\n        <a href=\"#\" aria-haspopup=\"true\">Palcos ▾</a>\n        <ul class=\"sub-menu\">\n          <li><a href=\"#\">Main Stage</a></li>\n          <li><a href=\"#\">Club Arena</a></li>\n        </ul>\n      </li>\n      <li><a href=\"#\">Bilhetes</a></li>\n    </ul>\n  </div>\n</nav>",
       "css_code": "/* P1: Desktop Flyout e Mobile Drawer */\n.has-sub { position: relative; }\n.sub-menu {\n  position: absolute; top: 100%; left: 0;\n  opacity: 0; visibility: hidden; transform: translateY(6px);\n  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;\n}\n.has-sub:hover .sub-menu,\n.has-sub:focus-within .sub-menu {\n  opacity: 1; visibility: visible; transform: translateY(0);\n}\n@media (max-width: 768px) {\n  .menu-toggle:checked ~ .nav-list { display: flex; }\n}",
-      "demo_html": "<nav class=\"demo-p1-nav\"><div class=\"nav-bar\"><div class=\"brand\">DRUMTIKS '26</div><input type=\"checkbox\" id=\"p1-demo-check\" class=\"menu-toggle\"><label for=\"p1-demo-check\" class=\"burger-label\">☰ Menu</label><ul class=\"nav-list\"><li><a href=\"#\">Início</a></li><li class=\"has-sub\"><a href=\"#\">Palcos ▾</a><ul class=\"sub-menu\"><li><a href=\"#\">Main Stage</a></li><li><a href=\"#\">Club Arena</a></li></ul></li><li><a href=\"#\">Bilhetes</a></li></ul></div></nav>"
+      "demo_html": "<nav class=\"demo-p1-nav\" aria-label=\"DRUMTIKS Navigation\"><span class=\"xray-tag-pill\">&lt;nav&gt; :focus-within + :checked</span><div class=\"nav-bar\"><div class=\"brand\">DRUMTIKS '26</div><input type=\"checkbox\" id=\"p1-demo-check\" class=\"menu-toggle\" aria-label=\"Toggle Menu\"><label for=\"p1-demo-check\" class=\"burger-label\">☰ Menu</label><ul class=\"nav-list\"><li><a href=\"#pattern-p1\" onclick=\"event.preventDefault()\">Lineup</a></li><li class=\"has-sub\"><a href=\"#pattern-p1\" onclick=\"event.preventDefault()\" aria-haspopup=\"true\">Stages ▾</a><ul class=\"sub-menu\"><li><a href=\"#pattern-p1\" onclick=\"event.preventDefault()\">Main Stage</a></li><li><a href=\"#pattern-p1\" onclick=\"event.preventDefault()\">Beat Foundry</a></li></ul></li><li><a href=\"#pattern-p1\" onclick=\"event.preventDefault()\">Passes</a></li></ul></div></nav>",
+      "isolated_demo_url": "demos/patterns/nav-off-canvas-drawer/index.html",
+      "walkthrough": {
+        "html": {
+          "pt": "<nav aria-label> envolve a lista hierárquica <ul>; um <input type=\"checkbox\"> invisível associado a <label for> controla o estado móvel sem scripts.",
+          "en": "<nav aria-label> wraps the hierarchical <ul> list; a hidden <input type=\"checkbox\"> paired with <label for> drives mobile state with zero scripts."
+        },
+        "css": {
+          "pt": ".has-sub:focus-within mantém o submenu aberto durante navegação por Tab no desktop; .menu-toggle:checked ~ .nav-list abre a gaveta abaixo de 768px.",
+          "en": ".has-sub:focus-within keeps the flyout open during keyboard Tab navigation on desktop; .menu-toggle:checked ~ .nav-list reveals the drawer below 768px."
+        },
+        "ux": {
+          "pt": "Cumpre a Lei de Fitts com botões táteis amplos no mobile e garante acessibilidade total de teclado sem armadilhas de foco.",
+          "en": "Honors Fitts's Law with generous mobile touch targets and ensures full keyboard accessibility without focus traps."
+        }
+      }
     },
     {
       "uid": "pat-2",
@@ -434,7 +487,22 @@ window.SCAFFOLD_DATA = {
       ],
       "html_code": "<!-- P2: Direção de Arte Drumtiks -->\n<figure class=\"demo-p2-art\">\n  <picture>\n    <source media=\"(min-width: 960px)\" srcset=\"assets/hero-dj-warp-1400w.webp\" type=\"image/webp\">\n    <source media=\"(min-width: 600px)\" srcset=\"assets/hero-dj-warp-960w.webp\" type=\"image/webp\">\n    <img src=\"assets/hero-dj-warp-600w.jpg\" alt=\"DJ Warp no Palco Drumtiks\" width=\"600\" height=\"338\" loading=\"lazy\">\n  </picture>\n  <figcaption>DJ Warp • Live Showcase (Porto)</figcaption>\n</figure>",
       "css_code": "/* P2: Prevenção de CLS e Geometria */\npicture img {\n  width: 100%;\n  height: auto;\n  aspect-ratio: 16 / 9;\n  object-fit: cover;\n  display: block;\n}",
-      "demo_html": "<div class=\"demo-p2-art\"><figure><picture><img src=\"TP06-responsive/assets/hero-dj-warp-600w.jpg\" alt=\"DJ Warp\" style=\"width:100%;aspect-ratio:16/9;object-fit:cover;\"></picture><figcaption>DJ Warp • Headliner Showcase</figcaption></figure></div>"
+      "demo_html": "<div class=\"demo-p2-art\"><figure><span class=\"xray-tag-pill\">&lt;figure&gt; &gt; &lt;picture&gt; (16:9 CLS-Free)</span><picture><source media=\"(min-width: 960px)\" srcset=\"{{ROOT}}demos/tp06-responsive/assets/hero-dj-warp-1400w.webp\" type=\"image/webp\"><source media=\"(min-width: 600px)\" srcset=\"{{ROOT}}demos/tp06-responsive/assets/hero-dj-warp-960w.webp\" type=\"image/webp\"><img src=\"{{ROOT}}demos/tp06-responsive/assets/hero-dj-warp-600w.jpg\" alt=\"DJ Warp live at DRUMTIKS '26 Porto\" width=\"600\" height=\"338\" loading=\"lazy\"></picture><figcaption>DJ Warp • Headliner Live Showcase (WebP + aspect-ratio: 16/9)</figcaption></figure></div>",
+      "isolated_demo_url": "demos/patterns/layout-hero-banner/index.html",
+      "walkthrough": {
+        "html": {
+          "pt": "<figure> e <figcaption> associam legenda editorial; <picture> avalia <source media> de cima para baixo e usa <img> como fallback universal.",
+          "en": "<figure> and <figcaption> bind editorial captioning; <picture> evaluates <source media> top-down and falls back to <img>."
+        },
+        "css": {
+          "pt": "width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; reserva a caixa geométrica antes do download da imagem.",
+          "en": "width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; reserves exact box geometry before image bytes arrive."
+        },
+        "ux": {
+          "pt": "Elimina o Cumulative Layout Shift (CLS = 0) e reduz até 70% de dados móveis servindo WebP dimensionado ao ecrã.",
+          "en": "Eliminates Cumulative Layout Shift (CLS = 0) and saves up to 70% mobile bandwidth by serving viewport-appropriate WebP assets."
+        }
+      }
     },
     {
       "uid": "pat-3",
@@ -483,7 +551,22 @@ window.SCAFFOLD_DATA = {
       ],
       "html_code": "<!-- P3: Carrossel Drumtiks -->\n<div class=\"demo-p3-carousel\">\n  <article class=\"demo-p3-card\">\n    <h4>Palco 1: Beat Foundry</h4>\n    <p>Percussão industrial e live-coding sensorial.</p>\n  </article>\n  <article class=\"demo-p3-card\">\n    <h4>Palco 2: Warp Tunnel</h4>\n    <p>Subgraves pesados e sintetizadores analógicos.</p>\n  </article>\n  <article class=\"demo-p3-card\">\n    <h4>Palco 3: Ambient Garden</h4>\n    <p>Paisagens sonoras relaxantes e frequências binaurais.</p>\n  </article>\n</div>",
       "css_code": "/* P3: Scroll Snap Magnético */\n.demo-p3-carousel {\n  display: flex; gap: 1rem;\n  overflow-x: auto;\n  scroll-snap-type: x mandatory;\n  scroll-behavior: smooth;\n}\n.demo-p3-card {\n  flex: 0 0 75%;\n  scroll-snap-align: start;\n}",
-      "demo_html": "<div class=\"demo-p3-carousel\"><article class=\"demo-p3-card\"><h4>Palco 1: Beat Foundry</h4><p>Percussão industrial e live-coding sensorial.</p></article><article class=\"demo-p3-card\"><h4>Palco 2: Warp Tunnel</h4><p>Subgraves pesados e sintetizadores analógicos.</p></article><article class=\"demo-p3-card\"><h4>Palco 3: Ambient Garden</h4><p>Paisagens sonoras relaxantes e frequências binaurais.</p></article></div>"
+      "demo_html": "<div class=\"demo-p3-carousel\" role=\"region\" aria-label=\"DRUMTIKS Stages Carousel\" tabindex=\"0\"><span class=\"xray-tag-pill\">scroll-snap-type: x mandatory</span><article class=\"demo-p3-card\"><h4>Stage 01 • Beat Foundry</h4><p>Industrial percussion &amp; live modular synthesis (22:00).</p></article><article class=\"demo-p3-card\"><h4>Stage 02 • Warp Tunnel</h4><p> Analog sub-bass &amp; polyrhythmic drum machines (23:30).</p></article><article class=\"demo-p3-card\"><h4>Stage 03 • Ambient Garden</h4><p>Binaural soundscapes &amp; electro-acoustic marimba (01:00).</p></article></div>",
+      "isolated_demo_url": "demos/patterns/data-carousel-scroll-snap/index.html",
+      "walkthrough": {
+        "html": {
+          "pt": "Contentor com role=\"region\" e tabindex=\"0\" permite rolagem por setas do teclado; cada palco é um <article> independente.",
+          "en": "A scroll container with role=\"region\" and tabindex=\"0\" enables keyboard arrow scrolling; each festival stage is a self-contained <article>."
+        },
+        "css": {
+          "pt": "display: flex; overflow-x: auto; scroll-snap-type: x mandatory; combinado com flex: 0 0 72% cria um peek visual do cartão seguinte.",
+          "en": "display: flex; overflow-x: auto; scroll-snap-type: x mandatory; paired with flex: 0 0 72% leaves a visual peek of the next card."
+        },
+        "ux": {
+          "pt": "O cartão parcialmente visível à direita atua como signifier natural de swipe horizontal sem precisar de setas em JS.",
+          "en": "Peeking the next card on the right provides a clear horizontal-scroll signifier without fragile JS carousel arrows."
+        }
+      }
     },
     {
       "uid": "pat-4",
@@ -534,7 +617,22 @@ window.SCAFFOLD_DATA = {
       ],
       "html_code": "<!-- P4: Acordeão de Horários Drumtiks -->\n<div class=\"demo-p4-accordion\">\n  <details open>\n    <summary>Sexta-Feira, 24 Outubro</summary>\n    <div class=\"accordion-content\">\n      <div class=\"content-inner\">\n        <p>21:00 — Abertura de Portas & Soundcheck</p>\n        <p>22:30 — DJ Warp (Live Drums & Modular)</p>\n      </div>\n    </div>\n  </details>\n  <details>\n    <summary>Sábado, 25 Outubro</summary>\n    <div class=\"accordion-content\">\n      <div class=\"content-inner\">\n        <p>19:00 — Workshop de Percussão Experimental</p>\n        <p>23:00 — Drumtiks All-Stars Battle</p>\n      </div>\n    </div>\n  </details>\n</div>",
       "css_code": "/* P4: Animação Fluida via Grid */\n.accordion-content {\n  display: grid;\n  grid-template-rows: 0fr;\n  transition: grid-template-rows 0.3s ease-out;\n}\ndetails[open] .accordion-content {\n  grid-template-rows: 1fr;\n}\n.content-inner { overflow: hidden; }",
-      "demo_html": "<div class=\"demo-p4-accordion\"><details open><summary>Sexta-Feira, 24 Outubro</summary><div class=\"accordion-content\"><div class=\"content-inner\"><p>21:00 — Abertura de Portas & Soundcheck</p><p>22:30 — DJ Warp (Live Drums & Modular)</p></div></div></details><details><summary>Sábado, 25 Outubro</summary><div class=\"accordion-content\"><div class=\"content-inner\"><p>19:00 — Workshop de Percussão Experimental</p><p>23:00 — Drumtiks All-Stars Battle</p></div></div></details></div>"
+      "demo_html": "<div class=\"demo-p4-accordion\"><span class=\"xray-tag-pill\">&lt;details&gt; + grid-template-rows: 0fr → 1fr</span><details open><summary>Friday, Oct 24 • Opening Night</summary><div class=\"accordion-content\"><div class=\"content-inner\"><p>21:00 — Doors &amp; Modular Soundcheck</p><p>22:30 — DJ Warp (Live Drums &amp; Buchla Set)</p></div></div></details><details><summary>Saturday, Oct 25 • Closing Marathon</summary><div class=\"accordion-content\"><div class=\"content-inner\"><p>19:00 — Experimental Rhythm Workshop (FBAUP)</p><p>23:00 — Drumtiks All-Stars Polyrhythm Battle</p></div></div></details></div>",
+      "isolated_demo_url": "demos/patterns/layout-accordion/index.html",
+      "walkthrough": {
+        "html": {
+          "pt": "Elementos nativos <details> e <summary> expõem automaticamente estados aria-expanded ao leitor de ecrã e funcionam com Enter/Espaço.",
+          "en": "Native <details> and <summary> automatically expose expanded/collapsed states to screen readers and respond to Enter/Space."
+        },
+        "css": {
+          "pt": "A transição grid-template-rows: 0fr para 1fr com .content-inner { overflow: hidden } anima alturas intrínsecas suaves.",
+          "en": "Transitioning grid-template-rows: 0fr to 1fr with .content-inner { overflow: hidden } smoothly interpolates intrinsic content height."
+        },
+        "ux": {
+          "pt": "Divulgação progressiva ideal para horários de festivais extensos (Lei de Hick: reduz a carga cognitiva inicial).",
+          "en": "Progressive disclosure tailored for dense festival schedules (Hick's Law: reduces upfront cognitive load)."
+        }
+      }
     },
     {
       "uid": "pat-5",
@@ -581,9 +679,24 @@ window.SCAFFOLD_DATA = {
           "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover"
         }
       ],
-      "html_code": "<!-- P5: Modal de Regras Drumtiks -->\n<a href=\"#regras-modal\" class=\"demo-p5-modal-btn\">Ver Regras do Festival</a>\n\n<aside id=\"regras-modal\" class=\"demo-p5-modal\">\n  <div class=\"demo-p5-modal-box\">\n    <a href=\"#\" class=\"demo-p5-modal-close\" aria-label=\"Fechar\">✕</a>\n    <h3>Regras da Bilheteira</h3>\n    <p>A entrada no recinto exige pulseira eletrónica colocada no check-in. É proibida a entrada com recipientes de vidro.</p>\n  </div>\n</aside>",
-      "css_code": "/* P5: Modal com :target */\n.demo-p5-modal {\n  display: none;\n  position: fixed; inset: 0;\n  background: rgba(0, 0, 0, 0.75);\n  backdrop-filter: blur(4px);\n  align-items: center; justify-content: center;\n}\n.demo-p5-modal:target { display: flex; }",
-      "demo_html": "<div><a href=\"#demo-p5-box\" class=\"demo-p5-modal-btn\">Abrir Modal de Exemplo</a><aside id=\"demo-p5-box\" class=\"demo-p5-modal\"><div class=\"demo-p5-modal-box\"><a href=\"#\" class=\"demo-p5-modal-close\">✕</a><h3>Regulamento Drumtiks '26</h3><p>Entrada livre para estudantes com cartão UP. Pulseiras levantadas no átrio da FBAUP.</p></div></aside></div>"
+      "html_code": "<!-- P5: Modal / Popover Nativo Drumtiks '26 -->\n<button popovertarget=\"drumtiks-rules-pop\" class=\"demo-p5-modal-btn\">\n  🎟️ Ver Regras do Recinto (Popover API)\n</button>\n\n<div id=\"drumtiks-rules-pop\" popover class=\"demo-p5-modal-box\">\n  <h3>Regulamento DRUMTIKS '26</h3>\n  <p>Entrada livre para comunidade FBAUP mediante pulseira levantada no check-in.</p>\n  <button popovertarget=\"drumtiks-rules-pop\" popovertargetaction=\"hide\" class=\"btn-control\">Fechar ✕</button>\n</div>",
+      "css_code": "/* P5: HTML Popover API no Top Layer (Zero Z-Index Wars) */\n[popover] {\n  margin: auto;\n  border: 1px solid var(--border-color-strong);\n  border-radius: 8px;\n  padding: 1.5rem;\n  max-width: 420px;\n  box-shadow: var(--shadow-elevated);\n}\n[popover]::backdrop {\n  background: rgba(15, 23, 42, 0.65);\n  backdrop-filter: blur(4px);\n}",
+      "demo_html": "<div style=\"display:flex;align-items:center;gap:1rem;flex-wrap:wrap;\"><span class=\"xray-tag-pill\">popovertarget + ::backdrop (Top Layer)</span><button type=\"button\" popovertarget=\"demo-p5-pop\" class=\"demo-p5-modal-btn\">🎟️ Check Venue Rules (Popover)</button><div id=\"demo-p5-pop\" popover style=\"margin:auto;max-width:420px;padding:1.5rem;border:1px solid var(--border-color-strong);border-radius:8px;background:var(--bg-surface);color:var(--text-primary);box-shadow:var(--shadow-elevated);\"><h4 style=\"margin-bottom:0.5rem;\">DRUMTIKS '26 Venue Policy</h4><p style=\"font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;\">Wristbands are exchanged at the FBAUP courtyard gate from 18:00. Press <kbd>Esc</kbd> or click outside to dismiss.</p><button type=\"button\" popovertarget=\"demo-p5-pop\" popovertargetaction=\"hide\" class=\"btn-control\">Close ✕</button></div></div>",
+      "isolated_demo_url": "demos/patterns/action-popover/index.html",
+      "walkthrough": {
+        "html": {
+          "pt": "O atributo declarativo popovertarget abre e fecha o elemento [popover] no Top Layer do browser sem saltar o scroll da página.",
+          "en": "Declarative popovertarget toggles the [popover] element in the browser Top Layer without jumping page scroll position."
+        },
+        "css": {
+          "pt": "[popover]::backdrop estiliza o fundo escurecido com blur; margin: auto centra a caixa sem position: fixed manual.",
+          "en": "[popover]::backdrop styles the dimmed blur overlay; margin: auto centers the dialog cleanly without z-index hacks."
+        },
+        "ux": {
+          "pt": "Suporta light-dismiss nativo (clicar fora ou tecla Esc fecha automaticamente), cumprindo a Heurística #3 de Jakob Nielsen (Controlo e Liberdade).",
+          "en": "Provides built-in light-dismiss (click outside or press Esc), satisfying Nielsen's Heuristic #3 (User Control & Freedom)."
+        }
+      }
     },
     {
       "uid": "pat-6",
@@ -632,7 +745,22 @@ window.SCAFFOLD_DATA = {
       ],
       "html_code": "<!-- P6: Barra de Progresso Drumtiks -->\n<div class=\"demo-p6-box\">\n  <div class=\"demo-p6-progress\"></div>\n  <p>Role o conteúdo abaixo para observar a barra de leitura a progredir sincronizada...</p>\n  <div style=\"height: 350px; padding: 1rem 0;\"><p>Alinhamento de Artistas...</p><p>Palco Principal...</p><p>Fim da Programação.</p></div>\n</div>",
       "css_code": "/* P6: Scroll Timeline Progress Bar */\n.demo-p6-progress {\n  position: sticky; top: 0;\n  height: 4px; background: #e60000;\n  transform-origin: 0 50%;\n  animation: fill-bar auto linear;\n  animation-timeline: scroll(nearest);\n}\n@keyframes fill-bar {\n  from { transform: scaleX(0); }\n  to { transform: scaleX(1); }\n}",
-      "demo_html": "<div class=\"demo-p6-box\"><div class=\"demo-p6-progress\"></div><p>Role esta caixa para testar o progresso visual:</p><div style=\"height: 300px; padding-top: 1rem;\"><p>22:00 — DJ Warp</p><p>23:30 — Beat Foundry</p><p>01:00 — Encerramento</p></div></div>"
+      "demo_html": "<div class=\"demo-p6-box\" tabindex=\"0\"><span class=\"xray-tag-pill\">animation-timeline: scroll(nearest)</span><div class=\"demo-p6-progress\"></div><p style=\"font-weight:700;margin-bottom:0.5rem;\">↕ Scroll inside this festival timetable:</p><div style=\"height:320px;display:flex;flex-direction:column;justify-content:space-between;padding:0.5rem 0;color:var(--text-secondary);font-size:0.88rem;\"><p><strong>21:00</strong> — Courtyard Warmup (Analog Tape Loops)</p><p><strong>22:30</strong> — DJ Warp • Main Stage Headliner</p><p><strong>00:15</strong> — Beat Foundry Live Percussion</p><p><strong>02:00</strong> — Closing Polyrhythm Jam ✓</p></div></div>",
+      "isolated_demo_url": "demos/patterns/feedback-progress-bar/index.html",
+      "walkthrough": {
+        "html": {
+          "pt": "Uma simples <div class=\"demo-p6-progress\"> colocada no topo do contentor rolável serve de indicador visual contínuo.",
+          "en": "A lightweight <div class=\"demo-p6-progress\"> at the top of the scroll container acts as a continuous reading progress bar."
+        },
+        "css": {
+          "pt": "animation-timeline: scroll(nearest) liga os keyframes scaleX(0) → scaleX(1) diretamente ao progresso do scroll na GPU.",
+          "en": "animation-timeline: scroll(nearest) binds scaleX(0) → scaleX(1) keyframes directly to scroll offset on the compositor thread."
+        },
+        "ux": {
+          "pt": "Visibilidade do estado do sistema (Heurística #1) a 60fps, protegida com @supports para degradação graciosa.",
+          "en": "Delivers 60fps Visibility of System Status (Heuristic #1), wrapped in @supports for graceful progressive enhancement."
+        }
+      }
     },
     {
       "uid": "pat-7",
@@ -682,7 +810,22 @@ window.SCAFFOLD_DATA = {
       ],
       "html_code": "<!-- P7: Layout de Palco Drumtiks -->\n<div class=\"demo-p7-layout\">\n  <aside class=\"demo-p7-sticky\">\n    <h3>Palco Principal</h3>\n    <p>Capacidade: 800 lugares • FBAUP Jardim</p>\n  </aside>\n  <div class=\"demo-p7-cards\">\n    <div class=\"demo-p7-card\">DJ Warp • 22h</div>\n    <div class=\"demo-p7-card\">Beat Foundry • 23h30</div>\n    <div class=\"demo-p7-card\">Sub-Modular • 01h</div>\n  </div>\n</div>",
       "css_code": "/* P7: Grelha Assimétrica e Sticky */\n.demo-p7-layout {\n  display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem;\n}\n.demo-p7-sticky {\n  position: sticky; top: 1rem;\n  align-self: start;\n}",
-      "demo_html": "<div class=\"demo-p7-layout\"><aside class=\"demo-p7-sticky\"><h4>Palco Jardim</h4><p style=\"font-size:0.8rem;color:#aaa;\">Painel fixo durante a rolagem.</p></aside><div class=\"demo-p7-cards\"><div class=\"demo-p7-card\">DJ Warp</div><div class=\"demo-p7-card\">Beat Foundry</div><div class=\"demo-p7-card\">Sub-Modular</div></div></div>"
+      "demo_html": "<div class=\"demo-p7-layout\" tabindex=\"0\"><aside class=\"demo-p7-sticky\"><span class=\"xray-tag-pill\">position: sticky; align-self: start</span><h4 style=\"margin-bottom:0.35rem;\">FBAUP Courtyard Stage</h4><p style=\"font-size:0.82rem;color:var(--text-secondary);margin:0;\">Pinned stage summary while lineup cards scroll on the right.</p></aside><div class=\"demo-p7-cards\"><div class=\"demo-p7-card\"><strong>21:30</strong> • Porto Modular Collective</div><div class=\"demo-p7-card\"><strong>22:45</strong> • DJ Warp (Live Drums)</div><div class=\"demo-p7-card\"><strong>00:15</strong> • Beat Foundry Ensemble</div><div class=\"demo-p7-card\"><strong>01:30</strong> — Sub-Bass Closing Set</div></div></div>",
+      "isolated_demo_url": "demos/patterns/layout-split-screen/index.html",
+      "walkthrough": {
+        "html": {
+          "pt": "<aside> guarda o contexto fixo do palco enquanto a coluna irmã lista os cartões de atuações.",
+          "en": "<aside> holds persistent stage metadata while the sibling column lists scrolling performance cards."
+        },
+        "css": {
+          "pt": "align-self: start é crucial em CSS Grid: impede que o <aside> estique a 100% da altura da linha, permitindo que position: sticky deslize.",
+          "en": "align-self: start is essential in CSS Grid: it prevents <aside> from stretching to track height so position: sticky can slide."
+        },
+        "ux": {
+          "pt": "Mantém o contexto espacial visível em desktop e colapsa automaticamente para 1 coluna linear em mobile (<640px).",
+          "en": "Preserves spatial stage context on desktop and collapses cleanly into a single linear column on mobile (<640px)."
+        }
+      }
     },
     {
       "uid": "pat-8",
@@ -731,7 +874,22 @@ window.SCAFFOLD_DATA = {
       ],
       "html_code": "<!-- P8: Simulador de Bilhetes Drumtiks -->\n<div class=\"demo-p8-shop\">\n  <h3>Passe Drumtiks '26</h3>\n  <div class=\"demo-p8-options\">\n    <label class=\"demo-p8-option\">\n      <input type=\"checkbox\" id=\"opt-standard\"> Bilhete Geral (+35€)\n    </label>\n    <label class=\"demo-p8-option\">\n      <input type=\"checkbox\" id=\"opt-vip\"> Acesso VIP & Backstage (+75€)\n    </label>\n  </div>\n  <div class=\"demo-p8-total\"><span>Total a Pagar:</span><span class=\"total-price\"></span></div>\n</div>",
       "css_code": "/* P8: Motor de Preços em CSS */\n.demo-p8-shop:has(#opt-standard:checked):not(:has(#opt-vip:checked)) .total-price::after { content: \"35 €\"; }\n.demo-p8-shop:has(#opt-vip:checked):not(:has(#opt-standard:checked)) .total-price::after { content: \"75 €\"; }\n.demo-p8-shop:has(#opt-standard:checked):has(#opt-vip:checked) .total-price::after { content: \"110 €\"; }\n.demo-p8-shop:not(:has(input:checked)) .total-price::after { content: \"0 €\"; }",
-      "demo_html": "<div class=\"demo-p8-shop\"><h4>Simulador de Bilhetes Drumtiks</h4><div class=\"demo-p8-options\"><label class=\"demo-p8-option\"><input type=\"checkbox\" id=\"opt-standard\"> Geral (35€)</label><label class=\"demo-p8-option\"><input type=\"checkbox\" id=\"opt-vip\"> VIP (75€)</label></div><div class=\"demo-p8-total\"><span>Total Estimado:</span><span class=\"total-price\"></span></div></div>"
+      "demo_html": "<div class=\"demo-p8-shop\"><span class=\"xray-tag-pill\">.shop:has(input:checked)</span><h4 style=\"margin-bottom:0.25rem;\">DRUMTIKS '26 Pass Simulator</h4><p style=\"font-size:0.8rem;color:var(--text-secondary);margin:0;\">Toggle passes to compute live CSS totals:</p><div class=\"demo-p8-options\"><label class=\"demo-p8-option\"><input type=\"checkbox\" id=\"opt-standard\" checked> General Festival Pass (+35 €)</label><label class=\"demo-p8-option\"><input type=\"checkbox\" id=\"opt-vip\"> Backstage &amp; Vinyl Workshop (+75 €)</label></div><div class=\"demo-p8-total\"><span>Estimated Total:</span><span class=\"total-price\"></span></div></div>",
+      "isolated_demo_url": "demos/patterns/input-checkbox/index.html",
+      "walkthrough": {
+        "html": {
+          "pt": "<label> envolve cada <input type=\"checkbox\"> aumentando a área de clique e dispensando atributos for redundantes.",
+          "en": "<label> wraps each <input type=\"checkbox\">, expanding the clickable area to the entire row card."
+        },
+        "css": {
+          "pt": ".demo-p8-shop:has(#opt-standard:checked) inspeciona o estado dos filhos e injeta o valor calculado em .total-price::after.",
+          "en": ".demo-p8-shop:has(#opt-standard:checked) inspects child state upward and injects the matching sum via .total-price::after."
+        },
+        "ux": {
+          "pt": "Feedback visual imediato na borda do cartão selecionado (.demo-p8-option:has(input:checked)) e atualização instantânea.",
+          "en": "Instantaneous card border highlighting (.demo-p8-option:has(input:checked)) and zero-latency feedback."
+        }
+      }
     },
     {
       "uid": "pat-9",
@@ -778,9 +936,24 @@ window.SCAFFOLD_DATA = {
           "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme"
         }
       ],
-      "html_code": "<!-- P9: Seletor de Tema -->\n<div class=\"theme-box\">\n  <p>Esta caixa adapta as suas cores sem JavaScript através de light-dark().</p>\n</div>",
-      "css_code": "/* P9: Tokens com light-dark() */\n:root {\n  color-scheme: light dark;\n  --card-bg: light-dark(#ffffff, #18181b);\n  --card-text: light-dark(#09090b, #fafafa);\n}\n.theme-box {\n  background: var(--card-bg);\n  color: var(--card-text);\n  padding: 1.5rem;\n  border: 1px solid currentColor;\n}",
-      "demo_html": "<div style=\"padding:1rem;border:1px solid #71717a;border-radius:4px;\"><p>O tema respeita a preferência do sistema operativo ou o botão 'Tema' no topo do site.</p></div>"
+      "html_code": "<!-- P9: Passe Drumtiks com light-dark() Nativo -->\n<div class=\"demo-p9-stage-pass\">\n  <div class=\"demo-p9-pass-header\">\n    <strong>DRUMTIKS '26 • ARTIST PASS</strong>\n    <label>\n      <input type=\"checkbox\" class=\"p9-night-toggle\"> Modo Noturno (Club)\n    </label>\n  </div>\n  <p class=\"demo-p9-pass-meta\">Acesso Total: Jardim FBAUP + Club Arena • 24–25 Out</p>\n</div>",
+      "css_code": "/* P9: Tokens Semânticos Unificados com light-dark() */\n.demo-p9-stage-pass {\n  color-scheme: light;\n  --pass-bg: light-dark(#ffffff, #14161d);\n  --pass-ink: light-dark(#111318, #f8fafc);\n  --pass-border: light-dark(#cbd5e1, #334155);\n  background: var(--pass-bg);\n  color: var(--pass-ink);\n  border: 2px solid var(--pass-border);\n}\n.demo-p9-stage-pass:has(.p9-night-toggle:checked) {\n  color-scheme: dark;\n}",
+      "demo_html": "<div class=\"demo-p9-stage-pass\"><span class=\"xray-tag-pill\">color-scheme + light-dark()</span><div class=\"demo-p9-pass-header\"><strong>🎟️ DRUMTIKS '26 • BACKSTAGE PASS</strong><label style=\"font-size:0.82rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:0.35rem;\"><input type=\"checkbox\" class=\"p9-night-toggle\"> Night Club Mode</label></div><p class=\"demo-p9-pass-meta\">All-Access Credential • FBAUP Courtyard (Daylight) ↔ Club Arena (Dark) powered by CSS <code>light-dark()</code>.</p></div>",
+      "isolated_demo_url": "demos/patterns/input-switch/index.html",
+      "walkthrough": {
+        "html": {
+          "pt": "Um único componente de passe com checkbox interna demonstra mudança local de esquema de cor sem tocar no resto da página.",
+          "en": "A self-contained festival pass with an internal checkbox toggles local color-scheme without mutating the rest of the page."
+        },
+        "css": {
+          "pt": "light-dark(corClara, corEscura) escolhe automaticamente o token certo quando color-scheme muda de light para dark via :has(:checked).",
+          "en": "light-dark(lightVal, darkVal) automatically resolves tokens when color-scheme flips from light to dark via :has(:checked)."
+        },
+        "ux": {
+          "pt": "Permite desenhar páginas Light-First legíveis de dia e oferecer modo escuro de alto contraste em ambientes noturnos.",
+          "en": "Enables crisp Light-First editorial defaults while offering ergonomic low-glare dark surfaces on demand."
+        }
+      }
     },
     {
       "uid": "pat-10",
@@ -825,9 +998,24 @@ window.SCAFFOLD_DATA = {
           "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position-anchor"
         }
       ],
-      "html_code": "<!-- P10: Tooltip Ancorada -->\n<button class=\"anchor-trigger\">Info DJ Warp</button>\n<div class=\"anchor-tooltip\">Pioneiro do live-drumming eletrónico no Porto.</div>",
-      "css_code": "/* P10: CSS Anchor Positioning */\n.anchor-trigger {\n  anchor-name: --warp-btn;\n}\n.anchor-tooltip {\n  position: absolute;\n  position-anchor: --warp-btn;\n  position-area: bottom center;\n  position-try-fallbacks: flip-block;\n}",
-      "demo_html": "<div style=\"display:flex;gap:1rem;align-items:center;\"><button style=\"background:#e60000;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:3px;\">DJ Warp (Info)</button><span style=\"font-size:0.8rem;color:#a1a1aa;\">← Ancoragem automática por baixo</span></div>"
+      "html_code": "<!-- P10: Tooltip Ancorada ao Botão DJ Warp -->\n<div class=\"demo-p10-stage\">\n  <button popovertarget=\"warp-bio-tip\" class=\"demo-p10-trigger\">\n    🎧 DJ Warp — Bio & Setup\n  </button>\n  <div id=\"warp-bio-tip\" popover class=\"demo-p10-tooltip\">\n    Set híbrido: bateria acústica + sintetizador modular Buchla (22:30, Palco Principal).\n  </div>\n</div>",
+      "css_code": "/* P10: CSS Anchor Positioning + Fallback Automático */\n.demo-p10-trigger {\n  anchor-name: --warp-trigger;\n}\n#warp-bio-tip {\n  position: fixed;\n  position-anchor: --warp-trigger;\n  position-area: bottom span-right;\n  margin-top: 0.5rem;\n  position-try-fallbacks: flip-block;\n}",
+      "demo_html": "<div class=\"demo-p10-stage\"><span class=\"xray-tag-pill\">anchor-name: --warp-btn + position-anchor</span><button type=\"button\" popovertarget=\"p10-warp-tip\" class=\"demo-p10-trigger\" style=\"anchor-name:--p10-warp;\">🎧 DJ Warp — Live Setup Info</button><div id=\"p10-warp-tip\" popover class=\"demo-p10-tooltip\" style=\"margin:auto;max-width:340px;\"><strong>DJ Warp (Porto):</strong> Acoustic snare + Buchla 200e modular rig • Main Stage, 22:30.</div><span style=\"font-size:0.82rem;color:var(--text-secondary);\">← Click trigger to test anchored/top-layer callout</span></div>",
+      "isolated_demo_url": "demos/patterns/feedback-tooltip/index.html",
+      "walkthrough": {
+        "html": {
+          "pt": "O botão e a tooltip não precisam de um wrapper position: relative artificial — ligam-se semanticamente por ID e âncora CSS.",
+          "en": "Trigger and callout need no artificial position: relative wrapper — they pair declaratively via ID and CSS anchor name."
+        },
+        "css": {
+          "pt": "anchor-name define o ponto de referência; position-anchor e position-try-fallbacks: flip-block reposicionam se bater no limite do ecrã.",
+          "en": "anchor-name declares the reference box; position-anchor and position-try-fallbacks: flip-block prevent viewport clipping."
+        },
+        "ux": {
+          "pt": "Substitui bibliotecas pesadas de posicionamento JS (Popper/Floating UI) por geometria nativa declarativa.",
+          "en": "Replaces heavy JavaScript positioning libraries with zero-runtime native browser geometry."
+        }
+      }
     },
     {
       "uid": "pat-11",
@@ -874,9 +1062,24 @@ window.SCAFFOLD_DATA = {
           "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/container-type"
         }
       ],
-      "html_code": "<!-- P11: Cartão com Container Query -->\n<div class=\"demo-p11-wrapper\">\n  <article class=\"demo-p11-card\">\n    <div class=\"demo-p11-thumb\">FOTO</div>\n    <div>\n      <h4>Beat Foundry</h4>\n      <p>Redimensione a largura desta caixa para ver o cartão mudar de disposição.</p>\n    </div>\n  </article>\n</div>",
-      "css_code": "/* P11: Container Queries */\n.demo-p11-wrapper {\n  container-type: inline-size;\n  container-name: card-box;\n}\n@container card-box (min-width: 380px) {\n  .demo-p11-card { flex-direction: row; }\n}",
-      "demo_html": "<div class=\"demo-p11-wrapper\"><article class=\"demo-p11-card\"><div class=\"demo-p11-thumb\">LIVE</div><div><h4>Beat Foundry</h4><p style=\"font-size:0.8rem;color:#aaa;\">Arraste o canto inferior direito para redimensionar.</p></div></article></div>"
+      "html_code": "<!-- P11: Cartão Modular Drumtiks com @container -->\n<div class=\"demo-p11-wrapper\">\n  <article class=\"demo-p11-card\">\n    <div class=\"demo-p11-thumb\">23:30 • SEX</div>\n    <div>\n      <h4>Beat Foundry Ensemble</h4>\n      <p>Arraste o canto inferior direito da caixa tracejada para testar a query @container.</p>\n    </div>\n  </article>\n</div>",
+      "css_code": "/* P11: CSS Container Queries (@container) */\n.demo-p11-wrapper {\n  container-type: inline-size;\n  container-name: card-container;\n}\n.demo-p11-card {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n@container card-container (min-width: 380px) {\n  .demo-p11-card {\n    flex-direction: row;\n    align-items: center;\n  }\n}",
+      "demo_html": "<div class=\"demo-p11-wrapper\"><span class=\"xray-tag-pill\">container-type: inline-size (@container ≥ 380px)</span><article class=\"demo-p11-card\"><div class=\"demo-p11-thumb\"><span>FRI 23:30</span><span>STAGE 02</span></div><div><h4 style=\"margin-bottom:0.25rem;\">Beat Foundry Ensemble</h4><p style=\"font-size:0.84rem;color:var(--text-secondary);margin:0;\">↔ Drag the bottom-right resize handle of this dashed container (&lt;380px stacked → ≥380px horizontal row).</p></div></article></div>",
+      "isolated_demo_url": "demos/patterns/layout-cards-grid/index.html",
+      "walkthrough": {
+        "html": {
+          "pt": "O wrapper define o contexto de contenção e o <article> interno é 100% agnóstico ao local onde será inserido (barra lateral ou grelha principal).",
+          "en": "The outer slot establishes containment while the inner <article> stays 100% agnostic to whether it lives in a narrow sidebar or wide main grid."
+        },
+        "css": {
+          "pt": "container-type: inline-size mede a largura real disponível; @container (min-width: 380px) muda flex-direction de column para row.",
+          "en": "container-type: inline-size measures actual slot width; @container (min-width: 380px) switches flex-direction from column to row."
+        },
+        "ux": {
+          "pt": "Pilar fundamental do Atomic Design moderno: o organismo adapta-se ao espaço real e não apenas à janela global (@media).",
+          "en": "Cornerstone of modern Atomic Design: components adapt to their actual layout slot rather than global viewport width."
+        }
+      }
     },
     {
       "uid": "pat-12",
@@ -925,7 +1128,22 @@ window.SCAFFOLD_DATA = {
       ],
       "html_code": "<!-- P12: Baralho de Cartões Drumtiks -->\n<div class=\"demo-p12-deck\">\n  <div class=\"demo-p12-card\">Cartão 1: Abertura e Credenciação</div>\n  <div class=\"demo-p12-card\">Cartão 2: Concertos e Live Acts</div>\n  <div class=\"demo-p12-card\">Cartão 3: Encerramento com DJs</div>\n</div>",
       "css_code": "/* P12: Efeito Baralho de Cartas */\n.demo-p12-card {\n  position: sticky;\n  top: 1rem;\n  box-shadow: 0 -4px 12px rgba(0,0,0,0.3);\n}\n.demo-p12-card:nth-child(2) { top: 2rem; }\n.demo-p12-card:nth-child(3) { top: 3rem; }",
-      "demo_html": "<div class=\"demo-p12-deck\"><div class=\"demo-p12-card\">Cartão 1: Abertura e Credenciação</div><div class=\"demo-p12-card\">Cartão 2: Concertos e Live Acts</div><div class=\"demo-p12-card\">Cartão 3: Encerramento com DJs</div></div>"
+      "demo_html": "<div class=\"demo-p12-deck\" tabindex=\"0\"><span class=\"xray-tag-pill\">position: sticky; staggered top: 0.5rem / 1.5rem / 2.5rem</span><div class=\"demo-p12-card\">01 • 18:00 — Accreditation &amp; Vinyl Fair (Scroll down ↕)</div><div class=\"demo-p12-card\">02 • 21:30 — Live Electro-Acoustic Performances</div><div class=\"demo-p12-card\">03 • 00:30 — Club Arena Polyrhythm Rave</div><div style=\"height:120px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;color:var(--text-muted);\">End of stacked schedule deck</div></div>",
+      "isolated_demo_url": "demos/patterns/nav-sticky-header/index.html",
+      "walkthrough": {
+        "html": {
+          "pt": "Cartões irmãos diretos dentro do mesmo contentor partilham o mesmo contexto de empilhamento natural na ordem do DOM.",
+          "en": "Direct sibling cards inside a shared parent stack naturally in DOM source order without manual z-index inflation."
+        },
+        "css": {
+          "pt": "Valores progressivos de top (0.5rem, 1.5rem, 2.5rem) deixam o título do cartão anterior visível enquanto o novo sobrepõe.",
+          "en": "Incrementing top offsets (0.5rem, 1.5rem, 2.5rem) keep each prior card's header strip visible as subsequent cards stack."
+        },
+        "ux": {
+          "pt": "Cria hierarquia temporal tangível para fases de um evento mantendo noção dos passos anteriores.",
+          "en": "Creates a tactile chronological deck for festival phases while keeping earlier milestones anchored in view."
+        }
+      }
     },
     {
       "uid": "pat-13",
@@ -972,6751 +1190,6934 @@ window.SCAFFOLD_DATA = {
           "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/translateZ"
         }
       ],
-      "html_code": "<!-- P13: Parallax Drumtiks -->\n<div class=\"parallax-stage\">\n  <div class=\"parallax-layer-back\">CAMADA DE FUNDO (Lenta)</div>\n  <div class=\"parallax-layer-front\">CAMADA FRONTAL (Normal)</div>\n</div>",
-      "css_code": "/* P13: Parallax 3D Puro */\n.parallax-stage {\n  perspective: 1px;\n  height: 300px; overflow-y: auto;\n}\n.parallax-layer-back {\n  transform: translateZ(-1px) scale(2);\n}",
-      "demo_html": "<div style=\"height:140px;background:#18181b;border:1px solid #333;display:flex;align-items:center;justify-content:center;color:#fff;border-radius:4px;\"><p>Efeito de profundidade com perspective: 1px e translateZ(-1px) scale(2)</p></div>"
+      "html_code": "<!-- P13: Palco Parallax 3D Drumtiks -->\n<div class=\"demo-p13-stage\">\n  <div class=\"demo-p13-back\">DRUMTIKS '26 • PORTO • SUB-BASS RESONANCE</div>\n  <div class=\"demo-p13-front\">\n    <h4>Camada Frontal (translateZ(0))</h4>\n    <p>Role dentro do palco para observar a diferença de velocidade geométrica entre planos Z.</p>\n  </div>\n</div>",
+      "css_code": "/* P13: Parallax Geométrico com CSS 3D Perspective */\n.demo-p13-stage {\n  height: 185px;\n  overflow-y: auto;\n  perspective: 2px;\n}\n.demo-p13-back {\n  transform: translateZ(-1px) scale(1.45);\n}\n.demo-p13-front {\n  transform: translateZ(0);\n}",
+      "demo_html": "<div class=\"demo-p13-stage\" tabindex=\"0\"><span class=\"xray-tag-pill\">perspective: 2px + translateZ(-1px)</span><div class=\"demo-p13-back\">DRUMTIKS '26 • ACOUSTIC &amp; MODULAR DEPTH LAYER (Z = -1px)</div><div class=\"demo-p13-front\"><strong>Foreground Lineup Layer (Z = 0)</strong><p style=\"font-size:0.84rem;color:var(--text-secondary);margin:0.35rem 0 0;\">↕ Scroll inside this stage box to feel pure CSS 3D parallax depth without JavaScript scroll listeners.</p></div></div>",
+      "isolated_demo_url": "demos/patterns/layout-full-bleed/index.html",
+      "walkthrough": {
+        "html": {
+          "pt": "Dois planos semânticos (fundo atmosférico e cartão de conteúdo frontal) dentro de um contentor com scroll próprio.",
+          "en": "Two clean planes (atmospheric backdrop and foreground content card) inside a dedicated scroll container."
+        },
+        "css": {
+          "pt": "perspective: 2px no pai e translateZ(-1px) scale(1.45) no fundo fazem o plano recuado mover-se a metade da velocidade do scroll.",
+          "en": "perspective: 2px on the parent and translateZ(-1px) scale(1.45) on the backdrop move the far plane at half scroll speed."
+        },
+        "ux": {
+          "pt": "Deve respeitar sempre @media (prefers-reduced-motion: reduce) para evitar desconforto vestibular.",
+          "en": "Must always honor @media (prefers-reduced-motion: reduce) to protect users sensitive to motion parallax."
+        }
+      }
     }
   ],
   "matrix": [
-    {
-      "uid": "mat-1",
-      "id": 1,
-      "num_id": 1,
-      "canonical_id": "2026-10-24-001",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
+      {
+          "uid": "mat-1",
+          "id": 1,
+          "num_id": 1,
+          "canonical_id": "2026-10-24-001",
+          "symbol": "<!DOCTYPE html>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: Doctype",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Glossary/Doctype",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Declaração obrigatória de preâmbulo no topo do ficheiro que ativa o modo padrão moderno (no-quirks mode) do navegador.",
+              "en": "Mandatory preamble declaration at the top of the file ensuring the browser renders the page in standard modern no-quirks mode."
+          }
+      },
+      {
+          "uid": "mat-2",
+          "id": 2,
+          "num_id": 2,
+          "canonical_id": "2026-10-24-002",
+          "symbol": "<html>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: html",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Elemento raiz de todo o documento HTML; exige o atributo lang ('pt' ou 'en') para acessibilidade e sintetizadores de voz.",
+              "en": "Top-level root element enclosing all HTML markup; strictly requires the lang attribute for accessibility and screen reader pronunciation."
+          }
+      },
+      {
+          "uid": "mat-3",
+          "id": 3,
+          "num_id": 3,
+          "canonical_id": "2026-10-24-003",
+          "symbol": "<head>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: head",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Contentor essencial de metadados invisíveis para o utilizador: codificação, viewport, título e folhas de estilo.",
+              "en": "Essential container for document metadata invisible to users, including character encoding, viewport scale, title, and external stylesheets."
+          }
+      },
+      {
+          "uid": "mat-4",
+          "id": 4,
+          "num_id": 4,
+          "canonical_id": "2026-10-24-004",
+          "symbol": "<title>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: title",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Título único do documento exibido no separador do navegador, favoritos e resultados de motores de busca (SEO).",
+              "en": "Defines the unique document title displayed in browser tabs, bookmarks, and search engine snippets (critical for SEO and screen readers)."
+          }
+      },
+      {
+          "uid": "mat-5",
+          "id": 5,
+          "num_id": 5,
+          "canonical_id": "2026-10-24-005",
+          "symbol": "<meta charset=\"UTF-8\">",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: meta",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Declaração de codificação universal UTF-8; previne erros visuais de renderização em acentos e tipografia portuguesa.",
+              "en": "Universal UTF-8 character encoding declaration; prevents rendering corruption of diacritics, multilingual characters, and typography."
+          }
+      },
+      {
+          "uid": "mat-6",
+          "id": 6,
+          "num_id": 6,
+          "canonical_id": "2026-10-24-006",
+          "symbol": "<meta name=\"viewport\">",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: Viewport meta tag",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Meta tag angular do Responsive Web Design (width=device-width, initial-scale=1.0); desativa o zoom desktop artificial em smartphones.",
+              "en": "Foundational viewport meta tag for Responsive Web Design; disables default mobile viewport scaling and sets virtual layout to 1:1 screen pixels."
+          }
+      },
+      {
+          "uid": "mat-7",
+          "id": 7,
+          "num_id": 7,
+          "canonical_id": "2026-10-24-007",
+          "symbol": "<meta name=\"description\">",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: Standard metadata names",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Resumo sintético do propósito da página utilizado por motores de busca e leitores de ecrã para apresentar snippets.",
+              "en": "Concise summary of page content indexed by search engines and assistive technology to present contextual snippets."
+          }
+      },
+      {
+          "uid": "mat-8",
+          "id": 8,
+          "num_id": 8,
+          "canonical_id": "2026-10-24-008",
+          "symbol": "<link rel=\"stylesheet\">",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: link",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Interliga o documento HTML à folha de estilos CSS externa (reset.css, theme.css), garantindo a separação estrita de camadas.",
+              "en": "Links the HTML document to external CSS stylesheets (reset.css, theme.css, layout.css), enforcing strict separation of structure and presentation."
+          }
+      },
+      {
+          "uid": "mat-9",
+          "id": 9,
+          "num_id": 9,
+          "canonical_id": "2026-10-24-009",
+          "symbol": "<link rel=\"preconnect\">",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Otimização de Webfonts remotas",
+          "introduced_in": "EX2",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: rel=preconnect",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preconnect",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Antecipa o handshake DNS, TCP e TLS com origens de fontes remotas, reduzindo latência no carregamento de ativos.",
+              "en": "Speculative hint directing the browser to initiate early DNS, TCP, and TLS handshakes to font servers, eliminating network latency."
+          }
+      },
+      {
+          "uid": "mat-10",
+          "id": 10,
+          "num_id": 10,
+          "canonical_id": "2026-10-24-010",
+          "symbol": "<link rel=\"preload\" as=\"font\">",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "Carregamento antecipado de WOFF2",
+          "introduced_in": "TP11",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: rel=preload",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Inicia o descarregamento prioritário de fontes WOFF2 locais antes do layout CSS, eliminando o efeito FOIT.",
+              "en": "Initiates high-priority early fetching of local WOFF2 variable font files before CSS layout begins, eliminating Flash of Invisible Text (FOIT)."
+          }
+      },
+      {
+          "uid": "mat-11",
+          "id": 11,
+          "num_id": 11,
+          "canonical_id": "2026-10-24-011",
+          "symbol": "<link rel=\"icon\"> (Favicon)",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: link types: icon",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel#icon",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Define o ícone de identidade visual exibido no separador do browser e barra de marcadores.",
+              "en": "Defines the site identity icon displayed in browser tabs, bookmark bars, and mobile home screen shortcut tiles."
+          }
+      },
+      {
+          "uid": "mat-12",
+          "id": 12,
+          "num_id": 12,
+          "canonical_id": "2026-10-24-012",
+          "symbol": "<style>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "Folhas externas obrigatórias",
+          "introduced_in": "Beyond",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: style",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Contentor de CSS embutido; não recomendado no curso WD101 em prol de folhas de estilo externas modulares organizadas.",
+              "en": "Container for embedded CSS in <head>; discouraged in WD101 curriculum in favor of clean, modular external stylesheets."
+          }
+      },
+      {
+          "uid": "mat-13",
+          "id": 13,
+          "num_id": 13,
+          "canonical_id": "2026-10-24-013",
+          "symbol": "<base>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "",
+          "introduced_in": "Beyond",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: base",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Especifica o URL base para caminhos relativos; preterido por caminhos relativos explícitos e portáteis.",
+              "en": "Specifies default base URL and target for relative links; discouraged in WD101 in favor of strict, portable relative directory paths."
+          }
+      },
+      {
+          "uid": "mat-14",
+          "id": 14,
+          "num_id": 14,
+          "canonical_id": "2026-10-24-014",
+          "symbol": "<body>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: <body>",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Marco estrutural de topo que engloba todo o conteúdo renderizável e visível do documento web.",
+              "en": "Top-level structural landmark containing all visible, rendered page content (headers, navigation, sectioning regions, and footer)."
+          }
+      },
+      {
+          "uid": "mat-15",
+          "id": 15,
+          "num_id": 15,
+          "canonical_id": "2026-10-24-015",
+          "symbol": "<header>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: header",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Landmark estruturante (role='banner' no topo de <body>); acolhe logótipo, título da secção e navegação introdutória.",
+              "en": "Structural landmark (implicit role='banner' at body level); holds brand identity, main title hierarchy, and introductory navigation aids."
+          }
+      },
+      {
+          "uid": "mat-16",
+          "id": 16,
+          "num_id": 16,
+          "canonical_id": "2026-10-24-016",
+          "symbol": "<nav>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: nav",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Landmark de navegação (role='navigation'); delimita blocos de hiperligações primárias, estruturados com <ul> e <li>.",
+              "en": "Navigation landmark (implicit role='navigation'); groups major internal or cross-page site links, structured semantically with <ul> and <li>."
+          }
+      },
+      {
+          "uid": "mat-17",
+          "id": 17,
+          "num_id": 17,
+          "canonical_id": "2026-10-24-017",
+          "symbol": "<main>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: main",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main",
+          "pat_ref": 10,
+          "desc": {
+              "pt": "Landmark de conteúdo principal (role='main'); único por documento, isola o tema central da página de cabeçalhos e rodapés repetitivos.",
+              "en": "Primary document landmark (implicit role='main'); strictly unique per page, enclosing core subject matter and excluding repetitive chrome."
+          }
+      },
+      {
+          "uid": "mat-18",
+          "id": 18,
+          "num_id": 18,
+          "canonical_id": "2026-10-24-018",
+          "symbol": "<section>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: section",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section",
+          "pat_ref": 7,
+          "desc": {
+              "pt": "Landmark de secção temática (role='region' quando rotulado); delimita áreas autónomas e exige obrigatoriamente um cabeçalho interno.",
+              "en": "Thematic grouping landmark (implicit role='region' when named); represents a distinct section of content and strictly requires an internal heading."
+          }
+      },
+      {
+          "uid": "mat-19",
+          "id": 19,
+          "num_id": 19,
+          "canonical_id": "2026-10-24-019",
+          "symbol": "<article>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: article",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article",
+          "pat_ref": 2,
+          "desc": {
+              "pt": "Contentor autónomo e auto-contido (role='article'); representa uma composição independente como cartazes de festival ou biografias.",
+              "en": "Self-contained composition landmark (implicit role='article'); represents an independently distributable unit such as a blog post or artist profile."
+          }
+      },
+      {
+          "uid": "mat-20",
+          "id": 20,
+          "num_id": 20,
+          "canonical_id": "2026-10-24-020",
+          "symbol": "<aside>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: aside",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside",
+          "pat_ref": 7,
+          "desc": {
+              "pt": "Landmark complementar (role='complementary'); acolhe informação lateral tangencial ao fluxo principal (notas de apoio, sidebars).",
+              "en": "Complementary landmark (implicit role='complementary'); contains supportive, tangent content related to main flow (sidebars, pull quotes)."
+          }
+      },
+      {
+          "uid": "mat-21",
+          "id": 21,
+          "num_id": 21,
+          "canonical_id": "2026-10-24-021",
+          "symbol": "<footer>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: footer",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Landmark de rodapé (role='contentinfo' no nível de <body>); encerra o documento com créditos, copyright e contactos.",
+              "en": "Terminal landmark (implicit role='contentinfo' at body level); concludes the page with authorship, legal copyright notices, and back-to-top links."
+          }
+      },
+      {
+          "uid": "mat-22",
+          "id": 22,
+          "num_id": 22,
+          "canonical_id": "2026-10-24-022",
+          "symbol": "<h1>, <h2>, <h3>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: Heading Elements",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements",
+          "pat_ref": 10,
+          "desc": {
+              "pt": "Hierarquia nuclear de títulos e marcos de navegação (níveis 1 a 3); orienta leitores de ecrã e estrutura a árvore semântica do documento.",
+              "en": "Foundational heading hierarchy landmarks (levels 1-3); essential for screen reader outline navigation, scannability, and semantic document tree."
+          }
+      },
+      {
+          "uid": "mat-23",
+          "id": 23,
+          "num_id": 23,
+          "canonical_id": "2026-10-24-023",
+          "symbol": "<h4>, <h5>, <h6>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: Heading Elements",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Níveis subordinados de cabeçalho para detalhe de cartões de artista, sub-secções aprofundadas e colunas de rodapé.",
+              "en": "Subordinate heading levels for deeper sectioning modules, artist card sub-sections, and fine-grained footer column divisions."
+          }
+      },
+      {
+          "uid": "mat-24",
+          "id": 24,
+          "num_id": 24,
+          "canonical_id": "2026-10-24-024",
+          "symbol": "<hgroup>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Excelente para subtítulos",
+          "introduced_in": "EX2",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: hgroup",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hgroup",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Agrupa um cabeçalho principal com subtítulos ou kickers sem poluir o outline semântico com falsos níveis de título.",
+              "en": "Groups a heading with associated subtitles, kickers, or taglines without cluttering the document outline with false heading levels."
+          }
+      },
+      {
+          "uid": "mat-25",
+          "id": 25,
+          "num_id": 25,
+          "canonical_id": "2026-10-24-025",
+          "symbol": "<address>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: address",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/address",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Elemento semântico de contacto e autoria do documento ou evento (morada física do recinto, email ou créditos do autor).",
+              "en": "Semantic contact information element for the document author or organization (physical venue address, support contact, or organizer credits)."
+          }
+      },
+      {
+          "uid": "mat-26",
+          "id": 26,
+          "num_id": 26,
+          "canonical_id": "2026-10-24-026",
+          "symbol": "<search>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Substitui div/form de pesquisa",
+          "introduced_in": "EX2",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: search",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search",
+          "pat_ref": 3,
+          "desc": {
+              "pt": "Landmark moderno de pesquisa (role='search'); delimita caixas de busca, filtros de artistas e controlos de consulta.",
+              "en": "Modern HTML5.3 search landmark (implicit role='search'); semantically encloses search forms, filter inputs, and query controls."
+          }
+      },
+      {
+          "uid": "mat-27",
+          "id": 27,
+          "num_id": 27,
+          "canonical_id": "2026-10-24-027",
+          "symbol": "<p>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: p",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Bloco fundamental de parágrafo de texto; o fluxo normal do documento estabelece espaçamento vertical através de margens relativas.",
+              "en": "Fundamental text paragraph block; normal document flow establishes clean vertical cadence using relative font-derived margins."
+          }
+      },
+      {
+          "uid": "mat-28",
+          "id": 28,
+          "num_id": 28,
+          "canonical_id": "2026-10-24-028",
+          "symbol": "<ul>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: ul",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Lista não ordenada sem sequência hierárquica; estrutura padrão recomendada para menus de navegação (<nav>) e grelhas de itens.",
+              "en": "Unordered list representing a collection of items without numerical ranking; standard semantic structure for navigation menus (<nav>)."
+          }
+      },
+      {
+          "uid": "mat-29",
+          "id": 29,
+          "num_id": 29,
+          "canonical_id": "2026-10-24-029",
+          "symbol": "<ol>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: ol",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Lista ordenada sequencial ou cronológica; recomendada para alinhamentos de concertos, passos de tutoriais ou tabelas de classificação.",
+              "en": "Ordered list indicating a sequence or priority ranking; recommended for chronological festival lineups and step-by-step guides."
+          }
+      },
+      {
+          "uid": "mat-30",
+          "id": 30,
+          "num_id": 30,
+          "canonical_id": "2026-10-24-030",
+          "symbol": "<li>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: li",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Item individual contido obrigatoriamente dentro de uma lista <ul> ou <ol>; estilizado com list-style ou reformatado via Flexbox/Grid.",
+              "en": "Individual list item strictly contained within <ul> or <ol>; styled using list-style or repurposed via Flexbox/Grid."
+          }
+      },
+      {
+          "uid": "mat-31",
+          "id": 31,
+          "num_id": 31,
+          "canonical_id": "2026-10-24-031",
+          "symbol": "<dl>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Fichas técnicas e alinhamentos",
+          "introduced_in": "EX2",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: dl",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Lista de descrições estruturada em pares de termos (<dt>) e descrições (<dd>); ideal para metadados de concertos e fichas técnicas.",
+              "en": "Description list grouping pairs of terms (<dt>) and descriptions (<dd>); ideal for event metadata, artist credits, and spec sheets."
+          }
+      },
+      {
+          "uid": "mat-32",
+          "id": 32,
+          "num_id": 32,
+          "canonical_id": "2026-10-24-032",
+          "symbol": "<dt>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: dt",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dt",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Termo, chave ou conceito a ser definido dentro de uma lista de descrições (<dl>).",
+              "en": "Term, key, or name to be defined within a description list (<dl>)."
+          }
+      },
+      {
+          "uid": "mat-33",
+          "id": 33,
+          "num_id": 33,
+          "canonical_id": "2026-10-24-033",
+          "symbol": "<dd>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: dd",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dd",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Definição, valor ou detalhe descritivo correspondente ao termo <dt> anterior.",
+              "en": "Description, value, or definition corresponding to prior <dt> term within a description list."
+          }
+      },
+      {
+          "uid": "mat-34",
+          "id": 34,
+          "num_id": 34,
+          "canonical_id": "2026-10-24-034",
+          "symbol": "<blockquote>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: blockquote",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Bloco de citação destacada proveniente de fonte externa; deve incluir o atributo cite referenciando a origem textual.",
+              "en": "Block-level pullquote or excerpt cited from an external source; should include the cite attribute linking to the reference origin."
+          }
+      },
+      {
+          "uid": "mat-35",
+          "id": 35,
+          "num_id": 35,
+          "canonical_id": "2026-10-24-035",
+          "symbol": "<figure>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: figure",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure",
+          "pat_ref": 2,
+          "desc": {
+              "pt": "Bloco autónomo de conteúdo ilustrativo, fotográfico ou de código, passível de ser movido sem afetar o fluxo principal.",
+              "en": "Self-contained illustration, photographic, or code block optionally captioned and movable without altering main document flow."
+          }
+      },
+      {
+          "uid": "mat-36",
+          "id": 36,
+          "num_id": 36,
+          "canonical_id": "2026-10-24-036",
+          "symbol": "<figcaption>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: figcaption",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figcaption",
+          "pat_ref": 2,
+          "desc": {
+              "pt": "Legenda semântica associada obrigatoriamente a um elemento <figure>; posicionada no topo ou no fundo da figura.",
+              "en": "Accessible caption strictly paired as first or last child of a <figure> to describe the graphical asset."
+          }
+      },
+      {
+          "uid": "mat-37",
+          "id": 37,
+          "num_id": 37,
+          "canonical_id": "2026-10-24-037",
+          "symbol": "<pre>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: pre",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/pre",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Bloco de texto pré-formatado que preserva fielmente espaços em branco e quebras de linha com tipografia monoespaçada.",
+              "en": "Preformatted block text preserving raw whitespace and line breaks, typically rendered in a monospace typeface."
+          }
+      },
+      {
+          "uid": "mat-38",
+          "id": 38,
+          "num_id": 38,
+          "canonical_id": "2026-10-24-038",
+          "symbol": "<hr>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: hr",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Quebra temática de nível de bloco; representa uma transição narrativa de tópico entre secções conceituais sem divs vazias.",
+              "en": "Block-level thematic break; represents a paragraph-level topic shift or transition between narrative sections without empty divs."
+          }
+      },
+      {
+          "uid": "mat-39",
+          "id": 39,
+          "num_id": 39,
+          "canonical_id": "2026-10-24-039",
+          "symbol": "<div>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Com restrição pedagógica estrita",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: div",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Contentor genérico de fluxo sem semântica intrínseca; reservado exclusivamente para molduras de layout e ganchos visuais.",
+              "en": "Generic block-level flow container with no semantic meaning; strictly reserved as a styling hook for layout wrappers and CSS grid/flex frames."
+          }
+      },
+      {
+          "uid": "mat-40",
+          "id": 40,
+          "num_id": 40,
+          "canonical_id": "2026-10-24-040",
+          "symbol": "<menu>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "Preterido por ul em nav",
+          "introduced_in": "Beyond",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: menu",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/menu",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Lista semântica alternativa de comandos ou ações interativas; na especificação moderna é equivalente a um <ul> de ações.",
+              "en": "Semantic list alternative for toolbar commands or interactive choices; modern specs treat it as functionally equivalent to <ul>."
+          }
+      },
+      {
+          "uid": "mat-41",
+          "id": 41,
+          "num_id": 41,
+          "canonical_id": "2026-10-24-041",
+          "symbol": "<a>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: a",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a",
+          "pat_ref": 10,
+          "desc": {
+              "pt": "Elemento âncora e hiperligação fundamental da web; interliga documentos, ficheiros ou âncoras internas através do atributo href.",
+              "en": "Foundational anchor hyperlink element; connects pages, external URLs, downloadable files, or on-page fragment anchors via href."
+          }
+      },
+      {
+          "uid": "mat-42",
+          "id": 42,
+          "num_id": 42,
+          "canonical_id": "2026-10-24-042",
+          "symbol": "<strong>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: strong",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Indica forte importância, urgência ou gravidade semântica para o leitor de ecrã (distinto de mero negrito estético).",
+              "en": "Conveys strong importance, seriousness, or urgency to assistive technology (distinct from purely aesthetic bold weight)."
+          }
+      },
+      {
+          "uid": "mat-43",
+          "id": 43,
+          "num_id": 43,
+          "canonical_id": "2026-10-24-043",
+          "symbol": "<em>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: em",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/em",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Indica ênfase expressiva na fala ou entoação verbal; altera o significado da frase nos sintetizadores de voz.",
+              "en": "Conveys stress emphasis that shifts vocal inflection and sentence meaning in assistive screen readers."
+          }
+      },
+      {
+          "uid": "mat-44",
+          "id": 44,
+          "num_id": 44,
+          "canonical_id": "2026-10-24-044",
+          "symbol": "<small>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: small",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/small",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Formatação de texto reduzido para notas de rodapé, termos legais, isenções de responsabilidade e créditos editoriais.",
+              "en": "Fine print formatting for side comments, legal disclaimers, copyright notices, and secondary annotations."
+          }
+      },
+      {
+          "uid": "mat-45",
+          "id": 45,
+          "num_id": 45,
+          "canonical_id": "2026-10-24-045",
+          "symbol": "<cite>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: cite",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/cite",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Referência semântica em linha ao título de uma obra artística, livro, álbum musical ou publicação citada.",
+              "en": "Inline semantic reference to the title of a creative work, musical album, artwork, or referenced publication."
+          }
+      },
+      {
+          "uid": "mat-46",
+          "id": 46,
+          "num_id": 46,
+          "canonical_id": "2026-10-24-046",
+          "symbol": "<q>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: q",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/q",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Citação curta em linha; os navegadores inserem automaticamente aspas tipográficas corretas de acordo com o idioma (lang).",
+              "en": "Short inline quotation; browsers automatically supply language-appropriate typographic quotation marks based on lang."
+          }
+      },
+      {
+          "uid": "mat-47",
+          "id": 47,
+          "num_id": 47,
+          "canonical_id": "2026-10-24-047",
+          "symbol": "<abbr>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: abbr",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/abbr",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Abreviatura ou acrónimo; o atributo title fornece a expansão por extenso ao passar o cursor ou navegar por teclado.",
+              "en": "Abbreviation or acronym; the title attribute supplies the expanded explanation on hover or accessible keyboard focus."
+          }
+      },
+      {
+          "uid": "mat-48",
+          "id": 48,
+          "num_id": 48,
+          "canonical_id": "2026-10-24-048",
+          "symbol": "<time>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: time",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Marcação semântica de datas, horas ou durações; o atributo datetime permite leitura inequívoca por motores e calendários.",
+              "en": "Semantic datetime representation; the machine-readable datetime attribute enables calendar parsing and localized formatting."
+          }
+      },
+      {
+          "uid": "mat-49",
+          "id": 49,
+          "num_id": 49,
+          "canonical_id": "2026-10-24-049",
+          "symbol": "<code>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: code",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/code",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Fragmento de código de programação ou computacional em linha com fonte monoespaçada.",
+              "en": "Inline fragment of computer code or programming syntax, rendered in a monospace font."
+          }
+      },
+      {
+          "uid": "mat-50",
+          "id": 50,
+          "num_id": 50,
+          "canonical_id": "2026-10-24-050",
+          "symbol": "<kbd>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Atalhos de teclado de navegação",
+          "introduced_in": "EX2",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: kbd",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/kbd",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Indica comandos de entrada do utilizador, teclas de atalho (ex: Ctrl+C) ou comandos de terminal.",
+              "en": "Denotes user keyboard input, keystroke sequences (e.g. Ctrl+C), or terminal command triggers."
+          }
+      },
+      {
+          "uid": "mat-51",
+          "id": 51,
+          "num_id": 51,
+          "canonical_id": "2026-10-24-051",
+          "symbol": "<samp>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "",
+          "introduced_in": "Beyond",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: samp",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/samp",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Representa uma amostra ou exemplo de saída de um programa informático ou script.",
+              "en": "Represents sample or quoted output from a computer program, script, or command line."
+          }
+      },
+      {
+          "uid": "mat-52",
+          "id": 52,
+          "num_id": 52,
+          "canonical_id": "2026-10-24-052",
+          "symbol": "<var>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "",
+          "introduced_in": "Beyond",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: var",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/var",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Indica uma variável matemática ou argumento computacional no contexto de fórmulas.",
+              "en": "Specifies a mathematical variable or programmatic placeholder argument in formulas."
+          }
+      },
+      {
+          "uid": "mat-53",
+          "id": 53,
+          "num_id": 53,
+          "canonical_id": "2026-10-24-053",
+          "symbol": "<mark>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: mark",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Realce contextual de texto com fundo visual (semelhante a marcador amarelo); sinaliza relevância em resultados de pesquisa.",
+              "en": "Highlights text of contextual interest or relevance, simulating a physical highlighter marker in search results."
+          }
+      },
+      {
+          "uid": "mat-54",
+          "id": 54,
+          "num_id": 54,
+          "canonical_id": "2026-10-24-054",
+          "symbol": "<span>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: span",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Contentor genérico em linha sem semântica intrínseca; utilizado como gancho cosmético para cores e micro-tipografia.",
+              "en": "Generic inline container with no semantic meaning; used purely as a styling hook for localized color or micro-typography."
+          }
+      },
+      {
+          "uid": "mat-55",
+          "id": 55,
+          "num_id": 55,
+          "canonical_id": "2026-10-24-055",
+          "symbol": "<br>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Uso poético/morada estrito",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: br",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/br",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Quebra de linha forçada no fluxo de texto; deve ser reservada para poesia, letras de música ou linhas de morada postal.",
+              "en": "Forced line break within text flow; strictly reserved for verse poetry, musical lyrics, or postal addresses."
+          }
+      },
+      {
+          "uid": "mat-56",
+          "id": 56,
+          "num_id": 56,
+          "canonical_id": "2026-10-24-056",
+          "symbol": "<wbr>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "TBD",
+          "status_note": "Quebras fluidas de palavras longas",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: wbr",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/wbr",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Sugestão de oportunidade de quebra de palavra (Word Break Opportunity) para termos técnicos longos prevenindo overflow em mobile.",
+              "en": "Word Break Opportunity hint allowing long technical strings or URLs to break gracefully across mobile viewport boundaries."
+          }
+      },
+      {
+          "uid": "mat-57",
+          "id": 57,
+          "num_id": 57,
+          "canonical_id": "2026-10-24-057",
+          "symbol": "<sub> / <sup>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: sub",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/sub",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Tipografia em linha para índices subscritos (H₂O) e expoentes sobrescritos (1º, x²), com alinhamento vertical preciso.",
+              "en": "Subscript and superscript formatting for chemical formulas, mathematical exponents, and ordinal indicators."
+          }
+      },
+      {
+          "uid": "mat-58",
+          "id": 58,
+          "num_id": 58,
+          "canonical_id": "2026-10-24-058",
+          "symbol": "<s>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: s",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Texto tachado indicando conteúdo que já não é preciso, relevante ou que foi substituído (sem constituir edição formal).",
+              "en": "Strikethrough formatting indicating content that is no longer accurate, valid, or relevant (without being a formal edit)."
+          }
+      },
+      {
+          "uid": "mat-59",
+          "id": 59,
+          "num_id": 59,
+          "canonical_id": "2026-10-24-059",
+          "symbol": "<i> / <b>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Com distinção semântica de em/strong",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: i",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Diferenciação visual de termos idiomáticos, nomes científicos (<i>) ou palavras-chave de destaque sem conotação de importância (<b>).",
+              "en": "Stylistic offset for idiomatic terms or taxonomic names (<i>) and highlighted keywords without conveyed importance (<b>)."
+          }
+      },
+      {
+          "uid": "mat-60",
+          "id": 60,
+          "num_id": 60,
+          "canonical_id": "2026-10-24-060",
+          "symbol": "<u>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "Evitado por colidir com hiperligações",
+          "introduced_in": "Beyond",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: u",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/u",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Anotação visual em linha com sublinhado; evitado em interfaces web para não gerar confusão com hiperligações ativas.",
+              "en": "Unarticulated inline visual annotation with underline; generally discouraged in web design to prevent confusion with links."
+          }
+      },
+      {
+          "uid": "mat-61",
+          "id": 61,
+          "num_id": 61,
+          "canonical_id": "2026-10-24-061",
+          "symbol": "<data>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Para associação a atributos de dados",
+          "introduced_in": "EX2",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: data",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Associa um conteúdo textual legível por humanos a um valor numérico ou identificador legível por máquina (value).",
+              "en": "Links human-readable content with a machine-readable data value attribute for script parsing."
+          }
+      },
+      {
+          "uid": "mat-62",
+          "id": 62,
+          "num_id": 62,
+          "canonical_id": "2026-10-24-062",
+          "symbol": "<dfn>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "",
+          "introduced_in": "Beyond",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: dfn",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dfn",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Indica a instância exata em que um termo técnico ou conceito é definido pela primeira vez no documento.",
+              "en": "Specifies the defining instance of a term or concept introduced within the document."
+          }
+      },
+      {
+          "uid": "mat-63",
+          "id": 63,
+          "num_id": 63,
+          "canonical_id": "2026-10-24-063",
+          "symbol": "<bdi> / <bdo>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "Apenas para multilinguismo bidirecional",
+          "introduced_in": "Beyond",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: bdi",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Isolamento bidirecional (<bdi>) e substituição forçada da direção do texto (<bdo>) para suporte multilíngue árabe/hebraico.",
+              "en": "Bidirectional text isolation (<bdi>) and directional override (<bdo>) for robust multilingual RTL/LTR text rendering."
+          }
+      },
+      {
+          "uid": "mat-64",
+          "id": 64,
+          "num_id": 64,
+          "canonical_id": "2026-10-24-064",
+          "symbol": "<ruby>, <rt>, <rp>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "Apenas para anotações fonéticas asiáticas",
+          "introduced_in": "Beyond",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: ruby",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ruby",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Marcação tipográfica para anotações fonéticas de pronúncia (furigana) em idiomas da Ásia Oriental.",
+              "en": "Typographic annotations used to display pronunciation guides (furigana) above East Asian characters."
+          }
+      },
+      {
+          "uid": "mat-65",
+          "id": 65,
+          "num_id": 65,
+          "canonical_id": "2026-10-24-065",
+          "symbol": "<img>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: img",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img",
+          "pat_ref": 2,
+          "desc": {
+              "pt": "Elemento de imagem responsiva ou estática; exige obrigatoriamente alt para acessibilidade e atributos width/height para Zero CLS.",
+              "en": "Responsive image element; requires descriptive alt text for accessibility and explicit width/height to eliminate layout shifts (Zero CLS)."
+          }
+      },
+      {
+          "uid": "mat-66",
+          "id": 66,
+          "num_id": 66,
+          "canonical_id": "2026-10-24-066",
+          "symbol": "<picture>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: picture",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture",
+          "pat_ref": 2,
+          "desc": {
+              "pt": "Contentor de direção de arte e negociação de formatos (WebP/AVIF/JPG); adapta enquadramentos através de elementos <source>.",
+              "en": "Art-direction container wrapping multiple <source> options and an <img> fallback to deliver optimized crops and next-gen formats."
+          }
+      },
+      {
+          "uid": "mat-67",
+          "id": 67,
+          "num_id": 67,
+          "canonical_id": "2026-10-24-067",
+          "symbol": "<source>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: source",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/source",
+          "pat_ref": 2,
+          "desc": {
+              "pt": "Especifica origens alternativas de media com media queries (ex: min-width) e formatos de ficheiro (type='image/webp') dentro de <picture> ou <video>.",
+              "en": "Declares alternative media resource candidates matching media queries and format types within <picture>, <video>, or <audio>."
+          }
+      },
+      {
+          "uid": "mat-68",
+          "id": 68,
+          "num_id": 68,
+          "canonical_id": "2026-10-24-068",
+          "symbol": "<video>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: video",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Elemento nativo de reprodução de vídeo; suporta múltiplos formatos MP4/WebM, legendas com <track> e o atributo controls.",
+              "en": "Native HTML5 video playback element; supports multiple codecs, accessible subtitles with <track>, and custom or native controls."
+          }
+      },
+      {
+          "uid": "mat-69",
+          "id": 69,
+          "num_id": 69,
+          "canonical_id": "2026-10-24-069",
+          "symbol": "<audio>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: audio",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Elemento nativo de reprodução de áudio digital; permite a reprodução de faixas e amostras sonoras com controlos nativos.",
+              "en": "Native HTML5 audio playback element; enables direct playback of audio tracks and sound samples with accessible controls."
+          }
+      },
+      {
+          "uid": "mat-70",
+          "id": 70,
+          "num_id": 70,
+          "canonical_id": "2026-10-24-070",
+          "symbol": "<track>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Legendas de acessibilidade em vídeo",
+          "introduced_in": "EX2",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: track",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Especifica faixas de texto cronometradas para legendas de acessibilidade (WebVTT), audiodescrição e capítulos em <video> e <audio>.",
+              "en": "Specifies timed text tracks for subtitles, captions, and chapter cues (WebVTT) within HTML5 media elements."
+          }
+      },
+      {
+          "uid": "mat-71",
+          "id": 71,
+          "num_id": 71,
+          "canonical_id": "2026-10-24-071",
+          "symbol": "<map> / <area>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "Obsoleto vs Responsive SVG",
+          "introduced_in": "Beyond",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: map",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/map",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Define um mapa de imagem interativo com coordenadas de clique; em grande parte obsoleto face ao uso moderno de SVGs responsivos.",
+              "en": "Defines an image map with clickable polygonal areas; largely superseded in modern responsive web design by inline SVGs."
+          }
+      },
+      {
+          "uid": "mat-72",
+          "id": 72,
+          "num_id": 72,
+          "canonical_id": "2026-10-24-072",
+          "symbol": "<iframe>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: iframe",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Quadro em linha (Inline Frame) que incorpora uma página web ou widget multimédia de terceiro (ex: SoundCloud, YouTube) em sandbox isolada.",
+              "en": "Inline frame embedding a nested browsing context for third-party media widgets (e.g. Bandcamp, YouTube) within isolated sandbox boundaries."
+          }
+      },
+      {
+          "uid": "mat-73",
+          "id": 73,
+          "num_id": 73,
+          "canonical_id": "2026-10-24-073",
+          "symbol": "<svg>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: SVG",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg",
+          "pat_ref": 2,
+          "desc": {
+              "pt": "Gráficos vetoriais escaláveis baseados em XML; permite ícones, logótipos e ilustrações com nitidez perfeita em qualquer densidade de pixels.",
+              "en": "Scalable Vector Graphics container; enables resolution-independent vector icons and illustrations styleable via CSS."
+          }
+      },
+      {
+          "uid": "mat-74",
+          "id": 74,
+          "num_id": 74,
+          "canonical_id": "2026-10-24-074",
+          "symbol": "<embed>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "",
+          "introduced_in": "Beyond",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: embed",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/embed",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Ponto de integração para aplicações externas ou plugins interativos não nativos.",
+              "en": "Integration point for external applications or non-native interactive plugins."
+          }
+      },
+      {
+          "uid": "mat-75",
+          "id": 75,
+          "num_id": 75,
+          "canonical_id": "2026-10-24-075",
+          "symbol": "<object>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "",
+          "introduced_in": "Beyond",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: object",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Contentor genérico para recursos multimédia externos como PDFs ou objetos multimédia parametrizados.",
+              "en": "General-purpose external resource container for multimedia, embedded PDFs, or plugin data."
+          }
+      },
+      {
+          "uid": "mat-76",
+          "id": 76,
+          "num_id": 76,
+          "canonical_id": "2026-10-24-076",
+          "symbol": "<math>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "",
+          "introduced_in": "Beyond",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: math",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/MathML/Element/math",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Contentor de fórmulas e notação matemática de alto nível formatadas com MathML.",
+              "en": "Top-level container for mathematical markup and formulas written using MathML standard syntax."
+          }
+      },
+      {
+          "uid": "mat-77",
+          "id": 77,
+          "num_id": 77,
+          "canonical_id": "2026-10-24-077",
+          "symbol": "<canvas>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "Exige JavaScript",
+          "introduced_in": "Beyond",
+          "category": "cat-media",
+          "cat_id": 3,
+          "label": "MDN: canvas",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Superfície bitmap de desenho 2D/3D em tempo real manipulada exclusivamente por linguagens de programação.",
+              "en": "Bitmap drawing canvas surface for real-time 2D graphics, visual effects, and WebGL rendering via script."
+          }
+      },
+      {
+          "uid": "mat-78",
+          "id": 78,
+          "num_id": 78,
+          "canonical_id": "2026-10-24-078",
+          "symbol": "<table>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: table",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Contentor de tabela para representação semântica de dados tabulares bi-dimensionais (grelhas de horários, preços e especificações).",
+              "en": "Table container for semantically representing 2D tabular data grids, such as festival concert schedules and ticket tiers."
+          }
+      },
+      {
+          "uid": "mat-79",
+          "id": 79,
+          "num_id": 79,
+          "canonical_id": "2026-10-24-079",
+          "symbol": "<caption>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: caption",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/caption",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Título e descrição de acessibilidade obrigatória posicionada no topo de uma tabela de dados <table>.",
+              "en": "Accessible caption and title strictly positioned as the first child of a <table> to describe grid purpose."
+          }
+      },
+      {
+          "uid": "mat-80",
+          "id": 80,
+          "num_id": 80,
+          "canonical_id": "2026-10-24-080",
+          "symbol": "<thead>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: thead",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/thead",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Cabeçalho de tabela agrupando a linha de títulos das colunas (<th>); essencial para acessibilidade e scroll fixo.",
+              "en": "Table head grouping header rows (<th>); essential for screen reader column orientation and sticky scroll table headers."
+          }
+      },
+      {
+          "uid": "mat-81",
+          "id": 81,
+          "num_id": 81,
+          "canonical_id": "2026-10-24-081",
+          "symbol": "<tbody>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: tbody",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tbody",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Corpo principal da tabela contendo as linhas de dados (<tr> e <td>).",
+              "en": "Table body enclosing the primary data rows (<tr> and <td>) of the tabular dataset."
+          }
+      },
+      {
+          "uid": "mat-82",
+          "id": 82,
+          "num_id": 82,
+          "canonical_id": "2026-10-24-082",
+          "symbol": "<tfoot>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: tfoot",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tfoot",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Rodapé de tabela para agregação de totais, médias ou notas de encerramento de dados tabulares.",
+              "en": "Table foot summarizing totals, averages, or closing footnotes across tabular columns."
+          }
+      },
+      {
+          "uid": "mat-83",
+          "id": 83,
+          "num_id": 83,
+          "canonical_id": "2026-10-24-083",
+          "symbol": "<tr>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: tr",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tr",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Linha de tabela (Table Row) que delimita uma série horizontal de células <th> ou <td>.",
+              "en": "Table row enclosing a horizontal sequence of table header (<th>) or data (<td>) cells."
+          }
+      },
+      {
+          "uid": "mat-84",
+          "id": 84,
+          "num_id": 84,
+          "canonical_id": "2026-10-24-084",
+          "symbol": "<th>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: th",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Célula de cabeçalho de tabela; exige o atributo scope='col' ou scope='row' para contextualizar leitores de ecrã.",
+              "en": "Table header cell; requires scope='col' or scope='row' to provide accessible header associations for screen readers."
+          }
+      },
+      {
+          "uid": "mat-85",
+          "id": 85,
+          "num_id": 85,
+          "canonical_id": "2026-10-24-085",
+          "symbol": "<td>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: td",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Célula padrão de dados dentro de uma linha de tabela.",
+              "en": "Standard table data cell containing tabular content within a table row."
+          }
+      },
+      {
+          "uid": "mat-86",
+          "id": 86,
+          "num_id": 86,
+          "canonical_id": "2026-10-24-086",
+          "symbol": "<colgroup> / <col>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Estilização colunar eficiente",
+          "introduced_in": "TP06",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: colgroup",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Permite definir estilos e larguras colunares globais numa tabela sem duplicar atributos em cada célula.",
+              "en": "Allows structural column grouping and global column-level styling within a table without repeating cell classes."
+          }
+      },
+      {
+          "uid": "mat-87",
+          "id": 87,
+          "num_id": 87,
+          "canonical_id": "2026-10-24-087",
+          "symbol": "<form>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: form",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form",
+          "pat_ref": 8,
+          "desc": {
+              "pt": "Contentor de formulário para recolha e submissão de dados do utilizador; no curso WD101 atua como base de motores de estado Pure CSS.",
+              "en": "Form container collecting user inputs; in WD101 it also serves as the structural foundation for zero-JavaScript state machines."
+          }
+      },
+      {
+          "uid": "mat-88",
+          "id": 88,
+          "num_id": 88,
+          "canonical_id": "2026-10-24-088",
+          "symbol": "<fieldset>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: fieldset",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset",
+          "pat_ref": 8,
+          "desc": {
+              "pt": "Agrupamento semântico de controlos relacionados de formulário (ex: tipos de bilhete, dados de contacto); desenha moldura visual acessível.",
+              "en": "Semantic group of related form controls (e.g. ticket selections, personal info); communicates context to screen readers."
+          }
+      },
+      {
+          "uid": "mat-89",
+          "id": 89,
+          "num_id": 89,
+          "canonical_id": "2026-10-24-089",
+          "symbol": "<legend>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: legend",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/legend",
+          "pat_ref": 8,
+          "desc": {
+              "pt": "Título e descrição de acessibilidade obrigatória posicionado como primeiro filho de um <fieldset>.",
+              "en": "Accessible caption and title strictly positioned as the first child of a <fieldset> to describe the control group."
+          }
+      },
+      {
+          "uid": "mat-90",
+          "id": 90,
+          "num_id": 90,
+          "canonical_id": "2026-10-24-090",
+          "symbol": "<label>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: label",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label",
+          "pat_ref": 8,
+          "desc": {
+              "pt": "Rótulo acessível de controlo de formulário; o atributo for ligado ao id do input expande a área táctil para um mínimo de 44px.",
+              "en": "Accessible form control label; the for attribute linked to the input id expands the click target to exceed the 44px touch threshold."
+          }
+      },
+      {
+          "uid": "mat-91",
+          "id": 91,
+          "num_id": 91,
+          "canonical_id": "2026-10-24-091",
+          "symbol": "<input type=\"text\">",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: input/text",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Campo de entrada de texto em linha para nomes, moradas ou pesquisas curtas.",
+              "en": "Single-line text entry field for general user data, names, or basic queries."
+          }
+      },
+      {
+          "uid": "mat-92",
+          "id": 92,
+          "num_id": 92,
+          "canonical_id": "2026-10-24-092",
+          "symbol": "<input type=\"email\">",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: input/email",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Campo de texto especializado em endereços de correio eletrónico com validação de formato e teclado específico em smartphones.",
+              "en": "Email input field enforcing basic syntax validation and displaying an email-optimized virtual keyboard on mobile devices."
+          }
+      },
+      {
+          "uid": "mat-93",
+          "id": 93,
+          "num_id": 93,
+          "canonical_id": "2026-10-24-093",
+          "symbol": "<input type=\"password\">",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: <input type=\"password\">",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Campo de palavra-passe com ocultação de carateres por máscara visual e proteção de preenchimento seguro.",
+              "en": "Password entry field masking characters for visual privacy with support for browser credential autofill."
+          }
+      },
+      {
+          "uid": "mat-94",
+          "id": 94,
+          "num_id": 94,
+          "canonical_id": "2026-10-24-094",
+          "symbol": "<input type=\"radio\">",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Motor de estado Pure CSS",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: input/radio",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio",
+          "pat_ref": 8,
+          "desc": {
+              "pt": "Controlo de seleção exclusiva num grupo de opções; elemento motor de máquinas de estado Pure CSS para alternância de vistas.",
+              "en": "Radio button control for mutually exclusive option groups; primary driver of zero-JavaScript CSS state switching machines."
+          }
+      },
+      {
+          "uid": "mat-95",
+          "id": 95,
+          "num_id": 95,
+          "canonical_id": "2026-10-24-095",
+          "symbol": "<input type=\"checkbox\">",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Gatilho para gavetas/toggles",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: input/checkbox",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Controlo de seleção múltipla binária (ligado/desligado); utilizado como gatilho de gavetas móveis (.menu-toggle:checked ~ .nav).",
+              "en": "Binary toggle checkbox; used in pure CSS patterns as a toggle trigger for off-canvas mobile menus and dark mode switches."
+          }
+      },
+      {
+          "uid": "mat-96",
+          "id": 96,
+          "num_id": 96,
+          "canonical_id": "2026-10-24-096",
+          "symbol": "<input type=\"submit\">",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: input/submit",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/submit",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Botão padrão de submissão dos dados do formulário para o endereço action.",
+              "en": "Form submit button triggering validation and transmission of form data to the designated action URL."
+          }
+      },
+      {
+          "uid": "mat-97",
+          "id": 97,
+          "num_id": 97,
+          "canonical_id": "2026-10-24-097",
+          "symbol": "<button>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: button",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Elemento de botão universal para acionamento de eventos e submissão com suporte nativo a foco e conteúdo gráfico interno.",
+              "en": "Universal button element for user actions and form triggers; supports embedded HTML icons and rich content with full focusability."
+          }
+      },
+      {
+          "uid": "mat-98",
+          "id": 98,
+          "num_id": 98,
+          "canonical_id": "2026-10-24-098",
+          "symbol": "<select>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: select",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Menu suspenso de seleção de opções pré-definidas (<option>); ideal para seleção compacta de datas ou categorias.",
+              "en": "Dropdown selection menu containing preset <option> choices; compact control for dates, countries, or ticket categories."
+          }
+      },
+      {
+          "uid": "mat-99",
+          "id": 99,
+          "num_id": 99,
+          "canonical_id": "2026-10-24-099",
+          "symbol": "<optgroup>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: optgroup",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Agrupamento de opções relacionadas com rótulo (label) dentro de um menu de seleção <select>.",
+              "en": "Groups related options with an unselectable bold label inside a <select> dropdown."
+          }
+      },
+      {
+          "uid": "mat-100",
+          "id": 100,
+          "num_id": 100,
+          "canonical_id": "2026-10-24-100",
+          "symbol": "<option>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: option",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Opção individual selecionável dentro de um menu <select> ou lista de sugestões <datalist>.",
+              "en": "Individual selectable choice nested within a <select> dropdown or <datalist> autocomplete feed."
+          }
+      },
+      {
+          "uid": "mat-101",
+          "id": 101,
+          "num_id": 101,
+          "canonical_id": "2026-10-24-101",
+          "symbol": "<textarea>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: textarea",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Campo de entrada de texto multi-linha para comentários, mensagens ou descrições extensas com controlo de redimensionamento.",
+              "en": "Multi-line text input control for comments, feedback, or extended text with CSS resize controls."
+          }
+      },
+      {
+          "uid": "mat-102",
+          "id": 102,
+          "num_id": 102,
+          "canonical_id": "2026-10-24-102",
+          "symbol": "<datalist>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Autocomplete nativo sem scripts",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: datalist",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Lista de opções pré-definidas que fornece sugestões de preenchimento automático (autocomplete) a um <input> sem scripts.",
+              "en": "Set of predefined options providing native browser autocomplete suggestions for paired text inputs with zero JavaScript."
+          }
+      },
+      {
+          "uid": "mat-103",
+          "id": 103,
+          "num_id": 103,
+          "canonical_id": "2026-10-24-103",
+          "symbol": "<output>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Apresentação de resultados",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: output",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output",
+          "pat_ref": 8,
+          "desc": {
+              "pt": "Elemento semântico de apresentação do resultado de um cálculo ou ação do utilizador em tempo real.",
+              "en": "Semantic output container representing the live result of a mathematical calculation or user interaction."
+          }
+      },
+      {
+          "uid": "mat-104",
+          "id": 104,
+          "num_id": 104,
+          "canonical_id": "2026-10-24-104",
+          "symbol": "<progress>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Barras nativas de progresso",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: progress",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Barra de progresso nativa para sinalização do avanço de tarefas ou carregamento de ficheiros.",
+              "en": "Native progress bar indicator displaying task completion percentage or staged operation progress."
+          }
+      },
+      {
+          "uid": "mat-105",
+          "id": 105,
+          "num_id": 105,
+          "canonical_id": "2026-10-24-105",
+          "symbol": "<meter>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Indicadores de medida/lotação",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: meter",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Indicador de medição escalar dentro de um intervalo numérico conhecido (ex: lotação de salas de concerto ou espaço em disco).",
+              "en": "Scalar gauge measuring a fractional quantity within a bounded numeric range (e.g. venue occupancy or disk usage)."
+          }
+      },
+      {
+          "uid": "mat-106",
+          "id": 106,
+          "num_id": 106,
+          "canonical_id": "2026-10-24-106",
+          "symbol": "<details>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Pure CSS Accordion",
+          "introduced_in": "TP06",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: details",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details",
+          "pat_ref": 4,
+          "desc": {
+              "pt": "Landmark nativo de divulgação de conteúdo (disclosure widget); constrói acordeões e FAQs acessíveis com zero JavaScript.",
+              "en": "Native disclosure widget landmark; powers fully accessible interactive expandable accordions and FAQs with zero JavaScript."
+          }
+      },
+      {
+          "uid": "mat-107",
+          "id": 107,
+          "num_id": 107,
+          "canonical_id": "2026-10-24-107",
+          "symbol": "<summary>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Cabeçalho clicável do accordion",
+          "introduced_in": "TP06",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: summary",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary",
+          "pat_ref": 4,
+          "desc": {
+              "pt": "Cabeçalho e gatilho clicável obrigatório de <details>; assume suporte nativo a navegação por teclado (Enter e Espaço).",
+              "en": "Mandatory clickable heading and toggle trigger for <details>; natively supports keyboard focus and activation via Enter/Space keys."
+          }
+      },
+      {
+          "uid": "mat-108",
+          "id": 108,
+          "num_id": 108,
+          "canonical_id": "2026-10-24-108",
+          "symbol": "<dialog>",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Janelas modais acessíveis",
+          "introduced_in": "TP06",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: dialog",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog",
+          "pat_ref": 5,
+          "desc": {
+              "pt": "Contentor nativo de janela modal; oferece aprisionamento de foco acessível, camada superior (top-layer) e fecho com tecla Esc.",
+              "en": "Native dialog and modal container; provides native accessibility focus trapping, top-layer backdrop, and Escape key dismissal via showModal()."
+          }
+      },
+      {
+          "uid": "mat-109",
+          "id": 109,
+          "num_id": 109,
+          "canonical_id": "2026-10-24-109",
+          "symbol": "<del>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: del",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/del",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Representa uma remoção editorial explícita de texto após a publicação do documento.",
+              "en": "Represents text explicitly deleted or redacted in the editorial history of a document."
+          }
+      },
+      {
+          "uid": "mat-110",
+          "id": 110,
+          "num_id": 110,
+          "canonical_id": "2026-10-24-110",
+          "symbol": "<ins>",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: ins",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ins",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Representa uma adição editorial explícita de texto após a publicação do documento.",
+              "en": "Represents text explicitly inserted or added in the editorial history of a document."
+          }
+      },
+      {
+          "uid": "mat-111",
+          "id": 111,
+          "num_id": 111,
+          "canonical_id": "2026-10-24-111",
+          "symbol": "<template>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "Exige JavaScript para clonagem",
+          "introduced_in": "Beyond",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: template",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Contentor de marcação inerte do lado do cliente; os nós não são renderizados até serem clonados por script.",
+              "en": "Client-side template container holding inert HTML fragments not rendered until programmatically instantiated by script."
+          }
+      },
+      {
+          "uid": "mat-112",
+          "id": 112,
+          "num_id": 112,
+          "canonical_id": "2026-10-24-112",
+          "symbol": "<slot>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "Shadow DOM / Web Components",
+          "introduced_in": "Beyond",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: slot",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Marcador de posição no Shadow DOM de Web Components para projeção declarativa de nós de conteúdo.",
+              "en": "Shadow DOM insertion point placeholder in Web Components, enabling declarative content projection from the outer light DOM."
+          }
+      },
+      {
+          "uid": "mat-113",
+          "id": 113,
+          "num_id": 113,
+          "canonical_id": "2026-10-24-113",
+          "symbol": "<script>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "Curso estritamente Zero JavaScript",
+          "introduced_in": "Beyond",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: script",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Elemento de execução de código JavaScript no cliente; expressamente fora do âmbito da unidade curricular WD101 (Zero-JS).",
+              "en": "Executable client-side script tag; intentionally out of scope in the WD101 curriculum due to strict zero-JavaScript presentation policy."
+          }
+      },
+      {
+          "uid": "mat-114",
+          "id": 114,
+          "num_id": 114,
+          "canonical_id": "2026-10-24-114",
+          "symbol": "<noscript>",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "",
+          "introduced_in": "Beyond",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: noscript",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Contentor de conteúdo alternativo exibido apenas quando a execução de scripts se encontra desativada no cliente.",
+              "en": "Fallback content container rendered exclusively when JavaScript execution is disabled or unsupported in the client browser."
+          }
+      },
+      {
+          "uid": "mat-115",
+          "id": 115,
+          "num_id": 115,
+          "canonical_id": "2026-10-24-115",
+          "symbol": "class",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: class attribute",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Atributo global para atribuição de classes semânticas reutilizáveis (convenção BEM simplificada) a elementos HTML.",
+              "en": "Global attribute assigning reusable semantic style classes (simplified BEM naming) to HTML elements."
+          }
+      },
+      {
+          "uid": "mat-116",
+          "id": 116,
+          "num_id": 116,
+          "canonical_id": "2026-10-24-116",
+          "symbol": "id",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: id attribute",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id",
+          "pat_ref": 10,
+          "desc": {
+              "pt": "Atributo global para identificador único de elemento; utilizado como alvo de âncoras fragmentadas (href='#palco') e acessibilidade.",
+              "en": "Global attribute defining a unique document element identifier; serves as target for URL fragment anchors and aria-labelledby."
+          }
+      },
+      {
+          "uid": "mat-117",
+          "id": 117,
+          "num_id": 117,
+          "canonical_id": "2026-10-24-117",
+          "symbol": "lang / dir",
+          "type": "HTML",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-landmarks",
+          "cat_id": 1,
+          "label": "MDN: lang attribute",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Atributos globais fundamentais que definem o código de idioma (ex: pt, en) e direção de leitura (ltr, rtl) do documento.",
+              "en": "Core global attributes specifying document natural language code (e.g. pt, en) and text directionality (ltr, rtl)."
+          }
+      },
+      {
+          "uid": "mat-118",
+          "id": 118,
+          "num_id": 118,
+          "canonical_id": "2026-10-24-118",
+          "symbol": "hidden",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: hidden attribute",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Atributo booleano universal que oculta completamente o elemento da renderização visual e da árvore de acessibilidade.",
+              "en": "Universal boolean attribute that hides an element completely from visual rendering and screen readers."
+          }
+      },
+      {
+          "uid": "mat-119",
+          "id": 119,
+          "num_id": 119,
+          "canonical_id": "2026-10-24-119",
+          "symbol": "tabindex",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: tabindex attribute",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Gere a ordem e navegabilidade sequencial do foco por teclado (0 insere na ordem natural; -1 permite foco programático).",
+              "en": "Controls keyboard focusability and tab order (0 places into natural flow; -1 allows programmatic script focus)."
+          }
+      },
+      {
+          "uid": "mat-120",
+          "id": 120,
+          "num_id": 120,
+          "canonical_id": "2026-10-24-120",
+          "symbol": "data-* (Data Attributes)",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Para seletores `[data-theme]`",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: data-* attributes",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Atributos personalizados para armazenamento de dados que podem ser lidos diretamente pelo CSS através de seletores de atributo e attr().",
+              "en": "Custom data attributes storing arbitrary metadata readable by CSS attribute selectors and attr() expressions."
+          }
+      },
+      {
+          "uid": "mat-121",
+          "id": 121,
+          "num_id": 121,
+          "canonical_id": "2026-10-24-121",
+          "symbol": "popover",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Modais e gavetas Pure CSS",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: popover attribute",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover",
+          "pat_ref": 5,
+          "desc": {
+              "pt": "Atributo HTML moderno que transforma qualquer elemento num painel na camada superior (top-layer) com fecho ao clicar fora (light-dismiss).",
+              "en": "Modern HTML attribute promoting elements into the browser top-layer with native backdrop and light-dismiss on outside clicks."
+          }
+      },
+      {
+          "uid": "mat-122",
+          "id": 122,
+          "num_id": 122,
+          "canonical_id": "2026-10-24-122",
+          "symbol": "popovertarget",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Gatilho declarativo sem JS",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: popovertarget",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertarget",
+          "pat_ref": 9,
+          "desc": {
+              "pt": "Associa declarativamente um botão ao ID do popover a controlar, permitindo abrir e fechar popovers com zero JavaScript.",
+              "en": "Declaratively connects an action button to a target popover element by ID, toggling popovers without JavaScript."
+          }
+      },
+      {
+          "uid": "mat-123",
+          "id": 123,
+          "num_id": 123,
+          "canonical_id": "2026-10-24-123",
+          "symbol": "popovertargetaction",
+          "type": "HTML",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "toggle, show, hide",
+          "introduced_in": "TP06",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: popovertargetaction",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertargetaction",
+          "pat_ref": 9,
+          "desc": {
+              "pt": "Especifica a ação declarativa do botão sobre o popover alvo ('toggle', 'show', ou 'hide').",
+              "en": "Specifies the declarative action of the trigger button on the target popover ('toggle', 'show', or 'hide')."
+          }
+      },
+      {
+          "uid": "mat-124",
+          "id": 124,
+          "num_id": 124,
+          "canonical_id": "2026-10-24-124",
+          "symbol": "inert",
+          "type": "HTML",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Bloqueio de foco fora de modais",
+          "introduced_in": "TP11",
+          "category": "cat-forms",
+          "cat_id": 4,
+          "label": "MDN: inert attribute",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert",
+          "pat_ref": 9,
+          "desc": {
+              "pt": "Atributo booleano que desativa e remove completamente do alcance do utilizador e de leitores de ecrã nós fora de foco ou modais fechados.",
+              "en": "Boolean attribute that marks a DOM subtree inert, disabling user interaction, focus events, and screen reader visibility."
+          }
+      },
+      {
+          "uid": "mat-125",
+          "id": 125,
+          "num_id": 125,
+          "canonical_id": "2026-10-24-125",
+          "symbol": "* (Universal)",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Reset de box-sizing e margens",
+          "introduced_in": "EX1",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Universal selectors",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Universal_selectors",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seletor universal que seleciona todos os elementos do DOM; utilizado no CSS Reset para box-sizing: border-box.",
+              "en": "Universal selector matching any element; standard foundation for modern box-sizing: border-box resets."
+          }
+      },
+      {
+          "uid": "mat-126",
+          "id": 126,
+          "num_id": 126,
+          "canonical_id": "2026-10-24-126",
+          "symbol": "element (Type / Tag)",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Estilização base e herança",
+          "introduced_in": "EX1",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Type selectors",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seletor por tipo de tag HTML (ex: p, nav, header); base estruturante do EX1 sem recurso a classes adicionais.",
+              "en": "Type selector targeting elements by their tag name (e.g. p, nav, header); foundational basis of EX1 without classes."
+          }
+      },
+      {
+          "uid": "mat-127",
+          "id": 127,
+          "num_id": 127,
+          "canonical_id": "2026-10-24-127",
+          "symbol": ".class (Class Selector)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Class selectors",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Class_selectors",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seletor de classe CSS (.btn, .card); aplica estilos reutilizáveis e modulares com especificidade moderada (0,1,0).",
+              "en": "Class selector matching elements by their class attribute; fundamental building block for modular styles with low specificity."
+          }
+      },
+      {
+          "uid": "mat-128",
+          "id": 128,
+          "num_id": 128,
+          "canonical_id": "2026-10-24-128",
+          "symbol": "#id (ID Selector)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Usado com parcimónia para âncoras",
+          "introduced_in": "EX2",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: ID selectors",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/ID_selectors",
+          "pat_ref": 10,
+          "desc": {
+              "pt": "Seletor de ID (#header, #warp); possui alta especificidade (1,0,0) e deve ser usado com parcimónia para âncoras funcionais.",
+              "en": "ID selector targeting an element by unique ID; carries high specificity (1,0,0) and should be used sparingly for anchors."
+          }
+      },
+      {
+          "uid": "mat-129",
+          "id": 129,
+          "num_id": 129,
+          "canonical_id": "2026-10-24-129",
+          "symbol": "A B (Descendant Combinator)",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Pilar do TP01: `nav ul`, `header h1`",
+          "introduced_in": "EX1",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Descendant combinator",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_combinator",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Combinador de descendência por espaço (nav a); seleciona elementos B em qualquer nível de profundidade dentro de A.",
+              "en": "Descendant combinator matching element B anywhere inside ancestor element A regardless of nesting depth."
+          }
+      },
+      {
+          "uid": "mat-130",
+          "id": 130,
+          "num_id": 130,
+          "canonical_id": "2026-10-24-130",
+          "symbol": "A > B (Child Combinator)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Filho direto estrito",
+          "introduced_in": "EX2",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Child combinator",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Combinador de filho direto estrito (ul > li); seleciona apenas elementos B que são filhos imediatos de A.",
+              "en": "Child combinator matching element B only when it is an immediate direct child of parent element A."
+          }
+      },
+      {
+          "uid": "mat-131",
+          "id": 131,
+          "num_id": 131,
+          "canonical_id": "2026-10-24-131",
+          "symbol": "A + B (Next-Sibling)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Irmão adjacente: parágrafos seguidos",
+          "introduced_in": "EX2",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Next-sibling combinator",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Next-sibling_combinator",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Combinador de irmão adjacente imediato (h2 + p); seleciona o elemento B que se segue imediatamente a A.",
+              "en": "Next-sibling combinator matching element B immediately following sibling A in document source order."
+          }
+      },
+      {
+          "uid": "mat-132",
+          "id": 132,
+          "num_id": 132,
+          "canonical_id": "2026-10-24-132",
+          "symbol": "A ~ B (Subsequent-Sibling)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Irmãos subsequentes: tab panels",
+          "introduced_in": "TP06",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Subsequent-sibling combinator",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Subsequent-sibling_combinator",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Combinador de irmãos subsequentes (input ~ div); seleciona elementos B precedidos por A no mesmo contentor pai.",
+              "en": "Subsequent-sibling combinator matching all B elements that follow sibling A within the same parent container."
+          }
+      },
+      {
+          "uid": "mat-133",
+          "id": 133,
+          "num_id": 133,
+          "canonical_id": "2026-10-24-133",
+          "symbol": "|| (Column Combinator)",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "Suporte reduzido em browsers",
+          "introduced_in": "Beyond",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Column combinator",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Column_combinator",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Combinador de coluna de tabelas (col || td); seleciona células pertencentes a uma coluna específica.",
+              "en": "Table column combinator targeting table cells belonging to a specific column specification."
+          }
+      },
+      {
+          "uid": "mat-134",
+          "id": 134,
+          "num_id": 134,
+          "canonical_id": "2026-10-24-134",
+          "symbol": "[attr]",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Ex.: `input[required]`",
+          "introduced_in": "EX2",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Attribute selectors",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seletor de atributo que verifica a presença do atributo (ex: input[required]) independentemente do seu valor.",
+              "en": "Attribute selector matching elements possessing the specified attribute regardless of assigned value."
+          }
+      },
+      {
+          "uid": "mat-135",
+          "id": 135,
+          "num_id": 135,
+          "canonical_id": "2026-10-24-135",
+          "symbol": "[attr=\"value\"]",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Ex.: `input[type=\"radio\"]`",
+          "introduced_in": "EX2",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Attribute selectors",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors",
+          "pat_ref": 8,
+          "desc": {
+              "pt": "Seletor de atributo com correspondência exata de valor (ex: input[type='radio']).",
+              "en": "Attribute selector matching elements whose specified attribute equals the exact string value."
+          }
+      },
+      {
+          "uid": "mat-136",
+          "id": 136,
+          "num_id": 136,
+          "canonical_id": "2026-10-24-136",
+          "symbol": "[attr^=\"value\"]",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Links externos: `a[href^=\"https://\"]`",
+          "introduced_in": "EX2",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Attribute selectors",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seletor de atributo com prefixo; seleciona links externos (a[href^='https://']) ou protocolos específicos.",
+              "en": "Prefix attribute selector matching elements whose attribute value begins with the specified string prefix."
+          }
+      },
+      {
+          "uid": "mat-137",
+          "id": 137,
+          "num_id": 137,
+          "canonical_id": "2026-10-24-137",
+          "symbol": "[attr$=\"value\"]",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Ficheiros: `a[href$=\".pdf\"]`",
+          "introduced_in": "EX2",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Attribute selectors",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seletor de atributo com sufixo; permite identificar extensões de ficheiro para descarregamento (a[href$='.pdf']).",
+              "en": "Suffix attribute selector matching elements whose attribute value ends with the specified file extension."
+          }
+      },
+      {
+          "uid": "mat-138",
+          "id": 138,
+          "num_id": 138,
+          "canonical_id": "2026-10-24-138",
+          "symbol": "[attr*=\"value\"]",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Substring match",
+          "introduced_in": "TP06",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Attribute selectors",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seletor de atributo por correspondência de substring contida em qualquer ponto do valor.",
+              "en": "Substring attribute selector matching elements whose attribute contains the specified string fragment."
+          }
+      },
+      {
+          "uid": "mat-139",
+          "id": 139,
+          "num_id": 139,
+          "canonical_id": "2026-10-24-139",
+          "symbol": "[attr~=\"value\"]",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Word match",
+          "introduced_in": "TP06",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Attribute selectors",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seletor de atributo que corresponde a uma palavra inteira separada por espaços (semelhante a classes).",
+              "en": "Whitespace-separated word match attribute selector targeting elements containing an exact word in a list."
+          }
+      },
+      {
+          "uid": "mat-140",
+          "id": 140,
+          "num_id": 140,
+          "canonical_id": "2026-10-24-140",
+          "symbol": "[attr|=\"value\"]",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Prefix hyphen match: idiomas",
+          "introduced_in": "TP06",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Attribute selectors",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seletor de atributo que corresponde ao valor exato ou prefixo seguido de hífen (ex: lang|='pt').",
+              "en": "Hyphen-separated attribute selector matching exact values or prefixes followed by hyphens (e.g. lang|='pt')."
+          }
+      },
+      {
+          "uid": "mat-141",
+          "id": 141,
+          "num_id": 141,
+          "canonical_id": "2026-10-24-141",
+          "symbol": "[attr=\"val\" i] (Case Insensitive)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Robustez com extensões",
+          "introduced_in": "TP06",
+          "category": "cat-selectors",
+          "cat_id": 5,
+          "label": "MDN: Attribute selectors (case-sensitivity)",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors#case-sensitivity",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Modificador 'i' que torna a correspondência do valor do seletor de atributos insensível a maiúsculas e minúsculas.",
+              "en": "Case-insensitivity modifier enabling attribute selectors to match values irrespective of character casing."
+          }
+      },
+      {
+          "uid": "mat-142",
+          "id": 142,
+          "num_id": 142,
+          "canonical_id": "2026-10-24-142",
+          "symbol": ":hover",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :hover",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:hover",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Aplica estilos quando o ponteiro do rato paira sobre um elemento interativo.",
+              "en": "Applies styles when the user hovers over an interactive element with a mouse pointer."
+          }
+      },
+      {
+          "uid": "mat-143",
+          "id": 143,
+          "num_id": 143,
+          "canonical_id": "2026-10-24-143",
+          "symbol": ":active",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :active",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:active",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Aplica estilos durante o momento em que um botão ou hiperligação é ativamente premido.",
+              "en": "Applies styles while an element is being actively clicked or activated by user input."
+          }
+      },
+      {
+          "uid": "mat-144",
+          "id": 144,
+          "num_id": 144,
+          "canonical_id": "2026-10-24-144",
+          "symbol": ":focus",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :focus",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:focus",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Aplica estilos quando um elemento ganha foco (teclado, clique ou programático).",
+              "en": "Applies styles when an element receives focus via keyboard tabbing or mouse interaction."
+          }
+      },
+      {
+          "uid": "mat-145",
+          "id": 145,
+          "num_id": 145,
+          "canonical_id": "2026-10-24-145",
+          "symbol": ":focus-visible",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Acessibilidade essencial",
+          "introduced_in": "EX2",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :focus-visible",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Garante anéis de foco acessíveis apenas durante navegação por teclado, poupando utilizadores de rato de anéis visuais indesejados.",
+              "en": "Displays prominent focus rings exclusively during keyboard navigation, sparing mouse users unwarranted outlines."
+          }
+      },
+      {
+          "uid": "mat-146",
+          "id": 146,
+          "num_id": 146,
+          "canonical_id": "2026-10-24-146",
+          "symbol": ":focus-within",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Abertura de submenus via teclado",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :focus-within",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-within",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Ativa-se quando o próprio elemento ou qualquer um dos seus filhos tem foco; essencial para manter submenus abertos via Tab.",
+              "en": "Triggers when the element or any of its descendants has focus; essential for keyboard-accessible flyout navigation."
+          }
+      },
+      {
+          "uid": "mat-147",
+          "id": 147,
+          "num_id": 147,
+          "canonical_id": "2026-10-24-147",
+          "symbol": ":link",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :link",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:link",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona hiperligações <a> com href que ainda não foram visitadas pelo utilizador.",
+              "en": "Matches unvisited anchor links possessing an href attribute."
+          }
+      },
+      {
+          "uid": "mat-148",
+          "id": 148,
+          "num_id": 148,
+          "canonical_id": "2026-10-24-148",
+          "symbol": ":visited",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :visited",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:visited",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona hiperligações que já foram visitadas no histórico do navegador (com restrições estritas de privacidade).",
+              "en": "Matches links already visited in user browser history with strict browser privacy style restrictions."
+          }
+      },
+      {
+          "uid": "mat-149",
+          "id": 149,
+          "num_id": 149,
+          "canonical_id": "2026-10-24-149",
+          "symbol": ":any-link",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Reset unificado de hiperligações",
+          "introduced_in": "EX2",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :any-link",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:any-link",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona qualquer hiperligação com href, unificando os estados :link e :visited numa única declaração.",
+              "en": "Matches any link element possessing an href attribute, consolidating both :link and :visited states."
+          }
+      },
+      {
+          "uid": "mat-150",
+          "id": 150,
+          "num_id": 150,
+          "canonical_id": "2026-10-24-150",
+          "symbol": ":checked",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Motor de cálculo e toggles",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :checked",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:checked",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Ativa-se em inputs radio ou checkbox selecionados; motor angular de seletores irmãos para alternância de interface Pure CSS.",
+              "en": "Matches checked radio buttons and checkboxes; primary driver of zero-JavaScript pure CSS UI state changes."
+          }
+      },
+      {
+          "uid": "mat-151",
+          "id": 151,
+          "num_id": 151,
+          "canonical_id": "2026-10-24-151",
+          "symbol": ":disabled / :enabled",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :disabled",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:disabled",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona controlos de formulário ativos ou desativados para estilização consistente de disponibilidade.",
+              "en": "Matches form controls based on whether they are enabled or disabled from user interaction."
+          }
+      },
+      {
+          "uid": "mat-152",
+          "id": 152,
+          "num_id": 152,
+          "canonical_id": "2026-10-24-152",
+          "symbol": ":required / :optional",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :required",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:required",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona campos de formulário consoante a presença obrigatória ou facultativa do atributo required.",
+              "en": "Matches form inputs depending on whether the required attribute is enforced."
+          }
+      },
+      {
+          "uid": "mat-153",
+          "id": 153,
+          "num_id": 153,
+          "canonical_id": "2026-10-24-153",
+          "symbol": ":valid / :invalid",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :valid",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:valid",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Aplica estilos consoante a validação nativa do conteúdo do campo de formulário segundo o seu tipo e restrições.",
+              "en": "Matches form controls whose values pass or fail native browser pattern and type constraints."
+          }
+      },
+      {
+          "uid": "mat-154",
+          "id": 154,
+          "num_id": 154,
+          "canonical_id": "2026-10-24-154",
+          "symbol": ":user-valid / :user-invalid",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Validação pós-interação sem sustos",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :user-valid",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:user-valid",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Validação de formulários amigável que apenas sinaliza erros após a primeira interação do utilizador com o campo (blur).",
+              "en": "Modern pseudo-classes triggering validation feedback only after the user has completed their initial interaction."
+          }
+      },
+      {
+          "uid": "mat-155",
+          "id": 155,
+          "num_id": 155,
+          "canonical_id": "2026-10-24-155",
+          "symbol": ":placeholder-shown",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Labels flutuantes Pure CSS",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :placeholder-shown",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:placeholder-shown",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Ativa-se quando o texto placeholder está visível; pilar para a construção de etiquetas flutuantes (Floating Labels) Pure CSS.",
+              "en": "Matches inputs currently displaying their placeholder text; key foundation for pure CSS floating label patterns."
+          }
+      },
+      {
+          "uid": "mat-156",
+          "id": 156,
+          "num_id": 156,
+          "canonical_id": "2026-10-24-156",
+          "symbol": ":read-only / :read-write",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "",
+          "introduced_in": "Beyond",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :read-only",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:read-only",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona campos de texto editáveis ou marcados com o atributo readonly.",
+              "en": "Matches input fields based on whether their contents are user-editable or marked readonly."
+          }
+      },
+      {
+          "uid": "mat-157",
+          "id": 157,
+          "num_id": 157,
+          "canonical_id": "2026-10-24-157",
+          "symbol": ":default",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :default",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:default",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona o botão de submissão padrão ou o input radio/checkbox inicialmente selecionado na inicialização da página.",
+              "en": "Matches the default submit button or initially pre-selected radio/checkbox control on page load."
+          }
+      },
+      {
+          "uid": "mat-158",
+          "id": 158,
+          "num_id": 158,
+          "canonical_id": "2026-10-24-158",
+          "symbol": ":root",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Âncora global de variáveis/tokens",
+          "introduced_in": "EX1",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :root",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:root",
+          "pat_ref": 5,
+          "desc": {
+              "pt": "Seleciona o elemento raiz da árvore (<html>); âncora universal para a definição de variáveis CSS globais e tokens de design.",
+              "en": "Matches document root element (<html>); canonical home for global CSS variables and theme tokens."
+          }
+      },
+      {
+          "uid": "mat-159",
+          "id": 159,
+          "num_id": 159,
+          "canonical_id": "2026-10-24-159",
+          "symbol": ":first-child / :last-child",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Limpeza de bordas/margens em listas",
+          "introduced_in": "EX2",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :first-child",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:first-child",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona o primeiro ou último elemento filho dentro do seu contentor pai.",
+              "en": "Matches an element that is the first or last child within its containing parent."
+          }
+      },
+      {
+          "uid": "mat-160",
+          "id": 160,
+          "num_id": 160,
+          "canonical_id": "2026-10-24-160",
+          "symbol": ":only-child",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :only-child",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:only-child",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona um elemento que é o único filho dentro do seu contentor pai.",
+              "en": "Matches an element that is the solitary child of its parent container."
+          }
+      },
+      {
+          "uid": "mat-161",
+          "id": 161,
+          "num_id": 161,
+          "canonical_id": "2026-10-24-161",
+          "symbol": ":nth-child(An+B)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Zebra striping e padrões repetitivos",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :nth-child",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seletor estrutural avançado por fórmula aritmética; utilizado para zebra striping (2n), colunas e cartões alternados.",
+              "en": "Structural formula selector enabling recurring patterns (e.g. zebra striping via 2n) and index-based component styling."
+          }
+      },
+      {
+          "uid": "mat-162",
+          "id": 162,
+          "num_id": 162,
+          "canonical_id": "2026-10-24-162",
+          "symbol": ":nth-last-child(An+B)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Contagem a partir do fim",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :nth-last-child",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-last-child",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seletor estrutural por fórmula contando a partir do último filho em direção ao primeiro.",
+              "en": "Structural formula selector matching elements counting backwards from the final child of a parent."
+          }
+      },
+      {
+          "uid": "mat-163",
+          "id": 163,
+          "num_id": 163,
+          "canonical_id": "2026-10-24-163",
+          "symbol": ":first-of-type / :last-of-type",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :first-of-type",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:first-of-type",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona o primeiro ou último elemento de um determinado tipo de tag dentro do contentor pai.",
+              "en": "Matches the first or last sibling element of a specific tag type within the parent container."
+          }
+      },
+      {
+          "uid": "mat-164",
+          "id": 164,
+          "num_id": 164,
+          "canonical_id": "2026-10-24-164",
+          "symbol": ":nth-of-type(An+B)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :nth-of-type",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-of-type",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona elementos com base na sua posição entre irmãos do mesmo tipo de tag.",
+              "en": "Matches sibling elements of a specific tag type using an arithmetic progression index."
+          }
+      },
+      {
+          "uid": "mat-165",
+          "id": 165,
+          "num_id": 165,
+          "canonical_id": "2026-10-24-165",
+          "symbol": ":empty",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Ocultar contentores vazios",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :empty",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:empty",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona elementos que não contêm nós filhos, texto ou espaços em branco; ideal para ocultar badges vazios.",
+              "en": "Matches elements possessing zero child elements or text nodes; ideal for hiding vacant notification badges."
+          }
+      },
+      {
+          "uid": "mat-166",
+          "id": 166,
+          "num_id": 166,
+          "canonical_id": "2026-10-24-166",
+          "symbol": ":has() (Relational Parent)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Pilar dos TP06 e TP06-B",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :has()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:has",
+          "pat_ref": 8,
+          "desc": {
+              "pt": "O seletor relacional 'pai'; permite estilizar um elemento pai ou antecessor com base nos filhos que ele contém (revolução Pure CSS).",
+              "en": "The relational 'parent' selector; styles an ancestor element based on matching descendant criteria (Pure CSS revolution)."
+          }
+      },
+      {
+          "uid": "mat-167",
+          "id": 167,
+          "num_id": 167,
+          "canonical_id": "2026-10-24-167",
+          "symbol": ":not() (Negation)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Ex.: `:not(:last-child)`",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :not()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:not",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Pseudo-classe de negação que exclui elementos que correspondam à lista de seletores fornecida.",
+              "en": "Negation pseudo-class matching elements that do not fulfill the nested selector criteria."
+          }
+      },
+      {
+          "uid": "mat-168",
+          "id": 168,
+          "num_id": 168,
+          "canonical_id": "2026-10-24-168",
+          "symbol": ":is() (Matches-Any)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Redução dramática de seletores longos",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :is()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:is",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Agrupa múltiplos seletores alternativos, assumindo a especificidade do seletor mais específico da lista.",
+              "en": "Matches-any selector taking a list of targets and adopting the highest specificity among the group."
+          }
+      },
+      {
+          "uid": "mat-169",
+          "id": 169,
+          "num_id": 169,
+          "canonical_id": "2026-10-24-169",
+          "symbol": ":where() (Zero Specificity)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Estilos de reset fáceis de sobrepor",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :where()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:where",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Agrupa seletores garantindo especificidade estritamente ZERO (0,0,0); permite criar estilos padrão fáceis de sobrepor.",
+              "en": "Matches-any selector resetting its nested specificity to exactly zero (0,0,0) for frictionless style overrides."
+          }
+      },
+      {
+          "uid": "mat-170",
+          "id": 170,
+          "num_id": 170,
+          "canonical_id": "2026-10-24-170",
+          "symbol": ":target",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Modais, tabs e slide highlights",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :target",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:target",
+          "pat_ref": 3,
+          "desc": {
+              "pt": "Ativa-se no elemento cujo id corresponde ao fragmento da âncora presente no URL atual (#palco); constrói modais e tabs Pure CSS.",
+              "en": "Matches the unique element whose ID equals the current URL fragment identifier (#target); powers pure CSS modals and tabs."
+          }
+      },
+      {
+          "uid": "mat-171",
+          "id": 171,
+          "num_id": 171,
+          "canonical_id": "2026-10-24-171",
+          "symbol": ":popover-open",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Estilização de menus/modais abertos",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :popover-open",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:popover-open",
+          "pat_ref": 5,
+          "desc": {
+              "pt": "Seleciona um elemento com atributo popover no momento em que este se encontra aberto na camada superior (top-layer).",
+              "en": "Matches a popover element while it is actively open in the browser top-layer."
+          }
+      },
+      {
+          "uid": "mat-172",
+          "id": 172,
+          "num_id": 172,
+          "canonical_id": "2026-10-24-172",
+          "symbol": ":modal",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Estilização do dialog em estado modal",
+          "introduced_in": "TP11",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :modal",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:modal",
+          "pat_ref": 9,
+          "desc": {
+              "pt": "Seleciona elementos (como <dialog>) que se encontram em estado modal estrito, bloqueando interações com o resto da página.",
+              "en": "Matches elements in an active modal state (such as dialog.showModal()), preventing outside interaction."
+          }
+      },
+      {
+          "uid": "mat-173",
+          "id": 173,
+          "num_id": 173,
+          "canonical_id": "2026-10-24-173",
+          "symbol": ":fullscreen",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "",
+          "introduced_in": "TP11",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: :fullscreen",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:fullscreen",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona o elemento que se encontra atualmente em modo de ecrã inteiro.",
+              "en": "Matches elements currently displayed in native browser fullscreen mode."
+          }
+      },
+      {
+          "uid": "mat-174",
+          "id": 174,
+          "num_id": 174,
+          "canonical_id": "2026-10-24-174",
+          "symbol": "::before",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Conteúdo gerado, ícones, overlays",
+          "introduced_in": "EX2",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: ::before",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::before",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Pseudo-elemento que insere conteúdo cosmético gerado imediatamente antes do conteúdo textual do elemento selecionado.",
+              "en": "Pseudo-element inserting generated decorative content directly before the element's actual DOM text."
+          }
+      },
+      {
+          "uid": "mat-175",
+          "id": 175,
+          "num_id": 175,
+          "canonical_id": "2026-10-24-175",
+          "symbol": "::after",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Motor reativo de preços, setas",
+          "introduced_in": "EX2",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: ::after",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::after",
+          "pat_ref": 8,
+          "desc": {
+              "pt": "Pseudo-elemento que insere conteúdo cosmético gerado imediatamente após o conteúdo textual do elemento selecionado.",
+              "en": "Pseudo-element inserting generated decorative content directly after the element's actual DOM text."
+          }
+      },
+      {
+          "uid": "mat-176",
+          "id": 176,
+          "num_id": 176,
+          "canonical_id": "2026-10-24-176",
+          "symbol": "::marker",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Estilização do bullet de lista/summary",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: ::marker",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::marker",
+          "pat_ref": 4,
+          "desc": {
+              "pt": "Estiliza a marca ou número do marcador de itens de lista (<li>) e elementos <summary>.",
+              "en": "Styles the bullet symbol, ordinal number, or disclosure triangle of list items (<li>) and <summary> elements."
+          }
+      },
+      {
+          "uid": "mat-177",
+          "id": 177,
+          "num_id": 177,
+          "canonical_id": "2026-10-24-177",
+          "symbol": "::placeholder",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: ::placeholder",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::placeholder",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Estiliza a cor e tipografia do texto provisório de instrução (placeholder) de campos de formulário.",
+              "en": "Styles the color, font-weight, and appearance of temporary input placeholder text."
+          }
+      },
+      {
+          "uid": "mat-178",
+          "id": 178,
+          "num_id": 178,
+          "canonical_id": "2026-10-24-178",
+          "symbol": "::backdrop",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Fundo escurecido/desfocado de modais",
+          "introduced_in": "TP11",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: ::backdrop",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop",
+          "pat_ref": 5,
+          "desc": {
+              "pt": "Estiliza o plano de fundo escurecido ou desfocado (backdrop) gerado atrás de elementos <dialog> e popovers na camada superior.",
+              "en": "Styles the dimmed or blurred backdrop backdrop surface rendered behind modal dialogs and top-layer popovers."
+          }
+      },
+      {
+          "uid": "mat-179",
+          "id": 179,
+          "num_id": 179,
+          "canonical_id": "2026-10-24-179",
+          "symbol": "::selection",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Personalização da cor de seleção",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: ::selection",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::selection",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Personaliza a cor de fundo e do texto quando o utilizador seleciona ativamente texto com o cursor na página.",
+              "en": "Customizes the background and text color highlight when a user selects content across the page."
+          }
+      },
+      {
+          "uid": "mat-180",
+          "id": 180,
+          "num_id": 180,
+          "canonical_id": "2026-10-24-180",
+          "symbol": "::first-letter",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Letra capitular editorial",
+          "introduced_in": "EX2",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: ::first-letter",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::first-letter",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Estiliza a primeira letra de um bloco de texto; essencial para a criação de letras capitulares editoriais (Drop Caps).",
+              "en": "Styles the initial letter of a block container; foundational technique for editorial drop cap typography."
+          }
+      },
+      {
+          "uid": "mat-181",
+          "id": 181,
+          "num_id": 181,
+          "canonical_id": "2026-10-24-181",
+          "symbol": "::first-line",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Abertura editorial de parágrafo",
+          "introduced_in": "EX2",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: ::first-line",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::first-line",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Estiliza a primeira linha renderizada de um parágrafo de texto, adaptando-se fluidamente à largura do ecrã.",
+              "en": "Styles the first rendered line of text within a block, adapting dynamically to viewport width changes."
+          }
+      },
+      {
+          "uid": "mat-182",
+          "id": 182,
+          "num_id": 182,
+          "canonical_id": "2026-10-24-182",
+          "symbol": "::file-selector-button",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: ::file-selector-button",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::file-selector-button",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Estiliza o botão nativo de seleção de ficheiros em campos <input type='file'>.",
+              "en": "Styles the native file picker button displayed inside file upload input controls."
+          }
+      },
+      {
+          "uid": "mat-183",
+          "id": 183,
+          "num_id": 183,
+          "canonical_id": "2026-10-24-183",
+          "symbol": "::view-transition",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Transições suaves entre páginas",
+          "introduced_in": "TP11",
+          "category": "cat-pseudo",
+          "cat_id": 6,
+          "label": "MDN: ::view-transition",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::view-transition",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Elemento raiz de pseudo-elementos que orquestra transições suaves de página na View Transitions API.",
+              "en": "Root pseudo-element orchestrating animated page and view transition snapshots in the View Transitions API."
+          }
+      },
+      {
+          "uid": "mat-184",
+          "id": 184,
+          "num_id": 184,
+          "canonical_id": "2026-10-24-184",
+          "symbol": "CSS Reset (Eric Meyer v2.0)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Fundação estrutural nos TP02 a TP06",
+          "introduced_in": "EX2",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: Handling conflicts & resets",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Handling_conflicts#css_resets",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Folha de reposição e neutralização de estilos pré-definidos dos browsers; base limpa para geometria previsível em @layer reset.",
+              "en": "Baseline stylesheet neutralizing disparate browser default margins, borders, and paddings inside @layer reset."
+          }
+      },
+      {
+          "uid": "mat-185",
+          "id": 185,
+          "num_id": 185,
+          "canonical_id": "2026-10-24-185",
+          "symbol": "box-sizing",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Obrigatório `border-box` no reset",
+          "introduced_in": "EX2",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: box-sizing",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Modo de cálculo da largura e altura; o valor 'border-box' inclui padding e border nas dimensões, garantindo previsibilidade total.",
+              "en": "Calculates box geometry; border-box ensures padding and borders are absorbed inside defined dimensions for layout sanity."
+          }
+      },
+      {
+          "uid": "mat-186",
+          "id": 186,
+          "num_id": 186,
+          "canonical_id": "2026-10-24-186",
+          "symbol": "width / height",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: width",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/width",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Dimensões explícitas de largura e altura da caixa; em Web Design Responsivo devem ser sempre combinadas com limites relativos.",
+              "en": "Explicit width and height dimensions; in Responsive Web Design they should be paired with relative constraints."
+          }
+      },
+      {
+          "uid": "mat-187",
+          "id": 187,
+          "num_id": 187,
+          "canonical_id": "2026-10-24-187",
+          "symbol": "min-width / max-width",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Fator de segurança mobile",
+          "introduced_in": "EX2",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: min-width",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/min-width",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Limites dimensionais superior e inferior de largura; max-width: 100% é a regra de ouro para impedir overflow lateral em mobile.",
+              "en": "Minimum and maximum width thresholds; max-width: 100% is the foundational rule preventing horizontal mobile overflow."
+          }
+      },
+      {
+          "uid": "mat-188",
+          "id": 188,
+          "num_id": 188,
+          "canonical_id": "2026-10-24-188",
+          "symbol": "min-height / max-height",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Prevenção de sobreposições",
+          "introduced_in": "EX2",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: min-height",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/min-height",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Limites dimensionais de altura; úteis para painéis recolhíveis e caixas modais com scroll interno.",
+              "en": "Minimum and maximum height constraints; essential for collapsible panels and bounded scrollable modal surfaces."
+          }
+      },
+      {
+          "uid": "mat-189",
+          "id": 189,
+          "num_id": 189,
+          "canonical_id": "2026-10-24-189",
+          "symbol": "margin (e shorthand)",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Centralização com `0 auto`",
+          "introduced_in": "EX1",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: margin",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/margin",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Espaçamento exterior em torno da caixa; margin: 0 auto é a técnica canónica para centralização horizontal de contentores com largura máxima.",
+              "en": "External spacing surrounding element boxes; margin: 0 auto serves as the canonical technique for centering capped wrappers."
+          }
+      },
+      {
+          "uid": "mat-190",
+          "id": 190,
+          "num_id": 190,
+          "canonical_id": "2026-10-24-190",
+          "symbol": "padding (e shorthand)",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Gutters de segurança lateral",
+          "introduced_in": "EX1",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: padding",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/padding",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Espaçamento interior respirável entre o conteúdo textual e o limite da borda da caixa.",
+              "en": "Internal breathing room inserted between element content and its containing boundary border."
+          }
+      },
+      {
+          "uid": "mat-191",
+          "id": 191,
+          "num_id": 191,
+          "canonical_id": "2026-10-24-191",
+          "symbol": "margin-inline / margin-block",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Propriedades lógicas modernas",
+          "introduced_in": "EX2",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: margin-inline",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Propriedades lógicas de margem independente da direção da escrita (inline = horizontal; block = vertical).",
+              "en": "Writing-mode agnostic logical margin properties (inline corresponds to horizontal axis, block to vertical flow)."
+          }
+      },
+      {
+          "uid": "mat-192",
+          "id": 192,
+          "num_id": 192,
+          "canonical_id": "2026-10-24-192",
+          "symbol": "padding-inline / padding-block",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Propriedades lógicas modernas",
+          "introduced_in": "EX2",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: padding-inline",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Propriedades lógicas de preenchimento interior alinhadas com o fluxo de escrita do documento.",
+              "en": "Writing-mode agnostic logical padding properties respecting text flow direction."
+          }
+      },
+      {
+          "uid": "mat-193",
+          "id": 193,
+          "num_id": 193,
+          "canonical_id": "2026-10-24-193",
+          "symbol": "aspect-ratio",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Preserva rácios 16:9, 1:1 sem jumps",
+          "introduced_in": "EX2",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: aspect-ratio",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio",
+          "pat_ref": 2,
+          "desc": {
+              "pt": "Reserva a proporção entre largura e altura (ex: 16/9, 1/1); impede saltos visuais na página durante o carregamento de imagens (Zero CLS).",
+              "en": "Enforces proportional aspect ratio constraints (e.g. 16/9, 1/1) preventing Cumulative Layout Shifts (Zero CLS) during media load."
+          }
+      },
+      {
+          "uid": "mat-194",
+          "id": 194,
+          "num_id": 194,
+          "canonical_id": "2026-10-24-194",
+          "symbol": "container-type",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "inline-size para Container Queries",
+          "introduced_in": "TP11",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: container-type",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/container-type",
+          "pat_ref": 11,
+          "desc": {
+              "pt": "Define o elemento como contexto de contentor para Container Queries ('inline-size' para observação da largura horizontal).",
+              "en": "Declares an element as a container query context ('inline-size' observes parent width for modular component adaptation)."
+          }
+      },
+      {
+          "uid": "mat-195",
+          "id": 195,
+          "num_id": 195,
+          "canonical_id": "2026-10-24-195",
+          "symbol": "container-name",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Nomeação de contexto do contentor",
+          "introduced_in": "TP11",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: container-name",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/container-name",
+          "pat_ref": 11,
+          "desc": {
+              "pt": "Atribui um nome identificador ao contentor para permitir consultas direcionadas através de @container nome (min-width: ...).",
+              "en": "Assigns an identifier name to a container query context for scoped component querying."
+          }
+      },
+      {
+          "uid": "mat-196",
+          "id": 196,
+          "num_id": 196,
+          "canonical_id": "2026-10-24-196",
+          "symbol": "container (shorthand)",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Shorthand: name / type",
+          "introduced_in": "TP11",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: container",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/container",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Propriedade shorthand moderna que combina container-name e container-type numa única declaração (ex: card / inline-size).",
+              "en": "Shorthand property combining container-name and container-type in one expression (e.g. card / inline-size)."
+          }
+      },
+      {
+          "uid": "mat-197",
+          "id": 197,
+          "num_id": 197,
+          "canonical_id": "2026-10-24-197",
+          "symbol": "display",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "block, inline, inline-block, none",
+          "introduced_in": "EX1",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: display",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/display",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Propriedade mestra que define o tipo de caixa de renderização de um elemento (block, inline, inline-block, flex, grid, none).",
+              "en": "Master property setting element outer and inner display rendering types (block, inline, flex, grid, none)."
+          }
+      },
+      {
+          "uid": "mat-198",
+          "id": 198,
+          "num_id": 198,
+          "canonical_id": "2026-10-24-198",
+          "symbol": "display: flex",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "TP05: alinhamento unidimensional",
+          "introduced_in": "TP06",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: CSS flexible box layout",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Ativa o modelo de caixa flexível unidimensional (1D); ideal para barras de ferramentas, navegações lineares e alinhamentos centrados.",
+              "en": "Enables 1D flexible box layout; optimal for linear toolbars, navigation rows, and vertical alignment centering."
+          }
+      },
+      {
+          "uid": "mat-199",
+          "id": 199,
+          "num_id": 199,
+          "canonical_id": "2026-10-24-199",
+          "symbol": "flex-direction",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "row, column, reverse",
+          "introduced_in": "TP06",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: flex-direction",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Define a orientação do eixo principal do contentor flexível (row, column, row-reverse, column-reverse).",
+              "en": "Establishes main flex axis orientation (row for horizontal sequencing, column for vertical stack)."
+          }
+      },
+      {
+          "uid": "mat-200",
+          "id": 200,
+          "num_id": 200,
+          "canonical_id": "2026-10-24-200",
+          "symbol": "flex-wrap",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Quebra fluida de cartões",
+          "introduced_in": "TP06",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: flex-wrap",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Controla se os itens flexíveis quebram em múltiplas linhas (wrap) quando o espaço no contentor se esgota em ecrãs pequenos.",
+              "en": "Controls whether flex items wrap onto multiple lines when horizontal viewport space expires."
+          }
+      },
+      {
+          "uid": "mat-201",
+          "id": 201,
+          "num_id": 201,
+          "canonical_id": "2026-10-24-201",
+          "symbol": "justify-content",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Alinhamento no eixo principal",
+          "introduced_in": "TP06",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: justify-content",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Alinha e distribui o espaço livre entre os itens ao longo do eixo principal (flex-start, center, space-between, space-around).",
+              "en": "Aligns and distributes vacant space among items along the main axis (flex-start, center, space-between)."
+          }
+      },
+      {
+          "uid": "mat-202",
+          "id": 202,
+          "num_id": 202,
+          "canonical_id": "2026-10-24-202",
+          "symbol": "align-items",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Alinhamento no eixo cruzado",
+          "introduced_in": "TP06",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: align-items",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/align-items",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Alinha os itens flexíveis ou grelhas ao longo do eixo cruzado perpendicular (stretch, center, baseline, flex-end).",
+              "en": "Aligns flex or grid items across the perpendicular cross axis (stretch, center, baseline)."
+          }
+      },
+      {
+          "uid": "mat-203",
+          "id": 203,
+          "num_id": 203,
+          "canonical_id": "2026-10-24-203",
+          "symbol": "flex-grow / flex-shrink / flex-basis",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: flex",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/flex",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Tríade de dimensionamento flexível; flex-basis estabelece o tamanho inicial, flex-grow absorve espaço livre e flex-shrink previne overflow.",
+              "en": "Flex sizing triad; flex-basis sets initial footprint, grow absorbs spare space, and shrink avoids overflow."
+          }
+      },
+      {
+          "uid": "mat-204",
+          "id": 204,
+          "num_id": 204,
+          "canonical_id": "2026-10-24-204",
+          "symbol": "order",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Reordenação visual responsiva",
+          "introduced_in": "TP06",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: order",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/order",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Reordena visualmente elementos flexíveis ou grelhas sem alterar a sua ordem no código HTML (com cautela estrita para acessibilidade).",
+              "en": "Visually reorders flex or grid items without mutating DOM source order (use cautiously with screen readers)."
+          }
+      },
+      {
+          "uid": "mat-205",
+          "id": 205,
+          "num_id": 205,
+          "canonical_id": "2026-10-24-205",
+          "symbol": "display: grid",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "TP05 & TP06: 2 colunas",
+          "introduced_in": "TP11",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: CSS grid layout",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout",
+          "pat_ref": 7,
+          "desc": {
+              "pt": "Ativa o modelo de grelha bi-dimensional (2D); permite orquestrar simultaneamente linhas e colunas em macro-estruturas responsivas.",
+              "en": "Enables 2D grid layout system; aligns rows and columns simultaneously for macro-level responsive architectures."
+          }
+      },
+      {
+          "uid": "mat-206",
+          "id": 206,
+          "num_id": 206,
+          "canonical_id": "2026-10-24-206",
+          "symbol": "grid-template-columns",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "Uso de `fr`, `minmax()`, `repeat()`",
+          "introduced_in": "TP11",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: grid-template-columns",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns",
+          "pat_ref": 7,
+          "desc": {
+              "pt": "Define as faixas verticais de uma grelha; suporta repeat(auto-fit, minmax(280px, 1fr)) para grelhas responsivas sem media queries.",
+              "en": "Defines vertical grid column tracks; powers fluid responsive layouts via repeat(auto-fit, minmax(280px, 1fr))."
+          }
+      },
+      {
+          "uid": "mat-207",
+          "id": 207,
+          "num_id": 207,
+          "canonical_id": "2026-10-24-207",
+          "symbol": "grid-template-rows",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "Accordion animado `0fr -> 1fr`",
+          "introduced_in": "TP11",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: grid-template-rows",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows",
+          "pat_ref": 4,
+          "desc": {
+              "pt": "Define as faixas horizontais de uma grelha; o truque 0fr -> 1fr permite animar suavemente a abertura de acordeões em CSS puro.",
+              "en": "Defines horizontal grid row tracks; the 0fr to 1fr technique animates pure CSS accordion expansion."
+          }
+      },
+      {
+          "uid": "mat-208",
+          "id": 208,
+          "num_id": 208,
+          "canonical_id": "2026-10-24-208",
+          "symbol": "grid-template-areas",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "Mapas visuais semânticos de grelha",
+          "introduced_in": "TP11",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: grid-template-areas",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Define a macro-estrutura visual de uma página nomeando regiões de grelha em texto (ex: 'header header' 'nav main' 'footer footer').",
+              "en": "Maps out holistic visual layouts by naming semantic spatial grid areas (e.g. 'header header' 'nav main' 'footer footer')."
+          }
+      },
+      {
+          "uid": "mat-209",
+          "id": 209,
+          "num_id": 209,
+          "canonical_id": "2026-10-24-209",
+          "symbol": "grid-column / grid-row",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "Posicionamento explícito de items",
+          "introduced_in": "TP11",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: grid-column",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Posiciona um item de grelha indicando as linhas iniciais e finais ou o número de faixas a expandir (span 2).",
+              "en": "Positions a grid item by declaring starting/ending line indices or spanning track spans (span 2)."
+          }
+      },
+      {
+          "uid": "mat-210",
+          "id": 210,
+          "num_id": 210,
+          "canonical_id": "2026-10-24-210",
+          "symbol": "gap / row-gap / column-gap",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Espaçamento limpo em Grid e Flexbox",
+          "introduced_in": "TP06",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: gap",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/gap",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Espaçamento limpo e consistente entre linhas e colunas em contentores Flexbox e Grid, eliminando truques de margens negativas.",
+              "en": "Clean, consistent gutter spacing between flex or grid tracks without margin hack overrides."
+          }
+      },
+      {
+          "uid": "mat-211",
+          "id": 211,
+          "num_id": 211,
+          "canonical_id": "2026-10-24-211",
+          "symbol": "columns / column-count",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Layout editorial multicolunas",
+          "introduced_in": "TP11",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: columns",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/columns",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Divide blocos de texto em múltiplas colunas de leitura no estilo de imprensa e revistas editoriais.",
+              "en": "Splits continuous text flows into multi-column editorial newspaper columns."
+          }
+      },
+      {
+          "uid": "mat-212",
+          "id": 212,
+          "num_id": 212,
+          "canonical_id": "2026-10-24-212",
+          "symbol": "position: relative",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Âncora local de coordenadas",
+          "introduced_in": "EX2",
+          "category": "cat-positioning",
+          "cat_id": 9,
+          "label": "MDN: position",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position#relative",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Posiciona o elemento em relação ao seu fluxo normal, permitindo desvios sem alterar o espaço circundante e servindo de referência para filhos absolutos.",
+              "en": "Positions element relative to its normal flow, allowing offset shifts without altering surrounding flow space and establishing containing blocks for absolute children."
+          }
+      },
+      {
+          "uid": "mat-213",
+          "id": 213,
+          "num_id": 213,
+          "canonical_id": "2026-10-24-213",
+          "symbol": "position: absolute",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Descolagem do fluxo normal",
+          "introduced_in": "EX2",
+          "category": "cat-positioning",
+          "cat_id": 9,
+          "label": "MDN: position",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position#absolute",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Remove o elemento do fluxo normal do documento, ancorando as suas coordenadas ao ancestral posicionado mais próximo.",
+              "en": "Removes element completely from normal document flow, anchoring coordinates to the nearest positioned ancestor."
+          }
+      },
+      {
+          "uid": "mat-214",
+          "id": 214,
+          "num_id": 214,
+          "canonical_id": "2026-10-24-214",
+          "symbol": "position: fixed",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Barras fixas de cabeçalho/leitura",
+          "introduced_in": "EX2",
+          "category": "cat-positioning",
+          "cat_id": 9,
+          "label": "MDN: position",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position#fixed",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Fixa o elemento na janela de visualização (viewport), mantendo-o imóvel durante a rolagem (ex: barras de navegação persistentes).",
+              "en": "Locks element relative to the browser viewport, remaining stationary during user scrolling (e.g. persistent navigation headers)."
+          }
+      },
+      {
+          "uid": "mat-215",
+          "id": 215,
+          "num_id": 215,
+          "canonical_id": "2026-10-24-215",
+          "symbol": "position: sticky",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Sticky Nav, Stacking Headers & Cards",
+          "introduced_in": "EX2",
+          "category": "cat-positioning",
+          "cat_id": 9,
+          "label": "MDN: position",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position#sticky",
+          "pat_ref": 7,
+          "desc": {
+              "pt": "Comporta-se como relativo dentro do fluxo normal até atingir um limite de deslocamento no scroll, tornando-se temporariamente fixo.",
+              "en": "Acts as relative within flow until reaching a declared scroll boundary offset, pinning itself temporarily while parent scrolls."
+          }
+      },
+      {
+          "uid": "mat-216",
+          "id": 216,
+          "num_id": 216,
+          "canonical_id": "2026-10-24-216",
+          "symbol": "top / right / bottom / left",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-positioning",
+          "cat_id": 9,
+          "label": "MDN: top",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/top",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Propriedades físicas de desvio de coordenadas aplicadas a elementos com posicionamento ativo (relative, absolute, fixed, sticky).",
+              "en": "Physical offset properties declaring directional displacement for positioned elements (relative, absolute, fixed, sticky)."
+          }
+      },
+      {
+          "uid": "mat-217",
+          "id": 217,
+          "num_id": 217,
+          "canonical_id": "2026-10-24-217",
+          "symbol": "inset",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Shorthand para top/right/bottom/left",
+          "introduced_in": "EX2",
+          "category": "cat-positioning",
+          "cat_id": 9,
+          "label": "MDN: inset",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/inset",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Shorthand lógico/físico moderno que define simultaneamente top, right, bottom e left (ex: inset: 0 para cobrir todo o contentor).",
+              "en": "Modern shorthand property declaring top, right, bottom, and left simultaneously (e.g. inset: 0 for full container coverage)."
+          }
+      },
+      {
+          "uid": "mat-218",
+          "id": 218,
+          "num_id": 218,
+          "canonical_id": "2026-10-24-218",
+          "symbol": "z-index",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Gestão de camadas e Stacking Contexts",
+          "introduced_in": "EX2",
+          "category": "cat-positioning",
+          "cat_id": 9,
+          "label": "MDN: z-index",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/z-index",
+          "pat_ref": 12,
+          "desc": {
+              "pt": "Controla a ordem de empilhamento no eixo Z para elementos posicionados, resolvendo sobreposições visuais.",
+              "en": "Specifies the stacking order along the 3D Z-axis for positioned boxes, governing visual layer hierarchies."
+          }
+      },
+      {
+          "uid": "mat-219",
+          "id": 219,
+          "num_id": 219,
+          "canonical_id": "2026-10-24-219",
+          "symbol": "anchor-name",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Identificador de elemento âncora",
+          "introduced_in": "TP11",
+          "category": "cat-positioning",
+          "cat_id": 9,
+          "label": "MDN: anchor-name",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/anchor-name",
+          "pat_ref": 10,
+          "desc": {
+              "pt": "Atribui um nome identificador único a um elemento para que outros elementos possam ancorar as suas posições a ele (CSS Anchor Positioning).",
+              "en": "Declares an anchor identifier on an element so other positioned elements can tether to it via CSS Anchor Positioning."
+          }
+      },
+      {
+          "uid": "mat-220",
+          "id": 220,
+          "num_id": 220,
+          "canonical_id": "2026-10-24-220",
+          "symbol": "position-anchor",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Associação a uma âncora",
+          "introduced_in": "TP11",
+          "category": "cat-positioning",
+          "cat_id": 9,
+          "label": "MDN: position-anchor",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position-anchor",
+          "pat_ref": 10,
+          "desc": {
+              "pt": "Conecta um elemento posicionado ao nome de âncora de referência previamente registado por anchor-name.",
+              "en": "Associates an anchored floating element with a target anchor identifier registered via anchor-name."
+          }
+      },
+      {
+          "uid": "mat-221",
+          "id": 221,
+          "num_id": 221,
+          "canonical_id": "2026-10-24-221",
+          "symbol": "position-area",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Posicionamento declarativo: `top span-all`",
+          "introduced_in": "TP11",
+          "category": "cat-positioning",
+          "cat_id": 9,
+          "label": "MDN: position-area",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position-area",
+          "pat_ref": 10,
+          "desc": {
+              "pt": "Define intuitivamente a área de amarração de um elemento ancorado em relação ao seu alvo (ex: top right, bottom span-all).",
+              "en": "Declaratively sets the spatial alignment region of an anchored box relative to its tether target (e.g. top right, bottom span-all)."
+          }
+      },
+      {
+          "uid": "mat-222",
+          "id": 222,
+          "num_id": 222,
+          "canonical_id": "2026-10-24-222",
+          "symbol": "position-try-fallbacks",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Fallbacks se faltar espaço no viewport",
+          "introduced_in": "TP11",
+          "category": "cat-positioning",
+          "cat_id": 9,
+          "label": "MDN: position-try-fallbacks",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position-try-fallbacks",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Declara estratégias automáticas de reposicionamento caso o elemento ancorado transborde os limites do ecrã.",
+              "en": "Declares ordered fallback positions if an anchored box overflows the visual boundary of the viewport."
+          }
+      },
+      {
+          "uid": "mat-223",
+          "id": 223,
+          "num_id": 223,
+          "canonical_id": "2026-10-24-223",
+          "symbol": "font-family",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Stacks nativas + fallbacks genéricos",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: font-family",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-family",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Define a pilha de famílias tipográficas (fallback font stack) para renderização de texto, terminando com genéricas como sans-serif ou serif.",
+              "en": "Declares the prioritized typographic font family fallback stack, terminating with generic families like sans-serif or serif."
+          }
+      },
+      {
+          "uid": "mat-224",
+          "id": 224,
+          "num_id": 224,
+          "canonical_id": "2026-10-24-224",
+          "symbol": "font-size",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Em `rem`/`em` no básico; `clamp()` no av.",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: font-size",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-size",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Define a escala métrica do corpo de texto usando unidades relativas (rem, em, ch) ou fluidas (clamp).",
+              "en": "Sets typographic type scale dimensions using relative units (rem, em, ch) or fluid clamp expressions."
+          }
+      },
+      {
+          "uid": "mat-225",
+          "id": 225,
+          "num_id": 225,
+          "canonical_id": "2026-10-24-225",
+          "symbol": "font-weight",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Valores fixos ou intervalo em variáveis",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: font-weight",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Controla o peso tipográfico dos caracteres, desde valores numéricos (100 a 900) até palavras-chave (normal, bold).",
+              "en": "Specifies font stroke weight thickness from numeric axes (100 to 900) to keyword weights (normal, bold)."
+          }
+      },
+      {
+          "uid": "mat-226",
+          "id": 226,
+          "num_id": 226,
+          "canonical_id": "2026-10-24-226",
+          "symbol": "font-style",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "normal, italic, oblique com ângulo",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: font-style",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-style",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Aplica estilos itálicos ou oblíquos aos carateres tipográficos.",
+              "en": "Selects italic or oblique typographic variations for glyph letterforms."
+          }
+      },
+      {
+          "uid": "mat-227",
+          "id": 227,
+          "num_id": 227,
+          "canonical_id": "2026-10-24-227",
+          "symbol": "font-display",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Obrigatório `swap` contra FOIT",
+          "introduced_in": "EX2",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: font-display",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Controla como fontes web descarregadas são renderizadas durante o carregamento da página (swap, block, fallback, optional).",
+              "en": "Governs web font loading rendering behavior while font files are being fetched (swap, block, fallback, optional)."
+          }
+      },
+      {
+          "uid": "mat-228",
+          "id": 228,
+          "num_id": 228,
+          "canonical_id": "2026-10-24-228",
+          "symbol": "font-variation-settings",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "Controlo fino de eixos: `wght`, `wdth`",
+          "introduced_in": "TP11",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: font-variation-settings",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-variation-settings",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Oferece controlo de baixo nível sobre eixos de variação OpenType em fontes variáveis (ex: 'wght', 'wdth', 'opsz').",
+              "en": "Provides low-level access to OpenType variable font design axes (e.g. 'wght', 'wdth', 'opsz')."
+          }
+      },
+      {
+          "uid": "mat-229",
+          "id": 229,
+          "num_id": 229,
+          "canonical_id": "2026-10-24-229",
+          "symbol": "font-optical-sizing",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "`auto` para eixos ópticos `opsz`",
+          "introduced_in": "TP11",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: font-optical-sizing",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-optical-sizing",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Ativa o ajuste ótico automático de fontes variáveis para otimizar a legibilidade em corpos pequenos e impacto em títulos.",
+              "en": "Enables automatic optical sizing in variable fonts to optimize legibility at micro copy and display scales."
+          }
+      },
+      {
+          "uid": "mat-230",
+          "id": 230,
+          "num_id": 230,
+          "canonical_id": "2026-10-24-230",
+          "symbol": "font-stretch",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "Percentagens de condensação/expansão",
+          "introduced_in": "TP11",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: font-stretch",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-stretch",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona variações condensadas ou expandidas de uma família tipográfica.",
+              "en": "Selects condensed or expanded typographic width variants from a font family."
+          }
+      },
+      {
+          "uid": "mat-231",
+          "id": 231,
+          "num_id": 231,
+          "canonical_id": "2026-10-24-231",
+          "symbol": "size-adjust",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Compensação métrica para Zero CLS",
+          "introduced_in": "TP11",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: size-adjust",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/size-adjust",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Ajusta proporcionalmente a escala de fontes locais em @font-face para evitar saltos de layout (CLS) durante fontes de substituição.",
+              "en": "Adjusts glyph scaling in fallback @font-face definitions to eliminate Cumulative Layout Shift (CLS)."
+          }
+      },
+      {
+          "uid": "mat-232",
+          "id": 232,
+          "num_id": 232,
+          "canonical_id": "2026-10-24-232",
+          "symbol": "line-height",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Unitless: 1.2 a 1.6",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: line-height",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/line-height",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Define a entrelinha (leading) de um bloco de texto, essencial para legibilidade editorial e ritmo vertical (recomendado valor sem unidade: 1.4 a 1.6).",
+              "en": "Defines typographic leading and vertical line spacing, crucial for editorial cadence and reading comfort (unitless 1.4-1.6 recommended)."
+          }
+      },
+      {
+          "uid": "mat-233",
+          "id": 233,
+          "num_id": 233,
+          "canonical_id": "2026-10-24-233",
+          "symbol": "letter-spacing",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: letter-spacing",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Ajusta o espaçamento horizontal entre caracteres (tracking) em títulos e caixas altas.",
+              "en": "Controls tracking and horizontal spacing between characters, particularly useful for headings and uppercase titles."
+          }
+      },
+      {
+          "uid": "mat-234",
+          "id": 234,
+          "num_id": 234,
+          "canonical_id": "2026-10-24-234",
+          "symbol": "text-align",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: text-align",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-align",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Controla o alinhamento horizontal do fluxo de texto dentro do bloco (left, right, center, justify).",
+              "en": "Governs horizontal inline typographic alignment within block boxes (left, right, center, justify)."
+          }
+      },
+      {
+          "uid": "mat-235",
+          "id": 235,
+          "num_id": 235,
+          "canonical_id": "2026-10-24-235",
+          "symbol": "text-transform",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "uppercase, lowercase, capitalize",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: text-transform",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Transforma o caso dos caracteres sem alterar o HTML de origem (uppercase, lowercase, capitalize).",
+              "en": "Controls capitalization transformations without altering semantic source HTML (uppercase, lowercase, capitalize)."
+          }
+      },
+      {
+          "uid": "mat-236",
+          "id": 236,
+          "num_id": 236,
+          "canonical_id": "2026-10-24-236",
+          "symbol": "text-decoration",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Sublinhados e limpeza de links",
+          "introduced_in": "EX1",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: text-decoration",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Aplica sublinhados, rasurados e sobrelinhas com controlo de cor, espessura e estilo (solid, wavy, dotted).",
+              "en": "Decorates text runs with underlines, strikethroughs, or overlines, controlling color, thickness, and line styles."
+          }
+      },
+      {
+          "uid": "mat-237",
+          "id": 237,
+          "num_id": 237,
+          "canonical_id": "2026-10-24-237",
+          "symbol": "text-underline-offset",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Afastamento tipográfico da linha",
+          "introduced_in": "EX2",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: text-underline-offset",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-underline-offset",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Ajusta a distância vertical entre o sublinhado tipográfico e a linha de base dos caracteres, evitando colisões com descendentes.",
+              "en": "Offsets the vertical distance between text underlines and typographic baselines, preventing descender clashes."
+          }
+      },
+      {
+          "uid": "mat-238",
+          "id": 238,
+          "num_id": 238,
+          "canonical_id": "2026-10-24-238",
+          "symbol": "text-overflow",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "ellipsis com `white-space: nowrap`",
+          "introduced_in": "EX2",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: text-overflow",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Determina como texto truncado é sinalizado visualmente quando excede o contentor (ex: ellipsis ...).",
+              "en": "Specifies how hidden overflow text is signaled to readers when clipped (e.g. ellipsis ...)."
+          }
+      },
+      {
+          "uid": "mat-239",
+          "id": 239,
+          "num_id": 239,
+          "canonical_id": "2026-10-24-239",
+          "symbol": "overflow-wrap / word-break",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Prevenção de quebra lateral em mobile",
+          "introduced_in": "EX2",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: overflow-wrap",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Controla a quebra forçada de palavras longas ou URLs para prevenir quebra de layout em ecrãs estreitos.",
+              "en": "Directs breaking behavior for long unbroken strings or URLs to prevent layout spillover on narrow mobile screens."
+          }
+      },
+      {
+          "uid": "mat-240",
+          "id": 240,
+          "num_id": 240,
+          "canonical_id": "2026-10-24-240",
+          "symbol": "hyphens",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Hifenação automática em português",
+          "introduced_in": "TP11",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: hyphens",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Ativa a hifenização automática baseada no idioma declarado no HTML (lang='pt').",
+              "en": "Enables automated dictionary-based hyphenation according to document language declarations (lang='pt')."
+          }
+      },
+      {
+          "uid": "mat-241",
+          "id": 241,
+          "num_id": 241,
+          "canonical_id": "2026-10-24-241",
+          "symbol": "writing-mode",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Títulos verticais para posters/menus",
+          "introduced_in": "TP11",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: writing-mode",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Define a direção do fluxo de blocos e linhas de texto (horizontal-tb, vertical-rl, vertical-lr).",
+              "en": "Configures block and inline text flow orientations (horizontal-tb, vertical-rl, vertical-lr)."
+          }
+      },
+      {
+          "uid": "mat-242",
+          "id": 242,
+          "num_id": 242,
+          "canonical_id": "2026-10-24-242",
+          "symbol": "color",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: color",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Define a cor do texto e a cor primária de primeiro plano de um elemento (herdada por border e currentColor).",
+              "en": "Sets the typographic foreground color of text, also inherited by borders and currentColor references."
+          }
+      },
+      {
+          "uid": "mat-243",
+          "id": 243,
+          "num_id": 243,
+          "canonical_id": "2026-10-24-243",
+          "symbol": "background-color",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: background-color",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/background-color",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Define a cor sólida de fundo de um elemento visual.",
+              "en": "Declares the solid background fill color beneath an element's content area."
+          }
+      },
+      {
+          "uid": "mat-244",
+          "id": 244,
+          "num_id": 244,
+          "canonical_id": "2026-10-24-244",
+          "symbol": "background-image",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Gradientes e imagens",
+          "introduced_in": "EX2",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: background-image",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/background-image",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Aplica uma ou mais imagens de fundo ou gradientes (linear, radial, conic) a um elemento.",
+              "en": "Applies one or multiple layered background graphics or CSS gradients (linear, radial, conic)."
+          }
+      },
+      {
+          "uid": "mat-245",
+          "id": 245,
+          "num_id": 245,
+          "canonical_id": "2026-10-24-245",
+          "symbol": "background-size",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "cover, contain",
+          "introduced_in": "EX2",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: background-size",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/background-size",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Controla o dimensionamento da imagem de fundo (cover, contain, valores em rem ou %).",
+              "en": "Controls background graphic scaling behavior across container bounds (cover, contain, explicit sizes)."
+          }
+      },
+      {
+          "uid": "mat-246",
+          "id": 246,
+          "num_id": 246,
+          "canonical_id": "2026-10-24-246",
+          "symbol": "background-position",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: background-position",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/background-position",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Determina as coordenadas de ancoragem e posição inicial da imagem de fundo.",
+              "en": "Sets the initial anchor coordinates and placement position for background graphics."
+          }
+      },
+      {
+          "uid": "mat-247",
+          "id": 247,
+          "num_id": 247,
+          "canonical_id": "2026-10-24-247",
+          "symbol": "border (e sub-props)",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX1",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: border",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/border",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Propriedade de delimitação perimetral da caixa (espessura, estilo de traço e cor).",
+              "en": "Box perimeter outline boundary property defining border width, line style, and color."
+          }
+      },
+      {
+          "uid": "mat-248",
+          "id": 248,
+          "num_id": 248,
+          "canonical_id": "2026-10-24-248",
+          "symbol": "border-radius",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Arredondamento e pílulas",
+          "introduced_in": "EX2",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: border-radius",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Arredondamento dos cantos da caixa; permite produzir cantos suaves, círculos perfeitos (50%) e pílulas estéticas.",
+              "en": "Rounds element box corners; enables subtle aesthetic radii, pills, or circular avatars (50%)."
+          }
+      },
+      {
+          "uid": "mat-249",
+          "id": 249,
+          "num_id": 249,
+          "canonical_id": "2026-10-24-249",
+          "symbol": "outline / outline-offset",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Anéis de foco acessíveis sem deslocar",
+          "introduced_in": "EX2",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: outline",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/outline",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Contorno exterior de foco e demarcação; outline-offset afasta o anel do perímetro da caixa sem afetar o layout ou causar refluxo.",
+              "en": "Perimeter outline ring; outline-offset separates the ring from the boundary without shifting box layout geometry."
+          }
+      },
+      {
+          "uid": "mat-250",
+          "id": 250,
+          "num_id": 250,
+          "canonical_id": "2026-10-24-250",
+          "symbol": "box-shadow",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: box-shadow",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Aplica sombras projetadas suaves ou profundas em torno da moldura da caixa, conferindo elevação e hierarquia tridimensional.",
+              "en": "Casts soft or crisp drop shadows around element borders to establish visual elevation and layer hierarchy."
+          }
+      },
+      {
+          "uid": "mat-251",
+          "id": 251,
+          "num_id": 251,
+          "canonical_id": "2026-10-24-251",
+          "symbol": "opacity",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: opacity",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/opacity",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Ajusta o nível de transparência global de um elemento e de todos os seus filhos (0.0 totalmente transparente a 1.0 opaco).",
+              "en": "Controls global transparency levels for an element and its subtree (0.0 transparent to 1.0 opaque)."
+          }
+      },
+      {
+          "uid": "mat-252",
+          "id": 252,
+          "num_id": 252,
+          "canonical_id": "2026-10-24-252",
+          "symbol": "filter",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "blur, brightness, grayscale, etc.",
+          "introduced_in": "EX2",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: filter",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/filter",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Aplica efeitos gráficos de pós-processamento como blur(), brightness(), contrast(), grayscale() e drop-shadow().",
+              "en": "Applies visual post-processing graphical filters including blur(), contrast(), grayscale(), and drop-shadow()."
+          }
+      },
+      {
+          "uid": "mat-253",
+          "id": 253,
+          "num_id": 253,
+          "canonical_id": "2026-10-24-253",
+          "symbol": "backdrop-filter",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Efeito de vidro fosco / frosted glass",
+          "introduced_in": "EX2",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: backdrop-filter",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Aplica efeitos de filtro à área imediatamente atrás do elemento (essencial para efeitos de vidro fosco frosted-glass).",
+              "en": "Applies graphical filters to the background layers directly behind an element (crucial for frosted glass effects)."
+          }
+      },
+      {
+          "uid": "mat-254",
+          "id": 254,
+          "num_id": 254,
+          "canonical_id": "2026-10-24-254",
+          "symbol": "mix-blend-mode",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Efeitos de sobreposição gráfica",
+          "introduced_in": "TP11",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: mix-blend-mode",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Controla como o conteúdo de um elemento se mistura graficamente com as cores do fundo e elementos inferiores (multiply, screen, overlay).",
+              "en": "Governs how foreground graphical elements blend with underlying parent colors (multiply, screen, overlay)."
+          }
+      },
+      {
+          "uid": "mat-255",
+          "id": 255,
+          "num_id": 255,
+          "canonical_id": "2026-10-24-255",
+          "symbol": "clip-path",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Recortes geométricos e diagonais",
+          "introduced_in": "TP11",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: clip-path",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Corta uma região de visualização específica num elemento usando formas básicas (circle, polygon) ou caminhos SVG.",
+              "en": "Clips an element to a declared geometric mask boundary using basic shapes (circle, polygon) or SVG paths."
+          }
+      },
+      {
+          "uid": "mat-256",
+          "id": 256,
+          "num_id": 256,
+          "canonical_id": "2026-10-24-256",
+          "symbol": "overflow / overflow-x/y",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Prevenção de scroll parasita",
+          "introduced_in": "EX2",
+          "category": "cat-boxmodel",
+          "cat_id": 7,
+          "label": "MDN: overflow",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overflow",
+          "pat_ref": 6,
+          "desc": {
+              "pt": "Controlo de comportamento do conteúdo excedente (visible, hidden, scroll, auto); overflow-x: hidden impede quebras de viewport em mobile.",
+              "en": "Controls clipping and scrolling when content exceeds container boundaries; overflow-x: hidden secures mobile viewports."
+          }
+      },
+      {
+          "uid": "mat-257",
+          "id": 257,
+          "num_id": 257,
+          "canonical_id": "2026-10-24-257",
+          "symbol": "scroll-behavior",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "`smooth` para âncoras internas",
+          "introduced_in": "TP06",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: scroll-behavior",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Define se o salto de rolagem entre âncoras na página é instantâneo (auto) ou suave (smooth).",
+              "en": "Specifies whether viewport scrolling animations across anchor links are instant (auto) or smooth."
+          }
+      },
+      {
+          "uid": "mat-258",
+          "id": 258,
+          "num_id": 258,
+          "canonical_id": "2026-10-24-258",
+          "symbol": "scroll-snap-type",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Carrossel de galeria: `x mandatory`",
+          "introduced_in": "TP06",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: scroll-snap-type",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-type",
+          "pat_ref": 3,
+          "desc": {
+              "pt": "Ativa pontos de ancoragem magnéticos de scroll num contentor deslizante (ex: x mandatory para carrosséis nativos sem JS).",
+              "en": "Enforces magnetic snap points on scrollable overflow containers (e.g. x mandatory for native CSS carousels)."
+          }
+      },
+      {
+          "uid": "mat-259",
+          "id": 259,
+          "num_id": 259,
+          "canonical_id": "2026-10-24-259",
+          "symbol": "scroll-snap-align",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "`center` ou `start` nos slides",
+          "introduced_in": "TP06",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: scroll-snap-align",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-align",
+          "pat_ref": 3,
+          "desc": {
+              "pt": "Declara a posição de alinhamento magnético do item dentro da janela de scroll (start, center, end).",
+              "en": "Specifies the target alignment boundary for a child item within a magnetic snap container (start, center, end)."
+          }
+      },
+      {
+          "uid": "mat-260",
+          "id": 260,
+          "num_id": 260,
+          "canonical_id": "2026-10-24-260",
+          "symbol": "scroll-padding / scroll-margin",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Evita que cabeçalho tape a âncora",
+          "introduced_in": "TP06",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: scroll-padding",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-padding",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Define margens de segurança no contentor de scroll para que itens ancorados não fiquem tapados por cabeçalhos fixos.",
+              "en": "Declares safety offsets on scroll containers preventing snap items from clipping beneath fixed headers."
+          }
+      },
+      {
+          "uid": "mat-261",
+          "id": 261,
+          "num_id": 261,
+          "canonical_id": "2026-10-24-261",
+          "symbol": "animation-timeline",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "TP06: barra de leitura via `scroll()`",
+          "introduced_in": "TP11",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: animation-timeline",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline",
+          "pat_ref": 6,
+          "desc": {
+              "pt": "Liga o progresso de uma animação CSS à rolagem da página ou contentor (Scroll-driven Animations) em vez do tempo em segundos.",
+              "en": "Binds CSS animation progress directly to viewport scroll offsets (Scroll-driven Animations) instead of clock durations."
+          }
+      },
+      {
+          "uid": "mat-262",
+          "id": 262,
+          "num_id": 262,
+          "canonical_id": "2026-10-24-262",
+          "symbol": "animation-range",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Sincronização em `entry` ou `cover`",
+          "introduced_in": "TP11",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: animation-range",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/animation-range",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Define os pontos inicial e final de ativação de uma animação orientada a scroll (ex: entry 0% cover 100%).",
+              "en": "Defines keyframe progression boundaries for scroll-linked animations (e.g. entry 0% cover 100%)."
+          }
+      },
+      {
+          "uid": "mat-263",
+          "id": 263,
+          "num_id": 263,
+          "canonical_id": "2026-10-24-263",
+          "symbol": "scrollbar-width / scrollbar-color",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Estilização da barra nativa",
+          "introduced_in": "TP11",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: scrollbar-width",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Permite estilização declarativa e discreta da espessura e cores da barra de scroll nativa do navegador.",
+              "en": "Provides standard declarative styling for native browser scrollbar width and thumb/track colors."
+          }
+      },
+      {
+          "uid": "mat-264",
+          "id": 264,
+          "num_id": 264,
+          "canonical_id": "2026-10-24-264",
+          "symbol": "overscroll-behavior",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Impede scroll acorrentado em modais",
+          "introduced_in": "TP11",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: overscroll-behavior",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Controla se o encadeamento de scroll do contentor se propaga para o body quando atinge o final da rolagem.",
+              "en": "Controls whether scroll momentum chains up to parent viewports when hitting container scroll edges."
+          }
+      },
+      {
+          "uid": "mat-265",
+          "id": 265,
+          "num_id": 265,
+          "canonical_id": "2026-10-24-265",
+          "symbol": "transition (e sub-props)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Microinterações de hover/focus",
+          "introduced_in": "TP06",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: transition",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transition",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Interpola suavemente a transição entre estados CSS ao longo do tempo (transition: property duration timing-function delay).",
+              "en": "Smoothly interpolates CSS property transitions between states (property, duration, timing-function, delay)."
+          }
+      },
+      {
+          "uid": "mat-266",
+          "id": 266,
+          "num_id": 266,
+          "canonical_id": "2026-10-24-266",
+          "symbol": "transform",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "translate, scale, rotate",
+          "introduced_in": "TP06",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: transform",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform",
+          "pat_ref": 13,
+          "desc": {
+              "pt": "Aplica transformações geométricas bidimensionais ou tridimensionais (translate(), scale(), rotate(), skew()).",
+              "en": "Applies 2D and 3D geometric transformations including translate(), scale(), rotate(), and skew()."
+          }
+      },
+      {
+          "uid": "mat-267",
+          "id": 267,
+          "num_id": 267,
+          "canonical_id": "2026-10-24-267",
+          "symbol": "transform-origin",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Origem de escala na barra de scroll",
+          "introduced_in": "TP06",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: transform-origin",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Define o ponto pivotal em torno do qual as rotações e escalas de transform são calculadas (padrão: 50% 50%).",
+              "en": "Declares the focal origin point around which geometric transformations pivot (default 50% 50%)."
+          }
+      },
+      {
+          "uid": "mat-268",
+          "id": 268,
+          "num_id": 268,
+          "canonical_id": "2026-10-24-268",
+          "symbol": "perspective",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Base para Parallax 3D Pure CSS",
+          "introduced_in": "TP11",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: perspective",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/perspective",
+          "pat_ref": 13,
+          "desc": {
+              "pt": "Define a distância virtual de observação 3D, conferindo profundidade e perspetiva aos elementos transformados em 3D.",
+              "en": "Establishes a virtual viewing distance for 3D coordinate space, imparting realistic perspective depth."
+          }
+      },
+      {
+          "uid": "mat-269",
+          "id": 269,
+          "num_id": 269,
+          "canonical_id": "2026-10-24-269",
+          "symbol": "perspective-origin",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Ponto de fuga visual 3D",
+          "introduced_in": "TP11",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: perspective-origin",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/perspective-origin",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Determina o ponto de fuga e o ângulo visual a partir do qual a perspetiva 3D é observada.",
+              "en": "Sets the vanishing focal point from which 3D transformed scenes are visually observed."
+          }
+      },
+      {
+          "uid": "mat-270",
+          "id": 270,
+          "num_id": 270,
+          "canonical_id": "2026-10-24-270",
+          "symbol": "transform-style",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "`preserve-3d` para profundidade",
+          "introduced_in": "TP11",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: transform-style",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Determina se os elementos filhos preservam a sua tridimensionalidade (preserve-3d) ou são achatados no plano 2D.",
+              "en": "Controls whether child elements maintain distinct 3D spatial depth (preserve-3d) or flatten to 2D."
+          }
+      },
+      {
+          "uid": "mat-271",
+          "id": 271,
+          "num_id": 271,
+          "canonical_id": "2026-10-24-271",
+          "symbol": "animation (e sub-props)",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "Orquestração com `@keyframes`",
+          "introduced_in": "TP11",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: animation",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/animation",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Shorthand para animações CSS complexas com múltiplos fotogramas-chave definidos via @keyframes.",
+              "en": "Shorthand configuring multi-step CSS keyframe animations defined via @keyframes declarations."
+          }
+      },
+      {
+          "uid": "mat-272",
+          "id": 272,
+          "num_id": 272,
+          "canonical_id": "2026-10-24-272",
+          "symbol": "will-change",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Otimização de rendering da GPU",
+          "introduced_in": "TP06",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: will-change",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/will-change",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Informa o navegador sobre propriedades que irão mudar em breve, permitindo otimizações de aceleração por GPU com antecedência.",
+              "en": "Hints to the rendering engine which properties will animate, enabling preemptive GPU layer acceleration."
+          }
+      },
+      {
+          "uid": "mat-273",
+          "id": 273,
+          "num_id": 273,
+          "canonical_id": "2026-10-24-273",
+          "symbol": "transition-behavior",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Permite transição de `display: none`",
+          "introduced_in": "TP11",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: transition-behavior",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Permite que propriedades discretas (como display: none para block) transitem suavemente (allow-discrete).",
+              "en": "Permits discrete properties (such as display: none to block) to smoothly interpolate using allow-discrete."
+          }
+      },
+      {
+          "uid": "mat-274",
+          "id": 274,
+          "num_id": 274,
+          "canonical_id": "2026-10-24-274",
+          "symbol": "interpolate-size",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Animação nativa de `height: auto`",
+          "introduced_in": "TP11",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: interpolate-size",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Ativa interpolação suave e animação nativa para height: auto e dimensões de conteúdo intrínseco.",
+              "en": "Enables smooth animations and keyframe interpolations to height: auto and intrinsic content sizing keywords."
+          }
+      },
+      {
+          "uid": "mat-275",
+          "id": 275,
+          "num_id": 275,
+          "canonical_id": "2026-10-24-275",
+          "symbol": "content",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Uso com `::before`/`::after` e `:has()`",
+          "introduced_in": "TP06",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: content",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/content",
+          "pat_ref": 8,
+          "desc": {
+              "pt": "Insere conteúdo gerado em pseudo-elementos ::before e ::after (strings, atributos attr(), ou contadores).",
+              "en": "Injects generated visual content into ::before and ::after pseudo-elements (strings, attr() values, or counters)."
+          }
+      },
+      {
+          "uid": "mat-276",
+          "id": 276,
+          "num_id": 276,
+          "canonical_id": "2026-10-24-276",
+          "symbol": "cursor",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "`pointer` em botões/toggles",
+          "introduced_in": "EX2",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: cursor",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/cursor",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Define o aspeto do cursor do rato quando passa sobre o elemento (pointer, default, text, grab, not-allowed).",
+              "en": "Specifies mouse cursor styling upon hovering elements (pointer, default, text, grab, not-allowed)."
+          }
+      },
+      {
+          "uid": "mat-277",
+          "id": 277,
+          "num_id": 277,
+          "canonical_id": "2026-10-24-277",
+          "symbol": "pointer-events",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Desativar cliques em overlays inertes",
+          "introduced_in": "TP06",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: pointer-events",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Controla se um elemento reage a cliques e toques do utilizador (pointer-events: none para passar cliques através do elemento).",
+              "en": "Controls whether elements respond to pointer interactions (pointer-events: none passes events to elements beneath)."
+          }
+      },
+      {
+          "uid": "mat-278",
+          "id": 278,
+          "num_id": 278,
+          "canonical_id": "2026-10-24-278",
+          "symbol": "user-select",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Evitar seleção acidental em botões",
+          "introduced_in": "TP06",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: user-select",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/user-select",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Controla se o utilizador pode selecionar o texto do elemento com o cursor (none para interfaces tipo app, text para leitura).",
+              "en": "Governs whether readers can select textual content with pointer selection (none for app UI, text for body copy)."
+          }
+      },
+      {
+          "uid": "mat-279",
+          "id": 279,
+          "num_id": 279,
+          "canonical_id": "2026-10-24-279",
+          "symbol": "accent-color",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Estilização nativa instantânea de inputs",
+          "introduced_in": "TP06",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: accent-color",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/accent-color",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Aplica uma cor de realce personalizada aos controlos nativos de formulário (checkboxes, radio buttons, sliders range).",
+              "en": "Applies custom brand accent tints to native form inputs (checkboxes, radios, range sliders)."
+          }
+      },
+      {
+          "uid": "mat-280",
+          "id": 280,
+          "num_id": 280,
+          "canonical_id": "2026-10-24-280",
+          "symbol": "color-scheme",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Sinalização de suporte a Dark/Light Mode",
+          "introduced_in": "TP11",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: color-scheme",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme",
+          "pat_ref": 9,
+          "desc": {
+              "pt": "Informa o navegador se a página suporta temas claro e escuro, adaptando automaticamente as cores dos controlos nativos.",
+              "en": "Informs the browser engine of dark/light theme support, automatically harmonizing default system controls."
+          }
+      },
+      {
+          "uid": "mat-281",
+          "id": 281,
+          "num_id": 281,
+          "canonical_id": "2026-10-24-281",
+          "symbol": "--* (Custom Property Declaration)",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "Declaração de variáveis CSS simples",
+          "introduced_in": "TP11",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: Using CSS custom properties",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Declara uma variável CSS nativa reutilizável em cascata (CSS Custom Property), fundamental para design tokens.",
+              "en": "Declares a reusable, cascading native CSS Custom Property, forming the foundation of design tokens."
+          }
+      },
+      {
+          "uid": "mat-282",
+          "id": 282,
+          "num_id": 282,
+          "canonical_id": "2026-10-24-282",
+          "symbol": "@media (min-width / max-width)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "RWD Mobile-First",
+          "introduced_in": "EX2",
+          "category": "cat-atrules",
+          "cat_id": 11,
+          "label": "MDN: @media",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@media",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Aplica regras de estilo condicionais com base na largura da janela de visualização (Responsive Web Design).",
+              "en": "Applies responsive conditional styles based on browser viewport dimensions (Responsive Web Design)."
+          }
+      },
+      {
+          "uid": "mat-283",
+          "id": 283,
+          "num_id": 283,
+          "canonical_id": "2026-10-24-283",
+          "symbol": "@media (prefers-color-scheme)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Dark Mode nativo",
+          "introduced_in": "TP06",
+          "category": "cat-atrules",
+          "cat_id": 11,
+          "label": "MDN: prefers-color-scheme",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Deteta se o utilizador tem ativo o modo escuro ou claro nas preferências do seu sistema operativo.",
+              "en": "Detects user operating system color theme preferences (dark or light mode)."
+          }
+      },
+      {
+          "uid": "mat-284",
+          "id": 284,
+          "num_id": 284,
+          "canonical_id": "2026-10-24-284",
+          "symbol": "@media (prefers-reduced-motion)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Acessibilidade vestibular",
+          "introduced_in": "EX2",
+          "category": "cat-atrules",
+          "cat_id": 11,
+          "label": "MDN: prefers-reduced-motion",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Deteta se o utilizador solicitou minimização de animações nas opções de acessibilidade do sistema.",
+              "en": "Detects accessibility preferences requesting minimized animations to avoid vestibular motion triggers."
+          }
+      },
+      {
+          "uid": "mat-285",
+          "id": 285,
+          "num_id": 285,
+          "canonical_id": "2026-10-24-285",
+          "symbol": "@container (Container Queries)",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Componentes intrinsecamente responsivos",
+          "introduced_in": "TP11",
+          "category": "cat-atrules",
+          "cat_id": 11,
+          "label": "MDN: @container",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@container",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Aplica estilos condicionais com base nas dimensões do contentor pai em vez de toda a janela de visualização.",
+              "en": "Applies conditional layout styles based on a parent container's dimensions rather than the global viewport."
+          }
+      },
+      {
+          "uid": "mat-286",
+          "id": 286,
+          "num_id": 286,
+          "canonical_id": "2026-10-24-286",
+          "symbol": "@font-face (Local WOFF2 Vendorizado)",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Soberania de dados e zero CDNs",
+          "introduced_in": "EX2",
+          "category": "cat-atrules",
+          "cat_id": 11,
+          "label": "MDN: @font-face",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Declara fontes personalizadas carregadas localmente no formato WOFF2, garantindo independência e privacidade.",
+              "en": "Declares self-hosted custom fonts locally using WOFF2 formats for performance, autonomy, and privacy."
+          }
+      },
+      {
+          "uid": "mat-287",
+          "id": 287,
+          "num_id": 287,
+          "canonical_id": "2026-10-24-287",
+          "symbol": "@keyframes",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "Sequenciação temporal de animações",
+          "introduced_in": "TP11",
+          "category": "cat-atrules",
+          "cat_id": 11,
+          "label": "MDN: @keyframes",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes",
+          "pat_ref": 6,
+          "desc": {
+              "pt": "Define a sequência de passos e percentagens de uma animação CSS entre 0% (from) e 100% (to).",
+              "en": "Defines keyframe progress milestones and styled stages of a CSS animation between 0% (from) and 100% (to)."
+          }
+      },
+      {
+          "uid": "mat-288",
+          "id": 288,
+          "num_id": 288,
+          "canonical_id": "2026-10-24-288",
+          "symbol": "@layer",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "TP06: orquestração de especificidade",
+          "introduced_in": "TP06",
+          "category": "cat-atrules",
+          "cat_id": 11,
+          "label": "MDN: @layer",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@layer",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Declara camadas de cascata de prioridade explícita, resolvendo conflitos de especificidade de forma arquitetada.",
+              "en": "Establishes explicit cascade layers, cleanly managing stylesheet priority conflicts regardless of selector specificity."
+          }
+      },
+      {
+          "uid": "mat-289",
+          "id": 289,
+          "num_id": 289,
+          "canonical_id": "2026-10-24-289",
+          "symbol": "@supports",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "Progressive Enhancement de APIs",
+          "introduced_in": "TP11",
+          "category": "cat-atrules",
+          "cat_id": 11,
+          "label": "MDN: @supports",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@supports",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Aplica regras de CSS apenas se o navegador suportar uma determinada funcionalidade ou propriedade (Feature Queries).",
+              "en": "Conditionally executes styles depending on browser feature support (Feature Queries)."
+          }
+      },
+      {
+          "uid": "mat-290",
+          "id": 290,
+          "num_id": 290,
+          "canonical_id": "2026-10-24-290",
+          "symbol": "@property (CSS Properties API)",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Variáveis tipadas e animáveis",
+          "introduced_in": "TP11",
+          "category": "cat-atrules",
+          "cat_id": 11,
+          "label": "MDN: @property",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@property",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Regista propriedades CSS personalizadas com tipagem estrita, valor inicial e herança configurável para permitir animações.",
+              "en": "Registers typed CSS Custom Properties with initial fallback values and inheritance control for smooth animatability."
+          }
+      },
+      {
+          "uid": "mat-291",
+          "id": 291,
+          "num_id": 291,
+          "canonical_id": "2026-10-24-291",
+          "symbol": "@starting-style",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Animação suave de entrada de modais/popups",
+          "introduced_in": "TP11",
+          "category": "cat-atrules",
+          "cat_id": 11,
+          "label": "MDN: @starting-style",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Declara os estilos de entrada iniciais para transições ao adicionar ou remover elementos do DOM ou abrir diálogos.",
+              "en": "Defines initial entry styles for elements entering the DOM or opening popovers/dialogs before transitions fire."
+          }
+      },
+      {
+          "uid": "mat-292",
+          "id": 292,
+          "num_id": 292,
+          "canonical_id": "2026-10-24-292",
+          "symbol": "@scope",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Isolamento estrito de componentes",
+          "introduced_in": "TP11",
+          "category": "cat-atrules",
+          "cat_id": 11,
+          "label": "MDN: @scope",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@scope",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Isola o alcance dos seletores CSS a uma subárvore específica do documento sem necessidade de classes de prefixo artificiais.",
+              "en": "Scopes CSS selectors to specific subtrees within the document hierarchy, avoiding artificial prefix naming schemes."
+          }
+      },
+      {
+          "uid": "mat-293",
+          "id": 293,
+          "num_id": 293,
+          "canonical_id": "2026-10-24-293",
+          "symbol": "@view-transition",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Navegação suave SPA sem scripts",
+          "introduced_in": "TP11",
+          "category": "cat-atrules",
+          "cat_id": 11,
+          "label": "MDN: @view-transition",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@view-transition",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Ativa e configura transições de página fluidas entre estados de navegação (View Transitions API).",
+              "en": "Enables and configures smooth page transitions across navigation states using the View Transitions API."
+          }
+      },
+      {
+          "uid": "mat-294",
+          "id": 294,
+          "num_id": 294,
+          "canonical_id": "2026-10-24-294",
+          "symbol": "@import",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "NO",
+          "status_note": "Preterido por `<link>` por performance",
+          "introduced_in": "Beyond",
+          "category": "cat-atrules",
+          "cat_id": 11,
+          "label": "MDN: @import",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@import",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Carrega ficheiros CSS externos dentro de uma folha de estilos (desaconselhado em produção por razões de performance).",
+              "en": "Imports external CSS stylesheets directly into a stylesheet (discouraged in performance-sensitive production)."
+          }
+      },
+      {
+          "uid": "mat-295",
+          "id": 295,
+          "num_id": 295,
+          "canonical_id": "2026-10-24-295",
+          "symbol": "calc()",
+          "type": "CSS",
+          "tier": "foundational",
+          "lev": 1,
+          "status": "YES",
+          "status_note": "Cálculos híbridos de medidas: `100% - 20px`",
+          "introduced_in": "EX1",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: calc()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/calc",
+          "pat_ref": 12,
+          "desc": {
+              "pt": "Executa cálculos matemáticos combinando unidades mistas no CSS (ex: calc(100% - 2rem)).",
+              "en": "Performs mathematical calculations mixing different CSS units (e.g. calc(100% - 2rem))."
+          }
+      },
+      {
+          "uid": "mat-296",
+          "id": 296,
+          "num_id": 296,
+          "canonical_id": "2026-10-24-296",
+          "symbol": "clamp()",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Pilar do TP06: tipografia e padding fluidos",
+          "introduced_in": "EX2",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: clamp()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/clamp",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Limita um valor dentro de um intervalo flexível definido por um mínimo, valor ideal e valor máximo (ex: tipografia fluida).",
+              "en": "Clamps a responsive value within an interval governed by a minimum, ideal preference, and maximum threshold."
+          }
+      },
+      {
+          "uid": "mat-297",
+          "id": 297,
+          "num_id": 297,
+          "canonical_id": "2026-10-24-297",
+          "symbol": "min()",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Limites superiores automáticos",
+          "introduced_in": "EX2",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: min()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/min",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona o menor valor entre uma lista de expressões separadas por vírgula no CSS.",
+              "en": "Selects the smallest value from a comma-separated list of CSS expressions."
+          }
+      },
+      {
+          "uid": "mat-298",
+          "id": 298,
+          "num_id": 298,
+          "canonical_id": "2026-10-24-298",
+          "symbol": "max()",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Limites inferiores automáticos",
+          "introduced_in": "EX2",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: max()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/max",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Seleciona o maior valor entre uma lista de expressões separadas por vírgula no CSS.",
+              "en": "Selects the largest value from a comma-separated list of CSS expressions."
+          }
+      },
+      {
+          "uid": "mat-299",
+          "id": 299,
+          "num_id": 299,
+          "canonical_id": "2026-10-24-299",
+          "symbol": "cqi / cqw (Container Query Units)",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Percentagem da largura do contentor",
+          "introduced_in": "TP11",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: Container query length units",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries#container_query_length_units",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Unidades de medida relativas a 1% da dimensão em linha (cqi) ou largura (cqw) do contentor pai consultado.",
+              "en": "Units representing 1% of a query container's inline dimension (cqi) or width (cqw)."
+          }
+      },
+      {
+          "uid": "mat-300",
+          "id": 300,
+          "num_id": 300,
+          "canonical_id": "2026-10-24-300",
+          "symbol": "var()",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Consumo de variáveis CSS com fallback",
+          "introduced_in": "EX2",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: var()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/var",
+          "pat_ref": 12,
+          "desc": {
+              "pt": "Avalia e insere o valor de uma variável CSS personalizada com suporte para valores de contingência (fallback).",
+              "en": "Evaluates and resolves a CSS Custom Property with optional fallback value support."
+          }
+      },
+      {
+          "uid": "mat-301",
+          "id": 301,
+          "num_id": 301,
+          "canonical_id": "2026-10-24-301",
+          "symbol": "light-dark()",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "Alternância de cor claro/escuro nativa",
+          "introduced_in": "TP06",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: light-dark()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/light-dark",
+          "pat_ref": 9,
+          "desc": {
+              "pt": "Devolve uma cor para o tema claro ou escuro dependendo do color-scheme ativo no elemento ou sistema.",
+              "en": "Returns distinct color values for light and dark modes based on the active color-scheme environment."
+          }
+      },
+      {
+          "uid": "mat-302",
+          "id": 302,
+          "num_id": 302,
+          "canonical_id": "2026-10-24-302",
+          "symbol": "color-mix()",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Mistura de cores na proporção `%`",
+          "introduced_in": "TP11",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: color-mix()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color-mix",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Mistura duas cores em percentagens específicas dentro de um espaço de cor perceptual moderno (ex: in oklab).",
+              "en": "Mixes two colors in specified ratios within modern perceptual color spaces (e.g. in oklab)."
+          }
+      },
+      {
+          "uid": "mat-303",
+          "id": 303,
+          "num_id": 303,
+          "canonical_id": "2026-10-24-303",
+          "symbol": "scroll()",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "Timeline ligada ao scroll do contentor",
+          "introduced_in": "TP11",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: scroll()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll",
+          "pat_ref": 6,
+          "desc": {
+              "pt": "Função de timeline que vincula uma animação à barra de rolagem do contentor ancestral mais próximo.",
+              "en": "Timeline function binding an animation to the scroll position of the nearest scrollable ancestor."
+          }
+      },
+      {
+          "uid": "mat-304",
+          "id": 304,
+          "num_id": 304,
+          "canonical_id": "2026-10-24-304",
+          "symbol": "view()",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Animação de entrada do elemento no viewport",
+          "introduced_in": "TP11",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: view()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/view",
+          "pat_ref": 6,
+          "desc": {
+              "pt": "Função de timeline que vincula uma animação à visibilidade do elemento dentro da janela de scroll (scroll-driven visibility).",
+              "en": "Timeline function linking animation progression to the element's intersection across the scrollable viewport."
+          }
+      },
+      {
+          "uid": "mat-305",
+          "id": 305,
+          "num_id": 305,
+          "canonical_id": "2026-10-24-305",
+          "symbol": "anchor()",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "TBD",
+          "status_note": "Cálculo de coordenadas relativas à âncora",
+          "introduced_in": "TP11",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: anchor()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/anchor",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Resolve coordenadas relativas à âncora associada no CSS Anchor Positioning (ex: anchor(top)).",
+              "en": "Resolves coordinates relative to a registered anchor target in CSS Anchor Positioning (e.g. anchor(top))."
+          }
+      },
+      {
+          "uid": "mat-306",
+          "id": 306,
+          "num_id": 306,
+          "canonical_id": "2026-10-24-306",
+          "symbol": "attr()",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "Extração de atributos no `content`",
+          "introduced_in": "TP06",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: attr()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/attr",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Lê o valor de um atributo HTML do elemento diretamente dentro das regras CSS.",
+              "en": "Retrieves an HTML attribute value on the element for use within CSS declarations."
+          }
+      },
+      {
+          "uid": "mat-307",
+          "id": 307,
+          "num_id": 307,
+          "canonical_id": "2026-10-24-307",
+          "symbol": "env()",
+          "type": "CSS",
+          "tier": "advanced",
+          "lev": 3,
+          "status": "YES",
+          "status_note": "Safe areas em smartphones: `safe-area-inset-*`",
+          "introduced_in": "TP11",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: env()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/env",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Acede a variáveis de ambiente fornecidas pelo dispositivo (ex: env(safe-area-inset-top) para notch de smartphones).",
+              "en": "Accesses user-agent environment variables (e.g. env(safe-area-inset-top) for mobile device notches)."
+          }
+      },
+      {
+          "uid": "mat-308",
+          "id": 308,
+          "num_id": 308,
+          "canonical_id": "2026-10-24-308",
+          "symbol": "linear-gradient() / radial-gradient()",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-functions-units",
+          "cat_id": 12,
+          "label": "MDN: linear-gradient()",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Gera imagens de transição progressiva de cor em linha reta ou forma radial para fundos e sobreposições.",
+              "en": "Generates progressive color transitions along linear vectors or radial shapes for decorative backgrounds."
+          }
+      },
+      {
+          "uid": "mat-309",
+          "id": 309,
+          "num_id": 309,
+          "canonical_id": "2026-10-24-309",
+          "symbol": "list-style",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: list-style",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/list-style",
+          "pat_ref": 1,
+          "desc": {
+              "pt": "Shorthand para estilo, posição e imagem de marcadores em listas ordenadas e não ordenadas.",
+              "en": "Shorthand controlling list marker style types, positions, and custom marker bullet images."
+          }
+      },
+      {
+          "uid": "mat-310",
+          "id": 310,
+          "num_id": 310,
+          "canonical_id": "2026-10-24-310",
+          "symbol": "background-repeat",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-effects-animations",
+          "cat_id": 10,
+          "label": "MDN: background-repeat",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/background-repeat",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Controla a repetição ou mosaico de imagens de fundo (repeat, no-repeat, repeat-x, round).",
+              "en": "Governs tiling repetitions of background graphics across horizontal and vertical axes."
+          }
+      },
+      {
+          "uid": "mat-311",
+          "id": 311,
+          "num_id": 311,
+          "canonical_id": "2026-10-24-311",
+          "symbol": "border-collapse",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: border-collapse",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/border-collapse",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Controla se as células de uma tabela partilham bordas unificadas (collapse) ou têm bordas isoladas (separate).",
+              "en": "Sets whether table cells share unified borders (collapse) or distinct individual borders (separate)."
+          }
+      },
+      {
+          "uid": "mat-312",
+          "id": 312,
+          "num_id": 312,
+          "canonical_id": "2026-10-24-312",
+          "symbol": "word-spacing",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "YES",
+          "status_note": "",
+          "introduced_in": "TP06",
+          "category": "cat-text-semantics",
+          "cat_id": 2,
+          "label": "MDN: word-spacing",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Modifica o espaço horizontal entre palavras adjacentes.",
+              "en": "Alters the horizontal spacing distance between adjacent words."
+          }
+      },
+      {
+          "uid": "mat-313",
+          "id": 313,
+          "num_id": 313,
+          "canonical_id": "2026-10-24-313",
+          "symbol": "float",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: float",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/float",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Técnica histórica para fluir texto em redor de imagens; no curso WD101 é contextualizada para compreensão de código legado.",
+              "en": "Legacy technique wrapping text around floating assets; introduced in WD101 to deconstruct clearfixes and legacy engines."
+          }
+      },
+      {
+          "uid": "mat-314",
+          "id": 314,
+          "num_id": 314,
+          "canonical_id": "2026-10-24-314",
+          "symbol": "clear",
+          "type": "CSS",
+          "tier": "intermediate",
+          "lev": 2,
+          "status": "TBD",
+          "status_note": "",
+          "introduced_in": "EX2",
+          "category": "cat-flex-grid",
+          "cat_id": 8,
+          "label": "MDN: clear",
+          "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/clear",
+          "pat_ref": null,
+          "desc": {
+              "pt": "Impede que um elemento se encoste a elementos flutuantes anteriores (clear: both para finalização de clearfixes).",
+              "en": "Precludes elements from bordering prior floating boxes (clear: both for clearfix resolution)."
+          }
       }
-    },
-    {
-      "uid": "mat-1",
-      "id": 1,
-      "num_id": 1,
-      "canonical_id": "2026-10-24-001",
-      "symbol": "<!DOCTYPE html>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: Doctype",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Glossary/Doctype",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <!DOCTYPE html> do standard web.",
-        "en": "Official standard reference for <!DOCTYPE html>."
-      }
-    },
-    {
-      "uid": "mat-2",
-      "id": 2,
-      "num_id": 2,
-      "canonical_id": "2026-10-24-002",
-      "symbol": "<html>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: html",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <html> do standard web.",
-        "en": "Official standard reference for <html>."
-      }
-    },
-    {
-      "uid": "mat-3",
-      "id": 3,
-      "num_id": 3,
-      "canonical_id": "2026-10-24-003",
-      "symbol": "<head>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: head",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <head> do standard web.",
-        "en": "Official standard reference for <head>."
-      }
-    },
-    {
-      "uid": "mat-4",
-      "id": 4,
-      "num_id": 4,
-      "canonical_id": "2026-10-24-004",
-      "symbol": "<title>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: title",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <title> do standard web.",
-        "en": "Official standard reference for <title>."
-      }
-    },
-    {
-      "uid": "mat-5",
-      "id": 5,
-      "num_id": 5,
-      "canonical_id": "2026-10-24-005",
-      "symbol": "<meta charset=\"UTF-8\">",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: meta",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <meta charset=\"UTF-8\"> do standard web.",
-        "en": "Official standard reference for <meta charset=\"UTF-8\">."
-      }
-    },
-    {
-      "uid": "mat-6",
-      "id": 6,
-      "num_id": 6,
-      "canonical_id": "2026-10-24-006",
-      "symbol": "<meta name=\"viewport\">",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: Viewport meta tag",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <meta name=\"viewport\"> do standard web.",
-        "en": "Official standard reference for <meta name=\"viewport\">."
-      }
-    },
-    {
-      "uid": "mat-7",
-      "id": 7,
-      "num_id": 7,
-      "canonical_id": "2026-10-24-007",
-      "symbol": "<meta name=\"description\">",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: Standard metadata names",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <meta name=\"description\"> do standard web.",
-        "en": "Official standard reference for <meta name=\"description\">."
-      }
-    },
-    {
-      "uid": "mat-8",
-      "id": 8,
-      "num_id": 8,
-      "canonical_id": "2026-10-24-008",
-      "symbol": "<link rel=\"stylesheet\">",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: link",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <link rel=\"stylesheet\"> do standard web.",
-        "en": "Official standard reference for <link rel=\"stylesheet\">."
-      }
-    },
-    {
-      "uid": "mat-9",
-      "id": 9,
-      "num_id": 9,
-      "canonical_id": "2026-10-24-009",
-      "symbol": "<link rel=\"preconnect\">",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Otimização de Webfonts remotas)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: rel=preconnect",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preconnect",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <link rel=\"preconnect\"> do standard web.",
-        "en": "Official standard reference for <link rel=\"preconnect\">."
-      }
-    },
-    {
-      "uid": "mat-10",
-      "id": 10,
-      "num_id": 10,
-      "canonical_id": "2026-10-24-010",
-      "symbol": "<link rel=\"preload\" as=\"font\">",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**YES** *(Carregamento antecipado de WOFF2)*",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: rel=preload",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <link rel=\"preload\" as=\"font\"> do standard web.",
-        "en": "Official standard reference for <link rel=\"preload\" as=\"font\">."
-      }
-    },
-    {
-      "uid": "mat-11",
-      "id": 11,
-      "num_id": 11,
-      "canonical_id": "2026-10-24-011",
-      "symbol": "<link rel=\"icon\"> (Favicon)",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: link types: icon",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel#icon",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <link rel=\"icon\"> (Favicon) do standard web.",
-        "en": "Official standard reference for <link rel=\"icon\"> (Favicon)."
-      }
-    },
-    {
-      "uid": "mat-12",
-      "id": 12,
-      "num_id": 12,
-      "canonical_id": "2026-10-24-012",
-      "symbol": "<style>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**NO** *(Folhas externas obrigatórias)*",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: style",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <style> do standard web.",
-        "en": "Official standard reference for <style>."
-      }
-    },
-    {
-      "uid": "mat-13",
-      "id": 13,
-      "num_id": 13,
-      "canonical_id": "2026-10-24-013",
-      "symbol": "<base>",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**NO**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: base",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <base> do standard web.",
-        "en": "Official standard reference for <base>."
-      }
-    },
-    {
-      "uid": "mat-15",
-      "id": 15,
-      "num_id": 15,
-      "canonical_id": "2026-10-24-015",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-14",
-      "id": 14,
-      "num_id": 14,
-      "canonical_id": "2026-10-24-014",
-      "symbol": "<header>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: header",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header",
-      "pat_ref": 1,
-      "desc": {
-        "pt": "Elemento/propriedade <header> do standard web.",
-        "en": "Official standard reference for <header>."
-      }
-    },
-    {
-      "uid": "mat-15",
-      "id": 15,
-      "num_id": 15,
-      "canonical_id": "2026-10-24-015",
-      "symbol": "<nav>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: nav",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav",
-      "pat_ref": 1,
-      "desc": {
-        "pt": "Elemento/propriedade <nav> do standard web.",
-        "en": "Official standard reference for <nav>."
-      }
-    },
-    {
-      "uid": "mat-16",
-      "id": 16,
-      "num_id": 16,
-      "canonical_id": "2026-10-24-016",
-      "symbol": "<main>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: main",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <main> do standard web.",
-        "en": "Official standard reference for <main>."
-      }
-    },
-    {
-      "uid": "mat-17",
-      "id": 17,
-      "num_id": 17,
-      "canonical_id": "2026-10-24-017",
-      "symbol": "<section>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: section",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <section> do standard web.",
-        "en": "Official standard reference for <section>."
-      }
-    },
-    {
-      "uid": "mat-18",
-      "id": 18,
-      "num_id": 18,
-      "canonical_id": "2026-10-24-018",
-      "symbol": "<article>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: article",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <article> do standard web.",
-        "en": "Official standard reference for <article>."
-      }
-    },
-    {
-      "uid": "mat-19",
-      "id": 19,
-      "num_id": 19,
-      "canonical_id": "2026-10-24-019",
-      "symbol": "<aside>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: aside",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <aside> do standard web.",
-        "en": "Official standard reference for <aside>."
-      }
-    },
-    {
-      "uid": "mat-20",
-      "id": 20,
-      "num_id": 20,
-      "canonical_id": "2026-10-24-020",
-      "symbol": "<footer>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: footer",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <footer> do standard web.",
-        "en": "Official standard reference for <footer>."
-      }
-    },
-    {
-      "uid": "mat-21",
-      "id": 21,
-      "num_id": 21,
-      "canonical_id": "2026-10-24-021",
-      "symbol": "<h1>, <h2>, <h3>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: Heading Elements",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <h1>, <h2>, <h3> do standard web.",
-        "en": "Official standard reference for <h1>, <h2>, <h3>."
-      }
-    },
-    {
-      "uid": "mat-22",
-      "id": 22,
-      "num_id": 22,
-      "canonical_id": "2026-10-24-022",
-      "symbol": "<h4>, <h5>, <h6>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: Heading Elements",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <h4>, <h5>, <h6> do standard web.",
-        "en": "Official standard reference for <h4>, <h5>, <h6>."
-      }
-    },
-    {
-      "uid": "mat-23",
-      "id": 23,
-      "num_id": 23,
-      "canonical_id": "2026-10-24-023",
-      "symbol": "<hgroup>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Excelente para subtítulos)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: hgroup",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hgroup",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <hgroup> do standard web.",
-        "en": "Official standard reference for <hgroup>."
-      }
-    },
-    {
-      "uid": "mat-24",
-      "id": 24,
-      "num_id": 24,
-      "canonical_id": "2026-10-24-024",
-      "symbol": "<address>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: address",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/address",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <address> do standard web.",
-        "en": "Official standard reference for <address>."
-      }
-    },
-    {
-      "uid": "mat-25",
-      "id": 25,
-      "num_id": 25,
-      "canonical_id": "2026-10-24-025",
-      "symbol": "<search>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Substitui div/form de pesquisa)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: search",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <search> do standard web.",
-        "en": "Official standard reference for <search>."
-      }
-    },
-    {
-      "uid": "mat-28",
-      "id": 28,
-      "num_id": 28,
-      "canonical_id": "2026-10-24-028",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-26",
-      "id": 26,
-      "num_id": 26,
-      "canonical_id": "2026-10-24-026",
-      "symbol": "<p>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: p",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <p> do standard web.",
-        "en": "Official standard reference for <p>."
-      }
-    },
-    {
-      "uid": "mat-27",
-      "id": 27,
-      "num_id": 27,
-      "canonical_id": "2026-10-24-027",
-      "symbol": "<ul>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: ul",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul",
-      "pat_ref": 1,
-      "desc": {
-        "pt": "Elemento/propriedade <ul> do standard web.",
-        "en": "Official standard reference for <ul>."
-      }
-    },
-    {
-      "uid": "mat-28",
-      "id": 28,
-      "num_id": 28,
-      "canonical_id": "2026-10-24-028",
-      "symbol": "<ol>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: ol",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <ol> do standard web.",
-        "en": "Official standard reference for <ol>."
-      }
-    },
-    {
-      "uid": "mat-29",
-      "id": 29,
-      "num_id": 29,
-      "canonical_id": "2026-10-24-029",
-      "symbol": "<li>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: li",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li",
-      "pat_ref": 1,
-      "desc": {
-        "pt": "Elemento/propriedade <li> do standard web.",
-        "en": "Official standard reference for <li>."
-      }
-    },
-    {
-      "uid": "mat-30",
-      "id": 30,
-      "num_id": 30,
-      "canonical_id": "2026-10-24-030",
-      "symbol": "<dl>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Fichas técnicas e alinhamentos)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: dl",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <dl> do standard web.",
-        "en": "Official standard reference for <dl>."
-      }
-    },
-    {
-      "uid": "mat-31",
-      "id": 31,
-      "num_id": 31,
-      "canonical_id": "2026-10-24-031",
-      "symbol": "<dt>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: dt",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dt",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <dt> do standard web.",
-        "en": "Official standard reference for <dt>."
-      }
-    },
-    {
-      "uid": "mat-32",
-      "id": 32,
-      "num_id": 32,
-      "canonical_id": "2026-10-24-032",
-      "symbol": "<dd>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: dd",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dd",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <dd> do standard web.",
-        "en": "Official standard reference for <dd>."
-      }
-    },
-    {
-      "uid": "mat-33",
-      "id": 33,
-      "num_id": 33,
-      "canonical_id": "2026-10-24-033",
-      "symbol": "<blockquote>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: blockquote",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <blockquote> do standard web.",
-        "en": "Official standard reference for <blockquote>."
-      }
-    },
-    {
-      "uid": "mat-34",
-      "id": 34,
-      "num_id": 34,
-      "canonical_id": "2026-10-24-034",
-      "symbol": "<figure>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-media",
-      "cat_id": 3,
-      "label": "MDN: figure",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure",
-      "pat_ref": 2,
-      "desc": {
-        "pt": "Elemento/propriedade <figure> do standard web.",
-        "en": "Official standard reference for <figure>."
-      }
-    },
-    {
-      "uid": "mat-35",
-      "id": 35,
-      "num_id": 35,
-      "canonical_id": "2026-10-24-035",
-      "symbol": "<figcaption>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-media",
-      "cat_id": 3,
-      "label": "MDN: figcaption",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figcaption",
-      "pat_ref": 2,
-      "desc": {
-        "pt": "Elemento/propriedade <figcaption> do standard web.",
-        "en": "Official standard reference for <figcaption>."
-      }
-    },
-    {
-      "uid": "mat-36",
-      "id": 36,
-      "num_id": 36,
-      "canonical_id": "2026-10-24-036",
-      "symbol": "<pre>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: pre",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/pre",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <pre> do standard web.",
-        "en": "Official standard reference for <pre>."
-      }
-    },
-    {
-      "uid": "mat-37",
-      "id": 37,
-      "num_id": 37,
-      "canonical_id": "2026-10-24-037",
-      "symbol": "<hr>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: hr",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <hr> do standard web.",
-        "en": "Official standard reference for <hr>."
-      }
-    },
-    {
-      "uid": "mat-38",
-      "id": 38,
-      "num_id": 38,
-      "canonical_id": "2026-10-24-038",
-      "symbol": "<div>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Com restrição pedagógica estrita)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: div",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <div> do standard web.",
-        "en": "Official standard reference for <div>."
-      }
-    },
-    {
-      "uid": "mat-39",
-      "id": 39,
-      "num_id": 39,
-      "canonical_id": "2026-10-24-039",
-      "symbol": "<menu>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**NO** *(Preterido por ul em nav)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: menu",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/menu",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <menu> do standard web.",
-        "en": "Official standard reference for <menu>."
-      }
-    },
-    {
-      "uid": "mat-43",
-      "id": 43,
-      "num_id": 43,
-      "canonical_id": "2026-10-24-043",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-40",
-      "id": 40,
-      "num_id": 40,
-      "canonical_id": "2026-10-24-040",
-      "symbol": "<a>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: a",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <a> do standard web.",
-        "en": "Official standard reference for <a>."
-      }
-    },
-    {
-      "uid": "mat-41",
-      "id": 41,
-      "num_id": 41,
-      "canonical_id": "2026-10-24-041",
-      "symbol": "<strong>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: strong",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <strong> do standard web.",
-        "en": "Official standard reference for <strong>."
-      }
-    },
-    {
-      "uid": "mat-42",
-      "id": 42,
-      "num_id": 42,
-      "canonical_id": "2026-10-24-042",
-      "symbol": "<em>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: em",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/em",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <em> do standard web.",
-        "en": "Official standard reference for <em>."
-      }
-    },
-    {
-      "uid": "mat-43",
-      "id": 43,
-      "num_id": 43,
-      "canonical_id": "2026-10-24-043",
-      "symbol": "<small>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: small",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/small",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <small> do standard web.",
-        "en": "Official standard reference for <small>."
-      }
-    },
-    {
-      "uid": "mat-44",
-      "id": 44,
-      "num_id": 44,
-      "canonical_id": "2026-10-24-044",
-      "symbol": "<cite>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: cite",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/cite",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <cite> do standard web.",
-        "en": "Official standard reference for <cite>."
-      }
-    },
-    {
-      "uid": "mat-45",
-      "id": 45,
-      "num_id": 45,
-      "canonical_id": "2026-10-24-045",
-      "symbol": "<q>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: q",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/q",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <q> do standard web.",
-        "en": "Official standard reference for <q>."
-      }
-    },
-    {
-      "uid": "mat-46",
-      "id": 46,
-      "num_id": 46,
-      "canonical_id": "2026-10-24-046",
-      "symbol": "<abbr>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: abbr",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/abbr",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <abbr> do standard web.",
-        "en": "Official standard reference for <abbr>."
-      }
-    },
-    {
-      "uid": "mat-47",
-      "id": 47,
-      "num_id": 47,
-      "canonical_id": "2026-10-24-047",
-      "symbol": "<time>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: time",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <time> do standard web.",
-        "en": "Official standard reference for <time>."
-      }
-    },
-    {
-      "uid": "mat-48",
-      "id": 48,
-      "num_id": 48,
-      "canonical_id": "2026-10-24-048",
-      "symbol": "<code>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: code",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/code",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <code> do standard web.",
-        "en": "Official standard reference for <code>."
-      }
-    },
-    {
-      "uid": "mat-49",
-      "id": 49,
-      "num_id": 49,
-      "canonical_id": "2026-10-24-049",
-      "symbol": "<kbd>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Atalhos de teclado de navegação)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: kbd",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/kbd",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <kbd> do standard web.",
-        "en": "Official standard reference for <kbd>."
-      }
-    },
-    {
-      "uid": "mat-50",
-      "id": 50,
-      "num_id": 50,
-      "canonical_id": "2026-10-24-050",
-      "symbol": "<samp>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**NO**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: samp",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/samp",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <samp> do standard web.",
-        "en": "Official standard reference for <samp>."
-      }
-    },
-    {
-      "uid": "mat-51",
-      "id": 51,
-      "num_id": 51,
-      "canonical_id": "2026-10-24-051",
-      "symbol": "<var>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**NO**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: var",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/var",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <var> do standard web.",
-        "en": "Official standard reference for <var>."
-      }
-    },
-    {
-      "uid": "mat-52",
-      "id": 52,
-      "num_id": 52,
-      "canonical_id": "2026-10-24-052",
-      "symbol": "<mark>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: mark",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <mark> do standard web.",
-        "en": "Official standard reference for <mark>."
-      }
-    },
-    {
-      "uid": "mat-53",
-      "id": 53,
-      "num_id": 53,
-      "canonical_id": "2026-10-24-053",
-      "symbol": "<span>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: span",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <span> do standard web.",
-        "en": "Official standard reference for <span>."
-      }
-    },
-    {
-      "uid": "mat-54",
-      "id": 54,
-      "num_id": 54,
-      "canonical_id": "2026-10-24-054",
-      "symbol": "<br>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Uso poético/morada estrito)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: br",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/br",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <br> do standard web.",
-        "en": "Official standard reference for <br>."
-      }
-    },
-    {
-      "uid": "mat-55",
-      "id": 55,
-      "num_id": 55,
-      "canonical_id": "2026-10-24-055",
-      "symbol": "<wbr>",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Quebras fluidas de palavras longas)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: wbr",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/wbr",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <wbr> do standard web.",
-        "en": "Official standard reference for <wbr>."
-      }
-    },
-    {
-      "uid": "mat-56",
-      "id": 56,
-      "num_id": 56,
-      "canonical_id": "2026-10-24-056",
-      "symbol": "<sub> / <sup>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: sub",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/sub",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <sub> / <sup> do standard web.",
-        "en": "Official standard reference for <sub> / <sup>."
-      }
-    },
-    {
-      "uid": "mat-57",
-      "id": 57,
-      "num_id": 57,
-      "canonical_id": "2026-10-24-057",
-      "symbol": "<s>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: s",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <s> do standard web.",
-        "en": "Official standard reference for <s>."
-      }
-    },
-    {
-      "uid": "mat-58",
-      "id": 58,
-      "num_id": 58,
-      "canonical_id": "2026-10-24-058",
-      "symbol": "<i> / <b>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Com distinção semântica de em/strong)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: i",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <i> / <b> do standard web.",
-        "en": "Official standard reference for <i> / <b>."
-      }
-    },
-    {
-      "uid": "mat-59",
-      "id": 59,
-      "num_id": 59,
-      "canonical_id": "2026-10-24-059",
-      "symbol": "<u>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**NO** *(Evitado por colidir com hiperligações)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: u",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/u",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <u> do standard web.",
-        "en": "Official standard reference for <u>."
-      }
-    },
-    {
-      "uid": "mat-60",
-      "id": 60,
-      "num_id": 60,
-      "canonical_id": "2026-10-24-060",
-      "symbol": "<data>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Para associação a atributos de dados)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: data",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <data> do standard web.",
-        "en": "Official standard reference for <data>."
-      }
-    },
-    {
-      "uid": "mat-61",
-      "id": 61,
-      "num_id": 61,
-      "canonical_id": "2026-10-24-061",
-      "symbol": "<dfn>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**NO**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: dfn",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dfn",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <dfn> do standard web.",
-        "en": "Official standard reference for <dfn>."
-      }
-    },
-    {
-      "uid": "mat-62",
-      "id": 62,
-      "num_id": 62,
-      "canonical_id": "2026-10-24-062",
-      "symbol": "<bdi> / <bdo>",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**NO** *(Apenas para multilinguismo bidirecional)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: bdi",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <bdi> / <bdo> do standard web.",
-        "en": "Official standard reference for <bdi> / <bdo>."
-      }
-    },
-    {
-      "uid": "mat-63",
-      "id": 63,
-      "num_id": 63,
-      "canonical_id": "2026-10-24-063",
-      "symbol": "<ruby>, <rt>, <rp>",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**NO** *(Apenas para anotações fonéticas asiáticas)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: ruby",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ruby",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <ruby>, <rt>, <rp> do standard web.",
-        "en": "Official standard reference for <ruby>, <rt>, <rp>."
-      }
-    },
-    {
-      "uid": "mat-68",
-      "id": 68,
-      "num_id": 68,
-      "canonical_id": "2026-10-24-068",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-64",
-      "id": 64,
-      "num_id": 64,
-      "canonical_id": "2026-10-24-064",
-      "symbol": "<img>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-media",
-      "cat_id": 3,
-      "label": "MDN: img",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img",
-      "pat_ref": 2,
-      "desc": {
-        "pt": "Elemento/propriedade <img> do standard web.",
-        "en": "Official standard reference for <img>."
-      }
-    },
-    {
-      "uid": "mat-65",
-      "id": 65,
-      "num_id": 65,
-      "canonical_id": "2026-10-24-065",
-      "symbol": "<picture>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-media",
-      "cat_id": 3,
-      "label": "MDN: picture",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture",
-      "pat_ref": 2,
-      "desc": {
-        "pt": "Elemento/propriedade <picture> do standard web.",
-        "en": "Official standard reference for <picture>."
-      }
-    },
-    {
-      "uid": "mat-66",
-      "id": 66,
-      "num_id": 66,
-      "canonical_id": "2026-10-24-066",
-      "symbol": "<source>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-media",
-      "cat_id": 3,
-      "label": "MDN: source",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/source",
-      "pat_ref": 2,
-      "desc": {
-        "pt": "Elemento/propriedade <source> do standard web.",
-        "en": "Official standard reference for <source>."
-      }
-    },
-    {
-      "uid": "mat-67",
-      "id": 67,
-      "num_id": 67,
-      "canonical_id": "2026-10-24-067",
-      "symbol": "<video>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-media",
-      "cat_id": 3,
-      "label": "MDN: video",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <video> do standard web.",
-        "en": "Official standard reference for <video>."
-      }
-    },
-    {
-      "uid": "mat-68",
-      "id": 68,
-      "num_id": 68,
-      "canonical_id": "2026-10-24-068",
-      "symbol": "<audio>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-media",
-      "cat_id": 3,
-      "label": "MDN: audio",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <audio> do standard web.",
-        "en": "Official standard reference for <audio>."
-      }
-    },
-    {
-      "uid": "mat-69",
-      "id": 69,
-      "num_id": 69,
-      "canonical_id": "2026-10-24-069",
-      "symbol": "<track>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Legendas de acessibilidade em vídeo)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: track",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <track> do standard web.",
-        "en": "Official standard reference for <track>."
-      }
-    },
-    {
-      "uid": "mat-70",
-      "id": 70,
-      "num_id": 70,
-      "canonical_id": "2026-10-24-070",
-      "symbol": "<map> / <area>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**NO** *(Obsoleto vs Responsive SVG)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: map",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/map",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <map> / <area> do standard web.",
-        "en": "Official standard reference for <map> / <area>."
-      }
-    },
-    {
-      "uid": "mat-76",
-      "id": 76,
-      "num_id": 76,
-      "canonical_id": "2026-10-24-076",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-71",
-      "id": 71,
-      "num_id": 71,
-      "canonical_id": "2026-10-24-071",
-      "symbol": "<iframe>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: iframe",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <iframe> do standard web.",
-        "en": "Official standard reference for <iframe>."
-      }
-    },
-    {
-      "uid": "mat-72",
-      "id": 72,
-      "num_id": 72,
-      "canonical_id": "2026-10-24-072",
-      "symbol": "<svg>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-media",
-      "cat_id": 3,
-      "label": "MDN: SVG",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <svg> do standard web.",
-        "en": "Official standard reference for <svg>."
-      }
-    },
-    {
-      "uid": "mat-73",
-      "id": 73,
-      "num_id": 73,
-      "canonical_id": "2026-10-24-073",
-      "symbol": "<embed>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**NO**",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: embed",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/embed",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <embed> do standard web.",
-        "en": "Official standard reference for <embed>."
-      }
-    },
-    {
-      "uid": "mat-74",
-      "id": 74,
-      "num_id": 74,
-      "canonical_id": "2026-10-24-074",
-      "symbol": "<object>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**NO**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: object",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <object> do standard web.",
-        "en": "Official standard reference for <object>."
-      }
-    },
-    {
-      "uid": "mat-75",
-      "id": 75,
-      "num_id": 75,
-      "canonical_id": "2026-10-24-075",
-      "symbol": "<math>",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**NO**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: math",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/MathML/Element/math",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <math> do standard web.",
-        "en": "Official standard reference for <math>."
-      }
-    },
-    {
-      "uid": "mat-76",
-      "id": 76,
-      "num_id": 76,
-      "canonical_id": "2026-10-24-076",
-      "symbol": "<canvas>",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**NO** *(Exige JavaScript)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: canvas",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <canvas> do standard web.",
-        "en": "Official standard reference for <canvas>."
-      }
-    },
-    {
-      "uid": "mat-83",
-      "id": 83,
-      "num_id": 83,
-      "canonical_id": "2026-10-24-083",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-77",
-      "id": 77,
-      "num_id": 77,
-      "canonical_id": "2026-10-24-077",
-      "symbol": "<table>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: table",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <table> do standard web.",
-        "en": "Official standard reference for <table>."
-      }
-    },
-    {
-      "uid": "mat-78",
-      "id": 78,
-      "num_id": 78,
-      "canonical_id": "2026-10-24-078",
-      "symbol": "<caption>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: caption",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/caption",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <caption> do standard web.",
-        "en": "Official standard reference for <caption>."
-      }
-    },
-    {
-      "uid": "mat-79",
-      "id": 79,
-      "num_id": 79,
-      "canonical_id": "2026-10-24-079",
-      "symbol": "<thead>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: thead",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/thead",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <thead> do standard web.",
-        "en": "Official standard reference for <thead>."
-      }
-    },
-    {
-      "uid": "mat-80",
-      "id": 80,
-      "num_id": 80,
-      "canonical_id": "2026-10-24-080",
-      "symbol": "<tbody>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: tbody",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tbody",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <tbody> do standard web.",
-        "en": "Official standard reference for <tbody>."
-      }
-    },
-    {
-      "uid": "mat-81",
-      "id": 81,
-      "num_id": 81,
-      "canonical_id": "2026-10-24-081",
-      "symbol": "<tfoot>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: tfoot",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tfoot",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <tfoot> do standard web.",
-        "en": "Official standard reference for <tfoot>."
-      }
-    },
-    {
-      "uid": "mat-82",
-      "id": 82,
-      "num_id": 82,
-      "canonical_id": "2026-10-24-082",
-      "symbol": "<tr>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: tr",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tr",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <tr> do standard web.",
-        "en": "Official standard reference for <tr>."
-      }
-    },
-    {
-      "uid": "mat-83",
-      "id": 83,
-      "num_id": 83,
-      "canonical_id": "2026-10-24-083",
-      "symbol": "<th>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: th",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <th> do standard web.",
-        "en": "Official standard reference for <th>."
-      }
-    },
-    {
-      "uid": "mat-84",
-      "id": 84,
-      "num_id": 84,
-      "canonical_id": "2026-10-24-084",
-      "symbol": "<td>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: td",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <td> do standard web.",
-        "en": "Official standard reference for <td>."
-      }
-    },
-    {
-      "uid": "mat-85",
-      "id": 85,
-      "num_id": 85,
-      "canonical_id": "2026-10-24-085",
-      "symbol": "<colgroup> / <col>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Estilização colunar eficiente)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: colgroup",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <colgroup> / <col> do standard web.",
-        "en": "Official standard reference for <colgroup> / <col>."
-      }
-    },
-    {
-      "uid": "mat-93",
-      "id": 93,
-      "num_id": 93,
-      "canonical_id": "2026-10-24-093",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-86",
-      "id": 86,
-      "num_id": 86,
-      "canonical_id": "2026-10-24-086",
-      "symbol": "<form>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: form",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form",
-      "pat_ref": 8,
-      "desc": {
-        "pt": "Elemento/propriedade <form> do standard web.",
-        "en": "Official standard reference for <form>."
-      }
-    },
-    {
-      "uid": "mat-87",
-      "id": 87,
-      "num_id": 87,
-      "canonical_id": "2026-10-24-087",
-      "symbol": "<fieldset>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: fieldset",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <fieldset> do standard web.",
-        "en": "Official standard reference for <fieldset>."
-      }
-    },
-    {
-      "uid": "mat-88",
-      "id": 88,
-      "num_id": 88,
-      "canonical_id": "2026-10-24-088",
-      "symbol": "<legend>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: legend",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/legend",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <legend> do standard web.",
-        "en": "Official standard reference for <legend>."
-      }
-    },
-    {
-      "uid": "mat-89",
-      "id": 89,
-      "num_id": 89,
-      "canonical_id": "2026-10-24-089",
-      "symbol": "<label>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: label",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <label> do standard web.",
-        "en": "Official standard reference for <label>."
-      }
-    },
-    {
-      "uid": "mat-90",
-      "id": 90,
-      "num_id": 90,
-      "canonical_id": "2026-10-24-090",
-      "symbol": "<input type=\"text\">",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: input/text",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <input type=\"text\"> do standard web.",
-        "en": "Official standard reference for <input type=\"text\">."
-      }
-    },
-    {
-      "uid": "mat-91",
-      "id": 91,
-      "num_id": 91,
-      "canonical_id": "2026-10-24-091",
-      "symbol": "<input type=\"email\">",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: input/email",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <input type=\"email\"> do standard web.",
-        "en": "Official standard reference for <input type=\"email\">."
-      }
-    },
-    {
-      "uid": "mat-92",
-      "id": 92,
-      "num_id": 92,
-      "canonical_id": "2026-10-24-092",
-      "symbol": "<input type=\"radio\">",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Motor de estado Pure CSS)*",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: input/radio",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <input type=\"radio\"> do standard web.",
-        "en": "Official standard reference for <input type=\"radio\">."
-      }
-    },
-    {
-      "uid": "mat-93",
-      "id": 93,
-      "num_id": 93,
-      "canonical_id": "2026-10-24-093",
-      "symbol": "<input type=\"checkbox\">",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Gatilho para gavetas/toggles)*",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: input/checkbox",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <input type=\"checkbox\"> do standard web.",
-        "en": "Official standard reference for <input type=\"checkbox\">."
-      }
-    },
-    {
-      "uid": "mat-94",
-      "id": 94,
-      "num_id": 94,
-      "canonical_id": "2026-10-24-094",
-      "symbol": "<input type=\"submit\">",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: input/submit",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/submit",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <input type=\"submit\"> do standard web.",
-        "en": "Official standard reference for <input type=\"submit\">."
-      }
-    },
-    {
-      "uid": "mat-95",
-      "id": 95,
-      "num_id": 95,
-      "canonical_id": "2026-10-24-095",
-      "symbol": "<button>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: button",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <button> do standard web.",
-        "en": "Official standard reference for <button>."
-      }
-    },
-    {
-      "uid": "mat-96",
-      "id": 96,
-      "num_id": 96,
-      "canonical_id": "2026-10-24-096",
-      "symbol": "<select>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: select",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <select> do standard web.",
-        "en": "Official standard reference for <select>."
-      }
-    },
-    {
-      "uid": "mat-97",
-      "id": 97,
-      "num_id": 97,
-      "canonical_id": "2026-10-24-097",
-      "symbol": "<optgroup>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: optgroup",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <optgroup> do standard web.",
-        "en": "Official standard reference for <optgroup>."
-      }
-    },
-    {
-      "uid": "mat-98",
-      "id": 98,
-      "num_id": 98,
-      "canonical_id": "2026-10-24-098",
-      "symbol": "<option>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: option",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <option> do standard web.",
-        "en": "Official standard reference for <option>."
-      }
-    },
-    {
-      "uid": "mat-99",
-      "id": 99,
-      "num_id": 99,
-      "canonical_id": "2026-10-24-099",
-      "symbol": "<textarea>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: textarea",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <textarea> do standard web.",
-        "en": "Official standard reference for <textarea>."
-      }
-    },
-    {
-      "uid": "mat-100",
-      "id": 100,
-      "num_id": 100,
-      "canonical_id": "2026-10-24-100",
-      "symbol": "<datalist>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Autocomplete nativo sem scripts)*",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: datalist",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <datalist> do standard web.",
-        "en": "Official standard reference for <datalist>."
-      }
-    },
-    {
-      "uid": "mat-101",
-      "id": 101,
-      "num_id": 101,
-      "canonical_id": "2026-10-24-101",
-      "symbol": "<output>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Apresentação de resultados)*",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: output",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <output> do standard web.",
-        "en": "Official standard reference for <output>."
-      }
-    },
-    {
-      "uid": "mat-102",
-      "id": 102,
-      "num_id": 102,
-      "canonical_id": "2026-10-24-102",
-      "symbol": "<progress>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Barras nativas de progresso)*",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: progress",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <progress> do standard web.",
-        "en": "Official standard reference for <progress>."
-      }
-    },
-    {
-      "uid": "mat-103",
-      "id": 103,
-      "num_id": 103,
-      "canonical_id": "2026-10-24-103",
-      "symbol": "<meter>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Indicadores de medida/lotação)*",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: meter",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <meter> do standard web.",
-        "en": "Official standard reference for <meter>."
-      }
-    },
-    {
-      "uid": "mat-112",
-      "id": 112,
-      "num_id": 112,
-      "canonical_id": "2026-10-24-112",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-104",
-      "id": 104,
-      "num_id": 104,
-      "canonical_id": "2026-10-24-104",
-      "symbol": "<details>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Pure CSS Accordion)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: details",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details",
-      "pat_ref": 4,
-      "desc": {
-        "pt": "Elemento/propriedade <details> do standard web.",
-        "en": "Official standard reference for <details>."
-      }
-    },
-    {
-      "uid": "mat-105",
-      "id": 105,
-      "num_id": 105,
-      "canonical_id": "2026-10-24-105",
-      "symbol": "<summary>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Cabeçalho clicável do accordion)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: summary",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary",
-      "pat_ref": 4,
-      "desc": {
-        "pt": "Elemento/propriedade <summary> do standard web.",
-        "en": "Official standard reference for <summary>."
-      }
-    },
-    {
-      "uid": "mat-106",
-      "id": 106,
-      "num_id": 106,
-      "canonical_id": "2026-10-24-106",
-      "symbol": "<dialog>",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Janelas modais acessíveis)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: dialog",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog",
-      "pat_ref": 5,
-      "desc": {
-        "pt": "Elemento/propriedade <dialog> do standard web.",
-        "en": "Official standard reference for <dialog>."
-      }
-    },
-    {
-      "uid": "mat-116",
-      "id": 116,
-      "num_id": 116,
-      "canonical_id": "2026-10-24-116",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-107",
-      "id": 107,
-      "num_id": 107,
-      "canonical_id": "2026-10-24-107",
-      "symbol": "<del>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: del",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/del",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <del> do standard web.",
-        "en": "Official standard reference for <del>."
-      }
-    },
-    {
-      "uid": "mat-108",
-      "id": 108,
-      "num_id": 108,
-      "canonical_id": "2026-10-24-108",
-      "symbol": "<ins>",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: ins",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ins",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <ins> do standard web.",
-        "en": "Official standard reference for <ins>."
-      }
-    },
-    {
-      "uid": "mat-109",
-      "id": 109,
-      "num_id": 109,
-      "canonical_id": "2026-10-24-109",
-      "symbol": "<template>",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**NO** *(Exige JavaScript para clonagem)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: template",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <template> do standard web.",
-        "en": "Official standard reference for <template>."
-      }
-    },
-    {
-      "uid": "mat-110",
-      "id": 110,
-      "num_id": 110,
-      "canonical_id": "2026-10-24-110",
-      "symbol": "<slot>",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**NO** *(Shadow DOM / Web Components)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: slot",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <slot> do standard web.",
-        "en": "Official standard reference for <slot>."
-      }
-    },
-    {
-      "uid": "mat-111",
-      "id": 111,
-      "num_id": 111,
-      "canonical_id": "2026-10-24-111",
-      "symbol": "<script>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**NO** *(Curso estritamente Zero JavaScript)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: script",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <script> do standard web.",
-        "en": "Official standard reference for <script>."
-      }
-    },
-    {
-      "uid": "mat-112",
-      "id": 112,
-      "num_id": 112,
-      "canonical_id": "2026-10-24-112",
-      "symbol": "<noscript>",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**NO**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: noscript",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade <noscript> do standard web.",
-        "en": "Official standard reference for <noscript>."
-      }
-    },
-    {
-      "uid": "mat-123",
-      "id": 123,
-      "num_id": 123,
-      "canonical_id": "2026-10-24-123",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-113",
-      "id": 113,
-      "num_id": 113,
-      "canonical_id": "2026-10-24-113",
-      "symbol": "class",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: class attribute",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade class do standard web.",
-        "en": "Official standard reference for class."
-      }
-    },
-    {
-      "uid": "mat-114",
-      "id": 114,
-      "num_id": 114,
-      "canonical_id": "2026-10-24-114",
-      "symbol": "id",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: id attribute",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade id do standard web.",
-        "en": "Official standard reference for id."
-      }
-    },
-    {
-      "uid": "mat-115",
-      "id": 115,
-      "num_id": 115,
-      "canonical_id": "2026-10-24-115",
-      "symbol": "lang / dir",
-      "type": "HTML",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: lang attribute",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade lang / dir do standard web.",
-        "en": "Official standard reference for lang / dir."
-      }
-    },
-    {
-      "uid": "mat-116",
-      "id": 116,
-      "num_id": 116,
-      "canonical_id": "2026-10-24-116",
-      "symbol": "hidden",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: hidden attribute",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade hidden do standard web.",
-        "en": "Official standard reference for hidden."
-      }
-    },
-    {
-      "uid": "mat-117",
-      "id": 117,
-      "num_id": 117,
-      "canonical_id": "2026-10-24-117",
-      "symbol": "tabindex",
-      "type": "HTML",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: tabindex attribute",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade tabindex do standard web.",
-        "en": "Official standard reference for tabindex."
-      }
-    },
-    {
-      "uid": "mat-118",
-      "id": 118,
-      "num_id": 118,
-      "canonical_id": "2026-10-24-118",
-      "symbol": "data-* (Data Attributes)",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**YES** *(Para seletores `[data-theme]`)*",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: data-* attributes",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade data-* (Data Attributes) do standard web.",
-        "en": "Official standard reference for data-* (Data Attributes)."
-      }
-    },
-    {
-      "uid": "mat-119",
-      "id": 119,
-      "num_id": 119,
-      "canonical_id": "2026-10-24-119",
-      "symbol": "popover",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Modais e gavetas Pure CSS)*",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: popover attribute",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover",
-      "pat_ref": 5,
-      "desc": {
-        "pt": "Elemento/propriedade popover do standard web.",
-        "en": "Official standard reference for popover."
-      }
-    },
-    {
-      "uid": "mat-120",
-      "id": 120,
-      "num_id": 120,
-      "canonical_id": "2026-10-24-120",
-      "symbol": "popovertarget",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Gatilho declarativo sem JS)*",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: popovertarget",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertarget",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade popovertarget do standard web.",
-        "en": "Official standard reference for popovertarget."
-      }
-    },
-    {
-      "uid": "mat-121",
-      "id": 121,
-      "num_id": 121,
-      "canonical_id": "2026-10-24-121",
-      "symbol": "popovertargetaction",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(toggle, show, hide)*",
-      "category": "cat-forms",
-      "cat_id": 4,
-      "label": "MDN: popovertargetaction",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertargetaction",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade popovertargetaction do standard web.",
-        "en": "Official standard reference for popovertargetaction."
-      }
-    },
-    {
-      "uid": "mat-122",
-      "id": 122,
-      "num_id": 122,
-      "canonical_id": "2026-10-24-122",
-      "symbol": "inert",
-      "type": "HTML",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Bloqueio de foco fora de modais)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: inert attribute",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade inert do standard web.",
-        "en": "Official standard reference for inert."
-      }
-    },
-    {
-      "uid": "mat-134",
-      "id": 134,
-      "num_id": 134,
-      "canonical_id": "2026-10-24-134",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-123",
-      "id": 123,
-      "num_id": 123,
-      "canonical_id": "2026-10-24-123",
-      "symbol": "* (Universal)",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Reset de box-sizing e margens)*",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: Universal selectors",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Universal_selectors",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade * (Universal) do standard web.",
-        "en": "Official standard reference for * (Universal)."
-      }
-    },
-    {
-      "uid": "mat-124",
-      "id": 124,
-      "num_id": 124,
-      "canonical_id": "2026-10-24-124",
-      "symbol": "element (Type / Tag)",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Estilização base e herança)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: Type selectors",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade element (Type / Tag) do standard web.",
-        "en": "Official standard reference for element (Type / Tag)."
-      }
-    },
-    {
-      "uid": "mat-125",
-      "id": 125,
-      "num_id": 125,
-      "canonical_id": "2026-10-24-125",
-      "symbol": ".class (Class Selector)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: Class selectors",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Class_selectors",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade .class (Class Selector) do standard web.",
-        "en": "Official standard reference for .class (Class Selector)."
-      }
-    },
-    {
-      "uid": "mat-126",
-      "id": 126,
-      "num_id": 126,
-      "canonical_id": "2026-10-24-126",
-      "symbol": "#id (ID Selector)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Usado com parcimónia para âncoras)*",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: ID selectors",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/ID_selectors",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade #id (ID Selector) do standard web.",
-        "en": "Official standard reference for #id (ID Selector)."
-      }
-    },
-    {
-      "uid": "mat-139",
-      "id": 139,
-      "num_id": 139,
-      "canonical_id": "2026-10-24-139",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-127",
-      "id": 127,
-      "num_id": 127,
-      "canonical_id": "2026-10-24-127",
-      "symbol": "A B (Descendant Combinator)",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Pilar do TP01: `nav ul`, `header h1`)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: Descendant combinator",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_combinator",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade A B (Descendant Combinator) do standard web.",
-        "en": "Official standard reference for A B (Descendant Combinator)."
-      }
-    },
-    {
-      "uid": "mat-128",
-      "id": 128,
-      "num_id": 128,
-      "canonical_id": "2026-10-24-128",
-      "symbol": "A > B (Child Combinator)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Filho direto estrito)*",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: Child combinator",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade A > B (Child Combinator) do standard web.",
-        "en": "Official standard reference for A > B (Child Combinator)."
-      }
-    },
-    {
-      "uid": "mat-129",
-      "id": 129,
-      "num_id": 129,
-      "canonical_id": "2026-10-24-129",
-      "symbol": "A + B (Next-Sibling)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Irmão adjacente: parágrafos seguidos)*",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: Next-sibling combinator",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Next-sibling_combinator",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade A + B (Next-Sibling) do standard web.",
-        "en": "Official standard reference for A + B (Next-Sibling)."
-      }
-    },
-    {
-      "uid": "mat-130",
-      "id": 130,
-      "num_id": 130,
-      "canonical_id": "2026-10-24-130",
-      "symbol": "A ~ B (Subsequent-Sibling)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Irmãos subsequentes: tab panels)*",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: Subsequent-sibling combinator",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Subsequent-sibling_combinator",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade A ~ B (Subsequent-Sibling) do standard web.",
-        "en": "Official standard reference for A ~ B (Subsequent-Sibling)."
-      }
-    },
-    {
-      "uid": "mat-131",
-      "id": 131,
-      "num_id": 131,
-      "canonical_id": "2026-10-24-131",
-      "symbol": "",
-      "type": "",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "CSS",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade  do standard web.",
-        "en": "Official standard reference for ."
-      }
-    },
-    {
-      "uid": "mat-145",
-      "id": 145,
-      "num_id": 145,
-      "canonical_id": "2026-10-24-145",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-132",
-      "id": 132,
-      "num_id": 132,
-      "canonical_id": "2026-10-24-132",
-      "symbol": "[attr]",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Ex.: `input[required]`)*",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: Attribute selectors",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade [attr] do standard web.",
-        "en": "Official standard reference for [attr]."
-      }
-    },
-    {
-      "uid": "mat-133",
-      "id": 133,
-      "num_id": 133,
-      "canonical_id": "2026-10-24-133",
-      "symbol": "[attr=\"value\"]",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Ex.: `input[type=\"radio\"]`)*",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: Attribute selectors",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade [attr=\"value\"] do standard web.",
-        "en": "Official standard reference for [attr=\"value\"]."
-      }
-    },
-    {
-      "uid": "mat-134",
-      "id": 134,
-      "num_id": 134,
-      "canonical_id": "2026-10-24-134",
-      "symbol": "[attr^=\"value\"]",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Links externos: `a[href^=\"https://\"]`)*",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: Attribute selectors",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade [attr^=\"value\"] do standard web.",
-        "en": "Official standard reference for [attr^=\"value\"]."
-      }
-    },
-    {
-      "uid": "mat-135",
-      "id": 135,
-      "num_id": 135,
-      "canonical_id": "2026-10-24-135",
-      "symbol": "[attr$=\"value\"]",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Ficheiros: `a[href$=\".pdf\"]`)*",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: Attribute selectors",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade [attr$=\"value\"] do standard web.",
-        "en": "Official standard reference for [attr$=\"value\"]."
-      }
-    },
-    {
-      "uid": "mat-136",
-      "id": 136,
-      "num_id": 136,
-      "canonical_id": "2026-10-24-136",
-      "symbol": "[attr*=\"value\"]",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Substring match)*",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: Attribute selectors",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade [attr*=\"value\"] do standard web.",
-        "en": "Official standard reference for [attr*=\"value\"]."
-      }
-    },
-    {
-      "uid": "mat-137",
-      "id": 137,
-      "num_id": 137,
-      "canonical_id": "2026-10-24-137",
-      "symbol": "[attr~=\"value\"]",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Word match)*",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: Attribute selectors",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade [attr~=\"value\"] do standard web.",
-        "en": "Official standard reference for [attr~=\"value\"]."
-      }
-    },
-    {
-      "uid": "mat-138",
-      "id": 138,
-      "num_id": 138,
-      "canonical_id": "2026-10-24-138",
-      "symbol": "[attr",
-      "type": "=\"value\"]`",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "Intermediate",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "[attr",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade [attr do standard web.",
-        "en": "Official standard reference for [attr."
-      }
-    },
-    {
-      "uid": "mat-139",
-      "id": 139,
-      "num_id": 139,
-      "canonical_id": "2026-10-24-139",
-      "symbol": "[attr=\"val\" i] (Case Insensitive)",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Robustez com extensões)*",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: Attribute selectors (case-sensitivity)",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors#case-sensitivity",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade [attr=\"val\" i] (Case Insensitive) do standard web.",
-        "en": "Official standard reference for [attr=\"val\" i] (Case Insensitive)."
-      }
-    },
-    {
-      "uid": "mat-154",
-      "id": 154,
-      "num_id": 154,
-      "canonical_id": "2026-10-24-154",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-140",
-      "id": 140,
-      "num_id": 140,
-      "canonical_id": "2026-10-24-140",
-      "symbol": ":hover",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :hover",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:hover",
-      "pat_ref": 1,
-      "desc": {
-        "pt": "Elemento/propriedade :hover do standard web.",
-        "en": "Official standard reference for :hover."
-      }
-    },
-    {
-      "uid": "mat-141",
-      "id": 141,
-      "num_id": 141,
-      "canonical_id": "2026-10-24-141",
-      "symbol": ":active",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :active",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:active",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :active do standard web.",
-        "en": "Official standard reference for :active."
-      }
-    },
-    {
-      "uid": "mat-142",
-      "id": 142,
-      "num_id": 142,
-      "canonical_id": "2026-10-24-142",
-      "symbol": ":focus",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :focus",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:focus",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :focus do standard web.",
-        "en": "Official standard reference for :focus."
-      }
-    },
-    {
-      "uid": "mat-143",
-      "id": 143,
-      "num_id": 143,
-      "canonical_id": "2026-10-24-143",
-      "symbol": ":focus-visible",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Acessibilidade essencial)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :focus-visible",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :focus-visible do standard web.",
-        "en": "Official standard reference for :focus-visible."
-      }
-    },
-    {
-      "uid": "mat-144",
-      "id": 144,
-      "num_id": 144,
-      "canonical_id": "2026-10-24-144",
-      "symbol": ":focus-within",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Abertura de submenus via teclado)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :focus-within",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-within",
-      "pat_ref": 1,
-      "desc": {
-        "pt": "Elemento/propriedade :focus-within do standard web.",
-        "en": "Official standard reference for :focus-within."
-      }
-    },
-    {
-      "uid": "mat-145",
-      "id": 145,
-      "num_id": 145,
-      "canonical_id": "2026-10-24-145",
-      "symbol": ":link",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :link",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:link",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :link do standard web.",
-        "en": "Official standard reference for :link."
-      }
-    },
-    {
-      "uid": "mat-146",
-      "id": 146,
-      "num_id": 146,
-      "canonical_id": "2026-10-24-146",
-      "symbol": ":visited",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :visited",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:visited",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :visited do standard web.",
-        "en": "Official standard reference for :visited."
-      }
-    },
-    {
-      "uid": "mat-147",
-      "id": 147,
-      "num_id": 147,
-      "canonical_id": "2026-10-24-147",
-      "symbol": ":any-link",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Reset unificado de hiperligações)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :any-link",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:any-link",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :any-link do standard web.",
-        "en": "Official standard reference for :any-link."
-      }
-    },
-    {
-      "uid": "mat-163",
-      "id": 163,
-      "num_id": 163,
-      "canonical_id": "2026-10-24-163",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-148",
-      "id": 148,
-      "num_id": 148,
-      "canonical_id": "2026-10-24-148",
-      "symbol": ":checked",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Motor de cálculo e toggles)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :checked",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:checked",
-      "pat_ref": 1,
-      "desc": {
-        "pt": "Elemento/propriedade :checked do standard web.",
-        "en": "Official standard reference for :checked."
-      }
-    },
-    {
-      "uid": "mat-149",
-      "id": 149,
-      "num_id": 149,
-      "canonical_id": "2026-10-24-149",
-      "symbol": ":disabled / :enabled",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :disabled",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:disabled",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :disabled / :enabled do standard web.",
-        "en": "Official standard reference for :disabled / :enabled."
-      }
-    },
-    {
-      "uid": "mat-150",
-      "id": 150,
-      "num_id": 150,
-      "canonical_id": "2026-10-24-150",
-      "symbol": ":required / :optional",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :required",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:required",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :required / :optional do standard web.",
-        "en": "Official standard reference for :required / :optional."
-      }
-    },
-    {
-      "uid": "mat-151",
-      "id": 151,
-      "num_id": 151,
-      "canonical_id": "2026-10-24-151",
-      "symbol": ":valid / :invalid",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :valid",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:valid",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :valid / :invalid do standard web.",
-        "en": "Official standard reference for :valid / :invalid."
-      }
-    },
-    {
-      "uid": "mat-152",
-      "id": 152,
-      "num_id": 152,
-      "canonical_id": "2026-10-24-152",
-      "symbol": ":user-valid / :user-invalid",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Validação pós-interação sem sustos)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :user-valid",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:user-valid",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :user-valid / :user-invalid do standard web.",
-        "en": "Official standard reference for :user-valid / :user-invalid."
-      }
-    },
-    {
-      "uid": "mat-153",
-      "id": 153,
-      "num_id": 153,
-      "canonical_id": "2026-10-24-153",
-      "symbol": ":placeholder-shown",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Labels flutuantes Pure CSS)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :placeholder-shown",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:placeholder-shown",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :placeholder-shown do standard web.",
-        "en": "Official standard reference for :placeholder-shown."
-      }
-    },
-    {
-      "uid": "mat-154",
-      "id": 154,
-      "num_id": 154,
-      "canonical_id": "2026-10-24-154",
-      "symbol": ":read-only / :read-write",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**NO**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :read-only",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:read-only",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :read-only / :read-write do standard web.",
-        "en": "Official standard reference for :read-only / :read-write."
-      }
-    },
-    {
-      "uid": "mat-155",
-      "id": 155,
-      "num_id": 155,
-      "canonical_id": "2026-10-24-155",
-      "symbol": ":default",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :default",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:default",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :default do standard web.",
-        "en": "Official standard reference for :default."
-      }
-    },
-    {
-      "uid": "mat-172",
-      "id": 172,
-      "num_id": 172,
-      "canonical_id": "2026-10-24-172",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-156",
-      "id": 156,
-      "num_id": 156,
-      "canonical_id": "2026-10-24-156",
-      "symbol": ":root",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Âncora global de variáveis/tokens)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :root",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:root",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :root do standard web.",
-        "en": "Official standard reference for :root."
-      }
-    },
-    {
-      "uid": "mat-157",
-      "id": 157,
-      "num_id": 157,
-      "canonical_id": "2026-10-24-157",
-      "symbol": ":first-child / :last-child",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Limpeza de bordas/margens em listas)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :first-child",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:first-child",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :first-child / :last-child do standard web.",
-        "en": "Official standard reference for :first-child / :last-child."
-      }
-    },
-    {
-      "uid": "mat-158",
-      "id": 158,
-      "num_id": 158,
-      "canonical_id": "2026-10-24-158",
-      "symbol": ":only-child",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :only-child",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:only-child",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :only-child do standard web.",
-        "en": "Official standard reference for :only-child."
-      }
-    },
-    {
-      "uid": "mat-159",
-      "id": 159,
-      "num_id": 159,
-      "canonical_id": "2026-10-24-159",
-      "symbol": ":nth-child(An+B)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Zebra striping e padrões repetitivos)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :nth-child",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :nth-child(An+B) do standard web.",
-        "en": "Official standard reference for :nth-child(An+B)."
-      }
-    },
-    {
-      "uid": "mat-160",
-      "id": 160,
-      "num_id": 160,
-      "canonical_id": "2026-10-24-160",
-      "symbol": ":nth-last-child(An+B)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Contagem a partir do fim)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :nth-last-child",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-last-child",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :nth-last-child(An+B) do standard web.",
-        "en": "Official standard reference for :nth-last-child(An+B)."
-      }
-    },
-    {
-      "uid": "mat-161",
-      "id": 161,
-      "num_id": 161,
-      "canonical_id": "2026-10-24-161",
-      "symbol": ":first-of-type / :last-of-type",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :first-of-type",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:first-of-type",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :first-of-type / :last-of-type do standard web.",
-        "en": "Official standard reference for :first-of-type / :last-of-type."
-      }
-    },
-    {
-      "uid": "mat-162",
-      "id": 162,
-      "num_id": 162,
-      "canonical_id": "2026-10-24-162",
-      "symbol": ":nth-of-type(An+B)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :nth-of-type",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-of-type",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :nth-of-type(An+B) do standard web.",
-        "en": "Official standard reference for :nth-of-type(An+B)."
-      }
-    },
-    {
-      "uid": "mat-163",
-      "id": 163,
-      "num_id": 163,
-      "canonical_id": "2026-10-24-163",
-      "symbol": ":empty",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Ocultar contentores vazios)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :empty",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:empty",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :empty do standard web.",
-        "en": "Official standard reference for :empty."
-      }
-    },
-    {
-      "uid": "mat-181",
-      "id": 181,
-      "num_id": 181,
-      "canonical_id": "2026-10-24-181",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-164",
-      "id": 164,
-      "num_id": 164,
-      "canonical_id": "2026-10-24-164",
-      "symbol": ":has() (Relational Parent)",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**YES** *(Pilar dos TP06 e TP06-B)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :has()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:has",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :has() (Relational Parent) do standard web.",
-        "en": "Official standard reference for :has() (Relational Parent)."
-      }
-    },
-    {
-      "uid": "mat-165",
-      "id": 165,
-      "num_id": 165,
-      "canonical_id": "2026-10-24-165",
-      "symbol": ":not() (Negation)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Ex.: `:not(:last-child)`)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :not()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:not",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :not() (Negation) do standard web.",
-        "en": "Official standard reference for :not() (Negation)."
-      }
-    },
-    {
-      "uid": "mat-166",
-      "id": 166,
-      "num_id": 166,
-      "canonical_id": "2026-10-24-166",
-      "symbol": ":is() (Matches-Any)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Redução dramática de seletores longos)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :is()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:is",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :is() (Matches-Any) do standard web.",
-        "en": "Official standard reference for :is() (Matches-Any)."
-      }
-    },
-    {
-      "uid": "mat-167",
-      "id": 167,
-      "num_id": 167,
-      "canonical_id": "2026-10-24-167",
-      "symbol": ":where() (Zero Specificity)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Estilos de reset fáceis de sobrepor)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :where()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:where",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :where() (Zero Specificity) do standard web.",
-        "en": "Official standard reference for :where() (Zero Specificity)."
-      }
-    },
-    {
-      "uid": "mat-186",
-      "id": 186,
-      "num_id": 186,
-      "canonical_id": "2026-10-24-186",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-168",
-      "id": 168,
-      "num_id": 168,
-      "canonical_id": "2026-10-24-168",
-      "symbol": ":target",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Modais, tabs e slide highlights)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :target",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:target",
-      "pat_ref": 3,
-      "desc": {
-        "pt": "Elemento/propriedade :target do standard web.",
-        "en": "Official standard reference for :target."
-      }
-    },
-    {
-      "uid": "mat-169",
-      "id": 169,
-      "num_id": 169,
-      "canonical_id": "2026-10-24-169",
-      "symbol": ":popover-open",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Estilização de menus/modais abertos)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :popover-open",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:popover-open",
-      "pat_ref": 5,
-      "desc": {
-        "pt": "Elemento/propriedade :popover-open do standard web.",
-        "en": "Official standard reference for :popover-open."
-      }
-    },
-    {
-      "uid": "mat-170",
-      "id": 170,
-      "num_id": 170,
-      "canonical_id": "2026-10-24-170",
-      "symbol": ":modal",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Estilização do dialog em estado modal)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :modal",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:modal",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :modal do standard web.",
-        "en": "Official standard reference for :modal."
-      }
-    },
-    {
-      "uid": "mat-171",
-      "id": 171,
-      "num_id": 171,
-      "canonical_id": "2026-10-24-171",
-      "symbol": ":fullscreen",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: :fullscreen",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:fullscreen",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :fullscreen do standard web.",
-        "en": "Official standard reference for :fullscreen."
-      }
-    },
-    {
-      "uid": "mat-191",
-      "id": 191,
-      "num_id": 191,
-      "canonical_id": "2026-10-24-191",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-172",
-      "id": 172,
-      "num_id": 172,
-      "canonical_id": "2026-10-24-172",
-      "symbol": "::before",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Conteúdo gerado, ícones, overlays)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: ::before",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::before",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade ::before do standard web.",
-        "en": "Official standard reference for ::before."
-      }
-    },
-    {
-      "uid": "mat-173",
-      "id": 173,
-      "num_id": 173,
-      "canonical_id": "2026-10-24-173",
-      "symbol": "::after",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Motor reativo de preços, setas)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: ::after",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::after",
-      "pat_ref": 8,
-      "desc": {
-        "pt": "Elemento/propriedade ::after do standard web.",
-        "en": "Official standard reference for ::after."
-      }
-    },
-    {
-      "uid": "mat-174",
-      "id": 174,
-      "num_id": 174,
-      "canonical_id": "2026-10-24-174",
-      "symbol": "::marker",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Estilização do bullet de lista/summary)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: ::marker",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::marker",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade ::marker do standard web.",
-        "en": "Official standard reference for ::marker."
-      }
-    },
-    {
-      "uid": "mat-175",
-      "id": 175,
-      "num_id": 175,
-      "canonical_id": "2026-10-24-175",
-      "symbol": "::placeholder",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: ::placeholder",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::placeholder",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade ::placeholder do standard web.",
-        "en": "Official standard reference for ::placeholder."
-      }
-    },
-    {
-      "uid": "mat-176",
-      "id": 176,
-      "num_id": 176,
-      "canonical_id": "2026-10-24-176",
-      "symbol": "::backdrop",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Fundo escurecido/desfocado de modais)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: ::backdrop",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop",
-      "pat_ref": 5,
-      "desc": {
-        "pt": "Elemento/propriedade ::backdrop do standard web.",
-        "en": "Official standard reference for ::backdrop."
-      }
-    },
-    {
-      "uid": "mat-177",
-      "id": 177,
-      "num_id": 177,
-      "canonical_id": "2026-10-24-177",
-      "symbol": "::selection",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Personalização da cor de seleção)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: ::selection",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::selection",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade ::selection do standard web.",
-        "en": "Official standard reference for ::selection."
-      }
-    },
-    {
-      "uid": "mat-178",
-      "id": 178,
-      "num_id": 178,
-      "canonical_id": "2026-10-24-178",
-      "symbol": "::first-letter",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Letra capitular editorial)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: ::first-letter",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::first-letter",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade ::first-letter do standard web.",
-        "en": "Official standard reference for ::first-letter."
-      }
-    },
-    {
-      "uid": "mat-179",
-      "id": 179,
-      "num_id": 179,
-      "canonical_id": "2026-10-24-179",
-      "symbol": "::first-line",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Abertura editorial de parágrafo)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: ::first-line",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::first-line",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade ::first-line do standard web.",
-        "en": "Official standard reference for ::first-line."
-      }
-    },
-    {
-      "uid": "mat-180",
-      "id": 180,
-      "num_id": 180,
-      "canonical_id": "2026-10-24-180",
-      "symbol": "::file-selector-button",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD**",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: ::file-selector-button",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::file-selector-button",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade ::file-selector-button do standard web.",
-        "en": "Official standard reference for ::file-selector-button."
-      }
-    },
-    {
-      "uid": "mat-181",
-      "id": 181,
-      "num_id": 181,
-      "canonical_id": "2026-10-24-181",
-      "symbol": "::view-transition",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Transições suaves entre páginas)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: ::view-transition",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/::view-transition",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade ::view-transition do standard web.",
-        "en": "Official standard reference for ::view-transition."
-      }
-    },
-    {
-      "uid": "mat-202",
-      "id": 202,
-      "num_id": 202,
-      "canonical_id": "2026-10-24-202",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-182",
-      "id": 182,
-      "num_id": 182,
-      "canonical_id": "2026-10-24-182",
-      "symbol": "CSS Reset (Eric Meyer v2.0)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Fundação estrutural nos TP02 a TP06)*",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: Handling conflicts & resets",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Handling_conflicts#css_resets",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade CSS Reset (Eric Meyer v2.0) do standard web.",
-        "en": "Official standard reference for CSS Reset (Eric Meyer v2.0)."
-      }
-    },
-    {
-      "uid": "mat-183",
-      "id": 183,
-      "num_id": 183,
-      "canonical_id": "2026-10-24-183",
-      "symbol": "box-sizing",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Obrigatório `border-box` no reset)*",
-      "category": "cat-boxmodel",
-      "cat_id": 7,
-      "label": "MDN: box-sizing",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade box-sizing do standard web.",
-        "en": "Official standard reference for box-sizing."
-      }
-    },
-    {
-      "uid": "mat-184",
-      "id": 184,
-      "num_id": 184,
-      "canonical_id": "2026-10-24-184",
-      "symbol": "width / height",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-boxmodel",
-      "cat_id": 7,
-      "label": "MDN: width",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/width",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade width / height do standard web.",
-        "en": "Official standard reference for width / height."
-      }
-    },
-    {
-      "uid": "mat-185",
-      "id": 185,
-      "num_id": 185,
-      "canonical_id": "2026-10-24-185",
-      "symbol": "min-width / max-width",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Fator de segurança mobile)*",
-      "category": "cat-boxmodel",
-      "cat_id": 7,
-      "label": "MDN: min-width",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/min-width",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade min-width / max-width do standard web.",
-        "en": "Official standard reference for min-width / max-width."
-      }
-    },
-    {
-      "uid": "mat-186",
-      "id": 186,
-      "num_id": 186,
-      "canonical_id": "2026-10-24-186",
-      "symbol": "min-height / max-height",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Prevenção de sobreposições)*",
-      "category": "cat-boxmodel",
-      "cat_id": 7,
-      "label": "MDN: min-height",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/min-height",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade min-height / max-height do standard web.",
-        "en": "Official standard reference for min-height / max-height."
-      }
-    },
-    {
-      "uid": "mat-187",
-      "id": 187,
-      "num_id": 187,
-      "canonical_id": "2026-10-24-187",
-      "symbol": "margin (e shorthand)",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Centralização com `0 auto`)*",
-      "category": "cat-boxmodel",
-      "cat_id": 7,
-      "label": "MDN: margin",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/margin",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade margin (e shorthand) do standard web.",
-        "en": "Official standard reference for margin (e shorthand)."
-      }
-    },
-    {
-      "uid": "mat-188",
-      "id": 188,
-      "num_id": 188,
-      "canonical_id": "2026-10-24-188",
-      "symbol": "padding (e shorthand)",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Gutters de segurança lateral)*",
-      "category": "cat-boxmodel",
-      "cat_id": 7,
-      "label": "MDN: padding",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/padding",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade padding (e shorthand) do standard web.",
-        "en": "Official standard reference for padding (e shorthand)."
-      }
-    },
-    {
-      "uid": "mat-189",
-      "id": 189,
-      "num_id": 189,
-      "canonical_id": "2026-10-24-189",
-      "symbol": "margin-inline / margin-block",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Propriedades lógicas modernas)*",
-      "category": "cat-boxmodel",
-      "cat_id": 7,
-      "label": "MDN: margin-inline",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade margin-inline / margin-block do standard web.",
-        "en": "Official standard reference for margin-inline / margin-block."
-      }
-    },
-    {
-      "uid": "mat-190",
-      "id": 190,
-      "num_id": 190,
-      "canonical_id": "2026-10-24-190",
-      "symbol": "padding-inline / padding-block",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Propriedades lógicas modernas)*",
-      "category": "cat-boxmodel",
-      "cat_id": 7,
-      "label": "MDN: padding-inline",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade padding-inline / padding-block do standard web.",
-        "en": "Official standard reference for padding-inline / padding-block."
-      }
-    },
-    {
-      "uid": "mat-191",
-      "id": 191,
-      "num_id": 191,
-      "canonical_id": "2026-10-24-191",
-      "symbol": "aspect-ratio",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Preserva rácios 16:9, 1:1 sem jumps)*",
-      "category": "cat-boxmodel",
-      "cat_id": 7,
-      "label": "MDN: aspect-ratio",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio",
-      "pat_ref": 2,
-      "desc": {
-        "pt": "Elemento/propriedade aspect-ratio do standard web.",
-        "en": "Official standard reference for aspect-ratio."
-      }
-    },
-    {
-      "uid": "mat-192",
-      "id": 192,
-      "num_id": 192,
-      "canonical_id": "2026-10-24-192",
-      "symbol": "container-type",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(inline-size para Container Queries)*",
-      "category": "cat-boxmodel",
-      "cat_id": 7,
-      "label": "MDN: container-type",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/container-type",
-      "pat_ref": 11,
-      "desc": {
-        "pt": "Elemento/propriedade container-type do standard web.",
-        "en": "Official standard reference for container-type."
-      }
-    },
-    {
-      "uid": "mat-193",
-      "id": 193,
-      "num_id": 193,
-      "canonical_id": "2026-10-24-193",
-      "symbol": "container-name",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Nomeação de contexto do contentor)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: container-name",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/container-name",
-      "pat_ref": 11,
-      "desc": {
-        "pt": "Elemento/propriedade container-name do standard web.",
-        "en": "Official standard reference for container-name."
-      }
-    },
-    {
-      "uid": "mat-194",
-      "id": 194,
-      "num_id": 194,
-      "canonical_id": "2026-10-24-194",
-      "symbol": "container (shorthand)",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Shorthand: name / type)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: container",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/container",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade container (shorthand) do standard web.",
-        "en": "Official standard reference for container (shorthand)."
-      }
-    },
-    {
-      "uid": "mat-216",
-      "id": 216,
-      "num_id": 216,
-      "canonical_id": "2026-10-24-216",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-194",
-      "id": 194,
-      "num_id": 194,
-      "canonical_id": "2026-10-24-194",
-      "symbol": "display",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(block, inline, inline-block, none)*",
-      "category": "cat-flex-grid",
-      "cat_id": 8,
-      "label": "MDN: display",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/display",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade display do standard web.",
-        "en": "Official standard reference for display."
-      }
-    },
-    {
-      "uid": "mat-195",
-      "id": 195,
-      "num_id": 195,
-      "canonical_id": "2026-10-24-195",
-      "symbol": "display: flex",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(TP05: alinhamento unidimensional)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: CSS flexible box layout",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade display: flex do standard web.",
-        "en": "Official standard reference for display: flex."
-      }
-    },
-    {
-      "uid": "mat-196",
-      "id": 196,
-      "num_id": 196,
-      "canonical_id": "2026-10-24-196",
-      "symbol": "flex-direction",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(row, column, reverse)*",
-      "category": "cat-flex-grid",
-      "cat_id": 8,
-      "label": "MDN: flex-direction",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade flex-direction do standard web.",
-        "en": "Official standard reference for flex-direction."
-      }
-    },
-    {
-      "uid": "mat-197",
-      "id": 197,
-      "num_id": 197,
-      "canonical_id": "2026-10-24-197",
-      "symbol": "flex-wrap",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Quebra fluida de cartões)*",
-      "category": "cat-flex-grid",
-      "cat_id": 8,
-      "label": "MDN: flex-wrap",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade flex-wrap do standard web.",
-        "en": "Official standard reference for flex-wrap."
-      }
-    },
-    {
-      "uid": "mat-198",
-      "id": 198,
-      "num_id": 198,
-      "canonical_id": "2026-10-24-198",
-      "symbol": "justify-content",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Alinhamento no eixo principal)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: justify-content",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade justify-content do standard web.",
-        "en": "Official standard reference for justify-content."
-      }
-    },
-    {
-      "uid": "mat-199",
-      "id": 199,
-      "num_id": 199,
-      "canonical_id": "2026-10-24-199",
-      "symbol": "align-items",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Alinhamento no eixo cruzado)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: align-items",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/align-items",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade align-items do standard web.",
-        "en": "Official standard reference for align-items."
-      }
-    },
-    {
-      "uid": "mat-200",
-      "id": 200,
-      "num_id": 200,
-      "canonical_id": "2026-10-24-200",
-      "symbol": "flex-grow / flex-shrink / flex-basis",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-flex-grid",
-      "cat_id": 8,
-      "label": "MDN: flex",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/flex",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade flex-grow / flex-shrink / flex-basis do standard web.",
-        "en": "Official standard reference for flex-grow / flex-shrink / flex-basis."
-      }
-    },
-    {
-      "uid": "mat-201",
-      "id": 201,
-      "num_id": 201,
-      "canonical_id": "2026-10-24-201",
-      "symbol": "order",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Reordenação visual responsiva)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: order",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/order",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade order do standard web.",
-        "en": "Official standard reference for order."
-      }
-    },
-    {
-      "uid": "mat-202",
-      "id": 202,
-      "num_id": 202,
-      "canonical_id": "2026-10-24-202",
-      "symbol": "display: grid",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(TP05 & TP06: 2 colunas)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: CSS grid layout",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout",
-      "pat_ref": 7,
-      "desc": {
-        "pt": "Elemento/propriedade display: grid do standard web.",
-        "en": "Official standard reference for display: grid."
-      }
-    },
-    {
-      "uid": "mat-203",
-      "id": 203,
-      "num_id": 203,
-      "canonical_id": "2026-10-24-203",
-      "symbol": "grid-template-columns",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Uso de `fr`, `minmax()`, `repeat()`)*",
-      "category": "cat-flex-grid",
-      "cat_id": 8,
-      "label": "MDN: grid-template-columns",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns",
-      "pat_ref": 7,
-      "desc": {
-        "pt": "Elemento/propriedade grid-template-columns do standard web.",
-        "en": "Official standard reference for grid-template-columns."
-      }
-    },
-    {
-      "uid": "mat-204",
-      "id": 204,
-      "num_id": 204,
-      "canonical_id": "2026-10-24-204",
-      "symbol": "grid-template-rows",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**YES** *(Accordion animado `0fr -> 1fr`)*",
-      "category": "cat-flex-grid",
-      "cat_id": 8,
-      "label": "MDN: grid-template-rows",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows",
-      "pat_ref": 4,
-      "desc": {
-        "pt": "Elemento/propriedade grid-template-rows do standard web.",
-        "en": "Official standard reference for grid-template-rows."
-      }
-    },
-    {
-      "uid": "mat-205",
-      "id": 205,
-      "num_id": 205,
-      "canonical_id": "2026-10-24-205",
-      "symbol": "grid-template-areas",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Mapas visuais semânticos de grelha)*",
-      "category": "cat-flex-grid",
-      "cat_id": 8,
-      "label": "MDN: grid-template-areas",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade grid-template-areas do standard web.",
-        "en": "Official standard reference for grid-template-areas."
-      }
-    },
-    {
-      "uid": "mat-206",
-      "id": 206,
-      "num_id": 206,
-      "canonical_id": "2026-10-24-206",
-      "symbol": "grid-column / grid-row",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Posicionamento explícito de items)*",
-      "category": "cat-flex-grid",
-      "cat_id": 8,
-      "label": "MDN: grid-column",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade grid-column / grid-row do standard web.",
-        "en": "Official standard reference for grid-column / grid-row."
-      }
-    },
-    {
-      "uid": "mat-207",
-      "id": 207,
-      "num_id": 207,
-      "canonical_id": "2026-10-24-207",
-      "symbol": "gap / row-gap / column-gap",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Espaçamento limpo em Grid e Flexbox)*",
-      "category": "cat-flex-grid",
-      "cat_id": 8,
-      "label": "MDN: gap",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/gap",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade gap / row-gap / column-gap do standard web.",
-        "en": "Official standard reference for gap / row-gap / column-gap."
-      }
-    },
-    {
-      "uid": "mat-208",
-      "id": 208,
-      "num_id": 208,
-      "canonical_id": "2026-10-24-208",
-      "symbol": "columns / column-count",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Layout editorial multicolunas)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: columns",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/columns",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade columns / column-count do standard web.",
-        "en": "Official standard reference for columns / column-count."
-      }
-    },
-    {
-      "uid": "mat-232",
-      "id": 232,
-      "num_id": 232,
-      "canonical_id": "2026-10-24-232",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-209",
-      "id": 209,
-      "num_id": 209,
-      "canonical_id": "2026-10-24-209",
-      "symbol": "position: relative",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Âncora local de coordenadas)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: position",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position#relative",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade position: relative do standard web.",
-        "en": "Official standard reference for position: relative."
-      }
-    },
-    {
-      "uid": "mat-210",
-      "id": 210,
-      "num_id": 210,
-      "canonical_id": "2026-10-24-210",
-      "symbol": "position: absolute",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Descolagem do fluxo normal)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: position",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position#absolute",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade position: absolute do standard web.",
-        "en": "Official standard reference for position: absolute."
-      }
-    },
-    {
-      "uid": "mat-211",
-      "id": 211,
-      "num_id": 211,
-      "canonical_id": "2026-10-24-211",
-      "symbol": "position: fixed",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Barras fixas de cabeçalho/leitura)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: position",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position#fixed",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade position: fixed do standard web.",
-        "en": "Official standard reference for position: fixed."
-      }
-    },
-    {
-      "uid": "mat-212",
-      "id": 212,
-      "num_id": 212,
-      "canonical_id": "2026-10-24-212",
-      "symbol": "position: sticky",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Sticky Nav, Stacking Headers & Cards)*",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": "MDN: position",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position#sticky",
-      "pat_ref": 7,
-      "desc": {
-        "pt": "Elemento/propriedade position: sticky do standard web.",
-        "en": "Official standard reference for position: sticky."
-      }
-    },
-    {
-      "uid": "mat-213",
-      "id": 213,
-      "num_id": 213,
-      "canonical_id": "2026-10-24-213",
-      "symbol": "top / right / bottom / left",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-positioning",
-      "cat_id": 9,
-      "label": "MDN: top",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/top",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade top / right / bottom / left do standard web.",
-        "en": "Official standard reference for top / right / bottom / left."
-      }
-    },
-    {
-      "uid": "mat-214",
-      "id": 214,
-      "num_id": 214,
-      "canonical_id": "2026-10-24-214",
-      "symbol": "inset",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Shorthand para top/right/bottom/left)*",
-      "category": "cat-positioning",
-      "cat_id": 9,
-      "label": "MDN: inset",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/inset",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade inset do standard web.",
-        "en": "Official standard reference for inset."
-      }
-    },
-    {
-      "uid": "mat-215",
-      "id": 215,
-      "num_id": 215,
-      "canonical_id": "2026-10-24-215",
-      "symbol": "z-index",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Gestão de camadas e Stacking Contexts)*",
-      "category": "cat-positioning",
-      "cat_id": 9,
-      "label": "MDN: z-index",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/z-index",
-      "pat_ref": 12,
-      "desc": {
-        "pt": "Elemento/propriedade z-index do standard web.",
-        "en": "Official standard reference for z-index."
-      }
-    },
-    {
-      "uid": "mat-216",
-      "id": 216,
-      "num_id": 216,
-      "canonical_id": "2026-10-24-216",
-      "symbol": "anchor-name",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Identificador de elemento âncora)*",
-      "category": "cat-positioning",
-      "cat_id": 9,
-      "label": "MDN: anchor-name",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/anchor-name",
-      "pat_ref": 10,
-      "desc": {
-        "pt": "Elemento/propriedade anchor-name do standard web.",
-        "en": "Official standard reference for anchor-name."
-      }
-    },
-    {
-      "uid": "mat-217",
-      "id": 217,
-      "num_id": 217,
-      "canonical_id": "2026-10-24-217",
-      "symbol": "position-anchor",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Associação a uma âncora)*",
-      "category": "cat-positioning",
-      "cat_id": 9,
-      "label": "MDN: position-anchor",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position-anchor",
-      "pat_ref": 10,
-      "desc": {
-        "pt": "Elemento/propriedade position-anchor do standard web.",
-        "en": "Official standard reference for position-anchor."
-      }
-    },
-    {
-      "uid": "mat-218",
-      "id": 218,
-      "num_id": 218,
-      "canonical_id": "2026-10-24-218",
-      "symbol": "position-area",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Posicionamento declarativo: `top span-all`)*",
-      "category": "cat-positioning",
-      "cat_id": 9,
-      "label": "MDN: position-area",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position-area",
-      "pat_ref": 10,
-      "desc": {
-        "pt": "Elemento/propriedade position-area do standard web.",
-        "en": "Official standard reference for position-area."
-      }
-    },
-    {
-      "uid": "mat-219",
-      "id": 219,
-      "num_id": 219,
-      "canonical_id": "2026-10-24-219",
-      "symbol": "position-try-fallbacks",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Fallbacks se faltar espaço no viewport)*",
-      "category": "cat-positioning",
-      "cat_id": 9,
-      "label": "MDN: position-try-fallbacks",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position-try-fallbacks",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade position-try-fallbacks do standard web.",
-        "en": "Official standard reference for position-try-fallbacks."
-      }
-    },
-    {
-      "uid": "mat-244",
-      "id": 244,
-      "num_id": 244,
-      "canonical_id": "2026-10-24-244",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-220",
-      "id": 220,
-      "num_id": 220,
-      "canonical_id": "2026-10-24-220",
-      "symbol": "font-family",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Stacks nativas + fallbacks genéricos)*",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: font-family",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-family",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade font-family do standard web.",
-        "en": "Official standard reference for font-family."
-      }
-    },
-    {
-      "uid": "mat-221",
-      "id": 221,
-      "num_id": 221,
-      "canonical_id": "2026-10-24-221",
-      "symbol": "font-size",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Em `rem`/`em` no básico; `clamp()` no av.)*",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: font-size",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-size",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade font-size do standard web.",
-        "en": "Official standard reference for font-size."
-      }
-    },
-    {
-      "uid": "mat-222",
-      "id": 222,
-      "num_id": 222,
-      "canonical_id": "2026-10-24-222",
-      "symbol": "font-weight",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Valores fixos ou intervalo em variáveis)*",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: font-weight",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade font-weight do standard web.",
-        "en": "Official standard reference for font-weight."
-      }
-    },
-    {
-      "uid": "mat-223",
-      "id": 223,
-      "num_id": 223,
-      "canonical_id": "2026-10-24-223",
-      "symbol": "font-style",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(normal, italic, oblique com ângulo)*",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: font-style",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-style",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade font-style do standard web.",
-        "en": "Official standard reference for font-style."
-      }
-    },
-    {
-      "uid": "mat-224",
-      "id": 224,
-      "num_id": 224,
-      "canonical_id": "2026-10-24-224",
-      "symbol": "font-display",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Obrigatório `swap` contra FOIT)*",
-      "category": "cat-flex-grid",
-      "cat_id": 8,
-      "label": "MDN: font-display",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade font-display do standard web.",
-        "en": "Official standard reference for font-display."
-      }
-    },
-    {
-      "uid": "mat-225",
-      "id": 225,
-      "num_id": 225,
-      "canonical_id": "2026-10-24-225",
-      "symbol": "font-variation-settings",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**YES** *(Controlo fino de eixos: `wght`, `wdth`)*",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: font-variation-settings",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-variation-settings",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade font-variation-settings do standard web.",
-        "en": "Official standard reference for font-variation-settings."
-      }
-    },
-    {
-      "uid": "mat-226",
-      "id": 226,
-      "num_id": 226,
-      "canonical_id": "2026-10-24-226",
-      "symbol": "font-optical-sizing",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(`auto` para eixos ópticos `opsz`)*",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: font-optical-sizing",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-optical-sizing",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade font-optical-sizing do standard web.",
-        "en": "Official standard reference for font-optical-sizing."
-      }
-    },
-    {
-      "uid": "mat-227",
-      "id": 227,
-      "num_id": 227,
-      "canonical_id": "2026-10-24-227",
-      "symbol": "font-stretch",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Percentagens de condensação/expansão)*",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: font-stretch",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-stretch",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade font-stretch do standard web.",
-        "en": "Official standard reference for font-stretch."
-      }
-    },
-    {
-      "uid": "mat-228",
-      "id": 228,
-      "num_id": 228,
-      "canonical_id": "2026-10-24-228",
-      "symbol": "size-adjust",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Compensação métrica para Zero CLS)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: size-adjust",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/size-adjust",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade size-adjust do standard web.",
-        "en": "Official standard reference for size-adjust."
-      }
-    },
-    {
-      "uid": "mat-229",
-      "id": 229,
-      "num_id": 229,
-      "canonical_id": "2026-10-24-229",
-      "symbol": "line-height",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Unitless: 1.2 a 1.6)*",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: line-height",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/line-height",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade line-height do standard web.",
-        "en": "Official standard reference for line-height."
-      }
-    },
-    {
-      "uid": "mat-230",
-      "id": 230,
-      "num_id": 230,
-      "canonical_id": "2026-10-24-230",
-      "symbol": "letter-spacing",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: letter-spacing",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade letter-spacing do standard web.",
-        "en": "Official standard reference for letter-spacing."
-      }
-    },
-    {
-      "uid": "mat-231",
-      "id": 231,
-      "num_id": 231,
-      "canonical_id": "2026-10-24-231",
-      "symbol": "text-align",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: text-align",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-align",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade text-align do standard web.",
-        "en": "Official standard reference for text-align."
-      }
-    },
-    {
-      "uid": "mat-232",
-      "id": 232,
-      "num_id": 232,
-      "canonical_id": "2026-10-24-232",
-      "symbol": "text-transform",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(uppercase, lowercase, capitalize)*",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: text-transform",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade text-transform do standard web.",
-        "en": "Official standard reference for text-transform."
-      }
-    },
-    {
-      "uid": "mat-233",
-      "id": 233,
-      "num_id": 233,
-      "canonical_id": "2026-10-24-233",
-      "symbol": "text-decoration",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES** *(Sublinhados e limpeza de links)*",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: text-decoration",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade text-decoration do standard web.",
-        "en": "Official standard reference for text-decoration."
-      }
-    },
-    {
-      "uid": "mat-234",
-      "id": 234,
-      "num_id": 234,
-      "canonical_id": "2026-10-24-234",
-      "symbol": "text-underline-offset",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Afastamento tipográfico da linha)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: text-underline-offset",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-underline-offset",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade text-underline-offset do standard web.",
-        "en": "Official standard reference for text-underline-offset."
-      }
-    },
-    {
-      "uid": "mat-235",
-      "id": 235,
-      "num_id": 235,
-      "canonical_id": "2026-10-24-235",
-      "symbol": "text-overflow",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(ellipsis com `white-space: nowrap`)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: text-overflow",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade text-overflow do standard web.",
-        "en": "Official standard reference for text-overflow."
-      }
-    },
-    {
-      "uid": "mat-236",
-      "id": 236,
-      "num_id": 236,
-      "canonical_id": "2026-10-24-236",
-      "symbol": "overflow-wrap / word-break",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Prevenção de quebra lateral em mobile)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: overflow-wrap",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade overflow-wrap / word-break do standard web.",
-        "en": "Official standard reference for overflow-wrap / word-break."
-      }
-    },
-    {
-      "uid": "mat-237",
-      "id": 237,
-      "num_id": 237,
-      "canonical_id": "2026-10-24-237",
-      "symbol": "hyphens",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Hifenação automática em português)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: hyphens",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade hyphens do standard web.",
-        "en": "Official standard reference for hyphens."
-      }
-    },
-    {
-      "uid": "mat-238",
-      "id": 238,
-      "num_id": 238,
-      "canonical_id": "2026-10-24-238",
-      "symbol": "writing-mode",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Títulos verticais para posters/menus)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: writing-mode",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade writing-mode do standard web.",
-        "en": "Official standard reference for writing-mode."
-      }
-    },
-    {
-      "uid": "mat-264",
-      "id": 264,
-      "num_id": 264,
-      "canonical_id": "2026-10-24-264",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-239",
-      "id": 239,
-      "num_id": 239,
-      "canonical_id": "2026-10-24-239",
-      "symbol": "color",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: color",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade color do standard web.",
-        "en": "Official standard reference for color."
-      }
-    },
-    {
-      "uid": "mat-240",
-      "id": 240,
-      "num_id": 240,
-      "canonical_id": "2026-10-24-240",
-      "symbol": "background-color",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: background-color",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/background-color",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade background-color do standard web.",
-        "en": "Official standard reference for background-color."
-      }
-    },
-    {
-      "uid": "mat-241",
-      "id": 241,
-      "num_id": 241,
-      "canonical_id": "2026-10-24-241",
-      "symbol": "background-image",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Gradientes e imagens)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: background-image",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/background-image",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade background-image do standard web.",
-        "en": "Official standard reference for background-image."
-      }
-    },
-    {
-      "uid": "mat-242",
-      "id": 242,
-      "num_id": 242,
-      "canonical_id": "2026-10-24-242",
-      "symbol": "background-size",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(cover, contain)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: background-size",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/background-size",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade background-size do standard web.",
-        "en": "Official standard reference for background-size."
-      }
-    },
-    {
-      "uid": "mat-243",
-      "id": 243,
-      "num_id": 243,
-      "canonical_id": "2026-10-24-243",
-      "symbol": "background-position",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-positioning",
-      "cat_id": 9,
-      "label": "MDN: background-position",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/background-position",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade background-position do standard web.",
-        "en": "Official standard reference for background-position."
-      }
-    },
-    {
-      "uid": "mat-244",
-      "id": 244,
-      "num_id": 244,
-      "canonical_id": "2026-10-24-244",
-      "symbol": "border (e sub-props)",
-      "type": "CSS",
-      "tier": "foundational",
-      "lev": 1,
-      "status": "**YES**",
-      "category": "cat-boxmodel",
-      "cat_id": 7,
-      "label": "MDN: border",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/border",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade border (e sub-props) do standard web.",
-        "en": "Official standard reference for border (e sub-props)."
-      }
-    },
-    {
-      "uid": "mat-245",
-      "id": 245,
-      "num_id": 245,
-      "canonical_id": "2026-10-24-245",
-      "symbol": "border-radius",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Arredondamento e pílulas)*",
-      "category": "cat-boxmodel",
-      "cat_id": 7,
-      "label": "MDN: border-radius",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade border-radius do standard web.",
-        "en": "Official standard reference for border-radius."
-      }
-    },
-    {
-      "uid": "mat-246",
-      "id": 246,
-      "num_id": 246,
-      "canonical_id": "2026-10-24-246",
-      "symbol": "outline / outline-offset",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Anéis de foco acessíveis sem deslocar)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: outline",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/outline",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade outline / outline-offset do standard web.",
-        "en": "Official standard reference for outline / outline-offset."
-      }
-    },
-    {
-      "uid": "mat-247",
-      "id": 247,
-      "num_id": 247,
-      "canonical_id": "2026-10-24-247",
-      "symbol": "box-shadow",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: box-shadow",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade box-shadow do standard web.",
-        "en": "Official standard reference for box-shadow."
-      }
-    },
-    {
-      "uid": "mat-248",
-      "id": 248,
-      "num_id": 248,
-      "canonical_id": "2026-10-24-248",
-      "symbol": "opacity",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: opacity",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/opacity",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade opacity do standard web.",
-        "en": "Official standard reference for opacity."
-      }
-    },
-    {
-      "uid": "mat-249",
-      "id": 249,
-      "num_id": 249,
-      "canonical_id": "2026-10-24-249",
-      "symbol": "filter",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(blur, brightness, grayscale, etc.)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: filter",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/filter",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade filter do standard web.",
-        "en": "Official standard reference for filter."
-      }
-    },
-    {
-      "uid": "mat-250",
-      "id": 250,
-      "num_id": 250,
-      "canonical_id": "2026-10-24-250",
-      "symbol": "backdrop-filter",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**YES** *(Efeito de vidro fosco / frosted glass)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: backdrop-filter",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade backdrop-filter do standard web.",
-        "en": "Official standard reference for backdrop-filter."
-      }
-    },
-    {
-      "uid": "mat-251",
-      "id": 251,
-      "num_id": 251,
-      "canonical_id": "2026-10-24-251",
-      "symbol": "mix-blend-mode",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Efeitos de sobreposição gráfica)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: mix-blend-mode",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade mix-blend-mode do standard web.",
-        "en": "Official standard reference for mix-blend-mode."
-      }
-    },
-    {
-      "uid": "mat-252",
-      "id": 252,
-      "num_id": 252,
-      "canonical_id": "2026-10-24-252",
-      "symbol": "clip-path",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Recortes geométricos e diagonais)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: clip-path",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade clip-path do standard web.",
-        "en": "Official standard reference for clip-path."
-      }
-    },
-    {
-      "uid": "mat-279",
-      "id": 279,
-      "num_id": 279,
-      "canonical_id": "2026-10-24-279",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-253",
-      "id": 253,
-      "num_id": 253,
-      "canonical_id": "2026-10-24-253",
-      "symbol": "overflow / overflow-x/y",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Prevenção de scroll parasita)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: overflow",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overflow",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade overflow / overflow-x/y do standard web.",
-        "en": "Official standard reference for overflow / overflow-x/y."
-      }
-    },
-    {
-      "uid": "mat-254",
-      "id": 254,
-      "num_id": 254,
-      "canonical_id": "2026-10-24-254",
-      "symbol": "scroll-behavior",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(`smooth` para âncoras internas)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: scroll-behavior",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade scroll-behavior do standard web.",
-        "en": "Official standard reference for scroll-behavior."
-      }
-    },
-    {
-      "uid": "mat-255",
-      "id": 255,
-      "num_id": 255,
-      "canonical_id": "2026-10-24-255",
-      "symbol": "scroll-snap-type",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**YES** *(Carrossel de galeria: `x mandatory`)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: scroll-snap-type",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-type",
-      "pat_ref": 3,
-      "desc": {
-        "pt": "Elemento/propriedade scroll-snap-type do standard web.",
-        "en": "Official standard reference for scroll-snap-type."
-      }
-    },
-    {
-      "uid": "mat-256",
-      "id": 256,
-      "num_id": 256,
-      "canonical_id": "2026-10-24-256",
-      "symbol": "scroll-snap-align",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**YES** *(`center` ou `start` nos slides)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: scroll-snap-align",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-align",
-      "pat_ref": 3,
-      "desc": {
-        "pt": "Elemento/propriedade scroll-snap-align do standard web.",
-        "en": "Official standard reference for scroll-snap-align."
-      }
-    },
-    {
-      "uid": "mat-257",
-      "id": 257,
-      "num_id": 257,
-      "canonical_id": "2026-10-24-257",
-      "symbol": "scroll-padding / scroll-margin",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Evita que cabeçalho tape a âncora)*",
-      "category": "cat-boxmodel",
-      "cat_id": 7,
-      "label": "MDN: scroll-padding",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-padding",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade scroll-padding / scroll-margin do standard web.",
-        "en": "Official standard reference for scroll-padding / scroll-margin."
-      }
-    },
-    {
-      "uid": "mat-258",
-      "id": 258,
-      "num_id": 258,
-      "canonical_id": "2026-10-24-258",
-      "symbol": "animation-timeline",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**YES** *(TP06: barra de leitura via `scroll()`)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: animation-timeline",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline",
-      "pat_ref": 6,
-      "desc": {
-        "pt": "Elemento/propriedade animation-timeline do standard web.",
-        "en": "Official standard reference for animation-timeline."
-      }
-    },
-    {
-      "uid": "mat-259",
-      "id": 259,
-      "num_id": 259,
-      "canonical_id": "2026-10-24-259",
-      "symbol": "animation-range",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Sincronização em `entry` ou `cover`)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: animation-range",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/animation-range",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade animation-range do standard web.",
-        "en": "Official standard reference for animation-range."
-      }
-    },
-    {
-      "uid": "mat-260",
-      "id": 260,
-      "num_id": 260,
-      "canonical_id": "2026-10-24-260",
-      "symbol": "scrollbar-width / scrollbar-color",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Estilização da barra nativa)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: scrollbar-width",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade scrollbar-width / scrollbar-color do standard web.",
-        "en": "Official standard reference for scrollbar-width / scrollbar-color."
-      }
-    },
-    {
-      "uid": "mat-261",
-      "id": 261,
-      "num_id": 261,
-      "canonical_id": "2026-10-24-261",
-      "symbol": "overscroll-behavior",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Impede scroll acorrentado em modais)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: overscroll-behavior",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade overscroll-behavior do standard web.",
-        "en": "Official standard reference for overscroll-behavior."
-      }
-    },
-    {
-      "uid": "mat-289",
-      "id": 289,
-      "num_id": 289,
-      "canonical_id": "2026-10-24-289",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-262",
-      "id": 262,
-      "num_id": 262,
-      "canonical_id": "2026-10-24-262",
-      "symbol": "transition (e sub-props)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Microinterações de hover/focus)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: transition",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transition",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade transition (e sub-props) do standard web.",
-        "en": "Official standard reference for transition (e sub-props)."
-      }
-    },
-    {
-      "uid": "mat-263",
-      "id": 263,
-      "num_id": 263,
-      "canonical_id": "2026-10-24-263",
-      "symbol": "transform",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(translate, scale, rotate)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: transform",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform",
-      "pat_ref": 13,
-      "desc": {
-        "pt": "Elemento/propriedade transform do standard web.",
-        "en": "Official standard reference for transform."
-      }
-    },
-    {
-      "uid": "mat-264",
-      "id": 264,
-      "num_id": 264,
-      "canonical_id": "2026-10-24-264",
-      "symbol": "transform-origin",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Origem de escala na barra de scroll)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: transform-origin",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade transform-origin do standard web.",
-        "en": "Official standard reference for transform-origin."
-      }
-    },
-    {
-      "uid": "mat-265",
-      "id": 265,
-      "num_id": 265,
-      "canonical_id": "2026-10-24-265",
-      "symbol": "perspective",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Base para Parallax 3D Pure CSS)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: perspective",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/perspective",
-      "pat_ref": 13,
-      "desc": {
-        "pt": "Elemento/propriedade perspective do standard web.",
-        "en": "Official standard reference for perspective."
-      }
-    },
-    {
-      "uid": "mat-266",
-      "id": 266,
-      "num_id": 266,
-      "canonical_id": "2026-10-24-266",
-      "symbol": "perspective-origin",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Ponto de fuga visual 3D)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: perspective-origin",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/perspective-origin",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade perspective-origin do standard web.",
-        "en": "Official standard reference for perspective-origin."
-      }
-    },
-    {
-      "uid": "mat-267",
-      "id": 267,
-      "num_id": 267,
-      "canonical_id": "2026-10-24-267",
-      "symbol": "transform-style",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(`preserve-3d` para profundidade)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: transform-style",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade transform-style do standard web.",
-        "en": "Official standard reference for transform-style."
-      }
-    },
-    {
-      "uid": "mat-268",
-      "id": 268,
-      "num_id": 268,
-      "canonical_id": "2026-10-24-268",
-      "symbol": "animation (e sub-props)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Orquestração com `@keyframes`)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: animation",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/animation",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade animation (e sub-props) do standard web.",
-        "en": "Official standard reference for animation (e sub-props)."
-      }
-    },
-    {
-      "uid": "mat-269",
-      "id": 269,
-      "num_id": 269,
-      "canonical_id": "2026-10-24-269",
-      "symbol": "will-change",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**YES** *(Otimização de rendering da GPU)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: will-change",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/will-change",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade will-change do standard web.",
-        "en": "Official standard reference for will-change."
-      }
-    },
-    {
-      "uid": "mat-270",
-      "id": 270,
-      "num_id": 270,
-      "canonical_id": "2026-10-24-270",
-      "symbol": "transition-behavior",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Permite transição de `display: none`)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: transition-behavior",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade transition-behavior do standard web.",
-        "en": "Official standard reference for transition-behavior."
-      }
-    },
-    {
-      "uid": "mat-271",
-      "id": 271,
-      "num_id": 271,
-      "canonical_id": "2026-10-24-271",
-      "symbol": "interpolate-size",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Animação nativa de `height: auto`)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: interpolate-size",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade interpolate-size do standard web.",
-        "en": "Official standard reference for interpolate-size."
-      }
-    },
-    {
-      "uid": "mat-300",
-      "id": 300,
-      "num_id": 300,
-      "canonical_id": "2026-10-24-300",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-272",
-      "id": 272,
-      "num_id": 272,
-      "canonical_id": "2026-10-24-272",
-      "symbol": "content",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Uso com `::before`/`::after` e `:has()`)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: content",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/content",
-      "pat_ref": 8,
-      "desc": {
-        "pt": "Elemento/propriedade content do standard web.",
-        "en": "Official standard reference for content."
-      }
-    },
-    {
-      "uid": "mat-273",
-      "id": 273,
-      "num_id": 273,
-      "canonical_id": "2026-10-24-273",
-      "symbol": "cursor",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(`pointer` em botões/toggles)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: cursor",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/cursor",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade cursor do standard web.",
-        "en": "Official standard reference for cursor."
-      }
-    },
-    {
-      "uid": "mat-274",
-      "id": 274,
-      "num_id": 274,
-      "canonical_id": "2026-10-24-274",
-      "symbol": "pointer-events",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Desativar cliques em overlays inertes)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: pointer-events",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade pointer-events do standard web.",
-        "en": "Official standard reference for pointer-events."
-      }
-    },
-    {
-      "uid": "mat-275",
-      "id": 275,
-      "num_id": 275,
-      "canonical_id": "2026-10-24-275",
-      "symbol": "user-select",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Evitar seleção acidental em botões)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: user-select",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/user-select",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade user-select do standard web.",
-        "en": "Official standard reference for user-select."
-      }
-    },
-    {
-      "uid": "mat-276",
-      "id": 276,
-      "num_id": 276,
-      "canonical_id": "2026-10-24-276",
-      "symbol": "accent-color",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Estilização nativa instantânea de inputs)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: accent-color",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/accent-color",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade accent-color do standard web.",
-        "en": "Official standard reference for accent-color."
-      }
-    },
-    {
-      "uid": "mat-277",
-      "id": 277,
-      "num_id": 277,
-      "canonical_id": "2026-10-24-277",
-      "symbol": "color-scheme",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Sinalização de suporte a Dark/Light Mode)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: color-scheme",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme",
-      "pat_ref": 9,
-      "desc": {
-        "pt": "Elemento/propriedade color-scheme do standard web.",
-        "en": "Official standard reference for color-scheme."
-      }
-    },
-    {
-      "uid": "mat-278",
-      "id": 278,
-      "num_id": 278,
-      "canonical_id": "2026-10-24-278",
-      "symbol": "--* (Custom Property Declaration)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Declaração de variáveis CSS simples)*",
-      "category": "cat-selectors",
-      "cat_id": 5,
-      "label": "MDN: Using CSS custom properties",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade --* (Custom Property Declaration) do standard web.",
-        "en": "Official standard reference for --* (Custom Property Declaration)."
-      }
-    },
-    {
-      "uid": "mat-308",
-      "id": 308,
-      "num_id": 308,
-      "canonical_id": "2026-10-24-308",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-279",
-      "id": 279,
-      "num_id": 279,
-      "canonical_id": "2026-10-24-279",
-      "symbol": "@media (min-width / max-width)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(RWD Mobile-First)*",
-      "category": "cat-atrules",
-      "cat_id": 11,
-      "label": "MDN: @media",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@media",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade @media (min-width / max-width) do standard web.",
-        "en": "Official standard reference for @media (min-width / max-width)."
-      }
-    },
-    {
-      "uid": "mat-280",
-      "id": 280,
-      "num_id": 280,
-      "canonical_id": "2026-10-24-280",
-      "symbol": "@media (prefers-color-scheme)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Dark Mode nativo)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: prefers-color-scheme",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade @media (prefers-color-scheme) do standard web.",
-        "en": "Official standard reference for @media (prefers-color-scheme)."
-      }
-    },
-    {
-      "uid": "mat-281",
-      "id": 281,
-      "num_id": 281,
-      "canonical_id": "2026-10-24-281",
-      "symbol": "@media (prefers-reduced-motion)",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Acessibilidade vestibular)*",
-      "category": "cat-atrules",
-      "cat_id": 11,
-      "label": "MDN: prefers-reduced-motion",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade @media (prefers-reduced-motion) do standard web.",
-        "en": "Official standard reference for @media (prefers-reduced-motion)."
-      }
-    },
-    {
-      "uid": "mat-282",
-      "id": 282,
-      "num_id": 282,
-      "canonical_id": "2026-10-24-282",
-      "symbol": "@container (Container Queries)",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Componentes intrinsecamente responsivos)*",
-      "category": "cat-atrules",
-      "cat_id": 11,
-      "label": "MDN: @container",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@container",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade @container (Container Queries) do standard web.",
-        "en": "Official standard reference for @container (Container Queries)."
-      }
-    },
-    {
-      "uid": "mat-283",
-      "id": 283,
-      "num_id": 283,
-      "canonical_id": "2026-10-24-283",
-      "symbol": "@font-face (Local WOFF2 Vendorizado)",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**YES** *(Soberania de dados e zero CDNs)*",
-      "category": "cat-text-semantics",
-      "cat_id": 2,
-      "label": "MDN: @font-face",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade @font-face (Local WOFF2 Vendorizado) do standard web.",
-        "en": "Official standard reference for @font-face (Local WOFF2 Vendorizado)."
-      }
-    },
-    {
-      "uid": "mat-284",
-      "id": 284,
-      "num_id": 284,
-      "canonical_id": "2026-10-24-284",
-      "symbol": "@keyframes",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Sequenciação temporal de animações)*",
-      "category": "cat-atrules",
-      "cat_id": 11,
-      "label": "MDN: @keyframes",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes",
-      "pat_ref": 6,
-      "desc": {
-        "pt": "Elemento/propriedade @keyframes do standard web.",
-        "en": "Official standard reference for @keyframes."
-      }
-    },
-    {
-      "uid": "mat-285",
-      "id": 285,
-      "num_id": 285,
-      "canonical_id": "2026-10-24-285",
-      "symbol": "@layer",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**YES** *(TP06: orquestração de especificidade)*",
-      "category": "cat-atrules",
-      "cat_id": 11,
-      "label": "MDN: @layer",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@layer",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade @layer do standard web.",
-        "en": "Official standard reference for @layer."
-      }
-    },
-    {
-      "uid": "mat-286",
-      "id": 286,
-      "num_id": 286,
-      "canonical_id": "2026-10-24-286",
-      "symbol": "@supports",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Progressive Enhancement de APIs)*",
-      "category": "cat-atrules",
-      "cat_id": 11,
-      "label": "MDN: @supports",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@supports",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade @supports do standard web.",
-        "en": "Official standard reference for @supports."
-      }
-    },
-    {
-      "uid": "mat-287",
-      "id": 287,
-      "num_id": 287,
-      "canonical_id": "2026-10-24-287",
-      "symbol": "@property (CSS Properties API)",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Variáveis tipadas e animáveis)*",
-      "category": "cat-atrules",
-      "cat_id": 11,
-      "label": "MDN: @property",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@property",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade @property (CSS Properties API) do standard web.",
-        "en": "Official standard reference for @property (CSS Properties API)."
-      }
-    },
-    {
-      "uid": "mat-288",
-      "id": 288,
-      "num_id": 288,
-      "canonical_id": "2026-10-24-288",
-      "symbol": "@starting-style",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Animação suave de entrada de modais/popups)*",
-      "category": "cat-atrules",
-      "cat_id": 11,
-      "label": "MDN: @starting-style",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade @starting-style do standard web.",
-        "en": "Official standard reference for @starting-style."
-      }
-    },
-    {
-      "uid": "mat-289",
-      "id": 289,
-      "num_id": 289,
-      "canonical_id": "2026-10-24-289",
-      "symbol": "@scope",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Isolamento estrito de componentes)*",
-      "category": "cat-atrules",
-      "cat_id": 11,
-      "label": "MDN: @scope",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@scope",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade @scope do standard web.",
-        "en": "Official standard reference for @scope."
-      }
-    },
-    {
-      "uid": "mat-290",
-      "id": 290,
-      "num_id": 290,
-      "canonical_id": "2026-10-24-290",
-      "symbol": "@view-transition",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Navegação suave SPA sem scripts)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: @view-transition",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@view-transition",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade @view-transition do standard web.",
-        "en": "Official standard reference for @view-transition."
-      }
-    },
-    {
-      "uid": "mat-291",
-      "id": 291,
-      "num_id": 291,
-      "canonical_id": "2026-10-24-291",
-      "symbol": "@import",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**NO** *(Preterido por `<link>` por performance)*",
-      "category": "cat-atrules",
-      "cat_id": 11,
-      "label": "MDN: @import",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@import",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade @import do standard web.",
-        "en": "Official standard reference for @import."
-      }
-    },
-    {
-      "uid": "mat-322",
-      "id": 322,
-      "num_id": 322,
-      "canonical_id": "2026-10-24-322",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-292",
-      "id": 292,
-      "num_id": 292,
-      "canonical_id": "2026-10-24-292",
-      "symbol": "calc()",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Cálculos híbridos de medidas: `100% - 20px`)*",
-      "category": "cat-functions-units",
-      "cat_id": 12,
-      "label": "MDN: calc()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/calc",
-      "pat_ref": 12,
-      "desc": {
-        "pt": "Elemento/propriedade calc() do standard web.",
-        "en": "Official standard reference for calc()."
-      }
-    },
-    {
-      "uid": "mat-293",
-      "id": 293,
-      "num_id": 293,
-      "canonical_id": "2026-10-24-293",
-      "symbol": "clamp()",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Pilar do TP06: tipografia e padding fluidos)*",
-      "category": "cat-functions-units",
-      "cat_id": 12,
-      "label": "MDN: clamp()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/clamp",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade clamp() do standard web.",
-        "en": "Official standard reference for clamp()."
-      }
-    },
-    {
-      "uid": "mat-294",
-      "id": 294,
-      "num_id": 294,
-      "canonical_id": "2026-10-24-294",
-      "symbol": "min()",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Limites superiores automáticos)*",
-      "category": "cat-functions-units",
-      "cat_id": 12,
-      "label": "MDN: min()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/min",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade min() do standard web.",
-        "en": "Official standard reference for min()."
-      }
-    },
-    {
-      "uid": "mat-295",
-      "id": 295,
-      "num_id": 295,
-      "canonical_id": "2026-10-24-295",
-      "symbol": "max()",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Limites inferiores automáticos)*",
-      "category": "cat-functions-units",
-      "cat_id": 12,
-      "label": "MDN: max()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/max",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade max() do standard web.",
-        "en": "Official standard reference for max()."
-      }
-    },
-    {
-      "uid": "mat-296",
-      "id": 296,
-      "num_id": 296,
-      "canonical_id": "2026-10-24-296",
-      "symbol": "cqi / cqw (Container Query Units)",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Percentagem da largura do contentor)*",
-      "category": "cat-landmarks",
-      "cat_id": 1,
-      "label": "MDN: Container query length units",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries#container_query_length_units",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade cqi / cqw (Container Query Units) do standard web.",
-        "en": "Official standard reference for cqi / cqw (Container Query Units)."
-      }
-    },
-    {
-      "uid": "mat-328",
-      "id": 328,
-      "num_id": 328,
-      "canonical_id": "2026-10-24-328",
-      "symbol": ":---",
-      "type": ":---:",
-      "tier": "foundational",
-      "lev": 1,
-      "status": ":---:",
-      "category": "cat-pseudo",
-      "cat_id": 6,
-      "label": ":---",
-      "mdn_url": "",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade :--- do standard web.",
-        "en": "Official standard reference for :---."
-      }
-    },
-    {
-      "uid": "mat-297",
-      "id": 297,
-      "num_id": 297,
-      "canonical_id": "2026-10-24-297",
-      "symbol": "var()",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Consumo de variáveis CSS com fallback)*",
-      "category": "cat-functions-units",
-      "cat_id": 12,
-      "label": "MDN: var()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/var",
-      "pat_ref": 12,
-      "desc": {
-        "pt": "Elemento/propriedade var() do standard web.",
-        "en": "Official standard reference for var()."
-      }
-    },
-    {
-      "uid": "mat-298",
-      "id": 298,
-      "num_id": 298,
-      "canonical_id": "2026-10-24-298",
-      "symbol": "light-dark()",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**TBD** *(Alternância de cor claro/escuro nativa)*",
-      "category": "cat-functions-units",
-      "cat_id": 12,
-      "label": "MDN: light-dark()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/light-dark",
-      "pat_ref": 9,
-      "desc": {
-        "pt": "Elemento/propriedade light-dark() do standard web.",
-        "en": "Official standard reference for light-dark()."
-      }
-    },
-    {
-      "uid": "mat-299",
-      "id": 299,
-      "num_id": 299,
-      "canonical_id": "2026-10-24-299",
-      "symbol": "color-mix()",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Mistura de cores na proporção `%`)*",
-      "category": "cat-effects-animations",
-      "cat_id": 10,
-      "label": "MDN: color-mix()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color-mix",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade color-mix() do standard web.",
-        "en": "Official standard reference for color-mix()."
-      }
-    },
-    {
-      "uid": "mat-300",
-      "id": 300,
-      "num_id": 300,
-      "canonical_id": "2026-10-24-300",
-      "symbol": "scroll()",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**YES** *(Timeline ligada ao scroll do contentor)*",
-      "category": "cat-functions-units",
-      "cat_id": 12,
-      "label": "MDN: scroll()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll",
-      "pat_ref": 6,
-      "desc": {
-        "pt": "Elemento/propriedade scroll() do standard web.",
-        "en": "Official standard reference for scroll()."
-      }
-    },
-    {
-      "uid": "mat-301",
-      "id": 301,
-      "num_id": 301,
-      "canonical_id": "2026-10-24-301",
-      "symbol": "view()",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Animação de entrada do elemento no viewport)*",
-      "category": "cat-functions-units",
-      "cat_id": 12,
-      "label": "MDN: view()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/view",
-      "pat_ref": 6,
-      "desc": {
-        "pt": "Elemento/propriedade view() do standard web.",
-        "en": "Official standard reference for view()."
-      }
-    },
-    {
-      "uid": "mat-302",
-      "id": 302,
-      "num_id": 302,
-      "canonical_id": "2026-10-24-302",
-      "symbol": "anchor()",
-      "type": "CSS",
-      "tier": "advanced",
-      "lev": 3,
-      "status": "**TBD** *(Cálculo de coordenadas relativas à âncora)*",
-      "category": "cat-positioning",
-      "cat_id": 9,
-      "label": "MDN: anchor()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/anchor",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade anchor() do standard web.",
-        "en": "Official standard reference for anchor()."
-      }
-    },
-    {
-      "uid": "mat-303",
-      "id": 303,
-      "num_id": 303,
-      "canonical_id": "2026-10-24-303",
-      "symbol": "attr()",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Extração de atributos no `content`)*",
-      "category": "cat-functions-units",
-      "cat_id": 12,
-      "label": "MDN: attr()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/attr",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade attr() do standard web.",
-        "en": "Official standard reference for attr()."
-      }
-    },
-    {
-      "uid": "mat-304",
-      "id": 304,
-      "num_id": 304,
-      "canonical_id": "2026-10-24-304",
-      "symbol": "env()",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES** *(Safe areas em smartphones: `safe-area-inset-*`)*",
-      "category": "cat-functions-units",
-      "cat_id": 12,
-      "label": "MDN: env()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/env",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade env() do standard web.",
-        "en": "Official standard reference for env()."
-      }
-    },
-    {
-      "uid": "mat-305",
-      "id": 305,
-      "num_id": 305,
-      "canonical_id": "2026-10-24-305",
-      "symbol": "linear-gradient() / radial-gradient()",
-      "type": "CSS",
-      "tier": "intermediate",
-      "lev": 2,
-      "status": "**YES**",
-      "category": "cat-functions-units",
-      "cat_id": 12,
-      "label": "MDN: linear-gradient()",
-      "mdn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient",
-      "pat_ref": null,
-      "desc": {
-        "pt": "Elemento/propriedade linear-gradient() / radial-gradient() do standard web.",
-        "en": "Official standard reference for linear-gradient() / radial-gradient()."
-      }
-    }
   ]
 };

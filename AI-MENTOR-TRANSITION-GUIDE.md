@@ -4,6 +4,7 @@
 > **Target Audience:** Communication Design & Web Design Students (FBAUP / WD101), Educators, and Front-End Practitioners.  
 > **Pedagogical Direction:** Prof. Pedro Amado (FBAUP / i2ADS — University of Porto)  
 > **Course:** Web Design 101 • Academic Year 2026/2027  
+> **Institutional Framework:** *Orientações para o Uso e Adoção Responsável de Inteligência Artificial Generativa no Domínio Educativo da Universidade do Porto (Junho de 2026)* • Despacho N.º GR. 08/05/2025 • Código de Conduta e Boas Práticas da U.Porto.  
 > **Toolchain:** Manual Coding (VS Code / Antigravity IDE) $\to$ Agentic Development Environment (Antigravity ADE Mode)
 
 ---
@@ -26,6 +27,7 @@ In conventional education, generative AI poses a severe risk: the **"Helpful Ass
 │   STAGE 2: THE ETHICAL TRANSITION (The "Driver's License")             │
 │   • Understands syntax enough to evaluate, critique, and reject code. │
 │   • Adopts moral & pedagogical guardrails: AI is tutor, not ghostwriter.│
+│   • Complies with University of Porto Ethical & Traffic Light Rules.  │
 │                               ▼                                        │
 │   STAGE 3: THE CREATIVE DIRECTOR & ORCHESTRATOR (IDE + ADE Mode)       │
 │   • Uses IDE for granular tactile control, inspection, and refinement. │
@@ -34,23 +36,28 @@ In conventional education, generative AI poses a severe risk: the **"Helpful Ass
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-This guide provides students with a **repeatable, ethical, and highly structured methodology** to turn Antigravity into their personal **Senior Design Technologist, Socratic Tutor, and Strict QA Inspector**.
+This guide provides students with a **repeatable, ethical, and highly structured methodology** to turn Antigravity into their personal **Senior Design Technologist, Socratic Tutor, and Strict QA Inspector**, in strict alignment with the University of Porto's educational policies.
 
 ---
 
-## 1. 📚 Foundational Literature & Pedagogical Frameworks
+## 1. 🏛️ Institutional Ethics: Universidade do Porto Guidelines
 
-Before prompting an agent, students and educators must understand the learning science behind AI-assisted development:
+Before prompting an agent, students must internalize the ethical, pedagogical, and legal requirements established by the **Universidade do Porto (Junho de 2026)**:
 
-### 1.1 Socratic Mentoring vs. The "Oracle Trap"
-* **Harvard CS50’s AI Pedagogy (*Teaching CS50 with AI*, Prof. David J. Malan et al.):**  
-  Standard LLMs are trained to be "pleasing problem solvers"—they give immediate code answers. CS50 pioneered the **CS50 Duck (`ddb`)**, enforcing hard constraints: the AI must act as a Socratic rubber-duck debugger, offering progressive hints, diagnostic questions, and code explanations without handing over completed solutions.
-* **Ethan & Lilach Mollick (Wharton / *Assigning AI: Seven Approaches for Students*):**  
-  Establishes the **"AI Tutor" and "AI Coach"** paradigms. Requires students to articulate what they already know and what they suspect is wrong *before* the AI provides insights, preventing passive cognitive offloading.
-* **Productive Struggle & Cognitive Load (Wood, Bruner & Ross / Vygotsky):**  
-  Learning happens at the boundary of challenge. If an agent writes the CSS Grid layout for you, your brain never forms the spatial schema of track sizing, auto-placement algorithms, or explicit vs. implicit grids.
+### 1.1 The Three Inviolable Tenets
+1. **Exclusive Human Authorship & Responsibility:**  
+   AI is neither an academic author nor a legal entity. You, the student, retain 100% intellectual, aesthetic, and technical responsibility for the submitted code, accessibility compliance (WCAG 2.2 AAA), font licenses, and layout resilience. You cannot deflect blame to the AI for broken layouts or security flaws.
+2. **Equity of Access & The Free Functional Standard:**  
+   Under U.Porto regulations, no graded coursework can mandate or rely on paid software or proprietary commercial models. All WD101 workflows rely strictly on free, accessible, and open-standard tools: Google Antigravity, Gemini, VS Code, and local Live Server.
+3. **Privacy, GDPR & Server Credentials:**  
+   **Strict Prohibition:** Never introduce personal information, student peer data, non-public university files, FTP/SSH passwords, or private API keys into public or cloud-based AI tools. All code shared with cloud models must be strictly public, dummy-data-driven, and anonymized.
 
-### 1.2 The "Driver's License" Metaphor: When are you ready?
+### 1.2 The "15-Minute Struggle" Rule (U.Porto Study Promptary)
+> *"Always attempt on your own for a few minutes before consulting GenAI."*
+
+When facing a layout bug (e.g. sticky navigation failing, a broken grid track, or an unaligned flex row), spend at least **15 minutes** investigating the issue manually using your IDE, the browser Computed panel, and MDN Web Docs. Only after this productive cognitive effort may you consult Antigravity ADE for hypotheses, hints, or Socratic sandboxes.
+
+### 1.3 The "Driver's License" Metaphor: When are you ready?
 You are ready to invite Antigravity ADE into your project when you can answer **"YES"** to all four questions:
 1. Can you build a semantic, unstyled HTML5 document using appropriate landmarks (`<header>`, `<nav>`, `<main>`, `<article>`, `<aside>`, `<footer>`) from memory?
 2. Can you explain the difference between the Content Box, Padding Box, Border Box, and Margin Box in the browser DevTools?
@@ -59,9 +66,21 @@ You are ready to invite Antigravity ADE into your project when you can answer **
 
 ---
 
-## 2. 🏗️ The Dual-Engine Architecture: IDE vs. ADE
+## 2. 🚦 The U.Porto Traffic Light System in Web Design
 
-Antigravity operates in two complementary modalities. Understanding their roles is crucial:
+The University of Porto regulates educational tasks through a three-tier traffic light system:
+
+| Tier | Status | Authorized Web Design Tasks | Student Obligations |
+| :--- | :--- | :--- | :--- |
+| 🟩 **Green** | **Permitted** (Learning & Scaffolding) | • Explaining modern CSS concepts (`@container`, `light-dark()`, `:has()`).<br>• Generating isolated test sandboxes in `demos/sandbox-*/`.<br>• Quizzes and Socratic autotests.<br>• Creating accessibility checklists and cross-browser test plans.<br>• Clarity review of comments and `README.md`. | • Always verify facts with MDN / W3C specifications.<br>• Empirical browser testing.<br>• Short transparency disclosure if requested. |
+| 🟨 **Yellow** | **Conditional** (Process Trace Required) | • Structural HTML5 boilerplate scaffolding under strict student specification.<br>• Diagnostic debugging hypotheses (identifying causes of overflow).<br>• Utility snippet generation (`cubic-bezier()` curves, SVG matrices). | • **Mandatory Process Trace:** semantic Git commits (`feat:`, `fix:`), `/demos/` folder, DevTools screenshots.<br>• **Declaration of AI Use** in `README.md`.<br>• **In-Person Defense:** ability to modify code live. |
+| 🟥 **Red** | **Strictly Prohibited** (Academic Fraud) | • Turnkey website generation ("vibe coding" / ghostwriting full pages).<br>• Delegating art direction, visual identity, or typographic scale.<br>• Blind copy-paste debugging without understanding the root cause.<br>• AI usage during closed in-person exams or live assessments.<br>• Inserting server passwords (FTP/SSH) or private credentials into prompts. | • Immediate failure of assignment and formal disciplinary proceedings for academic misconduct. |
+
+---
+
+## 3. 🏗️ The Dual-Engine Architecture: IDE vs. ADE
+
+Antigravity operates in two complementary modalities:
 
 | Dimension | The IDE Mode (Visual Studio Code / Antigravity Editor) | The ADE Mode (Agentic Development Environment) |
 | :--- | :--- | :--- |
@@ -72,7 +91,7 @@ Antigravity operates in two complementary modalities. Understanding their roles 
 
 ---
 
-## 3. 🔄 The 4-Phase Transition Workflow
+## 4. 🔄 The 4-Phase Transition Workflow
 
 ```text
 Phase 1: Scaffolding (Prompt ADE for semantic boilerplate & spec)
@@ -86,129 +105,119 @@ Phase 2: IDE Inspection (Manual review, line-by-line understanding)
    │                             Explore Demo in Browser DevTools (MDN Links + experiments)
    │                                  │
    ▼                                  ▼
-Phase 4: 360° Quality Audit (File, Link, Cache, Media & A11y checklist)
+Phase 4: 360° Quality & Ethics Audit (File, Link, Cache, Media, A11y & U.Porto checklist)
    │
    ▼
-Verified Production Deployment (GitHub Pages / Web Server)
+Verified Production Deployment & In-Person Critique Defense (GitHub Pages / Web Server)
 ```
+
+### Phase 1: Structural Scaffolding & Boilerplates (Spec-Driven)
+Never prompt: *"Build me a festival website."* Instead, request a strict semantic HTML5 skeleton without presentational styling, requiring inline comments explaining why each landmark was chosen.
+
+### Phase 2: IDE Line-by-Line Inspection & Interrogation
+Open the generated file in your IDE. Step through every tag with your cursor. If you encounter an unfamiliar attribute (e.g. `<time datetime="...">` or `scope="col"`), interrogate Antigravity ADE before writing any styles.
+
+### Phase 3: The Socratic Sandbox Pattern ("Parallel Learning Demos")
+When encountering a complex property (e.g. `grid-auto-flow: dense`, `subgrid`, container queries `@container`, or fluid `clamp()`), do **not** experiment blindly in your capstone project. Prompt Antigravity ADE to build an isolated, barebones demo in `demos/sandbox-<concept>/` featuring:
+1. `index.html`: Clean, valid markup demonstrating both the broken case and fixed case.
+2. `styles.css`: Heavily annotated styles with visual debug borders.
+3. MDN Canonical Links for reference.
+4. 3 Browser DevTools challenges to test the limits of the property.
+
+### Phase 4: The Browser & DevTools Empirical Feedback Loop
+Your primary validation environment is the browser inspection panel:
+- Open the Elements and Computed panels.
+- Toggle grid and flex badges to visualize layout lines.
+- Audit the Network tab with "Disable cache" checked.
+- Ensure the Console tab has zero red errors.
 
 ---
 
-### Phase 1: Structural Scaffolding & Boilerplates
+## 5. 📝 Process Traceability & Official U.Porto Disclosure Templates
 
-Never ask an agent: *"Build me a festival website."* That is a black-box prompt that produces generic, bloated code. Instead, use **Spec-Driven Scaffolding**:
+In all **Yellow Light (🟨)** assignments at U.Porto, students must maintain a demonstrable process trace and append an official disclosure statement:
 
-#### The Golden Rule of Scaffolding Prompts:
-1. State the **semantic purpose** and document outline.
-2. State the **technical constraints** (e.g. Pure CSS, modern semantic landmarks, no unnecessary wrapper `<div>`s, `@layer` architecture).
-3. Request **code commentary** explaining the semantic justification of every element.
+### 5.1 What Constitutes a Process Trace in Web Design?
+1. **Semantic Git Commits:** Regular version history showing incremental progress (`feat: implement mobile grid`, `fix: remove sticky overflow trap`).
+2. **Intermediate Sandboxes:** The `/demos/` subfolder preserving self-contained experimental prototypes.
+3. **DevTools Captures:** Screenshots of box-model or layout line debugging sessions.
+4. **README Notes:** Brief changelog documenting decisions and what was accepted or rejected from AI prompts.
 
+### 5.2 Template 1: Short Declaration in `README.md` (U.Porto Annex B1)
 ```markdown
-<!-- Bad Prompt -->
-"Make a responsive navbar and hero section for my vinyl festival."
-
-<!-- Good Socratic Scaffold Prompt -->
-"Act as a Senior Web Architect and Design Technologist.
-I am designing the semantic HTML5 skeleton for our festival capstone project.
-Generate ONLY the semantic HTML5 structure for:
-1. A site header with accessible navigation landmarks.
-2. A hero section featuring an artist showcase and primary call-to-action.
-3. An editorial article section with a timestamp and author credits.
-
-Constraints:
-- Follow the HTML5 Living Standard strictly; use zero presentational <div>s.
-- Include proper ARIA landmarks where native HTML tags need reinforcement.
-- Add inline HTML comments explaining WHY each tag was chosen over alternatives.
-- Do NOT generate CSS yet. I will inspect and write the styles in my IDE."
+### 🤖 Declaração de Uso de Inteligência Artificial Generativa
+* **Ferramenta & Versão:** Google Antigravity / Gemini 3.8 Flash (acesso gratuito).
+* **Âmbito:** Apoio auxiliar com impacto limitado (Semáforo Amarelo 🟨).
+* **Finalidade:** Esclarecimento de sintaxe de seletores relacionais `:has()` e geração de sandbox isolada para teste de `minmax()`.
+* **O que foi gerado:** Esqueleto inicial da secção de lineup musical em `demos/sandbox-grid/` e sugestões de reestruturação de tags.
+* **O que foi verificado manualmente:** Conformidade com a Living Standard da MDN Web Docs, validação de rácio de contraste WCAG 2.2 AAA no painel Lighthouse, e funcionamento cross-browser em Chrome, Firefox e Safari.
+* **Rasto de Processo:** 12 commits semânticos no repositório Git e pasta `/demos/sandbox-grid/` anexada.
+* **Responsabilidade:** O autor assume integral responsabilidade intelectual e técnica pelo código final entregue.
 ```
 
-#### What to do once the boilerplate arrives:
-1. Open the file in your **IDE**.
-2. Read every single line from top to bottom.
-3. If an attribute or tag is unfamiliar (e.g. `<time datetime="...">` or `role="region"`), **pause**. Ask Antigravity in ADE mode:
-   > *"Explain the difference between `<time datetime="...">` and plain text. How do search engines and screen readers consume this attribute?"*
-
----
-
-### Phase 2: The Socratic Sandbox Pattern ("Parallel Learning Demos")
-
-When you encounter an unfamiliar or complex CSS/JS feature—such as **CSS Grid `grid-auto-flow: dense`**, **`:has()` relational selectors**, **Container Queries (`@container`)**, or **Scroll-Driven Animations (`scroll(root)`)**—**DO NOT** let the AI inject untested snippets directly into your main project!
-
-Instead, invoke the **Socratic Sandbox Pattern**: prompt Antigravity to build an isolated, barebones educational demonstrator in a dedicated subfolder (e.g. `demos/sandbox-<concept>/` or `learning-scaffold/demos/`).
-
-#### Blueprint of a Parallel Learning Demo:
-Every demo generated by Antigravity must contain:
-1. **`index.html`**: Barebones, valid markup with zero framework bloat.
-2. **`styles.css`**: Heavily annotated CSS with CSS Custom Properties and visual borders/tints to reveal the layout mechanics.
-3. **Step-by-Step Educational Commentary**: Explaining the default behavior vs. the modified behavior.
-4. **Authoritative MDN Web Docs Links**: Direct links to the relevant MDN living documentation.
-5. **"Try It Yourself" Browser Challenges**: 3 specific modifications the student must make inside browser DevTools.
-
+### 5.3 Template 2: Brief Prompt Log (U.Porto Annex B3)
 ```markdown
-<!-- Socratic Sandbox Prompt Template -->
-"Antigravity, I am struggling to understand how CSS Grid 'minmax()' and 'grid-auto-flow: dense' work together in an asymmetric gallery.
-
-Please create a self-contained learning demo in the folder:
-'demos/sandbox-grid-dense/'
-
-Requirements for the demo:
-1. 'index.html': A simple page with 8 cards of varying sizes (small, medium, hero).
-2. 'styles.css': Pure CSS using modern CSS Grid. Use bright debug backgrounds or outline colors so I can visually see the grid tracks.
-3. Provide direct markdown links to the official MDN documentation for:
-   - 'grid-template-columns'
-   - 'minmax()'
-   - 'grid-auto-flow'
-4. Write 3 'DevTools Experiments' as HTML comments at the top of the file, instructing me on which CSS values to toggle in the browser to see the layout re-pack itself."
+| Data | Prompt / Questão Submetida | Output da IA (Resumo) | Decisão do Estudante (O que aceitei / rejeitei e porquê) |
+| :--- | :--- | :--- | :--- |
+| 2026-10-18 | "Como fazer sticky nav que muda de cor ao descer sem JS?" | Sugeriu scroll-driven animations com animation-timeline: scroll(). | Aceitei a sintaxe de scroll(); rejeitei as cores sugeridas para manter a paleta do festival. |
+| 2026-10-24 | "Porque é que o meu grid-template-columns quebra a 480px?" | Apontou que os cartões tinham min-width: 320px rígido. | Aceitei a correção usando minmax(0, 1fr) após testar no painel Layout das DevTools. |
 ```
 
----
-
-### Phase 3: The Browser & DevTools Empirical Feedback Loop
-
-A web designer's primary laboratory is **not** the code editor; it is the **Browser DevTools** (Chrome, Firefox, or Safari). Code is purely a set of instructions; what the browser renders is the empirical truth.
-
-Antigravity should be explicitly prompted to give you **DevTools action items**:
-
+### 5.4 Template 3: Structured Declaration for Capstone Projects (U.Porto Annex B2 / GAIDeT)
 ```markdown
-<!-- DevTools Guidance Prompt -->
-"I have applied CSS Grid to my main festival lineup, but on mobile (<540px) my cards are overflowing horizontally off the screen.
-Do NOT just rewrite my CSS.
-Guide me through debugging this using the Chrome/Firefox DevTools:
-1. Tell me which panels to open (Elements, Computed, Console, Layout).
-2. Tell me which badges (e.g., 'grid', 'flex', 'scroll') to toggle.
-3. Explain how to identify which child element is forcing the container's width past 100vw.
-4. Give me a hypothesis on what property might be causing it (e.g., min-width: auto on flex/grid items)."
-```
+### Declaração Estruturada de Uso de IA (Capstone TP11 / FBAUP)
+* **Identificação do Trabalho:** DRUMTIKS '26 • Integrated Capstone Project
+* **Estudante / Turma:** [Nome do Estudante] • Design de Comunicação (WD101)
+* **Docente Responsável:** Prof. Pedro Amado
+* **Ferramenta(s) e Período:** Antigravity ADE / Gemini (Outubro - Novembro 2026)
+* **Âmbito do Uso:** [x] Apoio auxiliar com impacto limitado   [ ] Contributo substantivo
 
-#### The 5 Essential DevTools Reflexes Every Student Must Practice:
-1. **The Box Model Inspector:** Always verify whether `box-sizing: border-box` is applied, and check the calculated padding, margin, and borders in the Computed tab.
-2. **The Grid/Flex Badge Toggle:** Click the `grid` or `flex` badge in the DOM tree to visualize track lines, gaps, and cross-axis alignment lines directly on the canvas.
-3. **Responsive Device Mode:** Never test responsiveness by merely resizing your desktop window. Use the Device Toolbar (`Cmd+Shift+M` or `Ctrl+Shift+M`), test standard mobile viewports (360px, 390px, 412px), and test orientation flips.
-4. **Network Tab (Cache Disabled):** Always check the Network tab with *"Disable cache"* checked when DevTools is open. Check status codes (200 OK vs. 304 Not Modified vs. 404 Not Found) and asset weights.
-5. **The Console Tab:** Keep the Console open. A production page must have **zero red errors** (no failed font loads, no broken images, no unhandled exceptions).
+* **Tarefas Delegadas à IA (Assinalar):**
+  [ ] Conceptualização e Ideação Visual (Autoria 100% humana do estudante)
+  [x] Apoio Sintático a Software & Código (Scaffolding inicial de secções isoladas)
+  [x] Supervisão & Controlo de Qualidade (Auditoria de caminhos relativos e conformidade WCAG)
+  [ ] Escrita de Memória Descritiva (Redação 100% autoral do estudante)
+  [x] Apoio a Depuração / Testes (Identificação de causas de overflow nas DevTools)
+
+* **Verificações Humanas Efetuadas:**
+  - Código testado em Live Server local sem qualquer framework externa.
+  - Zero erros vermelhos na consola do navegador.
+  - Links relativos validados para suporte local e GitHub Pages.
+  - Defesa presencial: o estudante declara estar preparado para modificar qualquer regra CSS ao vivo em aula.
+```
 
 ---
 
-### Phase 4: The 360° Craftsmanship & Quality Checklist
+## 6. 🎯 The In-Person Critique: The Real Authorship Test at FBAUP
 
-Before committing code or deploying to a web server (such as GitHub Pages or an institutional Apache/Nginx server), prompt Antigravity to act as your **Strict Quality Inspector** using this battle-tested checklist:
+In communication design education at FBAUP, project evaluation culminates in live, in-person critique. Submitting code that you cannot explain or live-modify results in immediate failure:
+
+### Typical Live Questions Asked During Critique:
+1. **The Live Modification Challenge:** *"Open your stylesheet right now. Change the 768px breakpoint to 840px and explain how your editorial grid voids adapt."*
+2. **The Semantic Justification:** *"Why did you use an `<aside>` element here instead of a `<section>`? How does a screen reader interpret this landmark?"*
+3. **The Computed Panel Diagnosis:** *"Open the Computed tab in DevTools. What is pushing this button out of alignment: margin, padding, or grid gap?"*
+4. **The Git Traceability Test:** *"Show me your Git log commit where you built the initial version of this component before refactoring it with AI."*
+
+---
+
+## 7. 📋 The 360° Craftsmanship, Quality & Ethics Checklist
+
+Before submitting an assignment or deploying to GitHub Pages, run this 16-point audit:
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│             THE 360° WEB DESIGN QUALITY CHECKLIST                      │
+│             THE 360° WEB DESIGN QUALITY & ETHICS CHECKLIST             │
 ├────────────────────────────────────────────────────────────────────────┤
 │ 1. FILE & ASSET ARCHITECTURE                                           │
 │    [ ] Strictly lowercase, kebab-case file & folder names (no spaces,  │
 │        no accents: use 'album-cover.webp', not 'Álbum Cover 2.WEBP').  │
 │    [ ] Predictable hierarchy: /assets/css/, /assets/fonts/, /assets/img│
 │    [ ] RELATIVE PATH AUDIT: Use relative paths ('./css/styles.css' or  │
-│        '../assets/img/hero.webp') instead of root-relative ('/css/')   │
-│        so pages run smoothly both locally and on GitHub Pages subpaths.│
+│        '../assets/img/hero.webp') instead of root-relative ('/css/').  │
 │                                                                        │
 │ 2. WEB SERVER, CACHING & DEPLOYMENT                                    │
-│    [ ] Cache awareness: Verify if browser or proxy cache is serving    │
-│        stale CSS/assets. Use Hard Refresh ('Cmd+Shift+R') to test.     │
-│    [ ] Cache-busting test: Append '?v=1.1' to stylesheet links when    │
+│    [ ] Cache awareness: Verify changes with Hard Refresh (Cmd+Shift+R).│
+│    [ ] Cache-busting test: Append '?v=1.1' to stylesheet links if      │
 │        diagnosing stubborn server caching during live critique.        │
 │    [ ] Ensure directory index: Main entry file is always 'index.html'. │
 │                                                                        │
@@ -222,105 +231,103 @@ Before committing code or deploying to a web server (such as GitHub Pages or an 
 │    [ ] Modern formats: WebP or AVIF with fallback JPG/PNG.             │
 │    [ ] Aspect Ratio & CLS: Every <img> and <video> has explicit        │
 │        'width' and 'height' attributes or 'aspect-ratio' in CSS.       │
-│    [ ] Art direction: Uses <picture> and <source media="..."> for      │
-│        different image crops across mobile and desktop.                │
-│    [ ] Decorative SVGs: Cleaned of inline editor garbage (Inkscape/    │
-│        Illustrator metadata); proper 'viewBox' attributes declared.    │
 │                                                                        │
-│ 5. LAYOUT, VISIBILITY & POSITIONING                                    │
-│    [ ] Mobile-First Foundation: Base styles work seamlessly at 320px;  │
-│        media queries expand progressively via 'min-width'.             │
-│    [ ] Golden Layout Rule: CSS Grid for 2D macro layout; Flexbox for   │
-│        1D micro-alignment.                                             │
-│    [ ] Overflow sanity: Zero accidental horizontal scrollbars on mobile│
-│    [ ] Stacking Contexts: Sensible z-index scale (e.g. 1, 10, 100).    │
+│ 5. ACCESSIBILITY & CONSOLE QUALITY                                     │
+│    [ ] Clean console: Zero red errors in the DevTools Console panel.   │
+│    [ ] Valid heading hierarchy: Single <h1>; contrast ratio ≥ 4.5:1.   │
 │                                                                        │
-│ 6. ACCESSIBILITY (WCAG 2.2 AAA / AA)                                  │
-│    [ ] Valid heading hierarchy: Single <h1>; no skipped levels.        │
-│    [ ] Contrast ratio: Minimum 4.5:1 for body text against background. │
-│    [ ] Informative alt text on content images; alt="" on decorative.   │
-│    [ ] Focus states: Distinct, high-contrast ':focus-visible' outline. │
+│ 6. U.PORTO ETHICS & ACADEMIC INTEGRITY                                │
+│    [ ] Short AI Disclosure Statement included in project README.md.    │
+│    [ ] Demonstrated process trace (semantic Git commits & /demos/ lab).│
+│    [ ] Privacy & GDPR compliance (zero credentials or sensitive data). │
+│    [ ] Critique readiness: able to explain and modify any line live.   │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 4. 🤖 The Student Prompt Library: 5 Reusable Archetypes
+## 8. 🤖 The Student Prompt Library & Promptary Rules
 
-Save these prompt templates into your project workspace or custom Antigravity rules (`.gemini/antigravity/rules/` or project `AGENTS.md`) to summon the exact agent persona you need:
+### 8.1 Constructive Prompts vs. Anti-Patterns to Avoid (U.Porto Promptary)
 
-### Prompt 1: The Socratic Tutor (Concept Learning)
+| Anti-Pattern to Avoid (Red Light 🟥) | Why it Damages Learning | Recommended Socratic Alternative (Green/Yellow Light) |
+| :--- | :--- | :--- |
+| *"Build the complete HTML and CSS page for the Drumtiks festival."* | Bypasses conceptual effort, eliminates authorship, guarantees failure during in-person critique. | *"Generate only the semantic HTML5 skeleton for the tickets section, explaining why each tag was chosen."* |
+| *"My layout broke at 768px. Fix my CSS here [pasted file]."* | Prevents understanding of box model, overflow, and cascade collisions. Creates helpless dependency. | *"Analyze this error and indicate which properties I should inspect in DevTools to isolate the overflowing element."* |
+| *"Write the project statement and rationales with references."* | Destroys the student's critical design voice; high risk of hallucinated sources. | *"Based on these 3 design decisions I made [list], suggest topics to structure my project statement."* |
+
+### 8.2 Five Battle-Tested Prompt Archetypes
+
+#### Prompt 1: The Socratic Tutor in 3 Levels
 ```text
-"You are my Web Design Tutor at FBAUP. I am currently learning [CONCEPT, e.g. CSS @layer and specificity]. 
-Do NOT write my project code for me. 
+"Act as my Socratic Web Design Tutor at FBAUP. 
+I am studying [CONCEPT, e.g. CSS clamp() for fluid typography]. 
+Do NOT write my project code. 
 Instead:
-1. Explain the mental model of this concept using a clear real-world analogy.
-2. Provide a 10-line minimal, barebones HTML/CSS code snippet showing how it behaves.
-3. Link me to the official MDN Web Docs reference for this feature.
-4. Ask me two diagnostic questions to test if I truly understood how it works."
+1. Explain this concept across 3 levels: (a) intuitive/visual, (b) mathematical calculation, (c) advanced web design application.
+2. Provide a 6-line minimal barebones functional example.
+3. Give me the canonical link to the official MDN Web Docs reference.
+4. Ask me 2 diagnostic questions to verify my understanding."
 ```
 
-### Prompt 2: The Socratic Sandbox Generator
+#### Prompt 2: The Senior Code Reviewer (The Golden Layout Rule)
 ```text
-"You are my Lab Demonstrator. I am confused by how [CSS PROPERTY, e.g. position: sticky] works when parent elements have [overflow: hidden].
-Please create an educational sandbox folder inside 'demos/sandbox-sticky-overflow/' containing:
-- 'index.html': A clean, valid barebones page demonstrating both the broken case and the fixed case.
-- 'styles.css': Heavily commented styles with visual debug borders.
-- Include 3 specific steps for me to test inside Chrome/Firefox DevTools to observe the stacking and scroll behavior."
+"Act as a Senior Design Technologist and Code Reviewer. 
+Inspect this snippet of my code [PASTE SNIPPET]:
+Evaluate it against the WD101 excellence standards:
+1. Semantic purity: Do I have unnecessary divs or redundant classes?
+2. The Golden Layout Rule: Am I using CSS Grid for 2D macro layout and Flexbox for 1D micro alignments?
+3. Design Tokens: Am I using CSS variables consistently for color, spacing, and typography?
+Highlight only the 3 most critical improvements and explain the technical 'why' behind each."
 ```
 
-### Prompt 3: The Code Reviewer & Architect
+#### Prompt 3: The Socratic Sandbox Generator
 ```text
-"You are a Senior Design Technologist and Code Reviewer. Review my stylesheet [PATH, e.g. css/styles.css] and markup [PATH, e.g. index.html].
-Critique my code according to the following strict criteria:
-1. Semantic accuracy: Are there unnecessary <div> wrappers? Are landmarks used correctly?
-2. Layout architecture: Am I violating the rule of using Grid for 2D and Flexbox for 1D?
-3. Maintainability: Am I using CSS variables for colors, spacing, and typography?
-4. Do not rewrite everything at once. Highlight the 3 most critical improvements and explain the 'why' behind each."
+"Antigravity, I am confused by how [CSS PROPERTY, e.g. position: sticky] behaves when a parent has [overflow: hidden].
+Create an isolated learning demo in 'demos/sandbox-sticky/' containing:
+1. 'index.html': A barebones page showing both the broken case and fixed case.
+2. 'styles.css': Heavily commented styles with visual debug borders.
+3. Links to MDN Web Docs for 'position' and 'overflow'.
+4. 3 practical DevTools experiments in comments for me to test in the browser."
 ```
 
-### Prompt 4: The Empirical DevTools Debugger
+#### Prompt 4: The In-Person Critique Simulator (U.Porto Promptary)
 ```text
-"I am experiencing a layout bug: [DESCRIBE BUG, e.g. My navigation items are squishing together instead of wrapping on narrow mobile screens].
-Here is my current HTML and CSS snippet:
-[PASTE SNIPPET]
-
-Do NOT just fix the code. Guide me through diagnosing it in my browser:
-1. What DevTools panel should I open?
-2. Which computed properties should I inspect on the parent and child?
-3. What is the browser's default calculation that is causing this behavior?
-4. What is the single CSS rule that corrects it, and why?"
+"Act as my Web Design professor at FBAUP during an in-person critique session.
+Review this code [PASTE HTML/CSS].
+Ask me 5 difficult questions regarding:
+1. Why I chose certain layout properties over simpler alternatives.
+2. How the cascade specificity operates in this section.
+3. What happens if an image fails to load.
+Do NOT provide answers. Ask one question at a time and evaluate my explanation."
 ```
 
-### Prompt 5: The Pre-Deployment QA Inspector
+#### Prompt 5: Pre-Deployment QA Inspector
 ```text
-"Act as a strict Web Quality Assurance Lead. Audit my project in [FOLDER PATH, e.g. TP11-integrated-responsive-project/].
-Check every file against the 360° Web Quality Checklist:
-1. File and folder naming (casing, spaces, special characters).
-2. Relative vs. absolute paths in <link>, <script>, and <img> elements.
-3. Font loading strategies (@font-face, WOFF2, font-display: swap).
-4. Responsive image syntax (<picture>, srcset, dimensions for CLS).
-5. Output a structured report with 'PASSED', 'WARNING', and 'CRITICAL DEFECT', along with immediate actionable fixes."
+"Assume the role of Web Quality Assurance Lead (QA). 
+Audit all files in folder [PROJECT PATH] before publication:
+1. Verify lowercase kebab-case naming without spaces or accents.
+2. Ensure all asset links (<link>, <script>, <img>) are strictly relative.
+3. Confirm WOFF2 font loading ('font-display: swap') and explicit image dimensions.
+Provide a structured report (PASSED, WARNING, CRITICAL DEFECT) with instructions for me to fix in my IDE."
 ```
 
 ---
 
-## 5. 🌐 Curated Online Resources & Essential Reading
+## 9. 🌐 Curated Online Resources & Essential Reading
 
-Here is the essential syllabus of authoritative resources to bookmark and explore:
-
-### Pedagogy & AI in Programming
-1. **Teaching CS50 with AI (Harvard University):**  
-   *David J. Malan et al.* — Explains why unconstrained LLMs are harmful to beginners and how Socratic guardrails cultivate genuine understanding.  
+### U.Porto & Academic AI Pedagogy
+1. **Orientações para o Uso e Adoção Responsável de IAGen na U.Porto (Junho 2026):**  
+   Universidade do Porto • Unidade de Inovação Educativa / Despacho GR. 08/05/2025.  
+   [https://sigarra.up.pt](https://sigarra.up.pt)
+2. **Teaching CS50 with AI (Harvard University):**  
+   *David J. Malan et al.* — The definitive benchmark on Socratic rubber-duck debugging constraints.  
    [https://cs50.harvard.edu](https://cs50.harvard.edu)
-2. **Assigning AI: Seven Approaches for Students (Wharton School):**  
-   *Ethan R. Mollick & Lilach Mollick* — Practical strategies for students using AI as tutor, coach, team player, and simulator.  
+3. **Assigning AI: Seven Approaches for Students (Wharton School):**  
+   *Ethan R. Mollick & Lilach Mollick* — Strategies for AI as Socratic tutor, coach, and simulator.  
    [https://oneusefulthing.org](https://oneusefulthing.org)
-3. **The AI Pedagogy Project (metaLAB at Harvard):**  
-   Curated assignment ideas, critical prompts, and reflective exercises for creative and code-based disciplines.  
-   [https://aipedagogy.org](https://aipedagogy.org)
 
-### Living Web Standards & MDN Documentation
+### Living Web Standards & Quality Checklists
 4. **MDN Web Docs — Learn Web Development:**  
    The definitive, community-maintained living standard reference for HTML5, CSS layout, and Web APIs.  
    [https://developer.mozilla.org/en-US/docs/Learn](https://developer.mozilla.org/en-US/docs/Learn)
@@ -328,20 +335,21 @@ Here is the essential syllabus of authoritative resources to bookmark and explor
    In-depth guides on Core Web Vitals, modern CSS layouts (`:has()`, container queries), and responsive media.  
    [https://web.dev/learn/css](https://web.dev/learn/css)
 6. **The Front-End Checklist (David Dias):**  
-   The meticulous, industry-standard checklist for HTML, CSS, assets, performance, and SEO before shipping.  
+   Industry quality checklist for HTML, CSS, assets, performance, and SEO.  
    [https://frontendchecklist.io](https://frontendchecklist.io)
 7. **The A11Y Project:**  
-   A community-driven effort to make digital accessibility easier to understand and implement.  
+   Practical WCAG 2.2 accessibility checklist focusing on keyboard navigation and contrast.  
    [https://www.a11yproject.com](https://www.a11yproject.com)
 
 ---
 
-## 6. 🎓 Conclusion: The Designer-Technologist of Tomorrow
+## 10. 🎓 Conclusion: The Designer-Technologist of Tomorrow
 
 The most capable web designers of the next decade will neither be those who fear AI and refuse to touch it, nor those who passively surrender their craft to automated code generators.
 
 The master designer-technologists will be those who **understand the craft deeply with their own hands**, and who orchestrate AI agents like **Antigravity ADE** as an intellectual extension of their design intent:
 - Questioning every line of code,
 - Testing every layout empirically in the browser,
+- Respecting academic integrity and institutional ethical standards,
 - Insisting on universal accessibility and semantic integrity,
 - And elevating web design into an art form of structured communication.

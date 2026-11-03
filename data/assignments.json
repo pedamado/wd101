@@ -32,7 +32,11 @@
       "Unidades relativas rem e em; proibido width/height fixos em px",
       "Sem qualquer recurso a JavaScript"
     ],
-    "patterns_used": ["Landmarks HTML5", "Descendant Selectors", "Relative Units"]
+    "patterns_used": [
+      "Landmarks HTML5",
+      "Descendant Selectors",
+      "Relative Units"
+    ]
   },
   {
     "uid": "ass-2",
@@ -67,7 +71,11 @@
       "Classes semânticas BEM simplificadas",
       "Uso de position: sticky e stacking context z-index"
     ],
-    "patterns_used": ["P2 (Art Direction)", "P7 (Sticky Stage inicial)", "P12 (Sticky Nav inicial)"]
+    "patterns_used": [
+      "P2 (Art Direction)",
+      "P7 (Sticky Stage inicial)",
+      "P12 (Sticky Nav inicial)"
+    ]
   },
   {
     "uid": "ass-3",
@@ -103,34 +111,78 @@
     ],
     "stages": [
       {
-        "name": { "pt": "Fase 1: Protótipo Preliminar (TP06)", "en": "Stage 1: Early Prototype (TP06)" },
-        "desc": { "pt": "Website responsivo preliminar a 2 colunas com breakpoint Tablet a 768px, sticky stage inicial e galeria de fotos.", "en": "Two-column responsive website with 768px Tablet breakpoint, sticky hero stage, and photo gallery." },
+        "name": {
+          "pt": "Fase 1: Protótipo Preliminar (TP06)",
+          "en": "Stage 1: Early Prototype (TP06)"
+        },
+        "desc": {
+          "pt": "Website responsivo preliminar a 2 colunas com breakpoint Desktop a 960px, sticky stage inicial e galeria de fotos.",
+          "en": "Two-column responsive website with 960px Desktop breakpoint, sticky hero stage, and photo gallery."
+        },
         "color": "var(--color-swiss-red)",
         "guide_url": "demos/tp06-responsive/ASSIGNMENT-TP06-RESPONSIVE.html",
         "demo_url": "demos/tp06-responsive/index.html"
       },
       {
-        "name": { "pt": "Fase 2: Capstone Avançado Integrado (TP11)", "en": "Stage 2: Full Integrated Capstone (TP11)" },
-        "desc": { "pt": "Masterclass integrada: 4 breakpoints mobile-first (<600px, 600px, 768px, 1200px), Macro Grid 2D com template-areas, Masonry denso com voids artísticos, Crate 3D fan-out, theming dinâmico e inspetor de Raios-X.", "en": "Integrated masterclass: 4 mobile-first breakpoints (<600px, 600px, 768px, 1200px), 2D Grid with template-areas, Dense Masonry with artistic voids, 3D Vinyl Crate fan-out, dynamic theming, and X-Ray inspector." },
+        "name": {
+          "pt": "Fase 2: Capstone Avançado Integrado (TP11)",
+          "en": "Stage 2: Full Integrated Capstone (TP11)"
+        },
+        "desc": {
+          "pt": "Masterclass integrada: 4 breakpoints mobile-first (<600px, 600px, 960px, 1200px), Macro Grid 2D com template-areas, Masonry denso com voids artísticos, Crate 3D fan-out, theming dinâmico e inspetor de Raios-X.",
+          "en": "Integrated masterclass: 4 mobile-first breakpoints (<600px, 600px, 960px, 1200px), 2D Grid with template-areas, Dense Masonry with artistic voids, 3D Vinyl Crate fan-out, dynamic theming, and X-Ray inspector."
+        },
         "color": "var(--color-accent-cyan)",
         "guide_url": "demos/tp11-integrated-responsive-project/GUIDE.html",
         "demo_url": "demos/tp11-integrated-responsive-project/index.html"
       },
       {
-        "name": { "pt": "Fase 2A: TP11-B Layout Suite (Flexbox & CSS Grid)", "en": "Stage 2A: TP11-B Layout Suite (Flexbox & CSS Grid)" },
-        "desc": { "pt": "4 demonstradores autónomos focados em Flexbox 1D no console de faixas, CSS Grid 2D com auto-flow denso, arquitetura híbrida e Container Queries (@container).", "en": "4 dedicated labs: 1D Flexbox track console, 2D CSS Grid with dense auto-flow, hybrid architecture, and Container Queries (@container)." },
+        "name": {
+          "pt": "Fase 2A: TP11-B Layout Suite (Flexbox & CSS Grid)",
+          "en": "Stage 2A: TP11-B Layout Suite (Flexbox & CSS Grid)"
+        },
+        "desc": {
+          "pt": "4 demonstradores autónomos focados em Flexbox 1D no console de faixas, CSS Grid 2D com auto-flow denso, arquitetura híbrida e Container Queries (@container).",
+          "en": "4 dedicated labs: 1D Flexbox track console, 2D CSS Grid with dense auto-flow, hybrid architecture, and Container Queries (@container)."
+        },
         "color": "var(--color-accent-blue)",
         "guide_url": "demos/tp11-css-flexbox-grid/README.md",
         "demo_url": "demos/tp11-css-flexbox-grid/index.html"
       },
       {
-        "name": { "pt": "Fase 2B: TP11 Motion Suite (Vars, Transitions & Animations)", "en": "Stage 2B: TP11 Motion Suite (Vars, Transitions & Animations)" },
-        "desc": { "pt": "5 módulos direcionados explorando tokens CSS :root, alternador light-dark(), física elástica cubic-bezier() na caixa de vinis 3D e animações scroll(root) e view().", "en": "5 focused modules exploring :root tokens, light-dark() switching, cubic-bezier() spring physics on the 3D vinyl crate, and scroll-driven animations." },
+        "name": {
+          "pt": "Fase 2B: TP11 Motion Suite (Vars, Transitions & Animations)",
+          "en": "Stage 2B: TP11 Motion Suite (Vars, Transitions & Animations)"
+        },
+        "desc": {
+          "pt": "5 módulos direcionados explorando tokens CSS :root, alternador light-dark(), física elástica cubic-bezier() na caixa de vinis 3D e animações scroll(root) e view().",
+          "en": "5 focused modules exploring :root tokens, light-dark() switching, cubic-bezier() spring physics on the 3D vinyl crate, and scroll-driven animations."
+        },
         "color": "var(--color-accent-gold)",
         "guide_url": "demos/tp11-variables-transitions-animations/README.md",
         "demo_url": "demos/tp11-variables-transitions-animations/index.html"
+      },
+      {
+        "name": {
+          "pt": "Fase 2C: Sistema de Design, Guia de Escrita & Boilerplate",
+          "en": "Stage 2C: Design System, Writing Guide & Boilerplate"
+        },
+        "desc": {
+          "pt": "Especificação viva Figma ↔ HTML5/CSS (@layer, Atomic Design, Content Inventory, Guia de Escrita Yahoo!/Kubie e Tipografia Santa Maria) + boilerplate base para estudantes.",
+          "en": "Living Figma ↔ HTML5/CSS specification (@layer, Atomic Design, Content Inventory, Yahoo!/Kubie Writing Guide, and Santa Maria Typography) + cloneable student starter boilerplate."
+        },
+        "color": "var(--color-swiss-red)",
+        "guide_url": "design-system.html",
+        "demo_url": "design-system-boilerplate.html"
       }
     ],
-    "patterns_used": ["P1 a P13 (Todos os 13 Padrões)", "3D Vinyl Crate", "Dense Masonry Voids", "Flexbox 1D", "Container Queries"]
+    "patterns_used": [
+      "P1 a P13 (Todos os 13 Padrões)",
+      "3D Vinyl Crate",
+      "Dense Masonry Voids",
+      "Flexbox 1D",
+      "Container Queries",
+      "Atomic Design System & Tokens"
+    ]
   }
 ]

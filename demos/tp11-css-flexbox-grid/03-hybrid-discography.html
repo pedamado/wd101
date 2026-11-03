@@ -24,6 +24,16 @@
   <title>03 • Hybrid Architecture: Grid + Flexbox | DJ Warp Console | DRUMTIKS '26</title>
   <meta name="description" content="Pedagogical masterclass combining CSS Grid for 2D macro architecture (named areas, named lines, line placement) and Flexbox for 1D micro layout components.">
 
+  <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') === 'en' ? 'en' : 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
+
   <!-- Local variable fonts (Inter, Martian Mono, Syne) -->
   <link rel="stylesheet" href="css/fonts.css">
   <!-- Shared design system tokens, typography, resets and header -->
@@ -37,7 +47,7 @@
     LANDMARK: <header class="site-header">
     Sticky global top bar with links to Hub and Masterclass pages.
   -->
-  <header class="site-header" role="banner">
+  <header class="site-header" role="banner" data-static-shell="true">
     <div class="header-container">
       <div class="brand-group">
         <a href="index.html" class="brand-logo" aria-label="Return to Curriculum Hub">
@@ -47,8 +57,14 @@
       </div>
 
       <nav class="main-nav" aria-label="Curriculum Navigation">
+        <a href="../../index.html" class="nav-link" style="color:var(--color-accent-gold);">
+          <span>🏠 Hub Global</span>
+        </a>
+        <a href="../index.html" class="nav-link" style="color:var(--color-accent-cyan);">
+          <span>📦 Demos Hub</span>
+        </a>
         <a href="index.html" class="nav-link">
-          <span>🏠 Hub</span>
+          <span>Labs Hub</span>
         </a>
         <a href="01-flexbox-tracks.html" class="nav-link">
           <span class="nav-pill-num">01</span>
@@ -67,6 +83,10 @@
           <span>Container Queries</span>
         </a>
       </nav>
+
+      <div class="header-controls">
+        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
+      </div>
     </div>
   </header>
 
@@ -675,6 +695,8 @@
 }</code></pre>
       </div>
 
+    </div> <!-- .hybrid-workspace -->
+
       <!-- ====================================================================
            BAREBONE STRUCTURAL BLUEPRINT (Pedagogical Cheat Sheet)
            Answers user requirement:
@@ -902,5 +924,29 @@
     </div>
   </footer>
 
+  <script>
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    function updateThemeBtnState() {
+      if (!themeBtn) return;
+      const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const isDark = current === 'dark';
+      const lang = document.documentElement.getAttribute('lang') || 'pt';
+      const label = isDark ? (lang === 'pt' ? 'Claro' : 'Light') : (lang === 'pt' ? 'Escuro' : 'Dark');
+      themeBtn.textContent = label;
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('wd101_theme', next);
+        updateThemeBtnState();
+      });
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      updateThemeBtnState();
+    }
+  </script>
 </body>
 </html>

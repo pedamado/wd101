@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" data-theme="light" data-root="../../../">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NAV-16: Jumping in Hierarchy (Salto Hierárquico) • WD101 Drumtiks</title>
   
   <!-- Prevenção de FOUC de Tema e Idioma -->
-  <script>
+    <script>
     (function() {
-      const savedTheme = localStorage.getItem('wd101_theme') || 
-                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      const savedLang = localStorage.getItem('wd101_lang') === 'en' ? 'en' : 'pt';
       document.documentElement.setAttribute('lang', savedLang);
     })();
   </script>
@@ -566,45 +565,6 @@
   <!-- Script de Interação: Separadores, Modo Raio-X, Cópia de Código & Tema/Idioma -->
   <script>
     (function() {
-      // 1. Tema & Idioma
-      const langBtn = document.getElementById('lang-toggle-btn');
-      const themeBtn = document.getElementById('theme-toggle-btn');
-
-      function updateLanguageUI(lang) {
-        document.documentElement.setAttribute('lang', lang);
-        localStorage.setItem('wd101_lang', lang);
-        if (langBtn) {
-          langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
-        }
-      }
-
-      function updateThemeUI(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('wd101_theme', theme);
-        if (themeBtn) {
-          themeBtn.innerHTML = theme === 'dark' ? '☀ <span>Tema</span>' : '◐ <span>Tema</span>';
-        }
-      }
-
-      if (langBtn) {
-        langBtn.addEventListener('click', function() {
-          const currentLang = document.documentElement.getAttribute('lang') || 'pt';
-          updateLanguageUI(currentLang === 'pt' ? 'en' : 'pt');
-        });
-      }
-
-      if (themeBtn) {
-        themeBtn.addEventListener('click', function() {
-          const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-          updateThemeUI(currentTheme === 'dark' ? 'light' : 'dark');
-        });
-      }
-
-      const initialLang = localStorage.getItem('wd101_lang') || 'pt';
-      updateLanguageUI(initialLang);
-      const initialTheme = localStorage.getItem('wd101_theme') || 
-                           (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      updateThemeUI(initialTheme);
 
       // 2. Tab Switching (Rendered / HTML / CSS)
       const tabBtns = document.querySelectorAll('.tab-btn');
@@ -680,5 +640,6 @@
     })();
   </script>
 
+<script src="../../../assets/js/site-shell.js"></script>
 </body>
 </html>

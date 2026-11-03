@@ -7,9 +7,15 @@
 ehthumbs.db
 Thumbs.db
 
-# Editor Files
+# Editor Files & Caches
 *.swp
 *.bak
 *~
 .vscode/
 .idea/
+
+# Python & Temporary Scratch
+__pycache__/
+*.py[cod]
+scratch/
+

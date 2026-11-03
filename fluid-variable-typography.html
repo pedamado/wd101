@@ -25,14 +25,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Módulo 3: Tipografia Fluida &amp; Fontes Variáveis • WD101 FBAUP</title>
   
-  <!-- Previne FOUC de tema e idioma -->
+  <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
   <script>
     (function() {
-      const savedTheme = localStorage.getItem('wd101_theme') || 
-                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      const savedLang = localStorage.getItem('wd101_lang') === 'en' ? 'en' : 'pt';
       document.documentElement.setAttribute('lang', savedLang);
+      const savedAesthetic = localStorage.getItem('wd101_aesthetic') || 'airy';
+      document.documentElement.setAttribute('data-aesthetic', savedAesthetic);
     })();
   </script>
 
@@ -129,8 +130,9 @@
     }
 
     .specimen-stage {
-      background: #161b22;
-      border: 1px solid #30363d;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
       border-radius: 6px;
       padding: var(--space-6);
       margin-bottom: var(--space-4);
@@ -160,8 +162,8 @@
 
     /* Code Snippet Blocks */
     .code-block {
-      background: #090d13;
-      border: 1px solid #2d333b;
+      background: #0d1117;
+      border: 1px solid var(--border-color);
       border-radius: 6px;
       padding: var(--space-4);
       font-family: var(--font-mono);
@@ -182,33 +184,19 @@
 <body>
 
   <!-- Site Header Landmark -->
-  <header class="site-header" role="banner">
-    <div class="header-inner">
-      <div class="brand">
-        <a href="index.html" class="brand-logo">WD<span>101</span></a>
-        <span class="brand-meta">FBAUP Design 2026/27</span>
-      </div>
-
-      <nav class="site-nav" aria-label="Navegação do Guia">
-        <ul>
-          <li><a href="index.html"><span class="lang-pt">← Voltar ao Andaime</span><span class="lang-en">← Back to Scaffold</span></a></li>
-          <li><a href="#hosted-vs-self"><span class="lang-pt">Distribuição</span><span class="lang-en">Distribution</span></a></li>
-          <li><a href="#triad"><span class="lang-pt">A Tríade</span><span class="lang-en">The Triad</span></a></li>
-          <li><a href="#scales"><span class="lang-pt">Escala Modular</span><span class="lang-en">Modular Scale</span></a></li>
-          <li><a href="#clamp"><span class="lang-pt">clamp() Fluido</span><span class="lang-en">Fluid clamp()</span></a></li>
-          <li><a href="#semantics"><span class="lang-pt">Semântica</span><span class="lang-en">Semantics</span></a></li>
-        </ul>
-      </nav>
-
-      <div class="header-controls">
-        <button id="lang-toggle-btn" class="btn-control" aria-label="Alternar Idioma">English</button>
-        <button id="theme-toggle-btn" class="btn-control" aria-label="Alternar Tema">◐ <span>Tema</span></button>
-      </div>
-    </div>
-  </header>
+  <header class="site-header" role="banner"></header>
 
   <!-- Main Content Landmark -->
-  <main class="main-container" id="main-content" style="max-width:960px;">
+  <main class="main-container" id="main-content">
+
+    <!-- Breadcrumb Strip -->
+    <nav class="breadcrumb-strip" aria-label="Navegação Estrutural" style="margin-bottom:var(--space-4);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+      <a href="index.html" style="color:var(--text-muted);text-decoration:none;">WD101</a>
+      <span>/</span>
+      <a href="index.html#cluster-1" style="color:var(--text-muted);text-decoration:none;"><span class="lang-pt">Módulo 01: Fundação</span><span class="lang-en">Module 01: Foundations</span></a>
+      <span>/</span>
+      <span style="color:var(--color-guide-accent, #f5a623);font-weight:700;">Tipografia Fluida &amp; Fontes Variáveis</span>
+    </nav>
 
     <!-- Hero Section -->
     <header class="guide-hero">
@@ -233,32 +221,70 @@
       </p>
     </header>
 
-    <!-- SECÇÃO 1: O PONTO DE PARTIDA: PORQUÊ 16px REM? -->
-    <section style="margin-bottom:var(--space-10);">
+    <!-- Page Layout with Sticky Aside Rail -->
+    <div class="page-layout-with-aside">
+
+      <!-- Sticky Navigation Rail -->
+      <aside class="aside-toc" aria-label="Navegação do Guia de Tipografia">
+        <div class="aside-toc-card">
+          <div class="aside-toc-header">
+            <span class="aside-toc-title"><span class="lang-pt">Neste Guia</span><span class="lang-en">In this Guide</span></span>
+            <span class="aside-toc-count">10 Tópicos</span>
+          </div>
+          <ul class="aside-toc-list">
+            <li class="aside-toc-item"><a href="#rule-16px" class="aside-toc-link"><span>📏 1. <span class="lang-pt">Regra 1rem = 16px</span><span class="lang-en">1rem = 16px Rule</span></span></a></li>
+            <li class="aside-toc-item"><a href="#hosted-vs-self" class="aside-toc-link"><span>📦 2. <span class="lang-pt">CDNs vs Self-Host</span><span class="lang-en">CDNs vs Self-Host</span></span></a></li>
+            <li class="aside-toc-item"><a href="#variable-axes" class="aside-toc-link"><span>🎚️ 3. <span class="lang-pt">Eixos Variáveis</span><span class="lang-en">Variable Axes</span></span></a></li>
+            <li class="aside-toc-item"><a href="#triad" class="aside-toc-link"><span>🔤 4. <span class="lang-pt">A Tríade Drumtiks</span><span class="lang-en">Drumtiks Triad</span></span></a></li>
+            <li class="aside-toc-item"><a href="#scales" class="aside-toc-link"><span>📐 5. <span class="lang-pt">Escalas Modulares</span><span class="lang-en">Modular Scales</span></span></a></li>
+            <li class="aside-toc-item"><a href="#clamp" class="aside-toc-link"><span>⚡ 6. <span class="lang-pt">clamp() Fluido</span><span class="lang-en">Fluid clamp()</span></span></a></li>
+            <li class="aside-toc-item"><a href="#ergonomics" class="aside-toc-link"><span>👀 7. <span class="lang-pt">Measure &amp; Entrelinha</span><span class="lang-en">Measure &amp; Leading</span></span></a></li>
+            <li class="aside-toc-item"><a href="#micro-typography" class="aside-toc-link"><span>✨ 8. <span class="lang-pt">Micro-Tipografia</span><span class="lang-en">Micro-Typography</span></span></a></li>
+            <li class="aside-toc-item"><a href="#semantics" class="aside-toc-link"><span>🏷️ 9. <span class="lang-pt">Semântica Inline</span><span class="lang-en">Inline Semantics</span></span></a></li>
+            <li class="aside-toc-item"><a href="#lab" class="aside-toc-link"><span>🔬 10. <span class="lang-pt">Lab de Inspeção</span><span class="lang-en">Inspection Lab</span></span></a></li>
+            <li class="aside-toc-item"><a href="#connected-mesh" class="aside-toc-link"><span>🔗 11. <span class="lang-pt">Rede Curricular</span><span class="lang-en">Curricular Mesh</span></span></a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Educational Body -->
+      <div class="page-layout-main">
+
+        <!-- SECÇÃO 1: O PONTO DE PARTIDA: PORQUÊ 16px REM? -->
+        <section id="rule-16px" style="margin-bottom:var(--space-10);">
       <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
-        1. A Regra de Ouro do Ponto de Partida: 1rem = 16px
+        <span class="lang-pt">1. A Regra de Ouro do Ponto de Partida: 1rem = 16px</span>
+        <span class="lang-en">1. The Golden Baseline Rule: 1rem = 16px</span>
       </h2>
       <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
-        Por omissão em todos os navegadores contemporâneos, a folha de estilo interna (*User-Agent Stylesheet*) define para o elemento raiz <code>:root { font-size: 16px; }</code>. Esta medida não é arbitrária: decorre de décadas de ergonomia de leitura em monitores padrão a uma distância de visualização de 50 a 70 centímetros.
+        <span class="lang-pt">Por omissão em todos os navegadores contemporâneos, a folha de estilo interna (<em>User-Agent Stylesheet</em>) define para o elemento raiz <code>:root { font-size: 16px; }</code>. Esta medida não é arbitrária: decorre de décadas de ergonomia de leitura em monitores padrão a uma distância de visualização de 50 a 70 centímetros.</span>
+        <span class="lang-en">By default across all contemporary browsers, the user-agent stylesheet sets root <code>:root { font-size: 16px; }</code>. This measurement is not arbitrary: it stems from decades of reading ergonomics on desktop monitors viewed from a 50–70 cm distance.</span>
       </p>
 
       <div class="callout-box">
-        <strong>⚠️ O Anti-Padrão da Trapacearia dos 62.5%</strong>
-        Durante anos, muitos tutoriais sugeriram declarar <code>html { font-size: 62.5%; }</code> para forçar <code>1rem = 10px</code> (facilitando as contas de cabeça). 
+        <strong>⚠️ <span class="lang-pt">O Anti-Padrão da Trapacearia dos 62.5%</span><span class="lang-en">The 62.5% Trick Anti-Pattern</span></strong><br>
+        <span class="lang-pt">Durante anos, muitos tutoriais sugeriram declarar <code>html { font-size: 62.5%; }</code> para forçar <code>1rem = 10px</code> (facilitando as contas de cabeça).</span>
+        <span class="lang-en">For years, legacy tutorials promoted declaring <code>html { font-size: 62.5%; }</code> to force <code>1rem = 10px</code> for easier mental math.</span>
         <br><br>
-        <strong>Isto é uma violação grave de Acessibilidade (WCAG 2.2):</strong> Se um utilizador com baixa visão configurar o seu browser para ter 24px de texto base por necessidade oftalmológica, o cálculo forçado de 62.5% esmaga e desrespeita essa preferência vital do utilizador!
+        <strong><span class="lang-pt">Isto é uma violação grave de Acessibilidade (WCAG 2.2):</span><span class="lang-en">This is a severe Accessibility violation (WCAG 2.2):</span></strong>
+        <span class="lang-pt"> Se um utilizador com baixa visão configurar o seu browser para ter 24px de texto base por necessidade oftalmológica, o cálculo forçado de 62.5% esmaga e desrespeita essa preferência vital do utilizador!</span>
+        <span class="lang-en"> If a user with low vision configures their browser base font to 24px for optical accommodation, the forced 62.5% scaling crushes and disregards that vital preference!</span>
         <br><br>
-        <strong>A Boa Prática:</strong> Deixe o elemento <code>html</code> intacto ou use <code>font-size: 100%</code>. Desenhe a hierarquia aceitando <code>1rem = 16px</code> como o padrão natural e utilize unidades relativas para todo o dimensionamento.
+        <strong><span class="lang-pt">A Boa Prática:</span><span class="lang-en">Best Practice:</span></strong>
+        <span class="lang-pt"> Deixe o elemento <code>html</code> intacto ou use <code>font-size: 100%</code>. Desenhe a hierarquia aceitando <code>1rem = 16px</code> como o padrão natural e utilize unidades relativas para todo o dimensionamento.</span>
+        <span class="lang-en"> Leave the <code>html</code> element untouched or set <code>font-size: 100%</code>. Design typography accepting <code>1rem = 16px</code> as the natural baseline and use relative units throughout.</span>
       </div>
     </section>
 
     <!-- SECÇÃO 2: HOSPEDAGEM & OTIMIZAÇÃO -->
     <section id="hosted-vs-self" style="margin-bottom:var(--space-10);">
       <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
-        2. Estratégias de Distribuição: CDNs Hospedadas vs. Auto-Hospedagem (Vendorização)
+        <span class="lang-pt">2. Estratégias de Distribuição: CDNs Hospedadas vs. Auto-Hospedagem (Vendorização)</span>
+        <span class="lang-en">2. Distribution Strategies: Hosted CDNs vs. Self-Hosting (Vendorization)</span>
       </h2>
       <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
-        Na passagem do <strong>EX2</strong> (onde recorremos à ligação remota via Google Fonts) para o <strong>Projeto Capstone Drumtiks</strong>, migramos para a **auto-hospedagem (*self-hosting / vendorized*)**. Compreender as diferenças e trade-offs é essencial para a autonomia profissional do designer.
+        <span class="lang-pt">Na passagem do <strong>EX2</strong> (onde recorremos à ligação remota via Google Fonts) para o <strong>Projeto Capstone Drumtiks</strong>, migramos para a <strong>auto-hospedagem (<em>self-hosting / vendorized</em>)</strong>. Compreender as diferenças e compromissos é essencial para a autonomia profissional do designer.</span>
+        <span class="lang-en">In transitioning from <strong>EX2</strong> (remote webfonts via Google Fonts) to the <strong>Drumtiks Capstone Project</strong>, we migrate to <strong>self-hosting (vendorized WOFF2)</strong>. Understanding the architectural tradeoffs is essential for professional designer autonomy.</span>
       </p>
 
       <table class="edu-table">
@@ -344,12 +370,14 @@
     </section>
 
     <!-- SECÇÃO 3: FONTES VARIÁVEIS & EIXOS CONTÍNUOS -->
-    <section style="margin-bottom:var(--space-10);">
+    <section id="variable-axes" style="margin-bottom:var(--space-10);">
       <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
-        3. Fontes Variáveis: Eixos Canónicos vs. Eixos Customizados
+        <span class="lang-pt">3. Fontes Variáveis: Eixos Canónicos vs. Eixos Customizados</span>
+        <span class="lang-en">3. Variable Fonts: Registered Axes vs. Custom Axes</span>
       </h2>
       <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
-        Enquanto a tipografia web clássica exigia carregar 8 ou 12 ficheiros estáticos separados (Regular, Medium, Bold, Italic, etc.), uma <strong>Fonte Variável (*Variable Font*)</strong> compacta toda essa família tipográfica num único ficheiro dinâmico com **eixos de interpolação contínuos**.
+        <span class="lang-pt">Enquanto a tipografia web clássica exigia carregar 8 ou 12 ficheiros estáticos separados (Regular, Medium, Bold, Italic, etc.), uma <strong>Fonte Variável (<em>Variable Font</em>)</strong> compacta toda essa família tipográfica num único ficheiro dinâmico com <strong>eixos de interpolação contínuos</strong>.</span>
+        <span class="lang-en">While classic web typography required downloading 8 to 12 separate static font files, a <strong>Variable Font</strong> bundles an entire design family into a single compact file with <strong>continuous interpolation axes</strong>.</span>
       </p>
 
       <div class="callout-box">
@@ -374,10 +402,12 @@
     <!-- SECÇÃO 4: A TRÍADE DO DRUMTIKS -->
     <section id="triad" style="margin-bottom:var(--space-10);">
       <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
-        4. O Emparelhamento Tipográfico: A Tríade do Festival Drumtiks
+        <span class="lang-pt">4. O Emparelhamento Tipográfico: A Tríade do Festival Drumtiks</span>
+        <span class="lang-en">4. Typographic Pairing: The Drumtiks Festival Triad</span>
       </h2>
       <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
-        Para websites com densidade editorial e riqueza visual, a abordagem recomendada no curso é a **Tríade Tipográfica Funcional**: três famílias especializadas que desempenham papéis semânticos e espaciais claros:
+        <span class="lang-pt">Para websites com densidade editorial e riqueza visual, a abordagem recomendada no curso é a <strong>Tríade Tipográfica Funcional</strong>: três famílias especializadas que desempenham papéis semânticos e espaciais claros:</span>
+        <span class="lang-en">For editorial density and expressive web experiences, the recommended course model is the <strong>Functional Typographic Triad</strong>: three distinct families with explicit structural roles:</span>
       </p>
 
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:var(--space-4); margin:var(--space-4) 0;">
@@ -412,10 +442,12 @@
     <!-- SECÇÃO 5: ESCALAS MODULARES & OS DOIS MOMENTOS -->
     <section id="scales" style="margin-bottom:var(--space-10);">
       <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
-        5. Escalas Modulares &amp; Progressão Pedagógica em Dois Momentos
+        <span class="lang-pt">5. Escalas Modulares &amp; Progressão Pedagógica em Dois Momentos</span>
+        <span class="lang-en">5. Modular Scales &amp; Two-Stage Pedagogical Progression</span>
       </h2>
       <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
-        Em vez de escolher tamanhos de letra ao acaso (ex: 18px, 23px, 37px), uma **Escala Modular Tipográfica** aplica uma razão geométrica musical para que todos os tamanhos da hierarquia sejam harmónicos entre si.
+        <span class="lang-pt">Em vez de escolher tamanhos de letra ao acaso (ex: 18px, 23px, 37px), uma <strong>Escala Modular Tipográfica</strong> aplica uma razão geométrica musical para que todos os tamanhos da hierarquia sejam harmónicos entre si.</span>
+        <span class="lang-en">Rather than picking arbitrary font sizes, a <strong>Modular Typographic Scale</strong> applies a musical geometric ratio ensuring proportional harmony across every heading and body level.</span>
       </p>
 
       <p style="margin-bottom:var(--space-3); color:var(--text-secondary);">
@@ -516,7 +548,7 @@
     </section>
 
     <!-- SECÇÃO 7: ERGONOMIA & MEDIDA DE LINHA -->
-    <section style="margin-bottom:var(--space-10);">
+    <section id="ergonomics" style="margin-bottom:var(--space-10);">
       <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
         7. Ergonomia de Leitura: Comprimento de Linha (Measure) &amp; Entrelinha (Leading)
       </h2>
@@ -553,7 +585,7 @@
     </section>
 
     <!-- SECÇÃO 8: MICRO-TIPOGRAFIA MODERNA -->
-    <section style="margin-bottom:var(--space-10);">
+    <section id="micro-typography" style="margin-bottom:var(--space-10);">
       <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
         8. Micro-Tipografia: Quebras Inteligentes, Hifenação &amp; Sublinhados
       </h2>
@@ -639,7 +671,7 @@
     </section>
 
     <!-- SECÇÃO 10: LABORATÓRIO INTERATIVO -->
-    <section style="margin-bottom:var(--space-12);">
+    <section id="lab" style="margin-bottom:var(--space-12);">
       <h2 style="font-size:var(--text-xl); margin-bottom:var(--space-3); color:var(--text-primary);">
         10. Laboratório Interativo de Inspeção Tipográfica
       </h2>
@@ -683,7 +715,7 @@
     </section>
 
     <!-- Conclusão & Próximos Passos -->
-    <footer style="border-top:1px solid var(--border-color); padding-top:var(--space-6); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-3);">
+    <footer style="border-top:1px solid var(--border-color); padding-top:var(--space-6); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-3); margin-bottom:var(--space-8);">
       <a href="index.html#study-goals" class="btn-control" style="background:var(--color-guide-accent); color:#000; border-color:var(--color-guide-accent); font-weight:700;">
         ← Voltar ao Andaime Pedagógico
       </a>
@@ -691,6 +723,46 @@
         WD101 • FBAUP 2026/27
       </span>
     </footer>
+
+      </div><!-- .page-layout-main -->
+    </div><!-- .page-layout-with-aside -->
+
+    <!-- Connected in WD101 Organic Mesh Block -->
+    <section class="wd-mesh-section" id="connected-mesh" style="margin-top:var(--space-12);">
+      <div class="wd-mesh-header">
+        <span class="wd-mesh-kicker"><span class="lang-pt">Mapeamento Pedagógico</span><span class="lang-en">Curricular Mesh</span> &bull; Connected in WD101</span>
+        <h2 class="wd-mesh-title"><span class="lang-pt">Articulação com Enunciados, Demos e Matriz W3C</span><span class="lang-en">Connected Course Milestones, Demos &amp; Matrix</span></h2>
+      </div>
+      <div class="wd-mesh-grid">
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Enunciados do Curso</span><span class="lang-en">Course Assignments</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="ex1-hello-warp-guide.html" class="wd-mesh-chip">🟢 EX1: Hello Warp!</a>
+            <a href="ex2-guide.html" class="wd-mesh-chip">🔵 EX2: Media &amp; Box Model</a>
+            <a href="tp06-early-prototype-guide.html" class="wd-mesh-chip">🔵 Projeto Fase 1: TP06</a>
+            <a href="demos/tp11-integrated-responsive-project/GUIDE.html" class="wd-mesh-chip">🟣 Projeto Fase 2: TP11</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="demos/index.html" class="wd-mesh-chip">🚀 Repositório Central de Demos</a>
+            <a href="demos/tp11-variables-transitions-animations/index.html" class="wd-mesh-chip">🟣 Masterclass Motion (TP11-A)</a>
+            <a href="demos/tp11-css-flexbox-grid/index.html" class="wd-mesh-chip">🟣 Suite Flexbox &amp; Grid (TP11-B)</a>
+            <a href="interaction-patterns.html" class="wd-mesh-chip">✨ 142 Padrões Web</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Matriz HTML5 &amp; CSS3</span><span class="lang-en">W3C Standards Matrix</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="matrix.html" class="wd-mesh-chip" style="font-weight:700;color:var(--color-swiss-red);">Matriz Completa (314) ↗</a>
+            <a href="matrix.html?cat=cat-typography" class="wd-mesh-chip">Tipografia CSS</a>
+            <a href="matrix.html?cat=cat-boxmodel" class="wd-mesh-chip">Box Model &amp; Units</a>
+            <a href="ixd-principles.html" class="wd-mesh-chip">🧭 Princípios de IxD</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
@@ -716,55 +788,8 @@
       const weight = document.getElementById('weight-val').textContent;
       document.getElementById('active-rule-text').textContent = `Regra ativa: font-family: '${font}'; font-weight: ${weight};`;
     }
-
-    // Theme & Language Handlers
-    const themeBtn = document.getElementById('theme-toggle-btn');
-    function updateThemeBtnState() {
-      if (!themeBtn) return;
-      const current = document.documentElement.getAttribute('data-theme') || 
-                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      const isDark = current === 'dark';
-      const lang = document.documentElement.getAttribute('lang') || 'pt';
-      const label = isDark ? (lang === 'pt' ? 'Escuro' : 'Dark') : (lang === 'pt' ? 'Claro' : 'Light');
-      const icon = isDark ? '🌙' : '☀';
-      themeBtn.innerHTML = `${icon} <span>${label}</span>`;
-    }
-
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('data-theme') || 
-                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        const next = current === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', next);
-        localStorage.setItem('wd101_theme', next);
-        updateThemeBtnState();
-      });
-      const savedTheme = localStorage.getItem('wd101_theme');
-      if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-      }
-      updateThemeBtnState();
-    }
-
-    const langBtn = document.getElementById('lang-toggle-btn');
-    function setLanguage(lang) {
-      document.documentElement.setAttribute('lang', lang);
-      localStorage.setItem('wd101_lang', lang);
-      if (langBtn) {
-        langBtn.textContent = lang === 'pt' ? 'English' : 'Português';
-      }
-      updateThemeBtnState();
-    }
-
-    if (langBtn) {
-      langBtn.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('lang') || 'pt';
-        const next = current === 'pt' ? 'en' : 'pt';
-        setLanguage(next);
-      });
-      setLanguage(localStorage.getItem('wd101_lang') || 'pt');
-    }
   </script>
 
+  <script src="assets/js/site-shell.js"></script>
 </body>
 </html>

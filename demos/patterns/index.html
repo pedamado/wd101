@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" data-theme="light" data-root="../../">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Índice de Demonstrações Isoladas (142 Padrões) • WD101</title>
-  <script>
+    <script>
     (function() {
-      const savedTheme = localStorage.getItem('wd101_theme') || 
-                         (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      const savedLang = localStorage.getItem('wd101_lang') === 'en' ? 'en' : 'pt';
       document.documentElement.setAttribute('lang', savedLang);
     })();
   </script>
@@ -1044,5 +1043,6 @@
       <p><strong>WD101 • Web Design 2026/27</strong> — Licenciatura em Design de Comunicação • FBAUP</p>
     </div>
   </footer>
+<script src="../../assets/js/site-shell.js"></script>
 </body>
 </html>

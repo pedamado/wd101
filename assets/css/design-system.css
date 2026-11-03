@@ -1,0 +1,1951 @@
+/* ==========================================================================
+   WD101 LEARNING SCAFFOLD • DESIGN SYSTEM & PATTERN LIBRARY STYLESHEET
+   File: learning-scaffold/assets/css/design-system.css
+   Companion HTML: learning-scaffold/design-system.html
+   Architecture: @layer reset, tokens, doc-shell, drumtiks-specimens, utilities;
+   ========================================================================== */
+
+/* ========================================================================
+   0. EXPLICIT CASCADE LAYER ORDERING
+   Declaring @layer upfront establishes a deterministic priority ladder
+   independent of selector specificity battles (no BEM bloat or !important).
+   ======================================================================== */
+@layer reset, tokens, doc-shell, drumtiks-specimens, utilities;
+
+/* ========================================================================
+   1. @layer reset — Zero-Specificity Element Reset (:where() = 0,0,0)
+   Avoids global `*` selector so web components and layered styles can
+   cleanly override defaults without specificity escalation.
+   ======================================================================== */
+@layer reset {
+  :where(
+    html, body, div, span, header, nav, main, section, article, aside, footer,
+    h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd, figure, figcaption,
+    blockquote, pre, code, table, caption, thead, tbody, tr, th, td,
+    form, fieldset, legend, label, input, button, select, textarea,
+    details, summary, dialog, search
+  ) {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :where(html) {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where(html) {
+      scroll-behavior: auto;
+    }
+  }
+
+  :where(img, svg, picture, video) {
+    display: block;
+    max-inline-size: 100%;
+  }
+
+  :where(button, input, select, textarea) {
+    font: inherit;
+    color: inherit;
+  }
+
+  :where(table) {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+}
+
+/* ========================================================================
+   2. @layer tokens — 3-Tier Design Token Cascade
+   Tier 1 (Primitive/Option) -> Tier 2 (Semantic/Decision) -> Tier 3 (Component)
+   Note: Custom properties holding light-dark() tokens are intentionally NOT
+   registered via @property <color> so descendants with local color-scheme
+   overrides re-resolve light-dark() dynamically at computed-value time.
+   ======================================================================== */
+@layer tokens {
+  :root {
+    /* Mandatory root scheme: follows OS by default; overridden via <meta> or radio */
+    color-scheme: light dark;
+
+    /* --- TIER 1: PRIMITIVE / OPTION TOKENS (Raw Palette & Scales) --- */
+    --prim-gray-00: #ffffff;
+    --prim-gray-05: #f4f4f6;
+    --prim-gray-10: #eceef2;
+    --prim-gray-20: #d5d9e2;
+    --prim-gray-50: #6e7382;
+    --prim-gray-70: #3d4251;
+    --prim-gray-85: #1c1d22;
+    --prim-gray-90: #121316;
+    --prim-gray-95: #0b0c0f;
+    --prim-gray-100: #060608;
+
+    --prim-red-50: #ff2626;
+    --prim-red-60: #e60000;
+    --prim-red-70: #b80000;
+    --prim-cyan-40: #00d2ff;
+    --prim-cyan-70: #006d87;
+    --prim-purple-50: #8a2be2;
+    --prim-gold-50: #f5a623;
+    --prim-green-50: #10b981;
+    --prim-green-70: #047857;
+
+    /* IBM Carbon 2x Spatial Scale (8px base mini-unit + 4px half-step) */
+    --space-2xs: 0.25rem;  /*  4px — 0.5x mini-unit (tight icon/badge gap) */
+    --space-xs:  0.5rem;   /*  8px — 1x Carbon base mini-unit */
+    --space-sm:  0.75rem;  /* 12px — 1.5x compact control padding */
+    --space-md:  1rem;     /* 16px — 2x standard component padding */
+    --space-lg:  1.5rem;   /* 24px — 3x card & cluster separation */
+    --space-xl:  2rem;     /* 32px — 4x organism container padding */
+    --space-2xl: 3rem;     /* 6x macro section rhythm */
+    --space-3xl: 4.5rem;   /* 9x major chapter boundary */
+
+    /* Typography Families (Self-hosted variable WOFF2) */
+    --font-display: 'Syne', system-ui, -apple-system, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'Martian Mono', ui-monospace, SFMono-Regular, monospace;
+
+    /* Fluid Responsive Typographic Scale */
+    --font-size-hero:  clamp(2.1rem, 4.5vw + 1rem, 3.6rem);
+    --font-size-h1:    clamp(1.75rem, 3.2vw + 0.85rem, 2.75rem);
+    --font-size-h2:    clamp(1.35rem, 2vw + 0.7rem, 1.95rem);
+    --font-size-h3:    clamp(1.1rem, 1.1vw + 0.75rem, 1.35rem);
+    --font-size-body:  clamp(0.94rem, 0.3vw + 0.86rem, 1.02rem);
+    --font-size-small: 0.85rem;
+    --font-size-micro: 0.75rem;
+
+    /* Radii, Shadows & Motion Physics */
+    --radius-xs: 2px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 450ms ease;
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Z-Index Registry */
+    --z-base: 1;
+    --z-sticky: 100;
+    --z-header: 500;
+    --z-modal: 1000;
+    --z-progress: 1100;
+
+    /* --- TIER 2: SEMANTIC / DECISION TOKENS (Fallback + light-dark()) --- */
+    /* Fallback values for legacy engines without light-dark() */
+    --doc-canvas: var(--prim-gray-05);
+    --doc-layer-01: var(--prim-gray-00);
+    --doc-layer-02: var(--prim-gray-10);
+    --doc-text-primary: #111318;
+    --doc-text-secondary: #454b5c;
+    --doc-text-muted: #666c7e;
+    --doc-border-subtle: rgba(17, 19, 24, 0.11);
+    --doc-border-strong: rgba(17, 19, 24, 0.24);
+
+    /* Drumtiks Capstone Semantic Tokens */
+    --color-bg-canvas: #f4f4f6;
+    --color-bg-surface: #ffffff;
+    --color-bg-surface-elevated: #f8f9fa;
+    --color-bg-surface-glass: rgba(255, 255, 255, 0.86);
+    --color-text-primary: #111318;
+    --color-text-secondary: #4b5162;
+    --color-text-muted: #686d7c;
+    --color-border-subtle: rgba(0, 0, 0, 0.1);
+    --color-border-medium: rgba(0, 0, 0, 0.2);
+
+    --color-accent-red: var(--prim-red-60);
+    --color-accent-red-hover: var(--prim-red-50);
+    --color-accent-red-subtle: rgba(230, 0, 0, 0.08);
+    --color-accent-cyan: #007799;
+    --color-accent-purple: #7c22ce;
+    --color-accent-gold: #b87400;
+    --color-status-ok: #047857;
+    --color-status-err: #c81e1e;
+
+    @media (prefers-color-scheme: dark) {
+      --doc-canvas: #090a0d;
+      --doc-layer-01: #12141a;
+      --doc-layer-02: #1a1d26;
+      --doc-text-primary: #f3f4f6;
+      --doc-text-secondary: #a8aebf;
+      --doc-text-muted: #7d8498;
+      --doc-border-subtle: rgba(255, 255, 255, 0.1);
+      --doc-border-strong: rgba(255, 255, 255, 0.24);
+
+      --color-bg-canvas: #060608;
+      --color-bg-surface: #121316;
+      --color-bg-surface-elevated: #1c1d22;
+      --color-bg-surface-glass: rgba(18, 19, 22, 0.86);
+      --color-text-primary: #f4f4f6;
+      --color-text-secondary: #a2a6b4;
+      --color-text-muted: #848896;
+      --color-border-subtle: rgba(255, 255, 255, 0.1);
+      --color-border-medium: rgba(255, 255, 255, 0.22);
+      --color-accent-red-subtle: rgba(230, 0, 0, 0.16);
+      --color-accent-cyan: #00d2ff;
+      --color-accent-purple: #a855f7;
+      --color-accent-gold: #f5a623;
+      --color-status-ok: #34d399;
+      --color-status-err: #f87171;
+    }
+
+    @supports (color: light-dark(white, black)) {
+      /* Barebones Documentation Shell Tokens (IBM Carbon Contextual Layering) */
+      --doc-canvas: light-dark(#f4f5f7, #090a0d);
+      --doc-layer-01: light-dark(#ffffff, #12141a);
+      --doc-layer-02: light-dark(#eceef2, #1a1d26);
+      --doc-text-primary: light-dark(#111318, #f3f4f6);
+      --doc-text-secondary: light-dark(#454b5c, #a8aebf);
+      --doc-text-muted: light-dark(#63697a, #858ca0);
+      --doc-border-subtle: light-dark(rgba(17, 19, 24, 0.11), rgba(255, 255, 255, 0.1));
+      --doc-border-strong: light-dark(rgba(17, 19, 24, 0.24), rgba(255, 255, 255, 0.24));
+
+      /* Drumtiks '26 Live Specimen Semantic Tokens */
+      --color-bg-canvas: light-dark(#f4f4f6, #060608);
+      --color-bg-surface: light-dark(#ffffff, #121316);
+      --color-bg-surface-elevated: light-dark(#f8f9fa, #1c1d22);
+      --color-bg-surface-glass: light-dark(rgba(255, 255, 255, 0.88), rgba(18, 19, 22, 0.88));
+      --color-text-primary: light-dark(#111318, #f4f4f6);
+      --color-text-secondary: light-dark(#4b5162, #a2a6b4);
+      --color-text-muted: light-dark(#646978, #888c99);
+      --color-border-subtle: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+      --color-border-medium: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.22));
+      --color-accent-red-subtle: light-dark(rgba(230, 0, 0, 0.08), rgba(230, 0, 0, 0.16));
+      --color-accent-cyan: light-dark(#006d87, #00d2ff);
+      --color-accent-purple: light-dark(#7c22ce, #b366ff);
+      --color-accent-gold: light-dark(#9e6200, #f5a623);
+      --color-status-ok: light-dark(#047857, #34d399);
+      --color-status-err: light-dark(#c81e1e, #f87171);
+      --shadow-sm: 0 2px 8px light-dark(rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.35));
+      --shadow-md: 0 8px 24px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
+    }
+
+    accent-color: var(--color-accent-red);
+    scrollbar-color: light-dark(#9ca3af, #3f4454) light-dark(#eceef2, #0d0e12);
+
+    /* Map <meta name="color-scheme"> override back to CSS color-scheme */
+    &:has(> head > meta[name="color-scheme"][content="dark"]) {
+      color-scheme: dark;
+    }
+    &:has(> head > meta[name="color-scheme"][content="light"]) {
+      color-scheme: light;
+    }
+  }
+
+  /* Pure-CSS Zero-JS Fallback when user clicks header theme radios without JS */
+  :root:has(#doc-theme-light:checked) {
+    color-scheme: light;
+  }
+  :root:has(#doc-theme-dark:checked) {
+    color-scheme: dark;
+  }
+}
+
+/* ========================================================================
+   3. @layer doc-shell — Barebones Style-Guide Documentation Chrome
+   Follows Brad Frost (Atomic Design Ch. 3) & IBM Carbon: disciplined,
+   neutral Swiss typographic frame so chrome never competes with specimens.
+   ======================================================================== */
+@layer doc-shell {
+  body {
+    background-color: var(--doc-canvas);
+    color: var(--doc-text-primary);
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    line-height: 1.65;
+    text-align: start;
+    overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Deliberate Modern Wrapping: balance ONLY unboxed standalone headings; pretty on prose */
+  :where(h1, h2, h3, h4) {
+    text-wrap: balance;
+  }
+
+  :where(p, li, dd, blockquote) {
+    text-wrap: pretty;
+  }
+
+  /* Editorial Before/After Makeover Cards for Section 3.2 */
+  .copy-makeover-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+    gap: var(--space-md);
+  }
+
+  .copy-diff-pair {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-block-start: var(--space-xs);
+    font-size: 0.8rem;
+  }
+
+  .copy-diff-bad {
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    border-inline-start: 3px solid var(--color-status-err);
+    background: light-dark(rgba(200, 30, 30, 0.06), rgba(248, 113, 113, 0.09));
+  }
+
+  .copy-diff-good {
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    border-inline-start: 3px solid var(--color-status-ok);
+    background: light-dark(rgba(4, 120, 87, 0.07), rgba(52, 211, 153, 0.1));
+  }
+
+  /* Scroll-Driven Progress Indicator */
+  .scroll-progress-bar {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inline-size: 100%;
+    block-size: 3px;
+    background: linear-gradient(90deg, var(--color-accent-red), var(--color-accent-cyan));
+    transform-origin: left center;
+    z-index: var(--z-progress);
+    animation: doc-scroll-progress linear;
+    animation-timeline: scroll(root);
+  }
+
+  @keyframes doc-scroll-progress {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-progress-bar { display: none; }
+  }
+
+  /* Focus-Visible Universal Contract (>= 3:1 contrast + offset) */
+  :where(a:any-link, button, summary, input, select, textarea, [tabindex="0"]):focus-visible {
+    outline: 3px solid var(--color-accent-red);
+    outline-offset: 3px;
+  }
+
+  /* Skip Link */
+  .skip-link {
+    position: fixed;
+    inset-block-start: var(--space-sm);
+    inset-inline-start: var(--space-sm);
+    z-index: 2000;
+    padding: var(--space-xs) var(--space-md);
+    background: var(--color-accent-red);
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+  }
+
+  /* Top Documentation Bar */
+  .doc-topbar {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--z-header);
+    background-color: var(--doc-layer-01);
+    border-block-end: 1px solid var(--doc-border-subtle);
+    padding: var(--space-sm) clamp(1rem, 2.5vw, 2rem);
+  }
+
+  .doc-topbar-inner {
+    max-inline-size: 1480px;
+    margin-inline: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+  }
+
+  .doc-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .doc-brand-mark {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    background: var(--color-accent-red);
+    color: #ffffff;
+    border-radius: var(--radius-xs);
+    text-decoration: none;
+  }
+
+  .doc-brand-title {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: var(--font-size-small);
+    color: var(--doc-text-primary);
+  }
+
+  .doc-topbar-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .doc-nav-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-block-size: 32px;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--doc-border-subtle);
+    background: var(--doc-layer-02);
+    color: var(--doc-text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-decoration: none;
+    transition: border-color var(--transition-fast);
+  }
+
+  .doc-nav-pill:hover {
+    border-color: var(--doc-border-strong);
+  }
+
+  .doc-nav-pill--primary {
+    background: var(--color-accent-red);
+    border-color: var(--color-accent-red);
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .doc-nav-pill--primary:hover {
+    background: var(--color-accent-red-hover);
+  }
+
+  /* Tri-State Color Scheme Switcher (System / Light / Dark) */
+  .doc-theme-fieldset {
+    border: 1px solid var(--doc-border-subtle);
+    border-radius: var(--radius-full);
+    background: var(--doc-layer-02);
+    padding: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .doc-theme-option {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    min-block-size: 26px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--doc-text-secondary);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .doc-theme-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    cursor: pointer;
+  }
+
+  .doc-theme-option:has(input:checked) {
+    background: var(--doc-layer-01);
+    color: var(--doc-text-primary);
+    font-weight: 700;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  }
+
+  /* 2-Column Documentation Shell (IBM Carbon Left Rail + Main Spec Canvas) */
+  .doc-workspace {
+    max-inline-size: 1480px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xl);
+    padding: var(--space-xl) clamp(1rem, 2.5vw, 2rem) var(--space-3xl);
+  }
+
+  @media (min-width: 1080px) {
+    .doc-workspace {
+      grid-template-columns: 272px minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+
+  /* Left Sticky TOC Rail */
+  .doc-sidebar {
+    background: var(--doc-layer-01);
+    border: 1px solid var(--doc-border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+  }
+
+  @media (min-width: 1080px) {
+    .doc-sidebar {
+      position: sticky;
+      inset-block-start: 4.5rem;
+      max-block-size: calc(100dvh - 5.5rem);
+      overflow-y: auto;
+    }
+  }
+
+  .toc-group-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--doc-text-muted);
+    margin-block: var(--space-md) var(--space-2xs);
+  }
+
+  .toc-group-label:first-child {
+    margin-block-start: 0;
+  }
+
+  .toc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .toc-list a {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-xs);
+    padding: 5px 8px;
+    border-radius: var(--radius-xs);
+    border-inline-start: 2px solid transparent;
+    font-size: 0.82rem;
+    color: var(--doc-text-secondary);
+    text-decoration: none;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+  }
+
+  .toc-list a:hover {
+    background: var(--doc-layer-02);
+    color: var(--doc-text-primary);
+    border-inline-start-color: var(--color-accent-red);
+  }
+
+  .toc-num {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--color-accent-red);
+    flex-shrink: 0;
+  }
+
+  /* Main Documentation Column */
+  .doc-main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xl);
+    min-inline-size: 0;
+  }
+
+  /* Document Hero Banner */
+  .doc-hero {
+    background: var(--doc-layer-01);
+    border: 1px solid var(--doc-border-subtle);
+    border-inline-start: 4px solid var(--color-accent-red);
+    border-radius: var(--radius-md);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .doc-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent-red);
+    margin-block-end: var(--space-xs);
+  }
+
+  .doc-h1 {
+    font-family: var(--font-display);
+    font-size: var(--font-size-h1);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-block-end: var(--space-md);
+  }
+
+  .doc-lead {
+    font-size: clamp(1rem, 0.5vw + 0.9rem, 1.12rem);
+    color: var(--doc-text-secondary);
+    max-inline-size: 72ch;
+    margin-block-end: var(--space-lg);
+  }
+
+  .doc-meta-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: var(--space-sm);
+    padding-block-start: var(--space-md);
+    border-block-start: 1px solid var(--doc-border-subtle);
+  }
+
+  .doc-meta-cell {
+    background: var(--doc-layer-02);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-small);
+  }
+
+  .doc-meta-cell dt {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--doc-text-muted);
+    margin-block-end: 2px;
+  }
+
+  .doc-meta-cell dd {
+    font-weight: 600;
+    color: var(--doc-text-primary);
+  }
+
+  /* Chapter Section Framing */
+  .spec-chapter {
+    scroll-margin-block-start: 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .chapter-header {
+    border-block-end: 2px solid var(--doc-border-subtle);
+    padding-block-end: var(--space-md);
+  }
+
+  .chapter-index {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-accent-red);
+    display: block;
+    margin-block-end: var(--space-2xs);
+  }
+
+  .chapter-title {
+    font-family: var(--font-display);
+    font-size: var(--font-size-h2);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+
+  .chapter-desc {
+    margin-block-start: var(--space-xs);
+    color: var(--doc-text-secondary);
+    max-inline-size: 75ch;
+  }
+
+  /* Cards, Grids & Callouts inside Doc Shell */
+  .doc-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: var(--space-md);
+  }
+
+  .doc-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: var(--space-md);
+  }
+
+  .doc-card {
+    background: var(--doc-layer-01);
+    border: 1px solid var(--doc-border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .doc-card h3 {
+    font-family: var(--font-display);
+    font-size: var(--font-size-h3);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .doc-card p {
+    color: var(--doc-text-secondary);
+    font-size: var(--font-size-small);
+  }
+
+  /* Semantic Quotations (<figure> + <blockquote cite> + <figcaption> + <cite>) */
+  .bib-quote {
+    background: var(--doc-layer-02);
+    border-inline-start: 3px solid var(--color-accent-red);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: var(--space-sm) var(--space-md);
+    margin-block-start: auto;
+  }
+
+  .bib-quote blockquote {
+    font-style: italic;
+    font-size: var(--font-size-small);
+    color: var(--doc-text-primary);
+  }
+
+  .bib-quote figcaption {
+    margin-block-start: var(--space-2xs);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--doc-text-muted);
+  }
+
+  /* Helper-Text Pedagogical Callouts */
+  .helper-note {
+    background: var(--doc-layer-01);
+    border: 1px solid var(--doc-border-subtle);
+    border-inline-start: 4px solid var(--color-accent-cyan);
+    border-radius: var(--radius-sm);
+    padding: var(--space-md);
+    font-size: var(--font-size-small);
+  }
+
+  .helper-note strong {
+    color: var(--doc-text-primary);
+  }
+
+  /* Code Blocks: Always dark surface with explicit background + re-specified inherited colors */
+  .code-figure {
+    border: 1px solid var(--doc-border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #0d0f14;
+    color-scheme: dark;
+    color: #e5e7eb;
+    accent-color: var(--color-accent-red);
+  }
+
+  .code-figure-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: 6px var(--space-md);
+    background: #151922;
+    border-block-end: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: #9ca3af;
+  }
+
+  .copy-code-btn {
+    padding: 3px 10px;
+    min-block-size: 24px;
+    border-radius: var(--radius-xs);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #1f2430;
+    color: #f3f4f6;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    cursor: pointer;
+  }
+
+  .copy-code-btn:hover:not(:disabled) {
+    border-color: #00d2ff;
+    color: #00d2ff;
+  }
+
+  .code-figure pre {
+    padding: var(--space-md);
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    line-height: 1.55;
+    color-scheme: dark;
+    background: #0d0f14;
+    color: #e5e7eb;
+    accent-color: var(--color-accent-red);
+  }
+
+  :not(pre) > code {
+    font-family: var(--font-mono);
+    font-size: 0.84em;
+    padding: 0.12em 0.38em;
+    border-radius: var(--radius-xs);
+    background: var(--doc-layer-02);
+    border: 1px solid var(--doc-border-subtle);
+  }
+
+  /* Responsive Container-Queried Data Tables (Sticky Headers + Mobile Stacked Cards) */
+  .table-wrapper {
+    overflow: auto;
+    max-inline-size: 100%;
+    max-block-size: min(640px, 78vh);
+    container-type: inline-size;
+    background: var(--doc-layer-01);
+    border: 1px solid var(--doc-border-subtle);
+    border-radius: var(--radius-md);
+  }
+
+  .spec-table {
+    inline-size: 100%;
+    font-size: 0.82rem;
+    text-align: start;
+  }
+
+  .spec-table caption {
+    text-align: start;
+    padding: var(--space-sm) var(--space-md);
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--doc-text-muted);
+    background: var(--doc-layer-02);
+    border-block-end: 1px solid var(--doc-border-subtle);
+  }
+
+  .spec-table thead {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 2;
+  }
+
+  .spec-table thead th {
+    background: var(--doc-layer-02);
+    padding: 0.65rem 0.85rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--doc-text-secondary);
+    border-block-end: 2px solid var(--doc-border-strong);
+  }
+
+  .spec-table tbody th,
+  .spec-table tbody td {
+    padding: 0.7rem 0.85rem;
+    border-block-end: 1px solid var(--doc-border-subtle);
+    vertical-align: top;
+  }
+
+  .spec-table tbody th {
+    position: sticky;
+    inset-inline-start: 0;
+    z-index: 1;
+    background: var(--doc-layer-01);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--doc-text-primary);
+  }
+
+  @container (width < 680px) {
+    .spec-table,
+    .spec-table thead,
+    .spec-table tbody,
+    .spec-table tr,
+    .spec-table th,
+    .spec-table td {
+      display: block;
+    }
+
+    .spec-table thead {
+      display: none;
+    }
+
+    .spec-table tbody tr {
+      margin: var(--space-sm);
+      border: 1px solid var(--doc-border-strong);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .spec-table tbody th {
+      position: sticky;
+      inset-block-start: 0;
+      background: var(--doc-layer-02);
+    }
+
+    .spec-table tbody td::before {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--doc-text-muted);
+      display: block;
+      margin-block-end: 2px;
+    }
+
+    .spec-table tbody td:nth-child(2)::before { content: var(--label-2, "Column 2") ": "; }
+    .spec-table tbody td:nth-child(3)::before { content: var(--label-3, "Column 3") ": "; }
+    .spec-table tbody td:nth-child(4)::before { content: var(--label-4, "Column 4") ": "; }
+    .spec-table tbody td:nth-child(5)::before { content: var(--label-5, "Column 5") ": "; }
+    .spec-table tbody td:nth-child(6)::before { content: var(--label-6, "Column 6") ": "; }
+  }
+
+  /* Pattern Specification Card Shell (IBM Carbon 4-Part Rubric) */
+  .pattern-spec-card {
+    background: var(--doc-layer-01);
+    border: 1px solid var(--doc-border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    scroll-margin-block-start: 5rem;
+  }
+
+  .pattern-spec-head {
+    padding: var(--space-md) var(--space-lg);
+    background: var(--doc-layer-02);
+    border-block-end: 1px solid var(--doc-border-subtle);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+  }
+
+  .pattern-spec-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .pattern-id-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--doc-text-muted);
+  }
+
+  .spec-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--doc-layer-01);
+    border: 1px solid var(--doc-border-subtle);
+  }
+
+  .spec-chip--atom { border-color: var(--color-accent-cyan); color: var(--color-accent-cyan); }
+  .spec-chip--molecule { border-color: var(--color-accent-gold); color: var(--color-accent-gold); }
+  .spec-chip--organism { border-color: var(--color-accent-red); color: var(--color-accent-red); }
+  .spec-chip--perceptual { border-color: var(--color-accent-purple); color: var(--color-accent-purple); }
+  .spec-chip--functional { border-color: var(--color-status-ok); color: var(--color-status-ok); }
+
+  /* Local Specimen Surface Canvas & Surface Mode Override */
+  .specimen-stage-wrap {
+    border-block-end: 1px solid var(--doc-border-subtle);
+  }
+
+  .specimen-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-lg);
+    background: var(--doc-layer-01);
+    border-block-end: 1px dashed var(--doc-border-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--doc-text-muted);
+  }
+
+  .specimen-surface-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 0;
+  }
+
+  .specimen-surface-switch label {
+    padding: 2px 8px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--doc-border-subtle);
+    cursor: pointer;
+  }
+
+  .specimen-surface-switch input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .specimen-surface-switch label:has(input:checked) {
+    background: var(--color-accent-red);
+    border-color: var(--color-accent-red);
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .specimen-canvas {
+    padding: var(--space-xl) var(--space-lg);
+    background-color: var(--color-bg-canvas);
+    color: var(--color-text-primary);
+    accent-color: var(--color-accent-red);
+    background-image: radial-gradient(var(--color-border-subtle) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+
+  /* Component-specific light/dark preview override via :has()
+     Mandatory: set explicit background AND re-specify inherited color + accent-color */
+  .specimen-stage-wrap:has(input[value="light"]:checked) .specimen-canvas {
+    color-scheme: light;
+    background-color: var(--color-bg-canvas);
+    color: var(--color-text-primary);
+    accent-color: var(--color-accent-red);
+  }
+
+  .specimen-stage-wrap:has(input[value="dark"]:checked) .specimen-canvas {
+    color-scheme: dark;
+    background-color: var(--color-bg-canvas);
+    color: var(--color-text-primary);
+    accent-color: var(--color-accent-red);
+  }
+
+  /* 4-Quadrant Helper-Text Specification Grid inside each Pattern Card */
+  .spec-rubric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 1px;
+    background: var(--doc-border-subtle);
+  }
+
+  .spec-rubric-cell {
+    background: var(--doc-layer-01);
+    padding: var(--space-md) var(--space-lg);
+    font-size: var(--font-size-small);
+  }
+
+  .spec-rubric-cell h4 {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--doc-text-muted);
+    margin-block-end: var(--space-xs);
+  }
+
+  .spec-rubric-cell ul,
+  .spec-rubric-cell ol {
+    padding-inline-start: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: var(--doc-text-secondary);
+  }
+
+  /* Do / Don't Pedagogical Pair */
+  .do-dont-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--doc-layer-01);
+    border-block-start: 1px solid var(--doc-border-subtle);
+  }
+
+  .do-box, .dont-box {
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-small);
+    background: var(--doc-layer-02);
+  }
+
+  .do-box { border-block-start: 3px solid var(--color-status-ok); }
+  .dont-box { border-block-start: 3px solid var(--color-status-err); }
+
+  /* Interactive State Matrix Row */
+  .state-matrix {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+    gap: var(--space-sm);
+  }
+
+  .state-cell {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-sm);
+  }
+
+  .state-cell-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Filter Bar (<search>) */
+  .inventory-controls {
+    background: var(--doc-layer-01);
+    border: 1px solid var(--doc-border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-md);
+  }
+
+  .search-field-group {
+    flex: 1 1 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .search-field-group label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--doc-text-muted);
+  }
+
+  .doc-search-input {
+    inline-size: 100%;
+    min-block-size: 40px;
+    padding: 0 var(--space-sm);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--doc-border-strong);
+    background: var(--doc-layer-02);
+  }
+
+  .filter-chip-btn {
+    min-block-size: 36px;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--doc-border-subtle);
+    background: var(--doc-layer-02);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    cursor: pointer;
+  }
+
+  .filter-chip-btn[aria-pressed="true"] {
+    background: var(--color-accent-red);
+    border-color: var(--color-accent-red);
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .doc-card > .spec-chip {
+    align-self: flex-start;
+  }
+
+  .doc-card--flush {
+    padding: 0;
+    overflow: hidden;
+    gap: 0;
+  }
+
+  .swatch-meta {
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.8rem;
+  }
+
+  .doc-subblock {
+    scroll-margin-block-start: 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .doc-subhead {
+    font-family: var(--font-display);
+    font-size: var(--font-size-h3);
+  }
+
+  .space-ruler-row {
+    display: grid;
+    grid-template-columns: 115px 58px 1fr;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Footer Colophon */
+  .doc-footer {
+    border-block-start: 1px solid var(--doc-border-subtle);
+    padding-block-start: var(--space-xl);
+    font-size: var(--font-size-small);
+    color: var(--doc-text-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-md);
+  }
+
+  /* Motion Probe Interactive Track (Chapter 04.4) */
+  .motion-probe-track:where(:hover, :focus-within) .motion-puck {
+    transform: translateX(min(220px, 52vw));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .motion-puck {
+      transition: none !important;
+    }
+  }
+}
+
+/* ========================================================================
+   4. @layer drumtiks-specimens — Scoped Live DRUMTIKS '26 UI Components
+   Encapsulated with @scope (.specimen-canvas) so Drumtiks festival styles
+   never leak into the neutral style-guide documentation chrome!
+   ======================================================================== */
+@layer drumtiks-specimens {
+  @scope (.specimen-canvas) {
+    /* A01: Buttons */
+    .btn-primary-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-block-size: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background-color: var(--color-accent-red);
+      color: #ffffff;
+      border: 2px solid transparent;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: var(--font-size-small);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .btn-primary-cta:hover:not(:disabled):not([aria-disabled="true"]),
+    .btn-primary-cta.is-sim-hover {
+      background-color: var(--color-accent-red-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(230, 0, 0, 0.38);
+    }
+
+    .btn-primary-cta:active:not(:disabled):not([aria-disabled="true"]),
+    .btn-primary-cta.is-sim-active {
+      transform: translateY(1px) scale(0.98);
+      background-color: var(--prim-red-70);
+    }
+
+    .btn-primary-cta.is-sim-focus {
+      outline: 3px solid var(--color-accent-cyan);
+      outline-offset: 3px;
+    }
+
+    .btn-primary-cta:disabled,
+    .btn-primary-cta[aria-disabled="true"] {
+      opacity: 0.45;
+      cursor: not-allowed;
+      filter: grayscale(0.4);
+    }
+
+    .btn-secondary-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-block-size: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background-color: var(--color-bg-surface-elevated);
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border-medium);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: var(--font-size-micro);
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color var(--transition-fast), color var(--transition-fast);
+    }
+
+    .btn-secondary-outline:hover:not(:disabled) {
+      border-color: var(--color-accent-red);
+      color: var(--color-accent-red);
+    }
+
+    /* Figma 01_Splash Mobile Pulse Variant */
+    .btn-pulse-splash {
+      animation: splash-cta-pulse 2.2s var(--ease-out-expo) infinite;
+    }
+
+    @keyframes splash-cta-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(230, 0, 0, 0.55); }
+      65%      { box-shadow: 0 0 0 12px rgba(230, 0, 0, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn-pulse-splash { animation: none; }
+    }
+
+    /* A02: Pills & Status Badges */
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      background: var(--color-bg-surface-elevated);
+      border: 1px solid var(--color-border-medium);
+      color: var(--color-text-secondary);
+    }
+
+    .pill-badge--accent {
+      background: var(--color-accent-red-subtle);
+      border-color: var(--color-accent-red);
+      color: var(--color-accent-red);
+      font-weight: 700;
+    }
+
+    .pill-badge--cyan {
+      background: rgba(0, 210, 255, 0.12);
+      border-color: var(--color-accent-cyan);
+      color: var(--color-accent-cyan);
+      font-weight: 700;
+    }
+
+    .program-time-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: var(--radius-xs);
+      background: var(--color-bg-canvas);
+      border: 1px solid var(--color-border-subtle);
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      white-space: nowrap;
+    }
+
+    /* A03: Form Controls & Deferred :user-invalid / :user-valid Validation */
+    .dt-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+      gap: var(--space-md);
+    }
+
+    .dt-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .dt-field label {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: var(--font-size-small);
+    }
+
+    .dt-hint {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+    }
+
+    .dt-input {
+      min-block-size: 44px;
+      padding: 0 var(--space-sm);
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--color-border-medium);
+      background: var(--color-bg-surface);
+      color: var(--color-text-primary);
+      transition: border-color var(--transition-fast), background-color var(--transition-fast);
+    }
+
+    .dt-input:where(:user-invalid, .user-invalid-fallback) {
+      border-color: var(--color-status-err);
+      background-color: light-dark(#fef2f2, rgba(248, 113, 113, 0.1));
+    }
+
+    .dt-input:where(:user-valid, .user-valid-fallback) {
+      border-color: var(--color-status-ok);
+    }
+
+    .dt-error-msg {
+      display: none;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--color-status-err);
+      font-weight: 600;
+    }
+
+    .dt-input:where(:user-invalid, .user-invalid-fallback) + .dt-error-msg {
+      display: block;
+    }
+
+    .dt-valid-msg {
+      display: none;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--color-status-ok);
+      font-weight: 600;
+    }
+
+    .dt-field:has(.dt-input:user-valid) .dt-valid-msg {
+      display: block;
+    }
+
+    /* M01: Pass Selection Radio Card & Addon Checkbox (:has(input:checked)) */
+    .ticket-option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+      gap: var(--space-sm);
+    }
+
+    .ticket-tier-card {
+      display: block;
+      position: relative;
+      padding: var(--space-md);
+      border: 2px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      background-color: var(--color-bg-surface);
+      cursor: pointer;
+      transition: border-color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .ticket-tier-card:hover {
+      border-color: var(--color-border-medium);
+    }
+
+    .ticket-tier-card input[type="radio"],
+    .addon-checkbox-label input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .ticket-tier-card:focus-within,
+    .addon-checkbox-label:focus-within {
+      outline: 3px solid var(--color-accent-cyan);
+      outline-offset: 2px;
+    }
+
+    .ticket-tier-card:has(input:checked) {
+      border-color: var(--color-accent-red);
+      background-color: var(--color-accent-red-subtle);
+    }
+
+    @supports not selector(:has(*)) {
+      .ticket-tier-card.is-selected {
+        border-color: var(--color-accent-red);
+        background-color: var(--color-accent-red-subtle);
+      }
+      .addon-checkbox-label.is-selected {
+        border-color: var(--color-accent-cyan);
+        background-color: rgba(0, 210, 255, 0.1);
+      }
+    }
+
+    .tier-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-xs);
+      margin-block-end: 4px;
+    }
+
+    .tier-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: var(--font-size-body);
+    }
+
+    .tier-price {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: var(--font-size-small);
+      color: var(--color-accent-red);
+    }
+
+    .addon-checkbox-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      min-block-size: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      border: 1px solid var(--color-border-medium);
+      border-radius: var(--radius-sm);
+      background: var(--color-bg-surface);
+      cursor: pointer;
+      font-size: var(--font-size-small);
+      transition: border-color var(--transition-fast), background-color var(--transition-fast);
+    }
+
+    .addon-checkbox-label:has(input:checked) {
+      border-color: var(--color-accent-cyan);
+      background-color: rgba(0, 210, 255, 0.1);
+    }
+
+    /* M02: Alternating 1D Schedule Row Card */
+    .program-schedule-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .program-item-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    @media (min-width: 680px) {
+      .program-item-card {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .program-item-card--headliner {
+      border-inline-start: 4px solid var(--color-accent-red);
+    }
+
+    .program-tag-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* M03: Native Disclosure Accordion (<details> + <summary>) */
+    .faq-accordion-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .faq-accordion-item {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .faq-accordion-item[open] {
+      border-color: var(--color-accent-red);
+    }
+
+    .faq-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      min-block-size: 48px;
+      padding: var(--space-sm) var(--space-md);
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .faq-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-summary::after {
+      content: "+";
+      font-family: var(--font-mono);
+      font-size: 1.2rem;
+      color: var(--color-accent-red);
+      transition: transform var(--transition-fast);
+    }
+
+    .faq-accordion-item[open] .faq-summary::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-content-body {
+      padding: 0 var(--space-md) var(--space-md);
+      font-size: var(--font-size-small);
+      color: var(--color-text-secondary);
+    }
+
+    /* O01: Site Header Specimen */
+    .dt-site-header-demo {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--color-bg-surface-glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    .dt-header-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      list-style: none;
+      font-size: var(--font-size-small);
+      font-weight: 600;
+    }
+
+    .dt-header-links a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+    }
+
+    .dt-header-links a:hover {
+      color: var(--color-accent-red);
+    }
+
+    /* O02: 3D Vinyl Crate Fan-Out Specimen */
+    .vinyl-crate-container {
+      perspective: 1000px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      block-size: 250px;
+      inline-size: 100%;
+      position: relative;
+      user-select: none;
+      padding-block-end: var(--space-xs);
+    }
+
+    .crate-sleeve-wrapper {
+      position: absolute;
+      inline-size: 176px;
+      block-size: 176px;
+      transform-origin: bottom center;
+      transition: transform 0.55s var(--ease-spring);
+      cursor: pointer;
+    }
+
+    .crate-sleeve-cover {
+      inline-size: 100%;
+      block-size: 100%;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.5);
+      object-fit: cover;
+      position: relative;
+      z-index: 2;
+    }
+
+    .crate-vinyl-disc {
+      position: absolute;
+      inset-block-start: 5px;
+      inset-inline-start: 5px;
+      inline-size: 166px;
+      block-size: 166px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #2a2a2e 0%, #0d0d0e 45%, #1d1d20 70%, #070708 100%);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.65);
+      z-index: 1;
+      transition: transform 0.65s var(--ease-spring);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .crate-vinyl-disc::after {
+      content: "";
+      inline-size: 52px;
+      block-size: 52px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #e60000 0%, #990000 70%, #111 75%);
+      border: 3px solid #111;
+    }
+
+    .crate-sleeve-1 { z-index: 1; transform: translateX(-26px) rotate(-6deg) scale(0.92); }
+    .crate-sleeve-2 { z-index: 3; transform: translateX(0) rotate(0deg) scale(1); }
+    .crate-sleeve-3 { z-index: 2; transform: translateX(26px) rotate(6deg) scale(0.92); }
+
+    .vinyl-crate-container:where(:hover, :focus-within) .crate-sleeve-1 {
+      transform: translateX(-86px) rotate(-16deg) scale(0.96);
+    }
+    .vinyl-crate-container:where(:hover, :focus-within) .crate-sleeve-2 {
+      transform: translateY(-16px) scale(1.04);
+    }
+    .vinyl-crate-container:where(:hover, :focus-within) .crate-sleeve-3 {
+      transform: translateX(86px) rotate(16deg) scale(0.96);
+    }
+    .vinyl-crate-container:where(:hover, :focus-within) .crate-sleeve-2 .crate-vinyl-disc {
+      transform: translateY(-58px) rotate(35deg);
+    }
+    .crate-sleeve-wrapper:hover .crate-vinyl-disc {
+      transform: translateY(-64px) rotate(45deg);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .crate-sleeve-wrapper, .crate-vinyl-disc { transition: none; }
+    }
+
+    /* O03: Asymmetric Dense Masonry + Scoped X-Ray Toggle */
+    .masonry-demo-stage {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: 120px;
+      grid-auto-flow: dense;
+      gap: var(--space-sm);
+    }
+
+    @media (min-width: 720px) {
+      .masonry-demo-stage {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-auto-rows: 135px;
+      }
+    }
+
+    .masonry-tile {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-subtle);
+      background: var(--color-bg-surface);
+    }
+
+    .masonry-tile img {
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+    }
+
+    .masonry-tile--featured { grid-column: span 2; grid-row: span 2; }
+    .masonry-tile--wide     { grid-column: span 2; }
+    .masonry-tile--tall     { grid-row: span 2; }
+
+    .masonry-tile--void {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: var(--space-md);
+      background: var(--color-bg-surface-elevated);
+      border-style: dashed;
+    }
+
+    .void-monogram {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--color-accent-red);
+    }
+
+    .void-caption {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--color-text-muted);
+      letter-spacing: 0.08em;
+      margin-block-start: 4px;
+    }
+
+    /* Pure CSS Scoped X-Ray Inspector inside O03 */
+    .xray-demo-scope:has(.xray-local-toggle:checked) .masonry-tile {
+      outline: 2px dashed var(--color-accent-cyan);
+      outline-offset: -2px;
+    }
+
+    .xray-demo-scope:has(.xray-local-toggle:checked) .masonry-tile::after {
+      content: attr(data-grid-spec);
+      position: absolute;
+      inset-block-start: 6px;
+      inset-inline-start: 6px;
+      padding: 2px 6px;
+      background: rgba(6, 6, 8, 0.88);
+      color: #00d2ff;
+      border: 1px solid #00d2ff;
+      border-radius: 3px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      z-index: 4;
+    }
+
+    /* O04: Pure CSS Reactive Simulator + Receipt Terminal */
+    .sim-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-lg);
+    }
+
+    @media (min-width: 780px) {
+      .sim-split {
+        grid-template-columns: 1.35fr 1fr;
+        align-items: start;
+      }
+    }
+
+    .receipt-terminal-card {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-medium);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      padding-block: 6px;
+      border-block-end: 1px dashed var(--color-border-subtle);
+    }
+
+    /* Pure CSS conditional visibility of receipt line items & exact sums */
+    .sim-price-out { display: none; }
+    .sim-addon-line { display: none; color: var(--color-accent-cyan); }
+
+    .sim-split:has(input[name="sim-pass"][value="35"]:checked) .pass-label-35,
+    .sim-split:has(input[name="sim-pass"][value="65"]:checked) .pass-label-65,
+    .sim-split:has(input[name="sim-pass"][value="95"]:checked) .pass-label-95 { display: inline; }
+
+    .sim-split:has(#sim-addon-vinyl:checked) .addon-line-vinyl { display: flex; }
+    .sim-split:has(#sim-addon-clinic:checked) .addon-line-clinic { display: flex; }
+
+    /* 12 exact Pure-CSS combinations (3 passes x 4 addon states) */
+    .sim-split:has(input[value="35"]:checked):not(:has(#sim-addon-vinyl:checked)):not(:has(#sim-addon-clinic:checked)) .tot-35,
+    .sim-split:has(input[value="35"]:checked):has(#sim-addon-vinyl:checked):not(:has(#sim-addon-clinic:checked)) .tot-60,
+    .sim-split:has(input[value="35"]:checked):not(:has(#sim-addon-vinyl:checked)):has(#sim-addon-clinic:checked) .tot-65,
+    .sim-split:has(input[value="35"]:checked):has(#sim-addon-vinyl:checked):has(#sim-addon-clinic:checked) .tot-90,
+    .sim-split:has(input[value="65"]:checked):not(:has(#sim-addon-vinyl:checked)):not(:has(#sim-addon-clinic:checked)) .tot-65,
+    .sim-split:has(input[value="65"]:checked):has(#sim-addon-vinyl:checked):not(:has(#sim-addon-clinic:checked)) .tot-90,
+    .sim-split:has(input[value="65"]:checked):not(:has(#sim-addon-vinyl:checked)):has(#sim-addon-clinic:checked) .tot-95,
+    .sim-split:has(input[value="65"]:checked):has(#sim-addon-vinyl:checked):has(#sim-addon-clinic:checked) .tot-120,
+    .sim-split:has(input[value="95"]:checked):not(:has(#sim-addon-vinyl:checked)):not(:has(#sim-addon-clinic:checked)) .tot-95,
+    .sim-split:has(input[value="95"]:checked):has(#sim-addon-vinyl:checked):not(:has(#sim-addon-clinic:checked)) .tot-120,
+    .sim-split:has(input[value="95"]:checked):not(:has(#sim-addon-vinyl:checked)):has(#sim-addon-clinic:checked) .tot-125,
+    .sim-split:has(input[value="95"]:checked):has(#sim-addon-vinyl:checked):has(#sim-addon-clinic:checked) .tot-150 {
+      display: inline;
+    }
+  }
+
+  /* Interactive Section 02 Token Cascade Sandbox */
+  .cascade-sandbox {
+    --seed-brand: #e60000;
+    --seed-name: "Drumtiks Red (#e60000)";
+    border: 1px solid var(--doc-border-subtle);
+    border-radius: var(--radius-md);
+    background: var(--doc-layer-01);
+    padding: var(--space-lg);
+  }
+
+  .cascade-sandbox:has(#seed-cyan:checked)   { --seed-brand: #0095b6; }
+  .cascade-sandbox:has(#seed-gold:checked)   { --seed-brand: #d97706; }
+  .cascade-sandbox:has(#seed-violet:checked) { --seed-brand: #7c3aed; }
+
+  .cascade-tier-flow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: var(--space-md);
+    margin-block-start: var(--space-md);
+  }
+
+  .cascade-node {
+    --sem-action: var(--seed-brand);
+    --sem-tint: color-mix(in srgb, var(--sem-action) 14%, transparent);
+    --comp-btn-bg: var(--sem-action);
+    --comp-card-border: var(--sem-action);
+
+    padding: var(--space-md);
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--comp-card-border);
+    background: var(--sem-tint);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .cascade-demo-btn {
+    align-self: flex-start;
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    border: 0;
+    background: var(--comp-btn-bg);
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+  }
+
+  /* Native <dialog> Receipt Specimen */
+  .dt-receipt-dialog {
+    margin: auto;
+    max-inline-size: 460px;
+    inline-size: calc(100% - 2rem);
+    border: 2px solid var(--color-accent-red);
+    border-radius: var(--radius-lg);
+    background: var(--doc-layer-01);
+    color: var(--doc-text-primary);
+    padding: var(--space-xl);
+  }
+
+  .dt-receipt-dialog::backdrop {
+    background: rgba(6, 6, 8, 0.72);
+    backdrop-filter: blur(4px);
+  }
+}
+
+/* ========================================================================
+   5. @layer utilities — Accessibility & Display Helpers
+   ======================================================================== */
+@layer utilities {
+  .visually-hidden:where(:not(:focus-within, :active)) {
+    position: absolute !important;
+    clip-path: inset(50%) !important;
+    overflow: hidden !important;
+    inline-size: 1px !important;
+    block-size: 1px !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  [inert], [inert] * {
+    opacity: 0.45;
+    cursor: not-allowed;
+    user-select: none;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}

@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="light">
+<head>
+  <!--
+    ==========================================================================
+    UX LAWS & COGNITIVE ERGONOMICS COMPENDIUM (LEIS DE DESIGN DE INTERAÇÃO)
+    Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+    Course: Web Design (WD101) — 2026/27
+    Licenciatura em Design de Comunicação • i2ADS
+    Credits:
+      - Pedagogical Design & Supervision: Prof. Pedro Amado (FBAUP / i2ADS)
+      - Agentic AI Pair Programming: Google Gemini (DeepMind Antigravity)
+      - Literature Foundation: Interaction Design Foundation (IxDF),
+        Jon Yablonski (Laws of UX, 2024), William Lidwell (Universal Principles of Design, 2023),
+        Irene Pereyra (Universal Principles of UX, 2023), Don Norman, Harry Brignull.
+    ==========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>30 Leis de Design de Interação • Interaction Design Laws &amp; UX Patterns | FBAUP WD101</title>
+  <meta name="description" content="Compêndio interativo de 30 Leis de UX, heurísticas psicológicas e princípios de Gestalt articulados com design patterns web, divididos em 3 níveis (Fundação, Intermédio, Avançado).">
+
+  <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') === 'en' ? 'en' : 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+      const savedAesthetic = localStorage.getItem('wd101_aesthetic') || 'airy';
+      document.documentElement.setAttribute('data-aesthetic', savedAesthetic);
+    })();
+  </script>
+
+  <!-- CSS Layer Hierarchy: Swiss Modernist v2 -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+  <link rel="stylesheet" href="assets/css/patterns-demo.css">
+
+  <style>
+    /* Scoped Styles for UX Laws & Micro-Labs (Swiss Modernist) */
+    .lab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+    }
+    .lab-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-3);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .lab-card:hover {
+      border-color: var(--border-color-strong);
+    }
+    .lab-card-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+      font-weight: 700;
+      font-size: var(--text-sm);
+      color: var(--text-primary);
+      margin-bottom: var(--space-1);
+    }
+    .lab-card-desc {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: var(--space-2);
+    }
+    .lab-arena {
+      background: var(--bg-surface-elevated);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: var(--space-3);
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fitts-target {
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      font-weight: 600;
+      transition: transform 0.1s ease;
+      font-family: var(--font-sans);
+    }
+    .fitts-target:active {
+      transform: scale(0.96);
+    }
+
+    /* Controls Panel & Search */
+    .controls-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      align-items: center;
+      justify-content: space-between;
+    }
+    .search-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+    }
+    .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.55rem 1rem 0.55rem 2.4rem;
+      font-size: var(--text-sm);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+      font-family: inherit;
+    }
+    .search-input:focus {
+      border-color: var(--color-swiss-red);
+      box-shadow: 0 0 0 3px var(--color-swiss-red-tint);
+    }
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      align-items: center;
+    }
+    .filter-pill {
+      font-size: var(--text-xs);
+      padding: 0.3rem 0.65rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface-elevated);
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-weight: 500;
+      transition: all var(--transition-fast);
+      user-select: none;
+    }
+    .filter-pill:hover {
+      border-color: var(--border-color-strong);
+      color: var(--text-primary);
+    }
+    .filter-pill.is-active {
+      background: var(--color-swiss-red);
+      color: #ffffff;
+      border-color: var(--color-swiss-red);
+      font-weight: 700;
+    }
+
+    /* Laws Dynamic Cards Grid */
+    .laws-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+    }
+    .law-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-3);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+    .law-card:hover {
+      border-color: var(--border-color-strong);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+    .law-card--foundation {
+      border-left: 3px solid var(--color-accent-emerald, #10b981);
+    }
+    .law-card--intermediate {
+      border-left: 3px solid var(--color-accent-gold, #f59e0b);
+    }
+    .law-card--advanced {
+      border-left: 3px solid var(--color-accent-purple, #8b5cf6);
+    }
+    .law-axiom-box {
+      background: var(--bg-surface-elevated);
+      border-left: 2px solid var(--color-swiss-red);
+      padding: var(--space-2) var(--space-3);
+      font-style: italic;
+      font-size: var(--text-xs);
+      color: var(--text-primary);
+      margin: var(--space-2) 0;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      line-height: 1.5;
+    }
+    .law-disclosure {
+      border-top: 1px dashed var(--border-color);
+      padding-top: var(--space-2);
+      margin-top: var(--space-2);
+    }
+    .law-disclosure summary {
+      cursor: pointer;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--color-swiss-red);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.25rem 0;
+      user-select: none;
+    }
+    .law-disclosure summary:hover {
+      text-decoration: underline;
+    }
+    .law-drawer {
+      padding-top: var(--space-3);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      font-size: var(--text-xs);
+    }
+    .drawer-subheading {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .check-list li {
+      position: relative;
+      padding-left: 1.25rem;
+      line-height: 1.45;
+      color: var(--text-secondary);
+    }
+    .check-list--dos li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--color-accent-emerald, #10b981);
+      font-weight: 700;
+    }
+    .check-list--donts li::before {
+      content: '✕';
+      position: absolute;
+      left: 0;
+      color: var(--color-swiss-red);
+      font-weight: 700;
+    }
+    .code-wrap {
+      position: relative;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .code-snippet {
+      margin: 0;
+      padding: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      overflow-x: auto;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+      word-break: break-all;
+      line-height: 1.4;
+    }
+    .copy-code-btn {
+      position: absolute;
+      top: 0.35rem;
+      right: 0.35rem;
+      font-size: 0.65rem;
+      padding: 0.2rem 0.45rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      transition: all var(--transition-fast);
+    }
+    .copy-code-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--color-swiss-red);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header Landmark: hydrated by site-shell.js -->
+  <header class="site-header" role="banner"></header>
+
+  <!-- Main Content Landmark -->
+  <main class="main-container" id="main-content">
+
+    <!-- Breadcrumb Trail -->
+    <nav class="breadcrumb-trail" aria-label="Breadcrumb" style="margin-bottom:var(--space-4);">
+      <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:0.5rem;padding:0;margin:0;font-size:var(--text-xs);color:var(--text-muted);">
+        <li><a href="index.html" style="color:var(--text-secondary);">WD101</a></li>
+        <li>/</li>
+        <li><a href="ixd-principles.html" style="color:var(--text-secondary);"><span class="lang-pt">Design de Interação</span><span class="lang-en">Interaction Design</span></a></li>
+        <li>/</li>
+        <li aria-current="page" style="color:var(--color-swiss-red);font-weight:700;"><span class="lang-pt">30 Leis de UX</span><span class="lang-en">30 Laws of UX</span></li>
+      </ol>
+    </nav>
+
+    <!-- Hero / Orientation Section -->
+    <header class="hero-section" style="margin-bottom:var(--space-6);padding-bottom:var(--space-4);">
+      <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-2);flex-wrap:wrap;">
+        <span class="badge badge-transversal">
+          <span class="lang-pt">Fundamentação Transversal</span>
+          <span class="lang-en">Transversal Foundations</span>
+        </span>
+        <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">
+          Fitts &bull; Miller &bull; Hick &bull; Yablonski &bull; Gestalt &bull; Norman
+        </span>
+      </div>
+      <h1 class="hero-title" style="max-width:32ch;font-size:var(--text-2xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">30 Leis de Design de Interação, Heurísticas &amp; Padrões Web</span>
+        <span class="lang-en">30 Interaction Design Laws, Psychological Heuristics &amp; UI Patterns</span>
+      </h1>
+      <p class="hero-desc" style="font-size:var(--text-base);max-width:85ch;margin-bottom:var(--space-5);">
+        <span class="lang-pt">Da estética intuitiva à ergonomia cognitiva empírica: explore as 30 leis psicológicas, princípios percetuais de Gestalt e modelos operacionais que regem a interação humano-computador no design web moderno. Articulados com exemplos de código HTML5/CSS, padrões de interface e métricas WCAG 2.2.</span>
+        <span class="lang-en">From subjective intuition to empirical cognitive ergonomics: explore the 30 canonical psychological heuristics, Gestalt perceptual principles, and ergonomic laws that govern human-computer interaction in modern web design. Fully articulated with HTML5/CSS implementations, interface patterns, and WCAG 2.2 benchmarks.</span>
+      </p>
+
+      <!-- Suite Navigation Hub Pills -->
+      <nav aria-label="Navegação da Suite de Design de Interação" style="display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center;">
+        <span style="font-family:var(--font-mono);font-size:var(--text-xs);font-weight:700;color:var(--text-muted);margin-right:0.25rem;">Suite IxD:</span>
+        <a href="ixd-principles.html" class="btn-control">
+          <span>🧭 <span class="lang-pt">Princípios &amp; Anti-Padrões</span><span class="lang-en">Principles &amp; Anti-Patterns</span></span>
+        </a>
+        <a href="ux-laws.html" class="btn-control active" style="border-color:var(--color-swiss-red);color:var(--color-swiss-red);background:var(--color-swiss-red-tint);">
+          <span>🧠 <span class="lang-pt">30 Leis de UX</span><span class="lang-en">30 Laws of UX</span></span>
+        </a>
+        <a href="heuristics-guide.html" class="btn-control">
+          <span>📖 <span class="lang-pt">18 Heurísticas</span><span class="lang-en">18 Heuristics</span></span>
+        </a>
+        <a href="heuristic-checklist.html" class="btn-control">
+          <span>📋 <span class="lang-pt">Checklist de Avaliação</span><span class="lang-en">Evaluation Checklist</span></span>
+        </a>
+        <a href="project-documentation-guide.html" class="btn-control">
+          <span>🗂️ <span class="lang-pt">Documentação UX</span><span class="lang-en">UX Documentation</span></span>
+        </a>
+        <a href="interaction-patterns.html" class="btn-control">
+          <span>✨ <span class="lang-pt">Catálogo 142 Padrões</span><span class="lang-en">142 Patterns Catalog</span></span>
+        </a>
+      </nav>
+    </header>
+
+    <!-- Page Layout with Sticky Aside Rail -->
+    <div class="page-layout-with-aside">
+      
+      <!-- Sticky Navigation Rail -->
+      <aside class="aside-toc" aria-label="Índice da Página" data-aria-pt="Índice da Página" data-aria-en="Page Index">
+        <div class="aside-toc-card">
+          <div class="aside-toc-header">
+            <span class="aside-toc-title"><span class="lang-pt">Neste Compêndio</span><span class="lang-en">In This Guide</span></span>
+            <span class="aside-toc-count" style="font-size:var(--text-xs);color:var(--text-muted);"><span class="lang-pt">30 Leis</span><span class="lang-en">30 Laws</span></span>
+          </div>
+          <ul class="aside-toc-list">
+            <li class="aside-toc-item"><a href="#lab-showcase" class="aside-toc-link"><span>🔬 1. <span class="lang-pt">Laboratório Empírico (6)</span><span class="lang-en">Empirical Lab (6)</span></span></a></li>
+            <li class="aside-toc-item"><a href="#controls" class="aside-toc-link"><span>🔍 2. <span class="lang-pt">Explorador &amp; Filtros</span><span class="lang-en">Explorer &amp; Filters</span></span></a></li>
+            <li class="aside-toc-item"><a href="#laws-collection" class="aside-toc-link"><span>📚 3. <span class="lang-pt">As 30 Leis Canónicas</span><span class="lang-en">The 30 Master Laws</span></span></a></li>
+            <li class="aside-toc-item"><a href="#matrix-section" class="aside-toc-link"><span>📊 4. <span class="lang-pt">Matriz Cruzada (30)</span><span class="lang-en">Cross Matrix (30)</span></span></a></li>
+            <li class="aside-toc-item"><a href="#ethics-section" class="aside-toc-link"><span>🛡️ 5. <span class="lang-pt">Imperativo Ético</span><span class="lang-en">Ethical Imperative</span></span></a></li>
+            <li class="aside-toc-item"><a href="#references" class="aside-toc-link"><span>📖 6. <span class="lang-pt">Arquivo de Referências</span><span class="lang-en">Reference Archive</span></span></a></li>
+            <li class="aside-toc-item"><a href="#connected-mesh" class="aside-toc-link"><span>🔗 7. <span class="lang-pt">Rede Curricular WD101</span><span class="lang-en">Connected in WD101</span></span></a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Educational Body -->
+      <div class="ixd-body">
+
+        <!-- SECTION 1: EMPIRICAL MICRO-LABS -->
+        <section id="lab-showcase" style="margin-bottom:var(--space-8);">
+          <div style="margin-bottom:var(--space-4);">
+            <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-1);">
+              <span class="badge badge-foundational"><span class="lang-pt">Prática Laboratorial</span><span class="lang-en">Lab Practice</span></span>
+              <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);"><span class="lang-pt">6 Mini-Simuladores</span><span class="lang-en">6 Mini-Simulators</span></span>
+            </div>
+            <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-1);">
+              <span class="lang-pt">🔬 1. Laboratório Empírico de Psicologia &amp; Ergonomia</span>
+              <span class="lang-en">🔬 1. Empirical Laboratory of Psychology &amp; Ergonomics</span>
+            </h2>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);max-width:75ch;">
+              <span class="lang-pt">Demonstrações práticas e mensuráveis no browser que comprovam as leis cognitivas em tempo real.</span>
+              <span class="lang-en">Hands-on interactive browser demonstrations proving cognitive and ergonomic laws in real time.</span>
+            </p>
+          </div>
+
+          <div class="lab-grid">
+            
+            <!-- Lab 1: Fitts's Law -->
+            <div class="lab-card">
+              <div>
+                <div class="lab-card-title">
+                  <span><span class="lang-pt">01. Teste de Velocidade da Lei de Fitts</span><span class="lang-en">01. Fitts’s Law Speed Test</span></span>
+                  <span class="badge badge-foundational"><span class="lang-pt">Motor</span><span class="lang-en">Motor</span></span>
+                </div>
+                <p class="lab-card-desc">
+                  <span class="lang-pt">Alvos maiores e mais próximos reduzem drasticamente o tempo e o erro de aquisição motora.</span>
+                  <span class="lang-en">Notice how target acquisition time drops dramatically when buttons are larger and closer to your cursor.</span>
+                </p>
+                <div class="lab-arena" id="fitts-arena">
+                  <div style="display:flex; gap:1.5rem; align-items:center;">
+                    <button id="fitts-btn-small" class="fitts-target" style="padding:4px 8px; font-size:10px; background:var(--bg-surface-subtle); color:var(--text-secondary);">
+                      <span class="lang-pt">Pequeno (20px)</span><span class="lang-en">Tiny (20px)</span>
+                    </button>
+                    <button id="fitts-btn-large" class="fitts-target" style="padding:12px 24px; font-size:13px; background:var(--color-accent-emerald); color:#ffffff; border-color:var(--color-accent-emerald);">
+                      <span class="lang-pt">Alvo Táctil (48px)</span><span class="lang-en">Thumb Target (48px)</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-muted);" id="fitts-feedback">
+                <span class="lang-pt">Clique num dos botões para medir a velocidade de aquisição.</span>
+                <span class="lang-en">Click either target to measure acquisition speed.</span>
+              </div>
+            </div>
+
+            <!-- Lab 2: Hick's Law -->
+            <div class="lab-card">
+              <div>
+                <div class="lab-card-title">
+                  <span><span class="lang-pt">02. Arena de Decisão da Lei de Hick</span><span class="lang-en">02. Hick’s Law Decision Arena</span></span>
+                  <span class="badge badge-intermediate"><span class="lang-pt">Decisão</span><span class="lang-en">Decision</span></span>
+                </div>
+                <p class="lab-card-desc">
+                  <span class="lang-pt">O tempo de decisão cresce logaritmicamente com o número de alternativas apresentadas.</span>
+                  <span class="lang-en">Compare reaction time when deciding between 2 clean options vs. a paralyzing wall of 8 choices.</span>
+                </p>
+                <div class="lab-arena" id="hicks-arena">
+                  <div id="hicks-simple" style="display:flex; gap:0.75rem;">
+                    <button class="btn-control" onclick="testHicks(2)">
+                      <span class="lang-pt">Opção A</span><span class="lang-en">Option A</span>
+                    </button>
+                    <button class="btn-control" onclick="testHicks(2)">
+                      <span class="lang-pt">Opção B</span><span class="lang-en">Option B</span>
+                    </button>
+                  </div>
+                  <div id="hicks-complex" style="display:none; flex-wrap:wrap; gap:0.35rem; justify-content:center;">
+                    <button class="btn-control" style="font-size:0.75rem;padding:0.25rem 0.5rem;" onclick="testHicks(8)"><span class="lang-pt">Op. 1</span><span class="lang-en">Opt. 1</span></button>
+                    <button class="btn-control" style="font-size:0.75rem;padding:0.25rem 0.5rem;" onclick="testHicks(8)"><span class="lang-pt">Op. 2</span><span class="lang-en">Opt. 2</span></button>
+                    <button class="btn-control" style="font-size:0.75rem;padding:0.25rem 0.5rem;" onclick="testHicks(8)"><span class="lang-pt">Op. 3</span><span class="lang-en">Opt. 3</span></button>
+                    <button class="btn-control" style="font-size:0.75rem;padding:0.25rem 0.5rem;" onclick="testHicks(8)"><span class="lang-pt">Op. 4</span><span class="lang-en">Opt. 4</span></button>
+                    <button class="btn-control" style="font-size:0.75rem;padding:0.25rem 0.5rem;" onclick="testHicks(8)"><span class="lang-pt">Op. 5</span><span class="lang-en">Opt. 5</span></button>
+                    <button class="btn-control" style="font-size:0.75rem;padding:0.25rem 0.5rem;" onclick="testHicks(8)"><span class="lang-pt">Op. 6</span><span class="lang-en">Opt. 6</span></button>
+                    <button class="btn-control" style="font-size:0.75rem;padding:0.25rem 0.5rem;" onclick="testHicks(8)"><span class="lang-pt">Op. 7</span><span class="lang-en">Opt. 7</span></button>
+                    <button class="btn-control" style="font-size:0.75rem;padding:0.25rem 0.5rem;" onclick="testHicks(8)"><span class="lang-pt">Op. 8</span><span class="lang-en">Opt. 8</span></button>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+                <button class="btn-control" style="font-size:var(--text-xs);padding:0.25rem 0.5rem;" id="toggle-hicks-btn" onclick="toggleHicksMode()">
+                  <span class="lang-pt">Alternar 2 / 8 Opções</span>
+                  <span class="lang-en">Toggle 2 / 8 Options</span>
+                </button>
+                <span id="hicks-timer" style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--color-accent-gold); font-weight:700;">
+                  <span class="lang-pt">Pronto</span><span class="lang-en">Ready</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Lab 3: Doherty Threshold -->
+            <div class="lab-card">
+              <div>
+                <div class="lab-card-title">
+                  <span><span class="lang-pt">03. Limiar de Doherty (&lt;400ms)</span><span class="lang-en">03. Doherty Threshold (&lt;400ms)</span></span>
+                  <span class="badge badge-advanced"><span class="lang-pt">Latência</span><span class="lang-en">Latency</span></span>
+                </div>
+                <p class="lab-card-desc">
+                  <span class="lang-pt">A produtividade sobe quando a resposta do sistema ocorre em menos de 400ms, preservando o fluxo mental.</span>
+                  <span class="lang-en">Feel the cognitive friction when system response exceeds the 400ms mental flow threshold.</span>
+                </p>
+                <div class="lab-arena">
+                  <div style="display:flex; gap:0.5rem; align-items:center;">
+                    <select id="doherty-speed-select" class="btn-control" style="font-size:var(--text-xs);padding:0.3rem 0.5rem;">
+                      <option value="50">50ms (Ultra-rápido)</option>
+                      <option value="250" selected>250ms (Doherty Ótimo)</option>
+                      <option value="1200">1200ms (Atraso Percetível)</option>
+                      <option value="2500">2500ms (Fricção Cognitiva)</option>
+                    </select>
+                    <button id="doherty-trigger-btn" class="btn-control" style="font-size:var(--text-xs);background:var(--color-swiss-red);color:#fff;border-color:var(--color-swiss-red);">
+                      <span class="lang-pt">Disparar</span>
+                      <span class="lang-en">Trigger</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div id="doherty-status" style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-muted); min-height:1.2rem;">
+                <span class="lang-pt">Selecione o atraso e clique em disparar.</span>
+                <span class="lang-en">Select latency and click trigger.</span>
+              </div>
+            </div>
+
+            <!-- Lab 4: Miller's Law -->
+            <div class="lab-card">
+              <div>
+                <div class="lab-card-title">
+                  <span><span class="lang-pt">04. Lei de Miller (7±2 &amp; Chunking)</span><span class="lang-en">04. Miller’s Law (7±2 &amp; Chunking)</span></span>
+                  <span class="badge badge-foundational"><span class="lang-pt">Memória</span><span class="lang-en">Memory</span></span>
+                </div>
+                <p class="lab-card-desc">
+                  <span class="lang-pt">Agrupar informação em pedaços com significado ("chunks") multiplica a capacidade de retenção imediata.</span>
+                  <span class="lang-en">Toggle working memory chunking for digits to see how rapidly scanability and legibility soar.</span>
+                </p>
+                <div class="lab-arena">
+                  <div id="chunking-display" style="font-family:var(--font-mono); font-size:1.15rem; font-weight:700; letter-spacing:0.05em; color:var(--text-primary);">
+                    9123456784532890
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+                <button class="btn-control" style="font-size:var(--text-xs);padding:0.25rem 0.5rem;" onclick="toggleChunking()">
+                  <span class="lang-pt">Alternar Chunking (4×4)</span>
+                  <span class="lang-en">Toggle Chunking (4×4)</span>
+                </button>
+                <span id="chunking-status" style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-muted);">
+                  <span class="lang-pt">Contínuo (16 dígitos)</span>
+                  <span class="lang-en">Continuous (16 digits)</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Lab 5: Von Restorff Isolation -->
+            <div class="lab-card">
+              <div>
+                <div class="lab-card-title">
+                  <span><span class="lang-pt">05. Efeito de Isolamento de Von Restorff</span><span class="lang-en">05. Von Restorff Isolation Effect</span></span>
+                  <span class="badge badge-intermediate"><span class="lang-pt">Saliência</span><span class="lang-en">Salience</span></span>
+                </div>
+                <p class="lab-card-desc">
+                  <span class="lang-pt">Quando múltiplos objetos semelhantes estão presentes, aquele que difere visualmente atrai a atenção involuntária.</span>
+                  <span class="lang-en">Notice where visual attention lands involuntarily when one homogeneous item is isolated with contrast.</span>
+                </p>
+                <div class="lab-arena" style="display:flex; gap:0.5rem; justify-content:center;">
+                  <div class="restorff-box" style="width:34px; height:34px; background:var(--bg-surface); border:1px solid var(--border-color); border-radius:6px;"></div>
+                  <div class="restorff-box" style="width:34px; height:34px; background:var(--bg-surface); border:1px solid var(--border-color); border-radius:6px;"></div>
+                  <div id="restorff-target" class="restorff-box" style="width:34px; height:34px; background:var(--bg-surface); border:1px solid var(--border-color); border-radius:6px; transition:all 0.3s ease;"></div>
+                  <div class="restorff-box" style="width:34px; height:34px; background:var(--bg-surface); border:1px solid var(--border-color); border-radius:6px;"></div>
+                </div>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+                <button class="btn-control" style="font-size:var(--text-xs);padding:0.25rem 0.5rem;" onclick="toggleRestorff()">
+                  <span class="lang-pt">Alternar Saliência Visual</span>
+                  <span class="lang-en">Toggle Visual Salience</span>
+                </button>
+                <span id="restorff-status" style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--color-accent-gold); font-weight:700;">
+                  <span class="lang-pt">Neutro</span>
+                  <span class="lang-en">Neutral</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Lab 6: Gestalt Proximity & Common Region -->
+            <div class="lab-card">
+              <div>
+                <div class="lab-card-title">
+                  <span><span class="lang-pt">06. Proximidade &amp; Região Comum Gestalt</span><span class="lang-en">06. Gestalt Proximity &amp; Boundary</span></span>
+                  <span class="badge badge-foundational"><span class="lang-pt">Gestalt</span><span class="lang-en">Gestalt</span></span>
+                </div>
+                <p class="lab-card-desc">
+                  <span class="lang-pt">Espaçamento relativo e molduras contentoras unem elementos isolados numa unidade percetual coerente.</span>
+                  <span class="lang-en">Adjust spatial gap and container border to watch disparate elements coalesce into a single unified object.</span>
+                </p>
+                <div class="lab-arena">
+                  <div id="gestalt-box" style="display:flex; gap:2rem; padding:0.5rem; transition:all 0.2s ease; border-radius:8px;">
+                    <span style="font-size:1.4rem;">🅰️</span>
+                    <span style="font-size:1.4rem;">🅱️</span>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex; gap:0.5rem; align-items:center;">
+                <label for="gestalt-slider" style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-muted);">
+                  <span class="lang-pt">Espaço:</span>
+                  <span class="lang-en">Gap:</span>
+                </label>
+                <input type="range" id="gestalt-slider" min="4" max="48" value="32" oninput="updateGestalt(this.value)" style="flex:1;">
+                <button class="btn-control" style="font-size:var(--text-xs);padding:0.2rem 0.5rem;" onclick="toggleGestaltBorder()">
+                  <span class="lang-pt">Moldura</span>
+                  <span class="lang-en">Border</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SECTION 2: EXPLORER & FILTERS -->
+        <section id="controls" class="controls-panel" aria-label="Controlos de pesquisa e filtro" data-aria-pt="Controlos de pesquisa e filtro" data-aria-en="Search and filter controls">
+          <div class="controls-row">
+            <div class="search-wrapper">
+              <span class="search-icon" aria-hidden="true">🔍</span>
+              <input 
+                type="text" 
+                id="laws-search" 
+                class="search-input" 
+                placeholder="Pesquisar por lei, autor (Fitts, Hick), princípio, fórmula ou padrão UI..."
+                aria-label="Filtrar leis por palavra-chave"
+                data-placeholder-pt="Pesquisar por lei, autor (Fitts, Hick), princípio, fórmula ou padrão UI..."
+                data-placeholder-en="Search by law, author (Fitts, Hick), principle, formula, or UI pattern..."
+                data-aria-pt="Filtrar leis por palavra-chave"
+                data-aria-en="Filter laws by keyword"
+              />
+            </div>
+            <div id="results-count" style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-secondary); white-space:nowrap;">
+              <span class="lang-pt">A carregar compêndio...</span><span class="lang-en">Loading compendium...</span>
+            </div>
+          </div>
+
+          <div class="controls-row" style="gap:var(--space-2);">
+            <!-- Tier Filter Group -->
+            <div class="filter-group" data-filter-group="tier" role="group" aria-label="Filtrar por nível de implementação" data-aria-pt="Filtrar por nível de implementação" data-aria-en="Filter by implementation tier">
+              <span class="filter-label" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);margin-right:0.2rem;">
+                <span class="lang-pt">Nível:</span>
+                <span class="lang-en">Tier:</span>
+              </span>
+              <button class="filter-pill is-active" data-tier="all">
+                <span class="lang-pt">Todos (30)</span>
+                <span class="lang-en">All (30)</span>
+              </button>
+              <button class="filter-pill" data-tier="foundation">
+                <span class="lang-pt">🟢 Fundação (10)</span>
+                <span class="lang-en">🟢 Foundation (10)</span>
+              </button>
+              <button class="filter-pill" data-tier="intermediate">
+                <span class="lang-pt">🟡 Intermédio (10)</span>
+                <span class="lang-en">🟡 Intermediate (10)</span>
+              </button>
+              <button class="filter-pill" data-tier="advanced">
+                <span class="lang-pt">🔴 Avançado (10)</span>
+                <span class="lang-en">🔴 Advanced (10)</span>
+              </button>
+            </div>
+
+            <!-- Domain Filter Group -->
+            <div class="filter-group" data-filter-group="domain" role="group" aria-label="Filtrar por domínio cognitivo" data-aria-pt="Filtrar por domínio cognitivo" data-aria-en="Filter by cognitive domain">
+              <span class="filter-label" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);margin-right:0.2rem;">
+                <span class="lang-pt">Domínio:</span>
+                <span class="lang-en">Domain:</span>
+              </span>
+              <button class="filter-pill is-active" data-domain="all">
+                <span class="lang-pt">Todos</span>
+                <span class="lang-en">All</span>
+              </button>
+              <button class="filter-pill" data-domain="gestalt">
+                <span class="lang-pt">👁️ Gestalt</span>
+                <span class="lang-en">👁️ Gestalt</span>
+              </button>
+              <button class="filter-pill" data-domain="motor">
+                <span class="lang-pt">✋ Motor</span>
+                <span class="lang-en">✋ Motor</span>
+              </button>
+              <button class="filter-pill" data-domain="cognition">
+                <span class="lang-pt">🧠 Cognição</span>
+                <span class="lang-en">🧠 Cognition</span>
+              </button>
+              <button class="filter-pill" data-domain="systems">
+                <span class="lang-pt">⚡ Sistemas</span>
+                <span class="lang-en">⚡ Systems</span>
+              </button>
+              <button class="filter-pill" data-domain="ethics">
+                <span class="lang-pt">🛡️ Ética</span>
+                <span class="lang-en">🛡️ Ethics</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 3: THE 30 UX LAWS CARDS -->
+        <section id="laws-collection" aria-labelledby="collection-heading" style="margin-bottom:var(--space-8);">
+          <div style="margin-bottom:var(--space-4);">
+            <h2 id="collection-heading" style="font-size:var(--text-xl);margin-bottom:var(--space-1);">
+              <span class="lang-pt">📚 3. Compêndio Canónico das 30 Leis de UX</span>
+              <span class="lang-en">📚 3. The 30 Master UX Laws, Principles &amp; Patterns</span>
+            </h2>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);max-width:75ch;">
+              <span class="lang-pt">Classificadas pedagogicamente pelos 3 níveis curriculares de Web Design (Fundação HTML/CSS, Intermédio UI/Estado, Avançado Desempenho/Ética).</span>
+              <span class="lang-en">Pedagogically organized across 3 Web Design curriculum tiers (Foundation HTML/CSS, Intermediate UI/State, Advanced Performance/Ethics).</span>
+            </p>
+          </div>
+
+          <!-- Dynamic Container populated by renderLaws() -->
+          <div id="laws-container" class="laws-grid" aria-live="polite">
+            <!-- Hydrated by JavaScript -->
+          </div>
+        </section>
+
+        <!-- SECTION 4: MASTER CROSS-REFERENCE MATRIX -->
+        <section id="matrix-section" style="margin-bottom:var(--space-8);">
+          <div style="margin-bottom:var(--space-4);">
+            <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-1);">
+              <span class="lang-pt">📊 4. Matriz Cruzada de Leis, Princípios &amp; Padrões UI</span>
+              <span class="lang-en">📊 4. Master Cross-Reference Matrix</span>
+            </h2>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);max-width:75ch;">
+              <span class="lang-pt">Mapeamento sinóptico entre os autores científicos, o domínio cognitivo, o nível curricular, os princípios teóricos e os padrões práticos de interface. Clique no nome de qualquer lei para expandir o seu cartão e código.</span>
+              <span class="lang-en">Synoptic cross-referencing between scientists, cognitive domain, curriculum tier, theoretical principles, and practical UI patterns. Click any law name to jump to its card.</span>
+            </p>
+          </div>
+
+          <div class="comparison-table-wrap">
+            <table class="comparison-table" id="matrix-table" aria-label="Matriz de Cruzamento das Leis de UX">
+              <thead>
+                <tr>
+                  <th style="width:6%;">#</th>
+                  <th style="width:22%;"><span class="lang-pt">Lei &amp; Investigador</span><span class="lang-en">Law &amp; Scientist</span></th>
+                  <th style="width:14%;"><span class="lang-pt">Domínio</span><span class="lang-en">Domain</span></th>
+                  <th style="width:12%;"><span class="lang-pt">Nível</span><span class="lang-en">Tier</span></th>
+                  <th style="width:22%;"><span class="lang-pt">Princípios Teóricos</span><span class="lang-en">Theoretical Principles</span></th>
+                  <th style="width:24%;"><span class="lang-pt">Padrões UI &amp; Código</span><span class="lang-en">Key UI Patterns</span></th>
+                </tr>
+              </thead>
+              <tbody id="matrix-tbody">
+                <!-- Hydrated by renderMatrix() -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- SECTION 5: ETHICAL IMPERATIVE -->
+        <section id="ethics-section" class="card-item" style="border-left:4px solid var(--color-swiss-red);margin-bottom:var(--space-8);padding:var(--space-6);">
+          <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-2);">
+            <span class="badge" style="background:var(--color-swiss-red);color:#fff;"><span class="lang-pt">Manifesto Ético</span><span class="lang-en">Ethical Manifesto</span></span>
+            <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">Deceptive Patterns &bull; Harry Brignull</span>
+          </div>
+          <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-3);color:var(--text-primary);">
+            <span class="lang-pt">🛡️ 5. O Imperativo Ético: Psicologia como Responsabilidade</span>
+            <span class="lang-en">🛡️ 5. The Ethical Imperative: Anti-Deceptive Design</span>
+          </h2>
+          <p style="font-size:var(--text-sm);line-height:1.6;color:var(--text-secondary);margin-bottom:var(--space-4);">
+            <span class="lang-pt">As leis psicológicas de UX revelam os atalhos cognitivos e as vulnerabilidades neurológicas dos seres humanos. Na web comercial, estes mesmos mecanismos são frequentemente instrumentalizados como <strong>Deceptive Patterns</strong> (Dark Patterns) para coagir, enganar ou prender os utilizadores:</span>
+            <span class="lang-en">Psychological UX laws reveal the deep cognitive shortcuts and neurological vulnerabilities of human beings. In the commercial web, these exact mechanisms are frequently weaponized as <strong>Deceptive Patterns</strong> to trick, coerce, or trap users:</span>
+          </p>
+          <ul style="padding-left:1.5rem;line-height:1.65;font-size:var(--text-xs);color:var(--text-secondary);margin-bottom:var(--space-4);display:flex;flex-direction:column;gap:0.4rem;">
+            <li><strong>Roach Motels:</strong> <span class="lang-pt">Explorar a Lei de Fitts para permitir subscrições num só clique, enquanto o cancelamento é escondido atrás de 14 ecrãs ou chamadas telefónicas forçadas.</span><span class="lang-en">Exploiting Fitts's Law for one-click subscriptions while burying cancellations behind 14 screens or forced phone calls.</span></li>
+            <li><strong>Confirmshaming:</strong> <span class="lang-pt">Instrumentalizar o Peak-End Rule e o sentimento de culpa (<em>"Não obrigado, eu odeio poupar dinheiro"</em>).</span><span class="lang-en">Weaponizing Peak-End Rule and guilt-tripping (<em>"No thanks, I hate saving money"</em>).</span></li>
+            <li><strong>Falsa Urgência / Fake Urgency:</strong> <span class="lang-pt">Deturpar a Lei de Parkinson através de contadores falsos de tempo decrescente que reiniciam ao recarregar a página.</span><span class="lang-en">Distorting Parkinson's Law via fake countdown timers that reset on page reload.</span></li>
+            <li><strong>Drip Pricing &amp; Sneak into Basket:</strong> <span class="lang-pt">Ocultar taxas e custos reais até ao ecrã final do checkout.</span><span class="lang-en">Concealing hidden fees and real costs until the final checkout screen.</span></li>
+          </ul>
+          <div style="background:var(--bg-surface-elevated);border-left:2px solid var(--color-swiss-red);padding:var(--space-3);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-primary);">
+            <strong><span class="lang-pt">Compromisso FBAUP:</span><span class="lang-en">FBAUP Commitment:</span></strong>
+            <span class="lang-pt"> Na FBAUP, ensinamos os designers de comunicação a desenhar com honestidade, acessibilidade radical (WCAG 2.2 AAA) e respeito escrupuloso pela autonomia do utilizador.</span>
+            <span class="lang-en"> At FBAUP, communication designers are taught to design with honesty, radical accessibility (WCAG 2.2 AAA), and full respect for human autonomy.</span>
+          </div>
+        </section>
+
+        <!-- SECTION 6: CURATED REFERENCE DIRECTORY -->
+        <section id="references" style="margin-bottom:var(--space-8);">
+          <div style="margin-bottom:var(--space-4);">
+            <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-1);">
+              <span class="lang-pt">📚 6. Arquivo de Referências Bibliográficas &amp; Digitais</span>
+              <span class="lang-en">📚 6. Curated Reference Directory</span>
+            </h2>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);">
+              <span class="lang-pt">Literatura académica, tratados fundacionais e repositórios institucionais de normas de design.</span>
+              <span class="lang-en">Academic literature, foundational treaties, and institutional design repositories.</span>
+            </p>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:var(--space-4);">
+            <div class="card-item">
+              <h3 style="font-family:var(--font-mono); font-size:var(--text-xs); text-transform:uppercase; color:var(--color-accent-purple); margin-bottom:var(--space-2); letter-spacing:0.05em;">
+                <span class="lang-pt">Obras Fundacionais (2023–2024)</span>
+                <span class="lang-en">Foundational Treatises (2023–2024)</span>
+              </h3>
+              <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.4rem; font-size:var(--text-xs); color:var(--text-secondary);">
+                <li><strong>Jon Yablonski:</strong> <em>Laws of UX (2nd Ed. 2024)</em> &bull; O'Reilly</li>
+                <li><strong>William Lidwell et al.:</strong> <em>Universal Principles of Design (3rd Ed. 2023)</em></li>
+                <li><strong>Irene Pereyra:</strong> <em>Universal Principles of UX (2023)</em> &bull; Rockport</li>
+                <li><strong>Don Norman:</strong> <em>The Design of Everyday Things</em> &bull; Basic Books</li>
+                <li><strong>Harry Brignull:</strong> <em>Deceptive Patterns (2023)</em></li>
+              </ul>
+            </div>
+
+            <div class="card-item">
+              <h3 style="font-family:var(--font-mono); font-size:var(--text-xs); text-transform:uppercase; color:var(--color-accent-cyan); margin-bottom:var(--space-2); letter-spacing:0.05em;">
+                <span class="lang-pt">Bases de Conhecimento Digitais</span>
+                <span class="lang-en">Digital Knowledge Bases</span>
+              </h3>
+              <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.4rem; font-size:var(--text-xs); color:var(--text-secondary);">
+                <li><a href="https://www.interaction-design.org/" target="_blank" rel="noopener noreferrer" style="color:var(--color-swiss-red);font-weight:600;">Interaction Design Foundation (IxDF) ↗</a></li>
+                <li><a href="https://lawsofux.com/" target="_blank" rel="noopener noreferrer" style="color:var(--color-swiss-red);font-weight:600;">Laws of UX por Jon Yablonski ↗</a></li>
+                <li><a href="https://www.nngroup.com/" target="_blank" rel="noopener noreferrer" style="color:var(--color-swiss-red);font-weight:600;">Nielsen Norman Group (NN/g) ↗</a></li>
+                <li><a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener noreferrer" style="color:var(--color-swiss-red);font-weight:600;">Normas W3C WCAG 2.2 ↗</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- SECTION 7: CURRICULAR MESH -->
+    <section class="wd-mesh-section" id="connected-mesh">
+      <div class="wd-mesh-header">
+        <span class="wd-mesh-kicker"><span class="lang-pt">Mapeamento Pedagógico</span><span class="lang-en">Curricular Mesh</span> &bull; Connected in WD101</span>
+        <h2 class="wd-mesh-title"><span class="lang-pt">Articulação com Enunciados, Demos e Matriz W3C</span><span class="lang-en">Connected Course Milestones, Demos &amp; Matrix</span></h2>
+      </div>
+      <div class="wd-mesh-grid">
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Enunciados do Curso</span><span class="lang-en">Course Assignments</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="ex1-hello-warp-guide.html" class="wd-mesh-chip">🟢 EX1: Hello Warp!</a>
+            <a href="ex2-guide.html" class="wd-mesh-chip">🔵 EX2: Media &amp; Box Model</a>
+            <a href="tp06-early-prototype-guide.html" class="wd-mesh-chip">🔵 Projeto Fase 1: TP06</a>
+            <a href="demos/tp11-integrated-responsive-project/GUIDE.html" class="wd-mesh-chip">🟣 Projeto Fase 2: TP11</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="demos/index.html" class="wd-mesh-chip">🚀 Repositório Central de Demos</a>
+            <a href="demos/index.html?pat=1#core-patterns" class="wd-mesh-chip">Demo P1: Gaveta Móvel</a>
+            <a href="demos/index.html?pat=8#core-patterns" class="wd-mesh-chip">Demo P8: Simulador :has()</a>
+            <a href="demos/index.html?pat=9#core-patterns" class="wd-mesh-chip">Demo P9: light-dark()</a>
+            <a href="interaction-patterns.html" class="wd-mesh-chip">✨ 142 Padrões Web</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Matriz HTML5 &amp; CSS3</span><span class="lang-en">W3C Standards Matrix</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="matrix.html" class="wd-mesh-chip" style="font-weight:700;color:var(--color-swiss-red);">Matriz Completa (314) ↗</a>
+            <a href="matrix.html?cat=cat-landmarks" class="wd-mesh-chip">Landmarks HTML5</a>
+            <a href="matrix.html?cat=cat-pseudo" class="wd-mesh-chip">Pseudo-Classes</a>
+            <a href="ixd-principles.html" class="wd-mesh-chip">🧭 Princípios de IxD</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Site Footer Landmark -->
+  <footer class="page-footer" role="contentinfo">
+    <div>
+      <strong style="color:var(--text-primary);">Faculdade de Belas Artes da Universidade do Porto (FBAUP)</strong><br>
+      Licenciatura em Design de Comunicação &bull; Instituto de Investigação em Arte, Design e Sociedade (i2ADS)<br>
+      <strong>Conceção &amp; Direção Pedagógica:</strong> Prof. Pedro Amado<br>
+      <strong>Pair Programming &amp; Agente IA:</strong> Google Gemini (DeepMind Antigravity)
+    </div>
+    <div style="text-align:right;">
+      <span>Living Standard: HTML5 &bull; Modern CSS &bull; Zero Jargon Gatekeeping</span><br>
+      <span>Open Educational Resources for Art &amp; Design Higher Education &bull; 2026/27</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/i18n.js"></script>
+
+  <!-- JAVASCRIPT: DATA & INTERACTION SUITE -->
+  <script>
+    /*
+      ========================================================================
+      CANONICAL UX LAWS DATABASE (30 ENTRIES)
+      ========================================================================
+    */
+const LAWS_DATA = [
+      {
+        id: 1,
+        name: "Fitts’s Law",
+        scientist: "Paul Fitts (1954)",
+        domain: "motor",
+        domainLabel: "✋ Motor Ergonomics",
+        tier: "foundation",
+        tierLabel: "🟢 Foundation",
+        formula: "MT = a + b · log₂(2D / W)",
+        axiom: "The time required to rapidly move to a target area is a function of the ratio between target distance and target size.",
+        bestPractices: [
+          "Ensure touch targets on mobile meet WCAG 2.2 SC 2.5.8 (min 24×24px) and Apple HIG / Material Design standards (44×44px to 48×48px).",
+          "Place primary actions in the thumb zone on mobile screens (bottom-middle quadrant).",
+          "Pad small text links to expand hit area without disrupting typographic layout."
+        ],
+        donts: [
+          "Don't place tiny 14px close buttons in screen corners on mobile touchscreens.",
+          "Don't bunch multiple interactive links closely without padding."
+        ],
+        principles: "Norman's Affordances & Signifiers; Nielsen #7 (Efficiency of Use); WCAG 2.5.8.",
+        patterns: "Sticky Bottom Navigation, Floating Action Buttons (FAB), Full-width CTA buttons, Clickable card containers.",
+        code: ".button-mobile { min-height: 48px; padding: 12px 24px; touch-action: manipulation; }"
+      },
+      {
+        id: 2,
+        name: "Law of Proximity",
+        scientist: "Max Wertheimer (1923, Gestalt)",
+        domain: "gestalt",
+        domainLabel: "👁️ Gestalt Perception",
+        tier: "foundation",
+        tierLabel: "🟢 Foundation",
+        formula: "Spatial Clustering",
+        axiom: "Objects placed close to each other are perceived as belonging together, while separated objects are perceived as distinct.",
+        bestPractices: [
+          "Place form labels closer to their corresponding input field than to the previous field.",
+          "Ensure spacing between distinct sections is 2× to 3× larger than spacing within components.",
+          "Cluster article author avatars, dates, and reading times directly next to headlines."
+        ],
+        donts: [
+          "Don't use uniform margins everywhere (e.g. 20px on all elements), which destroys visual clustering."
+        ],
+        principles: "Visual Hierarchy, Information Chunking, WCAG 1.3.1 (Info and Relationships).",
+        patterns: "Form Groups (.form-group), Card Metadata clusters, Definition lists (<dl>).",
+        code: ".form-group { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1.5rem; }"
+      },
+      {
+        id: 3,
+        name: "Law of Similarity",
+        scientist: "Max Wertheimer (1923, Gestalt)",
+        domain: "gestalt",
+        domainLabel: "👁️ Gestalt Perception",
+        tier: "foundation",
+        tierLabel: "🟢 Foundation",
+        formula: "Visual Invariance",
+        axiom: "Elements sharing visual characteristics (color, shape, size, typography) are perceived as related or sharing the same function.",
+        bestPractices: [
+          "Keep interactive link colors consistent across the entire website.",
+          "Use identical button shapes and corner radii for buttons of the same hierarchical weight.",
+          "Use consistent badge shapes for status indicators (green = active, amber = pending)."
+        ],
+        donts: [
+          "Don't style one link as blue, another as bold black, and a third as an italic pill."
+        ],
+        principles: "Norman's Consistency, Nielsen #4 (Consistency and Standards).",
+        patterns: "Design System Tokens (btn--primary, btn--secondary), Global Link styles, Status badges.",
+        code: "a:not([class]) { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }"
+      },
+      {
+        id: 4,
+        name: "Law of Common Region",
+        scientist: "Stephen Palmer (1992, Gestalt)",
+        domain: "gestalt",
+        domainLabel: "👁️ Gestalt Perception",
+        tier: "foundation",
+        tierLabel: "🟢 Foundation",
+        formula: "Contained Bounding",
+        axiom: "Elements located within the same bounded surface, border, or colored background are perceived as a unified group.",
+        bestPractices: [
+          "Containerize related content inside explicit card surfaces with subtle borders or backgrounds.",
+          "Use semantic <fieldset> with <legend> to group related form sections (Shipping vs Billing).",
+          "Group table rows using alternating background stripes or clean borders."
+        ],
+        donts: [
+          "Don't rely solely on whitespace when separating deeply distinct modules on wide viewports."
+        ],
+        principles: "Containment, Spatial Scaffolding, WCAG 1.3.1.",
+        patterns: "Card Grids, Modal Dialogs (<dialog>), Sidebar Panels, Fieldsets.",
+        code: ".card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 12px; padding: 1.5rem; }"
+      },
+      {
+        id: 5,
+        name: "Jakob’s Law",
+        scientist: "Jakob Nielsen (2000)",
+        domain: "cognition",
+        domainLabel: "🧠 Cognitive Habituation",
+        tier: "foundation",
+        tierLabel: "🟢 Foundation",
+        formula: "Habituation Invariance",
+        axiom: "Users spend most of their time on other websites, expecting your site to work identically to the familiar sites they know.",
+        bestPractices: [
+          "Place logo top-left linking to '/', search in the header, cart/profile top-right.",
+          "Use standard form controls (checkboxes for multi-select, radios for single-select).",
+          "Reserve avant-garde visual creativity for brand storytelling, typography, and photography—not core navigation."
+        ],
+        donts: [
+          "Don't hijack native browser scrolling (scroll-jacking) or invent obscure icons for standard actions."
+        ],
+        principles: "Norman's Mental Models, Nielsen #4 (Consistency & Standards), Cognitive Load Reduction.",
+        patterns: "Header Landmark (<header>), Hamburger Mobile Drawer, Breadcrumb Trail, Standard Cart.",
+        code: "<header role=\"banner\"><a href=\"/\" class=\"logo\">Logo</a><nav>...</nav></header>"
+      },
+      {
+        id: 6,
+        name: "Aesthetic-Usability Effect",
+        scientist: "Masaaki Kurosu & Kaori Kashimura (1995)",
+        domain: "cognition",
+        domainLabel: "🧠 Affective Cognition",
+        tier: "foundation",
+        tierLabel: "🟢 Foundation",
+        formula: "Emotional Valence",
+        axiom: "Users perceive aesthetically pleasing designs as more usable and trustworthy, and are more tolerant of minor flaws.",
+        bestPractices: [
+          "Invest deeply in balanced typographic hierarchy, refined whitespace, and harmonious colors.",
+          "Subtle hover transitions and crisp SVG icons signal professional engineering and build trust."
+        ],
+        donts: [
+          "Don't hide broken forms, confusing navigation, or severe accessibility bugs behind flashy animations."
+        ],
+        principles: "Norman's Emotional Design (Visceral, Behavioral, Reflective), Halo Effect.",
+        patterns: "Harmonic Typography, Fluid OKLCH Palettes, light-dark() Theming, Responsive Whitespace.",
+        code: "h1 { font-size: clamp(2rem, 1.5rem + 2.5vw, 3.5rem); text-wrap: balance; }"
+      },
+      {
+        id: 7,
+        name: "Occam’s Razor",
+        scientist: "William of Ockham (c. 1320)",
+        domain: "cognition",
+        domainLabel: "🧠 Cognitive Parsimony",
+        tier: "foundation",
+        tierLabel: "🟢 Foundation",
+        formula: "Novacula Occami",
+        axiom: "Among competing design solutions that achieve the same goal, the simplest with the fewest assumptions should be selected.",
+        bestPractices: [
+          "Audit every element: remove decorative widgets, borders, and fields that don't help user goals.",
+          "Provide one clear primary CTA per view and at most one subtle secondary link.",
+          "Ask only for essential information in forms (e.g. email only for newsletters)."
+        ],
+        donts: [
+          "Don't clutter hero banners with 4 competing buttons or fill space out of fear of whitespace (Horror Vacui)."
+        ],
+        principles: "Dieter Rams #10 ('Less, but better'), Pereyra #11, Nielsen #8 (Minimalist Design).",
+        patterns: "Single-Field Newsletter Forms, Clean Single-Column Landing Pages, Pruned Navigation.",
+        code: "* { box-sizing: border-box; margin: 0; padding: 0; }"
+      },
+      {
+        id: 8,
+        name: "Miller’s Law",
+        scientist: "George A. Miller (1956)",
+        domain: "cognition",
+        domainLabel: "🧠 Working Memory",
+        tier: "foundation",
+        tierLabel: "🟢 Foundation",
+        formula: "Memory Capacity = 7 ± 2",
+        axiom: "The working memory of an average person can hold approximately 7 (plus or minus 2) discrete chunks of information.",
+        bestPractices: [
+          "Chunk numbers into semantic groups (credit cards in 4×4 digits, phone numbers with spaces).",
+          "Keep top-level navigation menus to between 5 and 7 primary categories.",
+          "Break complex options into categorized taxonomy headers."
+        ],
+        donts: [
+          "Don't misinterpret Miller's Law as 'every list must have only 7 items'; visual scanning allows long lists if alphabetized."
+        ],
+        principles: "Cognitive Load Theory (Intrinsic Load), Information Chunking.",
+        patterns: "Chunked Input Masking, Segmented Button Bars, 5–7 Item Primary Navigation.",
+        code: "<input type=\"text\" inputmode=\"numeric\" autocomplete=\"cc-number\" placeholder=\"4532 8901 2345 6789\">"
+      },
+      {
+        id: 9,
+        name: "Law of Symmetry & Order",
+        scientist: "Gestalt Psychology (Koffka, 1935)",
+        domain: "gestalt",
+        domainLabel: "👁️ Gestalt Perception",
+        tier: "foundation",
+        tierLabel: "🟢 Foundation",
+        formula: "Prägnanz Balance",
+        axiom: "People perceive visual elements as symmetrical and organized around a center point to minimize mental processing effort.",
+        bestPractices: [
+          "Align layout blocks and cards against a consistent responsive column grid.",
+          "Keep comparison tables and product cards balanced in height and padding.",
+          "Left-align multi-line body text (never center-align paragraphs over 3 lines)."
+        ],
+        donts: [
+          "Don't use arbitrary ungrounded offset alignments that look like accidental layout bugs."
+        ],
+        principles: "Visual Balance, Structural Grid Systems, Gutenberg Diagram.",
+        patterns: "Symmetrical Card Grids, Split-Screen Hero Banners, 2-Column Comparison Tables.",
+        code: ".grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }"
+      },
+      {
+        id: 10,
+        name: "Law of Closure",
+        scientist: "Kurt Koffka (1935, Gestalt)",
+        domain: "gestalt",
+        domainLabel: "👁️ Gestalt Perception",
+        tier: "foundation",
+        tierLabel: "🟢 Foundation",
+        formula: "Perceptual Gap Filling",
+        axiom: "The human visual system automatically fills in missing information to perceive an incomplete shape or contour as a complete whole.",
+        bestPractices: [
+          "Let the next card in a mobile carousel peek slightly past the viewport edge to communicate scrollability.",
+          "Use minimalist line icons whose contours the eye naturally completes.",
+          "Use dashed skeleton boundaries to indicate incoming content modules."
+        ],
+        donts: [
+          "Don't clip carousel items precisely flush with the screen edge, creating an 'illusion of completeness' where users stop scrolling."
+        ],
+        principles: "Perceptual Completion, Visual Affordance, Norman's Signifiers.",
+        patterns: "Peeking Carousel Overflow, Outlined Vector Iconography, Skeleton Wireframes.",
+        code: ".carousel-card { flex: 0 0 85%; scroll-snap-align: center; }"
+      },
+      {
+        id: 11,
+        name: "Hick’s Law (Hick-Hyman)",
+        scientist: "William E. Hick & Ray Hyman (1952)",
+        domain: "cognition",
+        domainLabel: "🧠 Decision Processing",
+        tier: "intermediate",
+        tierLabel: "🟡 Intermediate",
+        formula: "RT = b · log₂(n + 1)",
+        axiom: "The time required to make a decision increases logarithmically with the number and complexity of choices available.",
+        bestPractices: [
+          "Use progressive disclosure: break long intimidating workflows into stepped wizards.",
+          "Provide hierarchical faceted search filters rather than a flat wall of 80 checkboxes.",
+          "Highlight a 'Recommended' choice in pricing tables to eliminate decision paralysis."
+        ],
+        donts: [
+          "Don't show 50 unorganized links in a dropdown or 8 competing CTA buttons on one screen."
+        ],
+        principles: "Progressive Disclosure, Norman's Constraints, Barry Schwartz's Paradox of Choice.",
+        patterns: "Multi-Step Checkout Steppers, Accordions (<details>), Tiered Pricing Cards, Tabbed Layouts.",
+        code: "<details class=\"options\"><summary>Advanced Settings</summary><div>...</div></details>"
+      },
+      {
+        id: 12,
+        name: "Von Restorff Effect",
+        scientist: "Hedwig von Restorff (1933)",
+        domain: "gestalt",
+        domainLabel: "👁️ Visual Salience",
+        tier: "intermediate",
+        tierLabel: "🟡 Intermediate",
+        formula: "Isolation Salience",
+        axiom: "When multiple similar items are present, the single item that visually differs from the rest is most likely to be remembered.",
+        bestPractices: [
+          "Give primary action buttons a high-contrast solid fill while keeping secondary actions in ghost styling.",
+          "Apply an accent badge or contrasting border to the featured tier in pricing comparisons.",
+          "Use distinct isolated callout banners for critical alerts or success states."
+        ],
+        donts: [
+          "Don't make every button bright neon; when everything screams for attention, nothing stands out."
+        ],
+        principles: "Visual Hierarchy, Focal Points, WCAG 1.4.1 (Use of Color).",
+        patterns: "Primary CTA vs Ghost Secondary, 'Most Popular' Pricing Badge, Callout Alert Banners.",
+        code: ".pricing-card.is-popular { border: 2px solid var(--color-purple); transform: scale(1.05); }"
+      },
+      {
+        id: 13,
+        name: "Serial Position Effect",
+        scientist: "Hermann Ebbinghaus (1885)",
+        domain: "cognition",
+        domainLabel: "🧠 Memory Retention",
+        tier: "intermediate",
+        tierLabel: "🟡 Intermediate",
+        formula: "Primacy & Recency Bias",
+        axiom: "Humans remember the first items (Primacy) and the last items (Recency) in a series best; middle items suffer the highest decay.",
+        bestPractices: [
+          "Place primary foundational navigation on the far left (Home/Explore) and conversion CTA on the far right (Sign Up).",
+          "Put your strongest value proposition in the top hero and reiterate your key guarantee above the footer CTA."
+        ],
+        donts: [
+          "Don't bury your core product value or primary contact link in the middle of a 12-item menu."
+        ],
+        principles: "Memory Attention Curves, Information Architecture Sequencing.",
+        patterns: "Navigation Extremes Layout, Landing Page Arc (Hero + Closing CTA), Onboarding Carousels.",
+        code: ".nav { display: flex; justify-content: space-between; align-items: center; }"
+      },
+      {
+        id: 14,
+        name: "Postel’s Law",
+        scientist: "Jon Postel (1980 / RFC 760)",
+        domain: "systems",
+        domainLabel: "⚡ Robust Architecture",
+        tier: "intermediate",
+        tierLabel: "🟡 Intermediate",
+        formula: "Robustness Principle",
+        axiom: "Be liberal and forgiving in what you accept as user input; be conservative and precise in what you send or produce.",
+        bestPractices: [
+          "Accept phone numbers with spaces, dashes, or parentheses and sanitize them automatically on input.",
+          "Strip spaces from credit cards and postal codes rather than throwing a validation error.",
+          "Handle common typos and missing accents gracefully in search queries."
+        ],
+        donts: [
+          "Don't block form submission with rigid cryptic errors like 'Must match regex ^[0-9]{9}$'."
+        ],
+        principles: "Norman's Forgiveness, Nielsen #5 (Error Prevention) & #9 (Error Recovery).",
+        patterns: "Input Sanitizers, Auto-Formatting Masked Fields, 'Did you mean?' Search Suggestions.",
+        code: "<input type=\"tel\" autocomplete=\"tel\" placeholder=\"e.g. 912 345 678\">"
+      },
+      {
+        id: 15,
+        name: "Law of Uniform Connectedness",
+        scientist: "Stephen Palmer & Irvin Rock (1994)",
+        domain: "gestalt",
+        domainLabel: "👁️ Gestalt Connection",
+        tier: "intermediate",
+        tierLabel: "🟡 Intermediate",
+        formula: "Connectedness > Proximity",
+        axiom: "Visual elements physically connected by lines, arrows, or frames are perceived as more strongly related than by proximity alone.",
+        bestPractices: [
+          "Connect sequential workflow steps (1, 2, 3) with a continuous graphic line in steppers.",
+          "Connect hierarchical breadcrumb links using clear directional glyphs (/ or ›).",
+          "Visually connect the active tab button seamlessly into the tab content panel below."
+        ],
+        donts: [
+          "Don't leave disconnected floating step numbers with no linking graphic in multi-step flows."
+        ],
+        principles: "Connectedness Overrides Proximity, Structural Flow, Spatial Cohesion.",
+        patterns: "Stepper Progress Lines, Breadcrumb Dividers, Connected Tab-to-Panel Containers.",
+        code: ".tab.is-active { background: var(--surface); border-bottom: 2px solid transparent; margin-bottom: -1px; }"
+      },
+      {
+        id: 16,
+        name: "Law of Continuity",
+        scientist: "Max Wertheimer (1923, Gestalt)",
+        domain: "gestalt",
+        domainLabel: "👁️ Optical Pathways",
+        tier: "intermediate",
+        tierLabel: "🟡 Intermediate",
+        formula: "Good Continuation",
+        axiom: "The human eye naturally follows smooth continuous paths and aligned edges, preferring continuous lines over abrupt turns.",
+        bestPractices: [
+          "Align headings, paragraphs, and inputs along a consistent unbroken vertical margin line.",
+          "Run an unbroken vertical line through chronological feeds and delivery tracking milestones.",
+          "Structure page reading flows to support natural F-pattern and Z-pattern scanning."
+        ],
+        donts: [
+          "Don't scatter elements with erratic, zigzagging left margins across a content page."
+        ],
+        principles: "Gutenberg Diagram, F-Pattern Scanning, Visual Scannability.",
+        patterns: "Vertical Order Tracking Timelines, Masonry Image Feeds, Left-Aligned Article Layouts.",
+        code: ".timeline::before { content: ''; position: absolute; left: 12px; top: 0; bottom: 0; width: 2px; background: var(--color-border); }"
+      },
+      {
+        id: 17,
+        name: "Law of Prägnanz",
+        scientist: "Kurt Koffka (1935, Gestalt)",
+        domain: "gestalt",
+        domainLabel: "👁️ Cognitive Economy",
+        tier: "intermediate",
+        tierLabel: "🟡 Intermediate",
+        formula: "Geometric Conciseness",
+        axiom: "The human mind interprets complex visual scenes in the simplest, most orderly, and most regular form possible.",
+        bestPractices: [
+          "Use the simplest geometric vector glyphs for interface utilities (search glass, trash can, gear).",
+          "Present complex data tables with clean borders and clear vertical alignments rather than decorative 3D effects."
+        ],
+        donts: [
+          "Don't design hyper-detailed, photorealistic icons when clean geometric shapes communicate instantly."
+        ],
+        principles: "Cognitive Efficiency, Iconic Representation, Norman's Signifiers.",
+        patterns: "Minimalist SVG Icons, Clean Orthogonal Layout Grids, Flat Card Surfaces.",
+        code: ".icon { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; }"
+      },
+      {
+        id: 18,
+        name: "Steering Law (Accot-Zhai)",
+        scientist: "Johnny Accot & Shumin Zhai (1997)",
+        domain: "motor",
+        domainLabel: "✋ Motor Steering",
+        tier: "intermediate",
+        tierLabel: "🟡 Intermediate",
+        formula: "T = a + b · ∫ (1/W(s)) ds",
+        axiom: "The time to navigate a pointer through a constrained tunnel or path depends on the tunnel's length divided by its narrowness.",
+        bestPractices: [
+          "Use diagonal safe hover zones or dismissal delays (300ms) on dropdown submenus to prevent accidental collapse.",
+          "Provide wide hit channels (at least 32px) on video scrub bars and range sliders so scrubbing doesn't slip."
+        ],
+        donts: [
+          "Don't build 3-level flyout submenus with 18px-high hover strips that require surgeon-like precision."
+        ],
+        principles: "Motor Precision Limits, Fitts's Law Extension, Ergonomic Trajectory.",
+        patterns: "Mega-Menus with Safe Hover Paths, Thick Range Sliders (<input type=\"range\">), Video Scrubbers.",
+        code: ".nav-item:has(.sub-menu:hover) > .sub-menu { display: block; transition-delay: 200ms; }"
+      },
+      {
+        id: 19,
+        name: "Peak–End Rule",
+        scientist: "Daniel Kahneman (1993)",
+        domain: "cognition",
+        domainLabel: "🧠 Affective Memory",
+        tier: "intermediate",
+        tierLabel: "🟡 Intermediate",
+        formula: "Affective Peak & End",
+        axiom: "People judge past experiences largely by how they felt at the peak emotional moment and at the end, not by the average.",
+        bestPractices: [
+          "Celebrate the final step: provide a delightful confirmation screen with order summary and celebration animation.",
+          "Turn 404 and error states (peaks of pain) into friendly, humorous, and helpful recovery experiences.",
+          "Keep unsubscription and account cancellation flows clean, polite, and respectful."
+        ],
+        donts: [
+          "Don't leave users on a cold blank screen after a major transaction or make cancellation an aggressive battle."
+        ],
+        principles: "Emotional Design, Customer Journey Mapping, Affective Memory.",
+        patterns: "Celebratory Confirmation Screens, Empathetic 404 Pages, Graceful Cancellation Modals.",
+        code: "<div class=\"celebration-card\"><h3>🎉 Order Confirmed!</h3><p>We're preparing your tickets.</p></div>"
+      },
+      {
+        id: 20,
+        name: "Goal-Gradient Effect",
+        scientist: "Clark Hull (1932)",
+        domain: "cognition",
+        domainLabel: "🧠 Motivation Dynamics",
+        tier: "intermediate",
+        tierLabel: "🟡 Intermediate",
+        formula: "Proximity Acceleration",
+        axiom: "The closer people perceive themselves to reaching a goal or milestone, the faster and more motivated they become.",
+        bestPractices: [
+          "Provide endowed progress: start onboarding checklists with Step 1 already completed (20% done).",
+          "Display explicit progress bars in checkout funnels (e.g. 'Step 3 of 4: Payment').",
+          "Show profile completion percentages with a single next actionable step."
+        ],
+        donts: [
+          "Don't present open-ended forms where users have no idea how many steps remain."
+        ],
+        principles: "Motivation Scaffolding, Endowed Progress Effect, Gamification.",
+        patterns: "Checkout Step Progress Bars, Onboarding Task Checklists, Profile Strength Rings.",
+        code: "<progress id=\"flow-progress\" max=\"100\" value=\"75\">75%</progress>"
+      },
+      {
+        id: 21,
+        name: "Doherty Threshold",
+        scientist: "Walter J. Doherty & Ahrvid Thadhani (1979)",
+        domain: "systems",
+        domainLabel: "⚡ Temporal Ergonomics",
+        tier: "advanced",
+        tierLabel: "🔴 Advanced",
+        formula: "Response Latency < 400ms",
+        axiom: "Productivity and engagement soar when computer response time drops below 400ms, preserving uninterrupted mental flow.",
+        bestPractices: [
+          "Use optimistic UI updates: update local DOM state immediately (<50ms) on click before network confirmation.",
+          "Replace centered blocking spinners with shimmering skeleton wireframes to make wait times feel 30% faster.",
+          "Keep Interaction to Next Paint (INP) under 200ms and provide instant :active visual feedback on buttons."
+        ],
+        donts: [
+          "Don't freeze screens with no visual feedback after a click, prompting frantic double-clicks."
+        ],
+        principles: "Norman's Feedback (<100ms instant, <1s flow), Nielsen #1 (System Status), Core Web Vitals.",
+        patterns: "Optimistic UI Updates, Shimmering Skeleton Screens, Instant :active Pressed States.",
+        code: ".skeleton { background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%); animation: shimmer 1.5s infinite; }"
+      },
+      {
+        id: 22,
+        name: "Tesler’s Law",
+        scientist: "Larry Tesler (mid-1980s)",
+        domain: "systems",
+        domainLabel: "⚡ Complexity Conservation",
+        tier: "advanced",
+        tierLabel: "🔴 Advanced",
+        formula: "Conservation of Complexity",
+        axiom: "Every application has an inherent, irreducible complexity. The only choice is who bears it: the system or the user.",
+        bestPractices: [
+          "Absorb complexity in engineering: auto-detect credit card type from first 4 digits and postal city from zip code.",
+          "Detect preferred dark/light color scheme and language via browser headers automatically.",
+          "Don't over-simplify so aggressively that power users lose the ability to complete necessary complex tasks."
+        ],
+        donts: [
+          "Don't expose internal database codes, raw status flags, or backend structures to end users."
+        ],
+        principles: "Cognitive Load Transfer, System Engineering, Norman's Mapping & Conceptual Models.",
+        patterns: "Smart Input Autocomplete, Payment Card Auto-Detection, Automatic dark-mode switching.",
+        code: ":root { color-scheme: light dark; --bg: light-dark(#fff, #121212); }"
+      },
+      {
+        id: 23,
+        name: "Zeigarnik Effect",
+        scientist: "Bluma Zeigarnik (1927)",
+        domain: "cognition",
+        domainLabel: "🧠 Cognitive Tension",
+        tier: "advanced",
+        tierLabel: "🔴 Advanced",
+        formula: "Uncompleted Task Retention",
+        axiom: "People remember uncompleted or interrupted tasks significantly better than completed tasks due to unresolved cognitive tension.",
+        bestPractices: [
+          "Auto-save drafts to localStorage continuously; restore incomplete forms with a friendly notification on return.",
+          "Show item count badges on shopping carts and notification bells to prompt task resumption.",
+          "Keep profile completion indicators visible during initial account setup."
+        ],
+        donts: [
+          "Don't spam users with manipulative, anxiety-inducing notifications about fake emergencies."
+        ],
+        principles: "Cognitive Closure, Kurt Lewin's Tension Systems, Task Resumption Architecture.",
+        patterns: "Auto-Saved Form Drafts, Cart Item Badges, 'Resume where you left off' Banners.",
+        code: "form.addEventListener('input', e => localStorage.setItem('draft_' + e.target.name, e.target.value));"
+      },
+      {
+        id: 24,
+        name: "Parkinson’s Law",
+        scientist: "C. Northcote Parkinson (1955)",
+        domain: "systems",
+        domainLabel: "⚡ Temporal Pacing",
+        tier: "advanced",
+        tierLabel: "🔴 Advanced",
+        formula: "Work Expands to Fill Time",
+        axiom: "A task expands to consume whatever time or resources are allocated for its completion; open-ended flows breed wandering.",
+        bestPractices: [
+          "In high-demand checkout flows (e.g. concert tickets), hold reserved seats for a clear bounded duration (e.g. 10 minutes).",
+          "Auto-focus the first input in focused modals and auto-tab across 6-digit SMS 2FA codes."
+        ],
+        donts: [
+          "Don't fabricate fake countdown timers that reset on refresh (a deceptive dark pattern)."
+        ],
+        principles: "Bounded Rationality, Session Pacing, Focused Attention.",
+        patterns: "Ticket Reservation Timers, 2FA Auto-Tab Inputs, Focused Checkout Dialogs.",
+        code: "<input type=\"text\" maxlength=\"6\" autofocus autocomplete=\"one-time-code\" placeholder=\"123456\">"
+      },
+      {
+        id: 25,
+        name: "Pareto Principle (80/20)",
+        scientist: "Vilfredo Pareto (1896) / Joseph Juran",
+        domain: "systems",
+        domainLabel: "⚡ Systems Optimization",
+        tier: "advanced",
+        tierLabel: "🔴 Advanced",
+        formula: "80% Effects ← 20% Causes",
+        axiom: "Approximately 80% of user interactions or outcomes originate from 20% of features or navigation links.",
+        bestPractices: [
+          "Identify the top 20% most-used actions and place them prominently; tuck the other 80% into secondary drawers.",
+          "Optimize default application settings for the 80% mainstream use case.",
+          "On mobile screens, collapse non-essential table columns into an expandable row drawer."
+        ],
+        donts: [
+          "Don't give equal visual weight to a page visited by 0.1% of users compared to your core catalog."
+        ],
+        principles: "Feature Creep Elimination, Progressive Disclosure, Norman's Activity-Centered Design.",
+        patterns: "Priority+ Navigation Pattern, Collapsible Table Rows, Core Action Toolbars.",
+        code: ".nav-secondary { display: none; } @media (min-width: 1024px) { .nav-secondary { display: flex; } }"
+      },
+      {
+        id: 26,
+        name: "Labor Illusion",
+        scientist: "Ryan Buell & Michael Norton (2011)",
+        domain: "cognition",
+        domainLabel: "🧠 Operational Transparency",
+        tier: "advanced",
+        tierLabel: "🔴 Advanced",
+        formula: "Perceived Effort = Value",
+        axiom: "People place higher subjective value, trust, and satisfaction on results when they observe the system actively working on their behalf.",
+        bestPractices: [
+          "Display animated step-by-step search progress ('Searching 400 airlines... comparing rates...') in travel aggregators.",
+          "Show streaming text tokens and step-by-step reasoning badges during complex AI queries.",
+          "Use brief verification scan animations during security checks to reinforce user confidence in safety."
+        ],
+        donts: [
+          "Don't artificially slow down simple everyday tasks like rendering a static article or submitting a simple form."
+        ],
+        principles: "Operational Transparency, Trust Architecture, System Visibility.",
+        patterns: "Step-by-Step Search Tickers, Streaming AI Tokens, Verification Scan Progress.",
+        code: "<div class=\"ticker\" aria-live=\"polite\"><p>Searching 350 hotel databases for lowest rates...</p></div>"
+      },
+      {
+        id: 27,
+        name: "Weber–Fechner Law (JND)",
+        scientist: "Ernst Weber (1834) & Gustav Fechner (1860)",
+        domain: "gestalt",
+        domainLabel: "👁️ Psychophysics & Contrast",
+        tier: "advanced",
+        tierLabel: "🔴 Advanced",
+        formula: "ΔI / I = k (Just Noticeable Difference)",
+        axiom: "The minimum change in a stimulus detectable by humans is directly proportional to the initial magnitude of the stimulus.",
+        bestPractices: [
+          "Use modular typographic scales: headings must scale exponentially (1.25× to 1.414×) to be recognized as distinct.",
+          "Use perceptually uniform color spaces like OKLCH for subtle hover states across both dark and light surfaces.",
+          "Scale micro-interaction sound or motion feedback proportionally with the importance of the action."
+        ],
+        donts: [
+          "Don't rely on 1px size differences or faint hairline gray text shifts to communicate critical states."
+        ],
+        principles: "Visual Contrast, Modular Typographic Scales, Sensory Perception Thresholds.",
+        patterns: "Fluid Modular Typography (clamp()), OKLCH Color Tokens, Scaled Elevation Shadows.",
+        code: ".btn:hover { background-color: oklch(0.75 0.18 240); /* Proportional lightness step in OKLCH */ }"
+      },
+      {
+        id: 28,
+        name: "Law of Common Fate",
+        scientist: "Max Wertheimer (1923, Gestalt)",
+        domain: "gestalt",
+        domainLabel: "👁️ Motion & Choreography",
+        tier: "advanced",
+        tierLabel: "🔴 Advanced",
+        formula: "Coordinated Kinematics",
+        axiom: "Visual elements that move simultaneously in the same direction and speed are perceived as a single coherent unified object.",
+        bestPractices: [
+          "Coordinate off-canvas drawer slides with canvas displacement so both surfaces slide at the same velocity.",
+          "Ensure accordion expansion pushes lower content downward smoothly at identical velocity without tearing.",
+          "Always wrap motion in @media (prefers-reduced-motion) for users with vestibular motion disorders."
+        ],
+        donts: [
+          "Don't animate adjacent elements at conflicting speeds, chaotic angles, or discordant easing curves."
+        ],
+        principles: "Motion Choreography, Spatial Continuity, WCAG 2.2 SC 2.3.3.",
+        patterns: "Off-Canvas Push Drawers, Accordion Collapsibles, Parallax Depth Layers.",
+        code: "@media (prefers-reduced-motion: reduce) { .drawer, .content { transition: none; } }"
+      },
+      {
+        id: 29,
+        name: "Choice Overload Effect",
+        scientist: "Sheena Iyengar & Mark Lepper (2000)",
+        domain: "cognition",
+        domainLabel: "🧠 Behavioral Economics",
+        tier: "advanced",
+        tierLabel: "🔴 Advanced",
+        formula: "Paradox of Choice",
+        axiom: "An extensive array of choices causes decision paralysis, lowers conversion, and breeds post-purchase dissatisfaction.",
+        bestPractices: [
+          "Curate options: highlight 'Top 3 Editor's Picks' rather than dumping 120 unranked catalog items.",
+          "Structure dropdown menus with <optgroup> categories when choices exceed 10.",
+          "Keep landing pages focused on a single conversion path."
+        ],
+        donts: [
+          "Don't overwhelm first-time users during onboarding with dozens of configuration toggles."
+        ],
+        principles: "Paradox of Choice, Cognitive Economy, Hick's Law Macro-counterpart.",
+        patterns: "Curated 'Top 3' Badges, Categorized <optgroup> Dropdowns, 3-Tier Pricing.",
+        code: "<select><optgroup label=\"Europe\"><option>Portugal</option></optgroup></select>"
+      },
+      {
+        id: 30,
+        name: "Ethical Anti-Deceptive Law",
+        scientist: "Harry Brignull (2023, Deceptive Patterns)",
+        domain: "ethics",
+        domainLabel: "🛡️ Digital Ethics",
+        tier: "advanced",
+        tierLabel: "🔴 Advanced",
+        formula: "The Ethical Counter-Law",
+        axiom: "Misusing psychological UX laws to trick, coerce, or trap users erodes brand trust, violates autonomy, and damages digital integrity.",
+        bestPractices: [
+          "Equal effort for opposite actions: make cancellation and unsubscription as easy and fast as registration.",
+          "Write polite, honest confirmation buttons (no confirmshaming like 'No, I hate saving money').",
+          "Disclose full prices upfront (no hidden drip pricing) and never pre-tick marketing checkboxes."
+        ],
+        donts: [
+          "Don't build Roach Motels, disguise ads as content, or use fake scarcity timers that reset on reload."
+        ],
+        principles: "Ethical Design, User Autonomy, Dieter Rams #6 ('Good design is honest'), EU DSA Compliance.",
+        patterns: "Transparent Pricing Breakdown, Equal-Weight Opt-Out Buttons, Explicit Unchecked Consents.",
+        code: "<div class=\"consent\"><button class=\"btn-sec\">Reject Non-Essential</button><button class=\"btn-pri\">Accept All</button></div>"
+      }
+    ];
+
+    /*
+      ========================================================================
+      RENDER CARDS & MATRIX & CONTROLS I18N
+      ========================================================================
+    */
+    const lawsContainer = document.getElementById('laws-container');
+    const matrixTbody = document.getElementById('matrix-tbody');
+    const searchInput = document.getElementById('laws-search');
+    const resultsCount = document.getElementById('results-count');
+
+    let currentTier = document.documentElement.getAttribute('data-tier') || 'all';
+    let currentDomain = 'all';
+    let searchQuery = '';
+
+    function getActiveTiersList() {
+      if (window.WD101 && window.WD101.getTiers) {
+        return window.WD101.getTiers();
+      }
+      const p = new URLSearchParams(window.location.search);
+      const urlTier = p.get('tier') || p.get('difficulty');
+      const stored = localStorage.getItem('wd101_tier');
+      const cookieMatch = document.cookie.match(/(?:^|;\s*)wd101_tier=([^;]+)/);
+      const cookieTier = cookieMatch ? decodeURIComponent(cookieMatch[1]) : null;
+      const val = urlTier || stored || cookieTier || currentTier || 'all';
+      if (val === 'all') return ['foundation', 'intermediate', 'advanced'];
+      return val.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+    }
+
+    const TIER_LABELS = {
+      foundation: { pt: '🟢 Fundação', en: '🟢 Foundation' },
+      intermediate: { pt: '🟡 Intermédio', en: '🟡 Intermediate' },
+      advanced: { pt: '🔴 Avançado', en: '🔴 Advanced' }
+    };
+
+    const DOMAIN_LABELS = {
+      gestalt: { pt: '👁️ Perceção Gestalt', en: '👁️ Gestalt Perception' },
+      motor: { pt: '✋ Ergonomia Motora', en: '✋ Motor Ergonomics' },
+      cognition: { pt: '🧠 Cognição & Memória', en: '🧠 Cognition & Memory' },
+      systems: { pt: '⚡ Sistemas & Desempenho', en: '⚡ Systems & Performance' },
+      ethics: { pt: '🛡️ Ética Digital', en: '🛡️ Digital Ethics' }
+    };
+
+    function getCurrentLang() {
+      return document.documentElement.getAttribute('lang') === 'en' ? 'en' : 'pt';
+    }
+
+    function updateControlsLanguage(lang) {
+      const currentLang = lang || getCurrentLang();
+
+      const controlsSection = document.getElementById('controls');
+      if (controlsSection) {
+        controlsSection.setAttribute('aria-label', currentLang === 'en' ? 'Search and filter controls' : 'Controlos de pesquisa e filtro');
+      }
+
+      if (searchInput) {
+        searchInput.placeholder = currentLang === 'en'
+          ? 'Search by law, author (Fitts, Hick), principle, formula, or UI pattern...'
+          : 'Pesquisar por lei, autor (Fitts, Hick), princípio, fórmula ou padrão UI...';
+        searchInput.setAttribute('aria-label', currentLang === 'en' ? 'Filter laws by keyword' : 'Filtrar leis por palavra-chave');
+      }
+
+      const tierGroup = document.querySelector('.filter-group[data-filter-group="tier"]');
+      if (tierGroup) {
+        tierGroup.setAttribute('aria-label', currentLang === 'en' ? 'Filter by implementation tier' : 'Filtrar por nível de implementação');
+      }
+
+      const domainGroup = document.querySelector('.filter-group[data-filter-group="domain"]');
+      if (domainGroup) {
+        domainGroup.setAttribute('aria-label', currentLang === 'en' ? 'Filter by cognitive domain' : 'Filtrar por domínio cognitivo');
+      }
+
+      const dohertySelect = document.getElementById('doherty-speed-select');
+      if (dohertySelect) {
+        const opts = dohertySelect.querySelectorAll('option');
+        opts.forEach(opt => {
+          const v = opt.value;
+          if (currentLang === 'en') {
+            if (v === '50') opt.textContent = '50ms (Ultra-fast)';
+            else if (v === '250') opt.textContent = '250ms (Optimal Doherty)';
+            else if (v === '1200') opt.textContent = '1200ms (Noticeable Delay)';
+            else if (v === '2500') opt.textContent = '2500ms (Cognitive Friction)';
+          } else {
+            if (v === '50') opt.textContent = '50ms (Ultra-rápido)';
+            else if (v === '250') opt.textContent = '250ms (Doherty Ótimo)';
+            else if (v === '1200') opt.textContent = '1200ms (Atraso Percetível)';
+            else if (v === '2500') opt.textContent = '2500ms (Fricção Cognitiva)';
+          }
+        });
+      }
+    }
+
+    function escapeHTML(str) {
+      if (!str) return '';
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function copySnippet(id, btn) {
+      const law = LAWS_DATA.find(l => l.id === id);
+      if (!law || !law.code) return;
+      navigator.clipboard.writeText(law.code).then(() => {
+        const origHTML = btn.innerHTML;
+        const currentLang = getCurrentLang();
+        btn.innerHTML = currentLang === 'en' ? '✓ Copied!' : '✓ Copiado!';
+        btn.style.color = 'var(--color-accent-emerald)';
+        setTimeout(() => {
+          btn.innerHTML = origHTML;
+          btn.style.color = '';
+        }, 1800);
+      });
+    }
+
+    function renderLaws() {
+      const activeTiers = getActiveTiersList();
+      const isAll = activeTiers.length === 3 || activeTiers.length === 0;
+
+      const filtered = LAWS_DATA.filter(law => {
+        const matchesTier = (isAll || activeTiers.includes(law.tier));
+        const matchesDomain = (currentDomain === 'all' || law.domain === currentDomain);
+        const q = searchQuery.toLowerCase().trim();
+        const matchesSearch = !q || (
+          law.name.toLowerCase().includes(q) ||
+          law.scientist.toLowerCase().includes(q) ||
+          law.axiom.toLowerCase().includes(q) ||
+          law.principles.toLowerCase().includes(q) ||
+          law.patterns.toLowerCase().includes(q)
+        );
+        return matchesTier && matchesDomain && matchesSearch;
+      });
+
+      const currentLang = getCurrentLang();
+      if (resultsCount) {
+        resultsCount.innerHTML = currentLang === 'en'
+          ? `Showing <strong>${filtered.length}</strong> of ${LAWS_DATA.length} Laws`
+          : `A exibir <strong>${filtered.length}</strong> de ${LAWS_DATA.length} Leis`;
+      }
+
+      if (filtered.length === 0) {
+        lawsContainer.innerHTML = `
+          <div style="grid-column: 1 / -1; padding: var(--space-8); text-align: center; background: var(--bg-surface); border-radius: var(--radius-md); border: 1px dashed var(--border-color);">
+            <p style="font-size: var(--text-base); color: var(--text-muted); margin-bottom: var(--space-3);">
+              <span class="lang-pt">Nenhuma lei corresponde aos critérios de pesquisa selecionados.</span>
+              <span class="lang-en">No laws match the selected search criteria.</span>
+            </p>
+            <button class="btn-control" style="cursor:pointer;" onclick="resetFilters()">
+              <span class="lang-pt">Repor Todos os Filtros</span>
+              <span class="lang-en">Reset All Filters</span>
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      lawsContainer.innerHTML = filtered.map(law => {
+        const tierLabel = (TIER_LABELS[law.tier] && TIER_LABELS[law.tier][currentLang]) || law.tierLabel;
+        const domainLabel = (DOMAIN_LABELS[law.domain] && DOMAIN_LABELS[law.domain][currentLang]) || law.domainLabel;
+        return `
+        <article class="law-card law-card--${law.tier}" data-id="${law.id}">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-2);">
+              <span class="badge" style="font-family:var(--font-mono);font-size:0.7rem;background:var(--bg-surface-elevated);color:var(--text-muted);">#${law.id.toString().padStart(2, '0')}</span>
+              <span class="badge badge-${law.tier === 'foundation' ? 'foundational' : (law.tier === 'intermediate' ? 'intermediate' : 'advanced')}">${tierLabel}</span>
+            </div>
+
+            <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.25rem;">${domainLabel}</div>
+            <h3 style="font-size:var(--text-base); font-weight:700; color:var(--text-primary); margin-bottom:0.25rem;">${law.name}</h3>
+            <div style="font-size:var(--text-xs); color:var(--text-secondary); margin-bottom:var(--space-2);">${law.scientist}</div>
+
+            <div class="law-axiom-box">
+              "${law.axiom}"
+            </div>
+          </div>
+
+          <details class="law-disclosure">
+            <summary>
+              <span class="lang-pt">Boas Práticas &amp; Código HTML/CSS</span>
+              <span class="lang-en">Best Practices &amp; HTML/CSS Code</span>
+              <span aria-hidden="true">▾</span>
+            </summary>
+            <div class="law-drawer">
+              ${law.formula ? `
+                <div>
+                  <div class="drawer-subheading">
+                    <span class="lang-pt">📐 Modelo / Fórmula</span>
+                    <span class="lang-en">📐 Model / Formula</span>
+                  </div>
+                  <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-accent-cyan); font-weight:600;">${law.formula}</div>
+                </div>
+              ` : ''}
+
+              <div>
+                <div class="drawer-subheading">
+                  <span class="lang-pt">✓ Boas Práticas (DOs)</span>
+                  <span class="lang-en">✓ Best Practices (DOs)</span>
+                </div>
+                <ul class="check-list check-list--dos">
+                  ${law.bestPractices.map(bp => `<li>${bp}</li>`).join('')}
+                </ul>
+              </div>
+
+              ${law.donts && law.donts.length ? `
+                <div>
+                  <div class="drawer-subheading">
+                    <span class="lang-pt">✕ Anti-Padrões a Evitar (DON'Ts)</span>
+                    <span class="lang-en">✕ Anti-Patterns to Avoid (DON'Ts)</span>
+                  </div>
+                  <ul class="check-list check-list--donts">
+                    ${law.donts.map(dt => `<li>${dt}</li>`).join('')}
+                  </ul>
+                </div>
+              ` : ''}
+
+              <div>
+                <div class="drawer-subheading">
+                  <span class="lang-pt">🧠 Princípios &amp; Fundamentação</span>
+                  <span class="lang-en">🧠 Principles &amp; Rationale</span>
+                </div>
+                <p style="color:var(--text-secondary); line-height:1.45; margin:0;">${law.principles}</p>
+              </div>
+
+              <div>
+                <div class="drawer-subheading">
+                  <span class="lang-pt">✨ Padrões Web Aplicados</span>
+                  <span class="lang-en">✨ Applied Web Patterns</span>
+                </div>
+                <p style="color:var(--color-swiss-red); font-weight:600; line-height:1.45; margin:0;">${law.patterns}</p>
+              </div>
+
+              <div>
+                <div class="drawer-subheading">
+                  <span class="lang-pt">💻 Implementação em Código</span>
+                  <span class="lang-en">💻 Code Implementation</span>
+                </div>
+                <div class="code-wrap">
+                  <button type="button" class="copy-code-btn" onclick="copySnippet(${law.id}, this)">
+                    <span class="lang-pt">Copiar</span>
+                    <span class="lang-en">Copy</span>
+                  </button>
+                  <pre class="code-snippet"><code>${escapeHTML(law.code)}</code></pre>
+                </div>
+              </div>
+            </div>
+          </details>
+        </article>
+      `}).join('');
+    }
+
+    function renderMatrix() {
+      if (!matrixTbody) return;
+      const currentLang = getCurrentLang();
+      matrixTbody.innerHTML = LAWS_DATA.map(law => {
+        const tierLabel = (TIER_LABELS[law.tier] && TIER_LABELS[law.tier][currentLang]) || law.tierLabel;
+        const domainLabel = (DOMAIN_LABELS[law.domain] && DOMAIN_LABELS[law.domain][currentLang]) || law.domainLabel;
+        return `
+        <tr>
+          <td style="font-family:var(--font-mono); font-weight:700; font-size:var(--text-xs); color:var(--text-muted);">${law.id.toString().padStart(2, '0')}</td>
+          <td>
+            <strong><a href="#laws-collection" onclick="focusLaw(${law.id})" style="color:var(--text-primary); text-decoration:none;" title="${currentLang === 'en' ? 'View details of this law' : 'Ver detalhes desta lei'}">${law.name}</a></strong><br>
+            <span style="font-size:0.75rem; color:var(--text-muted);">${law.scientist}</span>
+          </td>
+          <td><span style="font-size:0.75rem;">${domainLabel}</span></td>
+          <td><span class="badge badge-${law.tier === 'foundation' ? 'foundational' : (law.tier === 'intermediate' ? 'intermediate' : 'advanced')}">${tierLabel}</span></td>
+          <td style="font-size:var(--text-xs); color:var(--text-secondary); line-height:1.4;">${law.principles}</td>
+          <td style="font-size:var(--text-xs); color:var(--color-swiss-red); font-weight:600; line-height:1.4;">${law.patterns}</td>
+        </tr>
+      `}).join('');
+    }
+
+    function focusLaw(id) {
+      currentTier = 'all';
+      currentDomain = 'all';
+      searchQuery = '';
+      if (searchInput) searchInput.value = '';
+      updateButtonStates();
+      renderLaws();
+      setTimeout(() => {
+        const el = document.querySelector(`.law-card[data-id="${id}"]`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.style.boxShadow = '0 0 0 3px var(--color-swiss-red)';
+          setTimeout(() => el.style.boxShadow = '', 2200);
+          const details = el.querySelector('details');
+          if (details) details.open = true;
+        }
+      }, 120);
+    }
+
+    function resetFilters() {
+      currentTier = 'all';
+      currentDomain = 'all';
+      searchQuery = '';
+      if (searchInput) searchInput.value = '';
+      updateButtonStates();
+      renderLaws();
+    }
+
+    function updateButtonStates() {
+      const activeTiers = getActiveTiersList();
+      const isAll = activeTiers.length === 3 || activeTiers.length === 0;
+
+      document.querySelectorAll('[data-tier]').forEach(btn => {
+        const t = btn.dataset.tier;
+        if (t === 'all') {
+          btn.classList.toggle('is-active', isAll);
+        } else {
+          btn.classList.toggle('is-active', activeTiers.includes(t));
+        }
+      });
+      document.querySelectorAll('[data-domain]').forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.domain === currentDomain);
+      });
+    }
+
+    // Filter by Tier Handlers
+    document.querySelectorAll('[data-tier]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const t = btn.dataset.tier;
+        if (t === 'all') {
+          if (window.WD101 && window.WD101.applyTiers) {
+            window.WD101.applyTiers(['foundation', 'intermediate', 'advanced']);
+          } else {
+            currentTier = 'all';
+            updateButtonStates();
+            renderLaws();
+          }
+        } else {
+          if (window.WD101 && window.WD101.toggleTier) {
+            window.WD101.toggleTier(t);
+          } else {
+            currentTier = t;
+            updateButtonStates();
+            renderLaws();
+          }
+        }
+      });
+    });
+
+    // Filter by Domain Handlers
+    document.querySelectorAll('[data-domain]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentDomain = btn.dataset.domain;
+        updateButtonStates();
+        renderLaws();
+      });
+    });
+
+    // Search input handler with debounce
+    let searchTimeout;
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          searchQuery = e.target.value;
+          renderLaws();
+        }, 120);
+      });
+    }
+
+    // Reactive Language & Tier Change Listeners
+    window.addEventListener('wd101:langchange', (e) => {
+      const nextLang = e.detail && e.detail.lang ? e.detail.lang : getCurrentLang();
+      updateControlsLanguage(nextLang);
+      renderLaws();
+      renderMatrix();
+    });
+
+    window.addEventListener('wd101:tierchange', (e) => {
+      currentTier = (e.detail && (e.detail.tierStr || e.detail.tier)) ? (e.detail.tierStr || e.detail.tier) : 'all';
+      updateButtonStates();
+      renderLaws();
+    });
+
+    window.addEventListener('wd101:resetpreferences', () => {
+      resetFilters();
+    });
+
+    /*
+      ========================================================================
+      INTERACTIVE EXPERIMENTS LOGIC
+      ========================================================================
+    */
+    // 1. Fitts's Law Simulator
+    let fittsStart = 0;
+    const fittsFeedback = document.getElementById('fitts-feedback');
+    const fittsBtnSmall = document.getElementById('fitts-btn-small');
+    const fittsBtnLarge = document.getElementById('fitts-btn-large');
+
+    function resetFittsTimer() {
+      fittsStart = performance.now();
+    }
+
+    if (fittsBtnSmall) {
+      fittsBtnSmall.addEventListener('click', () => {
+        const elapsed = (performance.now() - fittsStart).toFixed(0);
+        const currentLang = getCurrentLang();
+        if (fittsFeedback) {
+          fittsFeedback.innerHTML = currentLang === 'en'
+            ? `Small target (20px) clicked in <strong>${elapsed}ms</strong>. Requires high motor precision.`
+            : `Alvo pequeno (20px) clicado em <strong>${elapsed}ms</strong>. Exige alta precisão motora.`;
+        }
+        resetFittsTimer();
+      });
+    }
+
+    if (fittsBtnLarge) {
+      fittsBtnLarge.addEventListener('click', () => {
+        const elapsed = (performance.now() - fittsStart).toFixed(0);
+        const currentLang = getCurrentLang();
+        if (fittsFeedback) {
+          fittsFeedback.innerHTML = currentLang === 'en'
+            ? `Touch target (48px) acquired in <strong>${elapsed}ms</strong>! <span style="color:var(--color-accent-emerald);font-weight:700;">Fitts's Law confirmed: rapid, error-free acquisition.</span>`
+            : `Alvo táctil (48px) adquirido em <strong>${elapsed}ms</strong>! <span style="color:var(--color-accent-emerald);font-weight:700;">Lei de Fitts confirmada: aquisição rápida e sem erro.</span>`;
+        }
+        resetFittsTimer();
+      });
+    }
+    resetFittsTimer();
+
+    // 2. Hick's Law Toggle & Tester
+    let hicksMode = 2;
+    let hicksStart = performance.now();
+    function toggleHicksMode() {
+      const simple = document.getElementById('hicks-simple');
+      const complex = document.getElementById('hicks-complex');
+      const timer = document.getElementById('hicks-timer');
+      const currentLang = getCurrentLang();
+      if (hicksMode === 2) {
+        hicksMode = 8;
+        if (simple) simple.style.display = 'none';
+        if (complex) complex.style.display = 'flex';
+        if (timer) timer.textContent = currentLang === 'en' ? '8 Options active: choose!' : '8 Opções ativas: escolha!';
+      } else {
+        hicksMode = 2;
+        if (simple) simple.style.display = 'flex';
+        if (complex) complex.style.display = 'none';
+        if (timer) timer.textContent = currentLang === 'en' ? '2 Options active: choose!' : '2 Opções ativas: escolha!';
+      }
+      hicksStart = performance.now();
+    }
+
+    function testHicks(count) {
+      const time = (performance.now() - hicksStart).toFixed(0);
+      const timer = document.getElementById('hicks-timer');
+      const currentLang = getCurrentLang();
+      if (timer) {
+        timer.innerHTML = currentLang === 'en'
+          ? `Decision among ${count} options in <strong>${time}ms</strong>.`
+          : `Decisão entre ${count} opções em <strong>${time}ms</strong>.`;
+      }
+      hicksStart = performance.now();
+    }
+
+    // 3. Doherty Threshold Latency Experience
+    const dohertyBtn = document.getElementById('doherty-trigger-btn');
+    const dohertySpeed = document.getElementById('doherty-speed-select');
+    const dohertyStatus = document.getElementById('doherty-status');
+
+    if (dohertyBtn && dohertySpeed) {
+      dohertyBtn.addEventListener('click', () => {
+        const delay = parseInt(dohertySpeed.value, 10);
+        const currentLang = getCurrentLang();
+        if (dohertyStatus) dohertyStatus.textContent = currentLang === 'en' ? 'Processing request...' : 'A processar pedido...';
+        dohertyBtn.disabled = true;
+        dohertyBtn.style.opacity = '0.6';
+
+        setTimeout(() => {
+          dohertyBtn.disabled = false;
+          dohertyBtn.style.opacity = '1';
+          if (!dohertyStatus) return;
+          const lang = getCurrentLang();
+          if (delay <= 50) {
+            dohertyStatus.innerHTML = lang === 'en'
+              ? `<span style="color:var(--color-accent-emerald);font-weight:700;">Instant (&lt;50ms): Zero cognitive disruption.</span>`
+              : `<span style="color:var(--color-accent-emerald);font-weight:700;">Instantâneo (&lt;50ms): Zero rutura cognitiva.</span>`;
+          } else if (delay <= 400) {
+            dohertyStatus.innerHTML = lang === 'en'
+              ? `<span style="color:var(--color-accent-cyan);font-weight:700;">Doherty Threshold (${delay}ms): Continuous mental flow.</span>`
+              : `<span style="color:var(--color-accent-cyan);font-weight:700;">Limiar de Doherty (${delay}ms): Fluxo mental contínuo.</span>`;
+          } else {
+            dohertyStatus.innerHTML = lang === 'en'
+              ? `<span style="color:var(--color-swiss-red);font-weight:700;">Delay (${delay}ms): Attention fracture! User feels cognitive friction.</span>`
+              : `<span style="color:var(--color-swiss-red);font-weight:700;">Atraso (${delay}ms): Rutura de atenção! O utilizador sente atrito.</span>`;
+          }
+        }, delay);
+      });
+    }
+
+    // 4. Miller's Law Chunking
+    let isChunked = false;
+    function toggleChunking() {
+      const display = document.getElementById('chunking-display');
+      const status = document.getElementById('chunking-status');
+      const currentLang = getCurrentLang();
+      isChunked = !isChunked;
+      if (isChunked) {
+        if (display) display.textContent = '9123 4567 8453 2890';
+        if (status) status.innerHTML = currentLang === 'en'
+          ? '<span style="color:var(--color-accent-emerald);font-weight:700;">Grouped into 4 chunks of 4</span>'
+          : '<span style="color:var(--color-accent-emerald);font-weight:700;">Agrupado em 4 blocos de 4</span>';
+      } else {
+        if (display) display.textContent = '9123456784532890';
+        if (status) status.innerHTML = currentLang === 'en'
+          ? '<span style="color:var(--text-muted);">Continuous (16 digits)</span>'
+          : '<span style="color:var(--text-muted);">Contínuo (16 dígitos)</span>';
+      }
+    }
+
+    // 5. Von Restorff Isolation
+    let isRestorffActive = false;
+    function toggleRestorff() {
+      const target = document.getElementById('restorff-target');
+      const status = document.getElementById('restorff-status');
+      const currentLang = getCurrentLang();
+      isRestorffActive = !isRestorffActive;
+      if (isRestorffActive) {
+        if (target) {
+          target.style.background = 'var(--color-swiss-red)';
+          target.style.borderColor = 'var(--color-swiss-red)';
+          target.style.transform = 'scale(1.25)';
+          target.style.boxShadow = '0 0 12px var(--color-swiss-red-tint)';
+        }
+        if (status) status.innerHTML = currentLang === 'en'
+          ? '<span style="color:var(--color-swiss-red);font-weight:700;">Visual Isolation Active</span>'
+          : '<span style="color:var(--color-swiss-red);font-weight:700;">Isolamento Visual Ativo</span>';
+      } else {
+        if (target) {
+          target.style.background = 'var(--bg-surface)';
+          target.style.borderColor = 'var(--border-color)';
+          target.style.transform = 'scale(1)';
+          target.style.boxShadow = 'none';
+        }
+        if (status) status.innerHTML = currentLang === 'en'
+          ? '<span style="color:var(--color-accent-gold);font-weight:700;">Neutral</span>'
+          : '<span style="color:var(--color-accent-gold);font-weight:700;">Neutro</span>';
+      }
+    }
+
+    // 6. Gestalt Proximity & Border
+    function updateGestalt(val) {
+      const box = document.getElementById('gestalt-box');
+      if (box) box.style.gap = val + 'px';
+    }
+    let gestaltBorder = false;
+    function toggleGestaltBorder() {
+      const box = document.getElementById('gestalt-box');
+      if (!box) return;
+      gestaltBorder = !gestaltBorder;
+      if (gestaltBorder) {
+        box.style.border = '2px solid var(--color-accent-emerald)';
+        box.style.background = 'var(--color-accent-emerald-tint)';
+      } else {
+        box.style.border = 'none';
+        box.style.background = 'transparent';
+      }
+    }
+
+    // Initial Execution with URL parameters & storage priority
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlDomain = urlParams.get('domain');
+    if (urlDomain) {
+      currentDomain = urlDomain.toLowerCase();
+    }
+    const urlQ = urlParams.get('q');
+    if (urlQ && searchInput) {
+      searchQuery = urlQ;
+      searchInput.value = urlQ;
+    }
+
+    updateControlsLanguage();
+    updateButtonStates();
+    renderLaws();
+    renderMatrix();
+  </script>
+
+  <!-- Global Shell Controller -->
+  <script src="assets/js/site-shell.js"></script>
+</body>
+</html>

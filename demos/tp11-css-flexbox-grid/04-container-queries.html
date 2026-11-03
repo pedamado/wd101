@@ -23,67 +23,122 @@
   <title>04 • Container Queries | Component-Driven Layout | DRUMTIKS '26</title>
   <meta name="description" content="Pedagogical interactive masterclass on CSS Container Queries (@container): responsive components without global viewport @media queries using Flexbox and CSS Grid.">
 
+  <!-- Previne FOUC de tema e idioma: padrão estrito Light -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') === 'dark' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') === 'en' ? 'en' : 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
+
+  <!-- CSS Layer Hierarchy -->
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../assets/css/modernist.css">
+  <link rel="stylesheet" href="../../assets/css/patterns-demo.css">
   <!-- Local variable fonts (Inter, Martian Mono, Syne) -->
   <link rel="stylesheet" href="css/fonts.css">
-  <!-- Shared design system tokens, typography, resets and header -->
-  <link rel="stylesheet" href="css/base.css">
   <!-- Dedicated Container Queries module styles, resizable playground and adaptive rules -->
   <link rel="stylesheet" href="css/container-queries-demo.css">
+
+  <style>
+    :root {
+      --color-surface-1: var(--bg-surface, #ffffff);
+      --color-surface-2: var(--bg-surface-elevated, #f8f9fa);
+      --color-surface-hover: var(--bg-surface-hover, rgba(0, 0, 0, 0.04));
+      --color-border-subtle: var(--border-color, rgba(0, 0, 0, 0.1));
+      --color-border-medium: var(--border-color-strong, rgba(0, 0, 0, 0.2));
+      --color-text-main: var(--text-primary, #121316);
+      --color-text-muted: var(--text-secondary, #5a6072);
+      --color-text-dim: var(--text-muted, #7e859b);
+      --color-accent-cyan: #0095b6;
+      --color-accent-green: #059669;
+      --color-accent-amber: #d97706;
+      --color-accent-red: var(--color-swiss-red, #e60000);
+    }
+    html[data-theme="dark"] {
+      --color-surface-1: #18191f;
+      --color-surface-2: #21232b;
+      --color-surface-hover: #2b2e38;
+      --color-border-subtle: rgba(255, 255, 255, 0.08);
+      --color-border-medium: rgba(255, 255, 255, 0.16);
+      --color-text-main: #f5f5f7;
+      --color-text-muted: #9598a8;
+      --color-text-dim: #656877;
+      --color-accent-cyan: #00d2ff;
+      --color-accent-green: #00e676;
+      --color-accent-amber: #f5a623;
+    }
+    .cq-workspace {
+      margin-bottom: var(--space-8);
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Sticky Global Top Bar -->
-  <header class="site-header" role="banner">
-    <div class="header-container">
-      <div class="brand-group">
-        <a href="index.html" class="brand-logo" aria-label="Return to Curriculum Hub">
-          DRUMTIKS<span class="tag">'26</span>
-        </a>
-        <span class="brand-badge">WD101 • LAB 04</span>
-      </div>
-
-      <!-- Navigation tabs between all 4 Masterclass pages and the Hub -->
-      <nav class="main-nav" aria-label="Curriculum Navigation">
-        <a href="index.html" class="nav-link">
-          <span>🏠 Hub</span>
-        </a>
-        <a href="01-flexbox-tracks.html" class="nav-link">
-          <span class="nav-pill-num">01</span>
-          <span>Flexbox Tracks</span>
-        </a>
-        <a href="02-grid-albums.html" class="nav-link">
-          <span class="nav-pill-num">02</span>
-          <span>CSS Grid Albums</span>
-        </a>
-        <a href="03-hybrid-discography.html" class="nav-link">
-          <span class="nav-pill-num">03</span>
-          <span>Hybrid Architecture</span>
-        </a>
-        <a href="04-container-queries.html" class="nav-link active" aria-current="page">
-          <span class="nav-pill-num">04</span>
-          <span>Container Queries</span>
-        </a>
-      </nav>
-    </div>
-  </header>
+  <!-- Site Header montado automaticamente pelo site-shell.js -->
+  <header class="site-header" role="banner"></header>
 
   <!-- Primary Document Body -->
-  <main id="main-content" role="main">
+  <main class="main-container" id="main-content">
+
+    <!-- Breadcrumb Strip -->
+    <nav class="breadcrumb-strip" aria-label="Navegação Estrutural" style="margin-bottom:var(--space-4);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+      <a href="../../index.html" style="color:var(--text-muted);text-decoration:none;">WD101</a>
+      <span>/</span>
+      <a href="../index.html" style="color:var(--text-muted);text-decoration:none;"><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></a>
+      <span>/</span>
+      <a href="index.html" style="color:var(--text-muted);text-decoration:none;">TP11-B: Layout Suite</a>
+      <span>/</span>
+      <span style="color:var(--color-swiss-red);font-weight:700;">Lab 04: Container Queries (@container)</span>
+    </nav>
 
     <!-- HERO SECTION: Explains Container Queries Paradigm Shift -->
-    <section class="page-hero" aria-labelledby="cq-hero-title">
-      <div class="hero-meta-strip">
-        <span class="hero-chip chip-green">CSS Container Queries (@container)</span>
-        <span class="hero-chip chip-cyan">Component-Driven Responsiveness</span>
-        <span class="hero-chip chip-amber">Zero Global Viewport @media Required</span>
+    <section class="page-hero" id="cq-hero" aria-labelledby="cq-hero-title" style="margin-bottom:var(--space-8);padding-bottom:var(--space-6);border-bottom:2px solid var(--border-color);">
+      <div class="hero-meta-strip" style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-2);flex-wrap:wrap;">
+        <span class="badge badge-advanced">CSS Container Queries (@container)</span>
+        <span class="badge badge-status-yes">Component-Driven Responsiveness</span>
+        <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">
+          Zero Global Viewport @media Required
+        </span>
       </div>
-      <h1 id="cq-hero-title" class="hero-title">04 • Container Queries: Fast &amp; Modular Layouts</h1>
-      <p class="hero-description">
-        Traditional <code>@media</code> queries force you to re-architect all selectors across the whole site based on the <em>viewport width</em>. With <strong>CSS Container Queries (<code>@container</code>)</strong>, a component adapts intrinsically based strictly on the <strong>width of its immediate parent container</strong> (<code>container-type: inline-size</code>). The same component works identically in a 320px sidebar, a 540px grid column, or a 920px hero banner without writing a single viewport query!
+      <h1 id="cq-hero-title" class="hero-title" style="font-size:var(--text-3xl);margin-bottom:var(--space-3);">
+        <span class="lang-pt">04 • Container Queries: Layouts Modulares &amp; Rápidos</span>
+        <span class="lang-en">04 • Container Queries: Fast &amp; Modular Layouts</span>
+      </h1>
+      <p class="hero-description" style="font-size:var(--text-base);max-width:85ch;margin-bottom:0;color:var(--text-secondary);line-height:1.6;">
+        <span class="lang-pt">As consultas tradicionais <code>@media</code> obrigam a redesenhar seletores com base na largura global da janela (viewport). Com as <strong>CSS Container Queries (<code>@container</code>)</strong>, um componente adapta-se intrinsecamente com base apenas na <strong>largura do seu contentor-pai imediato</strong> (<code>container-type: inline-size</code>). O mesmo componente funciona perfeitamente numa barra lateral de 320px, numa coluna de 540px ou num banner de 920px sem uma única query global!</span>
+        <span class="lang-en">Traditional <code>@media</code> queries force you to re-architect selectors based on global viewport width. With <strong>CSS Container Queries (<code>@container</code>)</strong>, a component adapts intrinsically based strictly on the <strong>width of its immediate parent container</strong> (<code>container-type: inline-size</code>). The same component works identically in a 320px sidebar, a 540px grid column, or a 920px hero banner without writing a single viewport query!</span>
       </p>
     </section>
 
-    <div class="cq-workspace">
+    <!-- Page Layout with Sticky Aside Rail -->
+    <div class="page-layout-with-aside">
+
+      <!-- Sticky Aside TOC Navigation Card -->
+      <aside class="aside-toc" aria-label="Navegação do Demonstrador">
+        <div class="aside-toc-card">
+          <div class="aside-toc-header">
+            <span class="aside-toc-title"><span class="lang-pt">Neste Lab 04</span><span class="lang-en">In this Lab 04</span></span>
+            <span class="aside-toc-count">6 Secções</span>
+          </div>
+          <ul class="aside-toc-list">
+            <li class="aside-toc-item"><a href="#cq-hero" class="aside-toc-link"><span>🚀 0. <span class="lang-pt">Visão &amp; Conceito</span><span class="lang-en">Vision &amp; Concept</span></span></a></li>
+            <li class="aside-toc-item"><a href="#cq-playground" class="aside-toc-link"><span>🎛️ 1. <span class="lang-pt">Simulador Interativo</span><span class="lang-en">Live Simulator</span></span></a></li>
+            <li class="aside-toc-item"><a href="#cq-dropin" class="aside-toc-link"><span>🔬 2. <span class="lang-pt">Teste Drop-in (Sidebar vs Main)</span><span class="lang-en">Drop-in Test</span></span></a></li>
+            <li class="aside-toc-item"><a href="#cq-blueprint" class="aside-toc-link"><span>📐 3. <span class="lang-pt">Blueprint &amp; Anatomia</span><span class="lang-en">Blueprint &amp; Syntax</span></span></a></li>
+            <li class="aside-toc-item"><a href="#cq-units" class="aside-toc-link"><span>📏 4. <span class="lang-pt">Unidades cqi / cqb</span><span class="lang-en">Container Units</span></span></a></li>
+            <li class="aside-toc-item"><a href="#cq-pedagogy" class="aside-toc-link"><span>📖 5. <span class="lang-pt">Recursos MDN Web Docs</span><span class="lang-en">MDN Resources</span></span></a></li>
+            <li class="aside-toc-item"><a href="#connected-mesh" class="aside-toc-link"><span>🔗 6. <span class="lang-pt">Rede Curricular WD101</span><span class="lang-en">Curricular Mesh</span></span></a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Content Column -->
+      <div class="page-layout-main">
+
+        <div class="cq-workspace" id="cq-playground">
 
       <!-- PEDAGOGICAL TOOLBAR (Pure HTML + CSS) -->
       <div class="demo-control-bar" role="toolbar" aria-label="Container Queries Engine Controls">
@@ -211,7 +266,7 @@
              Demonstrates dropping the EXACT SAME HTML component into both a
              narrow sidebar (~320px) and a wide main column (~780px).
              ================================================================== -->
-        <section class="dropin-proof-section" aria-labelledby="dropin-heading">
+        <section class="dropin-proof-section" id="cq-dropin" aria-labelledby="dropin-heading">
           <div class="section-eyebrow">The Universal Design System Test</div>
           <h2 id="dropin-heading" class="section-heading">The "Drop-in Test": Sidebar vs. Main Area Proof</h2>
           <p style="font-size:0.92rem;color:var(--color-text-muted);margin-bottom:1.5rem;line-height:1.6;">
@@ -417,7 +472,7 @@
            flexbox and the css grid containers and items positionind (just the
            main structural aspects, no need for visual design details, like colors, fonts, etc.)"
            ==================================================================== -->
-      <section class="blueprint-card" aria-labelledby="cq-blueprint-title">
+      <section class="blueprint-card" id="cq-blueprint" aria-labelledby="cq-blueprint-title">
         <div class="blueprint-header">
           <div>
             <span class="blueprint-badge">Pedagogical Cheat Sheet</span>
@@ -533,7 +588,7 @@
           </div>
 
           <!-- Box 3: Container Units -->
-          <div class="pedagogy-box">
+          <div class="pedagogy-box" id="cq-units">
             <h4>3. Container Query Units (cqi)</h4>
             <p>
               Just as <code>vw</code> represents 1% of the viewport, <code>1cqi</code> represents 1% of the container's inline width. With <code>font-size: clamp(1rem, 2cqi, 1.8rem)</code>, typography scales with component size, not screen size.
@@ -550,7 +605,7 @@
         </div>
 
         <!-- MDN Reference Links -->
-        <h3 style="margin-top: 2rem; font-family: var(--font-display); font-size: 1.15rem; color: #fff;">
+        <h3 style="margin-top: 2rem; font-family: var(--font-display); font-size: 1.15rem; color: var(--text-primary);" id="cq-pedagogy">
           Official MDN Web Docs Canonical Guides
         </h3>
         <ul class="mdn-resource-list">
@@ -588,6 +643,46 @@
       </div>
     </section>
 
+      </div><!-- .page-layout-main -->
+    </div><!-- .page-layout-with-aside -->
+
+    <!-- Connected in WD101 Organic Mesh Block -->
+    <section class="wd-mesh-section" id="connected-mesh" style="margin-top:var(--space-12);">
+      <div class="wd-mesh-header">
+        <span class="wd-mesh-kicker"><span class="lang-pt">Mapeamento Pedagógico</span><span class="lang-en">Curricular Mesh</span> &bull; Connected in WD101</span>
+        <h2 class="wd-mesh-title"><span class="lang-pt">Articulação com Enunciados, Demos e Matriz W3C</span><span class="lang-en">Connected Course Milestones, Demos &amp; Matrix</span></h2>
+      </div>
+      <div class="wd-mesh-grid">
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Enunciados do Curso</span><span class="lang-en">Course Assignments</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="../../ex1-hello-warp-guide.html" class="wd-mesh-chip">🟢 EX1: Hello Warp!</a>
+            <a href="../../ex2-guide.html" class="wd-mesh-chip">🔵 EX2: Media &amp; Box Model</a>
+            <a href="../../tp06-early-prototype-guide.html" class="wd-mesh-chip">🔵 Projeto Fase 1: TP06</a>
+            <a href="../tp11-integrated-responsive-project/GUIDE.html" class="wd-mesh-chip">🟣 Projeto Fase 2: TP11</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Demos &amp; Boilerplates</span><span class="lang-en">Demos &amp; Boilerplates</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="../index.html" class="wd-mesh-chip">🚀 Repositório Central de Demos</a>
+            <a href="index.html" class="wd-mesh-chip">🟣 Suite Flexbox &amp; Grid (TP11-B)</a>
+            <a href="../tp11-variables-transitions-animations/index.html" class="wd-mesh-chip">🟣 Masterclass Motion (TP11-A)</a>
+            <a href="../../interaction-patterns.html" class="wd-mesh-chip">✨ 142 Padrões Web</a>
+          </div>
+        </div>
+        <div class="wd-mesh-col">
+          <h3><span class="lang-pt">Matriz HTML5 &amp; CSS3</span><span class="lang-en">W3C Standards Matrix</span></h3>
+          <div class="wd-mesh-chips">
+            <a href="../../matrix.html" class="wd-mesh-chip" style="font-weight:700;color:var(--color-swiss-red);">Matriz Completa (314) ↗</a>
+            <a href="../../matrix.html?cat=cat-container" class="wd-mesh-chip">Container Queries</a>
+            <a href="../../matrix.html?cat=cat-flexbox" class="wd-mesh-chip">CSS Flexbox</a>
+            <a href="../../matrix.html?cat=cat-grid" class="wd-mesh-chip">CSS Grid</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer class="site-footer" role="contentinfo">
@@ -601,11 +696,12 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>Theme: DJ Warp Turntablist Master Discography • Pure HTML5 &amp; CSS3</span>
+        <span><span class="lang-pt">Tema: Discografia Master Turntablist DJ Warp • Pure HTML5 &amp; CSS3</span><span class="lang-en">Theme: DJ Warp Turntablist Master Discography • Pure HTML5 &amp; CSS3</span></span>
         <span>Laboratory Suite 04 / 04</span>
       </div>
     </div>
   </footer>
 
+  <script src="../../assets/js/site-shell.js"></script>
 </body>
 </html>
