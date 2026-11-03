@@ -354,7 +354,7 @@ flowchart TD
 
 | # | Propriedade / Metodologia | Tipo | Nível Curricular | No Curso WD101? | Referência MDN |
 | :---: | :--- | :---: | :--- | :---: | :--- |
-| 182| `CSS Reset (Eric Meyer v2.0)` | CSS | **Intermediate** | **YES** *(Fundação estrutural nos TP02 a TP06)* | [MDN: Handling conflicts & resets](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Handling_conflicts#css_resets) |
+| 182| `CSS Reset (Eric Meyer v2.0)` | CSS | **Intermediate** | **YES** *(Fundação estrutural da Fase 1 • Semanas 5 a 8)* | [MDN: Handling conflicts & resets](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Handling_conflicts#css_resets) |
 | 183| `box-sizing` | CSS | Basic / Foundational | **YES** *(Obrigatório `border-box` no reset)* | [MDN: box-sizing](https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing) |
 | 184| `width` / `height` | CSS | Basic / Foundational | **YES** | [MDN: width](https://developer.mozilla.org/en-US/docs/Web/CSS/width) |
 | 185| `min-width` / `max-width` | CSS | Basic / Foundational | **YES** *(Fator de segurança mobile)* | [MDN: min-width](https://developer.mozilla.org/en-US/docs/Web/CSS/min-width) |
@@ -373,14 +373,14 @@ flowchart TD
 | # | Propriedade | Tipo | Nível Curricular | No Curso WD101? | Referência MDN |
 | :---: | :--- | :---: | :--- | :---: | :--- |
 | 194| `display` | CSS | Basic / Foundational | **YES** *(block, inline, inline-block, none)*| [MDN: display](https://developer.mozilla.org/en-US/docs/Web/CSS/display) |
-| 195| `display: flex` | CSS | Intermediate | **YES** *(TP05: alinhamento unidimensional)* | [MDN: CSS flexible box layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout) |
+| 195| `display: flex` | CSS | Intermediate | **YES** *(Semanas 5 a 8: alinhamento unidimensional)* | [MDN: CSS flexible box layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout) |
 | 196| `flex-direction` | CSS | Intermediate | **YES** *(row, column, reverse)* | [MDN: flex-direction](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction) |
 | 197| `flex-wrap` | CSS | Intermediate | **YES** *(Quebra fluida de cartões)* | [MDN: flex-wrap](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap) |
 | 198| `justify-content` | CSS | Intermediate | **YES** *(Alinhamento no eixo principal)* | [MDN: justify-content](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content) |
 | 199| `align-items` | CSS | Intermediate | **YES** *(Alinhamento no eixo cruzado)* | [MDN: align-items](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items) |
 | 200| `flex-grow` / `flex-shrink` / `flex-basis` | CSS | Intermediate | **YES** | [MDN: flex](https://developer.mozilla.org/en-US/docs/Web/CSS/flex) |
 | 201| `order` | CSS | Intermediate | **YES** *(Reordenação visual responsiva)* | [MDN: order](https://developer.mozilla.org/en-US/docs/Web/CSS/order) |
-| 202| `display: grid` | CSS | Intermediate / Advanced | **YES** *(TP05 & TP06: 2 colunas)* | [MDN: CSS grid layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout) |
+| 202| `display: grid` | CSS | Intermediate / Advanced | **YES** *(Semanas 5 a 8: 2 colunas e macro-grelhas)* | [MDN: CSS grid layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout) |
 | 203| `grid-template-columns` | CSS | Intermediate / Advanced | **YES** *(Uso de `fr`, `minmax()`, `repeat()`)* | [MDN: grid-template-columns](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns) |
 | 204| `grid-template-rows` | CSS | Advanced / Complex | **YES** *(Accordion animado `0fr -> 1fr`)* | [MDN: grid-template-rows](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows) |
 | 205| `grid-template-areas` | CSS | Intermediate / Advanced | **YES** *(Mapas visuais semânticos de grelha)* | [MDN: grid-template-areas](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas) |
@@ -456,7 +456,7 @@ flowchart TD
 | 255| `scroll-snap-type` | CSS | Advanced / Complex | **YES** *(Carrossel de galeria: `x mandatory`)* | [MDN: scroll-snap-type](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-type) |
 | 256| `scroll-snap-align` | CSS | Advanced / Complex | **YES** *(`center` ou `start` nos slides)* | [MDN: scroll-snap-align](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-align) |
 | 257| `scroll-padding` / `scroll-margin` | CSS | Intermediate / Advanced | **YES** *(Evita que cabeçalho tape a âncora)* | [MDN: scroll-padding](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-padding) |
-| 258| `animation-timeline` | CSS | Advanced / Complex | **YES** *(TP06: barra de leitura via `scroll()`)* | [MDN: animation-timeline](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline) |
+| 258| `animation-timeline` | CSS | Advanced / Complex | **YES** *(Semanas 9 a 13: barra de leitura via `scroll()`)* | [MDN: animation-timeline](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline) |
 | 259| `animation-range` | CSS | Advanced / Complex | **TBD** *(Sincronização em `entry` ou `cover`)* | [MDN: animation-range](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-range) |
 | 260| `scrollbar-width` / `scrollbar-color` | CSS | Intermediate / Advanced | **TBD** *(Estilização da barra nativa)* | [MDN: scrollbar-width](https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width) |
 | 261| `overscroll-behavior` | CSS | Advanced / Complex | **TBD** *(Impede scroll acorrentado em modais)* | [MDN: overscroll-behavior](https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior) |
@@ -502,7 +502,7 @@ flowchart TD
 | 282| `@container` (Container Queries) | CSS | **Advanced / Complex** | **TBD** *(Componentes intrinsecamente responsivos)*| [MDN: @container](https://developer.mozilla.org/en-US/docs/Web/CSS/@container) |
 | 283| `@font-face` (Local WOFF2 Vendorizado) | CSS | **Advanced / Complex** | **YES** *(Soberania de dados e zero CDNs)* | [MDN: @font-face](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face) |
 | 284| `@keyframes` | CSS | Intermediate / Advanced | **YES** *(Sequenciação temporal de animações)* | [MDN: @keyframes](https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes) |
-| 285| `@layer` | CSS | Advanced / Complex | **YES** *(TP06: orquestração de especificidade)* | [MDN: @layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) |
+| 285| `@layer` | CSS | Advanced / Complex | **YES** *(Semanas 5 a 8: orquestração de especificidade)* | [MDN: @layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) |
 | 286| `@supports` | CSS | Intermediate / Advanced | **YES** *(Progressive Enhancement de APIs)* | [MDN: @supports](https://developer.mozilla.org/en-US/docs/Web/CSS/@supports) |
 | 287| `@property` (CSS Properties API) | CSS | **Advanced / Complex** | **TBD** *(Variáveis tipadas e animáveis)* | [MDN: @property](https://developer.mozilla.org/en-US/docs/Web/CSS/@property) |
 | 288| `@starting-style` | CSS | Advanced / Complex | **TBD** *(Animação suave de entrada de modais/popups)*| [MDN: @starting-style](https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) |
@@ -515,7 +515,7 @@ flowchart TD
 | # | Função / Unidade | Tipo | Nível Curricular | No Curso WD101? | Referência MDN |
 | :---: | :--- | :---: | :--- | :---: | :--- |
 | 292| `calc()` | CSS | Intermediate | **YES** *(Cálculos híbridos de medidas: `100% - 20px`)*| [MDN: calc()](https://developer.mozilla.org/en-US/docs/Web/CSS/calc) |
-| 293| `clamp()` | CSS | Intermediate / Advanced | **YES** *(Pilar do TP06: tipografia e padding fluidos)*| [MDN: clamp()](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp) |
+| 293| `clamp()` | CSS | Intermediate / Advanced | **YES** *(Pilar da Fase 1 • Semanas 5 a 8: tipografia e padding fluidos)*| [MDN: clamp()](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp) |
 | 294| `min()` | CSS | Intermediate / Advanced | **YES** *(Limites superiores automáticos)* | [MDN: min()](https://developer.mozilla.org/en-US/docs/Web/CSS/min) |
 | 295| `max()` | CSS | Intermediate / Advanced | **YES** *(Limites inferiores automáticos)* | [MDN: max()](https://developer.mozilla.org/en-US/docs/Web/CSS/max) |
 | 296| `cqi` / `cqw` (Container Query Units) | CSS | **Advanced / Complex** | **TBD** *(Percentagem da largura do contentor)* | [MDN: Container query length units](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries#container_query_length_units) |
