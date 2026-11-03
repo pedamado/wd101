@@ -704,7 +704,7 @@ O objetivo é espelhar a estrutura formal de variáveis do Figma, garantindo tip
 
 A gestão tipográfica no curso de Design de Comunicação divide-se em duas metodologias estratégicas:
 
-### 9.1 Dimensão 1: Webfonts Variáveis Remotas via CDN (Nível Intermédio — TP02 a TP04)
+### 9.1 Dimensão 1: Webfonts Variáveis Remotas via CDN (Nível Intermédio — Semanas 3 a 5)
 
 ```html
 <!-- HEAD HTML: Preconexão e Carregamento de Fontes Variáveis Remotas (CDN) -->
@@ -731,7 +731,7 @@ h1 {
 
 ---
 
-### 9.2 Dimensão 2: Webfonts Variáveis Locais / Vendorizadas (Nível Avançado — TP06 & Projeto Final)
+### 9.2 Dimensão 2: Webfonts Variáveis Locais / Vendorizadas (Nível Avançado — Semanas 5 a 13 & Projeto Final)
 
 ```html
 <!-- Preload da fonte crítica de títulos WOFF2 com atributo crossorigin obrigatório -->
@@ -781,10 +781,10 @@ Com base na análise exaustiva do repositório da disciplina (`WD101-26`), ident
 1. **Adoção de CSS Container Queries (`@container` & `cqi`):** Permite aos estudantes conceber cartões verdadeiramente reutilizáveis que alteram a sua disposição horizontal/vertical dependendo do contentor pai e não apenas da janela do browser.
 2. **Técnicas de Sticky Stacking & Sobrescrita Natural por Irmãos:** Ensina a modelação de cabeçalhos de secção e baralhos de cartões onde cada secção que faz scroll empurra ou cobre elegantemente a anterior sem recorrer a bibliotecas externas.
 3. **Efeitos de Parallax Puro no Scroll:** Desmistifica a necessidade de JavaScript para efeitos de profundidade, ensinando tanto a perspetiva 3D nativa (`perspective: 1px`) como a moderna API de `animation-timeline: scroll()`.
-4. **Formalização de Variáveis CSS no Nível Intermédio (TP03/TP04):** Garantir que todos os estudantes utilizam `var(--*)` para valores repetidos de cor e margens antes de avançarem para a complexidade das grelhas.
-5. **Introdução da Camada de Tokenização no Nível Avançado (TP06 / Projeto Final):** Ensinar a separação formal entre tokens primitivos (extraídos das bibliotecas de variáveis do Figma) e tokens semânticos (consumidos no CSS).
+4. **Formalização de Variáveis CSS no Nível Intermédio (Semanas 3 a 5):** Garantir que todos os estudantes utilizam `var(--*)` para valores repetidos de cor e margens antes de avançarem para a complexidade das grelhas.
+5. **Introdução da Camada de Tokenização no Nível Avançado (Semanas 5 a 13 / Projeto Final):** Ensinar a separação formal entre tokens primitivos (extraídos das bibliotecas de variáveis do Figma) e tokens semânticos (consumidos no CSS).
 6. **Exploração de `@property` (CSS Properties and Values API):** Demonstrar como registrar variáveis tipadas para permitir transições suaves de gradientes e cores com suporte de fallbacks automáticos.
-7. **Metodologia de Vendorização de Fontes Variáveis (TP06):** Ensinar o uso de `@font-face` com intervalos contínuos de eixos (`100 900`) e `<link rel="preload">`, garantindo páginas 100% resilientes sem CDNs externas.
+7. **Metodologia de Vendorização de Fontes Variáveis (Semanas 5 a 8 / Fase 1):** Ensinar o uso de `@font-face` com intervalos contínuos de eixos (`100 900`) e `<link rel="preload">`, garantindo páginas 100% resilientes sem CDNs externas.
 8. **Substituição Progressiva pela Popover API (`popover`, `popovertarget`):** Viabiliza modais e gavetas sem poluir o histórico do navegador nem recorrer ao hack de URL fragment `:target`.
 9. **CSS Anchor Positioning (`anchor()`, `position-area`):** Resolve o ancoramento flutuante de submenus e tooltips sem necessidade de `position: relative` forçado nos contentores pai.
 
