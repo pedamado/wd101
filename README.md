@@ -138,7 +138,6 @@ The following comprehensive bibliography documents the foundational web developm
 * **Mozilla Corporation, & MDN Web Docs Community.** (n.d.). *MDN Web Docs: Resources for developers, by developers*. Mozilla. Retrieved November 3, 2026, from [https://developer.mozilla.org/](https://developer.mozilla.org/)
 * **Traversy, B.** (n.d.). *Traversy Media: Web development & programming tutorials* [YouTube channel]. YouTube. Retrieved November 3, 2026, from [https://www.youtube.com/@TraversyMedia](https://www.youtube.com/@TraversyMedia)
 * **Duckett, J.** (2011). *HTML and CSS: Design and build websites*. John Wiley & Sons. [https://www.jonduckett.com/html-and-css](https://www.jonduckett.com/html-and-css)
-* **Duckett, J.** (2014). *JavaScript and JQuery: Interactive front-end web development*. John Wiley & Sons. [https://www.jonduckett.com/javascript-and-jquery](https://www.jonduckett.com/javascript-and-jquery)
 * **Robbins, J. N.** (2018). *Learning web design: A beginner's guide to HTML, CSS, JavaScript, and web graphics* (5th ed.). O'Reilly Media. [https://www.oreilly.com/library/view/learning-web-design/9781491960196/](https://www.oreilly.com/library/view/learning-web-design/9781491960196/)
 
 ---
