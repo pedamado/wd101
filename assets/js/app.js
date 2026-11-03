@@ -195,10 +195,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (filterMilestone && filterMilestone.options.length >= 6) {
       const mCounts = f.milestone.counts;
       filterMilestone.options[0].textContent = isPt ? `Todos os Marcos (${f.milestone.subsetTotal})` : `All Milestones (${f.milestone.subsetTotal})`;
-      filterMilestone.options[1].textContent = `EX1 (Hello Warp! • ${mCounts['EX1'] || 0})`;
-      filterMilestone.options[2].textContent = `EX2 (Media & Box • ${mCounts['EX2'] || 0})`;
-      filterMilestone.options[3].textContent = `TP06 (Drumtiks S1 • ${mCounts['TP06'] || 0})`;
-      filterMilestone.options[4].textContent = `TP11 (Capstone • ${mCounts['TP11'] || 0})`;
+      filterMilestone.options[1].textContent = `EX1 (Hello Warp! • 1-2 sem. • ${mCounts['EX1'] || 0})`;
+      filterMilestone.options[2].textContent = `EX2 (Media & Box • 3-4 sem. • ${mCounts['EX2'] || 0})`;
+      filterMilestone.options[3].textContent = isPt ? `Fase 1 (Protótipo • 5-8 sem. • ${mCounts['TP06'] || 0})` : `Stage 1 (Prototype • 5-8 wks. • ${mCounts['TP06'] || 0})`;
+      filterMilestone.options[4].textContent = isPt ? `Fase 2 (Capstone • 9-13 sem. • ${mCounts['TP11'] || 0})` : `Stage 2 (Capstone • 9-13 wks. • ${mCounts['TP11'] || 0})`;
       filterMilestone.options[5].textContent = isPt ? `Beyond (Fora do Âmbito • ${mCounts['Beyond'] || 0})` : `Beyond (Out of Scope • ${mCounts['Beyond'] || 0})`;
     }
 

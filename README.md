@@ -124,7 +124,7 @@ learning-scaffold/
 | **STAGE 1 (TP06)** | *Early Responsive Prototype* | 2-column desktop breakpoint (960px), mobile-first stacking, ticket simulator, accessible form elements, responsive picture grid. | [Launch TP06 Demo](demos/tp06-responsive/index.html) |
 | **TP11-B** | *Advanced CSS Layout Suite* | 4 dedicated laboratories: 1D Flexbox (axes & alignment), 2D CSS Grid (minmax, dense packing), Hybrid Layout, and CSS Container Queries (`@container`, `cqi`). | [Launch Layout Suite](demos/tp11-css-flexbox-grid/index.html) |
 | **TP11** | *Dynamic Sensory & Motion* | CSS Custom Properties, dynamic theming with `light-dark()`, natural cubic-bezier physics, 3D CSS transforms, and CSS Scroll-Driven Animations (`scroll(root)`). | [Launch Motion Suite](demos/tp11-variables-transitions-animations/index.html) |
-| **DESIGN SYSTEM** | *Living Style Guide & Boilerplate* | Cascade `@layer`, Design Tokens (Jina Anne / IBM Carbon), Atomic Design (Brad Frost), Web Typography (Jason Santa Maria), and Writing Guidelines (Yahoo! / Kubie). | [View Specification](design-system.html) · [Get Boilerplate](design-system-boilerplate.html) |
+| **DESIGN SYSTEM** | *Living Style Guide & Boilerplate* | Cascade `@layer`, Design Tokens (IBM Carbon / Google Material Design 3 / Jina Anne), Atomic Design (Brad Frost), Web Typography (Jason Santa Maria), and Writing Guidelines (Yahoo! / Kubie). | [View Specification](design-system.html) · [Get Boilerplate](design-system-boilerplate.html) |
 | **STAGE 2 (TP11)** | *Integrated Capstone Masterclass* | Full responsive festival portal: 4 mobile-first breakpoints, 2D Macro Grid with `grid-template-areas`, asymmetric masonry with voids, 3D vinyl crates, and CSS X-Ray inspector. | [Launch Capstone Demo](demos/tp11-integrated-responsive-project/index.html) |
 
 ---
@@ -250,8 +250,10 @@ The following comprehensive bibliography documents the foundational web developm
 * **Clarke, A.** (2010). *Hardboiled Web design*. Five Simple Steps.
 * **Clarke, A.** (2019). *Art direction for the Web*. Smashing Magazine. [https://www.smashingmagazine.com/printed-books/art-direction-for-the-web/](https://www.smashingmagazine.com/printed-books/art-direction-for-the-web/)
 * **Frost, B.** (2016). *Atomic design*. Brad Frost Web. [https://atomicdesign.bradfrost.com/](https://atomicdesign.bradfrost.com/)
+* **Google.** (n.d.). *Material Design 3: Google's open-source design system*. Retrieved November 3, 2026, from [https://m3.material.io/](https://m3.material.io/)
 * **Greenwood, T.** (2021). *Sustainable Web design*. A Book Apart. [https://abookapart.com/products/sustainable-web-design](https://abookapart.com/products/sustainable-web-design)
 * **Hall, E.** (2018). *Conversational design*. A Book Apart. [https://abookapart.com/products/conversational-design](https://abookapart.com/products/conversational-design)
+* **IBM.** (n.d.). *Carbon Design System: IBM's open-source design system for products and digital experiences*. Retrieved November 3, 2026, from [https://carbondesignsystem.com/](https://carbondesignsystem.com/)
 * **Jehl, S.** (2014). *Responsible responsive design*. A Book Apart. [https://abookapart.com/products/responsible-responsive-design](https://abookapart.com/products/responsible-responsive-design)
 * **Kholmatova, A.** (2017). *Design systems: A practical guide to creating design languages for digital products*. Smashing Magazine. [https://www.smashingmagazine.com/design-systems-book/](https://www.smashingmagazine.com/design-systems-book/)
 * **Kissane, E.** (2011). *The elements of content strategy*. A Book Apart. [https://abookapart.com/products/the-elements-of-content-strategy](https://abookapart.com/products/the-elements-of-content-strategy)

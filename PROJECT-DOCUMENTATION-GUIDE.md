@@ -230,6 +230,8 @@ SWIMLANE U (GLOBAL PERSISTENT FOOTER UTILITY — LINKED FROM ALL PAGES)
 8. **Kissane, E.** (2011). *The Elements of Content Strategy*. A Book Apart.
 9. **Nielsen, J.** (1994/2020). *10 Usability Heuristics for User Interface Design* — see [`heuristics-guide.html`](heuristics-guide.html) & [`heuristic-checklist.html`](heuristic-checklist.html).
 10. **Yablonski, J.** (2020). *Laws of UX* — see [`ux-laws.html`](ux-laws.html).
+11. **Google.** (n.d.). *Material Design 3: Google's open-source design system* — see [https://m3.material.io/](https://m3.material.io/) and [`to-infinity-and-beyond.html`](to-infinity-and-beyond.html).
+12. **IBM.** (n.d.). *Carbon Design System: IBM's open-source design system for products and digital experiences* — see [https://carbondesignsystem.com/](https://carbondesignsystem.com/) and [`design-system.html`](design-system.html).
 
 ---
 *Faculdade de Belas Artes da Universidade do Porto (FBAUP) • Web Design (WD101) • Prof. Pedro Amado (i2ADS)*
