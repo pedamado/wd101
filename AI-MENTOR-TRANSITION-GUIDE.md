@@ -165,7 +165,7 @@ In all **Yellow Light (🟨)** assignments at U.Porto, students must maintain a 
 
 ### 5.4 Template 3: Structured Declaration for Capstone Projects (U.Porto Annex B2 / GAIDeT)
 ```markdown
-### Declaração Estruturada de Uso de IA (Capstone TP11 / FBAUP)
+### Declaração Estruturada de Uso de IA (Projeto Capstone / FBAUP)
 * **Identificação do Trabalho:** DRUMTIKS '26 • Integrated Capstone Project
 * **Estudante / Turma:** [Nome do Estudante] • Design de Comunicação (WD101)
 * **Docente Responsável:** Prof. Pedro Amado

@@ -297,8 +297,8 @@ window.SCAFFOLD_DATA = {
       "stages": [
         {
           "name": {
-            "pt": "Fase 1: Protótipo Preliminar (TP06)",
-            "en": "Stage 1: Early Prototype (TP06)"
+            "pt": "Fase 1: Protótipo Preliminar (Semanas 5 a 8)",
+            "en": "Stage 1: Early Prototype (Weeks 5 to 8)"
           },
           "desc": {
             "pt": "Website responsivo preliminar a 2 colunas com breakpoint Desktop a 960px, sticky stage inicial e galeria de fotos.",
@@ -310,8 +310,8 @@ window.SCAFFOLD_DATA = {
         },
         {
           "name": {
-            "pt": "Fase 2: Capstone Avançado Integrado (TP11)",
-            "en": "Stage 2: Full Integrated Capstone (TP11)"
+            "pt": "Fase 2: Capstone Integrado (Semanas 9 a 13)",
+            "en": "Stage 2: Full Integrated Capstone (Weeks 9 to 13)"
           },
           "desc": {
             "pt": "Masterclass integrada: 4 breakpoints mobile-first (<600px, 600px, 960px, 1200px), Macro Grid 2D com template-areas, Masonry denso com voids artísticos, Crate 3D fan-out, theming dinâmico e inspetor de Raios-X.",
@@ -323,8 +323,8 @@ window.SCAFFOLD_DATA = {
         },
         {
           "name": {
-            "pt": "Fase 2A: TP11-B Layout Suite (Flexbox & CSS Grid)",
-            "en": "Stage 2A: TP11-B Layout Suite (Flexbox & CSS Grid)"
+            "pt": "Fase 2A: Suite de Layout Avançado (Flexbox & CSS Grid — Semanas 5 a 8)",
+            "en": "Stage 2A: Advanced Layout Suite (Flexbox & CSS Grid — Weeks 5 to 8)"
           },
           "desc": {
             "pt": "4 demonstradores autónomos focados em Flexbox 1D no console de faixas, CSS Grid 2D com auto-flow denso, arquitetura híbrida e Container Queries (@container).",
@@ -336,8 +336,8 @@ window.SCAFFOLD_DATA = {
         },
         {
           "name": {
-            "pt": "Fase 2B: TP11 Motion Suite (Vars, Transitions & Animations)",
-            "en": "Stage 2B: TP11 Motion Suite (Vars, Transitions & Animations)"
+            "pt": "Fase 2B: Suite de Movimento & Física CSS (Semanas 9 a 13)",
+            "en": "Stage 2B: CSS Motion & Physics Suite (Weeks 9 to 13)"
           },
           "desc": {
             "pt": "5 módulos direcionados explorando tokens CSS :root, alternador light-dark(), física elástica cubic-bezier() na caixa de vinis 3D e animações scroll(root) e view().",
@@ -4037,7 +4037,7 @@ window.SCAFFOLD_DATA = {
           "tier": "foundational",
           "lev": 1,
           "status": "YES",
-          "status_note": "Pilar do TP01: `nav ul`, `header h1`",
+          "status_note": "Pilar do EX1: `nav ul`, `header h1`",
           "introduced_in": "EX1",
           "category": "cat-selectors",
           "cat_id": 5,
@@ -4851,7 +4851,7 @@ window.SCAFFOLD_DATA = {
           "tier": "intermediate",
           "lev": 2,
           "status": "YES",
-          "status_note": "Pilar dos TP06 e TP06-B",
+          "status_note": "Pilar da Fase 1 e Seletores Reativos",
           "introduced_in": "TP06",
           "category": "cat-pseudo",
           "cat_id": 6,
@@ -5247,7 +5247,7 @@ window.SCAFFOLD_DATA = {
           "tier": "intermediate",
           "lev": 2,
           "status": "YES",
-          "status_note": "Fundação estrutural nos TP02 a TP06",
+          "status_note": "Fundação estrutural da Fase 1 • Semanas 5 a 8",
           "introduced_in": "EX2",
           "category": "cat-boxmodel",
           "cat_id": 7,
@@ -5555,7 +5555,7 @@ window.SCAFFOLD_DATA = {
           "tier": "intermediate",
           "lev": 2,
           "status": "YES",
-          "status_note": "TP05: alinhamento unidimensional",
+          "status_note": "Semanas 5 a 8: alinhamento unidimensional",
           "introduced_in": "TP06",
           "category": "cat-flex-grid",
           "cat_id": 8,
@@ -5709,7 +5709,7 @@ window.SCAFFOLD_DATA = {
           "tier": "advanced",
           "lev": 3,
           "status": "YES",
-          "status_note": "TP05 & TP06: 2 colunas",
+          "status_note": "Semanas 5 a 8: 2 colunas e macro-grelhas",
           "introduced_in": "TP11",
           "category": "cat-flex-grid",
           "cat_id": 8,
@@ -6941,7 +6941,7 @@ window.SCAFFOLD_DATA = {
           "tier": "advanced",
           "lev": 3,
           "status": "YES",
-          "status_note": "TP06: barra de leitura via `scroll()`",
+          "status_note": "Fase 1: barra de leitura via `scroll()`",
           "introduced_in": "TP11",
           "category": "cat-effects-animations",
           "cat_id": 10,
@@ -7535,7 +7535,7 @@ window.SCAFFOLD_DATA = {
           "tier": "intermediate",
           "lev": 2,
           "status": "YES",
-          "status_note": "TP06: orquestração de especificidade",
+          "status_note": "Fase 1: orquestração de especificidade",
           "introduced_in": "TP06",
           "category": "cat-atrules",
           "cat_id": 11,
@@ -7711,7 +7711,7 @@ window.SCAFFOLD_DATA = {
           "tier": "intermediate",
           "lev": 2,
           "status": "YES",
-          "status_note": "Pilar do TP06: tipografia e padding fluidos",
+          "status_note": "Pilar da Fase 1: tipografia e padding fluidos",
           "introduced_in": "EX2",
           "category": "cat-functions-units",
           "cat_id": 12,

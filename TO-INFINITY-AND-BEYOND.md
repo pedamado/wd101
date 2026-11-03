@@ -69,7 +69,7 @@ As you step beyond WD101, an immediate visual bridge in **interactive animation,
 ---
 
 ### 0.1 Visual Animation & Interactive Authoring Tools
-In WD101 (TP11), you learned how to orchestrate pure CSS transitions, keyframe animations, and native scroll-driven animations (`scroll(root)` and `view()`). While coding motion by hand is crucial for UI performance, visual communication designers also thrive when working with **dedicated visual timelines and authoring environments**.
+In WD101 (Weeks 9–13), you learned how to orchestrate pure CSS transitions, keyframe animations, and native scroll-driven animations (`scroll(root)` and `view()`). While coding motion by hand is crucial for UI performance, visual communication designers also thrive when working with **dedicated visual timelines and authoring environments**.
 
 #### 1. [Adobe Animate](https://www.adobe.com/products/animate.html) (formerly Flash Professional)
 Do not write off this tool simply because the legacy Flash browser plugin is gone!
