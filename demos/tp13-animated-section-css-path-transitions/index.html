@@ -787,7 +787,7 @@
         });
       }
 
-      // 2. Persistência de Tema no LocalStorage
+      // 2. Persistência de Tema no LocalStorage & sincronização imediata
       const themeRadios = document.querySelectorAll('input[name="color-theme"]');
       themeRadios.forEach(radio => {
         radio.addEventListener('change', () => {
@@ -797,8 +797,9 @@
               localStorage.setItem('wd101_theme', theme);
               document.documentElement.setAttribute('data-theme', theme);
             } else {
-              localStorage.removeItem('wd101_theme');
-              document.documentElement.removeAttribute('data-theme');
+              localStorage.setItem('wd101_theme', 'auto');
+              const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+              document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
             }
           }
         });
