@@ -82,6 +82,10 @@
     ============================================================================
   -->
 
+  <!-- Grupo 0: Modo de Animação Contínua da Onda (Live Flow vs Transição Manual) -->
+  <input type="radio" name="wave-flow-mode" id="flow-animated" class="visually-hidden" checked aria-label="Modo 1: Onda Viva Animada Contínua ao Ritmo BPM">
+  <input type="radio" name="wave-flow-mode" id="flow-static" class="visually-hidden" aria-label="Modo 2: Estático com Transição Manual">
+
   <!-- Grupo 1: Formas de Caminho (Path Shapes) -->
   <input type="radio" name="path-shape" id="shape-sine" class="visually-hidden" checked aria-label="Forma 1: Onda Sinusoidal Acústica">
   <input type="radio" name="path-shape" id="shape-angle" class="visually-hidden" aria-label="Forma 2: Corte Angular Industrial da Alfândega">
@@ -106,6 +110,17 @@
   <input type="radio" name="color-theme" id="theme-auto" class="visually-hidden" aria-label="Tema Automático do Sistema">
   <input type="radio" name="color-theme" id="theme-dark" class="visually-hidden" checked aria-label="Tema Escuro Festival Club">
   <input type="radio" name="color-theme" id="theme-light" class="visually-hidden" aria-label="Tema Claro Alto Contraste">
+
+  <!-- Sincronização Imediata do Input Radio com o Tema Pré-Carregado -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || 'dark';
+      const targetRadio = document.getElementById('theme-' + savedTheme);
+      if (targetRadio) {
+        targetRadio.checked = true;
+      }
+    })();
+  </script>
 
   <!-- Grupo 6: Modo Raio-X & Wireframe -->
   <input type="checkbox" id="xray-toggle" class="visually-hidden" aria-label="Modo Raio-X & Wireframe">
@@ -167,6 +182,21 @@
   <nav class="path-studio-deck" role="navigation" aria-label="Consola Interativa do Estúdio de Caminhos CSS">
     <div class="site-container deck-cluster-grid">
       
+      <!-- MÓDULO 0: Modo de Animação Contínua (Live Wave Flow) -->
+      <div class="deck-group" style="border-left: 3px solid var(--color-accent-cyan);">
+        <span class="deck-group-legend" style="color:var(--color-accent-cyan);">
+          <span>🌊</span> Animação da Onda (Live Motion)
+        </span>
+        <div class="deck-pills-row" role="radiogroup" aria-label="Modo de Animação da Forma">
+          <label for="flow-animated" class="deck-choice-pill" title="Onda a oscilar continuamente ao ritmo de 140 BPM">
+            <span>✨</span> Onda Viva (Live Flow)
+          </label>
+          <label for="flow-static" class="deck-choice-pill" title="Forma estática que apenas transita quando seleciona uma nova forma">
+            <span>⏸️</span> Estático (Transição Manual)
+          </label>
+        </div>
+      </div>
+
       <!-- MÓDULO 1: Seleção da Forma de Caminho (Path Shape Selector) -->
       <div class="deck-group">
         <span class="deck-group-legend">
@@ -247,7 +277,7 @@
       Culmina no Separador de Caminho com a Baqueta em CSS Motion Path!
       ==========================================================================
     -->
-    <section class="festival-section section--stage-douro section-clip-morph" id="stage-douro" aria-labelledby="title-stage-douro">
+    <section class="festival-section section--stage-douro" id="stage-douro" aria-labelledby="title-stage-douro">
       <div class="site-container">
         
         <div class="section-header-cluster">
@@ -267,6 +297,35 @@
             <div class="eq-bar"></div>
             <div class="eq-bar"></div>
             <div class="eq-bar"></div>
+          </div>
+        </div>
+
+        <!--
+          ======================================================================
+          ELEMENTO #shape: O PLAYGROUND DE FORMAS INTERATIVO DO UTILIZADOR
+          
+          Demonstração imediata e focada de clip-path: polygon(...) com a regra
+          estrita de 8 vértices invariantes. Observe a onda animada ao vivo a 140 BPM!
+          ======================================================================
+        -->
+        <div class="shape-showcase-wrapper">
+          <div class="shape-card-info">
+            <span class="stage-badge stage-badge--cyan" style="font-size:0.75rem;">CSS CLIP-PATH PLAYGROUND</span>
+            <h2 style="font-size:1.35rem; font-family:var(--font-family-display); margin-block:0.5rem;">
+              Caixa de Teste: <code>&lt;div id="shape"&gt;</code>
+            </h2>
+            <p class="card-text" style="margin-bottom:1rem;">
+              Este elemento HTML utiliza a propriedade <code>clip-path</code> com a regra estrita de <strong>8 vértices invariantes</strong>.
+              Observe a onda a oscilar continuamente ao ritmo do festival (140 BPM) ou comute os botões da consola superior para testemunhar a transição fluida entre geometrias!
+            </p>
+          </div>
+
+          <!-- O elemento #shape com animação e transição contínua -->
+          <div id="shape" class="animated-shape-box" title="Elemento #shape com animação e transição de caminho CSS">
+            <div class="shape-inner-content">
+              <span class="shape-core-text">DRUMTIKS</span>
+              <span class="shape-sub-text">140 BPM SYNC</span>
+            </div>
           </div>
         </div>
 
@@ -312,14 +371,15 @@
         - viewBox="0 0 1440 160": Espaço de coordenadas normalizado para ecrãs modernos.
         - path.morphing-boundary: Preenche a massa sólida da transição de secção.
         - path.morphing-stroke: Traça o rebordo neon iluminado com filtro drop-shadow.
+        - Atributo d="..." nativo: Garante renderização imediata em WebKit/Safari e Gecko/Firefox!
         ========================================================================
       -->
       <div class="svg-path-divider-wrapper" aria-hidden="true">
         <svg class="svg-path-divider" viewBox="0 0 1440 160" preserveAspectRatio="none" fill="none">
           <!-- Massa sólida da forma do separador com cor da secção de destino -->
-          <path class="morphing-boundary" style="color: var(--color-stage-2-bg);"></path>
+          <path class="morphing-boundary" d="M 0,0 L 1440,0 L 1440,65 C 1180,140 920,15 680,85 C 440,155 220,15 0,65 Z" style="color: var(--color-stage-2-bg); fill: currentColor;"></path>
           <!-- Rebordo luminoso neon sobreposto à linha da crista -->
-          <path class="morphing-stroke"></path>
+          <path class="morphing-stroke" d="M 0,65 C 220,15 440,155 680,85 C 920,15 1180,140 1440,65"></path>
         </svg>
 
         <!--
@@ -342,15 +402,15 @@
 
             <!-- Ícone Vetorial de Baquetas Iluminadas -->
             <svg class="drumstick-svg" viewBox="0 0 64 64" fill="none">
-              <!-- Baqueta Principal Inclinada -->
-              <path d="M 8,56 L 52,12" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+              <!-- Baqueta Principal Inclinada com contraste dinâmico -->
+              <path d="M 8,56 L 52,12" stroke="var(--drumstick-body-color, #ffffff)" stroke-width="4" stroke-linecap="round"/>
               <!-- Ponta Oval Percursiva Iluminada (Tip) -->
               <ellipse cx="53" cy="11" rx="5" ry="3" transform="rotate(-45 53 11)" fill="var(--color-accent-cyan)"/>
               <!-- Punho Emborrachado com Grips de Fricção -->
               <line x1="12" y1="52" x2="18" y2="46" stroke="var(--color-accent-red)" stroke-width="5" stroke-linecap="round"/>
               <line x1="16" y1="48" x2="22" y2="42" stroke="var(--color-accent-red)" stroke-width="5" stroke-linecap="round"/>
               <!-- Segunda Baqueta em Contra-Ângulo Cruzado Ténue -->
-              <path d="M 16,16 L 48,48" stroke="rgba(255,255,255,0.4)" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 16,16 L 48,48" stroke="var(--drumstick-body-color, #ffffff)" opacity="0.45" stroke-width="2.5" stroke-linecap="round"/>
               <ellipse cx="49" cy="49" rx="4" ry="2.5" transform="rotate(45 49 49)" fill="var(--color-accent-gold)"/>
             </svg>
           </div>
@@ -366,7 +426,7 @@
       Ambiente industrial com reverberação de pedra, tons âmbar e síntese analógica.
       ==========================================================================
     -->
-    <section class="festival-section section--vaults section-clip-morph" id="stage-vaults" aria-labelledby="title-stage-vaults">
+    <section class="festival-section section--vaults" id="stage-vaults" aria-labelledby="title-stage-vaults">
       <div class="site-container">
         
         <div class="section-header-cluster">
@@ -412,8 +472,8 @@
       <!-- Separador 2: Transição para o Octógono de Turntablism -->
       <div class="svg-path-divider-wrapper" aria-hidden="true">
         <svg class="svg-path-divider" viewBox="0 0 1440 160" preserveAspectRatio="none" fill="none">
-          <path class="morphing-boundary" style="color: var(--color-stage-3-bg);"></path>
-          <path class="morphing-stroke"></path>
+          <path class="morphing-boundary" d="M 0,0 L 1440,0 L 1440,40 C 1120,150 960,155 720,155 C 480,155 320,150 0,40 Z" style="color: var(--color-stage-3-bg); fill: currentColor;"></path>
+          <path class="morphing-stroke" d="M 0,40 C 320,150 480,155 720,155 C 960,155 1120,150 1440,40"></path>
         </svg>
       </div>
     </section>
@@ -425,7 +485,7 @@
       Ambiente de combate de DJing analógico, rotação de vinil e scratch.
       ==========================================================================
     -->
-    <section class="festival-section section--turntable section-clip-morph" id="stage-turntable" aria-labelledby="title-stage-turntable">
+    <section class="festival-section section--turntable" id="stage-turntable" aria-labelledby="title-stage-turntable">
       <div class="site-container">
         
         <div class="section-header-cluster">
@@ -473,8 +533,8 @@
       <!-- Separador 3: Transição para o Laboratório Pedagógico -->
       <div class="svg-path-divider-wrapper" aria-hidden="true">
         <svg class="svg-path-divider" viewBox="0 0 1440 160" preserveAspectRatio="none" fill="none">
-          <path class="morphing-boundary" style="color: var(--color-stage-4-bg);"></path>
-          <path class="morphing-stroke"></path>
+          <path class="morphing-boundary" d="M 0,0 L 1440,0 L 1440,65 C 1180,140 920,15 680,85 C 440,155 220,15 0,65 Z" style="color: var(--color-stage-4-bg); fill: currentColor;"></path>
+          <path class="morphing-stroke" d="M 0,65 C 220,15 440,155 680,85 C 920,15 1180,140 1440,65"></path>
         </svg>
       </div>
     </section>
@@ -740,6 +800,48 @@
               localStorage.removeItem('wd101_theme');
               document.documentElement.removeAttribute('data-theme');
             }
+          }
+        });
+      });
+
+      // 3. Sincronizador de Compatibilidade SVG (WebKit / Safari & Firefox fallback)
+      // Como o motor WebKit (Safari no macOS) não suporta a propriedade CSS 'd: path(...)',
+      // este handler atualiza os atributos 'd' do SVG diretamente no DOM para garantir
+      // paridade visual perfeita em todos os browsers!
+      const svgPathsData = {
+        'shape-sine': {
+          boundary: 'M 0,0 L 1440,0 L 1440,65 C 1180,140 920,15 680,85 C 440,155 220,15 0,65 Z',
+          stroke: 'M 0,65 C 220,15 440,155 680,85 C 920,15 1180,140 1440,65'
+        },
+        'shape-angle': {
+          boundary: 'M 0,0 L 1440,0 L 1440,145 C 1180,125 920,105 680,85 C 440,65 220,45 0,25 Z',
+          stroke: 'M 0,25 C 220,45 440,65 680,85 C 920,105 1180,125 1440,145'
+        },
+        'shape-radial': {
+          boundary: 'M 0,0 L 1440,0 L 1440,40 C 1120,150 960,155 720,155 C 480,155 320,150 0,40 Z',
+          stroke: 'M 0,40 C 320,150 480,155 720,155 C 960,155 1120,150 1440,40'
+        },
+        'shape-sawtooth': {
+          boundary: 'M 0,0 L 1440,0 L 1440,75 C 1260,155 1120,20 860,135 C 600,10 380,155 0,65 Z',
+          stroke: 'M 0,65 C 380,155 600,10 860,135 C 1120,20 1260,155 1440,75'
+        }
+      };
+
+      const shapeRadios = document.querySelectorAll('input[name="path-shape"]');
+      const boundaries = document.querySelectorAll('.svg-path-divider path.morphing-boundary');
+      const strokes = document.querySelectorAll('.svg-path-divider path.morphing-stroke');
+
+      function syncSvgDividers(shapeId) {
+        const data = svgPathsData[shapeId];
+        if (!data) return;
+        boundaries.forEach(b => b.setAttribute('d', data.boundary));
+        strokes.forEach(s => s.setAttribute('d', data.stroke));
+      }
+
+      shapeRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          if (radio.checked) {
+            syncSvgDividers(radio.id);
           }
         });
       });

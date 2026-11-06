@@ -614,6 +614,9 @@
     top: calc(100% + 0.35rem);
     left: 0;
     min-width: 18rem;
+    max-height: calc(100vh - 4.5rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
@@ -628,6 +631,19 @@
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
+  }
+
+  /* Support mouse hover to open dropdowns on pointer devices */
+  @media (hover: hover) and (min-width: 901px) {
+    .wd-nav-item:hover > .wd-dropdown {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .wd-nav-item:hover .wd-nav-caret {
+      transform: rotate(180deg);
+    }
   }
 
   .wd-dropdown a {
@@ -666,6 +682,76 @@
     letter-spacing: 0.06em;
     color: var(--text-muted);
     padding: 0.35rem 0.7rem 0.15rem;
+  }
+
+  .wd-dropdown-sublabel {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-swiss-red);
+    padding: 0.3rem 0.7rem 0.1rem;
+    opacity: 0.9;
+  }
+
+  .wd-dropdown-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  /* Mega Dropdown for Demos & Boilerplates (2-column on desktop) */
+  .wd-dropdown-mega {
+    min-width: 18rem;
+  }
+
+  @media (min-width: 901px) {
+    .wd-dropdown-mega {
+      min-width: 44rem;
+      max-width: min(94vw, 48rem);
+      right: -8rem;
+      left: auto;
+      padding: 0.65rem 0.85rem;
+    }
+
+    .wd-nav-item.is-open > .wd-dropdown-mega {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 1.25rem;
+    }
+
+    @media (hover: hover) {
+      .wd-nav-item:hover > .wd-dropdown-mega {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 1.25rem;
+      }
+    }
+
+    .wd-dropdown-mega .wd-dropdown-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .wd-dropdown-mega {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      padding: 0.45rem;
+    }
+
+    .wd-dropdown-mega .wd-dropdown-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
   }
 
   .header-controls {

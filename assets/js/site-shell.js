@@ -125,15 +125,6 @@
 
     if (p.endsWith('/matrix.html')) return 'matrix';
     if (
-      p.includes('/demos/index.html') ||
-      p.includes('/demos/tp11-css-flexbox-grid/') ||
-      p.includes('/demos/tp11-variables-transitions-animations/') ||
-      p.includes('/starter-') ||
-      p.endsWith('/design-system-boilerplate.html')
-    ) {
-      return 'demos';
-    }
-    if (
       p.endsWith('/ixd-principles.html') ||
       p.endsWith('/ux-laws.html') ||
       p.endsWith('/heuristics-guide.html') ||
@@ -143,6 +134,14 @@
       p.includes('/demos/patterns/')
     ) {
       return 'ixd';
+    }
+    if (
+      (p.includes('/demos/') && !p.includes('/demos/patterns/')) ||
+      p.includes('/starter-') ||
+      p.endsWith('/design-system-boilerplate.html') ||
+      p.endsWith('/css-path-transitions-guide.html')
+    ) {
+      return 'demos';
     }
     if (
       p.endsWith('/ex1-hello-warp-guide.html') ||
@@ -236,11 +235,147 @@
             </li>
 
             <!-- 4. Demos & Boilerplates Repository -->
-            <li class="wd-nav-item ${active === 'demos' ? 'is-current' : ''}">
-              <a href="${r}demos/index.html" class="${active === 'demos' ? 'active' : ''}">
+            <li class="wd-nav-item wd-nav-item--demos ${active === 'demos' ? 'is-current' : ''}">
+              <button type="button" class="wd-nav-trigger" aria-expanded="false" aria-haspopup="true">
                 <span class="lang-pt">Demos &amp; Boilerplates</span>
                 <span class="lang-en">Demos &amp; Boilerplates</span>
-              </a>
+                <span class="wd-nav-caret" aria-hidden="true">▾</span>
+              </button>
+              <div class="wd-dropdown wd-dropdown-mega">
+                <!-- Coluna 1: Boilerplates & Resoluções dos Enunciados -->
+                <div class="wd-dropdown-col">
+                  <div class="wd-dropdown-label">
+                    <span class="lang-pt">Repositório &amp; Modelos Base</span>
+                    <span class="lang-en">Repository &amp; Starters</span>
+                  </div>
+                  <ul class="wd-dropdown-list">
+                    <li>
+                      <a href="${r}demos/index.html">
+                        <span>🏛️ <span class="lang-pt">Repositório Central (Visão Geral)</span><span class="lang-en">Central Demos Hub (Overview)</span></span>
+                      </a>
+                    </li>
+                    <li><hr class="wd-dropdown-divider"></li>
+                    <li class="wd-dropdown-sublabel">
+                      <span class="lang-pt">1. Starter Boilerplates</span>
+                      <span class="lang-en">1. Starter Boilerplates</span>
+                    </li>
+                    <li>
+                      <a href="${r}starter-mobile-first/index.html">
+                        <span>🟢 <span class="lang-pt">Boilerplate Mobile-First (EX1)</span><span class="lang-en">Mobile-First Starter (EX1)</span></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="${r}starter-intermediate-media-box/index.html">
+                        <span>🔵 <span class="lang-pt">Boilerplate Media &amp; Box (EX2)</span><span class="lang-en">Media &amp; Box Starter (EX2)</span></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="${r}starter-advanced-project/index.html">
+                        <span>🟣 <span class="lang-pt">Boilerplate DRUMTIKS '26 Capstone</span><span class="lang-en">DRUMTIKS '26 Capstone Starter</span></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="${r}design-system-boilerplate.html">
+                        <span>🧬 <span class="lang-pt">Boilerplate Design System &amp; Tokens</span><span class="lang-en">Design System &amp; Tokens Starter</span></span>
+                      </a>
+                    </li>
+                    <li><hr class="wd-dropdown-divider"></li>
+                    <li class="wd-dropdown-sublabel">
+                      <span class="lang-pt">2. Resoluções dos Enunciados</span>
+                      <span class="lang-en">2. Assignment Resolutions</span>
+                    </li>
+                    <li>
+                      <a href="${r}demos/hello-warp/index.html">
+                        <span>🟢 <span class="lang-pt">EX1: Hello Warp! (Semântica)</span><span class="lang-en">EX1: Hello Warp! (Semantic)</span></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="${r}demos/ex2-media-box-model/index.html">
+                        <span>🔵 <span class="lang-pt">EX2: Media &amp; Box Model (DJ Warp)</span><span class="lang-en">EX2: Media &amp; Box Model (DJ Warp)</span></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="${r}demos/tp06-responsive/index.html">
+                        <span>🔵 <span class="lang-pt">Projeto Fase 1: Protótipo (Sem. 5–8)</span><span class="lang-en">Stage 1: Early Prototype (W5–8)</span></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="${r}demos/tp11-integrated-responsive-project/index.html">
+                        <span>🟣 <span class="lang-pt">Projeto Fase 2: Capstone (Sem. 9–13)</span><span class="lang-en">Stage 2: Capstone Portal (W9–13)</span></span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Coluna 2: Masterclasses & Sandboxes -->
+                <div class="wd-dropdown-col">
+                  <div class="wd-dropdown-label">
+                    <span class="lang-pt">Masterclasses &amp; Sandboxes</span>
+                    <span class="lang-en">Masterclasses &amp; Sandboxes</span>
+                  </div>
+                  <ul class="wd-dropdown-list">
+                    <li class="wd-dropdown-sublabel">
+                      <span class="lang-pt">3. Suites Técnicas Especializadas</span>
+                      <span class="lang-en">3. Specialized Masterclasses</span>
+                    </li>
+                    <li>
+                      <a href="${r}demos/tp11-css-flexbox-grid/index.html">
+                        <span>🔵 <span class="lang-pt">Flexbox 1D &amp; CSS Grid 2D</span><span class="lang-en">1D Flexbox &amp; 2D CSS Grid</span></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="${r}demos/wireframe-cards-demo.html">
+                        <span>🩻 <span class="lang-pt">Contentor &amp; 2 Cartões Wireframe</span><span class="lang-en">Container &amp; 2 Wireframe Cards</span></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="${r}demos/tp11-variables-transitions-animations/index.html">
+                        <span>🟣 <span class="lang-pt">Tokens, Transições &amp; Vinis 3D</span><span class="lang-en">Tokens, Transitions &amp; 3D Vinyl</span></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="${r}demos/tp12-zero-js-swipe-state-machine/index.html">
+                        <span>🟣 <span class="lang-pt">Navegação Swipe Zero-JS (3 Técnicas)</span><span class="lang-en">Zero-JS Swipe Navigation (3 Techs)</span></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="${r}demos/tp13-animated-section-css-path-transitions/index.html">
+                        <span>🟣 <span class="lang-pt">Morfismos de Caminho CSS &amp; Motion</span><span class="lang-en">CSS Path Transitions &amp; Motion</span></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="${r}demos/tp11-integrated-responsive-project/accordion-showcase.html">
+                        <span>⚡ <span class="lang-pt">Suite Mestre de Acordeões Pure CSS</span><span class="lang-en">Master Pure CSS Accordion Suite</span></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="${r}demos/tp09-css-shape-animations/index.html">
+                        <span>🎯 <span class="lang-pt">Formas Bézier &amp; Scroll Lab (TP09)</span><span class="lang-en">Bézier Shapes &amp; Scroll Lab (TP09)</span></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="${r}demos/tp09-drumtiks-festival/index.html">
+                        <span>🎪 <span class="lang-pt">Portal Festival DRUMTIKS (TP09)</span><span class="lang-en">DRUMTIKS Multi-Page Portal (TP09)</span></span>
+                      </a>
+                    </li>
+                    <li><hr class="wd-dropdown-divider"></li>
+                    <li class="wd-dropdown-sublabel">
+                      <span class="lang-pt">4. Sandboxes DRUMTIKS '26 &amp; Padrões</span>
+                      <span class="lang-en">4. DRUMTIKS '26 Sandboxes</span>
+                    </li>
+                    <li>
+                      <a href="${r}demos/index.html#core-patterns">
+                        <span>✨ <span class="lang-pt">13 Sandboxes 4-Vistas DRUMTIKS</span><span class="lang-en">13 Core DRUMTIKS Sandboxes</span></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="${r}demos/patterns/index.html">
+                        <span>🌐 <span class="lang-pt">Explorador de 142 Padrões Isolados</span><span class="lang-en">142 Isolated Patterns Explorer</span></span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </li>
 
             <!-- 5. HTML & CSS Matrix (Final Top-Level Option) -->
