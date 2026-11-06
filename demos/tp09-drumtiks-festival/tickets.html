@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<!--
+  ==============================================================================
+  WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+  FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+  
+  FINAL INTEGRATED CAPSTONE DEMO: DRUMTIKS '26 FESTIVAL
+  Pasta do Projeto: TP09
+  Ficheiro: tickets.html • "Ticket Passes, State Machine & Native Dialog"
+  
+  AUTORES & COORDENAÇÃO PEDAGÓGICA:
+    - Prof. Pedro Amado (FBAUP / i2ADS)
+    - Antigravity (Advanced Agentic Pair)
+  
+  ==============================================================================
+  PADRÃO DE INTERAÇÃO EM DESTAQUE NESTA PÁGINA (PADRÃO 7):
+    "Máquina de Estados Finitos com Seletor Relacional :has() e Diálogo Nativo <dialog>"
+  
+  MDN CANONICAL REFERENCES:
+    - CSS :has(): https://developer.mozilla.org/en-US/docs/Web/CSS/:has
+    - HTML <dialog>: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
+    - Form Validation Pseudo-classes: https://developer.mozilla.org/en-US/docs/Web/CSS/:user-valid
+    - Dialog Backdrop: https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop
+  ==============================================================================
+-->
+<html lang="pt" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>DRUMTIKS '26 • Bilhetes &amp; State Machine :has() | WD101 FBAUP</title>
+  <meta name="description" content="Bilheteira oficial do Festival DRUMTIKS '26 com seleção interativa de passes gerida por máquina de estados zero-JS (:has()) e janela modal nativa <dialog>.">
+
+  <!-- Folha de Estilos Mestre com Hierarquia @layer -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <script>
+    (function() {
+      const saved = localStorage.getItem('drumtiks_theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+      else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+
+  <style>
+    /* Regras Específicas da Máquina de Estados de Preço :has() */
+    .summary-tier-name::after { content: "Passe Geral 3 Dias"; }
+    .summary-total-price::after { content: "95 €"; }
+
+    :root:has(#ticket-pass-day:checked) .summary-tier-name::after { content: "Passe Diário Simples"; }
+    :root:has(#ticket-pass-day:checked) .summary-total-price::after { content: "45 €"; }
+
+    :root:has(#ticket-pass-weekend:checked) .summary-tier-name::after { content: "Passe Geral 3 Dias"; }
+    :root:has(#ticket-pass-weekend:checked) .summary-total-price::after { content: "95 €"; }
+
+    :root:has(#ticket-pass-vip:checked) .summary-tier-name::after { content: "Passe VIP Backstage Total"; }
+    :root:has(#ticket-pass-vip:checked) .summary-total-price::after { content: "160 €"; }
+
+    /* Exibição condicional de extras */
+    .extra-tag-workshop, .extra-tag-camping, .extra-tag-vinyl { display: none; }
+    :root:has(#addon-workshop:checked) .extra-tag-workshop { display: inline-flex; }
+    :root:has(#addon-camping:checked) .extra-tag-camping { display: inline-flex; }
+    :root:has(#addon-vinyl:checked) .extra-tag-vinyl { display: inline-flex; }
+
+    /* Desconto Estudante */
+    .discount-badge { display: none; }
+    :root:has(#student-discount:checked) .discount-badge { display: inline-flex; }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Pular para o conteúdo principal / Skip to content</a>
+
+  <!-- Controladores de Estado Zero-JS para Temas -->
+  <input type="radio" name="site-theme" id="theme-auto" class="visually-hidden" checked aria-hidden="true">
+  <input type="radio" name="site-theme" id="theme-light" class="visually-hidden" aria-hidden="true">
+  <input type="radio" name="site-theme" id="theme-dark" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="xray-toggle" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="menu-toggle" class="visually-hidden" aria-hidden="true">
+
+  <!-- Rádios da Máquina de Estados da Bilheteira -->
+  <input type="radio" name="ticket-tier" id="ticket-pass-day" class="visually-hidden" aria-hidden="true">
+  <input type="radio" name="ticket-tier" id="ticket-pass-weekend" class="visually-hidden" checked aria-hidden="true">
+  <input type="radio" name="ticket-tier" id="ticket-pass-vip" class="visually-hidden" aria-hidden="true">
+
+  <!-- Checkboxes de Suplementos / Addons -->
+  <input type="checkbox" id="addon-workshop" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="addon-camping" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="addon-vinyl" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="student-discount" class="visually-hidden" aria-hidden="true">
+
+  <!-- Barra de Progresso Global do Viewport -->
+  <div class="viewport-progress-track" aria-hidden="true">
+    <div class="viewport-progress-fill"></div>
+  </div>
+
+  <div class="site-wrapper">
+
+    <!-- CABEÇALHO GLOBAL -->
+    <header class="site-header" role="banner">
+      <div class="site-container header-inner">
+        <div class="brand-group">
+          <a href="index.html" class="brand-logo" aria-label="DRUMTIKS 2026 Página Inicial">
+            <span>DRUMTIKS<span class="brand-logo-accent">'26</span></span>
+          </a>
+          <span class="brand-venue-badge">Alfândega do Porto</span>
+        </div>
+
+        <nav class="site-nav" role="navigation" aria-label="Navegação Principal do Festival">
+          <ul class="nav-list">
+            <li><a href="index.html" class="nav-link">Hub Geral</a></li>
+            <li><a href="stages.html" class="nav-link">Palcos &amp; Formas</a></li>
+            <li><a href="lineup.html" class="nav-link">Artistas 3D</a></li>
+            <li><a href="motion-path.html" class="nav-link">Motion Path</a></li>
+            <li><a href="schedule.html" class="nav-link">Horários</a></li>
+            <li><a href="battle.html" class="nav-link">Battle Duel</a></li>
+            <li><a href="tickets.html" class="nav-link" aria-current="page">Bilhetes</a></li>
+            <li><a href="design-system.html" class="nav-link">Design System</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="theme-switch-group" role="group" aria-label="Seletor de Modo de Cor">
+            <label for="theme-light" class="theme-btn" title="Modo Claro" onclick="localStorage.setItem('drumtiks_theme','light');document.documentElement.setAttribute('data-theme','light');">☀️</label>
+            <label for="theme-auto" class="theme-btn" title="Modo Automático do Sistema" onclick="localStorage.removeItem('drumtiks_theme');document.documentElement.removeAttribute('data-theme');">⚙️</label>
+            <label for="theme-dark" class="theme-btn" title="Modo Escuro" onclick="localStorage.setItem('drumtiks_theme','dark');document.documentElement.setAttribute('data-theme','dark');">🌙</label>
+          </div>
+          <label for="xray-toggle" class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;">X-Ray</label>
+          <label for="menu-toggle" class="mobile-menu-toggle" aria-label="Abrir Menu">☰</label>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" role="main">
+
+      <!-- SECÇÃO DE APRESENTAÇÃO DA BILHETEIRA -->
+      <section style="padding-block: var(--space-xl) var(--space-sm);">
+        <div class="site-container">
+          <span class="badge badge-accent" style="margin-block-end: 0.5rem;">BILHETEIRA OFICIAL</span>
+          <h1 style="font-size: var(--font-size-2xl); margin-block-end: 0.75rem;">Passes do Festival &amp; Reserva Interativa</h1>
+          <p style="font-size: var(--font-size-base); max-width: 75ch;">
+            Selecione o seu passe e suplementos: a caixa de resumo e o total calculam-se <strong>ao vivo exclusivamente em CSS através da pseudo-classe relacional <code>:has()</code></strong>.
+          </p>
+        </div>
+      </section>
+
+      <!-- FORMULÁRIO DE SELEÇÃO INTERATIVO -->
+      <section class="site-container" style="padding-block: var(--space-md) var(--space-xl);" aria-label="Opções de Compra de Bilhetes">
+        
+        <div style="display: grid; grid-template-columns: 1.8fr 1.2fr; gap: var(--space-xl); align-items: start;">
+          
+          <!-- COLUNA ESQUERDA: OPÇÕES DE PASSE & SUPLEMENTOS -->
+          <div style="display: flex; flex-direction: column; gap: var(--space-lg);">
+            
+            <div>
+              <h2 style="font-size: 1.35rem; margin-block-end: var(--space-sm);">1. Escolha a Tipologia de Passe</h2>
+              
+              <div class="ticket-selection-grid">
+                
+                <!-- Opção 1: Diário -->
+                <label for="ticket-pass-day" class="ticket-tier-label">
+                  <span class="badge badge-cyan" style="align-self: flex-start; margin-block-end: 0.5rem;">1 DIA</span>
+                  <strong style="font-size: 1.2rem; margin-block-end: 0.25rem;">Passe Diário</strong>
+                  <span style="font-size: 0.85rem; color: var(--color-text-secondary); margin-block-end: 1rem;">Acesso livre a todos os 4 palcos durante 1 dia à escolha.</span>
+                  <span style="font-family: var(--font-family-display); font-size: 1.75rem; font-weight: 800; color: var(--color-text-primary);">45 €</span>
+                </label>
+
+                <!-- Opção 2: Fim de Semana Completo (Padrão) -->
+                <label for="ticket-pass-weekend" class="ticket-tier-label">
+                  <span class="badge badge-accent" style="align-self: flex-start; margin-block-end: 0.5rem;">MAIS POPULAR</span>
+                  <strong style="font-size: 1.2rem; margin-block-end: 0.25rem;">Passe 3 Dias</strong>
+                  <span style="font-size: 0.85rem; color: var(--color-text-secondary); margin-block-end: 1rem;">Acesso total de Sexta a Domingo com pulseira RFID.</span>
+                  <span style="font-family: var(--font-family-display); font-size: 1.75rem; font-weight: 800; color: var(--color-accent-vermilion);">95 €</span>
+                </label>
+
+                <!-- Opção 3: VIP Backstage -->
+                <label for="ticket-pass-vip" class="ticket-tier-label">
+                  <span class="badge badge-purple" style="align-self: flex-start; margin-block-end: 0.5rem;">EXPERIÊNCIA VIP</span>
+                  <strong style="font-size: 1.2rem; margin-block-end: 0.25rem;">VIP Backstage</strong>
+                  <span style="font-size: 0.85rem; color: var(--color-text-secondary); margin-block-end: 1rem;">Área lounge reservada, bar aberto e convívio com artistas.</span>
+                  <span style="font-family: var(--font-family-display); font-size: 1.75rem; font-weight: 800; color: var(--color-text-primary);">160 €</span>
+                </label>
+
+              </div>
+            </div>
+
+            <!-- SUPLEMENTOS ADICIONAIS (CHECKBOXES) -->
+            <div>
+              <h2 style="font-size: 1.35rem; margin-block-end: var(--space-sm);">2. Adicionar Suplementos</h2>
+              
+              <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <label for="addon-workshop" class="card" style="padding: var(--space-md); cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                  <div>
+                    <strong style="display: block;">Workshop de Bateria &amp; Síntese Modular (+25 €)</strong>
+                    <span style="font-size: 0.85rem; color: var(--color-text-muted);">Sessão prática de 2 horas no laboratório com os artistas.</span>
+                  </div>
+                  <span class="badge badge-amber">ADICIONAR</span>
+                </label>
+
+                <label for="addon-camping" class="card" style="padding: var(--space-md); cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                  <div>
+                    <strong style="display: block;">Acesso Parque &amp; Glamping Ribeirinho (+30 €)</strong>
+                    <span style="font-size: 0.85rem; color: var(--color-text-muted);">Acesso à área de descanso com balneários junto ao Rio Douro.</span>
+                  </div>
+                  <span class="badge badge-lime">ADICIONAR</span>
+                </label>
+
+                <label for="student-discount" class="card" style="padding: var(--space-md); cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                  <div>
+                    <strong style="display: block;">Desconto de Estudante FBAUP / UP (-20%)</strong>
+                    <span style="font-size: 0.85rem; color: var(--color-text-muted);">Apresentação de cartão de estudante obrigatória no check-in.</span>
+                  </div>
+                  <span class="badge badge-cyan">ATIVAR DESCONTO</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- COLUNA DIREITA: CARTÃO DE RESUMO AO VIVO & BOTÃO MODAL -->
+          <aside class="card" style="position: sticky; inset-block-start: calc(var(--space-2xl) + 60px); background: var(--color-bg-surface-elevated); border: 2px solid var(--color-border-medium);">
+            <span class="badge badge-cyan" style="margin-block-end: 0.75rem;">RESUMO DINÂMICO</span>
+            <h3 style="font-size: 1.4rem; margin-block-end: 1rem;">O Seu Pedido DRUMTIKS</h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; padding-block-end: 1rem; border-block-end: 1px solid var(--color-border-subtle); font-size: 0.95rem;">
+              <div style="display: flex; justify-content: space-between;">
+                <span>Tipologia:</span>
+                <strong class="summary-tier-name"></strong>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span>Localização:</span>
+                <span>Alfândega do Porto</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span>Pulseira RFID:</span>
+                <span style="color: var(--color-accent-lime); font-weight: 700;">Incluída</span>
+              </div>
+
+              <!-- Badges de Suplementos -->
+              <div class="extra-tag-workshop">
+                <span class="badge badge-amber" style="font-size: 0.75rem;">+ Workshop Modular (+25€)</span>
+              </div>
+              <div class="extra-tag-camping">
+                <span class="badge badge-lime" style="font-size: 0.75rem;">+ Glamping Ribeirinho (+30€)</span>
+              </div>
+              <div class="discount-badge">
+                <span class="badge badge-cyan" style="font-size: 0.75rem;">Desconto Estudante Ativo (-20%)</span>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-block: 1.25rem;">
+              <span style="font-weight: 700; font-size: 1.1rem;">Total Estimado:</span>
+              <strong class="summary-total-price" style="font-size: 2rem; font-family: var(--font-family-display); color: var(--color-accent-vermilion);"></strong>
+            </div>
+
+            <!-- Botão que Aciona o <dialog> Nativo -->
+            <button type="button" class="btn btn-primary" style="inline-size: 100%; padding-block: 0.85rem;" onclick="document.getElementById('ticket-modal').showModal();">
+              Concluir Reserva de Bilhete
+            </button>
+            <p style="font-size: 0.75rem; color: var(--color-text-muted); text-align: center; margin-block-start: 0.5rem;">
+              IVA incluído à taxa legal de 6%. Bilheteira eletrónica segura.
+            </p>
+          </aside>
+
+        </div>
+
+      </section>
+
+      <!-- ==================================================================
+           ELEMENTO MODAL NATIVO HTML5 (<dialog>)
+           ================================================================== -->
+      <dialog id="ticket-modal" class="ticket-dialog" aria-labelledby="dialog-title">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-block-end: 1rem;">
+          <h2 id="dialog-title" style="font-size: 1.4rem;">Confirmar Reserva • DRUMTIKS '26</h2>
+          <button type="button" class="btn btn-ghost" style="padding: 0.25rem 0.5rem;" onclick="document.getElementById('ticket-modal').close();" aria-label="Fechar Modal">✕</button>
+        </div>
+
+        <p style="font-size: 0.9rem; margin-block-end: 1.25rem;">
+          Insira o seu nome e endereço de correio eletrónico para receber o bilhete eletrónico com código QR e instruções de recolha da pulseira RFID na Alfândega.
+        </p>
+
+        <form method="dialog" style="display: flex; flex-direction: column; gap: 1rem;">
+          <div>
+            <label for="attendee-name" style="display: block; font-size: 0.85rem; font-weight: 700; margin-block-end: 0.25rem;">Nome Completo do Titular:</label>
+            <input type="text" id="attendee-name" required placeholder="Ex: Ana Maria Silva" style="inline-size: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--color-border-medium); background: var(--color-bg-canvas);">
+          </div>
+
+          <div>
+            <label for="attendee-email" style="display: block; font-size: 0.85rem; font-weight: 700; margin-block-end: 0.25rem;">Endereço de Email:</label>
+            <input type="email" id="attendee-email" required placeholder="ana.silva@fbaup.up.pt" style="inline-size: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--color-border-medium); background: var(--color-bg-canvas);">
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-block-start: 1rem;">
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('ticket-modal').close();">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Emitir Bilhete Digital</button>
+          </div>
+        </form>
+      </dialog>
+
+      <!-- ==================================================================
+           PAINEL HUD DE INSPEÇÃO DE CÓDIGO (PADRÃO 7)
+           ================================================================== -->
+      <section class="site-container" aria-labelledby="pattern7-title">
+        <div class="pattern-inspector-panel">
+          <div class="inspector-header">
+            <div class="inspector-title-group">
+              <span class="badge badge-accent">PADRÃO 07</span>
+              <h2 id="pattern7-title" style="font-size: 1.25rem; margin: 0;">Máquina de Estados com :has() &amp; Diálogo &lt;dialog&gt;</h2>
+            </div>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:has" target="_blank" rel="noopener" class="inspector-spec-link">
+              MDN :has() ↗
+            </a>
+          </div>
+
+          <p style="font-size: 0.95rem; margin-block-end: 1rem;">
+            A pseudo-classe <code>:has()</code> (muitas vezes descrita como o "seletor pai") permite que o estado de um rádio no DOM altere propriedades CSS em nós completamente separados. O elemento <code>&lt;dialog&gt;</code> é renderizado na camada de topo do browser (<em>top layer</em>), garantindo que nada sobrepõe a modal:
+          </p>
+
+          <pre class="inspector-code-block"><code><span class="token-comment">/* 1. Máquina de Estados: Injeção de Preço Dinâmico via CSS */</span>
+<span class="token-keyword">:root:has(#ticket-pass-day:checked)</span> <span class="token-keyword">.summary-total-price::after</span> {
+  <span class="token-property">content</span>: <span class="token-value">"45 €"</span>;
+}
+
+<span class="token-keyword">:root:has(#ticket-pass-vip:checked)</span> <span class="token-keyword">.summary-total-price::after</span> {
+  <span class="token-property">content</span>: <span class="token-value">"160 €"</span>;
+}
+
+<span class="token-comment">/* 2. Janela Modal no Top-Layer Nativo com Backdrop Blur */</span>
+<span class="token-keyword">dialog.ticket-dialog</span> {
+  <span class="token-property">margin</span>: <span class="token-value">auto</span>;
+  <span class="token-property">border-radius</span>: <span class="token-value">var(--radius-lg)</span>;
+  <span class="token-property">box-shadow</span>: <span class="token-value">var(--shadow-lg)</span>;
+}
+
+<span class="token-keyword">dialog.ticket-dialog::backdrop</span> {
+  <span class="token-property">background</span>: <span class="token-value">rgba(0, 0, 0, 0.75)</span>;
+  <span class="token-property">backdrop-filter</span>: <span class="token-value">blur(8px)</span>; <span class="token-comment">/* Desfocagem de fundo de cinema */</span>
+}</code></pre>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- RODAPÉ GLOBAL -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-container">
+        <div class="footer-grid">
+          <div>
+            <h4 class="footer-col-title">DRUMTIKS '26</h4>
+            <p style="font-size: 0.85rem;">Bilheteira Oficial e State Machine na Alfândega do Porto. Projeto de Web Design da FBAUP.</p>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Páginas de Padrões</h4>
+            <div class="footer-links">
+              <a href="index.html" class="footer-link">01 • Hub Geral</a>
+              <a href="stages.html" class="footer-link">02 • Palcos &amp; Morfismo</a>
+              <a href="lineup.html" class="footer-link">03 • Artistas &amp; Caixa 3D</a>
+              <a href="motion-path.html" class="footer-link">04 • Motion Path &amp; Mola</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Recursos &amp; Sistema</h4>
+            <div class="footer-links">
+              <a href="schedule.html" class="footer-link">05 • Horários &amp; Acordeão</a>
+              <a href="battle.html" class="footer-link">06 • Battle Duel &amp; View</a>
+              <a href="design-system.html" class="footer-link">08 • Design System &amp; Tokens</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="footer-col-title">FBAUP / i2ADS</h4>
+            <p style="font-size: 0.85rem;">Faculdade de Belas Artes da Universidade do Porto • Licenciatura em Design de Comunicação • WD101 (2026/27).</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>&copy; 2026 DRUMTIKS Festival • FBAUP / i2ADS</span>
+          <span>Desenvolvido com padrões abertos W3C / WHATWG</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

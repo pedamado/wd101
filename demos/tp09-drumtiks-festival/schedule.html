@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<!--
+  ==============================================================================
+  WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+  FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+  
+  FINAL INTEGRATED CAPSTONE DEMO: DRUMTIKS '26 FESTIVAL
+  Pasta do Projeto: TP09
+  Ficheiro: schedule.html • "Festival Timetable & Modern Pure CSS Accordions"
+  
+  AUTORES & COORDENAÇÃO PEDAGÓGICA:
+    - Prof. Pedro Amado (FBAUP / i2ADS)
+    - Antigravity (Advanced Agentic Pair)
+  
+  ==============================================================================
+  PADRÃO DE INTERAÇÃO EM DESTAQUE NESTA PÁGINA (PADRÃO 5):
+    "Acordeões Semânticos <details>/<summary> Animados com @starting-style e interpolate-size"
+  
+  MDN CANONICAL REFERENCES:
+    - HTML <details>: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
+    - CSS @starting-style: https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style
+    - interpolate-size: https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size
+    - Sibling Filtering :has(): https://developer.mozilla.org/en-US/docs/Web/CSS/:has
+  ==============================================================================
+-->
+<html lang="pt" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>DRUMTIKS '26 • Horários &amp; Acordeão Moderno | WD101 FBAUP</title>
+  <meta name="description" content="Horários completos das atuações do Festival DRUMTIKS '26 organizados em acordeões semânticos nativos com animação pura em CSS moderno (@starting-style).">
+
+  <!-- Folha de Estilos Mestre com Hierarquia @layer -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <script>
+    (function() {
+      const saved = localStorage.getItem('drumtiks_theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+      else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Pular para o conteúdo principal / Skip to content</a>
+
+  <!-- Controladores de Estado Zero-JS para Temas -->
+  <input type="radio" name="site-theme" id="theme-auto" class="visually-hidden" checked aria-hidden="true">
+  <input type="radio" name="site-theme" id="theme-light" class="visually-hidden" aria-hidden="true">
+  <input type="radio" name="site-theme" id="theme-dark" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="xray-toggle" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="menu-toggle" class="visually-hidden" aria-hidden="true">
+
+  <!-- Rádios de Filtro de Dia do Festival (Zero-JS) -->
+  <input type="radio" name="day-filter" id="filter-all" class="visually-hidden" checked aria-hidden="true">
+  <input type="radio" name="day-filter" id="filter-fri" class="visually-hidden" aria-hidden="true">
+  <input type="radio" name="day-filter" id="filter-sat" class="visually-hidden" aria-hidden="true">
+  <input type="radio" name="day-filter" id="filter-sun" class="visually-hidden" aria-hidden="true">
+
+  <!-- Barra de Progresso Global do Viewport -->
+  <div class="viewport-progress-track" aria-hidden="true">
+    <div class="viewport-progress-fill"></div>
+  </div>
+
+  <div class="site-wrapper">
+
+    <!-- CABEÇALHO GLOBAL -->
+    <header class="site-header" role="banner">
+      <div class="site-container header-inner">
+        <div class="brand-group">
+          <a href="index.html" class="brand-logo" aria-label="DRUMTIKS 2026 Página Inicial">
+            <span>DRUMTIKS<span class="brand-logo-accent">'26</span></span>
+          </a>
+          <span class="brand-venue-badge">Alfândega do Porto</span>
+        </div>
+
+        <nav class="site-nav" role="navigation" aria-label="Navegação Principal do Festival">
+          <ul class="nav-list">
+            <li><a href="index.html" class="nav-link">Hub Geral</a></li>
+            <li><a href="stages.html" class="nav-link">Palcos &amp; Formas</a></li>
+            <li><a href="lineup.html" class="nav-link">Artistas 3D</a></li>
+            <li><a href="motion-path.html" class="nav-link">Motion Path</a></li>
+            <li><a href="schedule.html" class="nav-link" aria-current="page">Horários</a></li>
+            <li><a href="battle.html" class="nav-link">Battle Duel</a></li>
+            <li><a href="tickets.html" class="nav-link">Bilhetes</a></li>
+            <li><a href="design-system.html" class="nav-link">Design System</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="theme-switch-group" role="group" aria-label="Seletor de Modo de Cor">
+            <label for="theme-light" class="theme-btn" title="Modo Claro" onclick="localStorage.setItem('drumtiks_theme','light');document.documentElement.setAttribute('data-theme','light');">☀️</label>
+            <label for="theme-auto" class="theme-btn" title="Modo Automático do Sistema" onclick="localStorage.removeItem('drumtiks_theme');document.documentElement.removeAttribute('data-theme');">⚙️</label>
+            <label for="theme-dark" class="theme-btn" title="Modo Escuro" onclick="localStorage.setItem('drumtiks_theme','dark');document.documentElement.setAttribute('data-theme','dark');">🌙</label>
+          </div>
+          <label for="xray-toggle" class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;">X-Ray</label>
+          <label for="menu-toggle" class="mobile-menu-toggle" aria-label="Abrir Menu">☰</label>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" role="main">
+
+      <!-- SECÇÃO DE APRESENTAÇÃO DO HORÁRIO -->
+      <section style="padding-block: var(--space-xl) var(--space-sm);">
+        <div class="site-container">
+          <span class="badge badge-amber" style="margin-block-end: 0.5rem;">CRONOGRAMA OFICIAL</span>
+          <h1 style="font-size: var(--font-size-2xl); margin-block-end: 0.75rem;">Horários das Atuações &amp; Perguntas Frequentes</h1>
+          <p style="font-size: var(--font-size-base); max-width: 75ch;">
+            Consulte a programação detalhada dos três dias do festival. Os elementos abaixo utilizam a tag semântica nativa do HTML5 <code>&lt;details&gt;</code> estilizada com as mais recentes especificações de animação fluida (<code>interpolate-size: allow-keywords</code>) sem recorrer a scripts.
+          </p>
+
+          <!-- SELETOR DE DIAS DO FESTIVAL (ZERO-JS) -->
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-block-start: var(--space-md);" role="tablist" aria-label="Filtrar por Dia">
+            <label for="filter-all" class="btn btn-secondary" style="font-size: 0.85rem; cursor: pointer;">Todos os Dias</label>
+            <label for="filter-fri" class="btn btn-secondary" style="font-size: 0.85rem; cursor: pointer;">Sexta, 10 Julho</label>
+            <label for="filter-sat" class="btn btn-secondary" style="font-size: 0.85rem; cursor: pointer;">Sábado, 11 Julho</label>
+            <label for="filter-sun" class="btn btn-secondary" style="font-size: 0.85rem; cursor: pointer;">Domingo, 12 Julho</label>
+          </div>
+        </div>
+      </section>
+
+      <!-- OS ACORDEÕES SEMÂNTICOS DE HORÁRIOS -->
+      <section class="site-container" style="padding-block: var(--space-md) var(--space-xl);" aria-label="Tabela de Horários por Dia">
+        
+        <div class="accordion-group">
+          
+          <!-- ITEM 1: SEXTA-FEIRA -->
+          <details class="accordion-item" open>
+            <summary class="accordion-summary">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <span class="badge badge-cyan">SEXTA • 10 JULHO</span>
+                <span>Abertura das Portas &amp; Noite Sub-Bass Douro</span>
+              </div>
+              <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            
+            <div class="accordion-content">
+              <table style="margin-block-start: 0.5rem; border-collapse: collapse; font-size: 0.9rem;">
+                <tbody>
+                  <tr style="border-block-end: 1px solid var(--color-border-subtle); padding-block: 0.5rem;">
+                    <td style="padding: 0.6rem; font-family: var(--font-family-mono); color: var(--color-accent-vermilion); inline-size: 100px;">18:00</td>
+                    <td style="padding: 0.6rem; font-weight: 700;">Abertura dos Portões da Alfândega &amp; Check-in RFID</td>
+                    <td style="padding: 0.6rem; color: var(--color-text-muted);">Recinto Geral</td>
+                  </tr>
+                  <tr style="border-block-end: 1px solid var(--color-border-subtle);">
+                    <td style="padding: 0.6rem; font-family: var(--font-family-mono); color: var(--color-accent-vermilion);">20:00</td>
+                    <td style="padding: 0.6rem; font-weight: 700;">Ensemble Percussivo da FBAUP (Polirritmias do Douro)</td>
+                    <td style="padding: 0.6rem; color: var(--color-text-muted);">Palco Rio Douro</td>
+                  </tr>
+                  <tr style="border-block-end: 1px solid var(--color-border-subtle);">
+                    <td style="padding: 0.6rem; font-family: var(--font-family-mono); color: var(--color-accent-vermilion);">22:00</td>
+                    <td style="padding: 0.6rem; font-weight: 700;">Marcus Vane: Síntese Modular Analógica &amp; Bateria Acústica</td>
+                    <td style="padding: 0.6rem; color: var(--color-text-muted);">Arcos da Alfândega</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0.6rem; font-family: var(--font-family-mono); color: var(--color-accent-vermilion);">23:30</td>
+                    <td style="padding: 0.6rem; font-weight: 700;">DJ WARP: Headliner Master Set ("Piezo Pulse Live")</td>
+                    <td style="padding: 0.6rem; color: var(--color-text-muted);">Palco Rio Douro</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+
+          <!-- ITEM 2: SÁBADO -->
+          <details class="accordion-item">
+            <summary class="accordion-summary">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <span class="badge badge-amber">SÁBADO • 11 JULHO</span>
+                <span>Batalhas de Bateristas &amp; Noite Industrial</span>
+              </div>
+              <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            
+            <div class="accordion-content">
+              <table style="margin-block-start: 0.5rem; border-collapse: collapse; font-size: 0.9rem;">
+                <tbody>
+                  <tr style="border-block-end: 1px solid var(--color-border-subtle);">
+                    <td style="padding: 0.6rem; font-family: var(--font-family-mono); color: var(--color-accent-vermilion); inline-size: 100px;">16:00</td>
+                    <td style="padding: 0.6rem; font-weight: 700;">Workshop de Afinação e Microfonagem Acústica de Bateria</td>
+                    <td style="padding: 0.6rem; color: var(--color-text-muted);">Laboratório Sintetizadores</td>
+                  </tr>
+                  <tr style="border-block-end: 1px solid var(--color-border-subtle);">
+                    <td style="padding: 0.6rem; font-family: var(--font-family-mono); color: var(--color-accent-vermilion);">19:00</td>
+                    <td style="padding: 0.6rem; font-weight: 700;">Quartos de Final do DRUMMER DUEL ARENA (8 Bateristas)</td>
+                    <td style="padding: 0.6rem; color: var(--color-text-muted);">Octágono Vinil</td>
+                  </tr>
+                  <tr style="border-block-end: 1px solid var(--color-border-subtle);">
+                    <td style="padding: 0.6rem; font-family: var(--font-family-mono); color: var(--color-accent-vermilion);">21:30</td>
+                    <td style="padding: 0.6rem; font-weight: 700;">Elena Vance: Ressonâncias Industriais de Granito a 150 BPM</td>
+                    <td style="padding: 0.6rem; color: var(--color-text-muted);">Arcos da Alfândega</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0.6rem; font-family: var(--font-family-mono); color: var(--color-accent-vermilion);">00:00</td>
+                    <td style="padding: 0.6rem; font-weight: 700;">Grande Final da Batalha de Bateristas 2026</td>
+                    <td style="padding: 0.6rem; color: var(--color-text-muted);">Palco Rio Douro</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+
+          <!-- ITEM 3: DOMINGO -->
+          <details class="accordion-item">
+            <summary class="accordion-summary">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <span class="badge badge-purple">DOMINGO • 12 JULHO</span>
+                <span>Maratona 360° Turntablism &amp; Encerramento</span>
+              </div>
+              <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            
+            <div class="accordion-content">
+              <table style="margin-block-start: 0.5rem; border-collapse: collapse; font-size: 0.9rem;">
+                <tbody>
+                  <tr style="border-block-end: 1px solid var(--color-border-subtle);">
+                    <td style="padding: 0.6rem; font-family: var(--font-family-mono); color: var(--color-accent-vermilion); inline-size: 100px;">17:00</td>
+                    <td style="padding: 0.6rem; font-weight: 700;">Sessão Aberta de Improviso e Crate Digging de Vinis Raros</td>
+                    <td style="padding: 0.6rem; color: var(--color-text-muted);">Octágono Vinil</td>
+                  </tr>
+                  <tr style="border-block-end: 1px solid var(--color-border-subtle);">
+                    <td style="padding: 0.6rem; font-family: var(--font-family-mono); color: var(--color-accent-vermilion);">19:30</td>
+                    <td style="padding: 0.6rem; font-weight: 700;">Sarah Chen: Breakbeat Futuro e Polirritmias a 160 BPM</td>
+                    <td style="padding: 0.6rem; color: var(--color-text-muted);">Laboratório Sintetizadores</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0.6rem; font-family: var(--font-family-mono); color: var(--color-accent-vermilion);">22:00</td>
+                    <td style="padding: 0.6rem; font-weight: 700;">K-RHYTHM: Espetáculo de Encerramento Tradicional &amp; D&amp;B</td>
+                    <td style="padding: 0.6rem; color: var(--color-text-muted);">Palco Rio Douro</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+
+        </div>
+
+      </section>
+
+      <!-- PERGUNTAS FREQUENTES (FAQ) EM ACORDEÃO -->
+      <section class="site-container" style="padding-block: var(--space-md) var(--space-xl);" aria-labelledby="faq-title">
+        <h2 id="faq-title" style="margin-block-end: var(--space-md);">Perguntas Frequentes (FAQ)</h2>
+
+        <div class="accordion-group">
+          
+          <details class="accordion-item">
+            <summary class="accordion-summary">
+              <span>Como funciona a entrada e a pulseira RFID do festival?</span>
+              <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+              <p style="font-size: 0.9rem;">
+                À entrada na Alfândega do Porto, o seu bilhete digital ou físico é trocado por uma pulseira inteligente RFID à prova de água. A pulseira serve tanto para acesso rápido às portas como para carregamentos cashless de restauração e merchandising.
+              </p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-summary">
+              <span>É fornecida proteção auditiva aos participantes?</span>
+              <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+              <p style="font-size: 0.9rem;">
+                Sim! A proteção da audição é prioridade máxima no DRUMTIKS. Em todas as entradas dos palcos Arcos de Granito e Octágono Vinil são distribuídos gratuitamente protetores auriculares de atenuação acústica linear com filtro de -19dB.
+              </p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-summary">
+              <span>Como chegar à Alfândega do Porto por transportes públicos?</span>
+              <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+              <p style="font-size: 0.9rem;">
+                A Alfândega é servida diretamente pela Linha 500 da STCP (autocarros de dois andares com vista panorâmica do rio) e pelo Elétrico Histórico Linha 1. Se vier de comboio, desça na estação de São Bento e apanhe a ligação ribeirinha em 10 minutos a pé.
+              </p>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           PAINEL HUD DE INSPEÇÃO DE CÓDIGO (PADRÃO 5)
+           ================================================================== -->
+      <section class="site-container" aria-labelledby="pattern5-title">
+        <div class="pattern-inspector-panel">
+          <div class="inspector-header">
+            <div class="inspector-title-group">
+              <span class="badge badge-accent">PADRÃO 05</span>
+              <h2 id="pattern5-title" style="font-size: 1.25rem; margin: 0;">Animação Fluida de Altura com interpolate-size</h2>
+            </div>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size" target="_blank" rel="noopener" class="inspector-spec-link">
+              MDN interpolate-size ↗
+            </a>
+          </div>
+
+          <p style="font-size: 0.95rem; margin-block-end: 1rem;">
+            Durante mais de duas décadas, animar transições de <code>height: auto</code> foi considerado a "pedra no sapato" do CSS. A nova especificação <strong>W3C CSS Values and Units Level 4</strong> resolve este dilema definitivamente através de <code>interpolate-size: allow-keywords</code> no elemento raiz:
+          </p>
+
+          <pre class="inspector-code-block"><code><span class="token-comment">/* 1. Ativação Global no Root */</span>
+<span class="token-keyword">:root</span> {
+  <span class="token-property">interpolate-size</span>: <span class="token-value">allow-keywords</span>; <span class="token-comment">/* Permite transitar para palavras-chave como 'auto' */</span>
+}
+
+<span class="token-comment">/* 2. Acordeão Nativo HTML5 Sem JavaScript */</span>
+<span class="token-keyword">.accordion-item</span> {
+  <span class="token-property">overflow</span>: <span class="token-value">hidden</span>;
+  <span class="token-property">transition</span>: <span class="token-value">border-color 200ms ease, box-shadow 200ms ease</span>;
+}
+
+<span class="token-comment">/* 3. Conteúdo Expansível com Transição */</span>
+<span class="token-keyword">.accordion-content</span> {
+  <span class="token-property">transition</span>: <span class="token-value">block-size 350ms var(--ease-spring), opacity 350ms ease</span>;
+}
+
+<span class="token-comment">/* 4. Rotação do Ícone Chevron */</span>
+<span class="token-keyword">.accordion-item[open] .accordion-chevron</span> {
+  <span class="token-property">transform</span>: <span class="token-value">rotate(180deg)</span>;
+}</code></pre>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- RODAPÉ GLOBAL -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-container">
+        <div class="footer-grid">
+          <div>
+            <h4 class="footer-col-title">DRUMTIKS '26</h4>
+            <p style="font-size: 0.85rem;">Horários e Programação na Alfândega do Porto. Projeto de Web Design da FBAUP.</p>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Páginas de Padrões</h4>
+            <div class="footer-links">
+              <a href="index.html" class="footer-link">01 • Hub Geral</a>
+              <a href="stages.html" class="footer-link">02 • Palcos &amp; Morfismo</a>
+              <a href="lineup.html" class="footer-link">03 • Artistas &amp; Caixa 3D</a>
+              <a href="motion-path.html" class="footer-link">04 • Motion Path &amp; Mola</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Recursos &amp; Sistema</h4>
+            <div class="footer-links">
+              <a href="battle.html" class="footer-link">06 • Battle Duel &amp; View</a>
+              <a href="tickets.html" class="footer-link">07 • Bilheteira &amp; State Machine</a>
+              <a href="design-system.html" class="footer-link">08 • Design System &amp; Tokens</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="footer-col-title">FBAUP / i2ADS</h4>
+            <p style="font-size: 0.85rem;">Faculdade de Belas Artes da Universidade do Porto • Licenciatura em Design de Comunicação • WD101 (2026/27).</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>&copy; 2026 DRUMTIKS Festival • FBAUP / i2ADS</span>
+          <span>Desenvolvido com padrões abertos W3C / WHATWG</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

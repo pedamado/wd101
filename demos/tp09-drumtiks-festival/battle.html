@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<!--
+  ==============================================================================
+  WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+  FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+  
+  FINAL INTEGRATED CAPSTONE DEMO: DRUMTIKS '26 FESTIVAL
+  Pasta do Projeto: TP09
+  Ficheiro: battle.html • "Drummer Duel Arena & View-Driven Scroll-Snap"
+  
+  AUTORES & COORDENAÇÃO PEDAGÓGICA:
+    - Prof. Pedro Amado (FBAUP / i2ADS)
+    - Antigravity (Advanced Agentic Pair)
+  
+  ==============================================================================
+  PADRÃO DE INTERAÇÃO EM DESTAQUE NESTA PÁGINA (PADRÃO 6):
+    "Animações Acionadas pela Visibilidade do Elemento (view()) & Carrossel Scroll-Snap"
+  
+  MDN CANONICAL REFERENCES:
+    - CSS view(): https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/view
+    - animation-range: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-range
+    - scroll-snap-type: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-type
+    - scroll-snap-align: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-align
+  ==============================================================================
+-->
+<html lang="pt" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>DRUMTIKS '26 • Battle Duel &amp; View Animations | WD101 FBAUP</title>
+  <meta name="description" content="A lendária arena de duelo de bateristas do Festival DRUMTIKS '26 com revelação dinâmica à passagem do scroll (view()) e carrossel tátil scroll-snap.">
+
+  <!-- Folha de Estilos Mestre com Hierarquia @layer -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <script>
+    (function() {
+      const saved = localStorage.getItem('drumtiks_theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+      else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Pular para o conteúdo principal / Skip to content</a>
+
+  <!-- Controladores de Estado Zero-JS para Temas -->
+  <input type="radio" name="site-theme" id="theme-auto" class="visually-hidden" checked aria-hidden="true">
+  <input type="radio" name="site-theme" id="theme-light" class="visually-hidden" aria-hidden="true">
+  <input type="radio" name="site-theme" id="theme-dark" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="xray-toggle" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="menu-toggle" class="visually-hidden" aria-hidden="true">
+
+  <!-- Barra de Progresso Global do Viewport -->
+  <div class="viewport-progress-track" aria-hidden="true">
+    <div class="viewport-progress-fill"></div>
+  </div>
+
+  <div class="site-wrapper">
+
+    <!-- CABEÇALHO GLOBAL -->
+    <header class="site-header" role="banner">
+      <div class="site-container header-inner">
+        <div class="brand-group">
+          <a href="index.html" class="brand-logo" aria-label="DRUMTIKS 2026 Página Inicial">
+            <span>DRUMTIKS<span class="brand-logo-accent">'26</span></span>
+          </a>
+          <span class="brand-venue-badge">Alfândega do Porto</span>
+        </div>
+
+        <nav class="site-nav" role="navigation" aria-label="Navegação Principal do Festival">
+          <ul class="nav-list">
+            <li><a href="index.html" class="nav-link">Hub Geral</a></li>
+            <li><a href="stages.html" class="nav-link">Palcos &amp; Formas</a></li>
+            <li><a href="lineup.html" class="nav-link">Artistas 3D</a></li>
+            <li><a href="motion-path.html" class="nav-link">Motion Path</a></li>
+            <li><a href="schedule.html" class="nav-link">Horários</a></li>
+            <li><a href="battle.html" class="nav-link" aria-current="page">Battle Duel</a></li>
+            <li><a href="tickets.html" class="nav-link">Bilhetes</a></li>
+            <li><a href="design-system.html" class="nav-link">Design System</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="theme-switch-group" role="group" aria-label="Seletor de Modo de Cor">
+            <label for="theme-light" class="theme-btn" title="Modo Claro" onclick="localStorage.setItem('drumtiks_theme','light');document.documentElement.setAttribute('data-theme','light');">☀️</label>
+            <label for="theme-auto" class="theme-btn" title="Modo Automático do Sistema" onclick="localStorage.removeItem('drumtiks_theme');document.documentElement.removeAttribute('data-theme');">⚙️</label>
+            <label for="theme-dark" class="theme-btn" title="Modo Escuro" onclick="localStorage.setItem('drumtiks_theme','dark');document.documentElement.setAttribute('data-theme','dark');">🌙</label>
+          </div>
+          <label for="xray-toggle" class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;">X-Ray</label>
+          <label for="menu-toggle" class="mobile-menu-toggle" aria-label="Abrir Menu">☰</label>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" role="main">
+
+      <!-- BANNER INTRODUTÓRIO DA ARENA DE BATALHAS -->
+      <section style="padding-block: var(--space-xl) var(--space-sm);">
+        <div class="site-container">
+          <span class="badge badge-lime" style="margin-block-end: 0.5rem;">DUELO 1 CONTRA 1</span>
+          <h1 style="font-size: var(--font-size-2xl); margin-block-end: 0.75rem;">Arena Drummer Duel: Batalha de Batidas</h1>
+          <p style="font-size: var(--font-size-base); max-width: 75ch;">
+            Dois bateristas frente a frente em rounds alternados de 8 compassos. O público e o júri avaliam precisão rítmica, dinâmica, polirritmia e velocidade. Conforme rola a página para baixo, os cartões dos concorrentes entram suavemente no ecrã impulsionados por <code>animation-timeline: view()</code>.
+          </p>
+        </div>
+      </section>
+
+      <!-- CARROSSEL TOUCH SCROLL-SNAP COM ANIMAÇÃO VIEW() -->
+      <section class="site-container" style="padding-block: var(--space-md) var(--space-xl);" aria-label="Concorrentes do Torneio">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-block-end: 0.75rem;">
+          <h2 style="font-size: 1.5rem;">Cartões de Duelo dos Concorrentes</h2>
+          <span style="font-size: 0.85rem; color: var(--color-text-muted);">Deslize horizontalmente (Touch ou Trackpad) ➔</span>
+        </div>
+
+        <div class="battle-carousel-track" role="region" aria-label="Carrossel de Concorrentes">
+          
+          <!-- CARTÃO DUELO 1 -->
+          <article class="battle-card">
+            <img src="assets/images/battle-crew-600w.webp" alt="Equipa de percussão em ação" width="600" height="400" loading="lazy">
+            <div style="padding: var(--space-md);">
+              <span class="badge badge-cyan" style="margin-block-end: 0.5rem;">ROUND 01 • ACÚSTICO</span>
+              <h3 style="font-size: 1.25rem; margin-block-end: 0.25rem;">Master Kenji vs Alex Thorne</h3>
+              <p style="font-size: 0.85rem; color: var(--color-accent-vermilion); font-weight: 700; margin-block-end: 0.5rem;">Taiko Tradicional vs Grime Modular</p>
+              <p style="font-size: 0.85rem;">Velocidade estonteante com baquetas pesadas de carvalho confrontando caixas de ritmo eletrónicas a 140 BPM.</p>
+              <div style="display: flex; justify-content: space-between; margin-block-start: 1rem; padding-block-start: 0.5rem; border-block-start: 1px solid var(--color-border-subtle); font-size: 0.8rem; font-family: var(--font-family-mono);">
+                <span>BPM: 130–150</span>
+                <span style="color: var(--color-accent-cyan);">SÁBADO • 19:00</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARTÃO DUELO 2 -->
+          <article class="battle-card">
+            <img src="assets/images/battle-mc-600w.webp" alt="Apresentador da batalha comandando o microfone" width="600" height="400" loading="lazy">
+            <div style="padding: var(--space-md);">
+              <span class="badge badge-amber" style="margin-block-end: 0.5rem;">ROUND 02 • POLIRRITMIA</span>
+              <h3 style="font-size: 1.25rem; margin-block-end: 0.25rem;">Beatrix Nova vs DJ Warp</h3>
+              <p style="font-size: 0.85rem; color: var(--color-accent-amber); font-weight: 700; margin-block-end: 0.5rem;">Cajón Flamenco vs Sintetizador Piezo</p>
+              <p style="font-size: 0.85rem;">Confronto rítmico em compassos ímpares (7/8 e 11/16) com transição progressiva para batidas breakbeat explosivas.</p>
+              <div style="display: flex; justify-content: space-between; margin-block-start: 1rem; padding-block-start: 0.5rem; border-block-start: 1px solid var(--color-border-subtle); font-size: 0.8rem; font-family: var(--font-family-mono);">
+                <span>BPM: 110–165</span>
+                <span style="color: var(--color-accent-amber);">SÁBADO • 20:30</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARTÃO DUELO 3 -->
+          <article class="battle-card">
+            <img src="assets/images/battle-producers-600w.webp" alt="Produtores ajustando mesas de mistura e sintetizadores analógicos" width="600" height="400" loading="lazy">
+            <div style="padding: var(--space-md);">
+              <span class="badge badge-purple" style="margin-block-end: 0.5rem;">ROUND 03 • FINAL SUDDEN DEATH</span>
+              <h3 style="font-size: 1.25rem; margin-block-end: 0.25rem;">Marcus Vane vs Sarah Chen</h3>
+              <p style="font-size: 0.85rem; color: var(--color-accent-purple); font-weight: 700; margin-block-end: 0.5rem;">Drum &amp; Bass Cru vs Footwork 160</p>
+              <p style="font-size: 0.85rem;">8 compassos sem rede de segurança. O vencedor é determinado por sonómetro decibélico através do aplauso da plateia.</p>
+              <div style="display: flex; justify-content: space-between; margin-block-start: 1rem; padding-block-start: 0.5rem; border-block-start: 1px solid var(--color-border-subtle); font-size: 0.8rem; font-family: var(--font-family-mono);">
+                <span>BPM: 174 MAX</span>
+                <span style="color: var(--color-accent-purple);">SÁBADO • 00:00</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- REGRAS OFICIAIS DO DUELO EM GRELHA 2D -->
+      <section class="site-container" style="padding-block: var(--space-md) var(--space-xl);" aria-labelledby="rules-title">
+        <h2 id="rules-title" style="margin-block-end: var(--space-lg);">Regulamento Oficial do Duelo de Batidas</h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-md);">
+          
+          <div class="card">
+            <strong style="color: var(--color-accent-vermilion); font-family: var(--font-family-display); font-size: 1.15rem; display: block; margin-block-end: 0.5rem;">
+              Regra 1: 8 Compassos Alternados
+            </strong>
+            <p style="font-size: 0.9rem;">
+              Cada baterista dispõe estritamente de 8 compassos para responder à frase rítmica do oponente. Ultrapassar a contagem de tempo resulta em penalização imediata de 2 pontos pelo júri.
+            </p>
+          </div>
+
+          <div class="card">
+            <strong style="color: var(--color-accent-cyan); font-family: var(--font-family-display); font-size: 1.15rem; display: block; margin-block-end: 0.5rem;">
+              Regra 2: Proibição de Loops Pré-Gravados
+            </strong>
+            <p style="font-size: 0.9rem;">
+              Todas as notas, sequências de sintetizador e batidas acústicas têm de ser geradas e disparadas manualmente em tempo real no palco, sem pistas pré-misturadas.
+            </p>
+          </div>
+
+          <div class="card">
+            <strong style="color: var(--color-accent-amber); font-family: var(--font-family-display); font-size: 1.15rem; display: block; margin-block-end: 0.5rem;">
+              Regra 3: Medição Decibélica do Público
+            </strong>
+            <p style="font-size: 0.9rem;">
+              Em caso de empate técnico no final dos 3 rounds, um sonómetro acústico calibrado instalado no centro do público mede o volume e o entusiasmo dos aplausos para coroar o campeão.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           PAINEL HUD DE INSPEÇÃO DE CÓDIGO (PADRÃO 6)
+           ================================================================== -->
+      <section class="site-container" aria-labelledby="pattern6-title">
+        <div class="pattern-inspector-panel">
+          <div class="inspector-header">
+            <div class="inspector-title-group">
+              <span class="badge badge-accent">PADRÃO 06</span>
+              <h2 id="pattern6-title" style="font-size: 1.25rem; margin: 0;">Animação de Entrada com view() e Carrossel scroll-snap</h2>
+            </div>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/view" target="_blank" rel="noopener" class="inspector-spec-link">
+              MDN view() ↗
+            </a>
+          </div>
+
+          <p style="font-size: 0.95rem; margin-block-end: 1rem;">
+            Enquanto <code>scroll()</code> depende da posição absoluta da barra de rolagem, a função <code>view()</code> monitoriza a <strong>interseção do próprio elemento com o viewport</strong> (semelhante ao IntersectionObserver, mas rodando a 120 fps no thread do compositor da GPU). Combinado com <code>scroll-snap-type: x mandatory</code>, cria um carrossel perfeitamente alinhado:
+          </p>
+
+          <pre class="inspector-code-block"><code><span class="token-comment">/* 1. Carrossel com Snap Tátil Nativo */</span>
+<span class="token-keyword">.battle-carousel-track</span> {
+  <span class="token-property">display</span>: <span class="token-value">flex</span>;
+  <span class="token-property">overflow-x</span>: <span class="token-value">auto</span>;
+  <span class="token-property">scroll-snap-type</span>: <span class="token-value">x mandatory</span>; <span class="token-comment">/* Fixa cada cartão no centro ao soltar */</span>
+}
+
+<span class="token-comment">/* 2. Cartão Revelado ao Entrar no Viewport */</span>
+<span class="token-keyword">.battle-card</span> {
+  <span class="token-property">scroll-snap-align</span>: <span class="token-value">center</span>;
+  <span class="token-property">animation</span>: <span class="token-value">reveal-on-view 1ms ease both</span>;
+  <span class="token-property">animation-timeline</span>: <span class="token-value">view()</span>;
+  <span class="token-property">animation-range</span>: <span class="token-value">entry 10% cover 30%</span>; <span class="token-comment">/* Dispara entre 10% e 30% de visibilidade */</span>
+}
+
+<span class="token-keyword">@keyframes</span> reveal-on-view {
+  <span class="token-keyword">from</span> {
+    <span class="token-property">opacity</span>: <span class="token-value">0</span>;
+    <span class="token-property">transform</span>: <span class="token-value">translateY(40px) scale(0.92)</span>;
+    <span class="token-property">filter</span>: <span class="token-value">blur(6px)</span>;
+  }
+  <span class="token-keyword">to</span> {
+    <span class="token-property">opacity</span>: <span class="token-value">1</span>;
+    <span class="token-property">transform</span>: <span class="token-value">translateY(0) scale(1)</span>;
+    <span class="token-property">filter</span>: <span class="token-value">blur(0)</span>;
+  }
+}</code></pre>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- RODAPÉ GLOBAL -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-container">
+        <div class="footer-grid">
+          <div>
+            <h4 class="footer-col-title">DRUMTIKS '26</h4>
+            <p style="font-size: 0.85rem;">Torneio Drummer Duel na Alfândega do Porto. Projeto de Web Design da FBAUP.</p>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Páginas de Padrões</h4>
+            <div class="footer-links">
+              <a href="index.html" class="footer-link">01 • Hub Geral</a>
+              <a href="stages.html" class="footer-link">02 • Palcos &amp; Morfismo</a>
+              <a href="lineup.html" class="footer-link">03 • Artistas &amp; Caixa 3D</a>
+              <a href="motion-path.html" class="footer-link">04 • Motion Path &amp; Mola</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Recursos &amp; Sistema</h4>
+            <div class="footer-links">
+              <a href="schedule.html" class="footer-link">05 • Horários &amp; Acordeão</a>
+              <a href="tickets.html" class="footer-link">07 • Bilheteira &amp; State Machine</a>
+              <a href="design-system.html" class="footer-link">08 • Design System &amp; Tokens</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="footer-col-title">FBAUP / i2ADS</h4>
+            <p style="font-size: 0.85rem;">Faculdade de Belas Artes da Universidade do Porto • Licenciatura em Design de Comunicação • WD101 (2026/27).</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>&copy; 2026 DRUMTIKS Festival • FBAUP / i2ADS</span>
+          <span>Desenvolvido com padrões abertos W3C / WHATWG</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

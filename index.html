@@ -293,10 +293,15 @@
               <span class="lang-pt">Deixe o conteúdo ditar a sua forma. Utilize min(), max(), clamp(), flex-basis e minmax() em vez de larguras fixas em pixels.</span>
               <span class="lang-en">Let content inform dimensions. Leverage min(), max(), clamp(), flex-basis, and minmax() rather than rigid pixel widths.</span>
             </p>
-            <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);">
+            <div style="margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px dashed var(--border-color);display:flex;flex-direction:column;gap:var(--space-2);">
               <a href="intrinsic-sizing-box-model.html" style="color:var(--color-accent-blue);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
-                <span class="lang-pt">📘 Guião Detalhado: Dimensionamento Intrínseco &amp; Box Model ↗</span>
-                <span class="lang-en">📘 Detailed Guide: Intrinsic Sizing &amp; Box Model ↗</span>
+                📘 <span class="lang-pt">Guião Detalhado: Dimensionamento Intrínseco &amp; Box Model ↗</span><span class="lang-en">Detailed Guide: Intrinsic Sizing &amp; Box Model ↗</span>
+              </a>
+              <a href="demos/wireframe-cards-demo.html" style="color:var(--color-swiss-red);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
+                🩻 <span class="lang-pt">Demo Barebones: Contentor &amp; 2 Cartões Wireframe (Modo Raio-X &amp; Comentado) ↗</span><span class="lang-en">Barebones Demo: Container &amp; 2 Wireframe Cards (X-Ray &amp; Commented Views) ↗</span>
+              </a>
+              <a href="demos/wireframe-cards-demo.html#step-by-step" style="color:var(--color-accent-purple, #8b5cf6);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
+                📖 <span class="lang-pt">Guião Passo a Passo: Anatomia Espacial do Contentor &amp; Cartões ↗</span><span class="lang-en">Step-by-Step Guide: Spatial Anatomy of Container &amp; Cards ↗</span>
               </a>
             </div>
           </div>
@@ -379,8 +384,11 @@
               <a href="demos/tp11-css-flexbox-grid/04-container-queries.html" style="color:var(--color-accent-emerald, #10b981);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
                 🔬 <span class="lang-pt">Lab 04: Masterclass Container Queries (@container)</span><span class="lang-en">Lab 04: Container Queries Masterclass (@container)</span> ↗
               </a>
+              <a href="demos/tp11-css-flexbox-grid/index.html#wireframe-cards-demo" style="color:var(--color-swiss-red);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
+                🩻 <span class="lang-pt">Demo Integrado: Contentor &amp; Cartões Wireframe (na Layout Suite)</span><span class="lang-en">Integrated Demo: Container &amp; Wireframe Cards (in Layout Suite)</span> ↗
+              </a>
               <a href="demos/wireframe-cards-demo.html" style="color:var(--color-swiss-red);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
-                🩻 <span class="lang-pt">Demo Barebones: Contentor &amp; 2 Cartões Wireframe (Modo Raio-X &amp; Comentado)</span><span class="lang-en">Barebones Demo: Container &amp; 2 Wireframe Cards (X-Ray &amp; Commented Views)</span> ↗
+                ⚡ <span class="lang-pt">Demo Barebones Dedicado: Contentor &amp; 2 Cartões (Modo Raio-X &amp; Comentado)</span><span class="lang-en">Standalone Barebones Demo: Container &amp; 2 Cards (X-Ray &amp; Commented Views)</span> ↗
               </a>
               <a href="demos/wireframe-cards-demo.html#step-by-step" style="color:var(--color-accent-purple, #8b5cf6);font-weight:700;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:0.3rem;">
                 📖 <span class="lang-pt">Guião Passo a Passo: Anatomia Espacial do Contentor &amp; Cartões</span><span class="lang-en">Step-by-Step Guide: Spatial Anatomy of Container &amp; Cards</span> ↗
@@ -1076,9 +1084,14 @@
               <span class="lang-en">Structured repository across 4 shelves: Starter Boilerplates (Basic → Intermediate → Advanced), Official Assignment Resolutions, Masterclasses, and the 13 Drumtiks Patterns.</span>
             </p>
           </div>
-          <a href="demos/index.html" class="btn-control btn-outline-red" style="align-self:flex-start;">
-            <span class="lang-pt">Explorar Repositório</span><span class="lang-en">Explore Repository</span> ↗
-          </a>
+          <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-3);">
+            <a href="demos/index.html" class="btn-control btn-outline-red">
+              <span class="lang-pt">Explorar Repositório</span><span class="lang-en">Explore Repository</span> ↗
+            </a>
+            <a href="demos/wireframe-cards-demo.html" class="btn-control" style="border-color:var(--color-swiss-red);color:var(--color-swiss-red);font-weight:700;">
+              🩻 <span class="lang-pt">Demo Cartões Wireframe</span><span class="lang-en">Wireframe Cards Demo</span> ↗
+            </a>
+          </div>
         </article>
 
         <!-- Gateway 3: HTML & CSS Matrix -->

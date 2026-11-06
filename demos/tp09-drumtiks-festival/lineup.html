@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<!--
+  ==============================================================================
+  WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+  FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+  
+  FINAL INTEGRATED CAPSTONE DEMO: DRUMTIKS '26 FESTIVAL
+  Pasta do Projeto: TP09
+  Ficheiro: lineup.html • "Artist Roster & 3D Vinyl Crate Fan-Out"
+  
+  AUTORES & COORDENAÇÃO PEDAGÓGICA:
+    - Prof. Pedro Amado (FBAUP / i2ADS)
+    - Antigravity (Advanced Agentic Pair)
+  
+  ==============================================================================
+  PADRÃO DE INTERAÇÃO EM DESTAQUE NESTA PÁGINA (PADRÃO 3):
+    "Caixa de Discos 3D em Perspetiva com Abertura em Leque e Reprodutor Áudio"
+  
+  MDN CANONICAL REFERENCES:
+    - CSS 3D Transforms: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Using_CSS_transforms
+    - perspective: https://developer.mozilla.org/en-US/docs/Web/CSS/perspective
+    - transform-style: https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style
+    - HTML <audio>: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio
+  ==============================================================================
+-->
+<html lang="pt" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>DRUMTIKS '26 • Artistas &amp; Caixa de Vinil 3D | WD101 FBAUP</title>
+  <meta name="description" content="Cartaz oficial dos artistas do Festival DRUMTIKS '26. Interaja com a caixa de vinil 3D em leque e ouça a pré-escuta de áudio com padrões puramente em CSS.">
+
+  <!-- Folha de Estilos Mestre com Hierarquia @layer -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <script>
+    (function() {
+      const saved = localStorage.getItem('drumtiks_theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+      else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Pular para o conteúdo principal / Skip to content</a>
+
+  <!-- Controladores de Estado Zero-JS Ocultos -->
+  <input type="radio" name="site-theme" id="theme-auto" class="visually-hidden" checked aria-hidden="true">
+  <input type="radio" name="site-theme" id="theme-light" class="visually-hidden" aria-hidden="true">
+  <input type="radio" name="site-theme" id="theme-dark" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="xray-toggle" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="menu-toggle" class="visually-hidden" aria-hidden="true">
+
+  <!-- Barra de Progresso Global do Viewport -->
+  <div class="viewport-progress-track" aria-hidden="true">
+    <div class="viewport-progress-fill"></div>
+  </div>
+
+  <div class="site-wrapper">
+
+    <!-- CABEÇALHO GLOBAL -->
+    <header class="site-header" role="banner">
+      <div class="site-container header-inner">
+        <div class="brand-group">
+          <a href="index.html" class="brand-logo" aria-label="DRUMTIKS 2026 Página Inicial">
+            <span>DRUMTIKS<span class="brand-logo-accent">'26</span></span>
+          </a>
+          <span class="brand-venue-badge">Alfândega do Porto</span>
+        </div>
+
+        <nav class="site-nav" role="navigation" aria-label="Navegação Principal do Festival">
+          <ul class="nav-list">
+            <li><a href="index.html" class="nav-link">Hub Geral</a></li>
+            <li><a href="stages.html" class="nav-link">Palcos &amp; Formas</a></li>
+            <li><a href="lineup.html" class="nav-link" aria-current="page">Artistas 3D</a></li>
+            <li><a href="motion-path.html" class="nav-link">Motion Path</a></li>
+            <li><a href="schedule.html" class="nav-link">Horários</a></li>
+            <li><a href="battle.html" class="nav-link">Battle Duel</a></li>
+            <li><a href="tickets.html" class="nav-link">Bilhetes</a></li>
+            <li><a href="design-system.html" class="nav-link">Design System</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="theme-switch-group" role="group" aria-label="Seletor de Modo de Cor">
+            <label for="theme-light" class="theme-btn" title="Modo Claro" onclick="localStorage.setItem('drumtiks_theme','light');document.documentElement.setAttribute('data-theme','light');">☀️</label>
+            <label for="theme-auto" class="theme-btn" title="Modo Automático do Sistema" onclick="localStorage.removeItem('drumtiks_theme');document.documentElement.removeAttribute('data-theme');">⚙️</label>
+            <label for="theme-dark" class="theme-btn" title="Modo Escuro" onclick="localStorage.setItem('drumtiks_theme','dark');document.documentElement.setAttribute('data-theme','dark');">🌙</label>
+          </div>
+          <label for="xray-toggle" class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;">X-Ray</label>
+          <label for="menu-toggle" class="mobile-menu-toggle" aria-label="Abrir Menu">☰</label>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" role="main">
+
+      <!-- SECÇÃO DE APRESENTAÇÃO DO CARTAZ -->
+      <section style="padding-block: var(--space-xl) var(--space-sm);">
+        <div class="site-container">
+          <span class="badge badge-purple" style="margin-block-end: 0.5rem;">CARTAZ &amp; VINIL 3D</span>
+          <h1 style="font-size: var(--font-size-2xl); margin-block-end: 0.75rem;">A Curadoria de Artistas &amp; Caixa de Discos 3D</h1>
+          <p style="font-size: var(--font-size-base); max-width: 75ch;">
+            Passe o rato ou foque com o teclado sobre os discos abaixo: o álbum em foco salta para a frente no espaço 3D (<code>translateZ</code>) enquanto o vinil físico desliza da capa e os discos adjacentes abrem em leque através do seletor <code>:hover ~ .vinyl-record</code>.
+          </p>
+        </div>
+      </section>
+
+      <!-- DEMONSTRADOR INTERATIVO 3D: A CAIXA DE VINIS (CRATE) -->
+      <section class="site-container" style="padding-block: var(--space-md) var(--space-xl);" aria-label="Visualizador 3D de Discos de Vinil">
+        
+        <div class="vinyl-crate-viewport">
+          <div class="vinyl-crate-track" role="region" aria-label="Discoteca 3D DRUMTIKS">
+            
+            <!-- Disco 1: DJ Warp -->
+            <article class="vinyl-record" tabindex="0" aria-label="Álbum 1: Warp Theory por DJ Warp">
+              <div class="vinyl-sleeve">
+                <img src="assets/images/album-1-warp-theory.jpg" alt="Capa do álbum Warp Theory" width="300" height="300">
+              </div>
+              <div class="vinyl-disc" aria-hidden="true"></div>
+            </article>
+
+            <!-- Disco 2: Elena Vance -->
+            <article class="vinyl-record" tabindex="0" aria-label="Álbum 2: Concrete Pulse por Elena Vance">
+              <div class="vinyl-sleeve">
+                <img src="assets/images/album-2-concrete-pulse.jpg" alt="Capa do álbum Concrete Pulse" width="300" height="300">
+              </div>
+              <div class="vinyl-disc" aria-hidden="true"></div>
+            </article>
+
+            <!-- Disco 3: Marcus Vane -->
+            <article class="vinyl-record" tabindex="0" aria-label="Álbum 3: Dust and Grooves por Marcus Vane">
+              <div class="vinyl-sleeve">
+                <img src="assets/images/album-3-dust-and-grooves.jpg" alt="Capa do álbum Dust and Grooves" width="300" height="300">
+              </div>
+              <div class="vinyl-disc" aria-hidden="true"></div>
+            </article>
+
+            <!-- Disco 4: K-Rhythm -->
+            <article class="vinyl-record" tabindex="0" aria-label="Álbum 4: Fader Kinetics por K-Rhythm">
+              <div class="vinyl-sleeve">
+                <img src="assets/images/album-4-fader-kinetics.jpg" alt="Capa do álbum Fader Kinetics" width="300" height="300">
+              </div>
+              <div class="vinyl-disc" aria-hidden="true"></div>
+            </article>
+
+            <!-- Disco 5: Sarah Chen -->
+            <article class="vinyl-record" tabindex="0" aria-label="Álbum 5: Circuit Bender por Sarah Chen">
+              <div class="vinyl-sleeve">
+                <img src="assets/images/album-5-circuit-bender.jpg" alt="Capa do álbum Circuit Bender" width="300" height="300">
+              </div>
+              <div class="vinyl-disc" aria-hidden="true"></div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- REPRODUTOR DE ÁUDIO OFICIAL DO FESTIVAL (<audio>) -->
+        <div class="audio-player-card" style="margin-block-start: var(--space-xl);">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+            <div>
+              <strong style="color: var(--color-accent-vermilion); font-family: var(--font-family-display);">Faixa Exclusiva do Festival: "Piezo Pulse"</strong>
+              <span style="display: block; font-size: 0.85rem; color: var(--color-text-muted);">Composta por DJ Warp • Gravação em estúdio a 96kHz / 24-bit</span>
+            </div>
+            <span class="badge badge-accent">ÁUDIO 100% NATIVO</span>
+          </div>
+
+          <audio controls preload="metadata" style="inline-size: 100%;">
+            <source src="assets/media/dj-warp-piezo-pulse.mp3" type="audio/mpeg">
+            O seu navegador não suporta a reprodução direta de ficheiros de áudio HTML5.
+          </audio>
+        </div>
+
+      </section>
+
+      <!-- GRELHA BIOGRÁFICA DOS ARTISTAS -->
+      <section class="site-container" style="padding-block: var(--space-lg);" aria-labelledby="artists-grid-title">
+        <h2 id="artists-grid-title" style="margin-block-end: var(--space-lg);">Os Destaques do Cartaz 2026</h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-lg);">
+          
+          <!-- Artista 1: DJ Warp -->
+          <article class="card">
+            <span class="badge badge-cyan" style="margin-block-end: 0.5rem;">PALCO RIO DOURO</span>
+            <h3 style="font-size: 1.35rem; margin-block-end: 0.25rem;">DJ Warp</h3>
+            <p style="font-size: 0.85rem; color: var(--color-accent-vermilion); font-weight: 700; margin-block-end: 0.75rem;">Sexta, 10 Julho • 23:30</p>
+            <p style="font-size: 0.9rem;">
+              Pioneiro da fusão entre sequenciamento polirrítmico e bateria acústica ao vivo. O seu set combina controladores táteis piezoelétricos e sintetizadores analógicos Moog com caixas de ritmo vintage.
+            </p>
+          </article>
+
+          <!-- Artista 2: Elena Vance -->
+          <article class="card">
+            <span class="badge badge-amber" style="margin-block-end: 0.5rem;">ARCOS DA ALFÂNDEGA</span>
+            <h3 style="font-size: 1.35rem; margin-block-end: 0.25rem;">Elena Vance</h3>
+            <p style="font-size: 0.85rem; color: var(--color-accent-amber); font-weight: 700; margin-block-end: 0.75rem;">Sábado, 11 Julho • 01:00</p>
+            <p style="font-size: 0.9rem;">
+              Baterista e arquiteta de som berlinense. Utiliza sensores de contacto instalados nos pilares de granito da Alfândega para modular reverberações industriais com tempos de 140 a 160 BPM.
+            </p>
+          </article>
+
+          <!-- Artista 3: K-Rhythm -->
+          <article class="card">
+            <span class="badge badge-purple" style="margin-block-end: 0.5rem;">OCTÁGONO VINIL</span>
+            <h3 style="font-size: 1.35rem; margin-block-end: 0.25rem;">K-Rhythm</h3>
+            <p style="font-size: 0.85rem; color: var(--color-accent-purple); font-weight: 700; margin-block-end: 0.75rem;">Domingo, 12 Julho • 22:00</p>
+            <p style="font-size: 0.9rem;">
+              Conexão entre a percussão tradicional coreana (Buk e Janggu) e o breakbeat contemporâneo. Uma performance de ritmo acelerado a 174 BPM com técnica cirúrgica de scratch analógico.
+            </p>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           PAINEL HUD DE INSPEÇÃO DE CÓDIGO (PADRÃO 3)
+           ================================================================== -->
+      <section class="site-container" aria-labelledby="pattern3-title">
+        <div class="pattern-inspector-panel">
+          <div class="inspector-header">
+            <div class="inspector-title-group">
+              <span class="badge badge-accent">PADRÃO 03</span>
+              <h2 id="pattern3-title" style="font-size: 1.25rem; margin: 0;">Espaço 3D, Perspetiva &amp; Seletores Adjacentes</h2>
+            </div>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/perspective" target="_blank" rel="noopener" class="inspector-spec-link">
+              MDN perspective ↗
+            </a>
+          </div>
+
+          <p style="font-size: 0.95rem; margin-block-end: 1rem;">
+            O segredo da caixa de discos em leque reside na combinação de <code>perspective: 1200px</code> no contentor pai com a preservação do espaço 3D (<code>transform-style: preserve-3d</code>) e o seletor de irmãos seguintes <code>:hover ~ .vinyl-record</code>, que afasta os discos posteriores automaticamente:
+          </p>
+
+          <pre class="inspector-code-block"><code><span class="token-comment">/* 1. Contexto de Projeção 3D */</span>
+<span class="token-keyword">.vinyl-crate-viewport</span> {
+  <span class="token-property">perspective</span>: <span class="token-value">1200px</span>;
+  <span class="token-property">perspective-origin</span>: <span class="token-value">50% 30%</span>;
+}
+
+<span class="token-comment">/* 2. Preservação do Espaço Tridimensional */</span>
+<span class="token-keyword">.vinyl-crate-track</span> {
+  <span class="token-property">display</span>: <span class="token-value">flex</span>;
+  <span class="token-property">transform-style</span>: <span class="token-value">preserve-3d</span>;
+}
+
+<span class="token-comment">/* 3. Disco em Foco: Salta para o Viewport (+80px) */</span>
+<span class="token-keyword">.vinyl-record:hover</span> {
+  <span class="token-property">transform</span>: <span class="token-value">rotateY(0deg) translateZ(80px) scale(1.08)</span>;
+  <span class="token-property">z-index</span>: <span class="token-value">20</span>;
+}
+
+<span class="token-comment">/* 4. Abertura em Leque dos Discos Seguintes (Zero-JS) */</span>
+<span class="token-keyword">.vinyl-record:hover ~ .vinyl-record</span> {
+  <span class="token-property">transform</span>: <span class="token-value">rotateY(22deg) translateZ(-40px) translateX(40px)</span>;
+}</code></pre>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- RODAPÉ GLOBAL -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-container">
+        <div class="footer-grid">
+          <div>
+            <h4 class="footer-col-title">DRUMTIKS '26</h4>
+            <p style="font-size: 0.85rem;">Curadoria de Artistas e Discoteca 3D. Projeto de Web Design da FBAUP.</p>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Páginas de Padrões</h4>
+            <div class="footer-links">
+              <a href="index.html" class="footer-link">01 • Hub Geral</a>
+              <a href="stages.html" class="footer-link">02 • Palcos &amp; Morfismo</a>
+              <a href="motion-path.html" class="footer-link">04 • Motion Path &amp; Mola</a>
+              <a href="schedule.html" class="footer-link">05 • Horários &amp; Acordeão</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Recursos &amp; Sistema</h4>
+            <div class="footer-links">
+              <a href="battle.html" class="footer-link">06 • Battle Duel &amp; View</a>
+              <a href="tickets.html" class="footer-link">07 • Bilheteira &amp; State Machine</a>
+              <a href="design-system.html" class="footer-link">08 • Design System &amp; Tokens</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="footer-col-title">FBAUP / i2ADS</h4>
+            <p style="font-size: 0.85rem;">Faculdade de Belas Artes da Universidade do Porto • Licenciatura em Design de Comunicação • WD101 (2026/27).</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>&copy; 2026 DRUMTIKS Festival • FBAUP / i2ADS</span>
+          <span>Desenvolvido com padrões abertos W3C / WHATWG</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<!--
+  ==============================================================================
+  WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+  FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+  
+  FINAL INTEGRATED CAPSTONE DEMO: DRUMTIKS '26 FESTIVAL
+  Pasta do Projeto: TP09
+  Ficheiro: motion-path.html • "CSS Motion Path & Spring Physics"
+  
+  AUTORES & COORDENAÇÃO PEDAGÓGICA:
+    - Prof. Pedro Amado (FBAUP / i2ADS)
+    - Antigravity (Advanced Agentic Pair)
+  
+  ==============================================================================
+  PADRÃO DE INTERAÇÃO EM DESTAQUE NESTA PÁGINA (PADRÃO 4):
+    "Trajetórias Curvas em CSS com offset-path e Física de Mola linear(...) sem JS"
+  
+  MDN CANONICAL REFERENCES:
+    - CSS Motion Path Module: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Motion_path
+    - offset-path: https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path
+    - offset-distance: https://developer.mozilla.org/en-US/docs/Web/CSS/offset-distance
+    - CSS Easing linear(): https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/linear
+  ==============================================================================
+-->
+<html lang="pt" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>DRUMTIKS '26 • CSS Motion Path &amp; Física de Mola | WD101 FBAUP</title>
+  <meta name="description" content="Laboratório prático de CSS Motion Path (offset-path) e ressalto de mola com linear() simulando a propagação de ondas acústicas pelo recinto do Festival DRUMTIKS '26.">
+
+  <!-- Folha de Estilos Mestre com Hierarquia @layer -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <script>
+    (function() {
+      const saved = localStorage.getItem('drumtiks_theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+      else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Pular para o conteúdo principal / Skip to content</a>
+
+  <!-- Controladores de Estado Zero-JS para Tema e Menu -->
+  <input type="radio" name="site-theme" id="theme-auto" class="visually-hidden" checked aria-hidden="true">
+  <input type="radio" name="site-theme" id="theme-light" class="visually-hidden" aria-hidden="true">
+  <input type="radio" name="site-theme" id="theme-dark" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="xray-toggle" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="menu-toggle" class="visually-hidden" aria-hidden="true">
+
+  <!-- Rádios de Velocidade e Controlo de Motion Path (Zero-JS) -->
+  <input type="radio" name="motion-speed" id="speed-normal" class="visually-hidden" checked aria-hidden="true">
+  <input type="radio" name="motion-speed" id="speed-fast" class="visually-hidden" aria-hidden="true">
+  <input type="radio" name="motion-speed" id="speed-slow" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="motion-pause" class="visually-hidden" aria-hidden="true">
+
+  <!-- Barra de Progresso Global do Viewport -->
+  <div class="viewport-progress-track" aria-hidden="true">
+    <div class="viewport-progress-fill"></div>
+  </div>
+
+  <div class="site-wrapper">
+
+    <!-- CABEÇALHO GLOBAL -->
+    <header class="site-header" role="banner">
+      <div class="site-container header-inner">
+        <div class="brand-group">
+          <a href="index.html" class="brand-logo" aria-label="DRUMTIKS 2026 Página Inicial">
+            <span>DRUMTIKS<span class="brand-logo-accent">'26</span></span>
+          </a>
+          <span class="brand-venue-badge">Alfândega do Porto</span>
+        </div>
+
+        <nav class="site-nav" role="navigation" aria-label="Navegação Principal do Festival">
+          <ul class="nav-list">
+            <li><a href="index.html" class="nav-link">Hub Geral</a></li>
+            <li><a href="stages.html" class="nav-link">Palcos &amp; Formas</a></li>
+            <li><a href="lineup.html" class="nav-link">Artistas 3D</a></li>
+            <li><a href="motion-path.html" class="nav-link" aria-current="page">Motion Path</a></li>
+            <li><a href="schedule.html" class="nav-link">Horários</a></li>
+            <li><a href="battle.html" class="nav-link">Battle Duel</a></li>
+            <li><a href="tickets.html" class="nav-link">Bilhetes</a></li>
+            <li><a href="design-system.html" class="nav-link">Design System</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="theme-switch-group" role="group" aria-label="Seletor de Modo de Cor">
+            <label for="theme-light" class="theme-btn" title="Modo Claro" onclick="localStorage.setItem('drumtiks_theme','light');document.documentElement.setAttribute('data-theme','light');">☀️</label>
+            <label for="theme-auto" class="theme-btn" title="Modo Automático do Sistema" onclick="localStorage.removeItem('drumtiks_theme');document.documentElement.removeAttribute('data-theme');">⚙️</label>
+            <label for="theme-dark" class="theme-btn" title="Modo Escuro" onclick="localStorage.setItem('drumtiks_theme','dark');document.documentElement.setAttribute('data-theme','dark');">🌙</label>
+          </div>
+          <label for="xray-toggle" class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;">X-Ray</label>
+          <label for="menu-toggle" class="mobile-menu-toggle" aria-label="Abrir Menu">☰</label>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" role="main">
+
+      <!-- BANNER EXPLICATIVO -->
+      <section style="padding-block: var(--space-xl) var(--space-sm);">
+        <div class="site-container">
+          <span class="badge badge-accent" style="margin-block-end: 0.5rem;">PROPAGAÇÃO ACÚSTICA</span>
+          <h1 style="font-size: var(--font-size-2xl); margin-block-end: 0.75rem;">CSS Motion Path &amp; Dinâmica de Mola</h1>
+          <p style="font-size: var(--font-size-base); max-width: 75ch;">
+            Antigamente, guiar um elemento visual ao longo de curvas de Bézier exigia bibliotecas pesadas de JavaScript. Hoje, a especificação <strong>W3C CSS Motion Path</strong> (<code>offset-path</code>) permite que qualquer elemento HTML navegue caminhos paramétricos com rotação automática tangencial ao declive.
+          </p>
+        </div>
+      </section>
+
+      <!-- DEMONSTRADOR INTERATIVO: MAPA DO RECINTO COM TRAJETÓRIA CURVA -->
+      <section class="site-container" style="padding-block: var(--space-md) var(--space-xl);">
+        
+        <!-- BARRA DE CONTROLO DE VELOCIDADE (ZERO-JS) -->
+        <div class="card" style="margin-block-end: var(--space-md); background: var(--color-bg-surface-elevated);">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;">
+            <div>
+              <strong style="color: var(--color-text-primary);">Controlos da Onda Percussiva:</strong>
+              <span style="display: block; font-size: 0.85rem; color: var(--color-text-muted);">
+                Ajuste a velocidade da animação ou pause a execução na GPU:
+              </span>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <label for="speed-fast" class="btn btn-secondary" style="font-size: 0.8rem;">174 BPM (D&amp;B Rush)</label>
+              <label for="speed-normal" class="btn btn-secondary" style="font-size: 0.8rem;">120 BPM (Padrão)</label>
+              <label for="speed-slow" class="btn btn-secondary" style="font-size: 0.8rem;">60 BPM (Lento)</label>
+              <label for="motion-pause" class="btn btn-primary" style="font-size: 0.8rem;">Pausar / Retomar</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- O PALCO DO MAPA ACÚSTICO COM A TRAJETÓRIA SVG VISÍVEL -->
+        <div class="motion-map-stage" role="region" aria-label="Simulador de Onda Acústica">
+          
+          <!-- Traçado SVG de Referência Ótica da Curva -->
+          <svg class="motion-map-svg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="wave-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#ff4520" stop-opacity="0.4" />
+                <stop offset="50%" stop-color="#00d2ff" stop-opacity="0.8" />
+                <stop offset="100%" stop-color="#a855f7" stop-opacity="0.4" />
+              </linearGradient>
+            </defs>
+
+            <!-- Curva Base -->
+            <path d="M 30,180 C 120,40 260,340 380,180 C 500,20 680,320 800,160 C 920,40 1060,260 1180,180" 
+                  fill="none" 
+                  stroke="url(#wave-grad)" 
+                  stroke-width="4" 
+                  stroke-dasharray="8 8" />
+
+            <!-- Estações de Paragem (Waypoints) -->
+            <circle cx="30" cy="180" r="10" fill="#00d2ff" />
+            <text x="30" y="215" fill="var(--color-text-secondary)" font-size="12" font-family="var(--font-family-mono)" text-anchor="middle">CAIS DOURO</text>
+
+            <circle cx="380" cy="180" r="10" fill="#f59e0b" />
+            <text x="380" y="215" fill="var(--color-text-secondary)" font-size="12" font-family="var(--font-family-mono)" text-anchor="middle">ARCOS GRANITO</text>
+
+            <circle cx="800" cy="160" r="10" fill="#a855f7" />
+            <text x="800" y="195" fill="var(--color-text-secondary)" font-size="12" font-family="var(--font-family-mono)" text-anchor="middle">OCTÁGONO</text>
+
+            <circle cx="1180" cy="180" r="10" fill="#10b981" />
+            <text x="1140" y="215" fill="var(--color-text-secondary)" font-size="12" font-family="var(--font-family-mono)" text-anchor="middle">SINTETIZADORES</text>
+          </svg>
+
+          <!-- O SPRITE PERCUSSIVO EM MOVIMENTO (offset-path) -->
+          <div class="motion-sound-sprite" title="Impulso Acústico DRUMTIKS" aria-label="Impulso percussivo viajando pela rota acústica">
+            🥁
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- CARDS DE ESTAÇÕES ACÚSTICAS -->
+      <section class="site-container" style="padding-block: var(--space-md) var(--space-lg);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-md);">
+          
+          <div class="card">
+            <span class="badge badge-cyan" style="margin-block-end: 0.5rem;">PONTO A (0%)</span>
+            <h3 style="font-size: 1.15rem; margin-block-end: 0.25rem;">Cais Fluvial do Douro</h3>
+            <p style="font-size: 0.85rem;">Origem da onda. Os bombos de 26 polegadas emitem frentes de onda de 35Hz que se propagam desimpedidas pelo leito do rio.</p>
+          </div>
+
+          <div class="card">
+            <span class="badge badge-amber" style="margin-block-end: 0.5rem;">PONTO B (33%)</span>
+            <h3 style="font-size: 1.15rem; margin-block-end: 0.25rem;">Arcos de Granito</h3>
+            <p style="font-size: 0.85rem;">Entrada nas galerias. A densidade da pedra comprime a onda, gerando reflexões rápidas de caixas de bateria e percussão metálica.</p>
+          </div>
+
+          <div class="card">
+            <span class="badge badge-purple" style="margin-block-end: 0.5rem;">PONTO C (68%)</span>
+            <h3 style="font-size: 1.15rem; margin-block-end: 0.25rem;">Arena Octogonal</h3>
+            <p style="font-size: 0.85rem;">Zona de difusão circular. Oito pontos de amplificação distribuem a rotação do som em tempo real a 360 graus.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           PAINEL HUD DE INSPEÇÃO DE CÓDIGO (PADRÃO 4)
+           ================================================================== -->
+      <section class="site-container" aria-labelledby="pattern4-title">
+        <div class="pattern-inspector-panel">
+          <div class="inspector-header">
+            <div class="inspector-title-group">
+              <span class="badge badge-accent">PADRÃO 04</span>
+              <h2 id="pattern4-title" style="font-size: 1.25rem; margin: 0;">CSS Motion Path &amp; Função Spring linear(...)</h2>
+            </div>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path" target="_blank" rel="noopener" class="inspector-spec-link">
+              MDN offset-path ↗
+            </a>
+          </div>
+
+          <p style="font-size: 0.95rem; margin-block-end: 1rem;">
+            A propriedade <code>offset-path</code> define o caminho SVG que o elemento percorre. Com <code>offset-rotate: auto</code>, o navegador calcula matematicamente a rotação tangencial da baqueta em cada micro-ponto do percurso. O ressalto físico de mola é gerado inteiramente na GPU através de uma curva pontual <code>linear(...)</code> sem necessidade de animação em JavaScript:
+          </p>
+
+          <pre class="inspector-code-block"><code><span class="token-comment">/* 1. Definição do Percurso Paramétrico */</span>
+<span class="token-keyword">.motion-sound-sprite</span> {
+  <span class="token-property">offset-path</span>: <span class="token-value">path('M 30,180 C 120,40 260,340 380,180 C 500,20 680,320 800,160 C 920,40 1060,260 1180,180')</span>;
+  <span class="token-property">offset-rotate</span>: <span class="token-value">auto</span>; <span class="token-comment">/* Orienta o elemento tangencialmente à curva */</span>
+  <span class="token-property">animation</span>: <span class="token-value">travel-motion-path 6s infinite alternate</span>;
+  <span class="token-property">animation-timing-function</span>: <span class="token-value">var(--ease-spring)</span>; <span class="token-comment">/* Função linear() com overshoot */</span>
+}
+
+<span class="token-comment">/* 2. Keyframes de Distância Percorrida */</span>
+<span class="token-keyword">@keyframes</span> travel-motion-path {
+  <span class="token-keyword">0%</span>   { <span class="token-property">offset-distance</span>: <span class="token-value">0%</span>; }
+  <span class="token-keyword">100%</span> { <span class="token-property">offset-distance</span>: <span class="token-value">100%</span>; }
+}</code></pre>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- RODAPÉ GLOBAL -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-container">
+        <div class="footer-grid">
+          <div>
+            <h4 class="footer-col-title">DRUMTIKS '26</h4>
+            <p style="font-size: 0.85rem;">Trajetórias Acústicas e Motion Path. Projeto de Web Design da FBAUP.</p>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Páginas de Padrões</h4>
+            <div class="footer-links">
+              <a href="index.html" class="footer-link">01 • Hub Geral</a>
+              <a href="stages.html" class="footer-link">02 • Palcos &amp; Morfismo</a>
+              <a href="lineup.html" class="footer-link">03 • Artistas &amp; Caixa 3D</a>
+              <a href="schedule.html" class="footer-link">05 • Horários &amp; Acordeão</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Recursos &amp; Sistema</h4>
+            <div class="footer-links">
+              <a href="battle.html" class="footer-link">06 • Battle Duel &amp; View</a>
+              <a href="tickets.html" class="footer-link">07 • Bilheteira &amp; State Machine</a>
+              <a href="design-system.html" class="footer-link">08 • Design System &amp; Tokens</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="footer-col-title">FBAUP / i2ADS</h4>
+            <p style="font-size: 0.85rem;">Faculdade de Belas Artes da Universidade do Porto • Licenciatura em Design de Comunicação • WD101 (2026/27).</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>&copy; 2026 DRUMTIKS Festival • FBAUP / i2ADS</span>
+          <span>Desenvolvido com padrões abertos W3C / WHATWG</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

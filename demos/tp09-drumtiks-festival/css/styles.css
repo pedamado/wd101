@@ -1,0 +1,1278 @@
+/**
+ * ==============================================================================
+ * WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+ * FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+ * 
+ * FINAL INTEGRATED CAPSTONE DEMO: DRUMTIKS '26 FESTIVAL
+ * Pasta do Projeto: TP09
+ * Ficheiro: css/styles.css • "Master Integrated Stylesheet"
+ *
+ * AUTORES & COORDENAÇÃO PEDAGÓGICA:
+ *   - Prof. Pedro Amado (FBAUP / i2ADS)
+ *   - Antigravity (Advanced Agentic Pair)
+ *
+ * ==============================================================================
+ * ARQUITETURA DE CASCATA (@layer) & ESPECIFICAÇÕES W3C / MDN:
+ * 
+ * 1. ORDEM DAS CAMADAS:
+ *    @layer reset, fonts, tokens, base, layout, components, patterns, inspector, xray, a11y;
+ *    - reset: Normalização universal box-sizing e resets de margens/listas.
+ *    - fonts: Declarações @font-face para fontes variáveis locais (Syne, Inter, Martian Mono).
+ *    - tokens: Sistema unificado de Design Tokens com suporte nativo a light-dark().
+ *    - base: Tipografia fluida, estilos de corpo, landmarks semânticos e títulos.
+ *    - layout: 2D CSS Grid, 1D Flexbox, content-wrappers, cabeçalho e rodapé.
+ *    - components: Botões, badges, cartões modulares, reprodutor de áudio, diálogos.
+ *    - patterns: Os 8 padrões interativos avançados (Scroll-Driven, Morphing, 3D Crate,
+ *                Motion Path, Accordion @starting-style, View Animations, State Machine).
+ *    - inspector: Painel HUD pedagógico para inspecionar o código de cada padrão.
+ *    - xray: Grelha de diagnóstico ótico ativada via :root:has(#xray-toggle:checked).
+ *    - a11y: Skip-links, focus-visible WCAG AAA e preferências prefers-reduced-motion.
+ * ==============================================================================
+ */
+
+/* ==========================================================================
+   CAMADA 0: DECLARAÇÃO DA HIERARQUIA DE CASCATA (@layer)
+   ========================================================================== */
+@layer reset, fonts, tokens, base, layout, components, patterns, inspector, xray, a11y;
+
+
+/* ==========================================================================
+   CAMADA 1: RESET & NORMALIZAÇÃO ESTRUTURAL
+   MDN Box-Sizing: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing
+   MDN Interpolate-Size: https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size
+   ========================================================================== */
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Ativa interpolação fluida de tamanhos intrínsecos (ex: transição de height: auto) */
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    line-height: 1.6;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  input,
+  button,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+
+  ul,
+  ol {
+    list-style: none;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 2: FONTES VARIÁVEIS LOCAIS (Syne, Inter, Martian Mono)
+   MDN @font-face: https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face
+   ========================================================================== */
+@layer fonts {
+  @font-face {
+    font-family: 'Syne';
+    font-style: normal;
+    font-weight: 400 800;
+    font-display: swap;
+    src: url('../assets/fonts/Syne-latin-var.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-latin-var.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Martian Mono';
+    font-style: normal;
+    font-weight: 100 800;
+    font-display: swap;
+    src: url('../assets/fonts/MartianMono-latin-var.woff2') format('woff2');
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 3: DESIGN TOKENS & THEMING (light-dark() & State Machine)
+   MDN light-dark(): https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark
+   MDN CSS Variables: https://developer.mozilla.org/en-US/docs/Web/CSS/--*
+   ========================================================================== */
+@layer tokens {
+  :root {
+    /* Define o esquema de cor do browser para suportar light-dark() */
+    color-scheme: light dark;
+
+    /* Superfícies Dinâmicas */
+    --color-bg-canvas: light-dark(#f4f6fa, #07080b);
+    --color-bg-surface: light-dark(#ffffff, #0f1118);
+    --color-bg-surface-elevated: light-dark(#e9edf5, #171b26);
+    --color-bg-surface-glass: light-dark(rgba(255, 255, 255, 0.85), rgba(15, 17, 24, 0.85));
+
+    /* Tipografia de Alto Contraste (WCAG AAA) */
+    --color-text-primary: light-dark(#0d0e12, #f5f6fa);
+    --color-text-secondary: light-dark(#475069, #9ea6bc);
+    --color-text-muted: light-dark(#717a94, #666f88);
+
+    /* Bordas e Divisórias */
+    --color-border-subtle: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.08));
+    --color-border-medium: light-dark(rgba(0, 0, 0, 0.16), rgba(255, 255, 255, 0.18));
+    --color-border-strong: light-dark(rgba(0, 0, 0, 0.28), rgba(255, 255, 255, 0.35));
+
+    /* Cores de Destaque DRUMTIKS */
+    --color-accent-vermilion: #ff4520;
+    --color-accent-amber: #f59e0b;
+    --color-accent-cyan: #00d2ff;
+    --color-accent-lime: #10b981;
+    --color-accent-purple: #a855f7;
+
+    /* Identidade Cromática dos 4 Palcos */
+    --color-stage-douro: #00d2ff;
+    --color-stage-vaults: #f59e0b;
+    --color-stage-vinyl: #a855f7;
+    --color-stage-synth: #10b981;
+
+    /* Sombras & Profundidade */
+    --shadow-sm: light-dark(0 2px 4px rgba(0, 0, 0, 0.05), 0 2px 6px rgba(0, 0, 0, 0.5));
+    --shadow-md: light-dark(0 4px 12px rgba(0, 0, 0, 0.08), 0 6px 16px rgba(0, 0, 0, 0.6));
+    --shadow-lg: light-dark(0 12px 28px rgba(0, 0, 0, 0.12), 0 16px 36px rgba(0, 0, 0, 0.75));
+    --shadow-glow: 0 0 24px rgba(255, 69, 32, 0.35);
+
+    /* Foco & Acessibilidade */
+    --color-focus-ring: #ff4520;
+    --focus-outline: 3px solid var(--color-focus-ring);
+    --focus-offset: 3px;
+
+    /* Tipografia & Famílias */
+    --font-family-display: 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-family-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-family-mono: 'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    /* Escala Tipográfica Fluida */
+    --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.85rem);
+    --font-size-sm: clamp(0.85rem, 0.8rem + 0.3vw, 0.95rem);
+    --font-size-base: clamp(1rem, 0.95rem + 0.35vw, 1.125rem);
+    --font-size-md: clamp(1.2rem, 1.1rem + 0.5vw, 1.35rem);
+    --font-size-lg: clamp(1.4rem, 1.25rem + 0.75vw, 1.75rem);
+    --font-size-xl: clamp(1.75rem, 1.5rem + 1.25vw, 2.5rem);
+    --font-size-2xl: clamp(2.25rem, 1.85rem + 2vw, 3.75rem);
+    --font-size-hero: clamp(2.75rem, 2.2rem + 3.5vw, 5.5rem);
+
+    /* Espaçamentos e Grelha */
+    --space-2xs: clamp(0.25rem, 0.2rem + 0.2vw, 0.375rem);
+    --space-xs: clamp(0.5rem, 0.4rem + 0.4vw, 0.75rem);
+    --space-sm: clamp(0.75rem, 0.6rem + 0.6vw, 1rem);
+    --space-md: clamp(1rem, 0.85rem + 0.8vw, 1.5rem);
+    --space-lg: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+    --space-xl: clamp(2rem, 1.6rem + 1.8vw, 3.5rem);
+    --space-2xl: clamp(3rem, 2.4rem + 2.8vw, 5rem);
+
+    --site-max-width: 1280px;
+    --site-gutter: clamp(1rem, 4vw, 2.5rem);
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+
+    /* Fórmulas de Transição e Ressalto Spring (W3C CSS Easing 2) */
+    --transition-fast: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-base: 320ms cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-slow: 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-spring: linear(
+      0, 0.009, 0.035 2.1%, 0.141, 0.281 6.7%, 0.723 12.9%, 0.938 16.7%,
+      1.017, 1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%,
+      1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%,
+      0.975, 0.979 58.8%, 0.992 65%, 1.001 71.4%, 1.005 76.5%, 1.002 86.8%, 1
+    );
+
+    /* Coordenadas de Morphing Poligonal (Invariância Estrita: N = 8 Vértices) */
+    --poly-wave: polygon(0% 0%, 15% 4%, 30% 0%, 50% 5%, 70% 1%, 85% 6%, 100% 0%, 100% 100%, 0% 100%);
+    --poly-sawtooth: polygon(0% 0%, 20% 6%, 40% 0%, 60% 7%, 80% 0%, 90% 6%, 100% 0%, 100% 100%, 0% 100%);
+    --poly-angle: polygon(0% 0%, 20% 1.5%, 40% 3%, 60% 4.5%, 80% 6%, 90% 6.8%, 100% 7.5%, 100% 100%, 0% 100%);
+    --poly-flat: polygon(0% 0%, 20% 0%, 40% 0%, 60% 0%, 80% 0%, 90% 0%, 100% 0%, 100% 100%, 0% 100%);
+    --active-polygon: var(--poly-wave);
+  }
+
+  /* Sobrescrita de Modo Forçado via data-theme ou :root:has(#theme-*:checked) */
+  :root[data-theme="light"],
+  :root:has(#theme-light:checked) {
+    color-scheme: light;
+  }
+
+  :root[data-theme="dark"],
+  :root:has(#theme-dark:checked) {
+    color-scheme: dark;
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 4: BASE & TIPOGRAFIA ESTRUTURAL
+   ========================================================================== */
+@layer base {
+  body {
+    background-color: var(--color-bg-canvas);
+    color: var(--color-text-primary);
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-base);
+    transition: background-color var(--transition-base), color var(--transition-base);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-display);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--color-text-primary);
+  }
+
+  h1 { font-size: var(--font-size-2xl); }
+  h2 { font-size: var(--font-size-xl); }
+  h3 { font-size: var(--font-size-lg); }
+  h4 { font-size: var(--font-size-md); }
+
+  p {
+    color: var(--color-text-secondary);
+    max-width: 68ch;
+    margin-block-end: var(--space-md);
+  }
+
+  p:last-child {
+    margin-block-end: 0;
+  }
+
+  code, kbd, samp, pre {
+    font-family: var(--font-family-mono);
+    font-size: 0.9em;
+  }
+
+  code {
+    background: var(--color-bg-surface-elevated);
+    padding: 0.2em 0.4em;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border-subtle);
+    color: var(--color-accent-vermilion);
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 5: LAYOUT GLOBAL, HEADER & NAV
+   ========================================================================== */
+@layer layout {
+  .site-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .site-container {
+    inline-size: 100%;
+    max-inline-size: var(--site-max-width);
+    margin-inline: auto;
+    padding-inline: var(--site-gutter);
+  }
+
+  /*
+     BARRA DE PROGRESSO GLOBAL DO VIEWPORT (Scroll-Driven Animation)
+     MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline
+  */
+  .viewport-progress-track {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: 4px;
+    z-index: 1000;
+    pointer-events: none;
+    background: transparent;
+  }
+
+  .viewport-progress-fill {
+    block-size: 100%;
+    inline-size: 100%;
+    background: linear-gradient(90deg, var(--color-accent-vermilion), var(--color-accent-amber), var(--color-accent-cyan));
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    animation: grow-progress 1ms linear;
+    animation-timeline: scroll(root);
+  }
+
+  @keyframes grow-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  /*
+     HEADER PRINCIPAL COM COMPRESSÃO & BLUR AO SCROLL
+  */
+  .site-header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 900;
+    background: var(--color-bg-surface-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-block-end: 1px solid var(--color-border-subtle);
+    padding-block: var(--space-md);
+    transition: padding-block var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+  }
+
+  .brand-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-family-display);
+    font-weight: 800;
+    font-size: var(--font-size-md);
+    color: var(--color-text-primary);
+    letter-spacing: -0.03em;
+  }
+
+  .brand-logo-accent {
+    color: var(--color-accent-vermilion);
+  }
+
+  .brand-venue-badge {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.5rem;
+    background: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-full);
+    color: var(--color-text-secondary);
+  }
+
+  /* NAVEGAÇÃO PRINCIPAL */
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.75rem;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    color: var(--color-text-primary);
+    background: var(--color-bg-surface-elevated);
+  }
+
+  .nav-link[aria-current="page"] {
+    color: var(--color-accent-vermilion);
+    background: var(--color-bg-surface-elevated);
+    border-bottom: 2px solid var(--color-accent-vermilion);
+  }
+
+  /* GRUPO DE UTILITÁRIOS: TEMA E X-RAY */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* SELETOR DE TEMA ZERO-JS & BOTÕES */
+  .theme-switch-group {
+    display: inline-flex;
+    align-items: center;
+    background: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-full);
+    padding: 2px;
+  }
+
+  .theme-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 28px;
+    block-size: 28px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+    border: none;
+    background: transparent;
+  }
+
+  .theme-btn:hover {
+    color: var(--color-text-primary);
+  }
+
+  :root:has(#theme-auto:checked) label[for="theme-auto"],
+  :root:has(#theme-light:checked) label[for="theme-light"],
+  :root:has(#theme-dark:checked) label[for="theme-dark"] {
+    background: var(--color-bg-surface);
+    color: var(--color-accent-vermilion);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* MENU MOBILE (ZERO-JS VIA :has()) */
+  .mobile-menu-toggle {
+    display: none;
+    background: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--color-text-primary);
+  }
+
+  @media (max-width: 960px) {
+    .mobile-menu-toggle {
+      display: inline-flex;
+    }
+
+    .site-nav {
+      position: absolute;
+      inset-block-start: 100%;
+      inset-inline: 0;
+      background: var(--color-bg-surface);
+      border-block-end: 1px solid var(--color-border-medium);
+      padding: var(--space-md);
+      box-shadow: var(--shadow-lg);
+      flex-direction: column;
+      align-items: stretch;
+      display: none;
+    }
+
+    :root:has(#menu-toggle:checked) .site-nav {
+      display: flex;
+    }
+
+    .nav-list {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+    }
+
+    .nav-link {
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  /* RODAPÉ DO FESTIVAL */
+  .site-footer {
+    margin-block-start: auto;
+    background: var(--color-bg-surface);
+    border-block-start: 1px solid var(--color-border-subtle);
+    padding-block: var(--space-2xl) var(--space-lg);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-xl);
+    margin-block-end: var(--space-2xl);
+  }
+
+  .footer-col-title {
+    font-size: var(--font-size-md);
+    margin-block-end: var(--space-sm);
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-link {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    transition: color var(--transition-fast);
+  }
+
+  .footer-link:hover {
+    color: var(--color-accent-vermilion);
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding-block-start: var(--space-md);
+    border-block-start: 1px solid var(--color-border-subtle);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 6: COMPONENTES GLOBAIS (Botões, Badges, Cartões, Áudio)
+   ========================================================================== */
+@layer components {
+  /* BOTÕES PRIMÁRIOS, SECUNDÁRIOS & GHOST */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .btn-primary {
+    background: var(--color-accent-vermilion);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(255, 69, 32, 0.35);
+  }
+
+  .btn-primary:hover {
+    background: #e63914;
+    box-shadow: 0 6px 20px rgba(255, 69, 32, 0.45);
+  }
+
+  .btn-secondary {
+    background: var(--color-bg-surface-elevated);
+    color: var(--color-text-primary);
+    border-color: var(--color-border-medium);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-bg-surface);
+    border-color: var(--color-text-primary);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-text-secondary);
+  }
+
+  .btn-ghost:hover {
+    color: var(--color-text-primary);
+    background: var(--color-bg-surface-elevated);
+  }
+
+  /* BADGES & PILLS */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.6rem;
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: var(--radius-full);
+    border: 1px solid transparent;
+  }
+
+  .badge-accent {
+    background: rgba(255, 69, 32, 0.12);
+    color: var(--color-accent-vermilion);
+    border-color: rgba(255, 69, 32, 0.25);
+  }
+
+  .badge-cyan {
+    background: rgba(0, 210, 255, 0.12);
+    color: var(--color-accent-cyan);
+    border-color: rgba(0, 210, 255, 0.25);
+  }
+
+  .badge-amber {
+    background: rgba(245, 158, 11, 0.12);
+    color: var(--color-accent-amber);
+    border-color: rgba(245, 158, 11, 0.25);
+  }
+
+  .badge-lime {
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--color-accent-lime);
+    border-color: rgba(16, 185, 129, 0.25);
+  }
+
+  .badge-purple {
+    background: rgba(168, 85, 247, 0.12);
+    color: var(--color-accent-purple);
+    border-color: rgba(168, 85, 247, 0.25);
+  }
+
+  /* CARTÕES REUTILIZÁVEIS */
+  .card {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  }
+
+  .card:hover {
+    border-color: var(--color-border-medium);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* MEDIA REPRODUTOR DE ÁUDIO ESTILIZADO */
+  .audio-player-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+  }
+
+  .audio-player-card audio {
+    inline-size: 100%;
+    block-size: 36px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 7: OS 8 PADRÕES DE INTERAÇÃO (Scroll, Morph, 3D, Motion Path, etc.)
+   ========================================================================== */
+@layer patterns {
+
+  /* ------------------------------------------------------------------------
+     PADRÃO 1: HERO VIEWPORT SCROLL-DRIVEN DYNAMICS (index.html)
+     MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline
+     ------------------------------------------------------------------------ */
+  .hero-master {
+    position: relative;
+    padding-block: var(--space-2xl) var(--space-xl);
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  @media (max-width: 860px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hero-title {
+    font-size: var(--font-size-hero);
+    line-height: 1;
+    margin-block-end: var(--space-sm);
+  }
+
+  .hero-tagline {
+    font-size: var(--font-size-md);
+    color: var(--color-text-secondary);
+    margin-block-end: var(--space-lg);
+  }
+
+  .hero-image-wrap {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-border-medium);
+    aspect-ratio: 4 / 3;
+  }
+
+  .hero-image-wrap img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  /* ------------------------------------------------------------------------
+     PADRÃO 2: MORFISMO DE FORMAS POLIGONAIS COM INVARIÂNCIA DE VÉRTICES (stages.html)
+     MDN clip-path: https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path
+     ------------------------------------------------------------------------ */
+  .stage-section-divider {
+    inline-size: 100%;
+    block-size: clamp(60px, 8vw, 110px);
+    background: var(--divider-fill, var(--color-bg-surface));
+    clip-path: var(--active-polygon);
+    -webkit-clip-path: var(--active-polygon);
+    transition: clip-path 500ms var(--ease-spring), -webkit-clip-path 500ms var(--ease-spring);
+    will-change: clip-path;
+  }
+
+  /* Controladores de Morfismo Zero-JS (:has()) */
+  :root:has(#shape-wave:checked) {
+    --active-polygon: var(--poly-wave);
+  }
+  :root:has(#shape-sawtooth:checked) {
+    --active-polygon: var(--poly-sawtooth);
+  }
+  :root:has(#shape-angle:checked) {
+    --active-polygon: var(--poly-angle);
+  }
+  :root:has(#shape-flat:checked) {
+    --active-polygon: var(--poly-flat);
+  }
+
+  /* Demonstração de inset(... round ...) */
+  .morphing-inset-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 3rem;
+    font-family: var(--font-family-display);
+    font-weight: 800;
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--color-accent-vermilion), var(--color-accent-amber));
+    clip-path: inset(0% round 12px);
+    transition: clip-path 600ms var(--ease-spring);
+  }
+
+  .morphing-inset-badge:hover,
+  :root:has(#inset-pill:checked) .morphing-inset-badge {
+    clip-path: inset(0% round 9999px);
+  }
+
+  /* ------------------------------------------------------------------------
+     PADRÃO 3: VINIL CRATE 3D EM PERSPECTIVA & FAN-OUT (lineup.html)
+     MDN perspective: https://developer.mozilla.org/en-US/docs/Web/CSS/perspective
+     ------------------------------------------------------------------------ */
+  .vinyl-crate-viewport {
+    perspective: 1200px;
+    perspective-origin: 50% 30%;
+    padding-block: var(--space-xl);
+  }
+
+  .vinyl-crate-track {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    gap: -60px; /* Sobreposição intencional de discos */
+    padding-inline: var(--space-md);
+  }
+
+  .vinyl-record {
+    position: relative;
+    inline-size: clamp(180px, 22vw, 240px);
+    aspect-ratio: 1;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: transform 400ms var(--ease-spring), filter var(--transition-fast);
+    transform: rotateY(-18deg) translateZ(0);
+    filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.4));
+  }
+
+  .vinyl-record:hover,
+  .vinyl-record:focus-within {
+    transform: rotateY(0deg) translateZ(80px) translateY(-20px) scale(1.08);
+    z-index: 20;
+    filter: drop-shadow(0 20px 30px rgba(255, 69, 32, 0.45));
+  }
+
+  /* Discos à direita abrem em leque */
+  .vinyl-record:hover ~ .vinyl-record {
+    transform: rotateY(22deg) translateZ(-40px) translateX(40px);
+  }
+
+  .vinyl-sleeve {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #111;
+  }
+
+  .vinyl-sleeve img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .vinyl-disc {
+    position: absolute;
+    inset-block-start: 5%;
+    inset-inline-end: -35%;
+    inline-size: 90%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, #222 25%, #050505 60%, #111 75%);
+    border: 2px solid #333;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 4px 12px rgba(0,0,0,0.6);
+    transform: translateZ(-10px);
+    transition: inset-inline-end 400ms var(--ease-spring);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .vinyl-record:hover .vinyl-disc {
+    inset-inline-end: -60%;
+  }
+
+  /* ------------------------------------------------------------------------
+     PADRÃO 4: CSS MOTION PATH & SPRING PHYSICS (motion-path.html)
+     MDN offset-path: https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path
+     ------------------------------------------------------------------------ */
+  .motion-map-stage {
+    position: relative;
+    inline-size: 100%;
+    block-size: clamp(260px, 35vw, 420px);
+    background: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .motion-map-svg {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  .motion-sound-sprite {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inline-size: 32px;
+    block-size: 32px;
+    border-radius: 50%;
+    background: var(--color-accent-vermilion);
+    box-shadow: 0 0 16px var(--color-accent-vermilion), 0 0 32px rgba(255, 69, 32, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    offset-path: path('M 30,180 C 120,40 260,340 380,180 C 500,20 680,320 800,160 C 920,40 1060,260 1180,180');
+    offset-rotate: auto;
+    animation: travel-motion-path 6s infinite alternate;
+    animation-timing-function: var(--ease-spring);
+  }
+
+  @keyframes travel-motion-path {
+    0% { offset-distance: 0%; }
+    100% { offset-distance: 100%; }
+  }
+
+  :root:has(#speed-fast:checked) .motion-sound-sprite {
+    animation-duration: 2.5s;
+  }
+
+  :root:has(#speed-slow:checked) .motion-sound-sprite {
+    animation-duration: 10s;
+  }
+
+  :root:has(#motion-pause:checked) .motion-sound-sprite {
+    animation-play-state: paused;
+  }
+
+  /* ------------------------------------------------------------------------
+     PADRÃO 5: ACCORDION COM @starting-style & interpolate-size (schedule.html)
+     MDN @starting-style: https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style
+     ------------------------------------------------------------------------ */
+  .accordion-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .accordion-item {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .accordion-item[open] {
+    border-color: var(--color-accent-vermilion);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .accordion-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md);
+    cursor: pointer;
+    font-weight: 700;
+    font-size: var(--font-size-md);
+    user-select: none;
+    list-style: none; /* Remove seta nativa do browser */
+  }
+
+  .accordion-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .accordion-chevron {
+    inline-size: 20px;
+    block-size: 20px;
+    transition: transform var(--transition-base);
+    color: var(--color-accent-vermilion);
+  }
+
+  .accordion-item[open] .accordion-chevron {
+    transform: rotate(180deg);
+  }
+
+  .accordion-content {
+    padding: 0 var(--space-md) var(--space-md);
+    color: var(--color-text-secondary);
+    transition: block-size 350ms var(--ease-spring), opacity 350ms ease;
+  }
+
+  /* ------------------------------------------------------------------------
+     PADRÃO 6: SCROLL-DRIVEN VIEW ANIMATIONS & SCROLL-SNAP CAROUSEL (battle.html)
+     MDN view(): https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline
+     MDN scroll-snap: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-type
+     ------------------------------------------------------------------------ */
+  .battle-carousel-track {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--site-gutter);
+    padding-block: var(--space-md);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .battle-card {
+    flex: 0 0 clamp(280px, 40vw, 360px);
+    scroll-snap-align: center;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    /* Animação acionada quando o cartão entra no viewport */
+    animation: reveal-on-view 1ms ease both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 30%;
+  }
+
+  @keyframes reveal-on-view {
+    from {
+      opacity: 0;
+      transform: translateY(40px) scale(0.92);
+      filter: blur(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     PADRÃO 7: ZERO-JS STATE MACHINE & ACCESSIBLE <dialog> (tickets.html)
+     MDN :has(): https://developer.mozilla.org/en-US/docs/Web/CSS/:has
+     MDN <dialog>: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
+     ------------------------------------------------------------------------ */
+  .ticket-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-md);
+  }
+
+  .ticket-tier-label {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-lg);
+    background: var(--color-bg-surface);
+    border: 2px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    position: relative;
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .ticket-tier-label:hover {
+    border-color: var(--color-border-strong);
+  }
+
+  :root:has(#ticket-pass-day:checked) label[for="ticket-pass-day"],
+  :root:has(#ticket-pass-weekend:checked) label[for="ticket-pass-weekend"],
+  :root:has(#ticket-pass-vip:checked) label[for="ticket-pass-vip"] {
+    border-color: var(--color-accent-vermilion);
+    background: var(--color-bg-surface-elevated);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* DIALOG NATIVO COM BACKDROP BLUR */
+  dialog.ticket-dialog {
+    margin: auto;
+    padding: var(--space-xl);
+    background: var(--color-bg-surface);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-lg);
+    max-inline-size: min(90vw, 520px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  dialog.ticket-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* ------------------------------------------------------------------------
+     PADRÃO 8: CONTAINER QUERIES (@container) & DESIGN SPEC (design-system.html)
+     MDN @container: https://developer.mozilla.org/en-US/docs/Web/CSS/@container
+     ------------------------------------------------------------------------ */
+  .cq-demo-container {
+    container-type: inline-size;
+    container-name: stage-card-host;
+    inline-size: 100%;
+    resize: horizontal;
+    overflow: hidden;
+    min-inline-size: 280px;
+    max-inline-size: 100%;
+    padding: var(--space-md);
+    background: var(--color-bg-surface-elevated);
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius-md);
+  }
+
+  .cq-stage-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    background: var(--color-bg-surface);
+    padding: var(--space-md);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  @container stage-card-host (min-inline-size: 480px) {
+    .cq-stage-card {
+      flex-direction: row;
+      align-items: center;
+    }
+    .cq-stage-image {
+      flex: 0 0 160px;
+    }
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 8: INSPECTOR PEDAGÓGICO DE CÓDIGO (Painéis HUD em todas as Páginas)
+   ========================================================================== */
+@layer inspector {
+  .pattern-inspector-panel {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    margin-block: var(--space-2xl);
+    position: relative;
+    box-shadow: var(--shadow-md);
+  }
+
+  .inspector-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    margin-block-end: var(--space-md);
+    padding-block-end: var(--space-sm);
+    border-block-end: 1px solid var(--color-border-subtle);
+  }
+
+  .inspector-title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .inspector-spec-link {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
+    color: var(--color-accent-vermilion);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .inspector-spec-link:hover {
+    text-decoration: underline;
+  }
+
+  .inspector-code-block {
+    background: var(--color-bg-canvas);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    overflow-x: auto;
+    font-family: var(--font-family-mono);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--color-text-primary);
+  }
+
+  .inspector-code-block .token-keyword { color: #f43f5e; font-weight: 700; }
+  .inspector-code-block .token-property { color: #00d2ff; }
+  .inspector-code-block .token-value { color: #10b981; }
+  .inspector-code-block .token-comment { color: var(--color-text-muted); font-style: italic; }
+}
+
+
+/* ==========================================================================
+   CAMADA 9: GRELHA DE DIAGNÓSTICO ÓTICO (X-Ray Inspector)
+   ========================================================================== */
+@layer xray {
+  :root:has(#xray-toggle:checked) * {
+    outline: 1px solid rgba(255, 69, 32, 0.25) !important;
+  }
+
+  :root:has(#xray-toggle:checked) header,
+  :root:has(#xray-toggle:checked) nav,
+  :root:has(#xray-toggle:checked) main,
+  :root:has(#xray-toggle:checked) section,
+  :root:has(#xray-toggle:checked) article,
+  :root:has(#xray-toggle:checked) aside,
+  :root:has(#xray-toggle:checked) footer {
+    outline: 2px dashed #00d2ff !important;
+    position: relative;
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 10: ACESSIBILIDADE WCAG AAA & PREFERS-REDUCED-MOTION
+   ========================================================================== */
+@layer a11y {
+  .skip-link {
+    position: absolute;
+    inset-block-start: -100px;
+    inset-inline-start: var(--space-md);
+    background: var(--color-accent-vermilion);
+    color: #ffffff;
+    padding: var(--space-sm) var(--space-md);
+    font-weight: 800;
+    border-radius: var(--radius-sm);
+    z-index: 9999;
+    transition: inset-block-start var(--transition-fast);
+  }
+
+  .skip-link:focus {
+    inset-block-start: var(--space-md);
+  }
+
+  .visually-hidden {
+    position: absolute !important;
+    inline-size: 1px !important;
+    block-size: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  :focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-offset);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    .vinyl-record,
+    .motion-sound-sprite,
+    .battle-card {
+      transform: none !important;
+      animation: none !important;
+    }
+  }
+}

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<!--
+  ==============================================================================
+  WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+  FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+  
+  FINAL INTEGRATED CAPSTONE DEMO: DRUMTIKS '26 FESTIVAL
+  Pasta do Projeto: TP09
+  Ficheiro: index.html • "Festival Master Hub & Scroll-Driven Progress"
+  
+  AUTORES & COORDENAÇÃO PEDAGÓGICA:
+    - Prof. Pedro Amado (FBAUP / i2ADS)
+    - Antigravity (Advanced Agentic Pair)
+  
+  ==============================================================================
+  PADRÃO DE INTERAÇÃO EM DESTAQUE NESTA PÁGINA (PADRÃO 1):
+    "Macro-Layout Fluido & Animação ao Scroll com animation-timeline: scroll(root)"
+  
+  MDN CANONICAL REFERENCES:
+    - Scroll-driven Animations: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations
+    - animation-timeline: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline
+    - CSS Clamp(): https://developer.mozilla.org/en-US/docs/Web/CSS/clamp
+    - HTML Semantics: https://developer.mozilla.org/en-US/docs/Glossary/Semantics
+  ==============================================================================
+-->
+<html lang="pt" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>DRUMTIKS '26 • Festival Master Hub | WD101 FBAUP</title>
+  <meta name="description" content="Website oficial integrado do Festival DRUMTIKS '26 na Alfândega do Porto. Demonstrador mestre de web design moderno, acessibilidade WCAG AAA e animações CSS puras.">
+
+  <!-- Folha de Estilos Mestre com Hierarquia @layer -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- Script Instantâneo Anti-FOUC de Tema -->
+  <script>
+    (function() {
+      const saved = localStorage.getItem('drumtiks_theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Link de Acessibilidade: Pular para Conteúdo Principal (WCAG 2.2 AAA) -->
+  <a href="#main-content" class="skip-link">Pular para o conteúdo principal / Skip to content</a>
+
+  <!-- Controladores de Estado Zero-JS Ocultos (:has()) -->
+  <input type="radio" name="site-theme" id="theme-auto" class="visually-hidden" checked aria-hidden="true">
+  <input type="radio" name="site-theme" id="theme-light" class="visually-hidden" aria-hidden="true">
+  <input type="radio" name="site-theme" id="theme-dark" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="xray-toggle" class="visually-hidden" aria-hidden="true">
+  <input type="checkbox" id="menu-toggle" class="visually-hidden" aria-hidden="true">
+
+  <!-- Barra de Progresso Global do Viewport (animation-timeline: scroll(root)) -->
+  <div class="viewport-progress-track" aria-hidden="true">
+    <div class="viewport-progress-fill"></div>
+  </div>
+
+  <div class="site-wrapper">
+
+    <!-- ====================================================================
+         CABEÇALHO GLOBAL DO FESTIVAL (<header role="banner">)
+         ==================================================================== -->
+    <header class="site-header" role="banner">
+      <div class="site-container header-inner">
+        
+        <div class="brand-group">
+          <a href="index.html" class="brand-logo" aria-label="DRUMTIKS 2026 Página Inicial">
+            <span>DRUMTIKS<span class="brand-logo-accent">'26</span></span>
+          </a>
+          <span class="brand-venue-badge">Alfândega do Porto</span>
+        </div>
+
+        <!-- Menu de Navegação Semântico -->
+        <nav class="site-nav" role="navigation" aria-label="Navegação Principal do Festival">
+          <ul class="nav-list">
+            <li><a href="index.html" class="nav-link" aria-current="page">Hub Geral</a></li>
+            <li><a href="stages.html" class="nav-link">Palcos &amp; Formas</a></li>
+            <li><a href="lineup.html" class="nav-link">Artistas 3D</a></li>
+            <li><a href="motion-path.html" class="nav-link">Motion Path</a></li>
+            <li><a href="schedule.html" class="nav-link">Horários</a></li>
+            <li><a href="battle.html" class="nav-link">Battle Duel</a></li>
+            <li><a href="tickets.html" class="nav-link">Bilhetes</a></li>
+            <li><a href="design-system.html" class="nav-link">Design System</a></li>
+          </ul>
+        </nav>
+
+        <!-- Ações do Cabeçalho: Tema, Diagnóstico e Menu Mobile -->
+        <div class="header-actions">
+          <!-- Seletor de Tema Zero-JS -->
+          <div class="theme-switch-group" role="group" aria-label="Seletor de Modo de Cor">
+            <label for="theme-light" class="theme-btn" title="Modo Claro" onclick="localStorage.setItem('drumtiks_theme','light');document.documentElement.setAttribute('data-theme','light');">☀️</label>
+            <label for="theme-auto" class="theme-btn" title="Modo Automático do Sistema" onclick="localStorage.removeItem('drumtiks_theme');document.documentElement.removeAttribute('data-theme');">⚙️</label>
+            <label for="theme-dark" class="theme-btn" title="Modo Escuro" onclick="localStorage.setItem('drumtiks_theme','dark');document.documentElement.setAttribute('data-theme','dark');">🌙</label>
+          </div>
+
+          <!-- Diagnóstico X-Ray -->
+          <label for="xray-toggle" class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;" title="Ativar Grelha de Diagnóstico X-Ray">X-Ray</label>
+
+          <!-- Botão Mobile -->
+          <label for="menu-toggle" class="mobile-menu-toggle" aria-label="Abrir Menu">☰</label>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- ====================================================================
+         CONTEÚDO PRINCIPAL DO MASTER HUB (<main id="main-content">)
+         ==================================================================== -->
+    <main id="main-content" role="main">
+      
+      <!-- SECÇÃO HERO DO FESTIVAL -->
+      <section class="hero-master" aria-labelledby="hero-heading">
+        <div class="site-container hero-grid">
+          
+          <div class="hero-copy">
+            <div style="display: flex; gap: 0.5rem; align-items: center; margin-block-end: 1rem;">
+              <span class="badge badge-accent">10 • 11 • 12 JULHO 2026</span>
+              <span class="badge badge-cyan">PORTO • PORTUGAL</span>
+            </div>
+            
+            <h1 id="hero-heading" class="hero-title">
+              O ÉPICO FESTIVAL DE PERCUSSÃO &amp; BEATS DA ALFÂNDEGA.
+            </h1>
+            
+            <p class="hero-tagline">
+              Três dias de polirritmia pura, batalhas de bateristas, sintetizadores analógicos e mestres internacionais nas margens históricas do Rio Douro.
+            </p>
+
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-block-end: 2rem;">
+              <a href="tickets.html" class="btn btn-primary">Garantir Passe do Festival</a>
+              <a href="stages.html" class="btn btn-secondary">Explorar os 4 Palcos</a>
+            </div>
+
+            <!-- Métricas Rápidas em Grelha -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; border-block-start: 1px solid var(--color-border-subtle); padding-block-start: 1.5rem;">
+              <div>
+                <strong style="display:block; font-size: 1.75rem; font-family: var(--font-family-display); color: var(--color-accent-vermilion);">48H</strong>
+                <span style="font-size: 0.85rem; color: var(--color-text-muted);">Música Contínua</span>
+              </div>
+              <div>
+                <strong style="display:block; font-size: 1.75rem; font-family: var(--font-family-display); color: var(--color-accent-cyan);">4</strong>
+                <span style="font-size: 0.85rem; color: var(--color-text-muted);">Palcos Acústicos</span>
+              </div>
+              <div>
+                <strong style="display:block; font-size: 1.75rem; font-family: var(--font-family-display); color: var(--color-accent-amber);">32</strong>
+                <span style="font-size: 0.85rem; color: var(--color-text-muted);">Bateristas Mundiais</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Imagem Hero Responsiva (<picture>) -->
+          <div class="hero-image-wrap">
+            <picture>
+              <source srcset="assets/images/hero-dj-warp-1400w.webp 1400w, assets/images/hero-dj-warp-960w.webp 960w, assets/images/hero-dj-warp-600w.webp 600w" type="image/webp" sizes="(max-width: 860px) 100vw, 50vw">
+              <source srcset="assets/images/hero-dj-warp-1400w.jpg 1400w, assets/images/hero-dj-warp-960w.jpg 960w, assets/images/hero-dj-warp-600w.jpg 600w" type="image/jpeg" sizes="(max-width: 860px) 100vw, 50vw">
+              <img src="assets/images/hero-dj-warp-960w.jpg" alt="DJ Warp em performance explosiva de sintetizadores modulares e pratos acústicos no palco principal" loading="eager" width="960" height="720">
+            </picture>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           PAINEL HUD DE INSPEÇÃO DE CÓDIGO (PADRÃO 1)
+           ================================================================== -->
+      <section class="site-container" aria-labelledby="pattern1-title">
+        <div class="pattern-inspector-panel">
+          <div class="inspector-header">
+            <div class="inspector-title-group">
+              <span class="badge badge-accent">PADRÃO 01</span>
+              <h2 id="pattern1-title" style="font-size: 1.25rem; margin: 0;">Animação ao Scroll do Viewport (CSS Scroll-Driven)</h2>
+            </div>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline" target="_blank" rel="noopener" class="inspector-spec-link">
+              Especificação W3C / MDN ↗
+            </a>
+          </div>
+
+          <p style="font-size: 0.95rem; margin-block-end: 1rem;">
+            Repare na <strong>barra colorida no topo da janela</strong>: ela avança proporcionalmente à leitura sem precisar de uma única linha de JavaScript. Esta técnica liga os keyframes do CSS diretamente à barra de rolagem através da propriedade <code>animation-timeline: scroll(root)</code>.
+          </p>
+
+          <pre class="inspector-code-block"><code><span class="token-comment">/* 1. Barra de Progresso Global do Viewport */</span>
+<span class="token-keyword">.viewport-progress-fill</span> {
+  <span class="token-property">block-size</span>: <span class="token-value">100%</span>;
+  <span class="token-property">inline-size</span>: <span class="token-value">100%</span>;
+  <span class="token-property">background</span>: <span class="token-value">linear-gradient(90deg, #ff4520, #f59e0b, #00d2ff)</span>;
+  <span class="token-property">transform-origin</span>: <span class="token-value">0 50%</span>;
+  <span class="token-property">animation</span>: <span class="token-value">grow-progress 1ms linear</span>;
+  <span class="token-property">animation-timeline</span>: <span class="token-value">scroll(root)</span>; <span class="token-comment">/* Vinculado ao scroll da página */</span>
+}
+
+<span class="token-keyword">@keyframes</span> grow-progress {
+  <span class="token-keyword">from</span> { <span class="token-property">transform</span>: <span class="token-value">scaleX(0)</span>; }
+  <span class="token-keyword">to</span>   { <span class="token-property">transform</span>: <span class="token-value">scaleX(1)</span>; }
+}</code></pre>
+        </div>
+      </section>
+
+      <!-- GRELHA DE NAVEGAÇÃO RÁPIDA PELOS PADRÕES DO FESTIVAL -->
+      <section class="site-container" style="padding-block: var(--space-xl);" aria-labelledby="patterns-grid-heading">
+        <h2 id="patterns-grid-heading" style="margin-block-end: var(--space-xs); font-size: 2rem;">Os 8 Laboratórios de Interação DRUMTIKS</h2>
+        <p style="margin-block-end: var(--space-xl);">Cada página do website concentra-se e documenta em profundidade um padrão interativo moderno de CSS:</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-lg);">
+          
+          <!-- Card Padrão 2 -->
+          <article class="card">
+            <span class="badge badge-cyan" style="margin-block-end: 0.75rem;">Página 02</span>
+            <h3 style="font-size: 1.25rem; margin-block-end: 0.5rem;"><a href="stages.html">Palcos &amp; Morfismo de Formas ↗</a></h3>
+            <p style="font-size: 0.9rem; margin-block-end: 1rem;">Morfismo fluido de secções poligonais com <code>clip-path: polygon(...)</code> e invariância estrita de vértices ($N=8$).</p>
+            <a href="stages.html" class="btn btn-secondary" style="font-size: 0.8rem; inline-size: 100%;">Explorar Morfismo</a>
+          </article>
+
+          <!-- Card Padrão 3 -->
+          <article class="card">
+            <span class="badge badge-purple" style="margin-block-end: 0.75rem;">Página 03</span>
+            <h3 style="font-size: 1.25rem; margin-block-end: 0.5rem;"><a href="lineup.html">Artistas &amp; Caixa de Vinil 3D ↗</a></h3>
+            <p style="font-size: 0.9rem; margin-block-end: 1rem;">Caixa de discos em 3D realista com <code>perspective: 1200px</code>, abertura em leque com seletores adjacentes e reprodutor áudio.</p>
+            <a href="lineup.html" class="btn btn-secondary" style="font-size: 0.8rem; inline-size: 100%;">Ver Crate 3D</a>
+          </article>
+
+          <!-- Card Padrão 4 -->
+          <article class="card">
+            <span class="badge badge-accent" style="margin-block-end: 0.75rem;">Página 04</span>
+            <h3 style="font-size: 1.25rem; margin-block-end: 0.5rem;"><a href="motion-path.html">CSS Motion Path &amp; Mola ↗</a></h3>
+            <p style="font-size: 0.9rem; margin-block-end: 1rem;">Impulso percussivo a navegar caminhos SVG curvos com <code>offset-path</code> e física de ressalto <code>linear(...)</code>.</p>
+            <a href="motion-path.html" class="btn btn-secondary" style="font-size: 0.8rem; inline-size: 100%;">Ver Motion Path</a>
+          </article>
+
+          <!-- Card Padrão 5 -->
+          <article class="card">
+            <span class="badge badge-amber" style="margin-block-end: 0.75rem;">Página 05</span>
+            <h3 style="font-size: 1.25rem; margin-block-end: 0.5rem;"><a href="schedule.html">Horários &amp; Acordeão Moderno ↗</a></h3>
+            <p style="font-size: 0.9rem; margin-block-end: 1rem;">Acordeões semânticos nativos <code>&lt;details&gt;</code> com animação suave de altura usando <code>@starting-style</code>.</p>
+            <a href="schedule.html" class="btn btn-secondary" style="font-size: 0.8rem; inline-size: 100%;">Ver Horários</a>
+          </article>
+
+          <!-- Card Padrão 6 -->
+          <article class="card">
+            <span class="badge badge-lime" style="margin-block-end: 0.75rem;">Página 06</span>
+            <h3 style="font-size: 1.25rem; margin-block-end: 0.5rem;"><a href="battle.html">Battle Duel &amp; Scroll-Snap ↗</a></h3>
+            <p style="font-size: 0.9rem; margin-block-end: 1rem;">Animações de entrada reveladas à passagem do scroll com <code>view()</code> e carrossel tátil com <code>scroll-snap</code>.</p>
+            <a href="battle.html" class="btn btn-secondary" style="font-size: 0.8rem; inline-size: 100%;">Ver Batalhas</a>
+          </article>
+
+          <!-- Card Padrão 7 -->
+          <article class="card">
+            <span class="badge badge-cyan" style="margin-block-end: 0.75rem;">Página 07</span>
+            <h3 style="font-size: 1.25rem; margin-block-end: 0.5rem;"><a href="tickets.html">Bilheteira &amp; State Machine ↗</a></h3>
+            <p style="font-size: 0.9rem; margin-block-end: 1rem;">Máquina de estados finitos puramente CSS com <code>:has()</code> para cálculo de preço ao vivo e janela modal <code>&lt;dialog&gt;</code>.</p>
+            <a href="tickets.html" class="btn btn-secondary" style="font-size: 0.8rem; inline-size: 100%;">Comprar Bilhetes</a>
+          </article>
+
+          <!-- Card Padrão 8 -->
+          <article class="card">
+            <span class="badge badge-accent" style="margin-block-end: 0.75rem;">Página 08</span>
+            <h3 style="font-size: 1.25rem; margin-block-end: 0.5rem;"><a href="design-system.html">Design System &amp; Tokens ↗</a></h3>
+            <p style="font-size: 0.9rem; margin-block-end: 1rem;">Tokens cromáticos com <code>light-dark()</code>, cartões responsivos a contentores <code>@container</code> e auditoria WCAG.</p>
+            <a href="design-system.html" class="btn btn-secondary" style="font-size: 0.8rem; inline-size: 100%;">Ver Design System</a>
+          </article>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ====================================================================
+         RODAPÉ DO FESTIVAL (<footer role="contentinfo">)
+         ==================================================================== -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-container">
+        
+        <div class="footer-grid">
+          <div>
+            <h4 class="footer-col-title">DRUMTIKS '26</h4>
+            <p style="font-size: 0.85rem;">Festival de Percussão &amp; Batidas Eletrónicas na Alfândega do Porto. Uma iniciativa pedagógica de Web Design da FBAUP.</p>
+          </div>
+
+          <div>
+            <h4 class="footer-col-title">Páginas de Padrões</h4>
+            <div class="footer-links">
+              <a href="stages.html" class="footer-link">02 • Palcos &amp; Morfismo</a>
+              <a href="lineup.html" class="footer-link">03 • Artistas &amp; Caixa 3D</a>
+              <a href="motion-path.html" class="footer-link">04 • Motion Path &amp; Mola</a>
+              <a href="schedule.html" class="footer-link">05 • Horários &amp; Acordeão</a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="footer-col-title">Recursos &amp; Sistema</h4>
+            <div class="footer-links">
+              <a href="battle.html" class="footer-link">06 • Battle Duel &amp; View</a>
+              <a href="tickets.html" class="footer-link">07 • Bilheteira &amp; State Machine</a>
+              <a href="design-system.html" class="footer-link">08 • Design System &amp; Tokens</a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="footer-col-title">FBAUP / i2ADS</h4>
+            <p style="font-size: 0.85rem;">Faculdade de Belas Artes da Universidade do Porto • Licenciatura em Design de Comunicação • WD101 (2026/27).</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>&copy; 2026 DRUMTIKS Festival • FBAUP / i2ADS • Prof. Pedro Amado &amp; Antigravity</span>
+          <span>Desenvolvido com padrões abertos W3C / WHATWG e WCAG 2.2 AAA</span>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
