@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<!--
+  ==============================================================================
+  WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+  FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+  
+  Tema Curricular: Festival DRUMTIKS '26 (Alfândega do Porto)
+  Documento: GUIDE.html • "Guião Técnico & Pedagógico: Morfismos de Caminho & CSS Motion Path"
+  Módulo: 7. Geometria de Secções, Morfismos de Caminho & CSS Motion Path
+  
+  AUTORES & COORDENAÇÃO PEDAGÓGICA:
+    - Prof. Pedro Amado (FBAUP / i2ADS)
+    - Antigravity (Advanced Agentic Pair)
+  ==============================================================================
+-->
+<html lang="pt" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Guião Técnico • Morfismos de Caminho CSS &amp; Motion Path • WD101 FBAUP</title>
+  
+  <!-- Prevenção de FOUC de tema e idioma -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
+
+  <!-- Folhas de Estilos em Camadas (@layer) e Fontes Variáveis -->
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../assets/css/modernist.css">
+  <link rel="stylesheet" href="../tp11-integrated-responsive-project/css/fonts.css">
+
+  <style>
+    :root {
+      --color-accent-cyan: #00d2ff;
+      --color-accent-red: #e60000;
+      --color-accent-purple: #8a2be2;
+      --color-accent-gold: #f5a623;
+      --color-accent-lime: #10b981;
+    }
+
+    body {
+      background-color: var(--bg-canvas, #07080b);
+      color: var(--text-primary, #f3f4f6);
+      font-family: var(--font-body, 'Inter', sans-serif);
+      line-height: 1.65;
+    }
+
+    .guide-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: var(--space-6) var(--space-4);
+    }
+
+    .guide-hero {
+      border-bottom: 2px solid var(--border-color, rgba(255,255,255,0.1));
+      padding-bottom: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .guide-badge-cluster {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-3);
+    }
+
+    .guide-section {
+      margin-bottom: var(--space-10);
+    }
+
+    .guide-h2 {
+      font-family: var(--font-display, 'Syne', sans-serif);
+      font-size: 1.85rem;
+      color: #ffffff;
+      margin-bottom: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.5rem;
+    }
+
+    .guide-h3 {
+      font-family: var(--font-display, 'Syne', sans-serif);
+      font-size: 1.35rem;
+      color: var(--color-accent-cyan);
+      margin-top: var(--space-6);
+      margin-bottom: var(--space-2);
+    }
+
+    .theory-box {
+      background: rgba(15, 17, 24, 0.7);
+      border-left: 4px solid var(--color-accent-cyan);
+      border-radius: 0 8px 8px 0;
+      padding: var(--space-4);
+      margin-block: var(--space-4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .theory-box--warning {
+      border-left-color: var(--color-accent-gold);
+      background: rgba(245, 166, 35, 0.06);
+    }
+
+    .theory-box--danger {
+      border-left-color: var(--color-accent-red);
+      background: rgba(230, 0, 0, 0.06);
+    }
+
+    .theory-box--success {
+      border-left-color: var(--color-accent-lime);
+      background: rgba(16, 185, 129, 0.06);
+    }
+
+    pre.code-card {
+      background-color: #0b0d14;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      font-family: var(--font-mono, 'Martian Mono', monospace);
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      margin-block: 1rem;
+      line-height: 1.6;
+    }
+
+    .table-spec {
+      width: 100%;
+      border-collapse: collapse;
+      margin-block: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .table-spec th,
+    .table-spec td {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    .table-spec th {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--color-accent-cyan);
+      font-family: var(--font-mono, monospace);
+    }
+
+    .btn-return {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      border: 1px solid var(--color-accent-cyan);
+      background-color: rgba(0, 210, 255, 0.1);
+      color: #ffffff;
+      text-decoration: none;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-return:hover {
+      background-color: var(--color-accent-cyan);
+      color: #000000;
+      box-shadow: 0 0 16px rgba(0, 210, 255, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="guide-container">
+    
+    <!-- CABEÇALHO DO GUIÃO -->
+    <header class="guide-hero">
+      <div class="guide-badge-cluster">
+        <span class="badge badge-advanced">MÓDULO 07 • WD101</span>
+        <span class="badge badge-foundational">FBAUP / i2ADS</span>
+        <span style="font-family:var(--font-mono); font-size:0.8rem; color:#9ea5b8;">
+          Festival DRUMTIKS '26 • Alfândega do Porto
+        </span>
+      </div>
+
+      <h1 style="font-family:var(--font-display); font-size:2.5rem; line-height:1.2; margin-bottom:1rem; color:#ffffff;">
+        Guião Pedagógico: Morfismo de Caminhos CSS, Separadores de Secção &amp; Motion Path
+      </h1>
+
+      <p style="font-size:1.1rem; color:#cbd5e1; max-width:85ch; margin-bottom:1.5rem;">
+        Manual teórico e prático para o desenvolvimento de separadores fluidos de secção na web moderna.
+        Explora a <strong>regra de invariância de vértices</strong> em <code>clip-path: polygon()</code>,
+        a interpolação declarativa de curvas de Bézier em SVG com <code>d: path(...)</code> e a navegação tangencial de elementos através de <code>offset-path</code>.
+      </p>
+
+      <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+        <a href="index.html" class="btn-return">
+          ▶ Abrir Demonstrador Interativo (index.html)
+        </a>
+        <a href="../../css-path-transitions-guide.html" class="btn-return" style="border-color:var(--color-accent-lime); background:rgba(16,185,129,0.1); color:#ffffff;">
+          📐 Abrir Guião Passo a Passo em Modo Wireframe ↗
+        </a>
+        <a href="../index.html" class="btn-return" style="border-color:#64748b; background:transparent; color:#cbd5e1;">
+          ↩ Voltar ao Repositório de Demos WD101
+        </a>
+      </div>
+    </header>
+
+
+    <!-- PARTE 1: O PROBLEMA DOS SEPARADORES DE SECÇÃO -->
+    <section class="guide-section">
+      <h2 class="guide-h2"><span>1.</span> A Problemática dos Separadores de Secção na Web</h2>
+      
+      <p>
+        Durante décadas, a transição entre secções de páginas web limitava-se a linhas horizontais retas impostas pelo modelo de caixas retangulares (Box Model).
+        Com a evolução da identidade visual contemporânea — exemplificada no festival <strong>DRUMTIKS '26</strong> na Alfândega do Porto —,
+        os designers de comunicação procuram articular palcos e conteúdos através de diagonais arrojadas, ondas acústicas e transientes percursivos.
+      </p>
+
+      <div class="theory-box">
+        <strong>Evolução Histórica dos Métodos de Separação:</strong>
+        <ol style="margin-left:1.5rem; margin-top:0.5rem; line-height:1.7;">
+          <li><strong>Geração 1 (Imagens Rasterizadas - PNG/WebP):</strong> Ficheiros pesados, perda de nitidez em ecrãs Retina, impossibilidade de morphing contínuo e bloqueio da cascata de cores.</li>
+          <li><strong>Geração 2 (SVG Estático no HTML):</strong> Vetores limpos mas que exigiam bibliotecas externas pesadas em JavaScript (como GSAP ou Snap.svg) para qualquer transição de forma.</li>
+          <li><strong>Geração 3 (CSS Moderno - Pure CSS Shapes &amp; Motion Path):</strong> Aceleração total na GPU, zero scripts bloqueadores, comutação em cascata com variáveis CSS e resposta perfeita a preferências de acessibilidade.</li>
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- PARTE 2: A REGRA DA INVARIÂNCIA DE VÉRTICES -->
+    <section class="guide-section">
+      <h2 class="guide-h2"><span>2.</span> A Regra da Invariância de Vértices no <code>clip-path: polygon()</code></h2>
+
+      <p>
+        O <code>clip-path</code> permite mascarar a geometria visível de qualquer elemento HTML (por exemplo, um <code>&lt;section&gt;</code>) sem afetar o fluxo de caixas do documento.
+        Contudo, ao animar o polígono com uma transição CSS:
+      </p>
+
+      <pre class="code-card"><code>/* Transição de corte de secção */
+.section-clip-morph {
+  clip-path: var(--active-polygon);
+  transition: clip-path 0.85s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: clip-path;
+}</code></pre>
+
+      <div class="theory-box theory-box--danger">
+        <strong>⚠️ A Regra Inquebrável da Interpolação de Polígonos CSS:</strong><br>
+        O motor do browser (Chromium Blink, Gecko ou WebKit) apenas consegue calcular uma transição suave
+        se o <strong>número de vértices (coordenadas x,y) for rigorosamente igual</strong> no estado inicial e no estado final.
+        Se o polígono A tiver 8 pontos e o polígono B tiver 9 pontos, o browser desiste da interpolação matemática
+        e aplica um corte instantâneo e abrupto no meio do tempo de transição!
+      </div>
+
+      <h3 class="guide-h3">Como Achatar Curvas sem Perder Vértices (Colinearidade)</h3>
+      <p>
+        No nosso demonstrador DRUMTIKS '26, definimos rigorosamente <strong>N = 8 vértices</strong> para as 4 formas:
+      </p>
+
+      <table class="table-spec">
+        <thead>
+          <tr>
+            <th>Vértice</th>
+            <th>Significado</th>
+            <th>1. Onda Sinusoidal</th>
+            <th>2. Corte Angular (Alfândega)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>P0</strong></td>
+            <td>Canto Superior Esquerdo</td>
+            <td><code>0% 0%</code></td>
+            <td><code>0% 0%</code></td>
+          </tr>
+          <tr>
+            <td><strong>P1</strong></td>
+            <td>Canto Superior Direito</td>
+            <td><code>100% 0%</code></td>
+            <td><code>100% 0%</code></td>
+          </tr>
+          <tr>
+            <td><strong>P2</strong></td>
+            <td>Bordo Direito</td>
+            <td><code>100% 82%</code></td>
+            <td><code>100% 97%</code></td>
+          </tr>
+          <tr>
+            <td><strong>P3 a P6</strong></td>
+            <td>Vértices Intermédios</td>
+            <td>Ondulam em cristas e depressões</td>
+            <td>Alinham-se <em>colinearmente</em> na reta y = 0.35x + 62%</td>
+          </tr>
+          <tr>
+            <td><strong>P7</strong></td>
+            <td>Bordo Esquerdo</td>
+            <td><code>0% 82%</code></td>
+            <td><code>0% 62%</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <strong>Truque Didático:</strong> No corte angular reto (Angle Slash), os pontos intermédios (P3 a P6)
+        não são eliminados; são simplesmente posicionados ao longo da mesma linha oblíqua!
+        Visualmente, parecem uma única reta diagonal; matematicamente, continuam a existir 8 vértices, permitindo que a onda se distenda e achate fluidamente!
+      </p>
+    </section>
+
+
+    <!-- PARTE 3: MORFISMO DE PATH SVG COM A PROPRIEDADE CSS `d` -->
+    <section class="guide-section">
+      <h2 class="guide-h2"><span>3.</span> Morfismo de SVG <code>&lt;path&gt;</code> Declarativo com <code>d: path(...)</code></h2>
+
+      <p>
+        A especificação SVG 2 e o módulo W3C CSS Motion &amp; Shapes permitem agora que a propriedade <code>d</code>
+        (data do caminho vetorial) seja declarada e transitada diretamente em regras de estilos CSS normais:
+      </p>
+
+      <pre class="code-card"><code>/* Regra base do separador SVG */
+.svg-path-divider path.morphing-boundary {
+  /* Onda Sinusoidal Inicial (Comandos: M, L, L, C, C, Z) */
+  d: path("M 0,0 L 1440,0 L 1440,65 C 1180,140 920,15 680,85 C 440,155 220,15 0,65 Z");
+  transition: d 0.85s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Estado Angular ativado via :has() */
+:root:has(#shape-angle:checked) .svg-path-divider path.morphing-boundary {
+  /* Os comandos e contagens de pontos de controlo têm correspondência 1:1 */
+  d: path("M 0,0 L 1440,0 L 1440,145 C 1180,125 920,105 680,85 C 440,65 220,45 0,25 Z");
+}</code></pre>
+
+      <div class="theory-box theory-box--success">
+        <strong>Vantagem do Morfismo via SVG <code>d</code>:</strong><br>
+        Permite a utilização de <strong>Curvas de Bézier Cúbicas verdadeiras (comando C)</strong>,
+        com tangentes contínuas de primeira e segunda ordem (C1 e C2 continuity), gerando curvas infinitamente mais orgânicas do que sequências de polígonos retos.
+      </div>
+    </section>
+
+
+    <!-- PARTE 4: CSS MOTION PATH -->
+    <section class="guide-section">
+      <h2 class="guide-h2"><span>4.</span> CSS Motion Path (<code>offset-path</code> &amp; <code>offset-rotate</code>)</h2>
+
+      <p>
+        A especificação <strong>W3C Motion Path Module Level 1</strong> liberta os elementos da animação linear tradicional por coordenadas <code>translate(x, y)</code>,
+        permitindo que viajem ao longo de qualquer curva vetorial arbitrária.
+      </p>
+
+      <pre class="code-card"><code>.drumstick-traveler {
+  /* 1. Define a trajetória geométrica Bézier */
+  offset-path: var(--active-motion-path);
+  
+  /* 2. Posição fracionária (0% a 100%) */
+  offset-distance: 0%;
+  
+  /* 3. Rotação tangencial automática com ângulo percursivo adicional */
+  offset-rotate: auto 20deg;
+  
+  /* 4. Ponto pivô do elemento sobre o caminho */
+  offset-anchor: 50% 50%;
+  
+  /* 5. Transição da trajetória quando a geometria do festival muda! */
+  transition: offset-path 0.85s cubic-bezier(0.34, 1.56, 0.64, 1);
+}</code></pre>
+
+      <div class="theory-box">
+        <strong>Os 3 Pilares do CSS Motion Path:</strong>
+        <ul style="margin-left:1.5rem; margin-top:0.5rem; line-height:1.7;">
+          <li><code>offset-path: path("...")</code>: A rota vetorial. Pode transitar entre diferentes trajetórias!</li>
+          <li><code>offset-distance</code>: O progresso ao longo do caminho. Anima-se com <code>@keyframes</code> ou transições.</li>
+          <li><code>offset-rotate: auto</code>: O browser calcula a derivada da curva no ponto atual e orienta o elemento perpendicular ou tangencialmente à inclinação da onda!</li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- PARTE 5: FÍSICA CINÉTICA & TIMING -->
+    <section class="guide-section">
+      <h2 class="guide-h2"><span>5.</span> Física Cinética das Curvas de Temporização (Easing)</h2>
+
+      <p>
+        No design de comunicação, o movimento carrega significado emocional.
+        No festival <strong>DRUMTIKS '26</strong>, comparamos três comportamentos cinemáticos:
+      </p>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:1rem; margin-block:1rem;">
+        <div class="theory-box" style="border-left-color:var(--color-accent-red);">
+          <strong style="color:var(--color-accent-red);">Spring Bounce (Ressalto Elástico)</strong><br>
+          <code>cubic-bezier(0.34, 1.56, 0.64, 1)</code><br>
+          Ultrapassa o valor final (1.56 &gt; 1.0) antes de estabilizar. Simula a inércia elástica da pele de um tambor percutido com força.
+        </div>
+
+        <div class="theory-box" style="border-left-color:var(--color-accent-cyan);">
+          <strong style="color:var(--color-accent-cyan);">Exponential Glide (Desaceleração)</strong><br>
+          <code>cubic-bezier(0.16, 1, 0.3, 1)</code><br>
+          Início veloz com travagem ultra-suave. Transmite precisão tecnológica e arquitetónica digna dos edifícios de granito da Alfândega.
+        </div>
+
+        <div class="theory-box" style="border-left-color:var(--color-accent-gold);">
+          <strong style="color:var(--color-accent-gold);">Linear Quantize (Metrónomo BPM)</strong><br>
+          <code>linear</code><br>
+          Velocidade estritamente constante. Adequada para sequenciadores de percussão e contadores de tempo musical estritos.
+        </div>
+      </div>
+    </section>
+
+
+    <!-- PARTE 6: ACESSIBILIDADE WCAG -->
+    <section class="guide-section">
+      <h2 class="guide-h2"><span>6.</span> Acessibilidade e Salvaguarda Vestibular (WCAG 2.2)</h2>
+
+      <p>
+        Morfismos de grande escala e elementos a viajar em alta velocidade podem provocar náuseas e desorientação
+        em utilizadores com distúrbios vestibulares. O critério <strong>WCAG 2.2 — 2.3.3 (Animation from Interactions)</strong>
+        exige que o sistema respeite as preferências do utilizador:
+      </p>
+
+      <pre class="code-card"><code>@media (prefers-reduced-motion: reduce) {
+  /* Anula animações contínuas de loop */
+  .drumstick-traveler {
+    animation: none !important;
+    offset-distance: 50% !important; /* Mantém a baqueta centrada e estável */
+  }
+
+  /* Desativa morfismos bruscos, substituindo por corte instantâneo ou fade */
+  .section-clip-morph,
+  .svg-path-divider path {
+    transition-duration: 0.01ms !important;
+  }
+}</code></pre>
+    </section>
+
+
+    <!-- EXERCÍCIOS FORMATIVOS -->
+    <section class="guide-section">
+      <h2 class="guide-h2"><span>7.</span> Desafios Práticos para os Estudantes da FBAUP</h2>
+      
+      <ol style="margin-left:1.5rem; line-height:1.8;">
+        <li><strong>Exercício 1:</strong> Adicione uma quinta forma de caminho inspirada no logótipo de uma editora discográfica (ex: um recorte em W invertido), mantendo estritamente N = 8 vértices no polígono.</li>
+        <li><strong>Exercício 2:</strong> Altere a propriedade <code>offset-rotate</code> no viajante de baqueta de <code>auto 20deg</code> para <code>reverse</code> e observe a inversão de polaridade da cabeça da baqueta.</li>
+        <li><strong>Exercício 3:</strong> Configure uma animação <code>scroll-driven</code> que sincronize o <code>offset-distance</code> com o avanço vertical do scroll da página através de <code>animation-timeline: view()</code>.</li>
+      </ol>
+    </section>
+
+  </div>
+
+</body>
+</html>

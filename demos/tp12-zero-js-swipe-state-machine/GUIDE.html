@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<!--
+  ==============================================================================
+  WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+  FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+  Tema Curricular: Festival DRUMTIKS '26 (Alfândega do Porto)
+  Documento: GUIDE.html • "Guião Técnico & Pedagógico: Máquinas de Estado Zero-JS"
+  
+  MÓDULO: 6. Seletores Modernos, Pseudo-Classes & Máquinas de Estado Zero-JS
+  CASO DE ESTUDO: DJ & Scratch Battle Click-to-Swipe Navigator (100dvh)
+  
+  RECURSOS PEDAGÓGICOS INTEGRADOS:
+    - Alternador de Tema Universal: Modo Claro (Light) & Modo Escuro (Dark)
+    - Inspetor de Diagnóstico X-Ray em CSS Puro (:root:has(#xray-toggle:checked))
+    - Suporte Bilingue (Português & Inglês) com Integração site-shell.js
+    - Dissecação das 3 Técnicas (calc, data-*, sibling-index) + Variante Furtiva
+  ==============================================================================
+-->
+<html lang="pt" data-theme="dark" data-root="../../">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Guião Técnico • Navegação Swipe Zero-JS &amp; Seletores Modernos • WD101 FBAUP</title>
+  
+  <!-- Previne FOUC de tema e idioma: respeita preferência do utilizador com fallback harmonizado -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+      const savedAesthetic = localStorage.getItem('wd101_aesthetic') || 'airy';
+      document.documentElement.setAttribute('data-aesthetic', savedAesthetic);
+    })();
+  </script>
+
+  <!-- CSS Layer Hierarchy do Repositório Central WD101 -->
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../assets/css/modernist.css">
+  <link rel="stylesheet" href="../tp11-integrated-responsive-project/css/fonts.css">
+
+  <style>
+    /* --------------------------------------------------------------------------
+       DESIGN TOKENS DINÂMICOS & ADAPTAÇÃO CLARO / ESCURO
+       -------------------------------------------------------------------------- */
+    :root {
+      --color-accent-purple: #9d3bf6;
+      --color-accent-cyan: #00bcd4;
+      --color-accent-gold: #f59e0b;
+      --color-accent-red: #e11d48;
+      --color-accent-emerald: #10b981;
+      --color-accent-magenta: #e0245e;
+      --z-xray-badge: 9999;
+    }
+
+    /* MODO ESCURO (Dark Mode Default do Festival) */
+    html[data-theme="dark"],
+    :root[data-theme="dark"] {
+      --guide-bg: #090a0f;
+      --guide-surface: #13151f;
+      --guide-surface-elevated: #1c1f2e;
+      --guide-surface-subtle: #0e1017;
+      --guide-border: rgba(255, 255, 255, 0.1);
+      --guide-border-bright: rgba(255, 255, 255, 0.22);
+      --guide-text-primary: #f3f4f6;
+      --guide-text-secondary: #9ca3af;
+      --guide-text-muted: #6b7280;
+      --guide-code-bg: #07080c;
+      --guide-diagram-bg: #0b0d14;
+      --guide-diagram-border: rgba(255, 255, 255, 0.16);
+      --guide-diagram-text: #cbd5e1;
+      --guide-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      --color-accent-purple: #c040fd;
+      --color-accent-cyan: #00e5ff;
+      --color-accent-gold: #ffb700;
+    }
+
+    /* MODO CLARO (Light Mode Editorial Suíço FBAUP) */
+    html[data-theme="light"],
+    :root[data-theme="light"] {
+      --guide-bg: #f8f8f7;
+      --guide-surface: #ffffff;
+      --guide-surface-elevated: #f1f2f4;
+      --guide-surface-subtle: #f4f5f7;
+      --guide-border: #e2e5e9;
+      --guide-border-bright: #cbd5e1;
+      --guide-text-primary: #111318;
+      --guide-text-secondary: #475569;
+      --guide-text-muted: #64748b;
+      --guide-code-bg: #1e222d;
+      --guide-diagram-bg: #f1f3f7;
+      --guide-diagram-border: #cbd5e1;
+      --guide-diagram-text: #1e293b;
+      --guide-card-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+      --color-accent-purple: #7c3aed;
+      --color-accent-cyan: #0891b2;
+      --color-accent-gold: #d97706;
+      --color-accent-red: #d90429;
+    }
+
+    body {
+      background-color: var(--guide-bg);
+      color: var(--guide-text-primary);
+      font-family: var(--font-body, 'Inter', sans-serif);
+      line-height: 1.6;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      margin: 0;
+      padding: 0;
+    }
+
+    .guide-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--space-6) var(--space-4) var(--space-12);
+    }
+
+    /* --------------------------------------------------------------------------
+       BARRA DE CONTROLOS EM TEMPO REAL: TEMA & X-RAY DIAGNOSTICS
+       -------------------------------------------------------------------------- */
+    .guide-controls-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background: var(--guide-surface);
+      border-bottom: 2px solid var(--guide-border);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      margin-bottom: var(--space-6);
+      flex-wrap: wrap;
+    }
+
+    .controls-group-left,
+    .controls-group-right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+
+    /* Pílula do Inspetor de Raios-X */
+    .xray-toggle-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      background: var(--guide-surface-elevated);
+      color: var(--guide-text-primary);
+      border: 1px solid var(--guide-border-bright);
+      border-radius: 9999px;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .xray-toggle-pill:hover {
+      border-color: var(--color-accent-cyan);
+      transform: translateY(-1px);
+    }
+
+    .xray-status-badge {
+      font-size: 0.65rem;
+      padding: 0.1rem 0.35rem;
+      border-radius: 9999px;
+      background: var(--guide-border);
+      color: var(--guide-text-muted);
+    }
+
+    /* Reatividade pura em CSS quando o checkbox #xray-toggle está marcado */
+    :root:has(#xray-toggle:checked) .xray-toggle-pill,
+    body:has(#xray-toggle:checked) .xray-toggle-pill {
+      background: var(--color-accent-cyan);
+      border-color: var(--color-accent-cyan);
+      color: #000;
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.5);
+    }
+
+    :root:has(#xray-toggle:checked) .xray-status-badge,
+    body:has(#xray-toggle:checked) .xray-status-badge {
+      background: #000;
+      color: #fff;
+    }
+
+    /* Botão de Alternância de Tema */
+    .btn-theme-switcher {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      background: var(--guide-surface-elevated);
+      color: var(--guide-text-primary);
+      border: 1px solid var(--guide-border);
+      border-radius: 9999px;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-theme-switcher:hover {
+      border-color: var(--color-accent-purple);
+      transform: translateY(-1px);
+    }
+
+    /* Banner Informativo de Diagnóstico X-Ray Ativo */
+    .xray-active-banner {
+      display: none;
+      padding: var(--space-3) var(--space-4);
+      background: rgba(0, 229, 255, 0.12);
+      border: 1px solid var(--color-accent-cyan);
+      border-left: 5px solid var(--color-accent-cyan);
+      border-radius: 4px;
+      margin-bottom: var(--space-6);
+      font-family: var(--font-mono, monospace);
+      font-size: 0.8rem;
+      color: var(--guide-text-primary);
+      animation: fadeIn 0.3s ease;
+    }
+
+    :root:has(#xray-toggle:checked) .xray-active-banner,
+    body:has(#xray-toggle:checked) .xray-active-banner {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --------------------------------------------------------------------------
+       REGRAS DO MOTOR DE DIAGNÓSTICO X-RAY EM CSS PURO
+       Inspeciona Grid, Flexbox e Landmarks Semânticos HTML5
+       -------------------------------------------------------------------------- */
+    :root:has(#xray-toggle:checked) {
+      /* 1. Contentores CSS Grid 2D: Contorno tracejado ciano com malha de pontos */
+      .tech-table,
+      .guide-cta-row,
+      .hero-grid-2col {
+        outline: 2px dashed var(--color-accent-cyan) !important;
+        outline-offset: 4px !important;
+        background-image: radial-gradient(rgba(0, 229, 255, 0.2) 1.5px, transparent 1.5px) !important;
+        background-size: 16px 16px !important;
+        position: relative !important;
+      }
+
+      /* 2. Contentores CSS Flexbox 1D: Contorno sólido magenta */
+      .guide-hero,
+      .guide-controls-bar,
+      .controls-group-left,
+      .controls-group-right,
+      .breadcrumb-strip,
+      .footer-note {
+        outline: 2px solid var(--color-accent-magenta) !important;
+        outline-offset: 2px !important;
+        position: relative !important;
+      }
+
+      /* 3. HTML5 Semantic Landmarks: Etiquetas e contornos de estrutura */
+      header[role="banner"] {
+        outline: 2px solid var(--color-accent-emerald) !important;
+      }
+      header[role="banner"]::before {
+        content: "[LANDMARK: <HEADER role='banner'>]";
+        position: absolute;
+        top: -18px;
+        left: 8px;
+        background: var(--color-accent-emerald);
+        color: #000;
+        font-family: var(--font-mono);
+        font-size: 9px;
+        font-weight: 800;
+        padding: 1px 5px;
+        border-radius: 2px;
+        z-index: var(--z-xray-badge);
+      }
+
+      main[role="main"] {
+        outline: 2px solid var(--color-accent-gold) !important;
+      }
+      main[role="main"]::before {
+        content: "[LANDMARK: <MAIN role='main'>]";
+        position: absolute;
+        top: -18px;
+        right: 8px;
+        background: var(--color-accent-gold);
+        color: #000;
+        font-family: var(--font-mono);
+        font-size: 9px;
+        font-weight: 800;
+        padding: 1px 5px;
+        border-radius: 2px;
+        z-index: var(--z-xray-badge);
+      }
+
+      section.step-card {
+        outline: 2px solid var(--color-accent-purple) !important;
+      }
+      section.step-card::before {
+        content: "[LANDMARK: <SECTION.step-card>]";
+        position: absolute;
+        top: -16px;
+        left: 12px;
+        background: var(--color-accent-purple);
+        color: #fff;
+        font-family: var(--font-mono);
+        font-size: 9px;
+        font-weight: 800;
+        padding: 1px 5px;
+        border-radius: 2px;
+        z-index: var(--z-xray-badge);
+      }
+
+      footer[role="contentinfo"] {
+        outline: 2px solid #64748b !important;
+      }
+      footer[role="contentinfo"]::before {
+        content: "[LANDMARK: <FOOTER role='contentinfo'>]";
+        position: absolute;
+        top: -18px;
+        left: 8px;
+        background: #64748b;
+        color: #fff;
+        font-family: var(--font-mono);
+        font-size: 9px;
+        font-weight: 800;
+        padding: 1px 5px;
+        border-radius: 2px;
+        z-index: var(--z-xray-badge);
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       TIPOGRAFIA, HERO & COMPONENTES DO GUIÃO
+       -------------------------------------------------------------------------- */
+    .guide-hero {
+      border-bottom: 2px solid var(--color-accent-purple);
+      padding-bottom: var(--space-6);
+      margin-bottom: var(--space-8);
+      position: relative;
+    }
+
+    .breadcrumb-strip {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs, 0.78rem);
+      color: var(--guide-text-muted);
+      margin-bottom: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .breadcrumb-strip a {
+      color: var(--guide-text-muted);
+      text-decoration: none;
+    }
+
+    .breadcrumb-strip a:hover {
+      color: var(--color-accent-purple);
+    }
+
+    .guide-kicker {
+      font-family: var(--font-mono, monospace);
+      font-size: var(--text-xs, 0.75rem);
+      color: var(--color-accent-purple);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .guide-title {
+      font-family: var(--font-display, 'Syne', sans-serif);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin: 0 0 var(--space-3) 0;
+      color: var(--guide-text-primary);
+    }
+
+    .guide-subtitle {
+      font-size: var(--text-base, 1rem);
+      color: var(--guide-text-secondary);
+      max-width: 82ch;
+      margin-bottom: var(--space-4);
+    }
+
+    .guide-cta-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .btn-live-demo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--color-accent-purple);
+      color: #fff !important;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.55rem 1.2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .btn-live-demo:hover {
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+    }
+
+    .btn-back-hub {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--guide-surface-elevated);
+      color: var(--guide-text-primary);
+      border: 1px solid var(--guide-border);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 0.55rem 1rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-back-hub:hover {
+      background: var(--guide-surface);
+      border-color: var(--color-accent-purple);
+    }
+
+    /* Cartões de Passos Técnicos */
+    .step-card {
+      background: var(--guide-surface);
+      border: 1px solid var(--guide-border);
+      border-left: 4px solid var(--color-accent-purple);
+      border-radius: 0 8px 8px 0;
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+      box-shadow: var(--guide-card-shadow);
+      position: relative;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .step-card h3 {
+      font-family: var(--font-display, sans-serif);
+      font-size: 1.4rem;
+      margin: 0 0 var(--space-2) 0;
+      color: var(--guide-text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .step-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      background: var(--color-accent-purple);
+      color: #fff;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      font-weight: 700;
+    }
+
+    /* Blocos de Código & Diagramas */
+    .code-block-box {
+      background: var(--guide-code-bg);
+      color: #f3f4f6;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      padding: var(--space-4);
+      margin: var(--space-3) 0;
+      overflow-x: auto;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    .code-comment { color: #8892b0; font-style: italic; }
+    .code-selector { color: #38bdf8; font-weight: 700; }
+    .code-prop { color: #e2e8f0; }
+    .code-val { color: #facc15; }
+    .code-func { color: #c084fc; }
+
+    .diagram-box {
+      background: var(--guide-diagram-bg);
+      border: 1px dashed var(--guide-diagram-border);
+      border-radius: 6px;
+      padding: var(--space-4);
+      margin: var(--space-4) 0;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.45;
+      white-space: pre;
+      overflow-x: auto;
+      color: var(--guide-diagram-text);
+    }
+
+    /* Tabelas Pedagógicas */
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-4) 0;
+      font-size: 0.85rem;
+      background: var(--guide-surface);
+    }
+
+    .tech-table th,
+    .tech-table td {
+      border: 1px solid var(--guide-border);
+      padding: 0.65rem 0.85rem;
+      text-align: left;
+    }
+
+    .tech-table th {
+      background: var(--guide-surface-elevated);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-accent-purple);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tech-table tr:hover {
+      background: var(--guide-surface-subtle);
+    }
+
+    .spec-score {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--color-accent-emerald);
+    }
+
+    .mdn-link {
+      color: var(--color-accent-cyan);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--color-accent-cyan);
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .mdn-link:hover {
+      border-bottom-style: solid;
+      filter: brightness(1.2);
+    }
+
+    .footer-note {
+      border-top: 1px solid var(--guide-border);
+      padding-top: var(--space-6);
+      margin-top: var(--space-10);
+      font-size: 0.82rem;
+      color: var(--guide-text-secondary);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+  </style>
+</head>
+<body>
+
+  <!--
+    ============================================================================
+    LANDMARK 0: HEADER GLOBAL MONTADO PELO site-shell.js
+    Fornece navegação institucional FBAUP, menu drawer, seletor PT/EN e tema global.
+    ============================================================================
+  -->
+  <header class="site-header" role="banner"></header>
+
+  <!--
+    ============================================================================
+    INPUTS DE ESTADO ZERO-JS (X-RAY & THEME RADIO STATE)
+    MDN :checked: https://developer.mozilla.org/en-US/docs/Web/CSS/:checked
+    ============================================================================
+  -->
+  <input type="checkbox" id="xray-toggle" class="xray-checkbox-input" style="display:none;" aria-label="Ativar Modo Raio-X">
+
+  <div class="guide-container">
+
+    <!--
+      ==========================================================================
+      BARRA DE FERRAMENTAS & CONTROLOS AO VIVO (X-RAY & TEMA CLARO/ESCURO)
+      ==========================================================================
+    -->
+    <nav class="guide-controls-bar" aria-label="Painel de Ferramentas do Guião">
+      <div class="controls-group-left">
+        <!-- Pílula de Alternância de Raios-X (Ativa/Desativa o modo X-Ray em CSS Puro) -->
+        <label for="xray-toggle" class="xray-toggle-pill" id="btn-xray-toggle" title="Alternar Inspeção de Grelhas CSS e Landmarks Semânticos">
+          <span aria-hidden="true">🩻</span>
+          <span>X-RAY DIAGNOSTICS</span>
+          <span class="xray-status-badge">TOGGLE</span>
+        </label>
+
+        <!-- Botão Dinâmico de Alternância de Tema (Claro / Escuro) -->
+        <button type="button" class="btn-theme-switcher" id="btn-guide-theme" aria-label="Alternar entre Tema Claro e Escuro">
+          <span id="theme-btn-icon">☀️</span>
+          <span id="theme-btn-text">Modo Claro</span>
+        </button>
+      </div>
+
+      <div class="controls-group-right">
+        <a href="index.html" class="btn-live-demo" title="Abrir Portal Mestre com Todas as 4 Demos">
+          🚀 <span class="lang-pt">Portal Mestre</span><span class="lang-en">Master Hub</span>
+        </a>
+        <a href="01-calc-offset.html" class="xray-toggle-pill" title="Demo 01: calc() Offset">01: calc()</a>
+        <a href="02-data-attributes.html" class="xray-toggle-pill" title="Demo 02: data-*">02: data-*</a>
+        <a href="03-css-iterator.html" class="xray-toggle-pill" title="Demo 03: sibling-index()">03: sibling</a>
+        <a href="04-stealth-console.html" class="xray-toggle-pill" title="Demo 04: Stealth DJ">04: stealth</a>
+      </div>
+    </nav>
+
+    <!-- Banner Informativo quando o Raio-X está Ativo -->
+    <div class="xray-active-banner" role="status" aria-live="polite">
+      <strong>🩻 MODO RAIO-X ATIVO (PURE CSS):</strong> Inspecionando fronteiras estruturais de
+      <strong>CSS Grid 2D</strong> (ciano tracejado com malha de pontos),
+      <strong>Flexbox 1D</strong> (magenta sólido) e
+      <strong>Landmarks Semânticos HTML5</strong> (<code style="color:var(--color-accent-emerald)">&lt;header&gt;</code>, <code style="color:var(--color-accent-gold)">&lt;main&gt;</code>, <code style="color:var(--color-accent-purple)">&lt;section&gt;</code>, <code style="color:#64748b">&lt;footer&gt;</code>).
+    </div>
+
+    <!-- HERO DO GUIÃO TÉCNICO -->
+    <header class="guide-hero" id="topo">
+      <nav class="breadcrumb-strip" aria-label="Breadcrumb">
+        <a href="../../index.html">WD101</a>
+        <span>/</span>
+        <a href="../../demos/index.html">Demos</a>
+        <span>/</span>
+        <span style="color:var(--color-accent-purple);font-weight:700;">Lab 06 &bull; Swipe State Machine</span>
+      </nav>
+
+      <div class="guide-kicker">
+        <span>FBAUP &bull; Licenciatura em Design de Comunicação</span> &bull;
+        <span>Módulo 06 &bull; WD101</span>
+      </div>
+      
+      <h1 class="guide-title">
+        <span class="lang-pt">Navegação Swipe Zero-JS &amp; Máquinas de Estado Declarativas</span>
+        <span class="lang-en">Zero-JS Swipe Navigation &amp; Declarative State Machines</span>
+      </h1>
+      
+      <p class="guide-subtitle">
+        <span class="lang-pt">Guião passo a passo e dissecação teórica de uma SPA móvel (100dvh) com transições click-to-swipe, comparando 3 técnicas de movimento (<code>calc()</code>, <code>data-*</code>, <code>sibling-index()</code>), modo furtivo e inspetor de especificidade.</span>
+        <span class="lang-en">Step-by-step guide and theoretical breakdown of a mobile SPA (100dvh) with click-to-swipe transitions, comparing 3 motion techniques (<code>calc()</code>, <code>data-*</code>, <code>sibling-index()</code>), stealth mode, and specificity inspector.</span>
+      </p>
+
+      <div class="guide-cta-row">
+        <a href="index.html" class="btn-live-demo" title="Abrir Portal Mestre com as 4 Demos">
+          ▶ <span class="lang-pt">Portal Mestre (index.html)</span><span class="lang-en">Master Portal</span> ↗
+        </a>
+        <a href="01-calc-offset.html" class="btn-back-hub" title="Abrir Demo 01: calc()">
+          📐 <span class="lang-pt">Demo 01: calc()</span><span class="lang-en">Demo 01</span>
+        </a>
+        <a href="02-data-attributes.html" class="btn-back-hub" title="Abrir Demo 02: data-*">
+          🏷️ <span class="lang-pt">Demo 02: data-*</span><span class="lang-en">Demo 02</span>
+        </a>
+        <a href="03-css-iterator.html" class="btn-back-hub" title="Abrir Demo 03: sibling-index()">
+          🔢 <span class="lang-pt">Demo 03: sibling</span><span class="lang-en">Demo 03</span>
+        </a>
+        <a href="04-stealth-console.html" class="btn-back-hub" title="Abrir Demo 04: Stealth DJ Console">
+          🎧 <span class="lang-pt">Demo 04: Stealth DJ</span><span class="lang-en">Demo 04</span>
+        </a>
+        <a href="../../index.html" class="btn-back-hub">
+          &larr; <span class="lang-pt">Hub Central</span><span class="lang-en">Main Hub</span>
+        </a>
+        <a href="../tp11-integrated-responsive-project/index.html" class="btn-back-hub">
+          🎸 <span class="lang-pt">Capstone DRUMTIKS '26</span><span class="lang-en">DRUMTIKS '26 Capstone</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="main-content" role="main">
+
+      <!-- ============================================================== -->
+      <!-- SECÇÃO 1: O PARADIGMA ZERO-JS NO WEB DESIGN 101                 -->
+      <!-- ============================================================== -->
+      <section class="step-card" id="step-1">
+        <h3>
+          <span class="step-badge">Fundamento 01</span>
+          <span class="lang-pt">O Paradigma Zero-JS: Reatividade sem Camadas de Script</span>
+          <span class="lang-en">The Zero-JS Paradigm: Reactivity Without Script Layers</span>
+        </h3>
+        <p>
+          No currículo do <strong>Web Design 101</strong> da FBAUP, o conceito de <em>Zero-JS State Machine</em>
+          (Máquina de Estados Zero-JavaScript) não é um mero capricho purista: é o teste supremo do domínio da
+          árvore DOM, da semântica de formulários e das regras de cascata e especificidade do CSS moderno.
+        </p>
+        <p>
+          Ao transferir a gestão de estados interativos (como páginas ativas, menus abertos ou modos de visualização)
+          para o motor nativo em C++ do navegador, os designers alcançam:
+        </p>
+        <ul>
+          <li><strong>Fiabilidade Absoluta (Zero Runtime Errors):</strong> Um script pode falhar por bloqueios de rede, extensões ad-blocker ou exceções de parsing; o CSS é imune a crashes de execução.</li>
+          <li><strong>Aceleração por Hardware GPU:</strong> As transições acionadas por propriedades compostas (<code>transform</code> e <code>opacity</code>) correm na camada do Compositor do motor gráfico, mantendo 60 a 120 FPS cravados em ecrãs ProMotion de smartphones.</li>
+          <li><strong>Acessibilidade Nativa:</strong> Ao utilizar elementos nativos de formulário como <code>&lt;input type="radio"&gt;</code>, o estado é exposto instantaneamente a tecnologias de apoio (leitores de ecrã) sem exigir scripts ARIA manuais.</li>
+        </ul>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- SECÇÃO 2: ANATOMIA DA GEOMETRIA (100dvh & ANTI-SCROLL)          -->
+      <!-- ============================================================== -->
+      <section class="step-card" id="step-2" style="border-left-color: var(--color-accent-cyan);">
+        <h3>
+          <span class="step-badge" style="background: var(--color-accent-cyan); color: #000;">Fundamento 02</span>
+          <span class="lang-pt">Geometria do Contentor: Viewport 100dvh &amp; Blindagem Anti-Horizontal Scroll</span>
+          <span class="lang-en">Container Geometry: 100dvh Viewport &amp; Anti-Horizontal Scroll Containment</span>
+        </h3>
+        <p>
+          Um dos erros mais comuns de iniciantes no desenvolvimento móvel é a criação de barras de deslocamento
+          laterais involuntárias ao fazer deslizar cartões horizontalmente. O demonstrador resolve este problema
+          com uma arquitetura em 3 camadas estanques:
+        </p>
+
+        <div class="diagram-box">
+┌────────────────────────────────────────────────────────────────────────┐
+│ WINDOW / VIEWPORT (100dvw x 100dvh) — overflow: hidden                 │
+│                                                                        │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │ #wrapper.app-wrapper (width: 100vw; max-width: 100%; 100dvh)     │  │
+│  │                                                                  │  │
+│  │  ┌─────────────────── .slider-track (400% width) ─────────────┐  │  │
+│  │  │ [Article 1 (100%)] [Article 2 (100%)] [Article 3] [Art. 4] │  │  │
+│  │  └────────────────────────────────────────────────────────────┘  │  │
+│  │                                                                  │  │
+│  │  ←─── Deslocamento com translateX(calc(...)) na GPU ─────────→   │  │
+│  └──────────────────────────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────────────────────────┘</div>
+
+        <h4>Porquê a Unidade <code>100dvh</code> em vez de <code>100vh</code>?</h4>
+        <p>
+          A unidade tradicional <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length#vh" class="mdn-link" target="_blank" rel="noopener"><code>vh</code></a> baseia-se na altura teórica máxima da janela. No entanto, em navegadores móveis como o Safari (iOS) ou o Chrome (Android), a barra de endereços retrai-se quando o utilizador faz scroll e expande-se quando para. Isso causava saltos visuais e botões de rodapé cortados.
+        </p>
+        <p>
+          A moderna especificação <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_values_and_units#relative_length_units_based_on_viewport" class="mdn-link" target="_blank" rel="noopener">CSS Values and Units Level 4</a> introduziu:
+        </p>
+        <ul>
+          <li><strong><code>svh</code> (Small Viewport Height):</strong> Altura quando as barras do browser estão totalmente visíveis.</li>
+          <li><strong><code>lvh</code> (Large Viewport Height):</strong> Altura quando as barras do browser estão recolhidas.</li>
+          <li><strong><code>dvh</code> (Dynamic Viewport Height):</strong> Altura dinâmica viva que se recalcula suavemente à medida que a interface do sistema operativo se transforma!</li>
+        </ul>
+
+        <div class="code-block-box">
+<span class="code-comment">/* Blindagem no contentor principal contra scrolls indesejados */</span>
+<span class="code-selector">#wrapper.app-wrapper</span> {
+  <span class="code-prop">position</span>: <span class="code-val">relative</span>;
+  <span class="code-prop">width</span>: <span class="code-val">100vw</span>;
+  <span class="code-prop">max-width</span>: <span class="code-val">100%</span>;
+  <span class="code-prop">height</span>: <span class="code-val">100dvh</span>;
+  <span class="code-prop">min-height</span>: <span class="code-val">100dvh</span>;
+  <span class="code-prop">overflow</span>: <span class="code-val">hidden</span>; <span class="code-comment">/* Corta estritamente qualquer transbordo horizontal */</span>
+  <span class="code-prop">display</span>: <span class="code-val">flex</span>;
+  <span class="code-prop">flex-direction</span>: <span class="code-val">column</span>;
+}</div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- SECÇÃO 3: AS TRÊS TÉCNICAS COMPARADAS                           -->
+      <!-- ============================================================== -->
+      <section class="step-card" id="step-3" style="border-left-color: var(--color-accent-gold);">
+        <h3>
+          <span class="step-badge" style="background: var(--color-accent-gold); color: #000;">Técnicas em Detalhe</span>
+          <span class="lang-pt">Comparação das Três Técnicas de Deslocamento</span>
+          <span class="lang-en">Comparative Analysis of the Three Motion Techniques</span>
+        </h3>
+
+        <!-- TÉCNICA 1 -->
+        <article style="margin-bottom: var(--space-6);">
+          <h4 style="color: var(--color-accent-cyan); font-size: 1.15rem; margin-bottom: 0.2rem;">
+            Técnica 1: Deslocamento Matricial com <code>calc()</code>
+          </h4>
+          <p>
+            Nesta técnica, a faixa inteira (<code>.slider-track</code>) move-se ao longo do eixo X com uma única fórmula matemática parametrizada por uma variável CSS:
+          </p>
+          <div class="code-block-box">
+<span class="code-comment">/* O ancestral deteta qual o input radio selecionado e define a variável de índice */</span>
+<span class="code-selector">#wrapper:has(#round-1:checked)</span> { <span class="code-prop">--active-index</span>: <span class="code-val">0</span>; }
+<span class="code-selector">#wrapper:has(#round-2:checked)</span> { <span class="code-prop">--active-index</span>: <span class="code-val">1</span>; }
+<span class="code-selector">#wrapper:has(#round-3:checked)</span> { <span class="code-prop">--active-index</span>: <span class="code-val">2</span>; }
+<span class="code-selector">#wrapper:has(#round-4:checked)</span> { <span class="code-prop">--active-index</span>: <span class="code-val">3</span>; }
+
+<span class="code-comment">/* A fita desliza multiplicando o índice por -100% da largura do contentor */</span>
+<span class="code-selector">.slider-track</span> {
+  <span class="code-prop">transform</span>: <span class="code-func">translate3d</span>(<span class="code-func">calc</span>(<span class="code-prop">var</span>(--active-index) * <span class="code-val">-100%</span>), <span class="code-val">0</span>, <span class="code-val">0</span>);
+  <span class="code-prop">transition</span>: <span class="code-prop">transform</span> <span class="code-val">0.65s</span> <span class="code-func">cubic-bezier</span>(<span class="code-val">0.16</span>, <span class="code-val">1</span>, <span class="code-val">0.3</span>, <span class="code-val">1</span>);
+}</div>
+          <p><strong>Vantagem pedagógica:</strong> Elimina código repetitivo. Para adicionar um 5.º ou 6.º round de batalha, basta associar o novo ID do radio ao seu respetivo inteiro no seletor <code>:has()</code>.</p>
+          <p style="margin-top:0.75rem;">
+            <a href="01-calc-offset.html" class="btn-live-demo" style="background:var(--color-accent-cyan);color:#0b0d13!important;font-size:0.75rem;padding:0.35rem 0.85rem;">
+              ▶ Abrir Demonstração Isolada: Demo 01 (calc()) &rarr;
+            </a>
+          </p>
+        </article>
+
+        <!-- TÉCNICA 2 -->
+        <article style="margin-bottom: var(--space-6);">
+          <h4 style="color: var(--color-accent-gold); font-size: 1.15rem; margin-bottom: 0.2rem;">
+            Técnica 2: Direcionamento por Atributos HTML <code>data-*</code>
+          </h4>
+          <p>
+            O HTML declara explicitamente o destino de cada secção em atributos semânticos, como <code>data-page="0"</code> ou <code>data-offset="-100%"</code>. O CSS utiliza <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors" class="mdn-link" target="_blank" rel="noopener">Seletores de Atributos</a> para mapear e aplicar as translações.
+          </p>
+          <div class="code-block-box">
+<span class="code-comment">&lt;!-- Estrutura declarada no HTML --&gt;</span>
+&lt;<span class="code-selector">article</span> <span class="code-prop">class</span>="<span class="code-val">battle-stage</span>" <span class="code-prop">data-page</span>="<span class="code-val">1</span>" <span class="code-prop">data-offset</span>="<span class="code-val">-100%</span>"&gt;...&lt;/<span class="code-selector">article</span>&gt;
+
+<span class="code-comment">/* CSS mapeado diretamente pelo seletor de atributo */</span>
+<span class="code-selector">#wrapper:has(#mode-data:checked):has(#round-2:checked) .slider-track</span> {
+  <span class="code-prop">transform</span>: <span class="code-func">translate3d</span>(<span class="code-val">-100%</span>, <span class="code-val">0</span>, <span class="code-val">0</span>);
+}</div>
+          <p>
+            <strong>Fronteira Futura (CSS Values Level 5):</strong> A especificação futura permitirá extrair números de atributos diretamente com tipos: <code>calc(attr(data-page type(&lt;integer&gt;)) * -100%)</code>.
+          </p>
+          <p style="margin-top:0.75rem;">
+            <a href="02-data-attributes.html" class="btn-live-demo" style="background:var(--color-accent-gold);color:#0b0d13!important;font-size:0.75rem;padding:0.35rem 0.85rem;">
+              ▶ Abrir Demonstração Isolada: Demo 02 (data-*) &rarr;
+            </a>
+          </p>
+        </article>
+
+        <!-- TÉCNICA 3 -->
+        <article>
+          <h4 style="color: var(--color-accent-purple); font-size: 1.15rem; margin-bottom: 0.2rem;">
+            Técnica 3: Iterador Moderno CSS (<code>sibling-index()</code> &amp; Contagem de Irmãos)
+          </h4>
+          <p>
+            O mais recente patamar da especificação <a href="https://drafts.csswg.org/css-values-5/#sibling-index" class="mdn-link" target="_blank" rel="noopener">W3C CSS Values and Units Module Level 5 § 10.3</a> introduz a função nativa <code>sibling-index()</code>, que devolve o índice 1-based do elemento entre os seus irmãos, eliminando a necessidade de escrever classes de contagem!
+          </p>
+          <div class="code-block-box">
+<span class="code-comment">/* Padrão com a função nativa sibling-index() */</span>
+<span class="code-selector">@supports (transform: translateX(calc(sibling-index() * 100%)))</span> {
+  <span class="code-selector">.battle-stage</span> {
+    <span class="code-prop">transform</span>: <span class="code-func">translate3d</span>(<span class="code-func">calc</span>(((<span class="code-func">sibling-index</span>() - <span class="code-val">1</span>) - <span class="code-prop">var</span>(--active-index)) * <span class="code-val">100%</span>), <span class="code-val">0</span>, <span class="code-val">0</span>);
+  }
+}
+
+<span class="code-comment">/* Fallback de Produção: Contagem via :nth-child() */</span>
+<span class="code-selector">.battle-stage:nth-child(1)</span> { <span class="code-prop">--sibling-index</span>: <span class="code-val">1</span>; }
+<span class="code-selector">.battle-stage:nth-child(2)</span> { <span class="code-prop">--sibling-index</span>: <span class="code-val">2</span>; }
+<span class="code-selector">.battle-stage:nth-child(3)</span> { <span class="code-prop">--sibling-index</span>: <span class="code-val">3</span>; }
+<span class="code-selector">.battle-stage:nth-child(4)</span> { <span class="code-prop">--sibling-index</span>: <span class="code-val">4</span>; }</div>
+          <p style="margin-top:0.75rem;">
+            <a href="03-css-iterator.html" class="btn-live-demo" style="background:var(--color-accent-purple);color:#fff!important;font-size:0.75rem;padding:0.35rem 0.85rem;">
+              ▶ Abrir Demonstração Isolada: Demo 03 (sibling-index()) &rarr;
+            </a>
+          </p>
+        </article>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- SECÇÃO 4: VARIANTE 4 (STEALTH PRODUCTION MODE)                  -->
+      <!-- ============================================================== -->
+      <section class="step-card" id="step-4" style="border-left-color: var(--color-accent-red);">
+        <h3>
+          <span class="step-badge" style="background: var(--color-accent-red); color: #fff;">Variante 4</span>
+          <span class="lang-pt">Modo Furtivo de Produção: Inputs Ocultos &amp; Zonas Táteis de Swipe</span>
+          <span class="lang-en">Production Stealth Mode: Invisible Inputs &amp; Touch Swipe Hit-Areas</span>
+        </h3>
+        <p>
+          Numa aplicação web real destinada a smartphones, os botões circulares nativos de rádio não devem estar visíveis. No entanto, <strong>NUNCA se deve usar <code>display: none</code> ou <code>visibility: hidden</code> nos inputs</strong>, pois isso desativa a focagem por teclado (<kbd>Tab</kbd>) e remove os controlos da árvore de acessibilidade para tecnologias de apoio.
+        </p>
+
+        <h4>Padrão de Ocultação Acessível (Visually Hidden):</h4>
+        <div class="code-block-box">
+<span class="code-comment">/* Esconde visualmente mas mantém no Accessibility Tree do sistema operativo */</span>
+<span class="code-selector">.visually-hidden:where(:not(:focus-within, :active))</span> {
+  <span class="code-prop">position</span>: <span class="code-val">absolute !important</span>;
+  <span class="code-prop">clip-path</span>: <span class="code-func">inset</span>(<span class="code-val">50%</span>) <span class="code-val">!important</span>;
+  <span class="code-prop">overflow</span>: <span class="code-val">hidden !important</span>;
+  <span class="code-prop">width</span>: <span class="code-val">1px !important</span>;
+  <span class="code-prop">height</span>: <span class="code-val">1px !important</span>;
+  <span class="code-prop">margin</span>: <span class="code-val">-1px !important</span>;
+  <span class="code-prop">border</span>: <span class="code-val">0 !important</span>;
+}</div>
+
+        <h4>Simulação de Click-to-Swipe por Camadas Táteis Transparentes:</h4>
+        <p>
+          Em cada <code>&lt;article&gt;</code>, inserimos dois elementos <code>&lt;label&gt;</code> transparentes que cobrem as margens esquerda e direita do ecrã (15% da largura cada):
+        </p>
+        <ul>
+          <li><strong>Margem Esquerda:</strong> <code>&lt;label for="round-1" class="swipe-hit-area swipe-prev"&gt;</code> &mdash; Clicar nesta área comuta para o round anterior!</li>
+          <li><strong>Margem Direita:</strong> <code>&lt;label for="round-3" class="swipe-hit-area swipe-next"&gt;</code> &mdash; Clicar nesta área comuta para o round seguinte!</li>
+        </ul>
+        <p>
+          Esta arquitetura permite ao utilizador tocar em qualquer ponto das margens do ecrã no telemóvel para avançar ou recuar os slides, exatamente como numa aplicação nativa de histórias ou carrossel swipe!
+        </p>
+        <p style="margin-top:0.75rem;">
+          <a href="04-stealth-console.html" class="btn-live-demo" style="background:var(--color-accent-red);color:#fff!important;font-size:0.75rem;padding:0.35rem 0.85rem;">
+            ▶ Abrir Demonstração Isolada: Demo 04 (Stealth DJ Console) &rarr;
+          </a>
+        </p>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- SECÇÃO 5: TABELA MESTRE DE ESPECIFICIDADE E MDN LINKS           -->
+      <!-- ============================================================== -->
+      <section class="step-card" id="step-5" style="border-left-color: var(--color-accent-emerald);">
+        <h3>
+          <span class="step-badge" style="background: var(--color-accent-emerald); color: #000;">Engenharia CSS</span>
+          <span class="lang-pt">Matriz de Especificidade &amp; Referências Oficiais MDN</span>
+          <span class="lang-en">Specificity Matrix &amp; Official MDN References</span>
+        </h3>
+        <p>
+          A especificidade em CSS é calculada na tripla formal <strong>(A, B, C)</strong>:
+        </p>
+        <ul>
+          <li><strong>A:</strong> Seletores de ID (ex: <code>#wrapper</code>, <code>#round-1</code>).</li>
+          <li><strong>B:</strong> Classes (<code>.slider-track</code>), Atributos (<code>[data-page]</code>) e Pseudo-classes (<code>:has()</code>, <code>:checked</code>).</li>
+          <li><strong>C:</strong> Elementos HTML (<code>article</code>, <code>header</code>, <code>main</code>).</li>
+        </ul>
+
+        <table class="tech-table" aria-label="Tabela de Especificidade dos Seletores">
+          <thead>
+            <tr>
+              <th scope="col">Regra / Seletor CSS</th>
+              <th scope="col">Decomposição Formal</th>
+              <th scope="col">Pontuação (A,B,C)</th>
+              <th scope="col">Documentação Oficial MDN</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>#wrapper:has(#round-1:checked)</code></td>
+              <td>1 ID + :has(1 ID + 1 pseudo-classe)</td>
+              <td class="spec-score">(1, 2, 0)</td>
+              <td><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:has" class="mdn-link" target="_blank" rel="noopener">MDN :has() Selector</a></td>
+            </tr>
+            <tr>
+              <td><code>.battle-stage[data-page="1"]</code></td>
+              <td>1 Classe + 1 Atributo</td>
+              <td class="spec-score">(0, 2, 0)</td>
+              <td><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors" class="mdn-link" target="_blank" rel="noopener">MDN Attribute Selectors</a></td>
+            </tr>
+            <tr>
+              <td><code>.battle-stage:nth-child(2)</code></td>
+              <td>1 Classe + 1 Pseudo-classe estrutural</td>
+              <td class="spec-score">(0, 2, 0)</td>
+              <td><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child" class="mdn-link" target="_blank" rel="noopener">MDN :nth-child()</a></td>
+            </tr>
+            <tr>
+              <td><code>label.dj-pad:focus-visible</code></td>
+              <td>1 Elemento + 1 Classe + 1 Pseudo-classe de foco</td>
+              <td class="spec-score">(0, 2, 1)</td>
+              <td><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible" class="mdn-link" target="_blank" rel="noopener">MDN :focus-visible</a></td>
+            </tr>
+            <tr>
+              <td><code>:where(.slider-track)</code></td>
+              <td>Zero especificidade garantida por :where()</td>
+              <td class="spec-score">(0, 0, 0)</td>
+              <td><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:where" class="mdn-link" target="_blank" rel="noopener">MDN :where() Function</a></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Glossário Completo de Combinadores Utilizados:</h4>
+        <ul>
+          <li><strong>Combinador Descendente (espaço em branco):</strong> <code>#wrapper .slider-track</code> &mdash; Seleciona qualquer descendente em qualquer nível de profundidade. [<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_combinator" class="mdn-link" target="_blank" rel="noopener">MDN</a>]</li>
+          <li><strong>Combinador Filho Direto (<code>&gt;</code>):</strong> <code>.slider-track &gt; article</code> &mdash; Seleciona exclusivamente filhos imediatos de 1.º nível. [<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator" class="mdn-link" target="_blank" rel="noopener">MDN</a>]</li>
+          <li><strong>Combinador de Irmão Adjacente (<code>+</code>):</strong> <code>input:checked + label</code> &mdash; Seleciona o irmão imediatamente seguinte. [<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Next-sibling_combinator" class="mdn-link" target="_blank" rel="noopener">MDN</a>]</li>
+          <li><strong>Combinador Geral de Irmãos (<code>~</code>):</strong> <code>input:checked ~ .stage</code> &mdash; Seleciona qualquer irmão subsequente partilhando o mesmo progenitor. [<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Subsequent-sibling_combinator" class="mdn-link" target="_blank" rel="noopener">MDN</a>]</li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="footer-note" role="contentinfo">
+      <div>
+        <p><strong>WD101 &bull; Web Design 2026/27</strong> &bull; Faculdade de Belas Artes da Universidade do Porto</p>
+        <p>Investigação e Pedagogia em Arte e Design &bull; i2ADS</p>
+      </div>
+      <div>
+        <p>Supervisão: <strong>Prof. Pedro Amado</strong> &bull; Assistente IA: <strong>Google Gemini</strong></p>
+        <p>Módulo: <em>6. Seletores Modernos, Pseudo-Classes &amp; Máquinas de Estado Zero-JS</em></p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!--
+    ============================================================================
+    SCRIPT DE CONTROLOS LOCAIS (TEMA & SINCRONIZAÇÃO X-RAY)
+    ============================================================================
+  -->
+  <script>
+    (function() {
+      const themeBtn = document.getElementById('btn-guide-theme');
+      const themeIcon = document.getElementById('theme-btn-icon');
+      const themeText = document.getElementById('theme-btn-text');
+
+      function updateThemeUI(theme) {
+        if (theme === 'light') {
+          themeIcon.textContent = '🌙';
+          themeText.textContent = 'Modo Escuro';
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          themeIcon.textContent = '☀️';
+          themeText.textContent = 'Modo Claro';
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      }
+
+      // Inicializa rótulo conforme tema atual
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      updateThemeUI(currentTheme);
+
+      if (themeBtn) {
+        themeBtn.addEventListener('click', function() {
+          const active = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+          const next = active === 'light' ? 'dark' : 'light';
+          localStorage.setItem('wd101_theme', next);
+          updateThemeUI(next);
+        });
+      }
+    })();
+  </script>
+
+  <!-- Script Global do Shell da Plataforma WD101 (FBAUP) -->
+  <script src="../../assets/js/site-shell.js"></script>
+</body>
+</html>

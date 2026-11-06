@@ -1,0 +1,1724 @@
+/**
+ * ==============================================================================
+ * WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+ * FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+ * Tema Curricular: Festival DRUMTIKS '26 (Alfândega do Porto)
+ * Ficheiro: styles.css • "Click-to-Swipe Zero-JS State Machine"
+ *
+ * MÓDULO: 6. Seletores Modernos, Pseudo-Classes & Máquinas de Estado Zero-JS
+ * ARQUITETURA: Cascade Layers (@layer) • Pure CSS Transitions • 100dvh Viewport
+ *
+ * ÍNDICE DE CAMADAS (@layer):
+ *   1. reset       - Normalização inicial e box-sizing
+ *   2. tokens      - Variáveis CSS (:root), paleta DRUMTIKS e tipografia fluida
+ *   3. layout      - #wrapper (100dvh), anti-horizontal-scroll e grelha flexível
+ *   4. state       - Máquina de estados Zero-JS com :has() e :checked
+ *   5. techniques  - Implementação comparativa das 3 técnicas (calc, data, iterator)
+ *   6. components  - Cartões de batalha, gira-discos CSS, vinil, vu-meters e pads
+ *   7. stealth     - Variante 4: Consola DJ, crossfader mecânico e hit-areas de swipe
+ *   8. inspector   - Painel HUD de inspeção pedagógica de especificidade
+ *
+ * REFERÊNCIAS EDUCATIVAS MDN:
+ *   - @layer: https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
+ *   - Specificity: https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity
+ *   - :has(): https://developer.mozilla.org/en-US/docs/Web/CSS/:has
+ *   - :checked: https://developer.mozilla.org/en-US/docs/Web/CSS/:checked
+ *   - calc(): https://developer.mozilla.org/en-US/docs/Web/CSS/calc
+ *   - sibling-index(): https://drafts.csswg.org/css-values-5/#sibling-index
+ * ==============================================================================
+ */
+
+/* ==========================================================================
+   CAMADA 1: ORDEM DAS CAMADAS DE CASCATA (@layer)
+   MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
+   Especifica explicitamente a precedência de estilos sem recurso a !important.
+   ========================================================================== */
+@layer reset, tokens, layout, state, techniques, components, stealth, inspector;
+
+
+/* ==========================================================================
+   CAMADA 2: DESIGN TOKENS & VARIÁVEIS GLOBAIS (:root)
+   MDN Custom Properties: https://developer.mozilla.org/en-US/docs/Web/CSS/--*
+   ========================================================================== */
+@layer tokens {
+  :root {
+    /* ------------------------------------------------------------------------
+       Paleta de Cores Cromáticas DRUMTIKS '26
+       Inspirada no turntablism, luzes estroboscópicas e vinil na Alfândega.
+       ------------------------------------------------------------------------ */
+    --color-bg-deep: #07080b;       /* Fundo abissal do auditório */
+    --color-bg-chassis: #0e1017;    /* Chassi metálico dos mixers */
+    --color-surface-card: #151824;  /* Superfície dos cartões de batalha */
+    --color-surface-elevated: #1e2233; /* Elementos em relevo / botões */
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-bright: rgba(255, 255, 255, 0.22);
+
+    /* Cores de Identidade dos 4 Rounds */
+    --color-accent-cyan: #00e5ff;   /* Round 1: MC Break-Point vs DJ Warp */
+    --color-accent-gold: #ffb700;   /* Round 2: MC Flow-State vs Beat Foundry */
+    --color-accent-purple: #c040fd; /* Round 3: MC Crossfader vs Sub-Modular */
+    --color-accent-red: #ff2a5f;    /* Round 4: Grand Final Turntable Cypher */
+
+    /* Tipografia de Living Standards FBAUP */
+    --font-display: 'Syne', system-ui, -apple-system, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'Martian Mono', ui-monospace, monospace;
+
+    /* Escala Modular e Espaçamento */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 14px;
+    --radius-full: 9999px;
+
+    /* Física da Transição de Swipe */
+    --swipe-duration: 0.65s;
+    --swipe-easing: cubic-bezier(0.16, 1, 0.3, 1); /* Mola hiperbólica rápida e suave */
+  }
+
+  /* --------------------------------------------------------------------------
+     ADAPTAÇÃO INTEGRAL AO TEMA CLARO (Light Mode Editorial FBAUP)
+     -------------------------------------------------------------------------- */
+  html[data-theme="light"],
+  :root[data-theme="light"] {
+    --color-bg-deep: #f1f2f6;
+    --color-bg-chassis: #e5e7eb;
+    --color-surface-card: #ffffff;
+    --color-surface-elevated: #f8fafc;
+    --color-border-subtle: #e2e5e9;
+    --color-border-bright: #cbd5e1;
+    --color-accent-cyan: #0891b2;
+    --color-accent-gold: #d97706;
+    --color-accent-purple: #7c3aed;
+    --color-accent-red: #d90429;
+  }
+
+  html[data-theme="light"] body {
+    background-color: var(--color-bg-deep);
+    color: #111318;
+  }
+
+  html[data-theme="light"] #wrapper.app-wrapper {
+    background: radial-gradient(circle at 50% 10%, #ffffff 0%, #edf0f5 80%);
+    color: #111318;
+  }
+
+  /* Cabeçalho */
+  html[data-theme="light"] .app-header {
+    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid #e2e5e9;
+    color: #111318;
+  }
+
+  html[data-theme="light"] .brand-title {
+    color: #111318;
+  }
+
+  html[data-theme="light"] .brand-badge {
+    background: #e2e8f0;
+    color: #1e293b;
+  }
+
+  html[data-theme="light"] .brand-subtitle,
+  html[data-theme="light"] .tech-switcher-legend {
+    color: #64748b;
+  }
+
+  html[data-theme="light"] .tech-switcher-pills {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+  }
+
+  html[data-theme="light"] .pill-label {
+    color: #64748b;
+  }
+
+  html[data-theme="light"] .pill-label:hover {
+    color: #111318;
+    background: #e2e8f0;
+  }
+
+  html[data-theme="light"] .btn-guide-link {
+    background: #ffffff;
+    color: #1e293b;
+    border-color: #cbd5e1;
+  }
+
+  html[data-theme="light"] .btn-guide-link:hover {
+    background: var(--active-color);
+    color: #ffffff;
+    border-color: var(--active-color);
+  }
+
+  html[data-theme="light"] .btn-theme-pill {
+    background: #ffffff;
+    color: #111318;
+    border-color: #cbd5e1;
+  }
+
+  html[data-theme="light"] .btn-theme-pill:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+  }
+
+  /* Bancada de Radios Nativos */
+  html[data-theme="light"] .native-controls-bench {
+    background: rgba(248, 250, 252, 0.9);
+    border-bottom: 1px solid #e2e5e9;
+  }
+
+  html[data-theme="light"] .bench-legend,
+  html[data-theme="light"] .bench-artist,
+  html[data-theme="light"] .bench-bpm-badge {
+    color: #64748b;
+  }
+
+  html[data-theme="light"] .legend-badge {
+    background: #e2e8f0;
+    color: #1e293b;
+  }
+
+  html[data-theme="light"] .bench-card {
+    background: #ffffff;
+    border-color: #e2e5e9;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  }
+
+  html[data-theme="light"] .bench-card:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+  }
+
+  html[data-theme="light"] .bench-round-num {
+    color: #111318;
+  }
+
+  /* Cartões de Batalha (Stage) */
+  html[data-theme="light"] .stage-title {
+    color: #111318;
+  }
+
+  html[data-theme="light"] .stage-styles-tag,
+  html[data-theme="light"] .stage-bpm-display {
+    color: #64748b;
+  }
+
+  html[data-theme="light"] .stage-turntable-deck {
+    background: #ffffff;
+    border-color: #e2e5e9;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+  }
+
+  html[data-theme="light"] .metric-row {
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+  }
+
+  html[data-theme="light"] .metric-label {
+    color: #64748b;
+  }
+
+  html[data-theme="light"] .metric-value {
+    color: #111318;
+  }
+
+  html[data-theme="light"] .code-snippet {
+    background: #f1f5f9;
+    color: var(--active-color);
+  }
+
+  html[data-theme="light"] .mpc-pad {
+    background: #e2e8f0;
+    color: #475569;
+  }
+
+  html[data-theme="light"] .mc-punchline-quote {
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  html[data-theme="light"] .quote-text {
+    color: #111318;
+  }
+
+  html[data-theme="light"] .stage-card-footer {
+    border-top-color: #e2e8f0;
+  }
+
+  html[data-theme="light"] .slide-indicator-label {
+    color: #64748b;
+  }
+
+  html[data-theme="light"] .btn-stage-action.secondary {
+    background: #ffffff;
+    color: #1e293b;
+    border-color: #cbd5e1;
+  }
+
+  html[data-theme="light"] .btn-stage-action.secondary:hover {
+    background: #f1f5f9;
+  }
+
+  /* Consola DJ no Rodapé */
+  html[data-theme="light"] .dj-console-nav {
+    background: #ffffff;
+    border-top-color: #e2e8f0;
+  }
+
+  html[data-theme="light"] .dj-pad {
+    background: #f8fafc;
+    border-color: #e2e5e9;
+  }
+
+  html[data-theme="light"] .dj-pad:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+  }
+
+  html[data-theme="light"] .pad-num {
+    color: #111318;
+  }
+
+  html[data-theme="light"] .pad-desc,
+  html[data-theme="light"] .crossfader-label,
+  html[data-theme="light"] .stepper-center-badge {
+    color: #64748b;
+  }
+
+  html[data-theme="light"] .crossfader-slot {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+  }
+
+  html[data-theme="light"] .crossfader-knob {
+    background: #ffffff;
+    border: 1px solid #94a3b8;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Inspetor HUD */
+  html[data-theme="light"] .state-inspector-hud {
+    background: #ffffff;
+    border-top-color: #e2e8f0;
+  }
+
+  html[data-theme="light"] .hud-label {
+    color: #64748b;
+  }
+
+  html[data-theme="light"] .hud-val {
+    color: #111318;
+  }
+
+  /* Rodapé */
+  html[data-theme="light"] .app-footer {
+    background: #f1f2f6;
+    border-top-color: #e2e8f0;
+    color: #64748b;
+  }
+
+  html[data-theme="light"] .app-footer a {
+    color: #475569;
+  }
+
+  html[data-theme="light"] .app-footer a:hover {
+    color: var(--active-color);
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 3: LAYOUT, VIEWPORT 100dvh & ANTI-SCROLL HORIZONTAL (#wrapper)
+   
+   EXIGÊNCIAS DO ENUNCIADO:
+     1. #wrapper: Contentor principal com overflow: hidden para evitar
+        qualquer barra de deslocamento horizontal na janela do browser.
+     2. 100dvh: Viewport dinâmica adaptada a ecrãs móveis modernos.
+   
+   MDN dvh: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_values_and_units#relative_length_units_based_on_viewport
+   MDN overflow: https://developer.mozilla.org/en-US/docs/Web/CSS/overflow
+   ========================================================================== */
+@layer layout {
+  /*
+    Seletor: html, body
+    Especificidade: (0, 0, 1) — 1 elemento
+    Garante bloqueio estrito de overflow no nível do documento.
+  */
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100dvh;
+    background-color: var(--color-bg-deep);
+    color: #e5e7eb;
+    font-family: var(--font-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden; /* Evita 'overscroll-bounce' exterior */
+  }
+
+  /*
+    Seletor: #wrapper.app-wrapper
+    Especificidade: (1, 1, 0) — 1 ID (#wrapper) + 1 Classe (.app-wrapper)
+    
+    ESTRUTURA ANTI-HORIZONTAL SCROLL:
+    - width: 100vw; max-width: 100%: Impede que elementos filhos alarguem o ecrã.
+    - height: 100dvh: Preenche exatamente a altura do ecrã visível (mobile-first).
+    - overflow: hidden: CONFINA o swipe horizontal estritamente dentro da aplicação.
+    - display: flex; flex-direction: column: Constrói o chassis vertical da app.
+  */
+  #wrapper.app-wrapper {
+    position: relative;
+    width: 100vw;
+    max-width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: radial-gradient(circle at 50% 10%, #151826 0%, #07080b 80%);
+    box-sizing: border-box;
+
+    /* Variáveis locais de estado reativo (atualizadas dinamicamente via :has) */
+    --active-index: 0;
+    --active-color: var(--color-accent-cyan);
+    --fader-left: 0%;
+  }
+
+  /*
+    OCULTAÇÃO PADRÃO DOS RADIOS NATIVOS
+    Os inputs radio estão presentes no DOM logo abaixo do #wrapper para garantir
+    a máquina de estados, mas são estilizados para não quebrar a grelha visual.
+    
+    MDN [type="radio"]: https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors
+  */
+  .state-technique,
+  .state-round {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+    margin: 0;
+  }
+
+  /*
+    CABEÇALHO DA APP: .app-header
+    Especificidade: (0, 1, 0)
+    Fixa a barra superior com marca e seletor de técnicas.
+  */
+  .app-header {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(14, 16, 23, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border-subtle);
+    z-index: 50;
+  }
+
+  .header-brand {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .brand-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    background: var(--color-border-bright);
+    color: #fff;
+    padding: 0.15rem 0.4rem;
+    border-radius: var(--radius-sm);
+    letter-spacing: 0.05em;
+  }
+
+  .brand-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: 0.04em;
+    color: #fff;
+  }
+
+  .brand-year {
+    color: var(--active-color);
+    transition: color 0.3s ease;
+  }
+
+  .brand-subtitle {
+    font-size: 0.72rem;
+    color: #9ca3af;
+    display: none; /* Oculto em ecrãs ultra-pequenos */
+  }
+
+  @media (min-width: 640px) {
+    .brand-subtitle {
+      display: inline-block;
+    }
+  }
+
+  /* Seletor de Técnicas (Pills Superiores) */
+  .tech-switcher-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .tech-switcher-legend {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: #9ca3af;
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .tech-switcher-legend {
+      display: inline;
+    }
+  }
+
+  .tech-switcher-pills {
+    display: inline-flex;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 3px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  .pill-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: #9ca3af;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+  }
+
+  .pill-label:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .pill-code {
+    font-weight: 700;
+  }
+
+  .pill-desc {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .pill-desc {
+      display: inline;
+      font-size: 0.65rem;
+      opacity: 0.8;
+    }
+  }
+
+  /* Link do Guia Teórico */
+  .btn-guide-link {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--active-color);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-border-bright);
+    padding: 0.35rem 0.7rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-guide-link:hover {
+    background: var(--active-color);
+    color: #000;
+    border-color: var(--active-color);
+  }
+
+  /* Botão Alternador de Tema (Claro / Escuro) */
+  .btn-theme-pill {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: inherit;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--color-border-bright);
+    padding: 0.35rem 0.7rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .btn-theme-pill:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-1px);
+  }
+
+  /*
+    ÁREA PRINCIPAL DE SLIDER: .battle-main-stage
+    Especificidade: (0, 1, 0)
+    Ocupa todo o espaço vertical disponível (flex: 1) e esconde o overflow.
+  */
+  .battle-main-stage {
+    flex: 1 1 auto;
+    position: relative;
+    width: 100%;
+    overflow: hidden; /* Garante que os outros 3 artigos não aparecem fora de cena */
+    display: flex;
+    box-sizing: border-box;
+  }
+
+  /*
+    A FITA HORIZONTAL: .slider-track
+    Especificidade: (0, 1, 0)
+    Contém os 4 artigos dispostos lado a lado horizontalmente.
+    Largura total: calc(100% * 4) = 400%
+  */
+  .slider-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+    /* Aceleração por hardware GPU */
+    transform: translate3d(0, 0, 0);
+  }
+
+  /*
+    CADA SECÇÃO/ARTIGO INDEPENDENTE: .battle-stage
+    Especificidade: (0, 1, 0)
+    Largura de 100% da viewport (flex: 0 0 100%), preenchendo toda a tela do utilizador.
+  */
+  .battle-stage {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    box-sizing: border-box;
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow-y: auto; /* Permite scroll vertical se o conteúdo interno exceder em telemóveis baixos */
+    overflow-x: hidden; /* Zero scroll horizontal */
+  }
+
+  @media (min-width: 768px) {
+    .battle-stage {
+      padding: var(--space-6) var(--space-8);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 4: MÁQUINA DE ESTADOS ZERO-JS (:has & :checked)
+   
+   TEORIA PEDAGÓGICA FBAUP:
+   Com o seletor relacional :has(), o elemento ancestral #wrapper consegue
+   consultar se tem um descendente input:checked e comutar propriedades em cascata!
+   
+   MDN :has(): https://developer.mozilla.org/en-US/docs/Web/CSS/:has
+   MDN :checked: https://developer.mozilla.org/en-US/docs/Web/CSS/:checked
+   Especificidade desta regra: body:has(#round-X:checked) = (1, 1, 1)
+   ========================================================================== */
+@layer state {
+  /*
+    ----------------------------------------------------------------------------
+    1. ESTADO DOS MODOS DE TÉCNICA (Pills Superiores)
+    ----------------------------------------------------------------------------
+  */
+  #wrapper:has(#mode-calc:checked) .pill-calc {
+    background: var(--color-accent-cyan);
+    color: #000;
+    font-weight: 700;
+  }
+
+  #wrapper:has(#mode-data:checked) .pill-data {
+    background: var(--color-accent-gold);
+    color: #000;
+    font-weight: 700;
+  }
+
+  #wrapper:has(#mode-iterator:checked) .pill-iterator {
+    background: var(--color-accent-purple);
+    color: #fff;
+    font-weight: 700;
+  }
+
+  #wrapper:has(#mode-stealth:checked) .pill-stealth {
+    background: var(--color-accent-red);
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /*
+    ----------------------------------------------------------------------------
+    2. ESTADOS DOS ROUNDS DA BATALHA DJ (Comutação Mútua Exclusiva)
+    Atualiza as variáveis customizadas globais no #wrapper:
+      --active-index: 0, 1, 2 ou 3 (usado no calc)
+      --active-color: cor temática de destaque
+      --fader-left: posição percentual do fader DJ
+    ----------------------------------------------------------------------------
+  */
+  #wrapper:has(#round-1:checked) {
+    --active-index: 0;
+    --active-color: var(--color-accent-cyan);
+    --fader-left: 0%;
+  }
+
+  #wrapper:has(#round-2:checked) {
+    --active-index: 1;
+    --active-color: var(--color-accent-gold);
+    --fader-left: 33.333%;
+  }
+
+  #wrapper:has(#round-3:checked) {
+    --active-index: 2;
+    --active-color: var(--color-accent-purple);
+    --fader-left: 66.666%;
+  }
+
+  #wrapper:has(#round-4:checked) {
+    --active-index: 3;
+    --active-color: var(--color-accent-red);
+    --fader-left: 100%;
+  }
+
+  /* Iluminação das cartas da bancada nativa */
+  #wrapper:has(#round-1:checked) .card-round-1,
+  #wrapper:has(#round-2:checked) .card-round-2,
+  #wrapper:has(#round-3:checked) .card-round-3,
+  #wrapper:has(#round-4:checked) .card-round-4 {
+    border-color: var(--active-color);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  #wrapper:has(#round-1:checked) .card-round-1 .bench-radio-indicator,
+  #wrapper:has(#round-2:checked) .card-round-2 .bench-radio-indicator,
+  #wrapper:has(#round-3:checked) .card-round-3 .bench-radio-indicator,
+  #wrapper:has(#round-4:checked) .card-round-4 .bench-radio-indicator {
+    background-color: var(--active-color);
+    box-shadow: 0 0 10px var(--active-color);
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 5: AS TRÊS TÉCNICAS DE MOVIMENTO COMPARADAS
+   ========================================================================== */
+@layer techniques {
+
+  /*
+    ============================================================================
+    TÉCNICA 1: DESLOCAMENTO MATRICIAL VIA calc()
+    
+    CONCEITO MATEMÁTICO:
+    A fita (.slider-track) translada-se horizontalmente com base na fórmula:
+      translateX(calc(var(--active-index) * -100%))
+    
+    TABELA DE VALORES:
+      - Round 1 (--active-index: 0): calc(0 * -100%) = 0%
+      - Round 2 (--active-index: 1): calc(1 * -100%) = -100%
+      - Round 3 (--active-index: 2): calc(2 * -100%) = -200%
+      - Round 4 (--active-index: 3): calc(3 * -100%) = -300%
+    
+    VANTAGEM: Zero redundância. Não precisa de criar 4 regras separadas de translação!
+    MDN calc(): https://developer.mozilla.org/en-US/docs/Web/CSS/calc
+    ============================================================================
+  */
+  #wrapper:has(#mode-calc:checked) .slider-track {
+    /* Deslocamento unificado e elegante através de cálculo de variável */
+    transform: translate3d(calc(var(--active-index) * -100%), 0, 0);
+    transition: transform var(--swipe-duration) var(--swipe-easing);
+  }
+
+  /* Feedback do Inspetor HUD para a Técnica 1 */
+  #wrapper:has(#mode-calc:checked) .hud-active-tech-name::after {
+    content: "Técnica 1: calc(var(--active-index) * -100%)";
+  }
+
+
+  /*
+    ============================================================================
+    TÉCNICA 2: DIRECIONAMENTO POR ATRIBUTOS HTML data-*
+    
+    CONCEITO SEMÂNTICO:
+    O HTML declara explicitamente o destino em atributos data-* (ex: data-page="0",
+    data-offset="0%"). O CSS utiliza seletores de atributos ([data-*]) para
+    vincular regras e orquestrar as posições de cada slide.
+    
+    MDN Attribute selectors: https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors
+    Especificidade: (0, 1, 0) por seletor de atributo
+    ============================================================================
+  */
+  /* Cada artigo lê a sua posição declarada no atributo data-page */
+  .battle-stage[data-page="0"] { --data-pos: 0; }
+  .battle-stage[data-page="1"] { --data-pos: 1; }
+  .battle-stage[data-page="2"] { --data-pos: 2; }
+  .battle-stage[data-page="3"] { --data-pos: 3; }
+
+  /* Quando o modo de Técnica 2 está ativo, o movimento é orquestrado pelos seletores data-* */
+  #wrapper:has(#mode-data:checked):has(#round-1:checked) .slider-track {
+    transform: translate3d(0%, 0, 0);
+    transition: transform var(--swipe-duration) var(--swipe-easing);
+  }
+  #wrapper:has(#mode-data:checked):has(#round-2:checked) .slider-track {
+    transform: translate3d(-100%, 0, 0);
+    transition: transform var(--swipe-duration) var(--swipe-easing);
+  }
+  #wrapper:has(#mode-data:checked):has(#round-3:checked) .slider-track {
+    transform: translate3d(-200%, 0, 0);
+    transition: transform var(--swipe-duration) var(--swipe-easing);
+  }
+  #wrapper:has(#mode-data:checked):has(#round-4:checked) .slider-track {
+    transform: translate3d(-300%, 0, 0);
+    transition: transform var(--swipe-duration) var(--swipe-easing);
+  }
+
+  /* Demonstração didática avançada com attr() do CSS Values Level 5 (Doc comentada) */
+  /*
+    Nota Teórica: O rascunho W3C CSS Values and Units Level 5 prevê a leitura direta
+    de atributos numéricos do HTML dentro de calc():
+      transform: translateX(calc(attr(data-page type(<integer>), 0) * -100%));
+  */
+
+  #wrapper:has(#mode-data:checked) .hud-active-tech-name::after {
+    content: "Técnica 2: HTML data-attributes ([data-page])";
+  }
+
+
+  /*
+    ============================================================================
+    TÉCNICA 3: ITERADOR MODERNO CSS (sibling-index() & Contagem de Irmãos)
+    
+    A FRONTEIRA DO CSS (W3C CSS Values and Units Module Level 5 § 10.3):
+    A função sibling-index() devolve automaticamente um inteiro 1-based (1, 2, 3...)
+    correspondente à posição do elemento na árvore de irmãos!
+    
+    FÓRMULA COM SIBLING-INDEX:
+      transform: translateX(calc(((sibling-index() - 1) - var(--active-index)) * 100%));
+    
+    FALLBACK DE PRODUÇÃO PROGRESSIVO:
+    Para navegadores que ainda não ativaram sibling-index(), fornecemos o padrão
+    equivalente com a pseudo-classe estrutural :nth-child()!
+    
+    MDN sibling-index(): https://developer.mozilla.org/en-US/docs/Web/CSS/sibling-index
+    MDN :nth-child(): https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child
+    ============================================================================
+  */
+  /* Fallback padrão: Atribui o iterador via pseudo-classe estrutural :nth-child */
+  .battle-stage:nth-child(1) { --sibling-index: 1; }
+  .battle-stage:nth-child(2) { --sibling-index: 2; }
+  .battle-stage:nth-child(3) { --sibling-index: 3; }
+  .battle-stage:nth-child(4) { --sibling-index: 4; }
+
+  /* Aplicação da Técnica 3 no modo iterador */
+  #wrapper:has(#mode-iterator:checked) .slider-track {
+    /* No modo iterador cada artigo calcula o seu próprio deslocamento relativo */
+    transform: none !important;
+  }
+
+  #wrapper:has(#mode-iterator:checked) .battle-stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Deslocamento autónomo baseado na contagem iteradora de irmãos: */
+    transform: translate3d(calc(((var(--sibling-index) - 1) - var(--active-index)) * 100%), 0, 0);
+    transition: transform var(--swipe-duration) var(--swipe-easing);
+  }
+
+  /* Suporte nativo à especificação mais recente CSS Values Level 5 */
+  @supports (transform: translateX(calc(sibling-index() * 100%))) {
+    #wrapper:has(#mode-iterator:checked) .battle-stage {
+      transform: translate3d(calc(((sibling-index() - 1) - var(--active-index)) * 100%), 0, 0);
+    }
+  }
+
+  #wrapper:has(#mode-iterator:checked) .hud-active-tech-name::after {
+    content: "Técnica 3: CSS Sibling Iterator sibling-index()";
+  }
+
+
+  /*
+    ============================================================================
+    VARIANTE 4: MODO FURTIVO (STEALTH PRODUCTION MODE)
+    
+    REQUISITO DO UTILIZADOR: "Make a fourth variant with the inputs invisible."
+    
+    No modo stealth:
+      1. Os botões de rádio e bancada nativa são totalmente ocultados.
+      2. A consola de DJ, os Pads MPC e o Crossfader deslizam para primeiro plano.
+      3. Ativam-se as zonas transparentes táteis (Swipe Touch Hit-Areas) sobre
+         as metades esquerda e direita de cada artigo!
+    ============================================================================
+  */
+  #wrapper:has(#mode-stealth:checked) .slider-track {
+    /* Translação pura e suave calc() */
+    transform: translate3d(calc(var(--active-index) * -100%), 0, 0);
+    transition: transform var(--swipe-duration) var(--swipe-easing);
+  }
+
+  /* Oculta os controlos nativos da bancada */
+  #wrapper:has(#mode-stealth:checked) .native-controls-bench {
+    display: none;
+  }
+
+  /* Exibe a Consola DJ no rodapé */
+  #wrapper:has(#mode-stealth:checked) .dj-console-nav {
+    display: flex;
+  }
+
+  /* Exibe as Zonas Táteis de Swipe nos Artigos */
+  #wrapper:has(#mode-stealth:checked) .swipe-hit-area {
+    display: block;
+  }
+
+  #wrapper:has(#mode-stealth:checked) .hud-active-tech-name::after {
+    content: "Variante 4: Modo Furtivo (Inputs Ocultos + Consola DJ)";
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 6: COMPONENTES GRÁFICOS (Cartões, Giradiscos CSS, Vinil & Métricas)
+   ========================================================================== */
+@layer components {
+
+  /* Bancada de Radios Nativos (Visível nas Técnicas 1, 2 e 3) */
+  .native-controls-bench {
+    flex: 0 0 auto;
+    padding: var(--space-2) var(--space-4);
+    background: rgba(10, 11, 16, 0.7);
+    border-bottom: 1px solid var(--color-border-subtle);
+    z-index: 40;
+  }
+
+  .bench-fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .bench-legend {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-bottom: var(--space-2);
+  }
+
+  .legend-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 0.1rem 0.4rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .bench-radios-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  @media (min-width: 640px) {
+    .bench-radios-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .bench-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.25s ease;
+  }
+
+  .bench-card:hover {
+    border-color: var(--color-border-bright);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .bench-radio-indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: var(--radius-full);
+    border: 2px solid #6b7280;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+
+  .bench-text {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .bench-round-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: #fff;
+  }
+
+  .bench-artist {
+    font-size: 0.68rem;
+    color: #9ca3af;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .bench-bpm-badge {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: #9ca3af;
+  }
+
+  /* Cartão de Batalha (Stage) */
+  .stage-card-header {
+    margin-bottom: var(--space-3);
+  }
+
+  .stage-kicker-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-bottom: var(--space-1);
+  }
+
+  .stage-badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .stage-badge--cyan {
+    background: rgba(0, 229, 255, 0.15);
+    color: var(--color-accent-cyan);
+    border: 1px solid var(--color-accent-cyan);
+  }
+
+  .stage-badge--gold {
+    background: rgba(255, 183, 0, 0.15);
+    color: var(--color-accent-gold);
+    border: 1px solid var(--color-accent-gold);
+  }
+
+  .stage-badge--purple {
+    background: rgba(192, 64, 253, 0.15);
+    color: var(--color-accent-purple);
+    border: 1px solid var(--color-accent-purple);
+  }
+
+  .stage-badge--red {
+    background: rgba(255, 42, 95, 0.15);
+    color: var(--color-accent-red);
+    border: 1px solid var(--color-accent-red);
+  }
+
+  .stage-bpm-display {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #9ca3af;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .pulse-led {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    background: var(--active-color);
+    box-shadow: 0 0 8px var(--active-color);
+    animation: bpm-pulse 1s infinite alternate ease-in-out;
+  }
+
+  .pulse-fast {
+    animation-duration: 0.5s;
+  }
+
+  @keyframes bpm-pulse {
+    from { opacity: 0.3; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1.2); }
+  }
+
+  .stage-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-weight: 800;
+    margin: var(--space-1) 0;
+    line-height: 1.15;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .versus-sign {
+    font-size: 0.7em;
+    color: var(--active-color);
+    font-style: italic;
+    font-family: var(--font-mono);
+  }
+
+  .stage-styles-tag {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin: 0;
+  }
+
+  /* Chassis do Gira-Discos CSS */
+  .stage-turntable-deck {
+    background: rgba(21, 24, 36, 0.7);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    align-items: center;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  @media (min-width: 600px) {
+    .stage-turntable-deck {
+      grid-template-columns: 200px 1fr;
+    }
+  }
+
+  /* Prato de Vinil em Rotação Contínua */
+  .vinyl-deck-container {
+    position: relative;
+    width: 170px;
+    height: 170px;
+    margin: 0 auto;
+    background: #000;
+    border-radius: var(--radius-full);
+    padding: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vinyl-platter {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-full);
+    background: repeating-radial-gradient(
+      circle,
+      #111 0px,
+      #111 2px,
+      #0a0a0a 3px,
+      #1a1a1a 4px
+    );
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vinyl-spinning {
+    animation: vinyl-spin 4s linear infinite;
+  }
+
+  @keyframes vinyl-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .vinyl-gold {
+    background: repeating-radial-gradient(
+      circle,
+      #3d2e05 0px,
+      #473708 2px,
+      #1f1802 3px,
+      #664e0b 4px
+    );
+  }
+
+  .vinyl-label {
+    width: 58px;
+    height: 58px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #000;
+  }
+
+  .vinyl-label--round-1 { background: var(--color-accent-cyan); color: #000; }
+  .vinyl-label--round-2 { background: var(--color-accent-gold); color: #000; }
+  .vinyl-label--round-3 { background: var(--color-accent-purple); color: #fff; }
+  .vinyl-label--round-4 { background: var(--color-accent-red); color: #fff; }
+
+  .vinyl-text {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 800;
+  }
+
+  .tonearm {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 4px;
+    height: 65px;
+    background: #bbb;
+    border-radius: 2px;
+    transform-origin: top right;
+    transform: rotate(20deg);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  }
+
+  /* Painel de Métricas do Confronto */
+  .stage-metrics-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-2);
+    font-size: 0.8rem;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+    padding-bottom: 0.25rem;
+  }
+
+  .metric-label {
+    color: #9ca3af;
+  }
+
+  .metric-value {
+    color: #fff;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .code-snippet {
+    font-family: var(--font-mono);
+    color: var(--active-color);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.1rem 0.35rem;
+    border-radius: var(--radius-sm);
+  }
+
+  /* VU-Meter Simulado em CSS */
+  .vu-meter-bar {
+    display: flex;
+    gap: 4px;
+    height: 10px;
+    margin-top: var(--space-1);
+    background: rgba(0, 0, 0, 0.4);
+    padding: 3px;
+    border-radius: 3px;
+  }
+
+  .vu-segment {
+    flex: 1;
+    background: #00ff66;
+    border-radius: 1px;
+    opacity: 0.8;
+  }
+
+  .vu-segment.peak {
+    background: #ff2a5f;
+  }
+
+  /* MPC Pads Mini */
+  .mpc-pads-mini {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin-top: var(--space-1);
+  }
+
+  .mpc-pad {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    text-align: center;
+    background: #2a2e40;
+    padding: 4px 0;
+    border-radius: 2px;
+    color: #aaa;
+  }
+
+  .mpc-pad.lit {
+    background: var(--color-accent-gold);
+    color: #000;
+    font-weight: 700;
+    box-shadow: 0 0 6px var(--color-accent-gold);
+  }
+
+  /* Citação Rítmica do MC */
+  .mc-punchline-quote {
+    margin: var(--space-3) 0;
+    padding: var(--space-3) var(--space-4);
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 3px solid var(--active-color);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+
+  .quote-text {
+    font-family: var(--font-display);
+    font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+    font-style: italic;
+    color: #fff;
+    margin: 0 0 0.3rem 0;
+  }
+
+  .quote-author {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--active-color);
+    display: block;
+  }
+
+  /* Rodapé do Cartão com Botões de Ação */
+  .stage-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border-subtle);
+    margin-top: auto;
+  }
+
+  .slide-indicator-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #9ca3af;
+  }
+
+  .btn-stage-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    background: var(--active-color);
+    color: #000;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+  }
+
+  .btn-stage-action:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+  }
+
+  .btn-stage-action.secondary {
+    background: transparent;
+    color: #e5e7eb;
+    border: 1px solid var(--color-border-bright);
+  }
+
+  .btn-stage-action.secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .trophy-badge {
+    background: linear-gradient(90deg, #ffb700, #ff2a5f);
+    color: #000;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius-sm);
+    text-align: center;
+    margin-top: var(--space-2);
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 7: VARIANTE 4 (STEALTH PRODUCTION MODE & TOUCH HIT-AREAS)
+   
+   Permite cliques no lado esquerdo ou direito do ecrã para navegar, simulando
+   uma aplicação móvel nativa de 'click-to-swipe' sem JavaScript!
+   ========================================================================== */
+@layer stealth {
+
+  /*
+    ZONAS TÁTEIS DE CLIQUE-PARA-SWIPE: .swipe-hit-area
+    Especificidade: (0, 1, 0)
+    Sobrepõem-se às laterais do ecrã com cursores interativos.
+  */
+  .swipe-hit-area {
+    display: none; /* Ativado estritamente no modo stealth */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 15%;
+    max-width: 90px;
+    z-index: 30;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease, background 0.2s ease;
+  }
+
+  .swipe-hit-area.swipe-prev {
+    left: 0;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), transparent);
+    cursor: w-resize;
+  }
+
+  .swipe-hit-area.swipe-next {
+    right: 0;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.4), transparent);
+    cursor: e-resize;
+  }
+
+  .swipe-hit-area:hover {
+    opacity: 0.6;
+  }
+
+  /* Consola DJ no Rodapé (Stealth Mode) */
+  .dj-console-nav {
+    display: none; /* Exibido apenas no modo stealth */
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: #0b0c12;
+    border-top: 1px solid var(--color-border-subtle);
+    z-index: 40;
+  }
+
+  /* Pads Luminosos MPC */
+  .dj-pads-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-2);
+  }
+
+  .dj-pad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2);
+    background: #161822;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+
+  .dj-pad:hover {
+    border-color: #6b7280;
+    background: #1c2030;
+  }
+
+  .pad-num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .pad-desc {
+    font-size: 0.65rem;
+    color: #9ca3af;
+  }
+
+  /* Acessibilidade de Teclado (:focus-visible) */
+  .dj-pad:focus-visible {
+    outline: 2px solid var(--active-color);
+    outline-offset: 2px;
+  }
+
+  /* Destaque Ativo dos Pads por :has(:checked) */
+  #wrapper:has(#round-1:checked) .dj-pad.pad-1 {
+    background: var(--color-accent-cyan);
+    border-color: var(--color-accent-cyan);
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+  }
+  #wrapper:has(#round-1:checked) .dj-pad.pad-1 .pad-num,
+  #wrapper:has(#round-1:checked) .dj-pad.pad-1 .pad-desc { color: #000; font-weight: 700; }
+
+  #wrapper:has(#round-2:checked) .dj-pad.pad-2 {
+    background: var(--color-accent-gold);
+    border-color: var(--color-accent-gold);
+    box-shadow: 0 0 12px rgba(255, 183, 0, 0.4);
+  }
+  #wrapper:has(#round-2:checked) .dj-pad.pad-2 .pad-num,
+  #wrapper:has(#round-2:checked) .dj-pad.pad-2 .pad-desc { color: #000; font-weight: 700; }
+
+  #wrapper:has(#round-3:checked) .dj-pad.pad-3 {
+    background: var(--color-accent-purple);
+    border-color: var(--color-accent-purple);
+    box-shadow: 0 0 12px rgba(192, 64, 253, 0.4);
+  }
+  #wrapper:has(#round-3:checked) .dj-pad.pad-3 .pad-num,
+  #wrapper:has(#round-3:checked) .dj-pad.pad-3 .pad-desc { color: #fff; font-weight: 700; }
+
+  #wrapper:has(#round-4:checked) .dj-pad.pad-4 {
+    background: var(--color-accent-red);
+    border-color: var(--color-accent-red);
+    box-shadow: 0 0 12px rgba(255, 42, 95, 0.4);
+  }
+  #wrapper:has(#round-4:checked) .dj-pad.pad-4 .pad-num,
+  #wrapper:has(#round-4:checked) .dj-pad.pad-4 .pad-desc { color: #fff; font-weight: 700; }
+
+  /* Chassis do Crossfader Deslizante */
+  .dj-crossfader-chassis {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-1) 0;
+  }
+
+  .crossfader-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: #6b7280;
+    white-space: nowrap;
+  }
+
+  .crossfader-slot {
+    flex: 1;
+    height: 12px;
+    background: #050608;
+    border: 1px solid var(--color-border-bright);
+    border-radius: var(--radius-full);
+    position: relative;
+    padding: 2px;
+  }
+
+  /* O Botão Deslizante que se Move Conforme o Round Ativo */
+  .crossfader-knob {
+    width: 24px;
+    height: 20px;
+    background: #e5e7eb;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    position: absolute;
+    top: -5px;
+    left: var(--fader-left);
+    transform: translateX(calc(var(--fader-left) * -0.24));
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+    transition: left var(--swipe-duration) var(--swipe-easing);
+  }
+
+  /* Stepper Discreto de Navegação */
+  .dj-stealth-stepper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+  }
+
+  .stepper-center-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: #6b7280;
+    letter-spacing: 0.1em;
+  }
+
+  .btn-step-prev,
+  .btn-step-next {
+    display: none;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--active-color);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  /* Exibe o botão anterior/seguinte correspondente ao round ativo */
+  #wrapper:has(#round-2:checked) [data-for-stage="2"].btn-step-prev,
+  #wrapper:has(#round-3:checked) [data-for-stage="3"].btn-step-prev,
+  #wrapper:has(#round-4:checked) [data-for-stage="4"].btn-step-prev {
+    display: inline;
+  }
+
+  #wrapper:has(#round-1:checked) [data-for-stage="1"].btn-step-next,
+  #wrapper:has(#round-2:checked) [data-for-stage="2"].btn-step-next,
+  #wrapper:has(#round-3:checked) [data-for-stage="3"].btn-step-next {
+    display: inline;
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 8: HUD DE INSPEÇÃO PEDAGÓGICA & ESPECIFICIDADE
+   ========================================================================== */
+@layer inspector {
+  .state-inspector-hud {
+    flex: 0 0 auto;
+    background: rgba(5, 6, 9, 0.95);
+    border-top: 1px solid var(--color-border-subtle);
+    padding: var(--space-2) var(--space-4);
+    z-index: 50;
+    font-size: 0.75rem;
+  }
+
+  .hud-inner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .hud-inner {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .hud-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .hud-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .hud-val {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .hud-code-selector,
+  .hud-code-formula {
+    color: var(--active-color);
+  }
+
+  .hud-spec-badge {
+    color: #10b981;
+    font-weight: 700;
+  }
+
+  /* Rodapé Final */
+  .app-footer {
+    flex: 0 0 auto;
+    padding: var(--space-2) var(--space-4);
+    background: #050608;
+    border-top: 1px solid var(--color-border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: #6b7280;
+  }
+
+  @media (min-width: 640px) {
+    .app-footer {
+      flex-direction: row;
+    }
+  }
+
+  .app-footer a {
+    color: #9ca3af;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .app-footer a:hover {
+    color: var(--active-color);
+  }
+
+  /* --------------------------------------------------------------------------
+     DIAGNÓSTICO X-RAY EM CSS PURO
+     -------------------------------------------------------------------------- */
+  #wrapper:has(#xray-toggle:checked) {
+    .slider-track {
+      outline: 2px dashed var(--color-accent-cyan) !important;
+      outline-offset: 4px;
+      background-image: radial-gradient(rgba(0, 229, 255, 0.2) 1.5px, transparent 1.5px) !important;
+      background-size: 16px 16px !important;
+    }
+    .battle-stage {
+      outline: 2px solid #ff007f !important;
+      outline-offset: -2px;
+    }
+    .app-header {
+      outline: 2px solid #10b981 !important;
+    }
+    .native-controls-bench {
+      outline: 2px solid #f59e0b !important;
+    }
+    .dj-console-nav {
+      outline: 2px solid #8b5cf6 !important;
+    }
+    .state-inspector-hud {
+      outline: 2px solid #3b82f6 !important;
+    }
+  }
+}

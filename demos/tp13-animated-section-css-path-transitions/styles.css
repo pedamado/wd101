@@ -1,0 +1,1442 @@
+/**
+ * ==============================================================================
+ * WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+ * FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+ * 
+ * Tema Curricular: Festival DRUMTIKS '26 (Alfândega do Porto)
+ * Ficheiro: styles.css • "Animated Section CSS Path with Transition Showcase"
+ * Módulo: 7. Geometria de Secções, Morfismos de Caminho & CSS Motion Path
+ *
+ * AUTORES:
+ *   - Prof. Pedro Amado (FBAUP / i2ADS)
+ *   - Antigravity (Advanced Agentic Coding Pair)
+ *
+ * ==============================================================================
+ * PEDAGOGICAL & PLATFORM ARCHITECTURE:
+ *
+ * 1. CASCADE LAYERS (@layer):
+ *    - reset         : Modern CSS reset, box-sizing and sizing defaults
+ *    - tokens        : Design tokens (:root), light-dark(), DRUMTIKS neon palette
+ *    - layout        : Responsive macro-containers, section rhythm and flow
+ *    - shapes        : CSS clip-path polygon() & path() morphing with transitions
+ *    - motion        : CSS Motion Path (offset-path, offset-distance, offset-rotate)
+ *    - components    : Festival cards, drumstick vectors, DJ controls, waveform badges
+ *    - inspector     : Live pedagogical HUD, matrix code displays, specificity tags
+ *    - accessibility : prefers-reduced-motion, high contrast, focus ring safeguards
+ *
+ * 2. CORE THEORETICAL PRINCIPLES DEMONSTRATED:
+ *    A. Invariant Vertex Count in CSS clip-path: polygon() Interpolation:
+ *       CSS transitions on polygon() require exact vertex count parity (N = 8).
+ *       Mismatched counts trigger instant discrete jumps without animation.
+ *    B. Modern SVG Path Morphing via CSS d: path(...) Transitions:
+ *       Declarative morphing of cubic Bézier curves directly in stylesheets.
+ *    C. CSS Motion Path (W3C Motion Path Module Level 1):
+ *       offset-path, offset-distance, and offset-rotate: auto for tangential alignment.
+ *    D. Kinetic Branding & Easing Physics:
+ *       Spring physics cubic-bezier(0.34, 1.56, 0.64, 1) vs exponential decay.
+ *    E. Zero-JavaScript State Engine (:has() & :checked):
+ *       Multi-axis state machine driving shapes, easing, speed, and theme.
+ *
+ * MDN CANONICAL DOCUMENTATION REFERENCES:
+ *   - CSS clip-path:
+ *     https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path
+ *   - CSS offset-path (Motion Path):
+ *     https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path
+ *   - CSS offset-distance:
+ *     https://developer.mozilla.org/en-US/docs/Web/CSS/offset-distance
+ *   - CSS offset-rotate:
+ *     https://developer.mozilla.org/en-US/docs/Web/CSS/offset-rotate
+ *   - SVG path syntax & commands:
+ *     https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d
+ *   - CSS transition property & timing functions:
+ *     https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+ *   - cubic-bezier() easing physics:
+ *     https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function#cubic-bezier
+ *   - @layer cascade layers:
+ *     https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
+ *   - :has() relational selector:
+ *     https://developer.mozilla.org/en-US/docs/Web/CSS/:has
+ *   - prefers-reduced-motion media query:
+ *     https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion
+ * ==============================================================================
+ */
+
+/* ==========================================================================
+   CAMADA 0: DECLARAÇÃO DA ORDEM DAS CAMADAS DE CASCATA (@layer)
+   MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
+   Garante a ordem estrita de precedência sem necessidade de inflacionar
+   especificidade com seletores redundantes ou recurso a !important.
+   Ordem: reset (base) -> tokens -> layout -> shapes -> motion -> components -> inspector -> accessibility (topo)
+   ========================================================================== */
+@layer reset, tokens, layout, shapes, motion, components, inspector, xray, accessibility;
+
+
+/* ==========================================================================
+   CAMADA 1: RESET & NORMALIZAÇÃO MODERNA
+   MDN Box-Sizing: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing
+   MDN Interpolate-Size: https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size
+   ========================================================================== */
+@layer reset {
+  /* Box-sizing recursivo para todos os elementos e pseudo-elementos */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Ativa suporte para transições fluidas de keywords intrínsecas (height: auto) */
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
+  /* Normalização de viewport, scroll suave e tipografia base */
+  html {
+    scroll-behavior: smooth;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    hanging-punctuation: first last;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    line-height: 1.6;
+    overflow-x: hidden; /* Previne scroll horizontal acidental durante morphing de caminhos */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Elementos de media responsivos com proporção preservada */
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Herança tipográfica uniforme em controlos interativos */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  /* Remoção de marcadores de lista em estruturas puramente estéticas */
+  ul,
+  ol {
+    list-style: none;
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 2: DESIGN TOKENS & DYNAMIC THEMING (:root)
+   MDN CSS Variables: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Cascading_variables/Using_custom_properties
+   MDN light-dark(): https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark
+   ========================================================================== */
+@layer tokens {
+  :root {
+    /* ------------------------------------------------------------------------
+       1. IDENTIDADE CROMÁTICA: FESTIVAL DRUMTIKS '26
+       Inspirada nos armazéns portuários de granito da Alfândega do Porto,
+       nas luzes estroboscópicas e na cultura de percussão analógica e eletrónica.
+       ------------------------------------------------------------------------ */
+    color-scheme: dark light;
+
+    /* Superfícies & Telas com suporte nativo a light-dark() */
+    --color-bg-canvas: light-dark(#f2f4f8, #07080b);
+    --color-bg-surface: light-dark(#ffffff, #0f1118);
+    --color-bg-surface-elevated: light-dark(#e7eaf0, #171a25);
+    --color-bg-surface-glass: light-dark(rgba(255, 255, 255, 0.88), rgba(15, 17, 24, 0.85));
+
+    /* Superfícies Temáticas Específicas das 4 Secções de Palco */
+    --color-stage-1-bg: light-dark(#0a1120, #050a14); /* Sub-Bass Trench: Azul Noturno Profundo */
+    --color-stage-2-bg: light-dark(#1f1510, #140d09); /* Granite Vault: Granito Quente & Âmbar */
+    --color-stage-3-bg: light-dark(#180a22, #0d0413); /* Turntablism Octagon: Púrpura Vinil Profundo */
+    --color-stage-4-bg: light-dark(#081313, #040c0c); /* 808 Equalizer Lab: Verde Osciloscópio */
+
+    /* Hierarquia Tipográfica & Contraste WCAG AAA */
+    --color-text-primary: light-dark(#0d0e12, #f5f6fa);
+    --color-text-secondary: light-dark(#454a58, #9ea5b8);
+    --color-text-muted: light-dark(#757d92, #6b7285);
+    --color-text-inverse: light-dark(#f5f6fa, #0d0e12);
+
+    /* Cores de Destaque & Neons de Alta Frequência DRUMTIKS */
+    --color-accent-red: #e60000;         /* Batida Drum & Bass Primária */
+    --color-accent-red-glow: rgba(230, 0, 0, 0.45);
+    --color-accent-cyan: #00d2ff;        /* Frequência Sub-Aquática do Rio Douro */
+    --color-accent-cyan-glow: rgba(0, 210, 255, 0.45);
+    --color-accent-gold: #f5a623;        /* Luzes Quentes dos Arcos da Alfândega */
+    --color-accent-gold-glow: rgba(245, 166, 35, 0.4);
+    --color-accent-purple: #8a2be2;      /* Vinil & Turntablism Octagon */
+    --color-accent-purple-glow: rgba(138, 43, 226, 0.45);
+    --color-accent-lime: #10b981;        /* Transient Spike & Sinal Estéreo */
+
+    /* Bordaduras & Grelhas Ténues */
+    --color-border-subtle: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.08));
+    --color-border-medium: light-dark(rgba(0, 0, 0, 0.16), rgba(255, 255, 255, 0.18));
+    --color-border-focus: var(--color-accent-cyan);
+
+    /* ------------------------------------------------------------------------
+       2. TIPOGRAFIA FLUIDA (Inter, Martian Mono, Syne)
+       clamp(min, preferencial, max) calcula a escala responsiva sem media queries.
+       MDN clamp(): https://developer.mozilla.org/en-US/docs/Web/CSS/clamp
+       ------------------------------------------------------------------------ */
+    --font-family-display: 'Syne', system-ui, -apple-system, sans-serif;
+    --font-family-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-family-mono: 'Martian Mono', ui-monospace, monospace;
+
+    --font-size-hero: clamp(2.5rem, 6.5vw + 1rem, 5.5rem);
+    --font-size-h1: clamp(2rem, 4vw + 0.8rem, 3.75rem);
+    --font-size-h2: clamp(1.5rem, 2.8vw + 0.5rem, 2.5rem);
+    --font-size-h3: clamp(1.2rem, 1.8vw + 0.4rem, 1.8rem);
+    --font-size-body: clamp(0.95rem, 0.4vw + 0.85rem, 1.1rem);
+    --font-size-small: clamp(0.8rem, 0.3vw + 0.72rem, 0.9rem);
+    --font-size-mono: clamp(0.75rem, 0.25vw + 0.7rem, 0.85rem);
+
+    /* ------------------------------------------------------------------------
+       3. MÉTRICAS ESPACIAIS & GRELHA MODULAR
+       ------------------------------------------------------------------------ */
+    --space-2xs: 0.25rem;  /* 4px */
+    --space-xs: 0.5rem;    /* 8px */
+    --space-sm: 0.75rem;   /* 12px */
+    --space-md: 1rem;      /* 16px */
+    --space-lg: 1.5rem;    /* 24px */
+    --space-xl: 2rem;      /* 32px */
+    --space-2xl: 3rem;     /* 48px */
+    --space-3xl: 5rem;     /* 80px */
+    --space-4xl: 7.5rem;   /* 120px */
+
+    --site-max-width: 1380px;
+    --site-gutter: clamp(1.25rem, 3.5vw, 3rem);
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 18px;
+    --radius-full: 9999px;
+
+    /* ------------------------------------------------------------------------
+       4. CURVAS DE TRANSIÇÃO & FÍSICA CINÉTICA (Timing Functions)
+       MDN cubic-bezier: https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function#cubic-bezier
+       ------------------------------------------------------------------------ */
+    /* Curva com ressalto elástico: simula a inércia mecânica da membrana do tambor */
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* Curva exponencial suave: desaceleração aerodinâmica e moderna */
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    /* Curva linear contínua para sincronização de batidas de tempo (BPM) */
+    --ease-linear: linear;
+    /* Curva padrão rápida para interações táteis */
+    --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Duração base comutável via variáveis */
+    --transition-duration-morph: 0.85s;
+    --active-ease: var(--ease-spring);
+
+    /* ------------------------------------------------------------------------
+       5. ALTURAS DINÂMICAS DOS SEPARADORES DE CAMINHO CSS (Path Dividers)
+       ------------------------------------------------------------------------ */
+    --path-divider-height: clamp(80px, 12vw, 160px);
+
+    /* ------------------------------------------------------------------------
+       6. COORDENADAS MATEMÁTICAS INVARIANTES PARA O CLIP-PATH POLYGON (N = 8)
+       
+       REGRA FUNDAMENTAL DE INTERPOLAÇÃO DE POLÍGONOS CSS:
+       Para que a transição CSS (`transition: clip-path`) seja fluida e contínua,
+       o polígono de partida e o polígono de chegada TÊM DE CONTER O MESMO
+       NÚMERO DE VÉRTICES (aqui rigorosamente fixado em N = 8).
+       Se o número de vértices diferir, o motor do browser (Blink/Gecko/WebKit)
+       desiste da interpolação geométrica e executa um corte instantâneo e abrupto!
+       
+       Vértices:
+         P0: (0% 0%)   -> Canto Superior Esquerdo
+         P1: (100% 0%) -> Canto Superior Direito
+         P2: (100% Y2) -> Bordo Direito Inferior
+         P3: (75% Y3)  -> Ponto de Controlo 1 (crista/depressão)
+         P4: (50% Y4)  -> Ponto Central de Inflexão
+         P5: (25% Y5)  -> Ponto de Controlo 2 (contra-frequência)
+         P6: (10% Y6)  -> Ponto de Ataque de Batida
+         P7: (0% Y7)   -> Bordo Esquerdo Inferior
+       ------------------------------------------------------------------------ */
+    /* Estado 1: Onda Sinusoidal Acústica (Ressonância Orgânica) */
+    --polygon-sine: polygon(
+      0% 0%,
+      100% 0%,
+      100% 82%,
+      75% 96%,
+      50% 80%,
+      25% 66%,
+      10% 74%,
+      0% 82%
+    );
+
+    /* Estado 2: Corte Angular Industrial (Diagonal da Alfândega do Porto)
+       Todos os pontos P2 a P7 encontram-se rigorosamente colineares ao longo
+       da reta y = 62% + (x * 0.35), demonstrando como um vetor curvo se achata */
+    --polygon-angle: polygon(
+      0% 0%,
+      100% 0%,
+      100% 97%,
+      75% 88%,
+      50% 79%,
+      25% 70%,
+      10% 65%,
+      0% 62%
+    );
+
+    /* Estado 3: Arco Parabólico de Vinil (Geometria Radial de 12 Polegadas) */
+    --polygon-radial: polygon(
+      0% 0%,
+      100% 0%,
+      100% 72%,
+      75% 88%,
+      50% 98%,
+      25% 88%,
+      10% 78%,
+      0% 72%
+    );
+
+    /* Estado 4: Espigão 808 Sawtooth (Transiente Percursivo Agressivo) */
+    --polygon-sawtooth: polygon(
+      0% 0%,
+      100% 0%,
+      100% 85%,
+      75% 100%,
+      50% 68%,
+      25% 98%,
+      10% 70%,
+      0% 85%
+    );
+
+    /* ------------------------------------------------------------------------
+       7. DEFINIÇÃO DE CAMINHOS BÉZIER PARA CSS MOTION PATH (offset-path)
+       Trajetória ao longo da qual o elemento Drumstick / Baqueta viajará.
+       MDN offset-path: https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path
+       ------------------------------------------------------------------------ */
+    --motion-path-sine: path("M 40,80 C 380,150 680,20 980,120 C 1180,160 1340,40 1440,80");
+    --motion-path-angle: path("M 40,50 L 380,72 L 720,95 L 1080,118 L 1340,132 L 1440,140");
+    --motion-path-radial: path("M 40,65 C 400,160 1040,160 1440,65");
+    --motion-path-sawtooth: path("M 40,75 L 360,145 L 720,55 L 1080,150 L 1440,75");
+
+    /* Variável activa que recebe o caminho selecionado */
+    --active-polygon: var(--polygon-sine);
+    --active-motion-path: var(--motion-path-sine);
+    --active-divider-name: "Acoustic Sine Wave (Onda Sinusoidal)";
+  }
+
+  /* --------------------------------------------------------------------------
+     MÁQUINA DE ESTADOS ZERO-JS: COMUTAÇÃO DE FORMAS DE CAMINHO
+     Especificidade: (0, 2, 0) via :root:has(#shape-*:checked)
+     O ancestral :root deteta qual o input radio selecionado e injeta
+     instantaneamente as variáveis do caminho e polígono na cascata global!
+     -------------------------------------------------------------------------- */
+  :root:has(#shape-sine:checked) {
+    --active-polygon: var(--polygon-sine);
+    --active-motion-path: var(--motion-path-sine);
+    --active-divider-name: "Acoustic Sine Wave (Onda Sinusoidal)";
+    --active-shape-color: var(--color-accent-cyan);
+  }
+
+  :root:has(#shape-angle:checked) {
+    --active-polygon: var(--polygon-angle);
+    --active-motion-path: var(--motion-path-angle);
+    --active-divider-name: "Industrial Angle Slash (Corte Angular Alfândega)";
+    --active-shape-color: var(--color-accent-red);
+  }
+
+  :root:has(#shape-radial:checked) {
+    --active-polygon: var(--polygon-radial);
+    --active-motion-path: var(--motion-path-radial);
+    --active-divider-name: "Vinyl Turntable Arc (Arco Radial de Vinil)";
+    --active-shape-color: var(--color-accent-purple);
+  }
+
+  :root:has(#shape-sawtooth:checked) {
+    --active-polygon: var(--polygon-sawtooth);
+    --active-motion-path: var(--motion-path-sawtooth);
+    --active-divider-name: "808 Sawtooth Spike (Transiente Percursivo 808)";
+    --active-shape-color: var(--color-accent-gold);
+  }
+
+  /* --------------------------------------------------------------------------
+     MÁQUINA DE ESTADOS ZERO-JS: COMUTAÇÃO DE FÍSICA & EASING
+     -------------------------------------------------------------------------- */
+  :root:has(#ease-spring:checked) {
+    --active-ease: var(--ease-spring);
+    --active-ease-name: "Spring Bounce (Ressalto Elástico - cubic-bezier(0.34, 1.56, 0.64, 1))";
+  }
+
+  :root:has(#ease-expo:checked) {
+    --active-ease: var(--ease-expo);
+    --active-ease-name: "Exponential Glide (Desaceleração Exponencial - cubic-bezier(0.16, 1, 0.3, 1))";
+  }
+
+  :root:has(#ease-linear:checked) {
+    --active-ease: var(--ease-linear);
+    --active-ease-name: "Quantized Metronome (Linear / BPM Metronómico)";
+  }
+
+  /* --------------------------------------------------------------------------
+     MÁQUINA DE ESTADOS ZERO-JS: VELOCIDADE & TEMPO (BPM)
+     -------------------------------------------------------------------------- */
+  :root:has(#speed-slow:checked) {
+    --transition-duration-morph: 1.4s;
+    --motion-duration-loop: 3.2s; /* 75 BPM Dub Reggae / Trip-Hop */
+    --bpm-value: "75 BPM (Sub-Bass Slow Pulse)";
+  }
+
+  :root:has(#speed-normal:checked) {
+    --transition-duration-morph: 0.85s;
+    --motion-duration-loop: 1.71s; /* 140 BPM Dubstep / UK Garage */
+    --bpm-value: "140 BPM (Standard Festival Pulse)";
+  }
+
+  :root:has(#speed-fast:checked) {
+    --transition-duration-morph: 0.5s;
+    --motion-duration-loop: 1.38s; /* 174 BPM Drum & Bass / Jungle */
+    --bpm-value: "174 BPM (Drum & Bass Breakcore)";
+  }
+
+  /* --------------------------------------------------------------------------
+     MÁQUINA DE ESTADOS ZERO-JS: TEMA CLARO / ESCURO
+     -------------------------------------------------------------------------- */
+  :root:has(#theme-light:checked) {
+    color-scheme: light;
+  }
+
+  :root:has(#theme-dark:checked) {
+    color-scheme: dark;
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 3: LAYOUT MACRO & FLUXO DAS SECÇÕES
+   MDN Layout: https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_cookbook
+   ========================================================================== */
+@layer layout {
+  /* Contentor mestre de largura restrita e margens automáticas centradas */
+  .site-container {
+    width: 100%;
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+    padding-inline: var(--site-gutter);
+  }
+
+  /* Header Superior com Identidade DRUMTIKS e Barra de Acesso Rápido */
+  .app-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--color-bg-surface-glass);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding-block: var(--space-sm);
+    transition: background-color 0.3s ease;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .brand-logo-text {
+    font-family: var(--font-family-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.04em;
+    color: var(--color-text-primary);
+  }
+
+  .brand-logo-accent {
+    color: var(--color-accent-red);
+  }
+
+  /* Estilização da Navegação e Links de Apoio Pedagógico */
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+  }
+
+  .nav-pill-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding: var(--space-2xs) var(--space-sm);
+    border-radius: var(--radius-full);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-small);
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border-subtle);
+    background-color: var(--color-bg-surface-elevated);
+    transition: all 0.2s var(--ease-standard);
+  }
+
+  .nav-pill-link:hover,
+  .nav-pill-link:focus-visible {
+    color: var(--color-text-primary);
+    border-color: var(--color-accent-cyan);
+    box-shadow: 0 0 12px var(--color-accent-cyan-glow);
+    transform: translateY(-1px);
+  }
+
+  /* --------------------------------------------------------------------------
+     BARRA CONSOLA DE CONTROLO DO ESTÚDIO DE CAMINHOS CSS (Path Studio Deck)
+     Controlo fixo ou ancorado que permite ao estudante interagir com o CSS
+     sem necessitar de código JavaScript para alterar as propriedades visuais.
+     -------------------------------------------------------------------------- */
+  .path-studio-deck {
+    background-color: var(--color-bg-surface);
+    border-bottom: 2px solid var(--color-border-medium);
+    padding-block: var(--space-md);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    position: relative;
+    z-index: 900;
+  }
+
+  .deck-cluster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-md);
+    align-items: start;
+  }
+
+  .deck-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .deck-group-legend {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent-cyan);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .deck-pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+  }
+
+  /* Etiqueta estilizada como botão radio interativo */
+  .deck-choice-pill {
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
+    transition: all 0.25s var(--ease-spring);
+  }
+
+  .deck-choice-pill:hover {
+    color: var(--color-text-primary);
+    border-color: var(--color-border-medium);
+    transform: translateY(-1px);
+  }
+
+  /* --------------------------------------------------------------------------
+     SELETOR RELACIONAL :has() PARA ATIVAR O ESTADO VISUAL DOS BOTÕES
+     Quando o input correspondente está :checked, estilizamos a respetiva label
+     como selecionada, com brilho neon e fundo ativo!
+     -------------------------------------------------------------------------- */
+  :root:has(#shape-sine:checked) label[for="shape-sine"],
+  :root:has(#shape-angle:checked) label[for="shape-angle"],
+  :root:has(#shape-radial:checked) label[for="shape-radial"],
+  :root:has(#shape-sawtooth:checked) label[for="shape-sawtooth"],
+  :root:has(#ease-spring:checked) label[for="ease-spring"],
+  :root:has(#ease-expo:checked) label[for="ease-expo"],
+  :root:has(#ease-linear:checked) label[for="ease-linear"],
+  :root:has(#speed-slow:checked) label[for="speed-slow"],
+  :root:has(#speed-normal:checked) label[for="speed-normal"],
+  :root:has(#speed-fast:checked) label[for="speed-fast"],
+  :root:has(#theme-auto:checked) label[for="theme-auto"],
+  :root:has(#theme-light:checked) label[for="theme-light"],
+  :root:has(#theme-dark:checked) label[for="theme-dark"],
+  :root:has(#motion-auto:checked) label[for="motion-auto"],
+  :root:has(#motion-hover:checked) label[for="motion-hover"] {
+    background-color: var(--color-accent-cyan-glow);
+    border-color: var(--color-accent-cyan);
+    color: #ffffff;
+    font-weight: 700;
+    box-shadow: 0 0 14px var(--color-accent-cyan-glow);
+  }
+
+  :root:has(#shape-angle:checked) label[for="shape-angle"] {
+    background-color: var(--color-accent-red-glow);
+    border-color: var(--color-accent-red);
+    box-shadow: 0 0 14px var(--color-accent-red-glow);
+  }
+
+  :root:has(#shape-radial:checked) label[for="shape-radial"] {
+    background-color: var(--color-accent-purple-glow);
+    border-color: var(--color-accent-purple);
+    box-shadow: 0 0 14px var(--color-accent-purple-glow);
+  }
+
+  :root:has(#shape-sawtooth:checked) label[for="shape-sawtooth"] {
+    background-color: var(--color-accent-gold-glow);
+    border-color: var(--color-accent-gold);
+    box-shadow: 0 0 14px var(--color-accent-gold-glow);
+  }
+
+  /* --------------------------------------------------------------------------
+     ESTRUTURA DAS 4 SECÇÕES DO FESTIVAL DRUMTIKS '26
+     Cada secção possui um ambiente de palco diferente e culmina num
+     separador geométrico animado com clip-path e SVG path.
+     -------------------------------------------------------------------------- */
+  .festival-section {
+    position: relative;
+    padding-top: var(--space-4xl);
+    padding-bottom: calc(var(--space-4xl) + var(--path-divider-height));
+    overflow: hidden;
+  }
+
+  /* Palco 1: Sub-Bass Trench */
+  .section--stage-douro {
+    background: radial-gradient(circle at 80% 20%, rgba(0, 210, 255, 0.12) 0%, transparent 60%),
+                linear-gradient(180deg, var(--color-stage-1-bg) 0%, #03060c 100%);
+    color: #ffffff;
+  }
+
+  /* Palco 2: Granite Vault Acoustics */
+  .section--vaults {
+    background: radial-gradient(circle at 20% 80%, rgba(245, 166, 35, 0.1) 0%, transparent 55%),
+                linear-gradient(180deg, var(--color-stage-2-bg) 0%, #0a0604 100%);
+    color: #ffffff;
+    /* Compensa o recorte da secção anterior */
+    margin-top: calc(-1 * var(--path-divider-height));
+    padding-top: calc(var(--space-4xl) + var(--path-divider-height));
+  }
+
+  /* Palco 3: Turntablism Octagon */
+  .section--turntable {
+    background: radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.14) 0%, transparent 65%),
+                linear-gradient(180deg, var(--color-stage-3-bg) 0%, #08020c 100%);
+    color: #ffffff;
+    margin-top: calc(-1 * var(--path-divider-height));
+    padding-top: calc(var(--space-4xl) + var(--path-divider-height));
+  }
+
+  /* Palco 4: Pedagogical CSS Laboratory & Live X-Ray */
+  .section--pedagogy {
+    background: linear-gradient(180deg, var(--color-stage-4-bg) 0%, #040808 100%);
+    color: #ffffff;
+    margin-top: calc(-1 * var(--path-divider-height));
+    padding-top: calc(var(--space-4xl) + var(--path-divider-height));
+    padding-bottom: var(--space-4xl);
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 4: SHAPES — CSS CLIP-PATH & MORFISMO DE CAMINHOS COM TRANSIÇÃO
+   
+   MDN clip-path: https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path
+   MDN CSS d property: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d
+   
+   AQUI RESIDE O NÚCLEO PEDAGÓGICO DESTA DEMONSTRAÇÃO:
+   Demonstramos 2 abordagens de engenharia de ponta:
+   
+   ABORDAGEM A: `clip-path: polygon(...)` direto na secção HTML
+     - Vantagem: Zero elementos SVG adicionais, suporte universal total,
+       aceleração de hardware direta através da camada de composição da GPU.
+     - Segredo Matemático: Todos os estados partilham N = 8 coordenadas.
+       A transição CSS `transition: clip-path` interpola cada vértice (x,y)
+       em tempo real de acordo com a função de temporização (spring, expo, linear).
+   
+   ABORDAGEM B: Morfismo de SVG `<path>` com a propriedade CSS `d: path(...)`
+     - Vantagem: Permite curvas de Bézier cúbicas verdadeiras com tangentes suaves (C),
+       gradientes de vetor e sombras volumétricas projetadas.
+     - Especificação: SVG 2 e W3C CSS Motion & Shapes Module.
+   ========================================================================== */
+@layer shapes {
+
+  /* --------------------------------------------------------------------------
+     1. SEPARADOR DE CORTE GEOMÉTRICO (CSS CLIP-PATH POLYGON)
+     Aplicado no contentor de fundo da secção ou num elemento divisor dedicado.
+     Especificidade: (0, 1, 0)
+     -------------------------------------------------------------------------- */
+  .section-clip-morph {
+    /* Define o polígono ativo injetado pela variável CSS */
+    clip-path: var(--active-polygon);
+    -webkit-clip-path: var(--active-polygon);
+
+    /* 
+       A TRANSIÇÃO MÁGICA:
+       Informa o browser para interpolar o clip-path durante a duração escolhida
+       utilizando a curva física de atenuação ativa (ex: spring bounce).
+       MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    */
+    transition: clip-path var(--transition-duration-morph) var(--active-ease),
+                -webkit-clip-path var(--transition-duration-morph) var(--active-ease);
+
+    /* Força a criação de uma camada de composição dedicada na GPU */
+    will-change: clip-path;
+    transform: translateZ(0);
+  }
+
+  /* --------------------------------------------------------------------------
+     2. SEPARADOR DE VETOR SVG COM MORFISMO CSS DA PROPRIEDADE `d`
+     Colocado entre as secções para criar um rebordo perfeitamente suavizado.
+     -------------------------------------------------------------------------- */
+  .svg-path-divider-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--path-divider-height);
+    pointer-events: none; /* Deixa cliques passarem para o conteúdo */
+    z-index: 20;
+    overflow: visible;
+  }
+
+  .svg-path-divider {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* O elemento <path> do SVG controlado diretamente pelo CSS */
+  .svg-path-divider path.morphing-boundary {
+    /* Estado Padrão: Onda Sinusoidal (Sine Wave) */
+    d: path("M 0,0 L 1440,0 L 1440,65 C 1180,140 920,15 680,85 C 440,155 220,15 0,65 Z");
+    fill: currentColor;
+    
+    /* 
+       Interpolação de Bézier direta pelo motor CSS:
+       A transição no atributo `d` anima todos os pontos de controlo da curva!
+    */
+    transition: d var(--transition-duration-morph) var(--active-ease),
+                fill 0.4s ease;
+
+    will-change: d;
+  }
+
+  /* Estado 2: Corte Angular Industrial (Diagonal da Alfândega) */
+  :root:has(#shape-angle:checked) .svg-path-divider path.morphing-boundary {
+    d: path("M 0,0 L 1440,0 L 1440,145 C 1180,125 920,105 680,85 C 440,65 220,45 0,25 Z");
+  }
+
+  /* Estado 3: Arco Parabólico de Vinil (Radial) */
+  :root:has(#shape-radial:checked) .svg-path-divider path.morphing-boundary {
+    d: path("M 0,0 L 1440,0 L 1440,40 C 1120,150 960,155 720,155 C 480,155 320,150 0,40 Z");
+  }
+
+  /* Estado 4: Espigão 808 Sawtooth (Transiente Percursivo) */
+  :root:has(#shape-sawtooth:checked) .svg-path-divider path.morphing-boundary {
+    d: path("M 0,0 L 1440,0 L 1440,75 C 1260,155 1120,20 860,135 C 600,10 380,155 0,65 Z");
+  }
+
+  /* Traço de Brilho Neon (Contorno exterior iluminado sobre a linha divisória) */
+  .svg-path-divider path.morphing-stroke {
+    fill: none;
+    stroke: var(--active-shape-color, var(--color-accent-cyan));
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 8px var(--active-shape-color, var(--color-accent-cyan)));
+    
+    /* Caminho unilinear da crista */
+    d: path("M 0,65 C 220,15 440,155 680,85 C 920,15 1180,140 1440,65");
+    transition: d var(--transition-duration-morph) var(--active-ease),
+                stroke 0.4s ease,
+                filter 0.4s ease;
+  }
+
+  :root:has(#shape-angle:checked) .svg-path-divider path.morphing-stroke {
+    d: path("M 0,25 C 220,45 440,65 680,85 C 920,105 1180,125 1440,145");
+  }
+
+  :root:has(#shape-radial:checked) .svg-path-divider path.morphing-stroke {
+    d: path("M 0,40 C 320,150 480,155 720,155 C 960,155 1120,150 1440,40");
+  }
+
+  :root:has(#shape-sawtooth:checked) .svg-path-divider path.morphing-stroke {
+    d: path("M 0,65 C 380,155 600,10 860,135 C 1120,20 1260,155 1440,75");
+  }
+
+  /* --------------------------------------------------------------------------
+     3. SEPARADOR INVERTIDO (PARA A SECÇÃO SEGUINTE)
+     Permite que duas secções se interbloqueiem perfeitamente sem espaços vazios.
+     -------------------------------------------------------------------------- */
+  .section-divider-inverted {
+    top: 0;
+    bottom: auto;
+    transform: rotate(180deg);
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 5: MOTION — CSS MOTION PATH (offset-path & offset-distance)
+   
+   MDN offset-path: https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path
+   MDN offset-distance: https://developer.mozilla.org/en-US/docs/Web/CSS/offset-distance
+   MDN offset-rotate: https://developer.mozilla.org/en-US/docs/Web/CSS/offset-rotate
+   
+   CONCEITOS PEDAGÓGICOS FUNDAMENTAIS:
+   1. `offset-path: path(...)` define a curva 2D arbitrária no espaço de coordenadas.
+   2. `offset-distance: 0%` -> `100%` move o elemento do início ao fim do trajeto.
+   3. `offset-rotate: auto` orienta dinamicamente o elemento no ângulo tangente
+      à curva em cada ponto fracionário, simulando o bater da baqueta no tambor!
+   4. `offset-anchor: 50% 50%` define o ponto pivô de rotação do elemento móvel.
+   ========================================================================== */
+@layer motion {
+
+  /* Pista de Movimento Transversal ao Separador */
+  .motion-path-stage {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--path-divider-height);
+    pointer-events: none;
+    z-index: 30;
+    overflow: visible;
+  }
+
+  /* --------------------------------------------------------------------------
+     O VIAJANTE DRUMTIKS: PAR DE BAQUETAS NEON EM ÓRBITA DA CRISTA
+     -------------------------------------------------------------------------- */
+  .drumstick-traveler {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    top: 0;
+    left: 0;
+    transform-origin: center center;
+    pointer-events: auto;
+    cursor: grab;
+
+    /*
+       CONFIGURAÇÃO W3C MOTION PATH:
+       Aplica o caminho Bézier correspondente à forma ativa
+    */
+    offset-path: var(--active-motion-path);
+    offset-distance: 0%;
+    offset-rotate: auto 20deg; /* Alinhamento tangente com inclinação percursiva de 20º */
+    offset-anchor: 50% 50%;
+
+    /* Transição suave do caminho quando o estudante muda de forma geométrica */
+    transition: offset-path var(--transition-duration-morph) var(--active-ease),
+                offset-distance 0.3s ease-out;
+
+    /* Sombra neon volumétrica */
+    filter: drop-shadow(0 0 16px var(--active-shape-color, var(--color-accent-cyan)));
+  }
+
+  /* Ativação por Modo Automático de Loop Metronómico (BPM Sync) */
+  :root:has(#motion-auto:checked) .drumstick-traveler {
+    animation: drumstick-patrol var(--motion-duration-loop, 1.71s) infinite alternate var(--ease-spring);
+  }
+
+  /* Ativação por Hover Interativo da Secção (Passar o cursor move a baqueta) */
+  :root:has(#motion-hover:checked) .festival-section:hover .drumstick-traveler {
+    animation: drumstick-patrol 2.4s infinite alternate ease-in-out;
+  }
+
+  @keyframes drumstick-patrol {
+    0% {
+      offset-distance: 2%;
+      transform: scale(0.92) rotate(-10deg);
+    }
+    50% {
+      transform: scale(1.08) rotate(15deg);
+    }
+    100% {
+      offset-distance: 98%;
+      transform: scale(0.92) rotate(-5deg);
+    }
+  }
+
+  /* Ícone Vetorial da Baqueta Iluminada */
+  .drumstick-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 6px currentColor);
+  }
+
+  /* Anel de Pulso Percursivo (Aura que pulsa na ponta da baqueta) */
+  .drumstick-pulse-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-full);
+    border: 2px solid var(--active-shape-color, var(--color-accent-cyan));
+    transform: translate(-50%, -50%);
+    animation: ring-radiate 1.2s infinite ease-out;
+    pointer-events: none;
+  }
+
+  @keyframes ring-radiate {
+    0% {
+      transform: translate(-50%, -50%) scale(0.5);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(2.8);
+      opacity: 0;
+    }
+  }
+
+  /* --------------------------------------------------------------------------
+     BARRA SCRUBBER INTERATIVA PARA CONTROLO MANUAL DE OFFSET-DISTANCE
+     Permite arrastar a baqueta milimetricamente pelo caminho com um slider HTML.
+     -------------------------------------------------------------------------- */
+  .scrubber-console-box {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background-color: var(--color-bg-surface-elevated);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  .motion-range-input {
+    flex: 1;
+    accent-color: var(--color-accent-cyan);
+    cursor: ew-resize;
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 6: COMPONENTS — CARTÕES DE PALCO, BADGES & INTERFACE FESTIVAL
+   ========================================================================== */
+@layer components {
+  /* Título de Secção Heroico com Tipografia Display SYNE */
+  .section-header-cluster {
+    max-width: 820px;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .stage-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-sm);
+    border: 1px solid currentColor;
+  }
+
+  .stage-badge--cyan {
+    color: var(--color-accent-cyan);
+    background-color: rgba(0, 210, 255, 0.08);
+  }
+
+  .stage-badge--red {
+    color: var(--color-accent-red);
+    background-color: rgba(230, 0, 0, 0.08);
+  }
+
+  .stage-badge--purple {
+    color: var(--color-accent-purple);
+    background-color: rgba(138, 43, 226, 0.08);
+  }
+
+  .stage-badge--gold {
+    color: var(--color-accent-gold);
+    background-color: rgba(245, 166, 35, 0.08);
+  }
+
+  .section-title {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-h1);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: var(--space-sm);
+  }
+
+  .section-desc {
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-body);
+    color: var(--color-text-secondary);
+    max-width: 65ch;
+  }
+
+  /* Grelha de Destaques de Artistas & Cartões de Demonstração */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+  }
+
+  .feature-card {
+    background-color: var(--color-bg-surface-glass);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.3s var(--ease-spring),
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--active-shape-color, var(--color-accent-cyan));
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  }
+
+  .card-icon-halo {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-surface-elevated);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: var(--space-md);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  .card-title {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-h3);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+  }
+
+  .card-text {
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
+    line-height: 1.55;
+  }
+
+  /* Barra de Espectro Acústico / Equalizador Visual Animado */
+  .equalizer-bar-cluster {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 36px;
+    padding: 6px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: var(--radius-sm);
+    width: fit-content;
+    margin-top: var(--space-md);
+  }
+
+  .eq-bar {
+    width: 6px;
+    background-color: var(--active-shape-color, var(--color-accent-cyan));
+    border-radius: 2px;
+    animation: eq-bounce 1s infinite alternate ease-in-out;
+  }
+
+  .eq-bar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+  .eq-bar:nth-child(2) { height: 85%; animation-delay: 0.3s; }
+  .eq-bar:nth-child(3) { height: 60%; animation-delay: 0.2s; }
+  .eq-bar:nth-child(4) { height: 100%; animation-delay: 0.4s; }
+  .eq-bar:nth-child(5) { height: 30%; animation-delay: 0.15s; }
+  .eq-bar:nth-child(6) { height: 75%; animation-delay: 0.25s; }
+
+  @keyframes eq-bounce {
+    from { transform: scaleY(0.3); }
+    to   { transform: scaleY(1); }
+  }
+
+  /* Gira-Discos Vinil Interativo da Secção Turntablism */
+  .turntable-preview-console {
+    background: radial-gradient(circle, #1a1a24 0%, #0d0d14 100%);
+    border: 2px solid var(--color-border-medium);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  }
+
+  .vinyl-platter-disc {
+    width: 220px;
+    height: 220px;
+    border-radius: var(--radius-full);
+    background: repeating-radial-gradient(
+      #09090d,
+      #09090d 3px,
+      #161622 4px,
+      #09090d 5px
+    );
+    box-shadow: 0 0 0 8px #1f202e,
+                0 0 30px rgba(138, 43, 226, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: vinyl-spin 4s linear infinite;
+  }
+
+  @keyframes vinyl-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .vinyl-center-label {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-red));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-family: var(--font-family-display);
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-align: center;
+    border: 3px solid #000000;
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 7: INSPECTOR — PAINEL HUD DE ENGENHARIA CSS EM TEMPO REAL
+   
+   Permite aos estudantes e professores da FBAUP inspecionar a regra
+   CSS ativa, o número estrito de vértices, a especificidade do seletor
+   e copiar o código diretamente para os seus exercícios práticos.
+   ========================================================================== */
+@layer inspector {
+  .hud-inspector-card {
+    background-color: #050608;
+    border: 2px solid var(--active-shape-color, var(--color-accent-cyan));
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6),
+                inset 0 0 20px rgba(0, 210, 255, 0.05);
+    font-family: var(--font-family-mono);
+  }
+
+  .hud-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border-subtle);
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .hud-title-badge {
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    color: var(--active-shape-color, var(--color-accent-cyan));
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .hud-live-tag {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    background-color: #10b981;
+    box-shadow: 0 0 8px #10b981;
+    animation: live-blink 1.4s infinite ease-in-out;
+  }
+
+  @keyframes live-blink {
+    50% { opacity: 0.3; }
+  }
+
+  /* Bloco de Código CSS formatado com destaque visual */
+  .hud-code-block {
+    background-color: #0b0d14;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    overflow-x: auto;
+    font-size: var(--font-size-mono);
+    line-height: 1.6;
+    color: #cbd5e1;
+    margin-bottom: var(--space-lg);
+  }
+
+  .code-token-selector { color: #f43f5e; font-weight: 700; }
+  .code-token-prop     { color: #38bdf8; }
+  .code-token-func     { color: #a855f7; }
+  .code-token-value    { color: #facc15; }
+  .code-token-comment  { color: #64748b; font-style: italic; }
+
+  /* Tabela de Vértices e Coordenadas Invariantes (N = 8) */
+  .vertices-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-small);
+    margin-top: var(--space-md);
+  }
+
+  .vertices-data-table th,
+  .vertices-data-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .vertices-data-table th {
+    background-color: rgba(255, 255, 255, 0.04);
+    color: var(--color-accent-cyan);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+  }
+
+  .vertices-data-table tr:hover td {
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+
+  /* Rodapé Informativo da Aplicação */
+  .app-footer {
+    background-color: var(--color-bg-canvas);
+    border-top: 1px solid var(--color-border-subtle);
+    padding-block: var(--space-3xl) var(--space-xl);
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-2xl);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .footer-col-title {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .footer-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .footer-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--color-accent-cyan);
+    text-decoration: underline;
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 8: XRAY & WIREFRAME DIAGNOSTICS VIEW
+   MDN :has(): https://developer.mozilla.org/en-US/docs/Web/CSS/:has
+   MDN outline: https://developer.mozilla.org/en-US/docs/Web/CSS/outline
+   ========================================================================== */
+@layer xray {
+  :root:has(#xray-toggle:checked) {
+    /* Blueprint Technical Canvas */
+    --color-bg-canvas: #060912 !important;
+    --color-bg-surface: #0a0e1c !important;
+    --color-bg-surface-elevated: #10162a !important;
+
+    /* Blueprint Grids */
+    body {
+      background-image: 
+        linear-gradient(rgba(0, 210, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 210, 255, 0.08) 1px, transparent 1px) !important;
+      background-size: 24px 24px !important;
+    }
+
+    /* Outlines dos Contentores de Secção */
+    .festival-section {
+      outline: 2px dashed var(--color-accent-cyan) !important;
+      outline-offset: -2px;
+    }
+
+    .festival-section::before {
+      content: 'SECTION BOUNDARY [clip-path: polygon(N=8)]';
+      position: absolute;
+      top: 14px;
+      left: var(--site-gutter);
+      background: var(--color-accent-cyan);
+      color: #06070a;
+      font-family: var(--font-family-mono);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 2px;
+      z-index: 100;
+      letter-spacing: 0.06em;
+    }
+
+    /* SVG ViewBox Mesh */
+    .svg-path-divider-wrapper {
+      outline: 2px dotted var(--color-accent-gold) !important;
+    }
+
+    .svg-path-divider-wrapper::after {
+      content: 'SVG VIEWBOX: 0 0 1440 160 • d: path(...) MORPHING MESH';
+      position: absolute;
+      bottom: 8px;
+      right: var(--site-gutter);
+      background: var(--color-accent-gold);
+      color: #000000;
+      font-family: var(--font-family-mono);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 2px;
+      z-index: 100;
+    }
+
+    /* Trajeto Motion Path em Destaque Wireframe */
+    .drumstick-traveler {
+      outline: 2px solid var(--color-accent-lime) !important;
+      outline-offset: 4px;
+    }
+
+    .motion-path-stage::before {
+      content: 'CSS MOTION PATH: offset-path / offset-rotate: auto 20deg';
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-accent-lime);
+      color: #000000;
+      font-family: var(--font-family-mono);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 2px;
+      z-index: 100;
+    }
+
+    /* Botão Raio-X Ativo */
+    #xray-pill-btn,
+    label[for="xray-toggle"] {
+      background-color: var(--color-accent-lime) !important;
+      border-color: var(--color-accent-lime) !important;
+      color: #000000 !important;
+      font-weight: 800 !important;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.5) !important;
+    }
+  }
+}
+
+
+/* ==========================================================================
+   CAMADA 9: ACCESSIBILITY — WCAG 2.2 & PREFERS-REDUCED-MOTION
+   MDN prefers-reduced-motion: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion
+   ========================================================================== */
+@layer accessibility {
+
+  /* Indicadores de Foco Acessíveis de Alto Contraste (WCAG 2.4.7) */
+  :focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 3px;
+  }
+
+  /* 
+     SALVAGUARDA DE ACESSIBILIDADE VESTIBULAR:
+     Quando o utilizador tem ativada a preferência por redução de movimento
+     no sistema operativo (Windows, macOS, iOS, Android), suprimimos
+     as animações de órbita do drumstick e substituímos o morfismo
+     por uma transição suave e rápida de opacidade (fade), evitando vertigens.
+  */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
+
+    .section-clip-morph,
+    .svg-path-divider path.morphing-boundary,
+    .svg-path-divider path.morphing-stroke,
+    .drumstick-traveler {
+      transition-duration: 0.01ms !important;
+      animation: none !important;
+    }
+
+    .drumstick-traveler {
+      offset-distance: 50% !important; /* Fixa no centro estável */
+    }
+
+    .vinyl-platter-disc {
+      animation: none !important;
+    }
+  }
+
+  /* Ocultação visual acessível mantendo leitura por Leitores de Ecrã (Screen Readers) */
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+}

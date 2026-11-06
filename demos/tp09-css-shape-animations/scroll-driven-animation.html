@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!--
+  ==============================================================================
+  WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+  FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+  
+  Tema Curricular: Festival DRUMTIKS '26 (Alfândega do Porto)
+  Exercício de Aula: TP09-CSS Shape Animations
+  Ficheiro: scroll-driven-animation.html • "CSS Scroll-Driven Animations: scroll() & view()"
+  
+  AUTORES & COORDENAÇÃO PEDAGÓGICA:
+    - Prof. Pedro Amado (FBAUP / i2ADS)
+    - Antigravity (Advanced Agentic Pair)
+  
+  ==============================================================================
+  PEDAGOGICAL & PLATFORM ARCHITECTURE:
+  
+  1. ESPECIFICAÇÃO W3C: CSS Scroll-driven Animations Module Level 1
+     - animation-timeline: scroll() : Progresso vinculado à rolagem do viewport
+     - animation-timeline: view()   : Progresso vinculado à visibilidade do elemento
+     - animation-range: entry / exit / cover / contain
+  
+  2. COMPATIBILIDADE BROWSER:
+     - animation-duration: 1ms é exigido pelo Firefox para validar a regra da animação
+       mesmo quando o tempo de relógio é substituído pelo scroll timeline!
+  ==============================================================================
+-->
+<html lang="pt" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>DRUMTIKS '26 • CSS Scroll-Driven Animations: scroll() &amp; view() | WD101 FBAUP</title>
+  <meta name="description" content="Laboratório prático hiper-comentado de animações acionadas por scroll com animation-timeline: scroll() e view() para Web Design 101 FBAUP.">
+
+  <!-- Folha de Estilos de Animações ao Scroll -->
+  <link rel="stylesheet" href="style-scroll.css">
+
+  <script>
+    /* Previne FOUC de tema */
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Input Oculto para Alternar Tema (Zero-JS) -->
+  <input type="checkbox" id="theme-toggle" class="visually-hidden" aria-label="Alternar Tema Claro / Escuro">
+
+  <!-- ========================================================================
+       BARRA DE PROGRESSO GLOBAL DO VIEWPORT (scroll())
+       ======================================================================== -->
+  <div class="scroll-progress-track" aria-hidden="true">
+    <div class="scroll-progress-fill"></div>
+  </div>
+
+  <!-- ========================================================================
+       STICKY NAVIGATION: O ELEMENTO NAV DIV CRIADO NA AULA
+       Demonstra position: sticky; top: 0; com animation-timeline: scroll()
+       ======================================================================== -->
+  <nav class="sticky-nav" role="navigation" aria-label="Navegação e Indicador Scroll-Driven">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="../index.html" class="hub-link" title="Voltar ao Repositório Central de Demos (Porta 8888)">
+          ← Demos Hub
+        </a>
+        <a href="index.html" class="hub-link" title="Ir para o demonstrador principal de secções">
+          〰️ Master Section Paths
+        </a>
+        <a href="alt-demo.html" class="hub-link" title="Ir para o playground de Bézier e Inset">
+          🎯 Shape Path &amp; Inset
+        </a>
+      </div>
+
+      <div class="nav-center-info">
+        <span class="lesson-tag">WD101 &bull; TP09 &bull; Scroll-Driven Animations</span>
+      </div>
+
+      <div class="nav-controls">
+        <label for="theme-toggle" class="theme-btn" title="Alternar entre Modo Escuro e Claro">
+          <span class="theme-label-dark">☀️ Claro</span>
+          <span class="theme-label-light">🌙 Escuro</span>
+        </label>
+      </div>
+    </div>
+
+    <!--
+       O elemento interativo <nav><div></div></nav> criado pelo professor em aula:
+       Amplia de escala 1x para 4x conforme a página rola de 0% a 100%!
+    -->
+    <div class="scroll-badge-indicator" aria-hidden="true">
+      <span class="badge-drum-icon">🥁</span>
+    </div>
+  </nav>
+
+  <!-- ========================================================================
+       CONTEÚDO PRINCIPAL DA PÁGINA (MAIN)
+       Permite rolar a página verticalmente para observar os dois timelines!
+       ======================================================================== -->
+  <main class="content-flow" role="main">
+
+    <!-- SECÇÃO 1: HERO & ENQUADRAMENTO TEÓRICO -->
+    <header class="scroll-hero">
+      <span class="hero-kicker">W3C CSS Scroll-driven Animations Level 1</span>
+      <h1 class="hero-title">Scroll-Driven Animations</h1>
+      <p class="hero-desc">
+        Demonstrador curricular que elimina a dependência de listeners JavaScript de scroll
+        (<code>window.onscroll</code>). O próprio motor gráfico (GPU compositor) mapeia a rolagem
+        da janela para os fotogramas da animação CSS, atingindo 120 fps constantes.
+      </p>
+
+      <div class="hud-timeline-card">
+        <div class="hud-row">
+          <span class="hud-pill pill-scroll">animation-timeline: scroll()</span>
+          <span class="hud-text">Controla a barra de progresso no topo e o emblema circular no cabeçalho.</span>
+        </div>
+        <div class="hud-row">
+          <span class="hud-pill pill-view">animation-timeline: view(block 30% 30%)</span>
+          <span class="hud-text">Controla a revelação dinâmica e a expansão horizontal dos cartões abaixo!</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECÇÃO 2: PRIMEIRO BLOCO DE REVELAÇÃO VIEW() -->
+    <section class="stage-section" aria-labelledby="stage-01-title">
+      <div class="section-badge">Zona de Interseção 1 &bull; view()</div>
+      <h2 id="stage-01-title" class="section-heading">Palco 01: Alfândega Sound System</h2>
+      
+      <p class="section-lead">
+        Conforme rola a página para baixo, o elemento abaixo cruza a linha de corte dos 30%
+        e ativa a interpolação fluida do seletor <code>expandWide</code>.
+      </p>
+
+      <!-- O ELEMENTO <article> ORIGINAL DA AULA DO PROFESSOR -->
+      <article class="view-driven-article" tabindex="0">
+        <div class="article-inner">
+          <div class="article-header">
+            <span class="article-chip">article • view(block 30% 30%)</span>
+            <span class="article-status">Revelado pelo Scroll</span>
+          </div>
+          <h3 class="article-title">DJ WARP Live Synthesizer</h3>
+          <p class="article-text">
+            Este cartão de palco utiliza <code>animation-timeline: view(block 30% 30%)</code> com
+            <code>transform-origin: center left</code>. A largura expande-se de 1x para 2x
+            sem recorrer a uma única linha de JavaScript.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- SECÇÃO 3: SEGUNDO BLOCO DE REVELAÇÃO VIEW() -->
+    <section class="stage-section" aria-labelledby="stage-02-title">
+      <div class="section-badge">Zona de Interseção 2 &bull; view()</div>
+      <h2 id="stage-02-title" class="section-heading">Palco 02: Batalha 808 Clash</h2>
+
+      <p class="section-lead">
+        O segundo cartão demonstra o efeito de entrada com escala horizontal sincronizada à velocidade com que o utilizador manipula a roda do rato ou o ecrã tátil.
+      </p>
+
+      <article class="view-driven-article article-accent-purple" tabindex="0">
+        <div class="article-inner">
+          <div class="article-header">
+            <span class="article-chip">article • view(block 30% 30%)</span>
+            <span class="article-status">Sincronizado na GPU</span>
+          </div>
+          <h3 class="article-title">808 Beatmakers Championship</h3>
+          <p class="article-text">
+            Ao inverter o scroll para cima, a animação retrocede suavemente. O estado é completamente
+            reativo e bidirecional graças à semântica nativa da W3C.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- SECÇÃO 4: TERCEIRO BLOCO DE REVELAÇÃO VIEW() -->
+    <section class="stage-section" aria-labelledby="stage-03-title">
+      <div class="section-badge">Zona de Interseção 3 &bull; view()</div>
+      <h2 id="stage-03-title" class="section-heading">Palco 03: Masterclass de Produção</h2>
+
+      <article class="view-driven-article article-accent-red" tabindex="0">
+        <div class="article-inner">
+          <div class="article-header">
+            <span class="article-chip">article • view(block 30% 30%)</span>
+            <span class="article-status">Fim do Timeline</span>
+          </div>
+          <h3 class="article-title">Caixa de Vinis 3D &amp; Crate Digging</h3>
+          <p class="article-text">
+            Quando a barra no topo atingir 100%, todos os cartões concluíram o ciclo de entrada e transição,
+            oferecendo uma experiência cinemática estritamente sem scripts pesados.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- SECÇÃO 5: DISSECAÇÃO TÉCNICA E CÓDIGO DA AULA -->
+    <section class="spec-breakdown">
+      <h2 class="section-heading">Dissecação do Código da Aula</h2>
+
+      <div class="spec-grid">
+        <div class="spec-card">
+          <h3 class="spec-title">1. animation-timeline: scroll()</h3>
+          <pre class="spec-code"><code>nav div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  background-color: var(--color-primary);
+  border-radius: 25%;
+
+  transform-origin: 30% 0%;
+  animation-name: expandAnimation;
+  animation-duration: 1ms; /* Requisito Firefox */
+  animation-direction: alternate;
+  animation-timeline: scroll();
+}
+
+@keyframes expandAnimation {
+  from { transform: scale(1); }
+  to   { transform: scale(4); left: 0; }
+}</code></pre>
+        </div>
+
+        <div class="spec-card">
+          <h3 class="spec-title">2. animation-timeline: view()</h3>
+          <pre class="spec-code"><code>article {
+  position: relative;
+  display: block;
+  width: 200px;
+  height: 100px;
+  background-color: aquamarine;
+
+  transform-origin: center left;
+  animation-timeline: view(block 30% 30%);
+  animation-name: expandWide;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+@keyframes expandWide {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(2); }
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- RODAPÉ DA DEMO -->
+    <footer class="scroll-footer" role="contentinfo">
+      <p>&copy; 2026/27 DRUMTIKS Festival &bull; FBAUP Web Design (WD101) &bull; Prof. Pedro Amado</p>
+      <div class="footer-links">
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline" target="_blank" rel="noopener noreferrer">MDN animation-timeline ↗</a>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll" target="_blank" rel="noopener noreferrer">MDN scroll() ↗</a>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/view" target="_blank" rel="noopener noreferrer">MDN view() ↗</a>
+        <a href="../index.html">← Demos Hub</a>
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+</html>

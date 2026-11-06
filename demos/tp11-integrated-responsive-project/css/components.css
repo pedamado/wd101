@@ -226,60 +226,578 @@
   }
 
   /* --------------------------------------------------------------------------
-     4. FAQ ACCORDION (<details> and <summary>)
-     Zero-JS accessible disclosure widget
-     Specificity: (0, 1, 0)
+     4. ADVANCED INFORMATION ACCORDION SUITE (<details>, <summary> & :target)
+     Zero-JS accessible disclosure architecture with:
+     - Preset open state via boolean `open` attribute
+     - Changing text labels (Open/Close) via CSS state switches
+     - Alternating contextual SVG icons (closed/open animations)
+     - Exclusive group collapse via HTML Living Standard `name="..."` attribute
+     - Non-exclusive multi-expand group
+     - External & cross-pane deep-link activation via `:target` & fragment navigation
+     - Smooth intrinsic sizing via `interpolate-size: allow-keywords` & `::details-content`
+     Specificity: (0, 1, 0) to (0, 2, 0)
      -------------------------------------------------------------------------- */
+
+  /* Master Accordion Stack Container */
+  .drumtiks-accordion-group,
   .faq-accordion-group {
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
+    gap: var(--space-md);
+    width: 100%;
   }
 
+  /* Individual Accordion Card */
+  .drumtiks-accordion-item,
   .faq-accordion-item {
     background-color: var(--color-bg-surface);
     border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    transition: border-color var(--transition-fast);
+    transition: border-color var(--transition-normal), 
+                box-shadow var(--transition-normal), 
+                transform var(--transition-fast);
+    position: relative;
   }
 
+  .drumtiks-accordion-item:hover,
+  .faq-accordion-item:hover {
+    border-color: var(--color-border-medium);
+  }
+
+  /* Active Open State Border & Elevation */
+  .drumtiks-accordion-item[open],
   .faq-accordion-item[open] {
     border-color: var(--color-accent-red);
+    box-shadow: 0 4px 20px light-dark(rgba(230, 0, 0, 0.08), rgba(230, 0, 0, 0.18));
   }
 
+  /* Targeted by URL Fragment / External Link (:target) */
+  .drumtiks-accordion-item:target,
+  .faq-accordion-item:target {
+    border-color: var(--color-accent-cyan) !important;
+    box-shadow: 0 0 0 2px var(--color-accent-cyan), 0 8px 32px rgba(0, 210, 255, 0.25) !important;
+    animation: target-highlight-pulse 1.8s var(--ease-out-expo);
+  }
+
+  @keyframes target-highlight-pulse {
+    0% {
+      outline: 4px solid var(--color-accent-cyan);
+      outline-offset: 4px;
+      transform: scale(1.01);
+    }
+    50% {
+      outline: 2px solid rgba(0, 210, 255, 0.5);
+      outline-offset: 2px;
+    }
+    100% {
+      outline: 0px solid transparent;
+      outline-offset: 0;
+      transform: scale(1);
+    }
+  }
+
+  /* Target Visual Badge Indicator (Revealed only when :target is active) */
+  .target-active-pill {
+    display: none;
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    color: #060608;
+    background-color: var(--color-accent-cyan);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .drumtiks-accordion-item:target .target-active-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Modern Intrinsic Size Animation via ::details-content (Baseline 2024+) */
+  .drumtiks-accordion-item::details-content,
+  .faq-accordion-item::details-content {
+    transition: block-size var(--transition-normal), 
+                content-visibility var(--transition-normal) allow-discrete, 
+                opacity var(--transition-normal);
+    block-size: 0;
+    overflow: clip;
+    opacity: 0;
+  }
+
+  .drumtiks-accordion-item[open]::details-content,
+  .faq-accordion-item[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+  }
+
+  /* Summary Interactive Disclosure Header */
+  .drumtiks-summary,
   .faq-summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: var(--space-md);
     padding: var(--space-md) var(--space-lg);
-    font-weight: 700;
     cursor: pointer;
     user-select: none;
-    list-style: none; /* Removes browser default triangle marker */
+    list-style: none; /* Removes native triangle marker */
+    background: transparent;
+    transition: background-color var(--transition-fast);
+    min-height: 56px;
   }
 
+  .drumtiks-summary::-webkit-details-marker,
   .faq-summary::-webkit-details-marker {
+    display: none; /* WebKit/Blink marker suppression */
+  }
+
+  .drumtiks-summary:hover,
+  .faq-summary:hover {
+    background-color: var(--color-bg-surface-elevated);
+  }
+
+  .drumtiks-summary:focus-visible,
+  .faq-summary:focus-visible {
+    outline: 2px solid var(--color-accent-cyan);
+    outline-offset: -2px;
+  }
+
+  /* Summary Left Cluster: Context Icon + Title Hierarchy */
+  .summary-left-cluster {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Contextual Animated Icon Container */
+  .summary-context-icon {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    transition: all var(--transition-normal);
+  }
+
+  .summary-context-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Alternating State Icons (Closed vs Opened) */
+  .icon-state {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    transition: opacity var(--transition-normal), 
+                transform var(--transition-normal) var(--ease-spring);
+  }
+
+  /* Closed state: Active initially */
+  .drumtiks-accordion-item .icon-state--closed,
+  .faq-accordion-item .icon-state--closed {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    color: var(--color-accent-cyan);
+  }
+
+  /* Opened state: Hidden initially */
+  .drumtiks-accordion-item .icon-state--opened,
+  .faq-accordion-item .icon-state--opened {
+    opacity: 0;
+    transform: scale(0.6) rotate(-45deg);
+    pointer-events: none;
+    color: var(--color-accent-red);
+  }
+
+  /* When [open]: Closed icon scales out, Opened icon springs in */
+  .drumtiks-accordion-item[open] .icon-state--closed,
+  .faq-accordion-item[open] .icon-state--closed {
+    opacity: 0;
+    transform: scale(0.6) rotate(45deg);
+    pointer-events: none;
+  }
+
+  .drumtiks-accordion-item[open] .icon-state--opened,
+  .faq-accordion-item[open] .icon-state--opened {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  .drumtiks-accordion-item[open] .summary-context-icon,
+  .faq-accordion-item[open] .summary-context-icon {
+    background-color: var(--color-accent-red-subtle);
+    border-color: var(--color-accent-red);
+    box-shadow: 0 0 16px rgba(230, 0, 0, 0.25);
+  }
+
+  /* Contextual Wave / Equalizer Animation for Sound Stage when Open */
+  .drumtiks-accordion-item[open] .anim-wave-bar {
+    animation: bar-pulse 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes bar-pulse {
+    0%   { transform: scaleY(0.3); }
+    100% { transform: scaleY(1); }
+  }
+
+  /* Contextual Spinning Vinyl Disc Animation when Open */
+  .drumtiks-accordion-item[open] .anim-spin-disc {
+    animation: spin-vinyl 3s linear infinite;
+    transform-origin: center center;
+  }
+
+  @keyframes spin-vinyl {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* Title & Eyebrow Metadata */
+  .summary-text-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .summary-eyebrow {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    color: var(--color-text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .summary-title {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-body);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: var(--line-height-tight);
+    margin: 0;
+  }
+
+  /* Changing Text Labels & Action Pill Indicator */
+  .accordion-action-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2xs) var(--space-sm);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border-subtle);
+    background-color: var(--color-bg-surface-elevated);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+  }
+
+  /* Pure CSS Changing Text Labels */
+  .drumtiks-accordion-item .label-opened,
+  .faq-accordion-item .label-opened {
     display: none;
   }
 
-  .faq-summary::after {
-    content: '+';
-    font-family: var(--font-family-mono);
-    font-size: 1.25rem;
+  .drumtiks-accordion-item .label-closed,
+  .faq-accordion-item .label-closed {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .drumtiks-accordion-item[open] .label-closed,
+  .faq-accordion-item[open] .label-closed {
+    display: none;
+  }
+
+  .drumtiks-accordion-item[open] .label-opened,
+  .faq-accordion-item[open] .label-opened {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
     color: var(--color-accent-red);
+  }
+
+  .drumtiks-accordion-item[open] .accordion-action-pill,
+  .faq-accordion-item[open] .accordion-action-pill {
+    border-color: var(--color-accent-red);
+    background-color: var(--color-accent-red-subtle);
+  }
+
+  /* Action Symbol (+ and -) */
+  .action-symbol {
+    font-size: 1.1em;
+    line-height: 1;
+    font-weight: 800;
     transition: transform var(--transition-fast);
   }
 
-  .faq-accordion-item[open] .faq-summary::after {
-    transform: rotate(45deg);
+  .drumtiks-accordion-item[open] .action-symbol {
+    transform: rotate(180deg);
   }
 
+  /* Accordion Content Body Layout */
+  .accordion-content-grid {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--transition-normal);
+  }
+
+  .drumtiks-accordion-item[open] > .accordion-content-grid,
+  .faq-accordion-item[open] > .accordion-content-grid {
+    grid-template-rows: 1fr;
+  }
+
+  .accordion-content-overflow {
+    overflow: hidden;
+  }
+
+  .accordion-content-inner,
   .faq-content-body {
-    padding: 0 var(--space-lg) var(--space-lg);
+    padding: var(--space-sm) var(--space-lg) var(--space-lg);
+    border-top: 1px solid var(--color-border-subtle);
     font-size: var(--font-size-small);
     color: var(--color-text-secondary);
     line-height: var(--line-height-body);
+    background: var(--color-bg-surface);
+  }
+
+  /* Content Spec Grid Inside Panes */
+  .accordion-spec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-md);
+    margin: var(--space-md) 0;
+  }
+
+  .spec-item-box {
+    background-color: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .spec-label {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .spec-value {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+
+  /* Cross-Pane Navigation Card (Linking inside panes to other panes) */
+  .cross-pane-callout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-bg-surface-elevated);
+    border-left: 3px solid var(--color-accent-cyan);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+
+  .cross-pane-desc {
+    font-size: var(--font-size-micro);
+    color: var(--color-text-muted);
+    font-family: var(--font-family-mono);
+  }
+
+  .cross-pane-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    color: var(--color-accent-cyan);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    background-color: rgba(0, 210, 255, 0.08);
+    border: 1px solid rgba(0, 210, 255, 0.25);
+    transition: all var(--transition-fast);
+  }
+
+  .cross-pane-link:hover {
+    background-color: var(--color-accent-cyan);
+    color: #060608;
+    box-shadow: 0 0 12px rgba(0, 210, 255, 0.4);
+  }
+
+  /* --------------------------------------------------------------------------
+     4B. PURE CSS :target REMOTE CONTROLLER ACCORDION
+     Demonstrates remote link activation from outside and inside panes
+     100% Pure HTML + CSS (Zero JavaScript)
+     -------------------------------------------------------------------------- */
+  .target-remote-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .target-remote-title {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    color: var(--color-text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-right: var(--space-xs);
+  }
+
+  .remote-trigger-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .remote-trigger-btn:hover {
+    border-color: var(--color-accent-cyan);
+    color: var(--color-accent-cyan);
+    transform: translateY(-1px);
+  }
+
+  .remote-trigger-btn--close {
+    border-color: rgba(230, 0, 0, 0.3);
+    color: var(--color-accent-red);
+    margin-left: auto;
+  }
+
+  .remote-trigger-btn--close:hover {
+    background-color: var(--color-accent-red);
+    color: #ffffff;
+    border-color: var(--color-accent-red);
+  }
+
+  /* Pure CSS :target Panes */
+  .pure-target-panel {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: var(--space-sm);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .pure-target-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+    background-color: transparent;
+    text-decoration: none;
+    color: var(--color-text-primary);
+  }
+
+  .pure-target-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--transition-normal);
+    opacity: 0;
+  }
+
+  .pure-target-panel:target {
+    border-color: var(--color-accent-cyan);
+    box-shadow: 0 0 24px rgba(0, 210, 255, 0.2);
+  }
+
+  .pure-target-panel:target .pure-target-content {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .pure-target-panel:target .icon-state--closed {
+    opacity: 0;
+    transform: scale(0.6) rotate(45deg);
+  }
+
+  .pure-target-panel:target .icon-state--opened {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  .pure-target-panel:target .summary-context-icon {
+    background-color: rgba(0, 210, 255, 0.12);
+    border-color: var(--color-accent-cyan);
+  }
+
+  .pure-target-panel:target .label-closed {
+    display: none;
+  }
+
+  .pure-target-panel:target .label-opened {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    color: var(--color-accent-cyan);
+  }
+
+  .pure-target-panel:target .accordion-action-pill {
+    border-color: var(--color-accent-cyan);
+    background-color: rgba(0, 210, 255, 0.08);
+  }
+
+  /* Copy-Paste Safety: Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .drumtiks-accordion-item,
+    .faq-accordion-item,
+    .drumtiks-accordion-item::details-content,
+    .faq-accordion-item::details-content,
+    .accordion-content-grid,
+    .icon-state,
+    .summary-context-icon,
+    .action-symbol,
+    .anim-wave-bar,
+    .anim-spin-disc,
+    .pure-target-content {
+      transition: none !important;
+      animation: none !important;
+    }
   }
 
   /* --------------------------------------------------------------------------
@@ -313,34 +831,10 @@
     pointer-events: none;
   }
 
-  :root:has(#theme-auto:checked) label[for="theme-auto"],
-  :root:has(#theme-light:checked) label[for="theme-light"],
-  :root:has(#theme-dark:checked) label[for="theme-dark"],
   .theme-radio-pill:has(input:checked) {
     background-color: var(--color-accent-red);
     color: #ffffff;
     font-weight: 700;
-  }
-
-  /* Language Switcher Pill */
-  .lang-toggle-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    background-color: var(--color-bg-surface-elevated);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-full);
-    font-family: var(--font-family-mono);
-    font-size: var(--font-size-micro);
-    cursor: pointer;
-    color: var(--color-text-primary);
-    transition: all var(--transition-fast);
-  }
-
-  .lang-toggle-pill:hover {
-    border-color: var(--color-accent-red);
-    color: var(--color-accent-red);
   }
 
   /* Primary Action Button (CTA) */
@@ -456,6 +950,252 @@
     .footer-bottom-bar {
       flex-direction: row;
       justify-content: space-between;
+    }
+  }
+
+  /* --------------------------------------------------------------------------
+     10. SWIPEABLE CARDS CAROUSEL (Touch & Trackpad Scroll-Snap Engine)
+     Pure CSS horizontal swiping card container with:
+     - scroll-snap-type: x mandatory
+     - Peek affordance on mobile (adjacent card preview)
+     - container-type: scroll-state (Chrome 133+ snap highlights)
+     - External jump anchor pills for keyboard & desktop accessibility
+     - Simple, clean wireframe/Drumtiks card geometry
+     Specificity: (0, 1, 0)
+     -------------------------------------------------------------------------- */
+  .swipe-section-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .swipe-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .swipe-controls-cluster {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .swipe-hint-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .swipe-nav-pills {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .swipe-pill {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .swipe-pill:hover,
+  .swipe-pill:focus-visible {
+    border-color: var(--color-accent-cyan);
+    color: var(--color-accent-cyan);
+  }
+
+  /* Scroll Snap Swiping Track */
+  .swipe-track-container {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--space-xs) 2px var(--space-md);
+    scroll-padding: 0 var(--space-xs);
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-medium) transparent;
+  }
+
+  .swipe-track-container::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .swipe-track-container::-webkit-scrollbar-track {
+    background: var(--color-bg-surface-elevated);
+    border-radius: var(--radius-full);
+  }
+
+  .swipe-track-container::-webkit-scrollbar-thumb {
+    background: var(--color-border-medium);
+    border-radius: var(--radius-full);
+  }
+
+  .swipe-track-container::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent-red);
+  }
+
+  /* Individual Swipeable Card */
+  .swipe-card-item {
+    flex: 0 0 clamp(270px, 78vw, 340px);
+    scroll-snap-align: start;
+    container-type: scroll-state;
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    transition: border-color var(--transition-normal), 
+                box-shadow var(--transition-normal), 
+                transform var(--transition-fast);
+    position: relative;
+    user-select: none;
+  }
+
+  .swipe-card-item:hover {
+    border-color: var(--color-border-medium);
+    transform: translateY(-2px);
+  }
+
+  .swipe-card-item:target {
+    border-color: var(--color-accent-cyan) !important;
+    box-shadow: 0 0 0 2px var(--color-accent-cyan), 0 8px 24px rgba(0, 210, 255, 0.25) !important;
+  }
+
+  /* Card Interior Layout */
+  .swipe-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .swipe-card-eyebrow {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    color: var(--color-accent-cyan);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .swipe-card-badge {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    color: var(--color-text-muted);
+    background-color: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border-subtle);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Wireframe Aspect Ratio Media Placeholder */
+  .swipe-card-media {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--color-bg-canvas),
+      var(--color-bg-canvas) 8px,
+      var(--color-bg-surface-elevated) 8px,
+      var(--color-bg-surface-elevated) 16px
+    );
+    border: 1px dashed var(--color-border-medium);
+    border-radius: var(--radius-md);
+    display: grid;
+    place-items: center;
+    color: var(--color-text-muted);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .swipe-card-title {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-body);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: var(--line-height-tight);
+    margin: 0;
+  }
+
+  .swipe-card-desc {
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-body);
+    margin: 0;
+    flex: 1;
+  }
+
+  .swipe-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-xs);
+    border-top: 1px dashed var(--color-border-subtle);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    color: var(--color-text-muted);
+    margin-top: auto;
+  }
+
+  .swipe-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    color: var(--color-accent-red);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .swipe-card-cta:hover {
+    color: var(--color-accent-red-hover);
+  }
+
+  /* Progressive Enhancement: Scroll-State Snapped Highlight */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (container-type: scroll-state) {
+      @container scroll-state(snapped: x) {
+        .swipe-card-item {
+          border-color: var(--color-accent-red);
+          box-shadow: 0 4px 20px light-dark(rgba(230,0,0,0.12), rgba(230,0,0,0.3));
+        }
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .swipe-track-container {
+      scroll-behavior: auto !important;
+    }
+    .swipe-card-item {
+      transition: none !important;
+      transform: none !important;
     }
   }
 }

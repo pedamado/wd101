@@ -1,0 +1,299 @@
+/**
+ * ==============================================================================
+ * WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+ * Ficheiro: css/demo-04.css • Variante 4: Modo Stealth & Consola DJ de Performance
+ *
+ * CONCEITO CHAVE:
+ * Nesta variante de nível de produção:
+ *   1. Os inputs nativos são 100% invisíveis via padrão acessível .visually-hidden.
+ *   2. A interface é controlada por uma mesa de mistura DJ completa:
+ *      - 4 Pads MPC retroiluminados com feedback luminoso reativo.
+ *      - Um Crossfader analógico com indicador de posição calibrado.
+ *      - Áreas de toque invisíveis (touch-swipe hit zones) nas bordas das cartas.
+ *   3. Zero JavaScript para o motor de navegação!
+ *
+ * REFERÊNCIAS MDN:
+ *   - CSS Clipping & A11y: https://developer.mozilla.org/en-US/docs/Web/CSS/clip
+ *   - MDN :has(): https://developer.mozilla.org/en-US/docs/Web/CSS/:has
+ *   - MDN <label>: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label
+ * ==============================================================================
+ */
+
+
+/* ==========================================================================
+   PASSO 1: PADRÃO DE ACESSIBILIDADE .visually-hidden
+   
+   Os inputs radio continuam na árvore de acessibilidade (AOM), respondendo
+   a leitores de ecrã e atalhos de teclado, mas ficam 100% invisíveis no layout.
+   ========================================================================== */
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+
+/* ==========================================================================
+   PASSO 2: MÁQUINA DE ESTADOS ZERO-JS COM :has()
+   Especificidade: (1, 1, 0)
+   ========================================================================== */
+
+#wrapper:has(#round-1:checked) {
+  --active-index: 0;
+  --fader-offset: 0%;
+  --active-color: var(--accent-cyan);
+}
+
+#wrapper:has(#round-2:checked) {
+  --active-index: 1;
+  --fader-offset: 33.333%;
+  --active-color: var(--accent-gold);
+}
+
+#wrapper:has(#round-3:checked) {
+  --active-index: 2;
+  --fader-offset: 66.666%;
+  --active-color: var(--accent-purple);
+}
+
+#wrapper:has(#round-4:checked) {
+  --active-index: 3;
+  --fader-offset: 100%;
+  --active-color: var(--accent-red);
+}
+
+
+/* ==========================================================================
+   PASSO 3: DESLOCAMENTO DA FITA MESTRA
+   ========================================================================== */
+
+.slider-track {
+  transform: translate3d(calc(var(--active-index) * -100%), 0, 0);
+  transition: transform var(--swipe-duration) var(--swipe-easing);
+}
+
+
+/* ==========================================================================
+   PASSO 4: ZONAS DE TOQUE (TOUCH-SWIPE HIT-AREAS LATERAIS)
+   
+   Permitem ao utilizador clicar na borda esquerda ou direita de cada carta
+   para simular o gesto natural de "swipe" num telemóvel sem JavaScript!
+   ========================================================================== */
+
+.battle-stage {
+  position: relative;
+}
+
+.swipe-hit-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 15%;
+  min-width: 48px;
+  max-width: 100px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.25;
+  transition: opacity 0.2s ease, background 0.2s ease;
+  user-select: none;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.swipe-hit-zone:hover {
+  opacity: 0.85;
+  background: color-mix(in srgb, var(--active-color) 15%, transparent);
+}
+
+.swipe-hit-zone--prev {
+  left: 0;
+}
+
+.swipe-hit-zone--next {
+  right: 0;
+}
+
+
+/* ==========================================================================
+   PASSO 5: A CONSOLA DJ INFERIOR (MPC PADS + CROSSFADER)
+   ========================================================================== */
+
+.dj-console-dock {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  z-index: 30;
+}
+
+.console-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.console-status-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.console-status-light::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--active-color);
+  box-shadow: 0 0 8px var(--active-color);
+}
+
+/* ==========================================================================
+   PADS MPC DE PERFORMANCE (BOTÕES ILUMINADOS)
+   ========================================================================== */
+
+.mpc-pads-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-2);
+  max-width: 520px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.mpc-pad-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.25rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.mpc-pad-btn:hover {
+  background: var(--bg-surface-hover);
+  color: var(--text-primary);
+  border-color: var(--text-muted);
+}
+
+.pad-number {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.pad-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+/* Iluminação reativa do Pad Ativo com :has() */
+#wrapper:has(#round-1:checked) .mpc-pad-1,
+#wrapper:has(#round-2:checked) .mpc-pad-2,
+#wrapper:has(#round-3:checked) .mpc-pad-3,
+#wrapper:has(#round-4:checked) .mpc-pad-4 {
+  background: var(--active-color);
+  color: #0b0d13;
+  border-color: var(--active-color);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--active-color) 60%, transparent),
+              inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  transform: translateY(-1px);
+}
+
+
+/* ==========================================================================
+   CROSSFADER ANALÓGICO
+   ========================================================================== */
+
+.crossfader-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: 520px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.fader-deck-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.fader-rail {
+  position: relative;
+  flex: 1;
+  height: 24px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+}
+
+.fader-center-mark {
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: var(--border-color);
+  transform: translateX(-50%);
+}
+
+.fader-handle {
+  position: absolute;
+  width: 26px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--active-color);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--active-color) 50%, transparent);
+  left: 4px;
+  /* O handle move-se ao longo da calha conforme a variável calculada */
+  transform: translateX(calc((var(--fader-offset) * (100% - 26px - 8px)) / 100));
+  transition: transform var(--swipe-duration) var(--swipe-easing),
+              background var(--swipe-duration) ease,
+              box-shadow var(--swipe-duration) ease;
+}
+
+/* Indicador central do fader */
+.fader-handle::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 50%;
+  width: 2px;
+  background: #0b0d13;
+  transform: translateX(-50%);
+  border-radius: 1px;
+}

@@ -1,0 +1,165 @@
+/**
+ * ==============================================================================
+ * WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+ * Ficheiro: css/demo-02.css • Técnica 2: Seletores de Atributo HTML data-*
+ *
+ * CONCEITO CHAVE:
+ * O HTML declara explicitamente a semântica da página em atributos de dados:
+ *   data-page="0", data-round="1", data-offset="0%"
+ * O CSS utiliza Seletores de Atributo [data-*] com especificidade (0, 1, 0)
+ * para orquestrar as regras de translação sem classes estáticas redundantes.
+ * ==============================================================================
+ */
+
+/* ==========================================================================
+   PASSO 1: OCULTAÇÃO DOS INPUTS RADIO NATIVOS
+   ========================================================================== */
+
+.state-round-radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+
+/* ==========================================================================
+   PASSO 2: MAPEAMENTO VIA ATRIBUTOS data-*
+   Especificidade de cada regra de atributo: (0, 1, 0)
+   MDN Attribute selectors: https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors
+   ========================================================================== */
+
+/* Cada artigo lê a sua posição declarativa no atributo data-page */
+.battle-stage[data-page="0"] { --data-index: 0; }
+.battle-stage[data-page="1"] { --data-index: 1; }
+.battle-stage[data-page="2"] { --data-index: 2; }
+.battle-stage[data-page="3"] { --data-index: 3; }
+
+
+/* ==========================================================================
+   PASSO 3: MÁQUINA DE ESTADOS COM :has() & SELETORES data-*
+   ========================================================================== */
+
+#wrapper:has(#round-1:checked) {
+  --active-color: var(--accent-cyan);
+}
+
+#wrapper:has(#round-2:checked) {
+  --active-color: var(--accent-gold);
+}
+
+#wrapper:has(#round-3:checked) {
+  --active-color: var(--accent-purple);
+}
+
+#wrapper:has(#round-4:checked) {
+  --active-color: var(--accent-red);
+}
+
+/* Translações governadas pelos estados de round */
+#wrapper:has(#round-1:checked) .slider-track {
+  transform: translate3d(0%, 0, 0);
+  transition: transform var(--swipe-duration) var(--swipe-easing);
+}
+
+#wrapper:has(#round-2:checked) .slider-track {
+  transform: translate3d(-100%, 0, 0);
+  transition: transform var(--swipe-duration) var(--swipe-easing);
+}
+
+#wrapper:has(#round-3:checked) .slider-track {
+  transform: translate3d(-200%, 0, 0);
+  transition: transform var(--swipe-duration) var(--swipe-easing);
+}
+
+#wrapper:has(#round-4:checked) .slider-track {
+  transform: translate3d(-300%, 0, 0);
+  transition: transform var(--swipe-duration) var(--swipe-easing);
+}
+
+
+/* ==========================================================================
+   PASSO 4: BARRA DE TABS COM SELETORES [data-target]
+   ========================================================================== */
+
+.rounds-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+}
+
+.round-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.round-tab-btn:hover {
+  border-color: var(--border-color-bright);
+  color: var(--text-primary);
+}
+
+#wrapper:has(#round-1:checked) [data-target="round-1"] {
+  background: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  color: #000;
+}
+
+#wrapper:has(#round-2:checked) [data-target="round-2"] {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: #000;
+}
+
+#wrapper:has(#round-3:checked) [data-target="round-3"] {
+  background: var(--accent-purple);
+  border-color: var(--accent-purple);
+  color: #fff;
+}
+
+#wrapper:has(#round-4:checked) [data-target="round-4"] {
+  background: var(--accent-red);
+  border-color: var(--accent-red);
+  color: #fff;
+}
+
+
+/* ==========================================================================
+   PASSO 5: BANNER EDUCATIVO INFORMATIVO
+   ========================================================================== */
+
+.demo-formula-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-4);
+  background: var(--bg-surface-elevated);
+  border-top: 1px solid var(--border-color);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.formula-code {
+  color: var(--active-color);
+  font-weight: 700;
+}

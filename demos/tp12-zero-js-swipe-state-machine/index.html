@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!--
+  ==============================================================================
+  WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+  PORTAL MESTRE: Suíte Click-to-Swipe Zero-JS State Machine
+  Tema Curricular: Festival DRUMTIKS '26 (Alfândega do Porto)
+  
+  MÓDULO: 6. Seletores Modernos, Pseudo-Classes & Máquinas de Estado Zero-JS
+  ARQUITETURA: 4 Demos Isoladas + 1 Guião Didático Completo + Suporte Dark/Light
+  ==============================================================================
+-->
+<html lang="pt" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0a0b10">
+  <title>DRUMTIKS '26 • Zero-JS Swipe Navigation Suite | WD101 FBAUP</title>
+
+  <!-- Previne FOUC de tema: sincronização imediata com preferência guardada -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
+
+  <!-- Folhas de Estilo -->
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../tp11-integrated-responsive-project/css/fonts.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/hub.css">
+</head>
+<body>
+
+  <!-- Input Oculto de Diagnóstico X-Ray -->
+  <input type="checkbox" id="xray-toggle" style="display:none;" aria-label="Ativar Modo Raio-X">
+
+  <div class="hub-wrapper">
+
+    <!-- CABEÇALHO GLOBAL DO PORTAL -->
+    <header class="app-header" role="banner">
+      <div class="header-brand">
+        <a href="../../index.html" class="brand-link" title="Voltar ao Índice Curricular WD101">
+          <span class="brand-badge">WD101 • FBAUP</span>
+          <h1 class="brand-title">DRUMTIKS <span class="brand-year">'26</span></h1>
+        </a>
+        <span class="brand-subtitle">Masterclass 12: Zero-JS Swipe State Machine</span>
+      </div>
+
+      <aside class="header-actions">
+        <!-- Pílula de Raio-X -->
+        <label for="xray-toggle" class="btn-action-pill btn-xray-toggle" title="Alternar Inspeção de Layout Raio-X">
+          🩻 <span>Raio-X</span>
+        </label>
+
+        <!-- Botão Dinâmico de Tema -->
+        <button type="button" class="btn-action-pill" id="theme-btn" title="Alternar Tema Claro/Escuro">
+          <span id="theme-icon">☀️</span> <span id="theme-text">Claro</span>
+        </button>
+
+        <!-- Link para o Guião Teórico -->
+        <a href="GUIDE.html" class="btn-action-pill" title="Consultar o Guião Teórico e Pedagógico">
+          📖 <span>Guião</span>
+        </a>
+      </aside>
+    </header>
+
+    <!-- HERO INTRODUTÓRIO -->
+    <section class="hub-hero">
+      <div class="hub-hero-inner">
+        <div class="hub-badge-pill">4 Laboratórios Práticos &bull; Zero JavaScript</div>
+        <h2 class="hub-hero-title">Click-to-Swipe <span>State Machines</span></h2>
+        <p class="hub-hero-lead">
+          Demonstração modular de transições de página reativas em ecrã inteiro (100dvh)
+          recorrendo exclusivamente a seletores relacionais CSS modernos, cálculo vetorial
+          e inputs permanentes mutuamente exclusivos.
+        </p>
+
+        <div class="hub-hero-meta">
+          <span>🎯 Viewport: 100dvh estrito</span>
+          <span>🛡️ Anti-Scroll Horizontal</span>
+          <span>⚡ Aceleração GPU 3D</span>
+          <span>♿ WCAG AAA &amp; AOM</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÁREA PRINCIPAL DOS LABORATÓRIOS -->
+    <main class="hub-main" role="main">
+
+      <h3 class="hub-section-title">Laboratórios Práticos Independentes</h3>
+
+      <div class="demos-grid">
+
+        <!-- ============================================================ -->
+        <!-- DEMO 01: calc()                                              -->
+        <!-- ============================================================ -->
+        <article class="demo-card demo-card--01">
+          <div class="card-header-badge">
+            <span class="card-num-badge">DEMO 01</span>
+            <span class="card-tag">Técnica Clássica</span>
+          </div>
+
+          <h4 class="demo-card-title">Deslocamento Matricial com calc()</h4>
+          <p class="demo-card-desc">
+            O contentor pai deteta o estado ativo com <code>:has(:checked)</code> e atribui o índice
+            numérico <code>--active-index</code>. A fita completa translada com uma única fórmula
+            aritmética multiplicada por <code>-100%</code>.
+          </p>
+
+          <div class="demo-formula-box">
+            <code>transform: translate3d(calc(var(--active-index) * -100%), 0, 0);</code>
+          </div>
+
+          <a href="01-calc-offset.html" class="demo-card-cta">
+            Abrir Demonstração 01 &rarr;
+          </a>
+        </article>
+
+        <!-- ============================================================ -->
+        <!-- DEMO 02: data-* Attributes                                   -->
+        <!-- ============================================================ -->
+        <article class="demo-card demo-card--02">
+          <div class="card-header-badge">
+            <span class="card-num-badge">DEMO 02</span>
+            <span class="card-tag">Semântica &amp; Dados</span>
+          </div>
+
+          <h4 class="demo-card-title">Mapeamento com Atributos data-*</h4>
+          <p class="demo-card-desc">
+            Separação declarativa estrita entre dados e apresentação. O HTML define
+            <code>data-page</code>, <code>data-round</code> e <code>data-offset</code>,
+            e o CSS atua via seletores de atributo com especificidade previsível (0, 1, 0).
+          </p>
+
+          <div class="demo-formula-box">
+            <code>article[data-page="n"] { --data-index: n; }</code>
+          </div>
+
+          <a href="02-data-attributes.html" class="demo-card-cta">
+            Abrir Demonstração 02 &rarr;
+          </a>
+        </article>
+
+        <!-- ============================================================ -->
+        <!-- DEMO 03: sibling-index()                                     -->
+        <!-- ============================================================ -->
+        <article class="demo-card demo-card--03">
+          <div class="card-header-badge">
+            <span class="card-num-badge">DEMO 03</span>
+            <span class="card-tag">W3C Living Standard</span>
+          </div>
+
+          <h4 class="demo-card-title">Contador Iterador Moderno CSS</h4>
+          <p class="demo-card-desc">
+            Implementação da especificação W3C CSS Values and Units Level 5 com a função
+            <code>sibling-index()</code>. Inclui progressão inteligente com fallback
+            universal via <code>:nth-child(n)</code>.
+          </p>
+
+          <div class="demo-formula-box">
+            <code>transform: translate3d(calc((sibling-index() - 1) * -100%), 0, 0);</code>
+          </div>
+
+          <a href="03-css-iterator.html" class="demo-card-cta">
+            Abrir Demonstração 03 &rarr;
+          </a>
+        </article>
+
+        <!-- ============================================================ -->
+        <!-- DEMO 04: Modo Stealth & Consola DJ                           -->
+        <!-- ============================================================ -->
+        <article class="demo-card demo-card--04">
+          <div class="card-header-badge">
+            <span class="card-num-badge">DEMO 04</span>
+            <span class="card-tag">Produção &amp; A11y</span>
+          </div>
+
+          <h4 class="demo-card-title">Modo Stealth &amp; Consola DJ</h4>
+          <p class="demo-card-desc">
+            Inputs 100% invisíveis no viewport via <code>.visually-hidden</code> acessível.
+            Navegação controlada por Pads MPC iluminados, Crossfader analógico funcional
+            e áreas táteis laterais (touch swipe hit-zones).
+          </p>
+
+          <div class="demo-formula-box">
+            <code>.visually-hidden + MPC Pads + Crossfader + Touch-Swipe Zones</code>
+          </div>
+
+          <a href="04-stealth-console.html" class="demo-card-cta">
+            Abrir Demonstração 04 &rarr;
+          </a>
+        </article>
+
+      </div>
+
+      <!-- BANNER DE DESTAQUE DO GUIÃO TEÓRICO COMPLETO -->
+      <section class="guide-spotlight-banner">
+        <div class="guide-banner-content">
+          <h3 class="guide-banner-title">📖 Guião Teórico &amp; Passo a Passo Completo</h3>
+          <p class="guide-banner-desc">
+            Documento didático exaustivo com diagramas de fluxo de estado, tabelas de especificidade,
+            matriz de compatibilidade entre browsers e mais de 30 links educativos para a MDN Web Docs
+            e recomendações da W3C.
+          </p>
+        </div>
+        <a href="GUIDE.html" class="guide-banner-btn">
+          Consultar o Guião &rarr;
+        </a>
+      </section>
+
+      <!-- PRINCÍPIOS ARQUITETURAIS -->
+      <h3 class="hub-section-title">Fundamentos Arquiteturais da Solução</h3>
+
+      <div class="principles-grid">
+        <div class="principle-box">
+          <h5 class="principle-box-title">📐 Viewport 100dvh</h5>
+          <p class="principle-box-desc">
+            O uso de <code>100dvh</code> (Dynamic Viewport Height) ajusta o layout
+            em tempo real às barras de navegação dos browsers móveis sem saltos de altura.
+          </p>
+        </div>
+
+        <div class="principle-box">
+          <h5 class="principle-box-title">🛡️ Anti-Scroll Horizontal</h5>
+          <p class="principle-box-desc">
+            <code>overflow: hidden; contain: paint;</code> no <code>#wrapper</code> elimina
+            qualquer scroll horizontal acidental, mantendo a experiência táctil fluida.
+          </p>
+        </div>
+
+        <div class="principle-box">
+          <h5 class="principle-box-title">🖥️ Desktop Aligned</h5>
+          <p class="principle-box-desc">
+            Em ecrãs desktop largos, cada slide mantém-se estritamente a 100% da largura,
+            centrando o cartão de conteúdo interno sem revelar os slides adjacentes.
+          </p>
+        </div>
+
+        <div class="principle-box">
+          <h5 class="principle-box-title">🌓 Dark &amp; Light Sync</h5>
+          <p class="principle-box-desc">
+            Sincronização imediata de tema via CSS Custom Properties compartilhadas
+            e persistência em <code>localStorage</code> partilhada por todas as 4 demos.
+          </p>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- RODAPÉ INSTITUCIONAL -->
+    <footer class="app-footer" role="contentinfo">
+      <span>WD101 &bull; Web Design 2026/27 &bull; Faculdade de Belas Artes da Universidade do Porto</span>
+      <div style="display:flex;gap:1rem;">
+        <a href="../../index.html">← Índice WD101</a>
+        <a href="../index.html">Todas as Demos</a>
+        <a href="GUIDE.html">Guião Teórico</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Sincronização Dinâmica do Tema Claro/Escuro -->
+  <script>
+    (function() {
+      const themeBtn = document.getElementById('theme-btn');
+      const themeIcon = document.getElementById('theme-icon');
+      const themeText = document.getElementById('theme-text');
+
+      function updateTheme(theme) {
+        if (theme === 'light') {
+          if (themeIcon) themeIcon.textContent = '🌙';
+          if (themeText) themeText.textContent = 'Escuro';
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          if (themeIcon) themeIcon.textContent = '☀️';
+          if (themeText) themeText.textContent = 'Claro';
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      }
+
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      updateTheme(current);
+
+      if (themeBtn) {
+        themeBtn.addEventListener('click', function() {
+          const active = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+          const next = active === 'light' ? 'dark' : 'light';
+          localStorage.setItem('wd101_theme', next);
+          updateTheme(next);
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

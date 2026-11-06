@@ -1,0 +1,651 @@
+/**
+ * ==============================================================================
+ * WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+ * FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+ * 
+ * Tema Curricular: Festival DRUMTIKS '26 (Alfândega do Porto)
+ * Exercício de Aula: TP09-CSS Shape Animations
+ * Ficheiro: style-alt.css • "CSS Shape Path, Inset Morphing & Spring Bounce Playground"
+ *
+ * AUTORES & COORDENAÇÃO PEDAGÓGICA:
+ *   - Prof. Pedro Amado (FBAUP / i2ADS)
+ *   - Antigravity (Advanced Agentic Pair)
+ *
+ * ==============================================================================
+ * CONCEITOS E ESPECIFICAÇÕES W3C DETALHADOS:
+ * 
+ * 1. `clip-path: path(...)` (W3C CSS Masking Module Level 1):
+ *    Permite incorporar uma cadeia de caracteres de comandos SVG path no CSS.
+ *    A sintaxe segue estritamente a especificação SVG 2 (M, C, S, Q, T, A, Z).
+ *    Quando combinada com transições, o browser interpola os pontos de controlo
+ *    se as duas formas tiverem uma estrutura de comandos idêntica.
+ *
+ * 2. `linear(...)` Spring Physics (W3C CSS Easing Functions Level 2):
+ *    Define uma função de temporização contínua por troços lineares (piecewise linear).
+ *    Ao amostrar uma curva de oscilador harmónico amortecido, permite produzir
+ *    ressaltos realistas (spring overshoot > 1.0) sem bibliotecas externas.
+ *
+ * 3. `clip-path: inset(... round ...)`:
+ *    A função inset define um retângulo inserido a partir das quatro margens do elemento,
+ *    com um raio de arredondamento opcional (`round`). Transições de `round` produzem
+ *    um efeito visual de squircle/círculo extremamente performante e seguro.
+ * ==============================================================================
+ */
+
+/* ==========================================================================
+   1. DESIGN TOKENS (LIGHT & DARK SCHEME)
+   ========================================================================== */
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Martian Mono', 'SF Mono', Consolas, 'Liberation Mono', monospace;
+  --font-display: 'Syne', sans-serif;
+
+  /* Cores Base do Festival DRUMTIKS '26 */
+  --color-primary: #4f46e5;
+  --color-primary-glow: rgba(79, 70, 229, 0.4);
+  --color-cyan: #00d2ff;
+  --color-purple: #c040fd;
+  --color-red: #ff3344;
+
+  /* Tema Escuro (Padrão de Clube DRUMTIKS) */
+  --bg-app: #0a0b10;
+  --bg-surface: #12141c;
+  --bg-surface-elevated: #1a1d28;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --text-main: #f0f2f8;
+  --text-muted: #8b92a5;
+  --code-bg: #07080c;
+
+  /* Transição de Cores do Tema */
+  --theme-transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+/* Ativação do Tema Claro através de [data-theme="light"] ou checkbox :checked */
+html[data-theme="light"],
+body:has(#theme-toggle:checked) {
+  --bg-app: #f4f5f9;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #e9ebf2;
+  --border-subtle: rgba(0, 0, 0, 0.09);
+  --border-strong: rgba(0, 0, 0, 0.22);
+  --text-main: #111319;
+  --text-muted: #5e6578;
+  --code-bg: #eef1f6;
+  --color-primary-glow: rgba(79, 70, 229, 0.2);
+}
+
+/* ==========================================================================
+   2. RESET & BASE LAYOUT
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: var(--theme-transition);
+  -webkit-font-smoothing: antialiased;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.page-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 4rem;
+}
+
+/* ==========================================================================
+   3. CABEÇALHO GLOBAL & CONTROLO DE TEMA
+   ========================================================================== */
+.demo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.hub-pill {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  text-decoration: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.hub-pill:hover {
+  border-color: var(--color-cyan);
+  background-color: rgba(0, 210, 255, 0.1);
+  color: var(--color-cyan);
+}
+
+.header-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 0.5rem;
+}
+
+.theme-toggle-btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  transition: var(--theme-transition);
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--border-strong);
+}
+
+/* Alternância visual de rótulos de tema */
+.theme-label-light { display: none; }
+.theme-label-dark { display: inline; }
+
+body:has(#theme-toggle:checked) .theme-label-light { display: inline; }
+body:has(#theme-toggle:checked) .theme-label-dark { display: none; }
+
+/* ==========================================================================
+   4. HERO INTRO & SELETOR DE MODOS ZERO-JS
+   ========================================================================== */
+.hero-intro {
+  margin-bottom: 2.5rem;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+  background: linear-gradient(135deg, var(--text-main) 60%, var(--color-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 75ch;
+  margin-bottom: 1.5rem;
+}
+
+.hero-subtitle code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  background-color: var(--bg-surface-elevated);
+  color: var(--color-cyan);
+}
+
+.mode-selector-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+}
+
+.selector-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.mode-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.mode-pill {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mode-pill:hover {
+  color: var(--text-main);
+  border-color: var(--border-strong);
+}
+
+/* Estados Ativos dos Rádios */
+body:has(#mode-hover:checked) .pill-hover,
+body:has(#mode-loop:checked) .pill-loop,
+body:has(#mode-both:checked) .pill-both {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px var(--color-primary-glow);
+}
+
+/* ==========================================================================
+   5. PALCO INTERATIVO DE FORMAS (STAGE SECTION)
+   ========================================================================== */
+.stage-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+}
+
+/* Orquestração dos Modos de Visualização através de :has() */
+body:has(#mode-hover:checked) .card-path-demo { display: block; }
+body:has(#mode-hover:checked) .card-inset-demo { display: none; }
+
+body:has(#mode-loop:checked) .card-path-demo { display: none; }
+body:has(#mode-loop:checked) .card-inset-demo { display: block; }
+
+body:has(#mode-both:checked) .stage-section {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+body:has(#mode-both:checked) .card-path-demo,
+body:has(#mode-both:checked) .card-inset-demo {
+  display: block;
+}
+
+.stage-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: var(--theme-transition);
+}
+
+.stage-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface-elevated);
+}
+
+.card-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0.35rem;
+}
+
+.badge-bezier {
+  background-color: rgba(79, 70, 229, 0.15);
+  border: 1px solid rgba(79, 70, 229, 0.4);
+  color: #818cf8;
+}
+
+.badge-inset {
+  background-color: rgba(0, 210, 255, 0.15);
+  border: 1px solid rgba(0, 210, 255, 0.4);
+  color: var(--color-cyan);
+}
+
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.interaction-hint,
+.status-indicator {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-cyan);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background-color: rgba(0, 210, 255, 0.08);
+  border: 1px solid rgba(0, 210, 255, 0.2);
+}
+
+.status-indicator {
+  color: #10b981;
+  background-color: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.canvas-viewport {
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: radial-gradient(circle at center, rgba(79, 70, 229, 0.08) 0%, transparent 70%);
+  padding: 2.5rem;
+}
+
+/* Grelha milimétrica subjacente para conferir contexto de ateliê de design */
+.canvas-grid-underlay {
+  position: absolute;
+  inset: 0;
+  background-size: 24px 24px;
+  background-image: 
+    linear-gradient(to right, var(--border-subtle) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.stage-card-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface-elevated);
+}
+
+.tech-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.tech-note code {
+  font-family: var(--font-mono);
+  color: var(--color-cyan);
+}
+
+/* ==========================================================================
+   6. OS ELEMENTOS MORPHING PRINCIPAIS (CÓDIGO ORIGINAL DO PROFESSOR OTIMIZADO)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   ELEMENTO 1: #path (A transição ao Hover com Bézier + linear Spring)
+   -------------------------------------------------------------------------- */
+#path {
+  /* 1. Dimensões máximas da área delimitadora (bounding box do recorte) */
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #00d2ff 100%);
+  box-shadow: 0 10px 30px var(--color-primary-glow);
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+
+  /*
+     2. Estado Inicial: Círculo perfeito com 4 Curvas de Bézier Cúbicas SVG
+     Sintaxe: clip-path: path("...")
+     - M 100,0: Move para o ponto (100, 0)
+     - 4 comandos C desenham os arcos com pontos de controlo tangenciais
+     - Z: Fecha o caminho
+  */
+  clip-path: path(
+    "M 100,0 C 155.2,0 200,44.8 200,100 C 200,155.2 155.2,200 100,200 C 44.8,200 0,155.2 0,100 C 0,44.8 44.8,0 100,0 Z"
+  );
+
+  /*
+     3. A Curva de Easing Elástica `linear(...)` do W3C CSS Easing Level 2:
+     Esta função de 66 pontos foi calculada a partir da equação matemática
+     de um sistema massa-mola-amortecedor. Os valores ultrapassam 1.0 (máximo 1.673)
+     criando o ressalto antes de estabilizar suavemente.
+  */
+  transition: clip-path 0.8s
+    linear(
+      0,
+      0.053 0.5%,
+      0.238 1.1%,
+      1.46 3.6%,
+      1.62 4.2%,
+      1.673 4.8%,
+      1.637 5.3%,
+      1.512 5.9%,
+      0.689 8.4%,
+      0.582 9%,
+      0.547 9.6%,
+      0.571 10.1%,
+      0.656 10.7%,
+      1.21 13.2%,
+      1.282 13.8%,
+      1.305 14.4%,
+      1.288 14.9%,
+      1.231 15.5%,
+      0.858 18%,
+      0.81 18.6%,
+      0.795 19.1%,
+      0.802 19.6%,
+      0.829 20.1%,
+      1.08 22.6%,
+      1.124 23.3%,
+      1.138 23.9%,
+      1.133 24.4%,
+      1.115 24.9%,
+      0.946 27.4%,
+      0.916 28.1%,
+      0.907 28.7%,
+      0.923 29.7%,
+      1.037 32.2%,
+      1.063 33.5%,
+      1.047 34.7%,
+      0.971 37.2%,
+      0.958 38.3%,
+      0.968 39.5%,
+      1.02 42%,
+      1.028 43.1%,
+      0.981 47.9%,
+      1.013 52.7%,
+      0.991 57.5%,
+      1.006 62.3%,
+      0.996 67.1%,
+      1.003 71.8%,
+      1
+    ),
+    transform 0.4s ease;
+}
+
+/*
+   4. Estado Hover / Focus: Morfismo para a forma alternativa
+   A mesma contagem e sequência de comandos permite a interpolação fluida!
+*/
+#path:hover,
+#path:focus-visible {
+  transform: scale(1.05);
+  clip-path: path(
+    "M 100,30 C 200,30 200,30 200,100 C 200,170 200,170 100,170 C 0,170 0,170 0,100 C 0,30 0,30 100,30 Z"
+  );
+}
+
+/* --------------------------------------------------------------------------
+   ELEMENTO 2: #path-loop (A animação contínua com @keyframes circleToRect)
+   -------------------------------------------------------------------------- */
+#path-loop {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #00d2ff 0%, #3b82f6 50%, #9333ea 100%);
+  box-shadow: 0 10px 30px rgba(0, 210, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+
+  /* Aplica a animação infinita de vaivém criada na aula */
+  animation: circleToRect 2s infinite alternate ease-in-out;
+}
+
+/*
+   5. Keyframes de Morfismo Inset:
+   Oscilação entre um círculo quase perfeito (round 80px) e um squircle suave (round 56px).
+   A sintaxe inset() aceita: inset(top right bottom left round border-radius).
+*/
+@keyframes circleToRect {
+  0% {
+    /* Estado A: Proporções próximas de um círculo */
+    clip-path: inset(0px 4px 0px 4px round 80px);
+  }
+  100% {
+    /* Estado B: Proporções expandidas com cantos de squircle moderno */
+    clip-path: inset(0px 0px 0px 0px round 56px);
+  }
+}
+
+/* Badge interno de legenda */
+.path-internal-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  color: #ffffff;
+  pointer-events: none;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.badge-icon {
+  font-size: 1.75rem;
+}
+
+.badge-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   7. DISSECAÇÃO DIDÁTICA DE CÓDIGO
+   ========================================================================== */
+.code-breakdown-section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+}
+
+.code-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.code-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.code-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.6rem;
+}
+
+.code-card-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.code-block {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #a5b4fc;
+}
+
+/* ==========================================================================
+   8. RODAPÉ
+   ========================================================================== */
+.demo-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.footer-links a:hover {
+  color: var(--color-cyan);
+}

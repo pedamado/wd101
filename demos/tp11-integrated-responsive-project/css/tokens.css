@@ -28,6 +28,7 @@
        function without needing CSS preprocessors or JavaScript classes.
        ------------------------------------------------------------------------ */
     color-scheme: light dark;
+    interpolate-size: allow-keywords;
 
     /* Semantic Surface & Background Palettes */
     --color-bg-canvas: light-dark(#f4f4f6, #060608);

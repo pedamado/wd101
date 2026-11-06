@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    ==========================================================================
+    FESTIVAL DRUMTIKS '26 • PURE HTML+CSS INFORMATION ACCORDION SUITE
+    Faculdade de Belas Artes da Universidade do Porto (FBAUP)
+    Course: Web Design (WD101) — 2026/27
+    Authors: Pedro Amado (FBAUP/i2ADS) & Antigravity (Advanced Agentic Pair)
+    ==========================================================================
+    PEDAGOGICAL & PLATFORM ARCHITECTURE:
+    1. HTML5 Semantic Disclosures (<details> and <summary>)
+    2. HTML Living Standard `name="..."` for Exclusive Auto-Collapsing Groups
+    3. Preset Open State via boolean `open` attribute
+    4. Pure CSS Changing Text Labels (Open / Close Contextual States)
+    5. Contextual Alternating SVG Icons (Dynamic morphing between closed/open)
+    6. Non-Exclusive Multi-Expand Accordion Demonstration (Simultaneous panes)
+    7. Remote Link Activation via Anchor Navigation & CSS `:target` Pseudo-class
+       (Triggering specific panes from outside toolbar and from inside pane links)
+    8. Modern Intrinsic Sizing via `interpolate-size: allow-keywords` & `::details-content`
+    9. Zero JavaScript, 100% Accessible, Dynamic Light/Dark Theming
+    ==========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>DRUMTIKS '26 • Pure HTML+CSS Information Accordion Suite | WD101 FBAUP</title>
+  <meta name="description" content="Master pure HTML+CSS disclosure accordion showcase demonstrating preset open states, changing labels, contextual alternating icons, exclusive auto-collapse, multi-expand, and external/internal deep-link activation.">
+
+  <!-- Self-Hosted Variable Webfonts & Master Cascade Layers Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Scalable Vector Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <style>
+    /* Dedicated Showcase Layout Refinements */
+    .showcase-hero {
+      padding: var(--space-2xl) 0 var(--space-xl);
+      border-bottom: 1px solid var(--color-border-subtle);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .showcase-grid-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-3xl);
+      margin-bottom: var(--space-3xl);
+    }
+
+    .demo-panel-card {
+      background-color: var(--color-bg-surface);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-xl);
+      padding: clamp(var(--space-md), 3vw, var(--space-2xl));
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .panel-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .panel-meta-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2xs);
+    }
+
+    .panel-title {
+      font-size: var(--font-size-h2);
+      font-weight: 800;
+      color: var(--color-text-primary);
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .panel-tagline {
+      font-size: var(--font-size-small);
+      color: var(--color-text-secondary);
+      max-width: 65ch;
+      margin: 0;
+    }
+
+    .tech-pill-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2xs);
+    }
+
+    .tech-pill {
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-micro);
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      background-color: var(--color-bg-surface-elevated);
+      border: 1px solid var(--color-border-subtle);
+      color: var(--color-text-muted);
+      font-weight: 700;
+    }
+
+    .tech-pill--cyan {
+      border-color: rgba(0, 210, 255, 0.3);
+      color: var(--color-accent-cyan);
+      background-color: rgba(0, 210, 255, 0.06);
+    }
+
+    .tech-pill--red {
+      border-color: rgba(230, 0, 0, 0.3);
+      color: var(--color-accent-red);
+      background-color: rgba(230, 0, 0, 0.06);
+    }
+
+    .tech-pill--gold {
+      border-color: rgba(245, 166, 35, 0.3);
+      color: var(--color-accent-gold);
+      background-color: rgba(245, 166, 35, 0.06);
+    }
+
+    /* Comparison Grid for Educational Deep-Dive */
+    .edu-breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-2xl);
+    }
+
+    .edu-card {
+      background-color: var(--color-bg-surface-elevated);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .edu-card h3 {
+      font-size: var(--font-size-body);
+      color: var(--color-text-primary);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .edu-card p {
+      font-size: var(--font-size-small);
+      color: var(--color-text-secondary);
+      line-height: var(--line-height-body);
+      margin: 0;
+    }
+
+    .edu-card code {
+      font-family: var(--font-family-mono);
+      font-size: 0.9em;
+      color: var(--color-accent-cyan);
+      background-color: var(--color-bg-canvas);
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+
+    /* Notice Banner */
+    .showcase-banner {
+      background: linear-gradient(135deg, rgba(230, 0, 0, 0.08), rgba(0, 210, 255, 0.08));
+      border: 1px solid var(--color-border-medium);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .showcase-banner-text {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: var(--font-size-small);
+      color: var(--color-text-primary);
+    }
+
+    .showcase-banner-text strong {
+      color: var(--color-accent-red);
+    }
+
+    .jump-nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+
+    .jump-nav-link {
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-micro);
+      font-weight: 700;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background-color: var(--color-bg-surface);
+      border: 1px solid var(--color-border-subtle);
+      transition: all var(--transition-fast);
+    }
+
+    .jump-nav-link:hover {
+      border-color: var(--color-accent-cyan);
+      color: var(--color-accent-cyan);
+    }
+  </style>
+</head>
+<body class="page-accordion-showcase">
+
+  <!-- Viewport Scroll Progress Bar (Pure CSS Scroll-Driven Animation) -->
+  <div class="viewport-progress-bar" aria-hidden="true"></div>
+
+  <!-- Pure CSS Theme Switcher Radios and X-Ray Toggle -->
+  <input type="radio" name="site-theme" id="theme-auto" checked aria-hidden="true" style="display:none;">
+  <input type="radio" name="site-theme" id="theme-light" aria-hidden="true" style="display:none;">
+  <input type="radio" name="site-theme" id="theme-dark" aria-hidden="true" style="display:none;">
+  <input type="checkbox" id="xray-toggle" aria-hidden="true" style="display:none;">
+
+  <!-- Primary Site Wrapper -->
+  <div class="site-wrapper">
+
+    <!-- ======================================================================
+         SITE HEADER LANDMARK (<header>)
+         ====================================================================== -->
+    <header class="site-header" role="banner">
+      <div class="header-brand-group">
+        <a href="index.html" class="site-logo" aria-label="DRUMTIKS 2026 Home">
+          <span style="font-family:var(--font-family-display); font-weight:800; font-size:1.6rem; color:var(--color-text-primary); letter-spacing:-0.03em;">
+            DRUMTIKS<span style="color:var(--color-accent-red);">'26</span>
+          </span>
+        </a>
+        <span class="pill-badge pill-badge--accent">ACCORDION SUITE</span>
+      </div>
+
+      <!-- Primary Navigation Bar -->
+      <nav class="site-nav-menu" aria-label="Festival Primary Navigation">
+        <a href="index.html" class="site-nav-link">Home</a>
+        <a href="dj-warp.html" class="site-nav-link">DJ Warp</a>
+        <a href="battle-rules.html" class="site-nav-link">808 Clash</a>
+        <a href="accordion-showcase.html" class="site-nav-link active" aria-current="page" style="color:var(--color-accent-cyan);">Accordion Hub</a>
+        <a href="../tp13-animated-section-css-path-transitions/index.html" class="site-nav-link" style="color:var(--color-accent-lime, #10b981);" title="Animated Section CSS Path Transitions &amp; Motion Path">CSS Paths 〰️</a>
+        <a href="../tp09-css-shape-animations/index.html" class="site-nav-link" style="color:#ffaa00;" title="CSS Shape Animations &amp; Scroll-Driven">Shape Lab 🌀</a>
+        <a href="credits.html" class="site-nav-link">Credits</a>
+        <a href="../tp06-responsive/index.html" class="site-nav-link" style="color:var(--color-accent-gold);" title="Compare with Early Prototype">
+          ↩ Early (TP06)
+        </a>
+      </nav>
+
+      <!-- Theme Controls Cluster -->
+      <div class="header-controls-group">
+        <div class="theme-toggle-cluster" role="radiogroup" aria-label="Color Scheme Mode">
+          <label for="theme-auto" class="theme-radio-pill" title="Follow Operating System Preference">
+            <span>Auto</span>
+          </label>
+          <label for="theme-light" class="theme-radio-pill" title="Light High-Contrast Mode">
+            <span>Light</span>
+          </label>
+          <label for="theme-dark" class="theme-radio-pill" title="Dark Club Mode">
+            <span>Dark</span>
+          </label>
+        </div>
+
+        <label for="xray-toggle" class="btn-xray-toggle" title="Toggle Layout Boundaries and Accessibility Diagnostic Grids">
+          <span class="xray-icon" aria-hidden="true">🩻</span>
+          <span class="xray-text">X-RAY</span>
+        </label>
+      </div>
+    </header>
+
+    <!-- ======================================================================
+         MAIN CONTENT LANDMARK (<main>)
+         ====================================================================== -->
+    <main id="main-content">
+
+      <!-- Hero Header Section -->
+      <section class="showcase-hero">
+        <span class="hero-eyebrow">FBAUP // WD101 ADVANCED INTERACTION PATTERN</span>
+        <h1 class="hero-title">Festival Information Accordion Architecture</h1>
+        <p class="hero-subtitle">
+          Pure HTML5 &amp; CSS disclosure engine featuring preset open states, contextual alternating SVG icons, 
+          dynamic changing text labels, exclusive auto-collapsing panels, multi-expand modes, and zero-JS remote link triggers.
+        </p>
+
+        <!-- Quick Jump Navigation -->
+        <div class="showcase-banner">
+          <div class="showcase-banner-text">
+            <span>⚡</span>
+            <span><strong>Explore Implementations:</strong> Select an architectural accordion paradigm below:</span>
+          </div>
+          <nav class="jump-nav-links" aria-label="Accordion Demonstrations Jump Links">
+            <a href="#demo-exclusive" class="jump-nav-link">1. Exclusive (Auto-Collapse)</a>
+            <a href="#demo-multiexpand" class="jump-nav-link">2. Non-Exclusive (Multi-Open)</a>
+            <a href="#demo-remote" class="jump-nav-link">3. Remote Links &amp; Cross-Pane</a>
+            <a href="#demo-pedagogy" class="jump-nav-link">4. Architectural Breakdown</a>
+          </nav>
+        </div>
+      </section>
+
+      <!-- Outer Grid for Showcases -->
+      <div class="showcase-grid-layout">
+
+        <!-- ==================================================================
+             DEMONSTRATION 1: FLAGSHIP DRUMTIKS EXCLUSIVE ACCORDION
+             - Preset Open Pane: Vault 01 has boolean `open` attribute
+             - Exclusive Collapse: HTML Living Standard `name="drumtiks-vault-exclusive"`
+             - Changing Text Labels: Pure CSS .label-closed / .label-opened
+             - Custom Alternating Contextual Icons: SVG transforms on [open]
+             - Deep-link targets: IDs #pane-acoustics, #pane-clash, etc.
+             ================================================================== -->
+        <section class="demo-panel-card" id="demo-exclusive" aria-labelledby="heading-demo-1">
+          <div class="panel-header-row">
+            <div class="panel-meta-title-group">
+              <span class="section-tag" style="color:var(--color-accent-red);">PARADIGM 01 • HTML LIVING STANDARD `name="..."`</span>
+              <h2 class="panel-title" id="heading-demo-1">Exclusive Auto-Collapsing Accordion</h2>
+              <p class="panel-tagline">
+                Opening any pane automatically collapses the other active panes. Includes a 
+                <strong>preset open pane</strong> on load, <strong>contextual alternating icons</strong>, and <strong>dynamic changing text labels</strong>.
+              </p>
+            </div>
+            <div class="tech-pill-cluster">
+              <span class="tech-pill tech-pill--red">PRESET OPEN PANE</span>
+              <span class="tech-pill tech-pill--cyan">CHANGING LABELS</span>
+              <span class="tech-pill tech-pill--gold">CONTEXTUAL ICONS</span>
+              <span class="tech-pill">EXCLUSIVE NAME ATTRIBUTE</span>
+              <span class="tech-pill">ZERO JS</span>
+            </div>
+          </div>
+
+          <!-- Master Exclusive Details Stack -->
+          <div class="drumtiks-accordion-group" data-accordion-mode="exclusive">
+
+            <!-- PANE 1: VAULT 01 (PRESET OPEN PANE) -->
+            <details class="drumtiks-accordion-item" name="drumtiks-vault-exclusive" id="pane-acoustics" open>
+              <summary class="drumtiks-summary">
+                <div class="summary-left-cluster">
+                  <!-- Contextual Animated Icon: Turntable / Tonearm Needle & Sonic Wave -->
+                  <div class="summary-context-icon" aria-hidden="true">
+                    <!-- Closed State: Tonearm up in rest position, vinyl idle -->
+                    <span class="icon-state icon-state--closed" title="Turntable in standby">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9"/>
+                        <circle cx="12" cy="12" r="3"/>
+                        <!-- Tonearm in rest position off the platter -->
+                        <path d="M19 5 L17 11 L19 13"/>
+                        <circle cx="19" cy="5" r="1.5" fill="currentColor"/>
+                      </svg>
+                    </span>
+                    <!-- Opened State: Tonearm down on spinning vinyl with active audio waves -->
+                    <span class="icon-state icon-state--opened" title="Turntable needle active on vinyl">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Spinning Vinyl Grooves -->
+                        <circle cx="12" cy="12" r="9" class="anim-spin-disc" stroke-dasharray="2 3"/>
+                        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                        <!-- Tonearm tracking the groove -->
+                        <path d="M19 5 L14 11 L12 12" stroke="var(--color-accent-cyan)"/>
+                        <!-- Equalizer soundbars vibrating -->
+                        <path d="M3 12 L1 12 M23 12 L21 12" stroke="var(--color-accent-red)" class="anim-wave-bar"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <!-- Text Hierarchy -->
+                  <div class="summary-text-block">
+                    <span class="summary-eyebrow">
+                      <span>VAULT 01 // MAIN STAGE</span>
+                      <span class="target-active-pill" aria-hidden="true">TARGETED</span>
+                    </span>
+                    <h3 class="summary-title">Subterranean Line Array &amp; Analog Turntable Rig</h3>
+                  </div>
+                </div>
+
+                <!-- Pure CSS Changing Text Label & State Indicator -->
+                <span class="accordion-action-pill">
+                  <span class="label-closed">
+                    <span class="action-symbol" aria-hidden="true">+</span>
+                    <span>Inspect Acoustic Rig</span>
+                  </span>
+                  <span class="label-opened">
+                    <span class="action-symbol" aria-hidden="true">&minus;</span>
+                    <span>Hide Acoustic Rig</span>
+                  </span>
+                </span>
+              </summary>
+
+              <!-- Content Body with Intrinsic Height Fallback -->
+              <div class="accordion-content-grid">
+                <div class="accordion-content-overflow">
+                  <div class="accordion-content-inner">
+                    <p>
+                      Vault 01 is housed inside Alfândega’s subterranean granite arches. The sound design deploys 
+                      a custom 4-point directional line-array with tuned resonator bass traps designed to eliminate standing waves 
+                      between 28Hz and 65Hz during live turntablism performances.
+                    </p>
+
+                    <!-- Technical Specifications Grid -->
+                    <div class="accordion-spec-grid">
+                      <div class="spec-item-box">
+                        <span class="spec-label">Platters</span>
+                        <span class="spec-value">2× Technics SL-1210MK7 (Target Pitch &plusmn;8%)</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">Cartridges</span>
+                        <span class="spec-value">Ortofon Concorde Digital MKII (Spherical)</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">Sub-Bass Dispersion</span>
+                        <span class="spec-value">Cardioid Sub Array @ 138 dB Peak SPL</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">Acoustic Treatment</span>
+                        <span class="spec-value">19th-Century Granite Mass &plusmn; Basotect Absorbers</span>
+                      </div>
+                    </div>
+
+                    <!-- Internal Cross-Pane Deep Link -->
+                    <div class="cross-pane-callout">
+                      <span class="cross-pane-desc">Hardware competitor or sound engineer?</span>
+                      <a href="#pane-clash" class="cross-pane-link" title="Jump to Vault 02">
+                        Inspect Vault 02: 808 Clash Battle Rules &rarr;
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <!-- PANE 2: VAULT 02 (THE 808 CLASH) -->
+            <details class="drumtiks-accordion-item" name="drumtiks-vault-exclusive" id="pane-clash">
+              <summary class="drumtiks-summary">
+                <div class="summary-left-cluster">
+                  <!-- Contextual Animated Icon: 808 Drum Machine Sequencer Pads & Metronome -->
+                  <div class="summary-context-icon" aria-hidden="true">
+                    <!-- Closed State: 16-Step Grid in Standby -->
+                    <span class="icon-state icon-state--closed" title="808 Sequencer in Standby">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                        <circle cx="6" cy="8" r="1" fill="currentColor"/>
+                        <circle cx="10" cy="8" r="1" fill="currentColor"/>
+                        <circle cx="14" cy="8" r="1" fill="currentColor"/>
+                        <circle cx="18" cy="8" r="1" fill="currentColor"/>
+                        <line x1="4" y1="14" x2="20" y2="14"/>
+                      </svg>
+                    </span>
+                    <!-- Opened State: Sequencer LED Chasing + Active Kick Pulse -->
+                    <span class="icon-state icon-state--opened" title="808 Step Battle Active">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2" stroke="var(--color-accent-red)"/>
+                        <!-- Chasing Step LEDs -->
+                        <circle cx="6" cy="8" r="1.5" fill="var(--color-accent-cyan)"/>
+                        <circle cx="10" cy="8" r="1.5" fill="var(--color-accent-cyan)"/>
+                        <circle cx="14" cy="8" r="1.5" fill="var(--color-accent-red)"/>
+                        <circle cx="18" cy="8" r="1.5" fill="var(--color-accent-gold)"/>
+                        <!-- Oscillating kick wave -->
+                        <path d="M4 15 Q7 10, 10 15 T16 15 T20 15" stroke="var(--color-accent-cyan)"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <div class="summary-text-block">
+                    <span class="summary-eyebrow">
+                      <span>VAULT 02 // TOURNAMENT ARENA</span>
+                      <span class="target-active-pill" aria-hidden="true">TARGETED</span>
+                    </span>
+                    <h3 class="summary-title">The 808 Clash • Hardware Beat Battle Schedule</h3>
+                  </div>
+                </div>
+
+                <span class="accordion-action-pill">
+                  <span class="label-closed">
+                    <span class="action-symbol" aria-hidden="true">+</span>
+                    <span>View Battle Timetable</span>
+                  </span>
+                  <span class="label-opened">
+                    <span class="action-symbol" aria-hidden="true">&minus;</span>
+                    <span>Hide Battle Timetable</span>
+                  </span>
+                </span>
+              </summary>
+
+              <div class="accordion-content-grid">
+                <div class="accordion-content-overflow">
+                  <div class="accordion-content-inner">
+                    <p>
+                      16 regional beatmakers go head-to-head in single-elimination knockout rounds. 
+                      Strict hardware regulations: zero laptops or pre-sequenced backing tracks permitted. 
+                      Only standalone samplers, drum synthesizers, and live finger-drumming rigs.
+                    </p>
+
+                    <div class="accordion-spec-grid">
+                      <div class="spec-item-box">
+                        <span class="spec-label">Round of 16</span>
+                        <span class="spec-value">18:00 — 60s Head-to-Head Routine</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">Quarter-Finals</span>
+                        <span class="spec-value">20:30 — Blind Vinyl Sample Challenge</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">Grand Finale</span>
+                        <span class="spec-value">23:15 — Sudden-Death 3-Minute Live Set</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">Judges Panel</span>
+                        <span class="spec-value">DJ Warp, MPC 2000XL Collective, Sound Guild</span>
+                      </div>
+                    </div>
+
+                    <!-- Internal Cross-Pane Deep Link -->
+                    <div class="cross-pane-callout">
+                      <span class="cross-pane-desc">Curious about riverbed acoustic sensors?</span>
+                      <a href="#pane-hydrophone" class="cross-pane-link" title="Jump to Vault 03">
+                        Examine Vault 03: Hydrophone Sonar Telemetry &rarr;
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <!-- PANE 3: VAULT 03 (HYDROPHONE TELEMETRY) -->
+            <details class="drumtiks-accordion-item" name="drumtiks-vault-exclusive" id="pane-hydrophone">
+              <summary class="drumtiks-summary">
+                <div class="summary-left-cluster">
+                  <!-- Contextual Animated Icon: Sub-Riverbed Hydrophone Sonar Radar -->
+                  <div class="summary-context-icon" aria-hidden="true">
+                    <!-- Closed State: Hydrophone resting in calm water -->
+                    <span class="icon-state icon-state--closed" title="Hydrophone Telemetry Dormant">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2 L12 14"/>
+                        <circle cx="12" cy="17" r="3"/>
+                        <path d="M5 21 C8 20, 10 22, 12 21 C14 20, 16 22, 19 21"/>
+                      </svg>
+                    </span>
+                    <!-- Opened State: Sonar Ping Waves Radiating -->
+                    <span class="icon-state icon-state--opened" title="Hydrophone Sonar Live Transmission">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2 L12 13" stroke="var(--color-accent-cyan)"/>
+                        <circle cx="12" cy="16" r="3" fill="var(--color-accent-cyan)"/>
+                        <!-- Expanding Sonar Radar Arcs -->
+                        <path d="M7 11 A7 7 0 0 1 17 11" stroke="var(--color-accent-red)" stroke-dasharray="2 2"/>
+                        <path d="M4 8 A11 11 0 0 1 20 8" stroke="var(--color-accent-cyan)"/>
+                        <path d="M2 5 A15 15 0 0 1 22 5" stroke="var(--color-accent-gold)"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <div class="summary-text-block">
+                    <span class="summary-eyebrow">
+                      <span>VAULT 03 // RESEARCH LAB</span>
+                      <span class="target-active-pill" aria-hidden="true">TARGETED</span>
+                    </span>
+                    <h3 class="summary-title">Sub-Douro Hydrophone Telemetry &amp; Granular Resonators</h3>
+                  </div>
+                </div>
+
+                <span class="accordion-action-pill">
+                  <span class="label-closed">
+                    <span class="action-symbol" aria-hidden="true">+</span>
+                    <span>Expand Telemetry</span>
+                  </span>
+                  <span class="label-opened">
+                    <span class="action-symbol" aria-hidden="true">&minus;</span>
+                    <span>Collapse Telemetry</span>
+                  </span>
+                </span>
+              </summary>
+
+              <div class="accordion-content-grid">
+                <div class="accordion-content-overflow">
+                  <div class="accordion-content-inner">
+                    <p>
+                      Submerged piezoelectric transducers anchored 4 meters into the Douro River sediment capture 
+                      hydrodynamic currents, ship hull low-frequency vibrations, and tidal currents. These raw hydrophone streams 
+                      are processed via real-time granular synthesis engines in Vault 03.
+                    </p>
+
+                    <div class="accordion-spec-grid">
+                      <div class="spec-item-box">
+                        <span class="spec-label">Transducer Depth</span>
+                        <span class="spec-value">-4.2m Sub-surface (Tidal Riverbed Datum)</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">Frequency Bandwidth</span>
+                        <span class="spec-value">0.1 Hz to 48 kHz (Ultra-Low Infrasound)</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">Granular Grain Size</span>
+                        <span class="spec-value">12ms – 240ms with Stochastic Jitter</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">Output Bus</span>
+                        <span class="spec-value">Direct Dante Digital Audio Network Link</span>
+                      </div>
+                    </div>
+
+                    <!-- Internal Cross-Pane Deep Link -->
+                    <div class="cross-pane-callout">
+                      <span class="cross-pane-desc">Need public transit directions or wristband info?</span>
+                      <a href="#pane-transit" class="cross-pane-link" title="Jump to Vault 04">
+                        Consult Vault 04: Riverfront Transit &amp; Access &rarr;
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <!-- PANE 4: VAULT 04 (RIVERFRONT TRANSIT & CREDENTIALS) -->
+            <details class="drumtiks-accordion-item" name="drumtiks-vault-exclusive" id="pane-transit">
+              <summary class="drumtiks-summary">
+                <div class="summary-left-cluster">
+                  <!-- Contextual Animated Icon: Historic Tram 1 & RFID Pass -->
+                  <div class="summary-context-icon" aria-hidden="true">
+                    <!-- Closed State: Tram at rest -->
+                    <span class="icon-state icon-state--closed" title="Transit Tram Stationary">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="3" width="16" height="15" rx="2"/>
+                        <line x1="4" y1="11" x2="20" y2="11"/>
+                        <circle cx="8" cy="15" r="1" fill="currentColor"/>
+                        <circle cx="16" cy="15" r="1" fill="currentColor"/>
+                        <line x1="8" y1="21" x2="8" y2="18"/>
+                        <line x1="16" y1="21" x2="16" y2="18"/>
+                      </svg>
+                    </span>
+                    <!-- Opened State: Tram moving + RFID Contactless Broadcast -->
+                    <span class="icon-state icon-state--opened" title="Transit Lines Live & RFID Broadcast">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="3" width="16" height="15" rx="2" stroke="var(--color-accent-cyan)"/>
+                        <line x1="4" y1="11" x2="20" y2="11" stroke="var(--color-accent-cyan)"/>
+                        <!-- Headlights beaming -->
+                        <circle cx="8" cy="15" r="1.5" fill="var(--color-accent-gold)"/>
+                        <circle cx="16" cy="15" r="1.5" fill="var(--color-accent-gold)"/>
+                        <!-- Motion speed streaks -->
+                        <line x1="1" y1="6" x2="3" y2="6" stroke="var(--color-accent-red)"/>
+                        <line x1="0" y1="12" x2="3" y2="12" stroke="var(--color-accent-red)"/>
+                        <!-- Tram Pantograph wire contact -->
+                        <path d="M12 3 L12 0 M9 0 L15 0" stroke="var(--color-accent-gold)"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <div class="summary-text-block">
+                    <span class="summary-eyebrow">
+                      <span>LOGISTICS // RIVERFRONT TERMINAL</span>
+                      <span class="target-active-pill" aria-hidden="true">TARGETED</span>
+                    </span>
+                    <h3 class="summary-title">Historic Tram Line 1 &amp; RFID Fast-Track Access</h3>
+                  </div>
+                </div>
+
+                <span class="accordion-action-pill">
+                  <span class="label-closed">
+                    <span class="action-symbol" aria-hidden="true">+</span>
+                    <span>Access Transit Guide</span>
+                  </span>
+                  <span class="label-opened">
+                    <span class="action-symbol" aria-hidden="true">&minus;</span>
+                    <span>Close Transit Guide</span>
+                  </span>
+                </span>
+              </summary>
+
+              <div class="accordion-content-grid">
+                <div class="accordion-content-overflow">
+                  <div class="accordion-content-inner">
+                    <p>
+                      Alfândega do Porto is situated on the Douro riverfront. Historic Electric Tram Line 1 stops 
+                      directly in front of the primary entrance. STCP Express Bus 500 operates every 12 minutes directly 
+                      connecting São Bento Railway Station, Ribeira, and the venue gates.
+                    </p>
+
+                    <div class="accordion-spec-grid">
+                      <div class="spec-item-box">
+                        <span class="spec-label">Tram Line 1</span>
+                        <span class="spec-value">Infante &harr; Passeio Alegre (Alfândega Stop)</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">STCP Bus 500</span>
+                        <span class="spec-value">24-Hour Riverfront Line (Direct Gate Drop-off)</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">RFID Wristband</span>
+                        <span class="spec-value">NFC 13.56 MHz Cashless Check-in Stations</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">Accessibility</span>
+                        <span class="spec-value">100% Step-free Riverfront Ramp &amp; Interior Lifts</span>
+                      </div>
+                    </div>
+
+                    <!-- Internal Cross-Pane Deep Link (Loop back to Pane 1) -->
+                    <div class="cross-pane-callout">
+                      <span class="cross-pane-desc">Return to acoustic infrastructure?</span>
+                      <a href="#pane-acoustics" class="cross-pane-link" title="Jump to Vault 01">
+                        &larr; Return to Vault 01: Subterranean Line Array Rig
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             DEMONSTRATION 2: MULTI-EXPAND NON-EXCLUSIVE ACCORDION
+             - When opening a pane, the other panes REMAIN OPEN!
+             - Independent `<details>` elements (no shared `name` attribute)
+             - Preset open state on Pane 1
+             - Contextual alternating icons & changing labels
+             ================================================================== -->
+        <section class="demo-panel-card" id="demo-multiexpand" aria-labelledby="heading-demo-2">
+          <div class="panel-header-row">
+            <div class="panel-meta-title-group">
+              <span class="section-tag" style="color:var(--color-accent-cyan);">PARADIGM 02 • MULTI-EXPAND INDEPENDENT DISCLOSURES</span>
+              <h2 class="panel-title" id="heading-demo-2">Multi-Expand Information Accordion (Others Remain Open)</h2>
+              <p class="panel-tagline">
+                Unlike the exclusive accordion above, opening one pane does <strong>NOT</strong> collapse the others. 
+                Users can inspect multiple technical protocols simultaneously without losing context.
+              </p>
+            </div>
+            <div class="tech-pill-cluster">
+              <span class="tech-pill tech-pill--cyan">MULTI-EXPAND</span>
+              <span class="tech-pill tech-pill--gold">INDEPENDENT PANES</span>
+              <span class="tech-pill tech-pill--red">PRESET OPEN PANE</span>
+              <span class="tech-pill">CHANGING LABELS</span>
+              <span class="tech-pill">ZERO JS</span>
+            </div>
+          </div>
+
+          <!-- Non-Exclusive Stack (No name attribute) -->
+          <div class="drumtiks-accordion-group" data-accordion-mode="multi-expand">
+
+            <!-- MULTI PANE 1 (PRESET OPEN) -->
+            <details class="drumtiks-accordion-item" open>
+              <summary class="drumtiks-summary">
+                <div class="summary-left-cluster">
+                  <div class="summary-context-icon" aria-hidden="true">
+                    <span class="icon-state icon-state--closed">
+                      <!-- Lightning patch cable unplugged -->
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                      </svg>
+                    </span>
+                    <span class="icon-state icon-state--opened">
+                      <!-- Lightning patch cable live energy -->
+                      <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="rgba(245, 166, 35, 0.2)"/>
+                        <line x1="2" y1="2" x2="5" y2="5" stroke="var(--color-accent-cyan)"/>
+                        <line x1="22" y1="22" x2="19" y2="19" stroke="var(--color-accent-cyan)"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <div class="summary-text-block">
+                    <span class="summary-eyebrow">PROTOCOL 01 // ELECTRICAL &amp; PATCHBAY</span>
+                    <h3 class="summary-title">Isolated Clean Ground &amp; 230V Stage Power Rail</h3>
+                  </div>
+                </div>
+
+                <span class="accordion-action-pill">
+                  <span class="label-closed">
+                    <span class="action-symbol" aria-hidden="true">+</span>
+                    <span>Show Power Protocols</span>
+                  </span>
+                  <span class="label-opened">
+                    <span class="action-symbol" aria-hidden="true">&minus;</span>
+                    <span>Hide Power Protocols</span>
+                  </span>
+                </span>
+              </summary>
+
+              <div class="accordion-content-grid">
+                <div class="accordion-content-overflow">
+                  <div class="accordion-content-inner">
+                    <p>
+                      Alfândega’s electrical engineering team provides dedicated 230V/16A true-RMS filtered stage power 
+                      with galvanic audio-ground isolation to eliminate 50Hz mains hum from analog synthesizers and magnetic phono cartridges.
+                    </p>
+                    <div class="accordion-spec-grid">
+                      <div class="spec-item-box">
+                        <span class="spec-label">Ground Resistance</span>
+                        <span class="spec-value">&lt; 2.5 &Omega; Dedicated Earth Rod</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">Isolation Transformers</span>
+                        <span class="spec-value">Lundahl Mu-Metal Shielded Dual DI</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <!-- MULTI PANE 2 -->
+            <details class="drumtiks-accordion-item">
+              <summary class="drumtiks-summary">
+                <div class="summary-left-cluster">
+                  <div class="summary-context-icon" aria-hidden="true">
+                    <span class="icon-state icon-state--closed">
+                      <!-- Projector / Visual Aperture Closed -->
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <circle cx="12" cy="12" r="3"/>
+                      </svg>
+                    </span>
+                    <span class="icon-state icon-state--opened">
+                      <!-- Laser Strobe & Projection Beams Active -->
+                      <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <circle cx="12" cy="12" r="4" fill="var(--color-accent-cyan)"/>
+                        <line x1="12" y1="2" x2="12" y2="5" stroke="var(--color-accent-red)"/>
+                        <line x1="12" y1="19" x2="12" y2="22" stroke="var(--color-accent-red)"/>
+                        <line x1="2" y1="12" x2="5" y2="12" stroke="var(--color-accent-red)"/>
+                        <line x1="19" y1="12" x2="22" y2="12" stroke="var(--color-accent-red)"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <div class="summary-text-block">
+                    <span class="summary-eyebrow">PROTOCOL 02 // VISUAL TELEMETRY</span>
+                    <h3 class="summary-title">DMX Strobe Safety Limits &amp; Kinetic Laser Mapping</h3>
+                  </div>
+                </div>
+
+                <span class="accordion-action-pill">
+                  <span class="label-closed">
+                    <span class="action-symbol" aria-hidden="true">+</span>
+                    <span>View Lighting Safety</span>
+                  </span>
+                  <span class="label-opened">
+                    <span class="action-symbol" aria-hidden="true">&minus;</span>
+                    <span>Hide Lighting Safety</span>
+                  </span>
+                </span>
+              </summary>
+
+              <div class="accordion-content-grid">
+                <div class="accordion-content-overflow">
+                  <div class="accordion-content-inner">
+                    <p>
+                      Strobe frequencies in Vault 01 and Vault 02 are capped at 4.8 flashes per second to conform with international 
+                      photosensitive seizure prevention standards. 405nm ultraviolet floodlights illuminate architectural masonry.
+                    </p>
+                    <div class="accordion-spec-grid">
+                      <div class="spec-item-box">
+                        <span class="spec-label">Peak Strobe Rate</span>
+                        <span class="spec-value">Max 4.8 Hz (A11y Safety Capped)</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">Projection Mapping</span>
+                        <span class="spec-value">3× 30,000 Lumen 4K Laser Arrays</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <!-- MULTI PANE 3 -->
+            <details class="drumtiks-accordion-item">
+              <summary class="drumtiks-summary">
+                <div class="summary-left-cluster">
+                  <div class="summary-context-icon" aria-hidden="true">
+                    <span class="icon-state icon-state--closed">
+                      <!-- Sound Engineer Headphones Rest -->
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+                        <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+                      </svg>
+                    </span>
+                    <span class="icon-state icon-state--opened">
+                      <!-- Active Headphones Monitoring Sound Levels -->
+                      <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+                        <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="rgba(230, 0, 0, 0.15)"/>
+                        <circle cx="12" cy="7" r="1.5" fill="var(--color-accent-cyan)"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <div class="summary-text-block">
+                    <span class="summary-eyebrow">PROTOCOL 03 // HEARING CONSERVATION</span>
+                    <h3 class="summary-title">Auditory Safety &amp; Free High-Fidelity Ear Protection</h3>
+                  </div>
+                </div>
+
+                <span class="accordion-action-pill">
+                  <span class="label-closed">
+                    <span class="action-symbol" aria-hidden="true">+</span>
+                    <span>Review Hearing Safety</span>
+                  </span>
+                  <span class="label-opened">
+                    <span class="action-symbol" aria-hidden="true">&minus;</span>
+                    <span>Hide Hearing Safety</span>
+                  </span>
+                </span>
+              </summary>
+
+              <div class="accordion-content-grid">
+                <div class="accordion-content-overflow">
+                  <div class="accordion-content-inner">
+                    <p>
+                      Complimentary medical-grade acoustic filter earplugs (-19dB flat attenuation) are provided at 
+                      all festival check-in stations. Real-time Leq dBA monitors are displayed publicly at the sound engineer booth.
+                    </p>
+                    <div class="accordion-spec-grid">
+                      <div class="spec-item-box">
+                        <span class="spec-label">Auditory Filter</span>
+                        <span class="spec-value">-19 dB SNR Flat Attenuation</span>
+                      </div>
+                      <div class="spec-item-box">
+                        <span class="spec-label">SPL Leq Limit</span>
+                        <span class="spec-value">102 dBA over 15-Minute Continuous Window</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             DEMONSTRATION 3: REMOTE LINK ACTIVATION & CROSS-PANE NAVIGATION
+             - Clicking links OUTSIDE the accordion panel activates specific panes
+             - Clicking links INSIDE specific panes switches to alternative panes
+             - Demonstrated via Pure HTML+CSS `:target` pseudo-class
+             - Zero JavaScript required!
+             ================================================================== -->
+        <section class="demo-panel-card" id="demo-remote" aria-labelledby="heading-demo-3">
+          <div class="panel-header-row">
+            <div class="panel-meta-title-group">
+              <span class="section-tag" style="color:var(--color-accent-gold);">PARADIGM 03 • ZERO-JS `:target` REMOTE CONTROLLER</span>
+              <h2 class="panel-title" id="heading-demo-3">Remote Link-Triggered Accordion Panel</h2>
+              <p class="panel-tagline">
+                Clicking specific links <strong>outside the accordion panel</strong> (such as the quick-trigger toolbar below) 
+                or clicking cross-references <strong>inside specific panes</strong> dynamically activates alternative panes via Pure CSS <code>:target</code>.
+              </p>
+            </div>
+            <div class="tech-pill-cluster">
+              <span class="tech-pill tech-pill--gold">EXTERNAL TRIGGER LINKS</span>
+              <span class="tech-pill tech-pill--cyan">CROSS-PANE JUMPS</span>
+              <span class="tech-pill tech-pill--red">:TARGET PSEUDO-CLASS</span>
+              <span class="tech-pill">ZERO JS</span>
+            </div>
+          </div>
+
+          <!-- 1. External Links Toolbar (Located completely outside the accordion) -->
+          <nav class="target-remote-toolbar" aria-label="External Remote Accordion Controls">
+            <span class="target-remote-title">⚡ EXTERNAL REMOTE TRIGGER BAR:</span>
+            <a href="#remote-v1" class="remote-trigger-btn" title="Trigger Vault 01 remotely">
+              <span>●</span> Vault 01 (Acoustics)
+            </a>
+            <a href="#remote-v2" class="remote-trigger-btn" title="Trigger Vault 02 remotely">
+              <span>●</span> Vault 02 (808 Clash)
+            </a>
+            <a href="#remote-v3" class="remote-trigger-btn" title="Trigger Vault 03 remotely">
+              <span>●</span> Vault 03 (Hydrophone)
+            </a>
+            <a href="#demo-remote" class="remote-trigger-btn remote-trigger-btn--close" title="Collapse all remote panes">
+              <span>&times;</span> Reset / Collapse All
+            </a>
+          </nav>
+
+          <!-- 2. Pure CSS :target Panes Container -->
+          <div class="pure-target-accordion-group">
+
+            <!-- REMOTE PANE 1 -->
+            <article class="pure-target-panel" id="remote-v1">
+              <a href="#remote-v1" class="pure-target-header" aria-label="Activate Remote Vault 01">
+                <div class="summary-left-cluster">
+                  <div class="summary-context-icon" aria-hidden="true">
+                    <span class="icon-state icon-state--closed">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9"/>
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19 5 L17 11"/>
+                      </svg>
+                    </span>
+                    <span class="icon-state icon-state--opened">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9" class="anim-spin-disc" stroke-dasharray="2 3"/>
+                        <circle cx="12" cy="12" r="3" fill="var(--color-accent-cyan)"/>
+                        <path d="M19 5 L13 11" stroke="var(--color-accent-red)"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <div class="summary-text-block">
+                    <span class="summary-eyebrow">REMOTE TARGET 01 // VINYL VAULT</span>
+                    <h3 class="summary-title">Vault 01 • Technics SL-1210 Line-Array Calibration</h3>
+                  </div>
+                </div>
+
+                <span class="accordion-action-pill">
+                  <span class="label-closed">
+                    <span class="action-symbol" aria-hidden="true">+</span>
+                    <span>Click to Expand Pane 1</span>
+                  </span>
+                  <span class="label-opened">
+                    <span class="action-symbol" aria-hidden="true">&minus;</span>
+                    <span>Active Target State</span>
+                  </span>
+                </span>
+              </a>
+
+              <div class="pure-target-content">
+                <div class="accordion-content-overflow">
+                  <div class="accordion-content-inner">
+                    <p>
+                      <strong>Triggered via Link:</strong> This pane expanded because either an external link 
+                      (<code>href="#remote-v1"</code>) or an internal link inside another pane was activated. 
+                      The URL fragment now matches this element’s ID, triggering the pure CSS <code>:target</code> rule.
+                    </p>
+
+                    <!-- Internal Cross-Pane Link -->
+                    <div class="cross-pane-callout">
+                      <span class="cross-pane-desc">Jump to next station from INSIDE this pane:</span>
+                      <a href="#remote-v2" class="cross-pane-link">
+                        Switch to Vault 02: 808 Clash Schedule &rarr;
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- REMOTE PANE 2 -->
+            <article class="pure-target-panel" id="remote-v2">
+              <a href="#remote-v2" class="pure-target-header" aria-label="Activate Remote Vault 02">
+                <div class="summary-left-cluster">
+                  <div class="summary-context-icon" aria-hidden="true">
+                    <span class="icon-state icon-state--closed">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                        <circle cx="6" cy="8" r="1" fill="currentColor"/>
+                        <circle cx="12" cy="8" r="1" fill="currentColor"/>
+                      </svg>
+                    </span>
+                    <span class="icon-state icon-state--opened">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2" stroke="var(--color-accent-cyan)"/>
+                        <circle cx="6" cy="8" r="1.5" fill="var(--color-accent-red)"/>
+                        <circle cx="12" cy="8" r="1.5" fill="var(--color-accent-cyan)"/>
+                        <path d="M4 15 Q8 10, 12 15 T20 15" stroke="var(--color-accent-cyan)"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <div class="summary-text-block">
+                    <span class="summary-eyebrow">REMOTE TARGET 02 // TOURNAMENT ARENA</span>
+                    <h3 class="summary-title">Vault 02 • Knockout Beat Battle Hardware Rules</h3>
+                  </div>
+                </div>
+
+                <span class="accordion-action-pill">
+                  <span class="label-closed">
+                    <span class="action-symbol" aria-hidden="true">+</span>
+                    <span>Click to Expand Pane 2</span>
+                  </span>
+                  <span class="label-opened">
+                    <span class="action-symbol" aria-hidden="true">&minus;</span>
+                    <span>Active Target State</span>
+                  </span>
+                </span>
+              </a>
+
+              <div class="pure-target-content">
+                <div class="accordion-content-overflow">
+                  <div class="accordion-content-inner">
+                    <p>
+                      <strong>Cross-Pane Navigation Active:</strong> This pane was opened by targeting 
+                      <code>#remote-v2</code>. Notice how the previous pane automatically collapsed because only 
+                      one element can be the active <code>:target</code> in CSS at any given instant.
+                    </p>
+
+                    <!-- Internal Cross-Pane Links -->
+                    <div class="cross-pane-callout">
+                      <span class="cross-pane-desc">Jump backward or forward from INSIDE this pane:</span>
+                      <div style="display:flex; gap:var(--space-xs); flex-wrap:wrap;">
+                        <a href="#remote-v1" class="cross-pane-link">&larr; Return to Vault 01</a>
+                        <a href="#remote-v3" class="cross-pane-link">Advance to Vault 03 &rarr;</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- REMOTE PANE 3 -->
+            <article class="pure-target-panel" id="remote-v3">
+              <a href="#remote-v3" class="pure-target-header" aria-label="Activate Remote Vault 03">
+                <div class="summary-left-cluster">
+                  <div class="summary-context-icon" aria-hidden="true">
+                    <span class="icon-state icon-state--closed">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2v12"/>
+                        <circle cx="12" cy="17" r="3"/>
+                      </svg>
+                    </span>
+                    <span class="icon-state icon-state--opened">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2v13" stroke="var(--color-accent-cyan)"/>
+                        <circle cx="12" cy="16" r="3" fill="var(--color-accent-cyan)"/>
+                        <path d="M7 11 A7 7 0 0 1 17 11" stroke="var(--color-accent-red)"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <div class="summary-text-block">
+                    <span class="summary-eyebrow">REMOTE TARGET 03 // HYDROPHONE RIG</span>
+                    <h3 class="summary-title">Vault 03 • Riverbed Piezoelectric Transducers</h3>
+                  </div>
+                </div>
+
+                <span class="accordion-action-pill">
+                  <span class="label-closed">
+                    <span class="action-symbol" aria-hidden="true">+</span>
+                    <span>Click to Expand Pane 3</span>
+                  </span>
+                  <span class="label-opened">
+                    <span class="action-symbol" aria-hidden="true">&minus;</span>
+                    <span>Active Target State</span>
+                  </span>
+                </span>
+              </a>
+
+              <div class="pure-target-content">
+                <div class="accordion-content-overflow">
+                  <div class="accordion-content-inner">
+                    <p>
+                      <strong>Deep-Link Completed:</strong> Sub-riverbed hydrophone telemetry active. 
+                      You can close this entire panel remotely by clicking the "Reset / Collapse All" button 
+                      in the external toolbar above.
+                    </p>
+
+                    <!-- Internal Cross-Pane Link -->
+                    <div class="cross-pane-callout">
+                      <span class="cross-pane-desc">Cycle back to the beginning:</span>
+                      <a href="#remote-v1" class="cross-pane-link">
+                        &larr; Return to Vault 01 (Acoustics)
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             PEDAGOGICAL ARCHITECTURE BREAKDOWN
+             Explains the HTML5 Living Standards, CSS specs, and accessible practices
+             ================================================================== -->
+        <section class="demo-panel-card" id="demo-pedagogy" aria-labelledby="heading-pedagogy">
+          <div class="panel-header-row">
+            <div class="panel-meta-title-group">
+              <span class="section-tag">ENGINEERING NOTES // FBAUP WD101</span>
+              <h2 class="panel-title" id="heading-pedagogy">Accordion Architectural Breakdown</h2>
+              <p class="panel-tagline">
+                How modern HTML living standards and advanced CSS selectors eliminate the need for heavy JavaScript libraries.
+              </p>
+            </div>
+          </div>
+
+          <div class="edu-breakdown-grid">
+            <div class="edu-card">
+              <h3><span>🏷️</span> Exclusive Accordion via `name`</h3>
+              <p>
+                In the HTML Living Standard, assigning a matching <code>name="group-name"</code> attribute 
+                across multiple <code>&lt;details&gt;</code> elements automatically establishes an exclusive 
+                disclosure set. The browser natively manages single-item expansion without JavaScript event listeners.
+              </p>
+            </div>
+
+            <div class="edu-card">
+              <h3><span>⚡</span> Preset Open State</h3>
+              <p>
+                Adding the boolean attribute <code>open</code> directly on any <code>&lt;details&gt;</code> tag ensures 
+                the specified pane is pre-expanded immediately upon page delivery, guaranteeing zero layout shift and instant indexing.
+              </p>
+            </div>
+
+            <div class="edu-card">
+              <h3><span>🔄</span> Pure CSS Changing Labels</h3>
+              <p>
+                Dual text elements (<code>.label-closed</code> and <code>.label-opened</code>) are conditionally toggled 
+                via <code>details[open] .label-closed { display:none }</code>. This allows descriptive labels ("Inspect Frequencies" vs "Hide Frequencies") with zero DOM manipulation.
+              </p>
+            </div>
+
+            <div class="edu-card">
+              <h3><span>🎨</span> Alternating Contextual SVG Icons</h3>
+              <p>
+                Using CSS transitions on <code>.icon-state--closed</code> and <code>.icon-state--opened</code>, icons seamlessly 
+                rotate, scale, and cross-fade. Contextual animations (spinning vinyl, soundwave equalizers) activate automatically 
+                under <code>details[open]</code>.
+              </p>
+            </div>
+
+            <div class="edu-card">
+              <h3><span>🔗</span> Remote &amp; Cross-Pane Deep Linking</h3>
+              <p>
+                By coupling anchor elements (<code>&lt;a href="#pane-id"&gt;</code>) with the CSS <code>:target</code> pseudo-class 
+                and native fragment navigation, specific panes can be activated from outside toolbars or from cross-references inside other panes.
+              </p>
+            </div>
+
+            <div class="edu-card">
+              <h3><span>📐</span> Smooth Intrinsic Animations</h3>
+              <p>
+                Using <code>interpolate-size: allow-keywords</code> on <code>:root</code> paired with <code>::details-content</code> 
+                allows modern browsers to transition smoothly between <code>block-size: 0</code> and <code>auto</code>, with a 
+                <code>grid-template-rows: 0fr &rarr; 1fr</code> fallback for legacy browsers.
+              </p>
+            </div>
+          </div>
+        </section>
+
+      </div> <!-- /showcase-grid-layout -->
+
+    </main>
+
+    <!-- ======================================================================
+         SITE FOOTER LANDMARK (<footer>)
+         ====================================================================== -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-inner-grid">
+        <div class="footer-col-brand">
+          <span class="footer-brand-title">DRUMTIKS '26</span>
+          <p class="footer-brand-meta">
+            Faculdade de Belas Artes da Universidade do Porto (FBAUP)<br>
+            Underground Turntablism, Acoustic Hydrophones &amp; Concrete Bass Culture.<br>
+            Alfândega do Porto • 14.NOV.2026
+          </p>
+        </div>
+
+        <div class="footer-col-nav">
+          <span class="footer-col-heading">ACCORDION PARADIGMS</span>
+          <ul class="footer-link-list">
+            <li><a href="#demo-exclusive">1. Exclusive Auto-Collapse (`name`)</a></li>
+            <li><a href="#demo-multiexpand">2. Multi-Expand Independent</a></li>
+            <li><a href="#demo-remote">3. Remote Link Triggers (`:target`)</a></li>
+            <li><a href="#demo-pedagogy">4. Engineering Documentation</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col-nav">
+          <span class="footer-col-heading">PROJECT PAGES</span>
+          <ul class="footer-link-list">
+            <li><a href="index.html">Master Capstone Portal</a></li>
+            <li><a href="dj-warp.html">DJ Warp Stage &amp; Discography</a></li>
+            <li><a href="battle-rules.html">The 808 Clash Tournament Rules</a></li>
+            <li><a href="credits.html">Academic Credits &amp; FBAUP Team</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-copyright-row">
+        <span>&copy; 2026/27 FBAUP WD101 • Pure HTML5 + CSS Living Standard • Zero JavaScript Architecture</span>
+        <a href="#main-content" class="back-to-top-link">Back to Top &uarr;</a>
+      </div>
+    </footer>
+
+  </div> <!-- /site-wrapper -->
+
+</body>
+</html>

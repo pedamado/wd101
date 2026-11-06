@@ -1,0 +1,203 @@
+/**
+ * ==============================================================================
+ * WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+ * Ficheiro: css/demo-03.css • Técnica 3: Contador Iterador CSS sibling-index()
+ *
+ * CONCEITO CHAVE:
+ * Na especificação moderna W3C CSS Values and Units Level 5, as novas funções
+ * sibling-index() e sibling-count() permitem ao CSS saber a ordem ordinal
+ * de qualquer elemento irmão sem depender de classes ou scripts.
+ *
+ * FÓRMULA DE TRANSLACÃO POR ITERADOR:
+ *   Deslocamento do Slide = ((sibling-index() - 1) - var(--active-index)) * 100%
+ *   Ou na fita: transform: translate3d(calc((var(--active-index) - 1) * -100%), 0, 0)
+ *
+ * PROGRESSIVE ENHANCEMENT:
+ *   1. Suporte Nativo: @supports (order: sibling-index()) { ... }
+ *   2. Fallback Universal: Seletor estrutural :nth-child(n) que injeta --sibling-index
+ *
+ * REFERÊNCIAS W3C & MDN:
+ *   - W3C CSS Values 5: https://drafts.csswg.org/css-values-5/#sibling-index
+ *   - MDN :nth-child(): https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child
+ *   - MDN @supports: https://developer.mozilla.org/en-US/docs/Web/CSS/@supports
+ * ==============================================================================
+ */
+
+
+/* ==========================================================================
+   PASSO 1: OCULTAÇÃO ACESSÍVEL DOS INPUTS RADIO NATIVOS
+   ========================================================================== */
+
+.state-round-radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+
+/* ==========================================================================
+   PASSO 2: DEFINIÇÃO DO ITERADOR ORDINAL (PROGRESSIVE ENHANCEMENT)
+   
+   Em navegadores com suporte ao CSS Values 5, sibling-index() retorna
+   automaticamente o índice ordinal 1-based (1, 2, 3, 4).
+   Para compatibilidade com os motores atuais, usamos o fallback :nth-child(n).
+   ========================================================================== */
+
+/* Fallback Declarativo Universal via :nth-child(n) */
+.battle-stage:nth-child(1) { --sibling-index: 1; }
+.battle-stage:nth-child(2) { --sibling-index: 2; }
+.battle-stage:nth-child(3) { --sibling-index: 3; }
+.battle-stage:nth-child(4) { --sibling-index: 4; }
+
+/* Suporte Nativo de Vanguarda: W3C CSS Values Level 5 */
+@supports (order: sibling-index()) {
+  .battle-stage {
+    --sibling-index: sibling-index();
+  }
+}
+
+
+/* ==========================================================================
+   PASSO 3: MÁQUINA DE ESTADOS COM :has() & ÍNDICE ATIVO
+   Especificidade: (1, 1, 0)
+   ========================================================================== */
+
+#wrapper:has(#round-1:checked) {
+  --active-index: 1;
+  --active-color: var(--accent-cyan);
+}
+
+#wrapper:has(#round-2:checked) {
+  --active-index: 2;
+  --active-color: var(--accent-gold);
+}
+
+#wrapper:has(#round-3:checked) {
+  --active-index: 3;
+  --active-color: var(--accent-purple);
+}
+
+#wrapper:has(#round-4:checked) {
+  --active-index: 4;
+  --active-color: var(--accent-red);
+}
+
+
+/* ==========================================================================
+   PASSO 4: A FÓRMULA DE TRANSLACÃO DO ITERADOR NA FITA
+   
+   A fita mestra .slider-track move-se em função do índice ativo:
+     Round 1: calc((1 - 1) * -100%) = 0%
+     Round 2: calc((2 - 1) * -100%) = -100%
+     Round 3: calc((3 - 1) * -100%) = -200%
+     Round 4: calc((4 - 1) * -100%) = -300%
+   ========================================================================== */
+
+.slider-track {
+  transform: translate3d(calc((var(--active-index) - 1) * -100%), 0, 0);
+  transition: transform var(--swipe-duration) var(--swipe-easing);
+}
+
+
+/* ==========================================================================
+   PASSO 5: BARRA DE NAVEGAÇÃO DOS ROUNDS (TABS SUPERIORES)
+   ========================================================================== */
+
+.rounds-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+}
+
+.round-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.round-tab-btn:hover {
+  background: var(--bg-surface-hover);
+  color: var(--text-primary);
+  border-color: var(--text-muted);
+}
+
+/* Realce dinâmico da tab ativa através de :has() */
+#wrapper:has(#round-1:checked) .tab-1,
+#wrapper:has(#round-2:checked) .tab-2,
+#wrapper:has(#round-3:checked) .tab-3,
+#wrapper:has(#round-4:checked) .tab-4 {
+  background: var(--active-color);
+  color: #0b0d13;
+  border-color: var(--active-color);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--active-color) 45%, transparent);
+}
+
+
+/* ==========================================================================
+   PASSO 6: INDICADOR E STATUS DO ITERADOR DENTRO DO CARD
+   ========================================================================== */
+
+.iterator-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--active-color);
+}
+
+.iterator-badge code {
+  color: var(--text-primary);
+}
+
+
+/* ==========================================================================
+   PASSO 7: BANNER INFORMATIVO DA FÓRMULA
+   ========================================================================== */
+
+.demo-formula-banner {
+  padding: var(--space-2) var(--space-4);
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-6);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.formula-code {
+  color: var(--active-color);
+  background: var(--bg-surface-elevated);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  font-weight: 700;
+}

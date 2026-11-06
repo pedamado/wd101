@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<!--
+  ==============================================================================
+  WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+  DEMO 04: Variante 4 — Modo Stealth de Produção com Consola DJ & Touch Swipe
+  Tema Curricular: Festival DRUMTIKS '26 (Alfândega do Porto)
+  
+  MECÂNICA CHAVE:
+    1. Inputs 100% invisíveis visualmente via padrão acessível .visually-hidden.
+    2. Consola de Turntablism com 4 Pads MPC retroiluminados acionados por <label>.
+    3. Crossfader analógico com barra de calibração que reflete a posição dos decks.
+    4. Zonas laterais de toque (touch swipe hit-zones) nas cartas para navegação móvel.
+    5. Zero linhas de JavaScript para a lógica de estado ou animação.
+  ==============================================================================
+-->
+<html lang="pt" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Demo 04: Stealth DJ Console • DRUMTIKS '26 | WD101 FBAUP</title>
+
+  <!-- Previne FOUC de tema: lê a preferência do utilizador sincronizada -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
+
+  <!-- Folhas de Estilo -->
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../tp11-integrated-responsive-project/css/fonts.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/demo-04.css">
+</head>
+<body>
+
+  <!-- Contentor Mestre Anti-Scroll Horizontal (100dvh) -->
+  <div id="wrapper" class="app-wrapper">
+
+    <!--
+      ESTADOS ZERO-JS: INPUTS TOTALMENTE OCULTOS (.visually-hidden)
+      MDN A11y & clip: https://developer.mozilla.org/en-US/docs/Web/CSS/clip
+    -->
+    <input type="radio" name="battle-round" id="round-1" class="visually-hidden" checked aria-label="Deck A: Round 1 - MC Break-Point vs DJ Warp">
+    <input type="radio" name="battle-round" id="round-2" class="visually-hidden" aria-label="Deck B: Round 2 - MC Flow-State vs Beat Foundry">
+    <input type="radio" name="battle-round" id="round-3" class="visually-hidden" aria-label="Deck C: Round 3 - MC Crossfader vs Sub-Modular">
+    <input type="radio" name="battle-round" id="round-4" class="visually-hidden" aria-label="Master Deck: Round 4 - Grande Final Cypher">
+
+    <!-- Input Oculto de Diagnóstico X-Ray -->
+    <input type="checkbox" id="xray-toggle" style="display:none;" aria-label="Ativar Modo Raio-X">
+
+    <!-- CABEÇALHO DA APLICAÇÃO -->
+    <header class="app-header" role="banner">
+      <div class="header-brand">
+        <a href="index.html" class="brand-link" title="Voltar ao Índice da Suite">
+          <span class="brand-badge">DEMO 04</span>
+          <h1 class="brand-title">DRUMTIKS <span class="brand-year">'26</span></h1>
+        </a>
+        <span class="brand-subtitle">Variante 4: Modo Stealth &amp; Consola DJ</span>
+      </div>
+
+      <aside class="header-actions">
+        <!-- Pílula de Raio-X -->
+        <label for="xray-toggle" class="btn-action-pill btn-xray-toggle" title="Alternar Inspeção de Layout Raio-X">
+          🩻 <span>Raio-X</span>
+        </label>
+
+        <!-- Botão Dinâmico de Tema -->
+        <button type="button" class="btn-action-pill" id="theme-btn" title="Alternar Tema Claro/Escuro">
+          <span id="theme-icon">☀️</span> <span id="theme-text">Claro</span>
+        </button>
+
+        <!-- Link para o Guião Teórico -->
+        <a href="GUIDE.html#step-4" class="btn-action-pill" title="Ler a Explicação do Modo Stealth">
+          📖 <span>Guião</span>
+        </a>
+      </aside>
+    </header>
+
+    <!-- ÁREA PRINCIPAL COM A FITA HORIZONTAL -->
+    <main class="battle-main-stage" role="main">
+      <div class="slider-track" id="battle-track">
+
+        <!-- ============================================================ -->
+        <!-- ROUND 1: MC Break-Point vs DJ Warp                          -->
+        <!-- ============================================================ -->
+        <article class="battle-stage" id="stage-1" aria-labelledby="title-1">
+          <!-- Zona de Toque Lateral Direita (Swipe Forward) -->
+          <label for="round-2" class="swipe-hit-zone swipe-hit-zone--next" title="Tocar para Avançar para Round 2" aria-label="Avançar para Round 2">&#8250;</label>
+
+          <div class="stage-card-inner">
+            <div class="card-top-row">
+              <span class="round-chip round-chip--1">Canal 1 &bull; Deck A</span>
+              <span class="round-bpm"><span class="bpm-pulse"></span> 138 BPM &bull; MASTER SYNC</span>
+            </div>
+
+            <h2 id="title-1" class="matchup-title">
+              <span>MC Break-Point</span>
+              <span class="vs-badge">VS</span>
+              <span>DJ Warp</span>
+            </h2>
+            <p class="stage-genre-desc">Estilo: Modular Breakbeat &amp; Relational Vinyl Cutting</p>
+
+            <div class="turntable-preview-box">
+              <div class="vinyl-assembly">
+                <div class="vinyl-disc">
+                  <div class="vinyl-center-label center-label--1">WARP</div>
+                </div>
+              </div>
+              <div class="round-meta-list">
+                <div class="meta-item">
+                  <span class="meta-label">Vinil Selecionado:</span>
+                  <span class="meta-value">Porto Glitch EP</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Scratch Technique:</span>
+                  <span class="meta-value">Flare Orbit 3-Click</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Navegação Tátil:</span>
+                  <span class="meta-value">Toque na borda direita &rsaquo;</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-nav-row">
+              <span class="card-step-label">Pista 1 de 4</span>
+              <label for="round-2" class="btn-step-action">Deck 2: Flow-State &rarr;</label>
+            </div>
+          </div>
+        </article>
+
+        <!-- ============================================================ -->
+        <!-- ROUND 2: MC Flow-State vs Beat Foundry                      -->
+        <!-- ============================================================ -->
+        <article class="battle-stage" id="stage-2" aria-labelledby="title-2">
+          <!-- Zonas de Toque Laterais (Swipe Backward & Forward) -->
+          <label for="round-1" class="swipe-hit-zone swipe-hit-zone--prev" title="Tocar para Recuar para Round 1" aria-label="Recuar para Round 1">&#8249;</label>
+          <label for="round-3" class="swipe-hit-zone swipe-hit-zone--next" title="Tocar para Avançar para Round 3" aria-label="Avançar para Round 3">&#8250;</label>
+
+          <div class="stage-card-inner">
+            <div class="card-top-row">
+              <span class="round-chip round-chip--2">Canal 2 &bull; Deck B</span>
+              <span class="round-bpm"><span class="bpm-pulse"></span> 142 BPM &bull; +2.8%</span>
+            </div>
+
+            <h2 id="title-2" class="matchup-title">
+              <span>MC Flow-State</span>
+              <span class="vs-badge">VS</span>
+              <span>Beat Foundry</span>
+            </h2>
+            <p class="stage-genre-desc">Estilo: Industrial Turntablism &amp; Grime Scratches</p>
+
+            <div class="turntable-preview-box">
+              <div class="vinyl-assembly">
+                <div class="vinyl-disc">
+                  <div class="vinyl-center-label center-label--2">FOUNDRY</div>
+                </div>
+              </div>
+              <div class="round-meta-list">
+                <div class="meta-item">
+                  <span class="meta-label">Vinil Selecionado:</span>
+                  <span class="meta-value">Boavista Heavy Bass</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Scratch Technique:</span>
+                  <span class="meta-value">2-Click Orbit Transform</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Crossfader:</span>
+                  <span class="meta-value">Posição 33.3%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-nav-row">
+              <label for="round-1" class="btn-step-action secondary">&larr; Deck 1</label>
+              <span class="card-step-label">Pista 2 de 4</span>
+              <label for="round-3" class="btn-step-action">Deck 3: Sub-Modular &rarr;</label>
+            </div>
+          </div>
+        </article>
+
+        <!-- ============================================================ -->
+        <!-- ROUND 3: MC Crossfader vs Sub-Modular                       -->
+        <!-- ============================================================ -->
+        <article class="battle-stage" id="stage-3" aria-labelledby="title-3">
+          <!-- Zonas de Toque Laterais -->
+          <label for="round-2" class="swipe-hit-zone swipe-hit-zone--prev" title="Tocar para Recuar para Round 2" aria-label="Recuar para Round 2">&#8249;</label>
+          <label for="round-4" class="swipe-hit-zone swipe-hit-zone--next" title="Tocar para Avançar para Grande Final" aria-label="Avançar para Grande Final">&#8250;</label>
+
+          <div class="stage-card-inner">
+            <div class="card-top-row">
+              <span class="round-chip round-chip--3">Canal 3 &bull; Deck C</span>
+              <span class="round-bpm"><span class="bpm-pulse"></span> 146 BPM &bull; +5.0%</span>
+            </div>
+
+            <h2 id="title-3" class="matchup-title">
+              <span>MC Crossfader</span>
+              <span class="vs-badge">VS</span>
+              <span>Sub-Modular</span>
+            </h2>
+            <p class="stage-genre-desc">Estilo: High-Speed Electro &amp; Needle Dropping</p>
+
+            <div class="turntable-preview-box">
+              <div class="vinyl-assembly">
+                <div class="vinyl-disc">
+                  <div class="vinyl-center-label center-label--3">MODULAR</div>
+                </div>
+              </div>
+              <div class="round-meta-list">
+                <div class="meta-item">
+                  <span class="meta-label">Vinil Selecionado:</span>
+                  <span class="meta-value">Campanhã Breakbeats</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Scratch Technique:</span>
+                  <span class="meta-value">Euro Chirp Flare Scratch</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Crossfader:</span>
+                  <span class="meta-value">Posição 66.6%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-nav-row">
+              <label for="round-2" class="btn-step-action secondary">&larr; Deck 2</label>
+              <span class="card-step-label">Pista 3 de 4</span>
+              <label for="round-4" class="btn-step-action">Deck 4: Final &rarr;</label>
+            </div>
+          </div>
+        </article>
+
+        <!-- ============================================================ -->
+        <!-- ROUND 4: The 4-Deck Cypher Final                            -->
+        <!-- ============================================================ -->
+        <article class="battle-stage" id="stage-4" aria-labelledby="title-4">
+          <!-- Zona de Toque Lateral Esquerda (Swipe Back) -->
+          <label for="round-3" class="swipe-hit-zone swipe-hit-zone--prev" title="Tocar para Recuar para Round 3" aria-label="Recuar para Round 3">&#8249;</label>
+
+          <div class="stage-card-inner">
+            <div class="card-top-row">
+              <span class="round-chip round-chip--4">Canal Master &bull; 4-Deck</span>
+              <span class="round-bpm"><span class="bpm-pulse"></span> 150 BPM &bull; MASTER</span>
+            </div>
+
+            <h2 id="title-4" class="matchup-title">
+              <span>The 4-Deck Cypher</span>
+              <span class="vs-badge">&times;</span>
+              <span>Final Championship</span>
+            </h2>
+            <p class="stage-genre-desc">Estilo: 4-Deck Free-Style Turntablism &amp; Live Juggling</p>
+
+            <div class="turntable-preview-box">
+              <div class="vinyl-assembly">
+                <div class="vinyl-disc">
+                  <div class="vinyl-center-label center-label--4">FINAL</div>
+                </div>
+              </div>
+              <div class="round-meta-list">
+                <div class="meta-item">
+                  <span class="meta-label">Troféu:</span>
+                  <span class="meta-value">Prato de Ouro DRUMTIKS '26</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Scratch Technique:</span>
+                  <span class="meta-value">Quadruple Tear Juggling</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Crossfader:</span>
+                  <span class="meta-value">Posição 100% (Master)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-nav-row">
+              <label for="round-3" class="btn-step-action secondary">&larr; Deck 3</label>
+              <span class="card-step-label">Pista 4 de 4</span>
+              <label for="round-1" class="btn-step-action">&olarr; Recomeçar</label>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </main>
+
+    <!-- CONSOLA DJ INFERIOR (MPC PADS + CROSSFADER) -->
+    <section class="dj-console-dock" aria-label="Consola de Performance DJ">
+      
+      <!-- Linha de Estado da Consola -->
+      <div class="console-header-row">
+        <span class="console-status-light">MESA DE MISTURA &bull; DECK ATIVO</span>
+        <span>PADS MPC ACIONADOS POR &lt;LABEL&gt;</span>
+      </div>
+
+      <!-- Grelha de Pads MPC (Botões Iluminados) -->
+      <div class="mpc-pads-grid" role="group" aria-label="Pads MPC de Seleção de Deck">
+        <label for="round-1" class="mpc-pad-btn mpc-pad-1" title="Selecionar Deck 1: Break-Point">
+          <span class="pad-number">PAD 01</span>
+          <span class="pad-label">Break-Pt</span>
+        </label>
+        <label for="round-2" class="mpc-pad-btn mpc-pad-2" title="Selecionar Deck 2: Flow-State">
+          <span class="pad-number">PAD 02</span>
+          <span class="pad-label">Flow-St</span>
+        </label>
+        <label for="round-3" class="mpc-pad-btn mpc-pad-3" title="Selecionar Deck 3: Crossfader">
+          <span class="pad-number">PAD 03</span>
+          <span class="pad-label">Crossfdr</span>
+        </label>
+        <label for="round-4" class="mpc-pad-btn mpc-pad-4" title="Selecionar Deck 4: Final Cypher">
+          <span class="pad-number">PAD 04</span>
+          <span class="pad-label">Cypher</span>
+        </label>
+      </div>
+
+      <!-- Barra de Crossfader Analógico -->
+      <div class="crossfader-strip" aria-hidden="true">
+        <span class="fader-deck-label">Deck A</span>
+        <div class="fader-rail">
+          <div class="fader-center-mark"></div>
+          <div class="fader-handle"></div>
+        </div>
+        <span class="fader-deck-label">Deck B</span>
+      </div>
+
+    </section>
+
+    <!-- RODAPÉ DA APLICAÇÃO -->
+    <footer class="app-footer" role="contentinfo">
+      <span>WD101 &bull; Web Design 2026/27 &bull; FBAUP</span>
+      <div style="display:flex;gap:0.75rem;">
+        <a href="03-css-iterator.html">&larr; Demo 03 (Iterator)</a>
+        <a href="index.html">Índice da Suite</a>
+        <a href="GUIDE.html">Guião Teórico &rarr;</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Sincronização Dinâmica do Tema Claro/Escuro -->
+  <script>
+    (function() {
+      const themeBtn = document.getElementById('theme-btn');
+      const themeIcon = document.getElementById('theme-icon');
+      const themeText = document.getElementById('theme-text');
+
+      function updateTheme(theme) {
+        if (theme === 'light') {
+          if (themeIcon) themeIcon.textContent = '🌙';
+          if (themeText) themeText.textContent = 'Escuro';
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          if (themeIcon) themeIcon.textContent = '☀️';
+          if (themeText) themeText.textContent = 'Claro';
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      }
+
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      updateTheme(current);
+
+      if (themeBtn) {
+        themeBtn.addEventListener('click', function() {
+          const active = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+          const next = active === 'light' ? 'dark' : 'light';
+          localStorage.setItem('wd101_theme', next);
+          updateTheme(next);
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

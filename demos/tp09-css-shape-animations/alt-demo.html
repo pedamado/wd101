@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!--
+  ==============================================================================
+  WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+  FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+  
+  Tema Curricular: Festival DRUMTIKS '26 (Alfândega do Porto)
+  Exercício de Aula: TP09-CSS Shape Animations
+  Ficheiro: alt-demo.html • "CSS Shape Path, Inset Morphing & Spring Bounce Playground"
+  
+  AUTORES & COORDENAÇÃO PEDAGÓGICA:
+    - Prof. Pedro Amado (FBAUP / i2ADS)
+    - Antigravity (Advanced Agentic Pair)
+  
+  ==============================================================================
+  PEDAGOGICAL & PLATFORM ARCHITECTURE:
+  
+  1. CONCEITOS CENTRAIS DEMONSTRADOS:
+     A. `clip-path: path(...)` (W3C CSS Masking Level 1):
+        Incorporação direta de dados de caminho SVG (sintaxe Bézier M, C, Z)
+        no CSS. Permite recortar qualquer elemento HTML com curvas paramétricas.
+     
+     B. Interpolação de Formas com `clip-path: inset(... round ...)`:
+        Técnica robusta para animar entre círculos e retângulos arredondados
+        sem discrepâncias na contagem de vértices, compatível com todos os browsers.
+     
+     C. Física de Mola Sem JavaScript via `linear(...)` (CSS Easing Level 2):
+        Uso da função linear com 66 amostras pontuais geradas por física matemática,
+        permitindo "overshoot" (valores > 1.0) e ressalto realista 100% no GPU compositor.
+     
+     D. Máquina de Estados Zero-JS para Alternar entre Modos de Demonstração:
+        Seletores relacionais `:has()` e rádios exclusivos permitem ao estudante
+        inspecionar a transição ao hover e o loop contínuo em separado ou lado a lado.
+  ==============================================================================
+-->
+<html lang="pt" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>DRUMTIKS '26 • CSS Shape Path &amp; Inset Morphing Playground | WD101 FBAUP</title>
+  <meta name="description" content="Demonstrador interativo hiper-comentado de morfismo de formas CSS com clip-path: path(), inset() com cantos arredondados e função de mola linear() para Web Design 101 FBAUP.">
+
+  <!-- Folha de Estilos do Demonstrador Alternativo -->
+  <link rel="stylesheet" href="style-alt.css">
+
+  <script>
+    /* Previne FOUC de tema */
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Input Oculto para Alternar Tema (Zero-JS) -->
+  <input type="checkbox" id="theme-toggle" class="visually-hidden" aria-label="Alternar Tema Claro / Escuro">
+
+  <!-- Rádios de Seleção de Modo do Playground (Zero-JS) -->
+  <input type="radio" name="play-mode" id="mode-hover" class="visually-hidden" checked>
+  <input type="radio" name="play-mode" id="mode-loop" class="visually-hidden">
+  <input type="radio" name="play-mode" id="mode-both" class="visually-hidden">
+
+  <div class="page-shell">
+
+    <!-- CABEÇALHO GLOBAL COM IDENTIDADE FBAUP & NAVEGAÇÃO -->
+    <header class="demo-header" role="banner">
+      <div class="header-left">
+        <a href="../index.html" class="hub-pill" title="Voltar ao Repositório Central de Demos (Porta 8888)">
+          ← Demos Hub
+        </a>
+        <a href="index.html" class="hub-pill" title="Ir para o demonstrador principal de secções">
+          〰️ Master Section Paths
+        </a>
+        <a href="scroll-driven-animation.html" class="hub-pill" title="Ir para o demonstrador de Scroll-Driven Animations">
+          🌀 Scroll-Driven Animations
+        </a>
+        <span class="header-kicker">WD101 &bull; Aula Prática TP09 &bull; Morfismos CSS</span>
+      </div>
+
+      <div class="header-right">
+        <!-- Botão Visual de Alternância de Tema -->
+        <label for="theme-toggle" class="theme-toggle-btn" title="Alternar entre Modo Escuro e Claro">
+          <span class="theme-label-dark">☀️ Modo Claro</span>
+          <span class="theme-label-light">🌙 Modo Escuro</span>
+        </label>
+      </div>
+    </header>
+
+    <!-- INTRODUÇÃO TEÓRICA & ENQUADRAMENTO PEDAGÓGICO -->
+    <main class="demo-main" role="main">
+      <section class="hero-intro">
+        <h1 class="hero-title">CSS Shape Path &amp; Inset Morphing</h1>
+        <p class="hero-subtitle">
+          Laboratório prático explorando <code>clip-path: path(...)</code> com curvas de Bézier cúbicas,
+          interpolação de raios com <code>inset()</code> e física elástica de mola com a nova função
+          <code>linear(...)</code> de 66 pontos da especificação <em>CSS Easing Level 2</em>.
+        </p>
+
+        <!-- SELETOR DE MODOS ZERO-JS -->
+        <nav class="mode-selector-nav" aria-label="Modos do Playground">
+          <span class="selector-label">Selecionar Experiência:</span>
+          <div class="mode-pills" role="radiogroup">
+            <label for="mode-hover" class="mode-pill pill-hover">
+              🎯 1. Morfismo ao Hover &amp; Mola Bézier
+            </label>
+            <label for="mode-loop" class="mode-pill pill-loop">
+              🔄 2. Animação Contínua Inset
+            </label>
+            <label for="mode-both" class="mode-pill pill-both">
+              ⚡ 3. Comparação Lado a Lado
+            </label>
+          </div>
+        </nav>
+      </section>
+
+      <!-- PALCO INTERATIVO DE FORMAS -->
+      <section class="stage-section" aria-label="Palco Interativo de Formas">
+        
+        <!-- PALCO 1: O ELEMENTO ORIGINAL COM PATH MORPH & LINEAR SPRING -->
+        <div class="stage-card card-path-demo">
+          <div class="stage-card-header">
+            <div>
+              <span class="card-badge badge-bezier">Técnica A: Bézier Path</span>
+              <h2 class="card-title">Morfismo de Caminho SVG via <code>clip-path: path(...)</code></h2>
+            </div>
+            <span class="interaction-hint">Passe o cursor por cima ou toque para ativar a mola!</span>
+          </div>
+
+          <div class="canvas-viewport">
+            <!-- Grid de Alinhamento Subjacente para Visualizar a Área Delimitadora -->
+            <div class="canvas-grid-underlay" aria-hidden="true"></div>
+
+            <!-- O ELEMENTO PRINCIPAL MANIPULADO PELO PROFESSOR -->
+            <div id="path" tabindex="0" role="img" aria-label="Forma geométrica recortada dinamicamente via clip-path com interpolação elástica">
+              <div class="path-internal-badge">
+                <span class="badge-icon">〰️</span>
+                <span class="badge-text">Hover / Focus Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage-card-footer">
+            <p class="tech-note">
+              <strong>Física de Ressalto:</strong> A transição utiliza <code>0.8s linear(...)</code> com valores que ultrapassam <code>1.0</code> (máximo <code>1.673</code> aos 4.8%), gerando uma expansão elástica e subsequente estabilização natural idêntica a uma mola física.
+            </p>
+          </div>
+        </div>
+
+        <!-- PALCO 2: ANIMAÇÃO CONTÍNUA COM INSET ROUND -->
+        <div class="stage-card card-inset-demo">
+          <div class="stage-card-header">
+            <div>
+              <span class="card-badge badge-inset">Técnica B: Inset Round</span>
+              <h2 class="card-title">Oscilação de Raio via <code>clip-path: inset(... round ...)</code></h2>
+            </div>
+            <span class="status-indicator">● Em Loop Infinito</span>
+          </div>
+
+          <div class="canvas-viewport">
+            <div class="canvas-grid-underlay" aria-hidden="true"></div>
+
+            <!-- O ELEMENTO COM KEYFRAMES CIRCLETORECT -->
+            <div id="path-loop" tabindex="0" role="img" aria-label="Retângulo a oscilar continuamente entre círculo e squircle via clip-path: inset">
+              <div class="path-internal-badge">
+                <span class="badge-icon">🔄</span>
+                <span class="badge-text">circleToRect</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage-card-footer">
+            <p class="tech-note">
+              <strong>Vantagem do Inset:</strong> A função <code>inset(top right bottom left round border-radius)</code> é interpolável por qualquer motor CSS sem exigir curvas vetoriais explícitas, sendo perfeita para botões responsivos e cartões que mudam de estado.
+            </p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- PAINEL PEDAGÓGICO DE CÓDIGO & DISSECAÇÃO MATEMÁTICA -->
+      <section class="code-breakdown-section" aria-label="Dissecação de Código & Matemática de Curvas">
+        <h2 class="section-title">Anatomia &amp; Comentários Pedagógicos</h2>
+
+        <div class="code-grid">
+          <!-- Coluna 1: Curva de Bézier Cúbica no CSS -->
+          <article class="code-card">
+            <h3 class="code-card-title">1. A Matemática do Círculo com 4 Curvas de Bézier Cúbicas</h3>
+            <p class="code-card-desc">
+              No SVG e no CSS <code>path()</code>, um círculo não possui uma primitiva dedicada; é desenhado com 4 segmentos cúbicos (comando <code>C</code>). A constante ótima de aproximação é &kappa; = 4(&radic;2 - 1)/3 &approx; 0.55228475. Num círculo de raio r = 100 centrado em (100,100):
+            </p>
+            <pre class="code-block"><code>/* Ponto inicial no topo (100, 0) */
+M 100,0 
+
+/* Quadrante 1 (Topo -&gt; Direita) */
+C 155.2,0 200,44.8 200,100 
+
+/* Quadrante 2 (Direita -&gt; Fundo) */
+C 200,155.2 155.2,200 100,200 
+
+/* Quadrante 3 (Fundo -&gt; Esquerda) */
+C 44.8,200 0,155.2 0,100 
+
+/* Quadrante 4 (Esquerda -&gt; Topo) + Fecho */
+C 0,44.8 44.8,0 100,0 Z</code></pre>
+          </article>
+
+          <!-- Coluna 2: Função linear() com Física de Mola -->
+          <article class="code-card">
+            <h3 class="code-card-title">2. A Função de Temporização Elástica <code>linear(...)</code></h3>
+            <p class="code-card-desc">
+              Historicamente, as funções <code>cubic-bezier(x1, y1, x2, y2)</code> no CSS estavam limitadas a curvas cúbicas simples onde os pontos de controlo não podiam modelar oscilações múltiplas. A nova função <code>linear(...)</code> da W3C recebe uma série de coordenadas percentuais discretas aproximadas de equações de amortecimento físico:
+            </p>
+            <pre class="code-block"><code>transition: clip-path 0.8s linear(
+  0,
+  0.053  0.5%,  /* Início do impulso */
+  0.238  1.1%,
+  1.460  3.6%,  /* Primeiro overshoot (&gt; 1.0) */
+  1.673  4.8%,  /* PICO MÁXIMO DA MOLA (+67.3% além da meta!) */
+  0.547  9.6%,  /* Recuo abaixo do valor final (-45.3%) */
+  1.305 14.4%,  /* Segundo ressalto atenuado (+30.5%) */
+  0.795 19.1%,  /* Segundo recuo atenuado (-20.5%) */
+  1.138 23.9%,  /* Terceira oscilação residual (+13.8%) */
+  0.907 28.7%,  /* Quarta oscilação quase impercetível (-9.3%) */
+  1.063 33.5%,
+  0.958 38.3%,
+  1.028 43.1%,
+  1             /* Estabilização perfeita a 100% aos 0.8s */
+);</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <!-- RODAPÉ DA PÁGINA COM CRÉDITOS E ESPECIFICAÇÕES -->
+      <footer class="demo-footer" role="contentinfo">
+        <p>&copy; 2026/27 DRUMTIKS Festival &bull; FBAUP Web Design (WD101) &bull; Prof. Pedro Amado</p>
+        <div class="footer-links">
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path" target="_blank" rel="noopener noreferrer">MDN clip-path ↗</a>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function#linear" target="_blank" rel="noopener noreferrer">MDN linear() Easing ↗</a>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/inset" target="_blank" rel="noopener noreferrer">MDN inset() ↗</a>
+          <a href="../index.html">← Demos Hub</a>
+        </div>
+      </footer>
+    </main>
+
+  </div>
+
+</body>
+</html>

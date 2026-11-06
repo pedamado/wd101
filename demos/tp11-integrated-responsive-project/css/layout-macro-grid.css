@@ -76,7 +76,8 @@
         "stage-headliner stage-schedule"
         "stage-headliner stage-gallery"
         "stage-headliner stage-simulator"
-        "stage-headliner stage-faq";
+        "stage-headliner stage-faq"
+        "stage-headliner stage-swiping";
       column-gap: var(--space-3xl);
       row-gap: var(--space-3xl);
     }
@@ -97,6 +98,7 @@
     .grid-area-gallery   { grid-area: stage-gallery; }
     .grid-area-simulator { grid-area: stage-simulator; }
     .grid-area-faq       { grid-area: stage-faq; }
+    .grid-area-swiping   { grid-area: stage-swiping; }
   }
 
   /* BREAKPOINT 4: Ultra-Widescreen Monitors (>= 1440px) */

@@ -1,0 +1,687 @@
+<!doctype html>
+<!--
+  ==============================================================================
+  WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+  FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+  
+  Tema Curricular: Festival DRUMTIKS '26 (Alfândega do Porto)
+  Exercício de Aula: TP09-CSS Shape Animations
+  Ficheiro: index.html • "Animated Section CSS Path with Transition Demo"
+  
+  AUTORES & COORDENAÇÃO PEDAGÓGICA:
+    - Prof. Pedro Amado (FBAUP / i2ADS)
+    - Antigravity (Advanced Agentic Pair)
+  
+  ==============================================================================
+  PEDAGOGICAL & PLATFORM ARCHITECTURE:
+  
+  1. HIERARQUIA DE LANDMARKS SEMÂNTICOS HTML5:
+     - <header role="banner">        : Identidade DRUMTIKS '26 & Seletores de Modo
+     - <nav role="navigation">       : Consola Interativa de Estúdio de Caminhos
+     - <main role="main">            : Sequência de Secções do Festival com Separadores de Caminho
+     - <section id="...">            : Palcos do Festival recortados com clip-path
+     - <div id="shape">              : O playground interativo de formas CSS
+     - <aside role="complementary">  : Painel HUD de Inspeção de Coordenadas e CSS
+     - <footer role="contentinfo">   : Créditos FBAUP e Especificações MDN / W3C
+  
+  2. MÉTODOS DE MORFISMO DE CAMINHO DEMONSTRADOS:
+     - Método 1: CSS clip-path: polygon(...) com Invariância Estrita de Vértices (N = 8)
+     - Método 2: Morfismo de SVG <path> com Transição CSS Direta na Propriedade `d`
+     - Método 3: CSS Motion Path (offset-path, offset-distance, offset-rotate: auto)
+       com o Ícone de Baquetas Drumtiks a navegar a crista da secção!
+  
+  3. MÁQUINA DE ESTADOS ZERO-JS:
+     - Controlada exclusivamente através de pseudo-classes relacionais :has() e :checked
+  ==============================================================================
+-->
+<html lang="pt" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    
+    <title>DRUMTIKS '26 • Animated Section CSS Path with Transition Demo | WD101 FBAUP</title>
+    <meta name="description" content="Demonstrador hiper-comentado de morfismo animado de secções com CSS clip-path, transições de caminho SVG d: path(...) e CSS Motion Path para o Festival DRUMTIKS '26." />
+    
+    <!-- Folha de Estilos Principal (Insanely Commented) -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+    <!--
+      ==========================================================================
+      ESTADO MESTRE ZERO-JS: INPUTS RADIO GLOBAIS
+      
+      PEDAGOGIA:
+      Estes inputs radio partilham o mesmo atributo [name] para criar exclusividade mútua.
+      O seletor `:root:has(#id:checked)` escuta estas mudanças no topo do documento
+      e altera variáveis CSS (--active-polygon, --active-motion-path, --active-ease)
+      que provocam a transição suave de todos os caminhos e secções sem JavaScript!
+      ==========================================================================
+    -->
+
+    <!-- Grupo 1: Formas de Caminho (Path Shapes) -->
+    <input type="radio" name="path-shape" id="shape-sine" class="visually-hidden" checked aria-label="Forma 1: Onda Sinusoidal Acústica">
+    <input type="radio" name="path-shape" id="shape-angle" class="visually-hidden" aria-label="Forma 2: Corte Angular Industrial da Alfândega">
+    <input type="radio" name="path-shape" id="shape-radial" class="visually-hidden" aria-label="Forma 3: Arco Parabólico de Disco de Vinil">
+    <input type="radio" name="path-shape" id="shape-sawtooth" class="visually-hidden" aria-label="Forma 4: Espigão Percursivo 808 Sawtooth">
+
+    <!-- Grupo 2: Física de Atenuação (Easing Physics) -->
+    <input type="radio" name="path-ease" id="ease-spring" class="visually-hidden" checked aria-label="Física 1: Ressalto Elástico (Spring Bounce)">
+    <input type="radio" name="path-ease" id="ease-expo" class="visually-hidden" aria-label="Física 2: Desaceleração Exponencial (Expo Glide)">
+    <input type="radio" name="path-ease" id="ease-linear" class="visually-hidden" aria-label="Física 3: Metrónomo Linear (Quantized BPM)">
+
+    <!-- Grupo 3: Tempo Musical (BPM) -->
+    <input type="radio" name="tempo-speed" id="speed-slow" class="visually-hidden" aria-label="Tempo 1: 75 BPM Sub-Bass Slow">
+    <input type="radio" name="tempo-speed" id="speed-normal" class="visually-hidden" checked aria-label="Tempo 2: 140 BPM Festival Standard">
+    <input type="radio" name="tempo-speed" id="speed-fast" class="visually-hidden" aria-label="Tempo 3: 174 BPM Drum & Bass Breakcore">
+
+    <!-- Grupo 4: Modo Motion da Baqueta -->
+    <input type="radio" name="motion-mode" id="motion-auto" class="visually-hidden" checked aria-label="Modo Motion 1: Órbita Automática Contínua">
+    <input type="radio" name="motion-mode" id="motion-hover" class="visually-hidden" aria-label="Modo Motion 2: Patrulha ao Passar o Rato (Hover)">
+
+    <!-- Grupo 5: Modo Visual (Tema) -->
+    <input type="radio" name="color-theme" id="theme-dark" class="visually-hidden" checked aria-label="Tema Escuro Noturno Festival">
+    <input type="radio" name="color-theme" id="theme-light" class="visually-hidden" aria-label="Tema Claro Alto Contraste">
+
+    <!-- Grupo 6: Modo Raio-X & Wireframe -->
+    <input type="checkbox" id="xray-toggle" class="visually-hidden" aria-label="Modo Raio-X & Wireframe">
+
+
+    <!--
+      ==========================================================================
+      LANDMARK 1: <header role="banner"> — CABEÇALHO DA APLICAÇÃO
+      ==========================================================================
+    -->
+    <header class="app-header" role="banner">
+      <div class="site-container header-inner">
+        
+        <!-- Identidade do Festival DRUMTIKS '26 -->
+        <a href="index.html" class="header-brand" aria-label="Festival DRUMTIKS '26 Página Inicial">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <circle cx="16" cy="16" r="14" stroke="#00d2ff" stroke-width="2"/>
+            <line x1="8" y1="24" x2="24" y2="8" stroke="#e60000" stroke-width="3" stroke-linecap="round"/>
+            <line x1="8" y1="8" x2="24" y2="24" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="brand-logo-text">DRUMTIKS<span class="brand-logo-accent">'26</span></span>
+          <span class="stage-badge stage-badge--cyan">TP09 DEMO</span>
+        </a>
+
+        <!-- Navegação Rápida & Links da Aula TP09 -->
+        <nav class="header-nav" aria-label="Navegação Principal">
+          <a href="../index.html" class="nav-pill-link" style="color:var(--color-accent-gold); font-weight:700;" title="Voltar ao Repositório Central de Demos (Porta 8888)">← Demos Hub</a>
+          <a href="alt-demo.html" class="nav-pill-link" style="color:var(--color-accent-cyan);" title="Playground de Bézier Path, Inset &amp; Mola linear()">🎯 Shape Path &amp; Inset</a>
+          <a href="scroll-driven-animation.html" class="nav-pill-link" style="color:var(--color-accent-lime);" title="Demonstrador de animações acionadas por scroll com scroll() e view()">🌀 Scroll Animations</a>
+          <a href="#stage-douro" class="nav-pill-link">Palco Douro</a>
+          <a href="#stage-vaults" class="nav-pill-link">Arcos de Granito</a>
+          <a href="#stage-turntable" class="nav-pill-link">Octógono Vinil</a>
+          <a href="#stage-lab" class="nav-pill-link" style="color:var(--color-accent-lime);">Laboratório CSS 🔬</a>
+          <a href="../../css-path-transitions-guide.html" class="nav-pill-link" style="color:var(--color-accent-gold); font-weight:700;">📖 Guião Wireframe</a>
+        </nav>
+
+        <!-- Comutador de Tema Claro / Escuro & Modo Raio-X -->
+        <div class="deck-pills-row" role="radiogroup" aria-label="Tema e Diagnósticos">
+          <label for="theme-dark" class="deck-choice-pill" title="Modo Noturno Club">Dark</label>
+          <label for="theme-light" class="deck-choice-pill" title="Modo Claro Diurno">Light</label>
+          <label for="xray-toggle" class="deck-choice-pill" id="xray-pill-btn" style="border-color:var(--color-accent-lime); color:var(--color-accent-lime);" title="Ativar Modo Raio-X &amp; Esqueleto Wireframe">
+            <span>📐</span> Raio-X
+          </label>
+        </div>
+
+      </div>
+    </header>
+
+
+    <!--
+      ==========================================================================
+      LANDMARK 2: <nav class="path-studio-deck"> — CONSOLA DE ESTÚDIO DE CAMINHOS CSS
+      Consola interativa para alternar geometrias e físicas de transição.
+      ==========================================================================
+    -->
+    <nav class="path-studio-deck" role="navigation" aria-label="Consola de Estúdio de Formas e Caminhos CSS">
+      <div class="site-container deck-cluster-grid">
+        
+        <!-- Bloco 1: Geometria do Caminho -->
+        <div class="deck-group">
+          <span class="deck-group-legend">
+            <span>📐</span> 1. Forma do Caminho (Path Geometry)
+          </span>
+          <div class="deck-pills-row" role="radiogroup" aria-label="Geometria do Separador">
+            <label for="shape-sine" class="deck-choice-pill" title="Onda sinusoidal suave e orgânica">
+              <span>〰️</span> Sine Wave
+            </label>
+            <label for="shape-angle" class="deck-choice-pill" title="Corte oblíquo angular reto inspirado na Alfândega">
+              <span>📐</span> Angle Slash
+            </label>
+            <label for="shape-radial" class="deck-choice-pill" title="Curvatura circular côncava de disco de vinil 12''">
+              <span>🔘</span> Vinyl Arc
+            </label>
+            <label for="shape-sawtooth" class="deck-choice-pill" title="Espigão dente-de-serra de transientes percursivos 808">
+              <span>⚡</span> 808 Sawtooth
+            </label>
+          </div>
+        </div>
+
+        <!-- Bloco 2: Física de Temporização (Easing) -->
+        <div class="deck-group">
+          <span class="deck-group-legend">
+            <span>⚡</span> 2. Física de Transição (Easing)
+          </span>
+          <div class="deck-pills-row" role="radiogroup" aria-label="Função de Temporização">
+            <label for="ease-spring" class="deck-choice-pill" title="Ressalto com inércia mecânica da membrana percutida">
+              Spring Bounce
+            </label>
+            <label for="ease-expo" class="deck-choice-pill" title="Desaceleração aerodinâmica exponencial ultra-suave">
+              Expo Glide
+            </label>
+            <label for="ease-linear" class="deck-choice-pill" title="Velocidade perfeitamente constante sem aceleração">
+              Linear BPM
+            </label>
+          </div>
+        </div>
+
+        <!-- Bloco 3: Ritmo e Frequência Musical (BPM) -->
+        <div class="deck-group">
+          <span class="deck-group-legend">
+            <span>🥁</span> 3. Tempo & Frequência (BPM)
+          </span>
+          <div class="deck-pills-row" role="radiogroup" aria-label="Tempo Musical">
+            <label for="speed-slow" class="deck-choice-pill" title="75 BPM: Sub-Bass Dub Lento">75 BPM</label>
+            <label for="speed-normal" class="deck-choice-pill" title="140 BPM: Ritmo Festival Padrão">140 BPM</label>
+            <label for="speed-fast" class="deck-choice-pill" title="174 BPM: Drum & Bass Breakcore">174 BPM</label>
+          </div>
+        </div>
+
+        <!-- Bloco 4: Modo Motion da Baqueta -->
+        <div class="deck-group">
+          <span class="deck-group-legend">
+            <span>🥢</span> 4. Baqueta em Motion Path
+          </span>
+          <div class="deck-pills-row" role="radiogroup" aria-label="Modo de Trajeto">
+            <label for="motion-auto" class="deck-choice-pill" title="A baqueta percorre o caminho em loop contínuo">Auto Loop</label>
+            <label for="motion-hover" class="deck-choice-pill" title="A baqueta viaja ao passar o cursor sobre a secção">Hover Patrol</label>
+          </div>
+        </div>
+
+      </div>
+    </nav>
+
+
+    <!--
+      ==========================================================================
+      LANDMARK 3: <main role="main"> — FLUXO DAS SECÇÕES DO FESTIVAL
+      ==========================================================================
+    -->
+    <main id="main-content" role="main">
+
+      <!--
+        ========================================================================
+        SECÇÃO 1: PALCO DOURO • SUB-BASS TRENCH
+        Contém o elemento #shape original do utilizador, agora transformado
+        num laboratório interativo de formas CSS com transições fluidas!
+        ========================================================================
+      -->
+      <section class="festival-section section--stage-douro section-clip-morph" id="stage-douro" aria-labelledby="heading-stage-douro">
+        <div class="site-container">
+          
+          <div class="section-header-cluster">
+            <span class="stage-badge stage-badge--cyan">PALCO 01 • RIO DOURO FRONT</span>
+            <h1 id="heading-stage-douro" class="section-title">CSS Path (Shape) Transition Demo</h1>
+            <p class="section-desc">
+              Demonstração curricular de <strong>morfismo de secções por caminhos CSS</strong> para o Festival DRUMTIKS '26.
+              Observe como o recorte inferior desta secção e a caixa interativa <code>#shape</code> abaixo adaptam a sua geometria
+              em tempo real, com interpolação de vértices de 60/120 fps acelerada na GPU.
+            </p>
+          </div>
+
+          <!--
+            ====================================================================
+            ELEMENTO #shape: O PLAYGROUND DE FORMAS DO UTILIZADOR
+            
+            Este elemento foi preservado e exponenciado: ele recebe a variável
+            --active-polygon e exibe o morfismo geométrico em escala condensada,
+            com iluminação volumétrica neon de acordo com o palco selecionado!
+            ====================================================================
+          -->
+          <div class="shape-showcase-wrapper">
+            <div class="shape-card-info">
+              <span class="stage-badge stage-badge--cyan" style="font-size:0.75rem;">CSS ELEMENT INTERACTIVE SANDBOX</span>
+              <h2 style="font-size:1.35rem; font-family:var(--font-family-display); margin-block:0.5rem;">
+                Caixa de Teste: <code>&lt;div id="shape"&gt;</code>
+              </h2>
+              <p class="card-text" style="margin-bottom:1rem;">
+                Este elemento HTML utiliza a mesma propriedade <code>clip-path: var(--active-polygon)</code> que o separador da secção principal.
+                Passe o rato por cima ou alterne os botões da consola superior para testemunhar a transição fluida entre geometrias!
+              </p>
+              
+              <div class="equalizer-bar-cluster" aria-label="Equalizador de Frequências" role="img">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+              </div>
+            </div>
+
+            <!-- O elemento #shape do exercício -->
+            <div id="shape" class="animated-shape-box" title="Elemento #shape com transição de caminho CSS">
+              <div class="shape-inner-content">
+                <span class="shape-core-text">DRUMTIKS</span>
+                <span class="shape-sub-text">BPM SYNCED</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Destaques Conceituais do Módulo -->
+          <div class="features-grid">
+            <article class="feature-card">
+              <div class="card-icon-halo" style="color:var(--color-accent-cyan);">〰️</div>
+              <h3 class="card-title">Invariância de Vértices (N = 8)</h3>
+              <p class="card-text">
+                Para que a transição CSS de um polígono não salte bruscamente, o estado inicial e o estado final
+                têm de conter exatamente a mesma quantidade de coordenadas <code>(X, Y)</code>.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <div class="card-icon-halo" style="color:var(--color-accent-red);">🥢</div>
+              <h3 class="card-title">Baquetas em CSS Motion Path</h3>
+              <p class="card-text">
+                A especificação <code>offset-path: path(...)</code> guia o par de baquetas luminosas ao longo da crista da secção,
+                orientando o seu ângulo de percussão com <code>offset-rotate: auto 20deg</code>.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <div class="card-icon-halo" style="color:var(--color-accent-gold);">⚡</div>
+              <h3 class="card-title">Física de Ressalto (Spring Easing)</h3>
+              <p class="card-text">
+                A curva <code>cubic-bezier(0.34, 1.56, 0.64, 1)</code> ultrapassa a posição final antes de estabilizar,
+                simulando a elasticidade física e vibração da membrana de um tambor percutido.
+              </p>
+            </article>
+          </div>
+
+        </div>
+
+        <!--
+          ======================================================================
+          SEPARADOR DE CAMINHO 1: VETOR SVG COM MORFISMO CSS `d: path(...)`
+          E AGENTE DE MOVIMENTO: BAQUETAS DRUMTIKS EM CSS MOTION PATH
+          ======================================================================
+        -->
+        <div class="svg-path-divider-wrapper" aria-hidden="true">
+          <svg class="svg-path-divider" viewBox="0 0 1440 160" preserveAspectRatio="none" fill="none">
+            <path class="morphing-boundary" style="color: var(--color-stage-2-bg);"></path>
+            <path class="morphing-stroke"></path>
+          </svg>
+
+          <!-- O Viajante Drumsticks no Motion Path -->
+          <div class="motion-path-stage">
+            <div class="drumstick-traveler" id="drumstick-actor" title="Baqueta Drumtiks em Trajetória de Movimento CSS">
+              <div class="drumstick-pulse-ring"></div>
+              
+              <!-- Ícone Vetorial de Baquetas Iluminadas -->
+              <svg class="drumstick-svg" viewBox="0 0 64 64" fill="none">
+                <path d="M 8,56 L 52,12" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+                <ellipse cx="53" cy="11" rx="5" ry="3" transform="rotate(-45 53 11)" fill="var(--color-accent-cyan)"/>
+                <line x1="12" y1="52" x2="18" y2="46" stroke="var(--color-accent-red)" stroke-width="5" stroke-linecap="round"/>
+                <line x1="16" y1="48" x2="22" y2="42" stroke="var(--color-accent-red)" stroke-width="5" stroke-linecap="round"/>
+                <path d="M 16,16 L 48,48" stroke="rgba(255,255,255,0.4)" stroke-width="2.5" stroke-linecap="round"/>
+                <ellipse cx="49" cy="49" rx="4" ry="2.5" transform="rotate(45 49 49)" fill="var(--color-accent-gold)"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+
+      <!--
+        ========================================================================
+        SECÇÃO 2: PALCO DOS ARCOS DE GRANITO • VAULT ACOUSTICS
+        Demonstra o encaixe com margem negativa e arquitetura industrial.
+        ========================================================================
+      -->
+      <section class="festival-section section--vaults section-clip-morph" id="stage-vaults" aria-labelledby="heading-stage-vaults">
+        <div class="site-container">
+          
+          <div class="section-header-cluster">
+            <span class="stage-badge stage-badge--gold">PALCO 02 • GRANITE VAULTS</span>
+            <h2 id="heading-stage-vaults" class="section-title">Granite Vaults &amp; Interlocking Sections</h2>
+            <p class="section-desc">
+              Os arcos de cantaria da Alfândega do Porto exigem uma continuidade volumétrica sem falhas de píxeis.
+              Demonstramos aqui como articular blocos de cores diferentes utilizando margens negativas proporcionais
+              <code>margin-top: calc(-1 * var(--path-divider-height))</code> compensadas com padding interno.
+            </p>
+          </div>
+
+          <div class="features-grid">
+            <article class="feature-card">
+              <div class="card-icon-halo" style="color:var(--color-accent-gold);">🏛️</div>
+              <h3 class="card-title">Encaixe Sub-Pixel Perfeito</h3>
+              <p class="card-text">
+                Sem espaços em branco entre secções: o separador da secção anterior cobre exatamente a linha de junção,
+                criando uma ilusão de recorte físico contínuo.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <div class="card-icon-halo" style="color:var(--color-accent-purple);">🎛️</div>
+              <h3 class="card-title">Colinearidade de Vértices</h3>
+              <p class="card-text">
+                No formato Angle Slash, os pontos da onda alinham-se na reta <code>y = 0.35x + 62%</code>.
+                Visualmente parece uma diagonal reta, mas matematicamente os 8 vértices persistem para a transição!
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <div class="card-icon-halo" style="color:var(--color-accent-cyan);">📐</div>
+              <h3 class="card-title">Morfismo de Atributo SVG `d`</h3>
+              <p class="card-text">
+                O CSS moderno permite animar o caminho SVG <code>d: path(...)</code> diretamente na folha de estilos,
+                interpolando curvas de Bézier cúbicas suaves (comando C).
+              </p>
+            </article>
+          </div>
+
+        </div>
+
+        <!-- Separador de Caminho 2 -->
+        <div class="svg-path-divider-wrapper" aria-hidden="true">
+          <svg class="svg-path-divider" viewBox="0 0 1440 160" preserveAspectRatio="none" fill="none">
+            <path class="morphing-boundary" style="color: var(--color-stage-3-bg);"></path>
+            <path class="morphing-stroke"></path>
+          </svg>
+        </div>
+      </section>
+
+
+      <!--
+        ========================================================================
+        SECÇÃO 3: PALCO OCTÓGONO DE TURNTABLISM • BATTLE CYPHER
+        Simulador de prato de vinil e geometria de curvas circulares radiais.
+        ========================================================================
+      -->
+      <section class="festival-section section--turntable section-clip-morph" id="stage-turntable" aria-labelledby="heading-stage-turntable">
+        <div class="site-container">
+          
+          <div class="section-header-cluster">
+            <span class="stage-badge stage-badge--purple">PALCO 03 • TURNTABLISM OCTAGON</span>
+            <h2 id="heading-stage-turntable" class="section-title">Radial Vinyl Arcs &amp; Scratch Physics</h2>
+            <p class="section-desc">
+              O formato de caminho <strong>Vinyl Arc</strong> simula a borda exterior de um disco de vinil a 33⅓ RPM.
+              Os pontos centrais da curva convergem para criar um arco circular parabólico contínuo.
+            </p>
+          </div>
+
+          <!-- Consola de Gira-Discos CSS -->
+          <div class="turntable-preview-console" role="region" aria-label="Simulador de Vinil DRUMTIKS">
+            
+            <!-- Disco de Vinil com Efeito de Sulcos Radiais em CSS Puro -->
+            <div class="vinyl-platter-disc" aria-label="Disco de Vinil em Rotação" role="img">
+              <div class="vinyl-center-label">
+                <span>DRUMTIKS</span>
+                <span style="color:#ffffff; font-size:0.5rem; letter-spacing:0.1em;">33⅓ RPM</span>
+                <span style="color:var(--color-accent-cyan); font-size:0.45rem;">TP09 SHAPE</span>
+              </div>
+            </div>
+
+            <!-- Dados Cinemáticos de Scratch -->
+            <div style="max-width:460px;">
+              <span class="stage-badge stage-badge--purple">CINEMÁTICA ROTACIONAL</span>
+              <h3 class="card-title" style="margin-top:0.5rem;">Aproximação de Círculos por Bézier</h3>
+              <p class="card-text" style="margin-bottom:1rem;">
+                No caminho <code>path()</code> do modo Vinyl Arc, os pontos de controlo tangenciais aproximam a curva de um círculo perfeito
+                recorrendo à constante matemática <code>κ ≈ 0.55228</code> (fórmula de aproximação de arcos por splines cúbicas).
+              </p>
+              
+              <div class="deck-pills-row">
+                <span class="stage-badge stage-badge--cyan" style="font-size:0.75rem;">Velocidade: 33⅓ RPM</span>
+                <span class="stage-badge stage-badge--gold" style="font-size:0.75rem;">Inércia: Motor Direct-Drive</span>
+                <span class="stage-badge stage-badge--red" style="font-size:0.75rem;">Braço: Tangencial S-Shape</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Separador de Caminho 3 -->
+        <div class="svg-path-divider-wrapper" aria-hidden="true">
+          <svg class="svg-path-divider" viewBox="0 0 1440 160" preserveAspectRatio="none" fill="none">
+            <path class="morphing-boundary" style="color: var(--color-stage-4-bg);"></path>
+            <path class="morphing-stroke"></path>
+          </svg>
+        </div>
+      </section>
+
+
+      <!--
+        ========================================================================
+        SECÇÃO 4: LABORATÓRIO PEDAGÓGICO & INSPETOR HUD DE CÓDIGO
+        Exibe a regra ativa, a tabela de 8 coordenadas e o botão de cópia.
+        ========================================================================
+      -->
+      <section class="festival-section section--pedagogy" id="stage-lab" aria-labelledby="heading-stage-lab">
+        <div class="site-container">
+          
+          <div class="section-header-cluster">
+            <span class="stage-badge stage-badge--cyan">LABORATÓRIO TÉCNICO • WD101 FBAUP</span>
+            <h2 id="heading-stage-lab" class="section-title">CSS Path Engineering &amp; Live Matrix HUD</h2>
+            <p class="section-desc">
+              Analise em detalhe a regra CSS que comanda as transições em curso.
+              Todos os valores são dinamicamente alimentados pelas variáveis comutadas no topo do documento.
+            </p>
+          </div>
+
+          <!-- Painel HUD de Inspeção -->
+          <aside class="hud-inspector-card" role="complementary" aria-label="Inspetor de Regras CSS Ativas">
+            
+            <div class="hud-header-bar">
+              <div class="hud-title-badge">
+                <span class="hud-live-tag"></span>
+                <span>INSPETOR DE REGRAS CSS VIVAS (LIVE CASCADE MATRIX)</span>
+              </div>
+              <div style="font-size:var(--font-size-small); color:var(--color-text-secondary);">
+                Especificidade: <strong style="color:var(--color-accent-lime);">(0, 2, 0)</strong> via <code style="color:var(--color-accent-cyan);">:root:has()</code>
+              </div>
+            </div>
+
+            <!-- Bloco de Código CSS Ativo -->
+            <pre class="hud-code-block" tabindex="0" aria-label="Código CSS da Regra Ativa"><code><span class="code-token-comment">/* ==========================================================================
+   REGRA CSS ATIVA PARA O SEPARADOR DE SECÇÃO E #shape (TP09)
+   Interpolação de coordenadas com paridade de vértices garantida (N = 8)
+   ========================================================================== */</span>
+<span class="code-token-selector">.section-clip-morph</span>,
+<span class="code-token-selector">#shape</span> {
+  <span class="code-token-prop">clip-path</span>: <span class="code-token-func">var</span>(<span class="code-token-value">--active-polygon</span>);
+  <span class="code-token-prop">transition</span>: <span class="code-token-prop">clip-path</span> <span class="code-token-value">var(--transition-duration-morph)</span> <span class="code-token-func">var</span>(<span class="code-token-value">--active-ease</span>);
+  <span class="code-token-prop">will-change</span>: <span class="code-token-value">clip-path</span>;
+}
+
+<span class="code-token-selector">.drumstick-traveler</span> {
+  <span class="code-token-prop">offset-path</span>: <span class="code-token-func">var</span>(<span class="code-token-value">--active-motion-path</span>);
+  <span class="code-token-prop">offset-rotate</span>: <span class="code-token-value">auto 20deg</span>;
+  <span class="code-token-prop">offset-anchor</span>: <span class="code-token-value">50% 50%</span>;
+  <span class="code-token-prop">transition</span>: <span class="code-token-prop">offset-path</span> <span class="code-token-value">var(--transition-duration-morph)</span> <span class="code-token-func">var</span>(<span class="code-token-value">--active-ease</span>);
+}</code></pre>
+
+            <!-- Tabela Comparativa de Coordenadas Invariantes (N = 8) -->
+            <h3 class="card-title" style="font-size:1.1rem; margin-top:1.5rem;">
+              Matriz Comparativa dos 8 Vértices Invariantes (Polygon Coordinates)
+            </h3>
+            
+            <div style="overflow-x:auto;">
+              <table class="vertices-data-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Vértice</th>
+                    <th scope="col">Papel Geométrico</th>
+                    <th scope="col">1. Sine Wave</th>
+                    <th scope="col">2. Angle Slash</th>
+                    <th scope="col">3. Vinyl Arc</th>
+                    <th scope="col">4. 808 Sawtooth</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>P0</strong></td>
+                    <td>Canto Superior Esquerdo</td>
+                    <td><code>0% 0%</code></td>
+                    <td><code>0% 0%</code></td>
+                    <td><code>0% 0%</code></td>
+                    <td><code>0% 0%</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>P1</strong></td>
+                    <td>Canto Superior Direito</td>
+                    <td><code>100% 0%</code></td>
+                    <td><code>100% 0%</code></td>
+                    <td><code>100% 0%</code></td>
+                    <td><code>100% 0%</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>P2</strong></td>
+                    <td>Bordo Direito Inferior</td>
+                    <td><code>100% 82%</code></td>
+                    <td><code>100% 97%</code></td>
+                    <td><code>100% 72%</code></td>
+                    <td><code>100% 85%</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>P3</strong></td>
+                    <td>Crista / Ponto Inflexão 1</td>
+                    <td><code>75% 96%</code></td>
+                    <td><code>75% 88%</code></td>
+                    <td><code>75% 88%</code></td>
+                    <td><code>75% 100%</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>P4</strong></td>
+                    <td>Centro de Frequência</td>
+                    <td><code>50% 80%</code></td>
+                    <td><code>50% 79%</code></td>
+                    <td><code>50% 98%</code></td>
+                    <td><code>50% 68%</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>P5</strong></td>
+                    <td>Depressão / Inflexão 2</td>
+                    <td><code>25% 66%</code></td>
+                    <td><code>25% 70%</code></td>
+                    <td><code>25% 88%</code></td>
+                    <td><code>25% 98%</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>P6</strong></td>
+                    <td>Ponto de Ataque de Batida</td>
+                    <td><code>10% 74%</code></td>
+                    <td><code>10% 65%</code></td>
+                    <td><code>10% 78%</code></td>
+                    <td><code>10% 70%</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>P7</strong></td>
+                    <td>Bordo Esquerdo Inferior</td>
+                    <td><code>0% 82%</code></td>
+                    <td><code>0% 62%</code></td>
+                    <td><code>0% 72%</code></td>
+                    <td><code>0% 85%</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Botão de Cópia Rápida de CSS -->
+            <div style="display:flex; gap:var(--space-sm); margin-top:var(--space-lg); flex-wrap:wrap; align-items:center;">
+              <button type="button" class="deck-choice-pill" id="btn-copy-css" style="color:#ffffff; background:var(--color-accent-cyan-glow); border-color:var(--color-accent-cyan);">
+                📋 Copiar Regra CSS Ativa
+              </button>
+              <span id="copy-status" style="font-size:var(--font-size-small); color:var(--color-accent-lime);" aria-live="polite"></span>
+            </div>
+
+          </aside>
+
+        </div>
+      </section>
+
+    </main>
+
+
+    <!--
+      ==========================================================================
+      LANDMARK 4: <footer role="contentinfo"> — RODAPÉ CURRICULAR & DOCUMENTAÇÃO
+      ==========================================================================
+    -->
+    <footer class="app-footer" role="contentinfo">
+      <div class="site-container">
+        
+        <div class="footer-grid">
+          <div>
+            <div class="brand-logo-text" style="font-size:1.25rem; margin-bottom:0.5rem;">
+              DRUMTIKS<span class="brand-logo-accent">'26</span>
+            </div>
+            <p style="line-height:1.5; margin-bottom:1rem;">
+              Unidade Curricular de Web Design (WD101) — 2026/27.<br>
+              Faculdade de Belas Artes da Universidade do Porto (FBAUP) &amp; i2ADS.
+            </p>
+            <span class="stage-badge stage-badge--cyan" style="font-size:0.7rem;">TP09 • CSS SHAPE ANIMATIONS</span>
+          </div>
+
+          <div>
+            <div class="footer-col-title">Normas Oficiais MDN</div>
+            <ul class="footer-links-list">
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path" target="_blank" rel="noopener noreferrer" class="footer-link">MDN: CSS clip-path ↗</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path" target="_blank" rel="noopener noreferrer" class="footer-link">MDN: CSS Motion Path ↗</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d" target="_blank" rel="noopener noreferrer" class="footer-link">MDN: Atributo d do SVG em CSS ↗</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="footer-col-title">Navegação WD101</div>
+            <ul class="footer-links-list">
+              <li><a href="../index.html" class="footer-link">Repositório de Demos &amp; Boilerplates</a></li>
+              <li><a href="../TP11-integrated-responsive-project/index.html" class="footer-link">DRUMTIKS '26 Capstone Master</a></li>
+              <li><a href="../tp13-animated-section-css-path-transitions/GUIDE.html" class="footer-link">Guião Teórico Completo (GUIDE.html)</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid var(--color-border-subtle); padding-top:var(--space-md); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-sm); font-size:var(--font-size-small); color:var(--color-text-muted);">
+          <span>© 2026/27 FBAUP / Pedro Amado. Licenciado para fins educativos no âmbito da Licenciatura em Design de Comunicação.</span>
+          <span>Zero JavaScript Obrigatório • 100% CSS Standards</span>
+        </div>
+
+      </div>
+    </footer>
+
+
+    <!--
+      ==========================================================================
+      SCRIPT EDUCATIVO PROGRESSIVO (OPCIONAL)
+      Para o botão de cópia de código CSS e persistência de tema.
+      ==========================================================================
+    -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const copyBtn = document.getElementById('btn-copy-css');
+        const copyStatus = document.getElementById('copy-status');
+        
+        if (copyBtn) {
+          copyBtn.addEventListener('click', async () => {
+            const codeText = document.querySelector('.hud-code-block code').innerText;
+            try {
+              await navigator.clipboard.writeText(codeText);
+              copyStatus.textContent = '✓ Código CSS copiado!';
+              setTimeout(() => { copyStatus.textContent = ''; }, 3000);
+            } catch (err) {
+              copyStatus.textContent = 'Erro ao copiar código.';
+            }
+          });
+        }
+      });
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<!--
+  ==============================================================================
+  WD101 • WEB DESIGN (2026/27) — FBAUP / i2ADS
+  FACULDADE DE BELAS ARTES DA UNIVERSIDADE DO PORTO
+  
+  Tema Curricular: Festival DRUMTIKS '26 (Alfândega do Porto)
+  Documento: css-path-transitions-guide.html
+  Módulo: 4. Variáveis, Transições & Animações (Morfismos de Caminho & Wireframe Mode)
+  
+  AUTORES & COORDENAÇÃO PEDAGÓGICA:
+    - Prof. Pedro Amado (FBAUP / i2ADS)
+    - Antigravity (Advanced Agentic Pair)
+  
+  ==============================================================================
+  REQUISITOS PEDAGÓGICOS IMPLEMENTADOS:
+  1. Integração no Andaime de Aprendizagem (Learning Scaffold) sob a Competência 4.
+  2. Alternador de Modo Claro / Escuro (Light / Dark Mode Switcher).
+  3. Modo Raio-X & Wireframe (X-Ray & Wireframe Diagnostic View).
+  4. Explicações passo a passo visuais, sem ruído gráfico (clutter-free), com demos vivas.
+  5. Código CSS e HTML amplamente comentado.
+  ==============================================================================
+-->
+<html lang="pt" data-theme="dark" data-wireframe="false">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  
+  <title>Morfismos de Caminho CSS &amp; Wireframe Mode • Guião Passo a Passo | WD101 FBAUP</title>
+  <meta name="description" content="Guião passo a passo despojado e visual para dominar transições de caminhos CSS (clip-path polygon, SVG d: path, CSS Motion Path) com modo Wireframe e Raio-X.">
+
+  <!-- Previne FOUC de tema e idioma -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('wd101_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('wd101_lang') || 'pt';
+      document.documentElement.setAttribute('lang', savedLang);
+    })();
+  </script>
+
+  <!-- CSS Base do Repositório WD101 -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/modernist.css">
+  <link rel="stylesheet" href="demos/tp11-integrated-responsive-project/css/fonts.css">
+
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS ESPECÍFICOS DO GUIÃO WIREFRAME
+       ========================================================================== */
+    :root {
+      color-scheme: dark light;
+
+      /* Cores de Destaque DRUMTIKS */
+      --color-accent-cyan: #00d2ff;
+      --color-accent-red: #e60000;
+      --color-accent-gold: #f5a623;
+      --color-accent-purple: #8a2be2;
+      --color-accent-lime: #10b981;
+
+      /* Superfícies Adaptativas */
+      --bg-canvas: light-dark(#f4f6fa, #07080b);
+      --bg-surface: light-dark(#ffffff, #0f1118);
+      --bg-surface-elevated: light-dark(#e9edf5, #171a26);
+      --border-color: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12));
+      --border-wireframe: var(--color-accent-cyan);
+
+      /* Tipografia */
+      --font-display: 'Syne', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-mono: 'Martian Mono', ui-monospace, monospace;
+
+      /* Física de Temporização */
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary, #f3f4f6);
+      font-family: var(--font-body);
+      line-height: 1.65;
+      padding-bottom: 5rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .guide-container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: var(--space-6) var(--space-4);
+    }
+
+    /* ==========================================================================
+       BARRA DE CONTROLO FIXA: LIGHT MODE & X-RAY / WIREFRAME SWITCHERS
+       ========================================================================== */
+    .utility-control-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--bg-surface-elevated);
+      border-bottom: 2px solid var(--border-color);
+      padding: 0.75rem var(--space-4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .utility-bar-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .control-cluster {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-toggle-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s var(--ease-spring);
+    }
+
+    .btn-toggle-pill:hover {
+      border-color: var(--color-accent-cyan);
+      transform: translateY(-1px);
+    }
+
+    .btn-toggle-pill.is-active {
+      background: var(--color-accent-cyan);
+      color: #06070a;
+      border-color: var(--color-accent-cyan);
+      box-shadow: 0 0 12px rgba(0, 210, 255, 0.4);
+    }
+
+    .btn-toggle-pill--wireframe.is-active {
+      background: #10b981;
+      border-color: #10b981;
+      color: #050608;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.45);
+    }
+
+    /* ==========================================================================
+       MODO RAIO-X & WIREFRAME (DIAGNOSTICS & SCHEMATIC VIEW)
+       Quando ativado (via data-wireframe="true"), elimina todo o ruído visual,
+       sombras e gradientes, substituindo-os por grelhas de arquitetura de precisão!
+       ========================================================================== */
+    html[data-wireframe="true"] {
+      /* Fundo de Grelha Milimétrica / Matriz Blueprint */
+      --bg-canvas: #060910 !important;
+      --bg-surface: #0a0e1a !important;
+      --bg-surface-elevated: #0f1526 !important;
+      --text-primary: #e2e8f0 !important;
+      --text-secondary: #94a3b8 !important;
+      --border-color: rgba(0, 210, 255, 0.3) !important;
+    }
+
+    html[data-wireframe="true"] body {
+      background-color: #060910 !important;
+      background-image: 
+        linear-gradient(rgba(0, 210, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 210, 255, 0.08) 1px, transparent 1px) !important;
+      background-size: 20px 20px !important;
+    }
+
+    /* Caixas Wireframe no Modo Raio-X */
+    html[data-wireframe="true"] .step-card,
+    html[data-wireframe="true"] .interactive-sandbox-box,
+    html[data-wireframe="true"] .wireframe-diagram-box {
+      outline: 2px dashed var(--color-accent-cyan) !important;
+      outline-offset: 4px;
+      box-shadow: none !important;
+      border-radius: 2px !important;
+    }
+
+    html[data-wireframe="true"] .vertex-node-dot {
+      display: flex !important;
+    }
+
+    html[data-wireframe="true"] .wireframe-hud-tag {
+      display: inline-block !important;
+    }
+
+    /* ==========================================================================
+       ESTRUTURA DOS CARTÕES DE PASSO A PASSO (CLUTTER-FREE)
+       ========================================================================== */
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .step-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: var(--space-3);
+      margin-bottom: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .step-number-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--color-accent-red);
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .wireframe-hud-tag {
+      display: none;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 800;
+      background: var(--color-accent-cyan);
+      color: #06070a;
+      padding: 2px 6px;
+      border-radius: 2px;
+      letter-spacing: 0.08em;
+    }
+
+    /* ==========================================================================
+       SANDBOX INTERATIVA EMBUTIDA (MINIMAL & ZERO CLUTTER)
+       ========================================================================== */
+    .interactive-sandbox-box {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: var(--space-4);
+      margin-block: var(--space-4);
+    }
+
+    .sandbox-controls-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .sandbox-btn {
+      padding: 5px 12px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sandbox-btn:hover {
+      border-color: var(--color-accent-cyan);
+      color: var(--color-accent-cyan);
+    }
+
+    .sandbox-btn.active {
+      background: var(--color-accent-cyan);
+      color: #06070a;
+      border-color: var(--color-accent-cyan);
+    }
+
+    /* Área de Visualização da Secção Recortada */
+    .sandbox-viewport {
+      height: 140px;
+      width: 100%;
+      background: linear-gradient(135deg, #0f172a, #020617);
+      border: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    /* O elemento que sofre a transição de clip-path */
+    .sandbox-morph-target {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--color-accent-cyan), #0a1128);
+      transition: clip-path 0.75s var(--ease-spring);
+      position: relative;
+    }
+
+    /* ==========================================================================
+       MARCADORES DE COORDENADAS WIREFRAME (P0 A P7)
+       Visíveis no modo Raio-X sobrepostos à geometria exata
+       ========================================================================== */
+    .vertex-overlay-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    .vertex-node-dot {
+      display: none;
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: #e60000;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 800;
+      color: #ffffff;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 6px #e60000;
+    }
+
+    /* ==========================================================================
+       BLOCO DE CÓDIGO COMENTADO DIDÁTICO
+       ========================================================================== */
+    pre.commented-code {
+      background: #090c15;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-left: 3px solid var(--color-accent-cyan);
+      border-radius: 4px;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+      margin-block: var(--space-3);
+    }
+
+    .code-comment { color: #64748b; font-style: italic; }
+    .code-prop    { color: #38bdf8; font-weight: 600; }
+    .code-val     { color: #facc15; }
+    .code-selector{ color: #f43f5e; font-weight: 700; }
+
+    /* Caixa Resumo "Regra de Ouro" */
+    .golden-rule-callout {
+      border-left: 4px solid var(--color-accent-gold);
+      background: rgba(245, 166, 35, 0.08);
+      padding: var(--space-3) var(--space-4);
+      border-radius: 0 6px 6px 0;
+      font-size: 0.88rem;
+      margin-top: var(--space-3);
+    }
+  </style>
+</head>
+<body>
+
+  <!--
+    ============================================================================
+    BARRA DE UTILIDADES: COMUTADORES DE LIGHT MODE & MODO RAIO-X / WIREFRAME
+    Permite ao estudante inspecionar a teoria despida de qualquer ruído gráfico!
+    ============================================================================
+  -->
+  <aside class="utility-control-bar" role="region" aria-label="Ferramentas de Inspeção Visual e Modo de Exibição">
+    <div class="utility-bar-inner">
+      
+      <!-- Navegação de Regresso ao Scaffold -->
+      <div class="control-cluster">
+        <a href="index.html" class="btn-toggle-pill" style="text-decoration:none;" title="Voltar ao Andaime Central">
+          <span>🏠</span>
+          <span class="lang-pt">Scaffold Principal</span>
+          <span class="lang-en">Scaffold Hub</span>
+        </a>
+        <a href="demos/tp13-animated-section-css-path-transitions/index.html" class="btn-toggle-pill" style="text-decoration:none; color:var(--color-accent-cyan); border-color:var(--color-accent-cyan);" target="_blank" rel="noopener noreferrer">
+          <span>🚀</span>
+          <span class="lang-pt">Abrir Live Demo Completa ↗</span>
+          <span class="lang-en">Open Full Live Demo ↗</span>
+        </a>
+      </div>
+
+      <!-- Controlos de Tema & Raio-X -->
+      <div class="control-cluster">
+        
+        <!-- Alternador de Tema Claro / Escuro -->
+        <div role="radiogroup" aria-label="Modo de Cor" style="display:flex; gap:4px;">
+          <button type="button" class="btn-toggle-pill" id="btn-theme-light" title="Modo Claro de Alto Contraste">
+            ☀️ <span class="lang-pt">Modo Claro</span><span class="lang-en">Light</span>
+          </button>
+          <button type="button" class="btn-toggle-pill is-active" id="btn-theme-dark" title="Modo Noturno Escuro">
+            🌙 <span class="lang-pt">Modo Escuro</span><span class="lang-en">Dark</span>
+          </button>
+        </div>
+
+        <!-- Alternador de Modo Raio-X / Wireframe (Requisito Chave) -->
+        <button type="button" class="btn-toggle-pill btn-toggle-pill--wireframe" id="btn-wireframe-toggle" aria-pressed="false" title="Ativar Modo Raio-X & Esqueleto Wireframe">
+          📐 <span class="lang-pt">Modo Raio-X / Wireframe</span><span class="lang-en">X-Ray / Wireframe Mode</span>
+        </button>
+
+      </div>
+
+    </div>
+  </aside>
+
+
+  <!--
+    ============================================================================
+    CONTEÚDO PRINCIPAL DO GUIÃO PASSO A PASSO
+    ============================================================================
+  -->
+  <main class="guide-container" id="main-content" role="main">
+    
+    <!-- Hero / Cabeçalho Didático -->
+    <header style="margin-bottom:var(--space-8); padding-bottom:var(--space-6); border-bottom:2px solid var(--border-color);">
+      <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; margin-bottom:var(--space-2);">
+        <span class="step-number-tag">COMPETÊNCIA 4</span>
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.08em;">
+          Variáveis, Transições &amp; Animações • FBAUP WD101
+        </span>
+      </div>
+
+      <h1 style="font-family:var(--font-display); font-size:clamp(1.75rem, 4vw, 2.75rem); line-height:1.2; margin-bottom:var(--space-3); color:var(--text-primary);">
+        <span class="lang-pt">Morfismos de Caminho CSS: Guia Passo a Passo &amp; Laboratório Wireframe</span>
+        <span class="lang-en">CSS Path Morphing: Step-by-Step Guide &amp; Wireframe Lab</span>
+      </h1>
+
+      <p style="font-size:1.05rem; color:var(--text-secondary); max-width:80ch;">
+        <span class="lang-pt">Aprenda a quebrar as caixas retangulares clássicas da web com <strong>separadores de secção dinâmicos</strong>, a <strong>regra matemática de invariância de vértices</strong> e <strong>CSS Motion Path</strong> para o Festival DRUMTIKS '26. Clique no botão <em>"Modo Raio-X / Wireframe"</em> no topo para inspecionar os esqueletos vetoriais sem qualquer distração visual.</span>
+        <span class="lang-en">Learn how to break rigid rectangular web boxes with <strong>dynamic section dividers</strong>, the <strong>mathematical invariant vertex rule</strong>, and <strong>CSS Motion Path</strong> for Festival DRUMTIKS '26. Toggle <em>"X-Ray / Wireframe Mode"</em> in the toolbar above to inspect the vector blueprints free from visual clutter.</span>
+      </p>
+    </header>
+
+
+    <!-- ==================================================================== -->
+    <!-- PASSO 1: A CAIXA RETANGULAR VS. O CORTE ANGULAR                      -->
+    <!-- ==================================================================== -->
+    <article class="step-card" id="step-1">
+      <div class="step-header-row">
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <span class="step-number-tag">PASSO 01</span>
+          <h2 class="step-title">Quebrar a Caixa Retangular com <code>clip-path: polygon()</code></h2>
+        </div>
+        <span class="wireframe-hud-tag">POLYGON CLIPPING MATRIX</span>
+      </div>
+
+      <p style="font-size:0.95rem; color:var(--text-secondary);">
+        O modelo de caixas tradicional (Box Model) restringe todas as secções HTML a retângulos rígidos.
+        Com a propriedade <code>clip-path</code>, criamos um polígono de recorte vetorial acelerado diretamente na GPU,
+        permitindo que a base da secção se incline em diagonais agressivas ou desça em ondas suaves.
+      </p>
+
+      <!-- Mini-Sandbox Interativa do Passo 1 -->
+      <div class="interactive-sandbox-box">
+        <div class="sandbox-controls-row">
+          <span style="font-family:var(--font-mono); font-size:0.72rem; color:var(--text-secondary); font-weight:700;">TESTE EM TEMPO REAL:</span>
+          <button type="button" class="sandbox-btn active" onclick="setStep1Shape(this, 'flat')">Retângulo Plano (0º)</button>
+          <button type="button" class="sandbox-btn" onclick="setStep1Shape(this, 'angle-down')">Corte Diagonal Descendente (-15º)</button>
+          <button type="button" class="sandbox-btn" onclick="setStep1Shape(this, 'wedge')">Corte em Cunha / Flecha</button>
+        </div>
+
+        <div class="sandbox-viewport">
+          <div class="sandbox-morph-target" id="step1-target" style="clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);">
+            <div style="padding:1rem; font-family:var(--font-display); font-weight:800; font-size:0.9rem; color:#ffffff;">
+              SECÇÃO 01 • SUB-BASS TRENCH
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco de Código Comentado -->
+      <pre class="commented-code"><code><span class="code-comment">/* PASSO 1: Recorte poligonal com transição fluida na GPU */</span>
+<span class="code-selector">.festival-section</span> {
+  <span class="code-comment">/* Define os 4 cantos do polígono (Topo-Esq, Topo-Dir, Base-Dir, Base-Esq) */</span>
+  <span class="code-prop">clip-path</span>: <span class="code-val">polygon(0% 0%, 100% 0%, 100% 85%, 0% 100%)</span>;
+  
+  <span class="code-comment">/* Anima a transição da forma quando a classe ou estado muda */</span>
+  <span class="code-prop">transition</span>: <span class="code-prop">clip-path</span> <span class="code-val">0.65s cubic-bezier(0.34, 1.56, 0.64, 1)</span>;
+  
+  <span class="code-comment">/* Promove o elemento a uma camada de composição dedicada na GPU */</span>
+  <span class="code-prop">will-change</span>: <span class="code-val">clip-path</span>;
+}</code></pre>
+    </article>
+
+
+    <!-- ==================================================================== -->
+    <!-- PASSO 2: A REGRA DA INVARIÂNCIA DE VÉRTICES (N = 8)                 -->
+    <!-- ==================================================================== -->
+    <article class="step-card" id="step-2">
+      <div class="step-header-row">
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <span class="step-number-tag">PASSO 02</span>
+          <h2 class="step-title">A Regra de Invariância de Vértices: Paridade Estrita (N = 8)</h2>
+        </div>
+        <span class="wireframe-hud-tag">VERTEX PARITY RULE: N=8</span>
+      </div>
+
+      <p style="font-size:0.95rem; color:var(--text-secondary);">
+        <strong>Porque é que algumas transições de clip-path dão um salto seco em vez de animar?</strong><br>
+        O motor do browser (Chromium Blink, Gecko ou WebKit) exige que o polígono de partida e o polígono de chegada
+        contenham <em>rigorosamente o mesmo número de pontos de coordenadas (X, Y)</em>. Se o estado A tiver 8 vértices e o estado B tiver 4,
+        o motor aborta a interpolação matemática e efetua um corte instantâneo e feio a meio da transição.
+      </p>
+
+      <!-- Mini-Sandbox Interativa do Passo 2 com Marcação de Vértices -->
+      <div class="interactive-sandbox-box">
+        <div class="sandbox-controls-row">
+          <span style="font-family:var(--font-mono); font-size:0.72rem; color:var(--text-secondary); font-weight:700;">FORMA DO POLÍGONO (N = 8 PONTOS FIXOS):</span>
+          <button type="button" class="sandbox-btn active" onclick="setStep2Shape(this, 'sine')">1. Onda Sinusoidal (P3..P6 Ondulam)</button>
+          <button type="button" class="sandbox-btn" onclick="setStep2Shape(this, 'angle')">2. Corte Angular (P2..P7 Colineares!)</button>
+          <button type="button" class="sandbox-btn" onclick="setStep2Shape(this, 'radial')">3. Arco Radial de Vinil</button>
+          <button type="button" class="sandbox-btn" onclick="setStep2Shape(this, 'sawtooth')">4. Espigão 808 Sawtooth</button>
+        </div>
+
+        <div class="sandbox-viewport" style="height: 160px;">
+          <div class="sandbox-morph-target" id="step2-target" style="clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 75% 95%, 50% 80%, 25% 65%, 10% 75%, 0% 80%);">
+            <!-- Camada de Marcação de Vértices no Modo Wireframe -->
+            <div class="vertex-overlay-layer">
+              <span class="vertex-node-dot" style="top:0%; left:0%;">P0</span>
+              <span class="vertex-node-dot" style="top:0%; left:100%;">P1</span>
+              <span class="vertex-node-dot" id="dot-p2" style="top:80%; left:100%;">P2</span>
+              <span class="vertex-node-dot" id="dot-p3" style="top:95%; left:75%;">P3</span>
+              <span class="vertex-node-dot" id="dot-p4" style="top:80%; left:50%;">P4</span>
+              <span class="vertex-node-dot" id="dot-p5" style="top:65%; left:25%;">P5</span>
+              <span class="vertex-node-dot" id="dot-p6" style="top:75%; left:10%;">P6</span>
+              <span class="vertex-node-dot" id="dot-p7" style="top:80%; left:0%;">P7</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="golden-rule-callout">
+        <strong>💡 O Segredo dos Vértices Colineares:</strong><br>
+        Repare como no formato <em>Angle Slash</em> os pontos intermédios (P3 a P6) não são apagados:
+        são posicionados exatamente ao longo da mesma linha reta oblíqua <code>y = 0.35x + 62%</code>!
+        Visualmente parece uma reta perfeita, mas matematicamente os 8 vértices continuam vivos, garantindo 60fps de interpolação fluida!
+      </div>
+
+      <pre class="commented-code"><code><span class="code-comment">/* PASSO 2: Polígonos invariantes com exatamente 8 vértices cada */</span>
+<span class="code-comment">/* Estado 1: Onda Sinusoidal Acústica */</span>
+<span class="code-selector">--polygon-sine</span>: <span class="code-val">polygon(0% 0%, 100% 0%, 100% 80%, 75% 95%, 50% 80%, 25% 65%, 10% 75%, 0% 80%)</span>;
+
+<span class="code-comment">/* Estado 2: Corte Angular (P3..P6 colineares na mesma reta) */</span>
+<span class="code-selector">--polygon-angle</span>: <span class="code-val">polygon(0% 0%, 100% 0%, 100% 97%, 75% 88%, 50% 79%, 25% 70%, 10% 65%, 0% 62%)</span>;</code></pre>
+    </article>
+
+
+    <!-- ==================================================================== -->
+    <!-- PASSO 3: MORFISMO DE SVG <path> COM CSS d: path(...)                -->
+    <!-- ==================================================================== -->
+    <article class="step-card" id="step-3">
+      <div class="step-header-row">
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <span class="step-number-tag">PASSO 03</span>
+          <h2 class="step-title">Morfismo Declarativo de SVG <code>&lt;path&gt;</code> com <code>d: path(...)</code></h2>
+        </div>
+        <span class="wireframe-hud-tag">CUBIC BEZIER SVG MORPH</span>
+      </div>
+
+      <p style="font-size:0.95rem; color:var(--text-secondary);">
+        Enquanto o <code>clip-path: polygon()</code> une pontos por segmentos retos, o <strong>SVG 2</strong>
+        permite animar o atributo <code>d</code> diretamente nas folhas de estilo CSS.
+        Isto desbloqueia <strong>Curvas de Bézier Cúbicas (comando C)</strong> com tangentes suaves e curvatura orgânica de som.
+      </p>
+
+      <!-- Mini-Sandbox Interativa do Passo 3 -->
+      <div class="interactive-sandbox-box">
+        <div class="sandbox-controls-row">
+          <span style="font-family:var(--font-mono); font-size:0.72rem; color:var(--text-secondary); font-weight:700;">TRANSIÇÃO DA CURVA BÉZIER:</span>
+          <button type="button" class="sandbox-btn active" onclick="setStep3Path(this, 'sine')">Curva Cúbica Sinusoidal</button>
+          <button type="button" class="sandbox-btn" onclick="setStep3Path(this, 'angle')">Aplanar em Diagonal Reta</button>
+          <button type="button" class="sandbox-btn" onclick="setStep3Path(this, 'pulse')">Transiente Percursivo 808</button>
+        </div>
+
+        <div class="sandbox-viewport" style="height: 140px; background:#070a14;">
+          <svg viewBox="0 0 1000 120" preserveAspectRatio="none" style="width:100%; height:100%; display:block;">
+            <path id="step3-svg-path" d="M 0,0 L 1000,0 L 1000,50 C 750,110 500,10 250,70 C 120,100 50,30 0,50 Z" 
+                  fill="var(--color-accent-cyan)" 
+                  style="transition: d 0.8s var(--ease-spring); opacity:0.85;"></path>
+            <!-- Traço do Contorno Wireframe Neon -->
+            <path id="step3-svg-stroke" d="M 0,50 C 50,30 120,100 250,70 C 500,10 750,110 1000,50" 
+                  fill="none" stroke="#ffffff" stroke-width="2" 
+                  style="transition: d 0.8s var(--ease-spring); stroke-dasharray: 4 4;"></path>
+          </svg>
+        </div>
+      </div>
+
+      <pre class="commented-code"><code><span class="code-comment">/* PASSO 3: Morfismo de Bézier direto no CSS (sem bibliotecas JavaScript externas) */</span>
+<span class="code-selector">.svg-divider path</span> {
+  <span class="code-comment">/* Comandos SVG: M = Move, L = Line, C = Cubic Bézier (x1 y1, x2 y2, x y) */</span>
+  <span class="code-prop">d</span>: <span class="code-val">path("M 0,0 L 1000,0 L 1000,50 C 750,110 500,10 250,70 C 120,100 50,30 0,50 Z")</span>;
+  <span class="code-prop">transition</span>: <span class="code-prop">d</span> <span class="code-val">0.85s cubic-bezier(0.34, 1.56, 0.64, 1)</span>;
+}
+
+<span class="code-comment">/* Ao comutar para corte reto, os pontos de controlo Bézier alinham-se na diagonal */</span>
+<span class="code-selector">:root:has(#shape-angle:checked) .svg-divider path</span> {
+  <span class="code-prop">d</span>: <span class="code-val">path("M 0,0 L 1000,0 L 1000,110 C 750,90 500,70 250,50 C 120,38 50,32 0,25 Z")</span>;
+}</code></pre>
+    </article>
+
+
+    <!-- ==================================================================== -->
+    <!-- PASSO 4: CSS MOTION PATH (offset-path & offset-rotate)              -->
+    <!-- ==================================================================== -->
+    <article class="step-card" id="step-4">
+      <div class="step-header-row">
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <span class="step-number-tag">PASSO 04</span>
+          <h2 class="step-title">CSS Motion Path: Navegar a Crista com Baquetas DRUMTIKS</h2>
+        </div>
+        <span class="wireframe-hud-tag">W3C MOTION PATH SPEC</span>
+      </div>
+
+      <p style="font-size:0.95rem; color:var(--text-secondary);">
+        Como fazer com que um elemento gráfico (ex: o logótipo de baquetas do festival) viaje ao longo da curva exata do separador?
+        A especificação <strong>W3C Motion Path</strong> utiliza:
+        <code>offset-path: path(...)</code> para a trajetória,
+        <code>offset-distance</code> para o avanço (0% a 100%) e
+        <code>offset-rotate: auto</code> para rodar o elemento tangencialmente à inclinação da crista!
+      </p>
+
+      <!-- Mini-Sandbox Interativa do Passo 4 com Scrubber Manual -->
+      <div class="interactive-sandbox-box">
+        <div class="sandbox-controls-row">
+          <span style="font-family:var(--font-mono); font-size:0.72rem; color:var(--text-secondary); font-weight:700;">CONTROLO MANUAL DE TRAJETÓRIA (OFFSET-DISTANCE):</span>
+          <input type="range" id="step4-scrubber" min="0" max="100" value="25" style="flex:1; accent-color:var(--color-accent-cyan); cursor:ew-resize;" oninput="updateStep4Distance(this.value)">
+          <span id="step4-dist-val" style="font-family:var(--font-mono); font-size:0.8rem; font-weight:700; color:var(--color-accent-cyan); min-width:4ch;">25%</span>
+          <button type="button" class="sandbox-btn" id="btn-step4-loop" onclick="toggleStep4Loop()">▶ Iniciar Loop BPM</button>
+        </div>
+
+        <div class="sandbox-viewport" style="height: 150px; background:#040711;">
+          <!-- Linha de Guia Vetorial Wireframe da Trajetória -->
+          <svg viewBox="0 0 1000 150" style="position:absolute; width:100%; height:100%; top:0; left:0; pointer-events:none;">
+            <path d="M 40,75 C 280,140 520,10 760,110 C 880,140 940,50 980,75" fill="none" stroke="rgba(0, 210, 255, 0.4)" stroke-width="2" stroke-dasharray="6 6"></path>
+          </svg>
+
+          <!-- O Ator Drumstick a Viajar no Caminho -->
+          <div id="step4-actor" style="
+            position: absolute; width: 44px; height: 44px; top: 0; left: 0;
+            offset-path: path('M 40,75 C 280,140 520,10 760,110 C 880,140 940,50 980,75');
+            offset-distance: 25%;
+            offset-rotate: auto 20deg;
+            offset-anchor: 50% 50%;
+            filter: drop-shadow(0 0 10px var(--color-accent-cyan));
+            transition: offset-distance 0.1s linear;
+          ">
+            <!-- Ícone Baquetas Cruzadas -->
+            <svg viewBox="0 0 32 32" fill="none" style="width:100%; height:100%;">
+              <circle cx="16" cy="16" r="14" stroke="var(--color-accent-cyan)" stroke-width="2"/>
+              <line x1="8" y1="24" x2="24" y2="8" stroke="var(--color-accent-red)" stroke-width="3" stroke-linecap="round"/>
+              <line x1="8" y1="8" x2="24" y2="24" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <pre class="commented-code"><code><span class="code-comment">/* PASSO 4: Elemento móvel alinhado tangencialmente à curva */</span>
+<span class="code-selector">.drumstick-traveler</span> {
+  <span class="code-comment">/* 1. Atribui a curva Bézier de viagem */</span>
+  <span class="code-prop">offset-path</span>: <span class="code-val">path("M 40,75 C 280,140 520,10 760,110 C 880,140 940,50 980,75")</span>;
+  
+  <span class="code-comment">/* 2. Posição no percurso (0% = início, 100% = fim) */</span>
+  <span class="code-prop">offset-distance</span>: <span class="code-val">var(--progress, 0%)</span>;
+  
+  <span class="code-comment">/* 3. auto = calcula o ângulo da derivada da curva instantaneamente! */</span>
+  <span class="code-prop">offset-rotate</span>: <span class="code-val">auto 20deg</span>;
+  
+  <span class="code-comment">/* 4. Fixa o pivô de rotação no centro exato da baqueta */</span>
+  <span class="code-prop">offset-anchor</span>: <span class="code-val">50% 50%</span>;
+}</code></pre>
+    </article>
+
+
+    <!-- ==================================================================== -->
+    <!-- PASSO 5: ENCAIXE DE SECÇÕES SEM FALHAS (INTERLOCKING MARGINS)       -->
+    <!-- ==================================================================== -->
+    <article class="step-card" id="step-5">
+      <div class="step-header-row">
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <span class="step-number-tag">PASSO 05</span>
+          <h2 class="step-title">Encaixe de Secções sem Falhas (Negative Margin Interlocking)</h2>
+        </div>
+        <span class="wireframe-hud-tag">OVERLAP ANCHORING SPEC</span>
+      </div>
+
+      <p style="font-size:0.95rem; color:var(--text-secondary);">
+        Quando uma secção é recortada na base, a secção seguinte fica separada por um vazio.
+        Para criar um encaixe perfeito como telhas sobrepostas, a segunda secção puxa-se para cima com
+        <strong>margem negativa proporcional</strong> à altura do recorte e compensa o conteúdo com <code>padding-top</code> interno.
+      </p>
+
+      <pre class="commented-code"><code><span class="code-comment">/* PASSO 5: Encaixe perfeito entre duas secções de palcos diferentes */</span>
+<span class="code-selector">:root</span> {
+  <span class="code-prop">--path-height</span>: <span class="code-val">clamp(80px, 12vw, 160px)</span>;
+}
+
+<span class="code-selector">.section-1-douro</span> {
+  <span class="code-prop">padding-bottom</span>: <span class="code-val">calc(4rem + var(--path-height))</span>;
+  <span class="code-prop">clip-path</span>: <span class="code-val">var(--active-polygon)</span>;
+}
+
+<span class="code-selector">.section-2-vaults</span> {
+  <span class="code-comment">/* Puxa a Secção 2 exatamente a altura do corte para cobrir a junta */</span>
+  <span class="code-prop">margin-top</span>: <span class="code-val">calc(-1 * var(--path-height))</span>;
+  
+  <span class="code-comment">/* Compensa para que o texto não colida com a crista da secção anterior */</span>
+  <span class="code-prop">padding-top</span>: <span class="code-val">calc(4rem + var(--path-height))</span>;
+}</code></pre>
+    </article>
+
+
+    <!-- ==================================================================== -->
+    <!-- PASSO 6: ACESSIBILIDADE WCAG & PREFERS-REDUCED-MOTION                -->
+    <!-- ==================================================================== -->
+    <article class="step-card" id="step-6">
+      <div class="step-header-row">
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <span class="step-number-tag">PASSO 06</span>
+          <h2 class="step-title">Acessibilidade Vestibular: WCAG 2.2 &amp; Reduced Motion</h2>
+        </div>
+        <span class="wireframe-hud-tag">WCAG 2.2 CRITERION 2.3.3</span>
+      </div>
+
+      <p style="font-size:0.95rem; color:var(--text-secondary);">
+        Morfismos bruscos e objetos a correr pelo ecrã podem causar vertigens e náuseas a utilizadores
+        com distúrbios vestibulares. O critério <strong>WCAG 2.2 — 2.3.3</strong> obriga a respeitar a preferência
+        de redução de movimento configurada no sistema operativo do utilizador:
+      </p>
+
+      <pre class="commented-code"><code><span class="code-comment">/* PASSO 6: Salvaguarda vestibular obrigatória */</span>
+<span class="code-selector">@media (prefers-reduced-motion: reduce)</span> {
+  <span class="code-selector">.section-clip-morph,
+  .svg-divider path,
+  .drumstick-traveler</span> {
+    <span class="code-comment">/* Desativa a transição lenta de caminho, substituindo por corte instantâneo */</span>
+    <span class="code-prop">transition-duration</span>: <span class="code-val">0.01ms !important</span>;
+    <span class="code-prop">animation</span>: <span class="code-val">none !important</span>;
+  }
+
+  <span class="code-selector">.drumstick-traveler</span> {
+    <span class="code-comment">/* Fixa a baqueta estática a 50% do trajeto no centro estável da secção */</span>
+    <span class="code-prop">offset-distance</span>: <span class="code-val">50% !important</span>;
+  }
+}</code></pre>
+    </article>
+
+  </main>
+
+
+  <!--
+    ============================================================================
+    SCRIPTS EDUCATIVOS: CONTROLADORES DAS SANDBOXES INTERATIVAS & MODOS VISUAIS
+    ============================================================================
+  -->
+  <script>
+    // -------------------------------------------------------------------------
+    // 1. ALTERNADOR DE MODO CLARO / ESCURO (LIGHT / DARK SWITCHER)
+    // -------------------------------------------------------------------------
+    const btnLight = document.getElementById('btn-theme-light');
+    const btnDark = document.getElementById('btn-theme-dark');
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('wd101_theme', theme);
+      if (theme === 'light') {
+        btnLight.classList.add('is-active');
+        btnDark.classList.remove('is-active');
+      } else {
+        btnDark.classList.add('is-active');
+        btnLight.classList.remove('is-active');
+      }
+    }
+
+    btnLight.addEventListener('click', () => applyTheme('light'));
+    btnDark.addEventListener('click', () => applyTheme('dark'));
+
+    // Sincroniza estado inicial do tema
+    const initialTheme = localStorage.getItem('wd101_theme') || 'dark';
+    applyTheme(initialTheme);
+
+
+    // -------------------------------------------------------------------------
+    // 2. ALTERNADOR DE MODO RAIO-X / WIREFRAME (X-RAY TOGGLE)
+    // -------------------------------------------------------------------------
+    const btnWireframe = document.getElementById('btn-wireframe-toggle');
+    let isWireframeActive = false;
+
+    btnWireframe.addEventListener('click', () => {
+      isWireframeActive = !isWireframeActive;
+      document.documentElement.setAttribute('data-wireframe', isWireframeActive ? 'true' : 'false');
+      btnWireframe.classList.toggle('is-active', isWireframeActive);
+      btnWireframe.setAttribute('aria-pressed', isWireframeActive ? 'true' : 'false');
+    });
+
+
+    // -------------------------------------------------------------------------
+    // 3. SANDBOX PASSO 1: RECORTE BÁSICO
+    // -------------------------------------------------------------------------
+    function setStep1Shape(button, type) {
+      document.querySelectorAll('#step-1 .sandbox-btn').forEach(b => b.classList.remove('active'));
+      button.classList.add('active');
+      const target = document.getElementById('step1-target');
+      
+      if (type === 'flat') {
+        target.style.clipPath = 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)';
+      } else if (type === 'angle-down') {
+        target.style.clipPath = 'polygon(0% 0%, 100% 0%, 100% 75%, 0% 100%)';
+      } else if (type === 'wedge') {
+        target.style.clipPath = 'polygon(0% 0%, 100% 0%, 100% 80%, 50% 100%, 0% 80%)';
+      }
+    }
+
+
+    // -------------------------------------------------------------------------
+    // 4. SANDBOX PASSO 2: INVARIÂNCIA DE 8 VÉRTICES
+    // -------------------------------------------------------------------------
+    function setStep2Shape(button, type) {
+      document.querySelectorAll('#step-2 .sandbox-btn').forEach(b => b.classList.remove('active'));
+      button.classList.add('active');
+      const target = document.getElementById('step2-target');
+      
+      // Coordenadas dos pontos para os marcadores wireframe
+      const dots = {
+        p2: document.getElementById('dot-p2'),
+        p3: document.getElementById('dot-p3'),
+        p4: document.getElementById('dot-p4'),
+        p5: document.getElementById('dot-p5'),
+        p6: document.getElementById('dot-p6'),
+        p7: document.getElementById('dot-p7'),
+      };
+
+      if (type === 'sine') {
+        target.style.clipPath = 'polygon(0% 0%, 100% 0%, 100% 80%, 75% 95%, 50% 80%, 25% 65%, 10% 75%, 0% 80%)';
+        dots.p2.style.top = '80%'; dots.p2.style.left = '100%';
+        dots.p3.style.top = '95%'; dots.p3.style.left = '75%';
+        dots.p4.style.top = '80%'; dots.p4.style.left = '50%';
+        dots.p5.style.top = '65%'; dots.p5.style.left = '25%';
+        dots.p6.style.top = '75%'; dots.p6.style.left = '10%';
+        dots.p7.style.top = '80%'; dots.p7.style.left = '0%';
+      } else if (type === 'angle') {
+        // Colineares na reta oblíqua
+        target.style.clipPath = 'polygon(0% 0%, 100% 0%, 100% 97%, 75% 88%, 50% 79%, 25% 70%, 10% 65%, 0% 62%)';
+        dots.p2.style.top = '97%'; dots.p2.style.left = '100%';
+        dots.p3.style.top = '88%'; dots.p3.style.left = '75%';
+        dots.p4.style.top = '79%'; dots.p4.style.left = '50%';
+        dots.p5.style.top = '70%'; dots.p5.style.left = '25%';
+        dots.p6.style.top = '65%'; dots.p6.style.left = '10%';
+        dots.p7.style.top = '62%'; dots.p7.style.left = '0%';
+      } else if (type === 'radial') {
+        target.style.clipPath = 'polygon(0% 0%, 100% 0%, 100% 72%, 75% 88%, 50% 98%, 25% 88%, 10% 78%, 0% 72%)';
+        dots.p2.style.top = '72%'; dots.p2.style.left = '100%';
+        dots.p3.style.top = '88%'; dots.p3.style.left = '75%';
+        dots.p4.style.top = '98%'; dots.p4.style.left = '50%';
+        dots.p5.style.top = '88%'; dots.p5.style.left = '25%';
+        dots.p6.style.top = '78%'; dots.p6.style.left = '10%';
+        dots.p7.style.top = '72%'; dots.p7.style.left = '0%';
+      } else if (type === 'sawtooth') {
+        target.style.clipPath = 'polygon(0% 0%, 100% 0%, 100% 85%, 75% 100%, 50% 68%, 25% 98%, 10% 70%, 0% 85%)';
+        dots.p2.style.top = '85%'; dots.p2.style.left = '100%';
+        dots.p3.style.top = '100%'; dots.p3.style.left = '75%';
+        dots.p4.style.top = '68%'; dots.p4.style.left = '50%';
+        dots.p5.style.top = '98%'; dots.p5.style.left = '25%';
+        dots.p6.style.top = '70%'; dots.p6.style.left = '10%';
+        dots.p7.style.top = '85%'; dots.p7.style.left = '0%';
+      }
+    }
+
+
+    // -------------------------------------------------------------------------
+    // 5. SANDBOX PASSO 3: MORFISMO SVG COM CSS d: path(...)
+    // -------------------------------------------------------------------------
+    function setStep3Path(button, type) {
+      document.querySelectorAll('#step-3 .sandbox-btn').forEach(b => b.classList.remove('active'));
+      button.classList.add('active');
+      const svgPath = document.getElementById('step3-svg-path');
+      const svgStroke = document.getElementById('step3-svg-stroke');
+
+      if (type === 'sine') {
+        svgPath.setAttribute('d', 'M 0,0 L 1000,0 L 1000,50 C 750,110 500,10 250,70 C 120,100 50,30 0,50 Z');
+        svgStroke.setAttribute('d', 'M 0,50 C 50,30 120,100 250,70 C 500,10 750,110 1000,50');
+      } else if (type === 'angle') {
+        svgPath.setAttribute('d', 'M 0,0 L 1000,0 L 1000,110 C 750,90 500,70 250,50 C 120,38 50,32 0,25 Z');
+        svgStroke.setAttribute('d', 'M 0,25 C 50,32 120,38 250,50 C 500,70 750,90 1000,110');
+      } else if (type === 'pulse') {
+        svgPath.setAttribute('d', 'M 0,0 L 1000,0 L 1000,60 C 800,115 700,20 500,105 C 300,10 180,110 0,50 Z');
+        svgStroke.setAttribute('d', 'M 0,50 C 180,110 300,10 500,105 C 700,20 800,115 1000,60');
+      }
+    }
+
+
+    // -------------------------------------------------------------------------
+    // 6. SANDBOX PASSO 4: CSS MOTION PATH SCRUBBER & BPM LOOP
+    // -------------------------------------------------------------------------
+    const actor = document.getElementById('step4-actor');
+    const distVal = document.getElementById('step4-dist-val');
+    let loopInterval = null;
+
+    function updateStep4Distance(val) {
+      if (loopInterval) {
+        clearInterval(loopInterval);
+        loopInterval = null;
+        document.getElementById('btn-step4-loop').textContent = '▶ Iniciar Loop BPM';
+      }
+      actor.style.offsetDistance = val + '%';
+      distVal.textContent = val + '%';
+    }
+
+    function toggleStep4Loop() {
+      const btn = document.getElementById('btn-step4-loop');
+      if (loopInterval) {
+        clearInterval(loopInterval);
+        loopInterval = null;
+        btn.textContent = '▶ Iniciar Loop BPM';
+      } else {
+        let cur = parseInt(document.getElementById('step4-scrubber').value, 10);
+        let forward = true;
+        btn.textContent = '⏹ Parar Loop';
+        loopInterval = setInterval(() => {
+          if (forward) {
+            cur += 1;
+            if (cur >= 100) forward = false;
+          } else {
+            cur -= 1;
+            if (cur <= 0) forward = true;
+          }
+          document.getElementById('step4-scrubber').value = cur;
+          actor.style.offsetDistance = cur + '%';
+          distVal.textContent = cur + '%';
+        }, 18);
+      }
+    }
+  </script>
+
+</body>
+</html>
